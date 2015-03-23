@@ -1,3 +1,35 @@
-##README
-This is a README file. It supports markdown syntax.
-So, go ahead and write something in this file ...
+##Kenseo Development Team
+
+###Note:
+
+We are using Backbone.js to write the code in MVC structure. So, please follow backbone structure.
+
+###Templating:
+
+For templating, we are using [Browserify](http://browserify.org/) with its plugin [brfs](https://github.com/substack/brfs)
+
+###Getting Started:
+
+- Intall Node.js
+- Install browserify
+
+        npm install browserify -g
+
+- Install brfs
+
+        npm install brfs -g
+
+You can do the above steps manually or run `builds/starter.bat` file in the command prompt.
+
+###Adding a Template:
+
+- Add `.html` file of the template in `app/templates` folder with a recognizable name.
+- In `main.js` file, add a property to the `templates` object. The property name should be similar to the created `.html` file.
+
+        var templates = {
+	         'header': fs.readFileSync('app/templates/header.html', 'utf8'),
+		      // other properties
+        }
+
+- Open command prompt
+- Drag and drop `builds/template.bat` file in the command prompt and press enter.

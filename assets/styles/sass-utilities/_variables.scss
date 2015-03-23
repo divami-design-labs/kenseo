@@ -1,0 +1,14 @@
+//variables
+$pageWidth: 600px;
+$backColor: #CCCCCC;
+$firstColor: #E1E1E1;
+$secondColor: #ECECEC;
+
+//mixins
+@mixin border-radius($radius){
+	-webkit-border-radius: $radius;
+   	-moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+    border-radius: $radius;
+}
