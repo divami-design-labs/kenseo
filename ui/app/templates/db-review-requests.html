@@ -1,0 +1,22 @@
+<div class="review-requests-heading">
+	<div class="review-requests-icon"></div>
+	<div class="heading-text">Review Requests</div>
+</div>
+<div class="review-requests-content">
+	<% _.each(data.reviews, function(r){ %>
+	<div class="review-request-item">
+		<div class="rr-left">
+			<div class="rr-status status-<%= r.attention %>"><%= r.doctype %></div>
+			<div class="rr-owner-image"></div>
+		</div>
+		<div class="rr-right">
+			<div class="rr-title"><%= r.title %></div>
+			<div class="rr-details">@ <%= r.requestTime %> by <%= r.requestedBy %></div>
+			<div class="rr-state-details">
+				<div class="rr-state"><%= r.status %></div>
+				<div class="rr-comment"><%= r.comments %></div>
+			</div>
+		</div>
+	</div>
+	<% }); %>
+</div>

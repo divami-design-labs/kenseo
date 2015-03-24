@@ -1,5 +1,0 @@
-// var browserify = require('browserify');
-
-var templates = {
-	'header': "<div class=\"header\">\r\n    <div class=\"hamburger\">\r\n        <div class=\"hamburger-icon\">\r\n            <div class=\"hamburger-notify\">4</div>\r\n        </div>                  \r\n    </div>\r\n    <div class=\"logo\">\r\n        <div class=\"timer-overlay hide\">\r\n\r\n        </div>\r\n    </div>\r\n    <div class=\"create-plus-icon\"></div>\r\n    <div class=\"search-icon\"></div>\r\n    <div class=\"profile-pic-holder\">\r\n        <img src=\"<%= profilepic %>\"/>\r\n        <div class=\"profile-pic-nav\">\r\n            <div class=\"profile-pic-nav-item\">Profile</div>\r\n            <div class=\"profile-pic-nav-item\">Settings</div>\r\n            <div class=\"separator\"></div>\r\n            <div class=\"profile-pic-nav-item\">Log Out</div>\r\n        </div>\r\n    </div>\r\n</div>"
-};
