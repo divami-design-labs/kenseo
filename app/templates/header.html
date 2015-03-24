@@ -1,15 +1,23 @@
-<div class="headerSection">
-	<div class="headerSectionWrapper">
-		<div class="logo">{{name}}</div>
-		<div class="searchBarSection">
-			<div class="searchBar">
-				
-			</div>
-			<div class="searchTextHolder">
-				<form name="searchform">
-					<input type="text" name="searchbox"></input>
-				</form>
-			</div>
-		</div>
-	</div>
+<div class="header">
+    <div class="hamburger">
+        <div class="hamburger-icon">
+            <div class="hamburger-notify">4</div>
+        </div>                  
+    </div>
+    <div class="logo">
+        <div class="timer-overlay hide">
+
+        </div>
+    </div>
+    <div class="create-plus-icon"></div>
+    <div class="search-icon"></div>
+    <div class="profile-pic-holder">
+        <img src="<%= profilepic %>"/>
+        <div class="profile-pic-nav">
+            <div class="profile-pic-nav-item">Profile</div>
+            <div class="profile-pic-nav-item">Settings</div>
+            <div class="separator"></div>
+            <div class="profile-pic-nav-item">Log Out</div>
+        </div>
+    </div>
 </div>

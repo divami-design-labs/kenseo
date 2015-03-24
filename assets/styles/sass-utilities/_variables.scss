@@ -1,8 +1,93 @@
-//variables
-$pageWidth: 600px;
-$backColor: #CCCCCC;
-$firstColor: #E1E1E1;
-$secondColor: #ECECEC;
+//Variables
+$imgPath: "../../imgs/";
+$fontPath: "../../fonts/";
+
+$colorOne: #464c5f;
+$colorTwo: #3e4354;
+$colorThree: #5e626e;
+$colorFour: #ffffff;
+$colorFive: #6f7588;
+$colorSix: #ed1d1d;
+$colorSeven: #9397aa;
+
+$color1:#dedede;
+$color2:#efeff0;
+$color3:#bec0cf;
+$color4:#344158;
+
+$colorA: #2aa2d3;
+$colorB: #aaacb4;
+$colorC: #62656f;
+$colorD: #797d86;
+$colorE: #828591;
+$colorF: #454b58;
+$colorG: #171b24;
+$colorH: #9699a6;
+$colorI: #566277;
+
+$colorCritical: #ed554b;
+$colorNormal: #37bcd3;
+$colorApproved: #46a133;
+
+$colorMeetingOne: #cceffc;
+$colorMeetingTwo: #00aeef;
+
+$fontSizeOne: 18px;
+
+//Fonts
+
+@font-face {
+    font-family: 'OpenSansRegular';
+    src: url($fontPath + 'opensans-regular.eot');
+    src: url($fontPath + 'opensans-regular.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-regular.woff') format('woff'),
+         url($fontPath + 'opensans-regular.ttf') format('truetype'),
+         url($fontPath + 'opensans-regular.svg#OpenSansRegular') format('svg');
+}
+
+
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url($fontPath + 'opensans-bold.eot');
+    src: url($fontPath + 'opensans-bold.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-bold.woff') format('woff'),
+         url($fontPath + 'opensans-bold.ttf') format('truetype'),
+         url($fontPath + 'opensans-bold.svg#OpenSansBold') format('svg');
+}
+
+
+@font-face {
+    font-family: 'OpenSansBoldItalic';
+    src: url($fontPath + 'opensans-bolditalic.eot');
+    src: url($fontPath + 'opensans-bolditalic.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-bolditalic.woff') format('woff'),
+         url($fontPath + 'opensans-bolditalic.ttf') format('truetype'),
+         url($fontPath + 'opensans-bolditalic.svg#OpenSansBoldItalic') format('svg');
+}
+
+
+@font-face {
+    font-family: 'OpenSansItalic';
+    src: url($fontPath + 'opensans-italic.eot');
+    src: url($fontPath + 'opensans-italic.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-italic.woff') format('woff'),
+         url($fontPath + 'opensans-italic.ttf') format('truetype'),
+         url($fontPath + 'opensans-italic.svg#OpenSansItalic') format('svg');
+}
+
+@font-face {
+	font-family: 'OpenSansSemibold';
+    src: url($fontPath + 'opensans-semibold.eot');
+    src: url($fontPath + 'opensans-semibold.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-semibold.woff') format('woff'),
+         url($fontPath + 'opensans-semibold.ttf') format('truetype'),
+         url($fontPath + 'opensans-semibold.svg#OpenSansSemibold') format('svg');
+}
+
+$normalFont    : 'OpenSansRegular';
+$boldFont      : 'OpenSansBold';
+$boldItalicFont: 'OpenSansBoldItalic';
+$semiBoldFont  : 'OpenSansSemibold';
 
 //mixins
 @mixin border-radius($radius){
@@ -11,4 +96,116 @@ $secondColor: #ECECEC;
     -ms-border-radius: $radius;
     -o-border-radius: $radius;
     border-radius: $radius;
+}
+
+@mixin backgroundImage($icon){
+	background-image: url($imgPath + $icon);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+@mixin dimensions($width, $height){
+	width: $width;
+	height: $height;
+}
+
+@mixin elementWithBackground($icon, $w, $h){
+	@include backgroundImage($icon);
+	@include dimensions($w, $h);
+}
+
+@mixin translate($x, $y){
+	transform: translate($x, $y);
+	-webkit-transform: translate($x, $y);
+	-moz-transform: translate($x, $y);
+	-ms-transform: translate($x, $y);
+}
+
+@mixin verticalMiddle(){
+	@include translate(0, -50%);
+	position: absolute;
+	top: 50%;
+}
+@mixin fixedCenter($w, $h){
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -$w/2;
+	margin-top: -$h/2;
+	width: $w;
+	height: $h;
+}
+@mixin fullMiddle(){
+	@include translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+@mixin listTypeImage($image){
+	&::before{
+		content: "";
+		@include elementWithBackground($image, 15px, 15px);
+		position: absolute;
+		left:0;
+		top: 2px;
+	}
+}
+
+@mixin clearFloat(){
+	&::after{
+		content: "";
+		display: block;
+		clear: both;
+	}
+}
+@mixin text($fontSize, $color){
+	font-size: $fontSize;
+	color: $color;
+}
+
+@mixin textOne(){
+	@include text(18px, $colorOne);
+}
+
+@mixin textTwo(){
+	@include text(17px, $colorTwo);
+}
+
+@mixin textThree(){
+	@include text(11px, $colorThree);
+}
+@mixin textFour(){
+	@include text(14px, $colorFour);
+}
+
+@mixin textFive(){
+	@include text(14px, $colorTwo);
+}
+@mixin textSix(){
+	@include text(13px, $colorFive);
+}
+
+@mixin textSeven(){
+	@include text(13px, $colorSix);
+}
+
+@mixin textEight(){
+	@include text(11px, $colorSeven);
+	font-family: $boldFont;
+}
+
+.stretch{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.show{
+	display: block;
+}
+
+.hide{
+	display: none;
 }

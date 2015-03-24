@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../assets/styles/css/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/styles/css/main.css" type="text/css" />
+</head>
+
+<body>
+    <div class="page">
+        <div class="page-wrapper">
+            <div class="header">
+                <div class="hamburger">
+                    <div class="hamburger-icon">
+                        <div class="hamburger-notify">4</div>
+                    </div>                  
+                </div>
+                <div class="logo">
+                    <div class="timer-overlay">
+                        <div class="notification-item meeting-type">
+                            <div class="notification-title">
+                                Conflux: Designer
+                            </div>
+                            <div class="notification-time">
+                                @ 1:00 PM by Prakash
+                            </div>
+                            <div class="meeting-notify-section">
+                                <div class="mn-left">
+                                    <div>Meeting @ conference 2</div>
+                                    <div>Conflux Designer Tab</div>
+                                    <div class="meeting-notify-icon"></div>
+                                </div>
+                                <div class="mn-right">
+                                    <div>4 Mar</div>
+                                    <div>4:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="create-plus-icon"></div>
+                <div class="search-icon"></div>
+                <div class="profile-pic-holder active">
+                    <img src="../assets/imgs/profilepic.png"/>
+                    <div class="profile-pic-nav">
+                        <div class="profile-pic-nav-item">Profile</div>
+                        <div class="profile-pic-nav-item">Settings</div>
+                        <div class="separator"></div>
+                        <div class="profile-pic-nav-item">Log Out</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="content-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var profile = document.querySelector('.profile-pic-holder');
+        profile.onclick = function(e){
+            var el = e.currentTarget;
+            el.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

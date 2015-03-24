@@ -8,7 +8,8 @@
         <!-- <meta name="description" content="Backbone.js and Require.js Boilerplate Library"> -->
         <!-- Mobile viewport optimized: h5bp.com/viewport -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
-
+        <link href="assets/styles/css/normalize.css" type="text/css" rel="stylesheet" />
+        <link href="assets/styles/css/main.css" type="text/css" rel="stylesheet" />
         <!--Detect if the browser is a mobile browser or a desktop browser and conditionally include your JavaScript --> 
         <script src="app/libs/jquery.js" type="text/javascript"></script>
         <script src="app/libs/lodash.js" type="text/javascript"></script>
@@ -20,23 +21,9 @@
         <script src="bundle.js" type="text/javascript"></script>
     </head>
     <body>
-        <div data-role="page">
-            <header data-role="header" class="navbar nav navbar-inner">
-                <h1>Backbone-Require-Boilerplate (BRB)</h1>
-            </header> <!-- /header -->
-            <div class="container-fluid" data-role="content">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <div class="example"></div>
-                    </div>
-                </div>
+        <div class="page">
+            <div class="page-wrapper">
             </div>
-            <footer class="footer navbar navbar-fixed-bottom" data-role="footer">
-                <p>Written by <a href="https://github.com/gfranko" target="_blank">Greg Franko</a></p>
-            </footer><!-- /footer -->
-        </div> <!-- /page -->
-        <script type="text/template" id="dasboard-template">
-            <div>Hello</div>
-        </script>
+        </div>
     </body>
 </html>

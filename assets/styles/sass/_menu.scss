@@ -1,0 +1,266 @@
+.menu {
+    width: 812px;
+    height: 675px;
+    background-color: #566277;
+    padding-left: 40px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
+.menu-header {
+    width: inherit;
+    height: 78px;
+}
+.menu-profile {
+    width: 675px;
+    height: inherit;
+    float: left;
+}
+.menu-profile-img-dv {
+    @include dimensions(60px, 60px);
+    margin-top: 20px;
+    float: left;
+}
+.menu-profile-img {
+    width: 60px;
+    height: 60px;
+}
+.menu-profile-text {
+    @include dimensions(565px, 42px);
+    margin-top: 28px;
+    margin-left: 10px;
+    float: left;
+}
+
+.menu-profile-txt-nm {
+    font-size: $fontSizeOne;
+    color: $color1;
+}
+
+.menu-profile-txt-dsgn {
+    margin-top: 6px;
+    @include text(14px, $color1);
+}
+
+.menu-settings {
+    @include dimensions(137px, inherit);
+    float: left;
+    //    background-color: lightcyan;
+}
+
+.menu-settings-dv {
+    @include dimensions(inherit, 20px);
+    margin-top: 15px;
+    //    background-color: antiquewhite;
+}
+
+.menu-settings-img {
+    @include dimensions(24px, 24px);
+    display: block;
+    float: left;
+}
+
+.menu-settings-txt {
+    float: left;
+    @include dimensions(80px, auto);
+    display: block;
+    @include text(13px, $color3);
+    margin-left: 5px;
+    line-height: 24px;
+}
+
+.menu-settings-dshbd-dv {
+    @include dimensions(inherit, 20px);
+    margin-top: 10px;
+    //    background-color: beige;
+}
+
+.menu-projects-container {
+    @include dimensions(inherit, 156px);
+    margin-top: 30px;
+    //    background-color: beige;
+}
+
+.projects-hd {
+    margin-bottom: 20px;
+    font-size: $fontSizeOne;
+    color: $color2;
+}
+
+.projects-img-dv {
+    @include dimensions(190px, 135px);
+    //    background-color: darkseagreen;
+    float: left;
+    margin-right: 30px;
+}
+
+.menu-project-img {
+    width: 188px;
+    height: 118px;
+    border: 1px solid $color4;
+}
+.projects-img-dv-txt {
+    @include text(13px, $color3);
+    display: block;
+    text-align: center;
+}
+
+.menu-recent {
+    width: inherit;
+    height: auto;
+    @include dimensions(inherit, auto);
+    margin-top: 75px;
+    //    background-color: darkseagreen;
+}
+
+.recent-hd {
+    margin-bottom: 25px;
+    @include text($fontSizeOne, $color2);
+}
+
+.menu-recent-activity {
+    @include dimensions(150px, auto);
+    //    background-color: aliceblue;
+    float: left;
+}
+
+.menu-recent-cnt {
+    @include dimensions(inherit, 46px);
+    margin-bottom: 20px;
+}
+
+.menu-recent-img-dv {
+    float: left;
+    @include dimensions(38px, 46px);
+}
+
+.menu-recent-img {
+    @include dimensions(38px, 46px);
+}
+
+.menu-recent-cnt-txt {
+    height: 30px;
+    @include text(14px, $color3);
+    margin-left: 48px;
+    padding-top: 8px;
+}
+
+.menu-recent-requests {
+    @include dimensions(185px, auto);
+    margin-left: 55px;
+    //    background-color: aqua;
+    float: left;
+}
+
+.requests-hd {
+    margin-bottom: 25px;
+    @include text($fontSizeOne, $color2);
+}
+
+.menu-requests-cnt {
+    @include dimensions(inherit, 30px);
+    margin-bottom: 20px;
+}
+
+.menu-requests-img-dv {
+    @include dimensions(20px, inherit);
+    float: left;
+}
+
+.menu-requests-img {
+    @include dimensions(20px, 20px);
+}
+
+.menu-requests-txt {
+    height: 30px;
+    margin-left: 25px;
+}
+
+.menu-requests-txt-nm {
+    @include text(14px, $color3);
+}
+
+.menu-requests-txt-tm {
+    @include text(13px, $color3);
+}
+
+.menu-recent-notifications {
+    @include dimensions(168px, auto);
+    margin-left: 65px;
+    float: left;
+    //    background-color: lightgoldenrodyellow;
+}
+
+.notifications-hd {
+    margin-bottom: 25px;
+    @include text($fontSizeOne, $color2);
+}
+
+.menu-notifications-cnt {
+    @include clearFloat();
+    @include dimensions(inherit, auto);
+    margin-bottom: 20px;
+}
+
+.menu-notifications-img-dv {
+    @include dimensions(18px, auto);
+    float: left;
+}
+
+.menu-notifications-img {
+    @include dimensions(18px, 18px);
+}
+
+.menu-notifications-txt {
+    width: 140px;
+    height: auto;
+    float: left;
+    margin-left: 5px;
+}
+
+.menu-notifications-txt-nm {
+    @include text(14px, $color3);
+}
+
+.menu-notifications-txt-tm {
+    display: block;
+    margin-top: 4px;
+    @include text(12px, $color3);
+}
+
+.menu-notifications-txt-dttme {
+    margin-top: 4px;
+    @include dimensions(110px, 22px);
+    @include text(12px, $colorFour);
+    background-color: $colorMeetingTwo;
+    line-height: 22px;
+    padding-left: 5px;
+}
+
+.menu-notifications-txt-dttme-img {
+    @include dimensions(16px, 16px);
+    float: right;
+    margin-right: -7px;
+    margin-top: 3px;
+}
+
+.menu-recent-people {
+    @include dimensions(60px, auto);
+    margin-left: 40px;
+    //    background-color: lightcoral;
+    float: left;
+}
+
+.people-hd {
+    margin-bottom: 25px;
+    @include text($fontSizeOne, $color2);
+}
+
+.menu-recent-people-cnt {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.menu-people-img {
+    @include dimensions(40px, 40px);
+}

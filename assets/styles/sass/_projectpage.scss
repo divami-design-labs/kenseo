@@ -1,0 +1,107 @@
+.project-section-content{
+	@include clearFloat();
+}
+.sub-section{
+	width: 255px;
+	float: left;
+}
+.sub-section + .sub-section{
+	margin-left: 80px;
+}
+.sub-heading-section{
+	border-bottom: 1px solid $colorB;
+}
+.sub-heading{
+	@include clearFloat();
+	margin-top: 30px;
+	position: relative;
+	display: inline-block;
+}
+.sub-heading-label, .sub-heading-add-icon{
+	float: left;
+}
+.sub-heading-label{
+	@include textOne();
+}
+.sub-heading-add-icon{
+	@include elementWithBackground("add.svg", 16px, 16px);
+	@include verticalMiddle();
+	left: 100%;
+	margin-left: 10px;
+}
+.sub-section-content{
+	padding-top: 20px;
+}
+// review request
+
+.sub-section-content .review-request-item + .review-request-item{
+	margin-top: 45px;
+}
+
+//People section
+
+.people-icon{
+	@include elementWithBackground("profilepic1.png", 34px, 34px);
+}
+.people-item-left{
+	float: left;
+}
+.people-item-right{
+	margin-left: 44px;
+}
+.people-name{
+	@include text(14px, $colorTwo);
+}
+.people-access-text{
+	@include text(12px, $colorE);
+}
+.people-item-holder + .people-item-holder{
+	margin-top: 30px;
+}
+
+// Activity
+
+.activity-left{
+	float: left;
+}
+.activity-holder.review-activity-type .activity-icon{
+	@include elementWithBackground("file12.svg", 34px, 38px);
+}
+.activity-holder.comment-activity-type .activity-icon{
+	@include elementWithBackground("file14.svg", 34px, 38px);
+}
+.activity-holder.create-activity-type .activity-icon{
+	@include elementWithBackground("addfile.svg", 34px, 38px);
+}
+.activity-right{
+	margin-left: 44px;
+}
+.day-activity + .day-activity{
+	margin-top: 20px;
+}
+.day-activity-label{
+	@include text(12px, $colorD);
+}
+.day-activity-section{
+	padding-top: 20px;
+}
+
+.activity-title{
+	@include text(14px, $colorTwo);
+}
+.activity-time{
+	@include text(12px, $colorC);
+}
+.activity-sender{
+	@include text(12px, $colorE);
+	margin-left: 5px;
+}
+.activity-time, .activity-sender{
+	float: left;
+}
+.activity-holder{
+	@include clearFloat();
+}
+.activity-holder + .activity-holder{
+	margin-top: 30px;
+}

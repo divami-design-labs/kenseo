@@ -9,9 +9,9 @@ Kenseo.Router = Backbone.Router.extend({
         "": "index"
     },
     index: function() {
-        sb.loadFiles({'js': ['dashboardView']}, function(){
+        sb.loadFiles({'modules': ['Header']}, function(){
             // Instantiates a new view which will render the header text to the page
-            new Kenseo.View.Dashboard.View();
+            new Kenseo.Header.View();
         });
     }
 });

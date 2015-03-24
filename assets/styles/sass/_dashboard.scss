@@ -1,0 +1,220 @@
+.project-block{
+	float: left;
+	@include dimensions(45%, 200px);
+	background-color: cornflowerblue;
+	position: relative;
+
+	&:hover .project-block-hover-content{
+		display: block;
+	}
+}
+.project-block:nth-child(2n){
+	float: right;
+}
+.project-block:nth-child(n+3){
+	margin-top: 60px;
+}
+.project-block-hover-content{
+	text-align: center;
+	display: none;
+}
+.project-black-out{
+	@extend .stretch;
+	opacity: 0.7;
+	background-color: $colorF;
+}
+.project-actions-wrapper{
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	z-index: 1;
+	padding-top: 11%;
+}
+.project-action{
+	display: inline-block;
+	margin: 0 14px;
+	margin-top: 8px;
+}
+.project-action-icon{
+	@include dimensions(28px, 28px);
+	display: inline-block;
+}
+.add-artefact-icon{
+	@include backgroundImage('artifacts.svg');
+}
+.add-user-icon{
+	@include backgroundImage('adduser.svg');
+}
+.archive-icon{
+	@include backgroundImage('archive.svg');
+}
+.project-action-label{
+	@include text(13px, white);
+}
+.project-block-overlay{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 50px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	background-color: #D7D9E0;
+	text-align: center;
+}
+.project-block-overlay-wrapper{
+	display: inline-block;
+}
+.btn-project-open{
+	background-color: $colorG;
+	border: none;
+	@include text(13px, white);
+	position: absolute;
+	bottom: 0px;
+	margin-bottom: 5%;
+	left: 50%;
+	@include translate(-50%,0);
+	z-index: 1;
+	@include dimensions(160px, 40px);
+}
+.project-block-title{
+	@include textTwo();
+}
+.project-block-details{
+	@include textThree();
+	margin-top: 5px;
+	line-height: 16px;
+	text-indent: 5px;
+}
+.fixed-content{
+	float: right;
+	width: 655px;
+}
+.project-block-details::before{
+	content: "";
+	@include elementWithBackground("one1.svg", 15px, 15px);
+	float: left;
+}
+.review-request-item{
+	@include clearFloat();
+}
+.review-request-item + .review-request-item{
+	margin-top: 50px;
+}
+.rr-left{
+	@include dimensions(50px, 68px);
+	float: left;
+	position: relative;
+	margin-right: 12px;
+}
+.rr-right{
+	margin-left: 50px;
+}
+.rr-status{
+	@include dimensions(37px, 57px);
+	@include textFour();
+	text-align: right;
+	padding-right: 3px;
+}
+.rr-title{
+	@include textFive();
+	line-height: 11px;
+}
+.rr-details{
+	@include textSix();
+	margin-top: 6px;
+	margin-bottom: 5px;
+}
+.status-critical{
+	background-color: $colorCritical;
+}
+.status-normal{
+	background-color: $colorNormal;
+}
+.status-approved{
+	background-color: $colorApproved;
+}
+.rr-state{
+	@include textSeven();
+	margin-right: 10px;
+	line-height: 20px;
+}
+.rr-comment{
+	@include elementWithBackground("baloon.svg", 40px, 26px);
+	line-height: 21px;
+	text-align: center;
+	@include textEight();
+}
+.rr-state, .rr-comment{
+	float: left;
+}
+.rr-owner-image{
+	@include elementWithBackground("profilepic1.png", 32px, 32px);
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+//Notifications
+.notifications-content{
+	margin-top: 30px;
+}
+.day-notifications + .day-notifications{
+	margin-top: 20px;
+}
+.day-notifications-label{
+	@include textSix();
+	border-bottom: 1px solid $colorB;
+}
+.notification-item{
+	@include clearFloat();
+}
+.notification-title{
+	@include textFive();
+}
+.notification-time{
+	@include text(12px, $colorC);
+}
+.mn-left{
+	float: left;
+	width: 150px;
+	background-color: $colorMeetingOne;
+	position: relative;
+	@include text(12px, $colorA);
+}
+.mn-right{
+	margin-left: 160px;
+	background-color: $colorMeetingTwo;
+	text-align: center;
+	@include text(12px, $colorFour);
+	font-family: $semiBoldFont;
+	text-transform: uppercase;
+}
+.mn-left, .mn-right{
+	padding: 5px;
+}
+.notification-item{
+	padding-left: 25px;
+	position: relative;
+	margin-top: 20px;
+}
+.notification-item.meeting-type{
+	@include listTypeImage("one.svg");
+}
+.notification-item.comment-type{
+	@include listTypeImage("baloon1.svg");
+}
+.notification-item.review-request-type{
+	@include listTypeImage("file.svg");
+}
+.notification-item.meeting-type .mn-left::after{
+	content: "";
+	@include elementWithBackground("clock.svg", 16px, 16px);
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	@include translate(50%, 50%);
+}
+.meeting-notify-section{
+	margin-top: 5px;
+}

@@ -47,6 +47,10 @@ var sb = (function(){
                     }
                 }
             }
+            if(payload.modules){
+            	var modules = payload.modules;
+            	
+            }
         },
         getPath: function(type, fileName){
 			var o = i18n[type];

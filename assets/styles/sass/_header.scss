@@ -1,0 +1,58 @@
+//Header section
+$headerHeight: 64px;
+
+
+.header{
+	position: relative;
+	@include clearFloat();
+}
+.hamburger{
+	position: absolute;
+	width: 35px;
+	top: 0;
+	bottom: 0;
+}
+.hamburger-notify{
+	@include dimensions(16px, 16px);
+	background-color: #ee603a;
+	@include text(10px, white);
+	@include border-radius(50%);
+	@include translate(-30%, 32%);
+	border: 1px solid white;
+	text-align: center;
+	line-height: 15px;
+	font-family: $boldFont;
+}
+.hamburger-icon{
+	@include backgroundImage("hamburger.svg");
+	@include fixedCenter(20px, 15px);
+}
+.logo{
+	@include elementWithBackground("logo.svg", 138px, 32px);
+	left: 37px;
+}
+.logo{
+	@include verticalMiddle();
+}
+
+.create-plus-icon{
+	@include elementWithBackground("add.svg", 24px, 24px);
+	right: 130px;
+}
+
+.search-icon{
+	@include elementWithBackground("search.svg", 24px, 24px);
+	right: 86px;
+}
+
+.profile-pic-holder{
+	float: right;
+	padding: 0 10px;
+	padding-top: 10px;
+	position: relative;
+	cursor: pointer;
+}
+
+.create-plus-icon, .search-icon{
+	@include verticalMiddle();
+}

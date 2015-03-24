@@ -1,0 +1,51 @@
+// content
+.content-wrapper{
+	padding-left: 30px;
+	padding-top: 55px;
+	padding-right: 38px;
+}
+
+.projects-heading, .review-requests-heading, .notifications-heading{
+	position: relative;
+}
+.review-requests-heading{
+	margin-bottom: 30px;
+}
+.heading-text{
+	@include textOne();
+	line-height: 24px;
+	margin-left: 34px;
+}
+.projects-heading-icon, .review-requests-icon, .notifications-heading-icon{
+	float: left;
+}
+.projects-heading-icon{
+	@include elementWithBackground("projects.svg", 24px, 24px);
+}
+
+.review-requests-icon{
+	@include elementWithBackground("reviewrequest.svg", 24px, 24px);
+}
+
+.notifications-heading-icon{
+	@include elementWithBackground("notify.svg", 24px, 24px);	
+}
+
+.review-requests-section, .notifications-section{
+	float: left;
+}
+.projects-section{
+	margin-right: 655px;
+}
+.review-requests-section{
+	width: 255px;
+	margin-left: 80px;
+}
+.notifications-section{
+	width: 250px;
+	margin-left: 68px;
+}
+.projects-section-content{
+	@include clearFloat();
+	margin-top: 30px;
+}

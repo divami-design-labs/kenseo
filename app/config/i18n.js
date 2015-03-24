@@ -23,7 +23,10 @@ var i18n = {
 	        'path': 'app/init.js'
 	    },
 	    'dashboardView':{
-	        'path': 'app/modules/dashboard/views/DashboardView.js'
+	        'path': 'app/modules/dashboard/DashboardView.js'
+	    },
+	    'headerView': {
+	    	'path': 'app/modules/header/headerView.js'
 	    }
 	}
 };

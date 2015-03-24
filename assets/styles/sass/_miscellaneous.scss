@@ -1,0 +1,58 @@
+.profile-pic-nav{
+	position: absolute;
+	background-color: $colorI;
+	color: white;
+	right: 0;
+	width: 100px;
+	padding: 5px 10px;
+	width: 145px;
+	display: none;
+}
+.active .profile-pic-nav{
+	display: block;
+}
+.profile-pic-nav-item{
+	padding: 10px;
+	@include text(14px, $color2);
+}
+.profile-pic-nav-item:first-child + .profile-pic-nav-item{
+	padding-top: 15px;
+}
+.profile-pic-holder.active{
+	background-color: $colorI;
+}
+.separator{
+	border-bottom: 1px solid $colorH;
+	padding-top: 10px;
+}
+.timer-overlay{
+	position: absolute;
+	width: 250px;
+	padding: 20px;
+	background-color: #F4F4F4;
+	top: 100%;
+	margin-top: 5px;
+	left: -20px;
+	border: 1px solid #979FAD;
+
+	&::after, &::before{
+		content: "";
+		border-style: solid;
+		position: absolute;
+		top: 0px;
+		@include translate(0, -100%);
+	}
+	&::after{
+		border-width: 10px;
+		border-color: transparent transparent #979FAD transparent;
+	}
+	&::before{
+		border-width: 9px;
+		border-color: transparent transparent #F4F4F4 transparent;	
+		z-index: 1;
+		margin-left: 1px;
+	}
+	.notification-item{
+		margin-top: 0;
+	}
+}

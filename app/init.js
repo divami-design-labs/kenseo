@@ -1,10 +1,6 @@
 var Kenseo = {
-    Model: {
-        Dashboard: {}
-    },
-    View: {
-        Dashboard: {}
-    },
+    Dashboard: {},
+    Header: {},
     init: function(){
         sb.loadFiles(sb.viewPortSwitch(), function() {
             // Instantiates a new Desktop Router instance

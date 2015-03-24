@@ -1,3 +1,5 @@
+// View this file using https://stackedit.io/editor (it doesn't store any data)
+
 ##Kenseo Development Team
 
 ###Note:
@@ -20,6 +22,14 @@ For templating, we are using [Browserify](http://browserify.org/) with its plugi
         npm install brfs -g
 
 You can do the above steps manually or run `builds/starter.bat` file in the command prompt.
+
+If you want to watch the `main.js` file, you can install [watchify](https://www.npmjs.com/package/watchify).
+
+    npm install watchify -g
+
+and then 
+
+    watchify main.js -o bundle.js
 
 ###Adding a Template:
 
