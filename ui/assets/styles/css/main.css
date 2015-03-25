@@ -1,23 +1,28 @@
 @font-face {
   font-family: 'OpenSansRegular';
   src: url("../../fonts/opensans-regular.eot");
-  src: url("../../fonts/opensans-regular.eot") format("embedded-opentype"), url("../../fonts/opensans-regular.woff") format("woff"), url("../../fonts/opensans-regular.ttf") format("truetype"), url("../../fonts/opensans-regular.svg#OpenSansRegular") format("svg"); }
+  src: url("../../fonts/opensans-regular.eot") format('embedded-opentype'), url("../../fonts/opensans-regular.woff") format('woff'), url("../../fonts/opensans-regular.ttf") format('truetype'), url("../../fonts/opensans-regular.svg#OpenSansRegular") format('svg'); }
+
 @font-face {
   font-family: 'OpenSansBold';
   src: url("../../fonts/opensans-bold.eot");
-  src: url("../../fonts/opensans-bold.eot") format("embedded-opentype"), url("../../fonts/opensans-bold.woff") format("woff"), url("../../fonts/opensans-bold.ttf") format("truetype"), url("../../fonts/opensans-bold.svg#OpenSansBold") format("svg"); }
+  src: url("../../fonts/opensans-bold.eot") format('embedded-opentype'), url("../../fonts/opensans-bold.woff") format('woff'), url("../../fonts/opensans-bold.ttf") format('truetype'), url("../../fonts/opensans-bold.svg#OpenSansBold") format('svg'); }
+
 @font-face {
   font-family: 'OpenSansBoldItalic';
   src: url("../../fonts/opensans-bolditalic.eot");
-  src: url("../../fonts/opensans-bolditalic.eot") format("embedded-opentype"), url("../../fonts/opensans-bolditalic.woff") format("woff"), url("../../fonts/opensans-bolditalic.ttf") format("truetype"), url("../../fonts/opensans-bolditalic.svg#OpenSansBoldItalic") format("svg"); }
+  src: url("../../fonts/opensans-bolditalic.eot") format('embedded-opentype'), url("../../fonts/opensans-bolditalic.woff") format('woff'), url("../../fonts/opensans-bolditalic.ttf") format('truetype'), url("../../fonts/opensans-bolditalic.svg#OpenSansBoldItalic") format('svg'); }
+
 @font-face {
   font-family: 'OpenSansItalic';
   src: url("../../fonts/opensans-italic.eot");
-  src: url("../../fonts/opensans-italic.eot") format("embedded-opentype"), url("../../fonts/opensans-italic.woff") format("woff"), url("../../fonts/opensans-italic.ttf") format("truetype"), url("../../fonts/opensans-italic.svg#OpenSansItalic") format("svg"); }
+  src: url("../../fonts/opensans-italic.eot") format('embedded-opentype'), url("../../fonts/opensans-italic.woff") format('woff'), url("../../fonts/opensans-italic.ttf") format('truetype'), url("../../fonts/opensans-italic.svg#OpenSansItalic") format('svg'); }
+
 @font-face {
   font-family: 'OpenSansSemibold';
   src: url("../../fonts/opensans-semibold.eot");
-  src: url("../../fonts/opensans-semibold.eot") format("embedded-opentype"), url("../../fonts/opensans-semibold.woff") format("woff"), url("../../fonts/opensans-semibold.ttf") format("truetype"), url("../../fonts/opensans-semibold.svg#OpenSansSemibold") format("svg"); }
+  src: url("../../fonts/opensans-semibold.eot") format('embedded-opentype'), url("../../fonts/opensans-semibold.woff") format('woff'), url("../../fonts/opensans-semibold.ttf") format('truetype'), url("../../fonts/opensans-semibold.svg#OpenSansSemibold") format('svg'); }
+
 .stretch, .project-black-out {
   position: absolute;
   left: 0;
@@ -62,7 +67,7 @@
   border: 1px solid white;
   text-align: center;
   line-height: 15px;
-  font-family: "OpenSansBold"; }
+  font-family: 'OpenSansBold'; }
 
 .hamburger-icon {
   background-image: url("../../imgs/hamburger.svg");
@@ -676,7 +681,7 @@
   text-align: center;
   font-size: 11px;
   color: #9397aa;
-  font-family: "OpenSansBold"; }
+  font-family: 'OpenSansBold'; }
 
 .rr-state, .rr-comment {
   float: left; }
@@ -729,7 +734,7 @@
   text-align: center;
   font-size: 12px;
   color: #ffffff;
-  font-family: "OpenSansSemibold";
+  font-family: 'OpenSansSemibold';
   text-transform: uppercase; }
 
 .mn-left, .mn-right {
@@ -929,11 +934,9 @@
   margin-top: 30px; }
 
 body {
-  font-family: "OpenSansRegular"; }
+  font-family: 'OpenSansRegular'; }
 
 .page {
   max-width: 1346px;
   min-width: 1180px;
   margin: 0 auto; }
-
-/*# sourceMappingURL=main.css.map */

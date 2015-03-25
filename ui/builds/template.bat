@@ -1,2 +1,2 @@
-cd c:\xampp\htdocs\kenseo
+cd c:\xampp\htdocs\kenseo\ui
 brfs main.js > bundle.js

@@ -5,54 +5,54 @@
                 "id": 33,
                 "title": "Conflux: Designer",
                 "type": "calendar",
-                "time": "2015-03-1909: 00PM",
+                "time": "2015-03-19 09:00PM",
                 "notifier": "Prakash",
                 "notifierId": 3,
                 "meetingDetails": {
                     "title": "ConfluxDesignerTablocation: Conference2",
-                    "time": "2015-03-19013: 00PM"
+                    "time": "2015-03-190 13:00PM"
                 }
-            },
-            {
-                "id": 34,
-                "title": "EdgeFxKits: Mobile",
-                "type": "comment",
-                "time": "2015-03-1910: 00AM",
-                "notifier": "Vasu",
-                "notifierId": 1
             },
             {
                 "id": 42,
                 "title": "Balfour: Imageshare",
                 "type": "document",
-                "time": "2015-03-1911: 23AM",
+                "time": "2015-03-19 11:23AM",
                 "notifier": "Rakesh",
                 "notifierId": 4
             },
             {
-                "id": 16,
-                "title": "Balfour: Imageshare",
-                "type": "document",
-                "time": "2015-03-1810: 26AM",
-                "notifier": "Rakesh",
-                "notifierId": 4
-            },
-            {
-                "id": 17,
-                "title": "Balfour: Classrings",
-                "type": "document",
-                "time": "2015-03-1811: 25AM",
-                "notifier": "Siju",
-                "notifierId": 63
+                "id": 34,
+                "title": "EdgeFxKits: Mobile",
+                "type": "comment",
+                "time": "2015-03-19 10:00AM",
+                "notifier": "Vasu",
+                "notifierId": 1
             },
             {
                 "id": 25,
                 "title": "Vsoft: ACHTransfer",
                 "type": "comment",
-                "time": "2015-03-1802: 23pM",
+                "time": "2015-03-18 02:23PM",
                 "notifier": "Vani",
                 "notifierId": 60
             }
+            {
+                "id": 17,
+                "title": "Balfour: Classrings",
+                "type": "document",
+                "time": "2015-03-18 11:25AM",
+                "notifier": "Siju",
+                "notifierId": 63
+            },
+            {
+                "id": 16,
+                "title": "Balfour: Imageshare",
+                "type": "document",
+                "time": "2015-03-18 10:26AM",
+                "notifier": "Rakesh",
+                "notifierId": 4
+            },
         ]
     },
     "status": "success"

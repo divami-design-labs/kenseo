@@ -10,19 +10,22 @@ var Router = Backbone.Router.extend({
     },
     index: function() {
         new sb.loadFiles(   
-            ["app/modules/Header/HeaderView.js", "app/modules/Header/HeaderModel.js",
-            "app/modules/Dashboard/DashboardView.js", 
-            "app/modules/Dashboard/DashboardNotificationModel.js",
-            "app/modules/Dashboard/DashboardProjectModel.js",
-            "app/modules/Dashboard/DashboardReviewModel.js"],
+            [
+                "app/modules/Header/HeaderView.js", 
+                "app/modules/Header/HeaderModel.js",
+                "app/modules/Dashboard/DashboardView.js", 
+                "app/modules/Notifications/NotificationsModel.js",
+                "app/modules/Projects/ProjectsModel.js",
+                "app/modules/Requests/RequestsModel.js"
+            ],
             function(){
                 // Instantiates a new view which will render the header text to the page
                 new Kenseo.Header.View({'model': new Kenseo.Header.Model()});
 
                 new Kenseo.Dashboard.View({
-                    'notificationModel': new Kenseo.Dashboard.NotificationsModel(),
-                    'projectModel': new Kenseo.Dashboard.ProjectsModel(),
-                    'reviewModel': new Kenseo.Dashboard.ReviewsModel()
+                    'notificationModel': new Kenseo.Notifications.Model(),
+                    'projectModel': new Kenseo.Projects.Model(),
+                    'reviewModel': new Kenseo.Requests.Model()
                 });
             }
         );
