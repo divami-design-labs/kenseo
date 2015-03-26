@@ -6,6 +6,15 @@
     position: absolute;
     left: 0;
     top: 100%;
+    z-index: 1;
+    cursor: default;
+    display: none;
+}
+.active .menu{
+    display: block;
+}
+.active.hamburger{
+    background-color: #566277;
 }
 .menu-header {
     width: inherit;

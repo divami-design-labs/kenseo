@@ -201,7 +201,10 @@ $semiBoldFont  : 'OpenSansSemibold';
 	top: 0;
 	bottom: 0;
 }
-
+.ellipsis{
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
 .show{
 	display: block;
 }

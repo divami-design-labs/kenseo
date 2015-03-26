@@ -11,6 +11,7 @@ $headerHeight: 64px;
 	width: 35px;
 	top: 0;
 	bottom: 0;
+	cursor: pointer;
 }
 .hamburger-notify{
 	@include dimensions(16px, 16px);

@@ -76,6 +76,8 @@
 	@include translate(-50%,0);
 	z-index: 1;
 	@include dimensions(160px, 40px);
+	text-decoration: none;
+	line-height: 40px;
 }
 .project-block-title{
 	@include textTwo();
@@ -181,6 +183,9 @@
 	background-color: $colorMeetingOne;
 	position: relative;
 	@include text(12px, $colorA);
+}
+.mn-left-title{
+	@extend .ellipsis;
 }
 .mn-right{
 	margin-left: 160px;

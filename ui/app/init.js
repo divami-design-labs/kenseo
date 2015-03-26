@@ -1,12 +1,9 @@
 var Kenseo = {
-    Dashboard: {},
-    Header: {},
-    Requests: {},
-    Notifications: {},
-    Projects: {},
+    View: {},
+    Model: {},
     init: function(){
 		sb.viewPortSwitch(function(){
-			new Router();
+			var router = new Router();
 		});
     }
 };

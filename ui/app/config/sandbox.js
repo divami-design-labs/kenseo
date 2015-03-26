@@ -4,22 +4,75 @@ var sb = (function(){
 	}
 	return {
 		log: log,
-		loadFiles: function(list, fn){
+		loadFiles: function(payload, fn){
    			var counter = 0;
    			var head = document.head || document.getElementsByTagName("head")[0];
-			for (var i = 0; i < list.length; i++) {
-                var fileref = document.createElement('script');
-                fileref.setAttribute("type", "text/javascript");
-                fileref.setAttribute("src", list[i]);
-                fileref.onload = function(){
-                	counter++;
-                	if(counter === list.length){
-                		fn();
-                	}
-                }
-                head.appendChild(fileref);
-	        }
-	        if(list.length === 0){
+   			var totalLength = 	(payload.files  && payload.files.length  || 0) +
+   								(payload.views  && payload.views.length  || 0) +
+   								(payload.models && payload.models.length || 0);
+   			if(payload.files){
+   				var files = payload.files;
+				for (var i = 0; i < files.length; i++) {
+	                var fileref = document.createElement('script');
+	                fileref.setAttribute("type", "text/javascript");
+	                fileref.setAttribute("src", files[i]);
+	                fileref.onload = function(){
+	                	counter++;
+	                	if(counter === totalLength){
+	                		fn();
+	                	}
+	                }
+	                head.appendChild(fileref);
+		        }
+		    }
+
+		    if(payload.views){
+		    	var views = payload.views;
+				for (var i = 0; i < views.length; i++) {
+					if(i18n.views[views[i]]){
+						counter++;
+	                	if(counter === totalLength){
+	                		fn();
+	                	}
+					}
+					else{
+	                var fileref = document.createElement('script');
+		                fileref.setAttribute("type", "text/javascript");
+		                fileref.setAttribute("src", 'app/modules/views/' + views[i] + 'View.js');
+		                fileref.onload = function(){
+		                	counter++;
+		                	if(counter === totalLength){
+		                		fn();
+		                	}
+		                }
+		                head.appendChild(fileref);
+		            }
+		        }
+		    }
+		    if(payload.models){
+		    	var models = payload.models;
+				for (var i = 0; i < models.length; i++) {
+					if(i18n.models[models[i]]){
+						counter++;
+	                	if(counter === totalLength){
+	                		fn();
+	                	}
+					}
+					else{
+		                var fileref = document.createElement('script');
+		                fileref.setAttribute("type", "text/javascript");
+		                fileref.setAttribute("src", 'app/modules/models/' + models[i] + 'Model.js');
+		                fileref.onload = function(){
+		                	counter++;
+		                	if(counter === totalLength){
+		                		fn();
+		                	}
+		                }
+		                head.appendChild(fileref);
+		            }
+		        }
+		    }
+	        if(totalLength === 0){
 	        	fn();
 	        }
         },
@@ -52,17 +105,25 @@ var sb = (function(){
 	                'js': []
 	            };
 	        }
-	        new sb.loadFiles(filesToLoad.js, callBackFunc);
+	        sb.loadFiles(filesToLoad.js, callBackFunc);
 	    },
 	    renderTemplate: function(templateString, $el, model){
             var template = templates[templateString];
             // Setting the view's template property using the Underscore template method
             // Backbone will automatically include Underscore plugin in it.
             var compiler = _.template(template);
-            model.fetch().then(function(x){
-                // Dynamically updates the UI with the view's template
-                $el.html(compiler(x));            
-            });            
+            if(model){
+	            model.fetch().then(function(x){
+	                // Dynamically updates the UI with the view's template
+	                $el.html(compiler(x));            
+	            });
+            }
+            else{
+            	$el.html(compiler());
+            }
+        },
+        timeFormat: function(time){
+        	return time;
         }
 	};
 })();

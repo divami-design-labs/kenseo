@@ -3,20 +3,23 @@
 	<div class="heading-text">Notifications</div>
 </div>
 <div class="notifications-content">
+	<% _.each(data.days, function(d){ %>
 	<div class="day-notifications">
-		<div class="day-notifications-label">Today</div>
+		<div class="day-notifications-label"><%= d.day %></div>
 		<div class="notifications-holder">
-			<div class="notification-item meeting-type">
+			<% _.each(d.notifications, function(n){ %>
+			<div class="notification-item <%= n.type %>-type">
 				<div class="notification-title">
-					Conflux: Designer
+					<%= n.title %>
 				</div>
 				<div class="notification-time">
-					@ 1:00 PM by Prakash
+					@ <%= sb.timeFormat(n.time) %> by <%= n.notifier %>
 				</div>
+				<% if(n.meetingDetails){ %>
 				<div class="meeting-notify-section">
 					<div class="mn-left">
-						<div>Meeting @ conference 2</div>
-						<div>Conflux Designer Tab</div>
+						<div>Meeting @ <%= n.meetingDetails.room %></div>
+						<div class="mn-left-title"><%= n.meetingDetails.title %></div>
 						<div class="meeting-notify-icon"></div>
 					</div>
 					<div class="mn-right">
@@ -24,77 +27,10 @@
 						<div>4:00 PM</div>
 					</div>
 				</div>
+				<% } %>
 			</div>
-
-			<div class="notification-item comment-type">
-				<div class="notification-title">
-					EdgeFX Kits: Mobile
-				</div>
-				<div class="notification-time">
-					@ 10:00 AM by Vasu
-				</div>
-			</div>
-
-			<div class="notification-item review-request-type">
-				<div class="notification-title">
-					Balfour: Image Share
-				</div>
-				<div class="notification-time">
-					@ 11:20 AM by Rakesh
-				</div>
-			</div>
-
-			<div class="notification-item meeting-type">
-				<div class="notification-title">
-					Conflux: Designer
-				</div>
-				<div class="notification-time">
-					@ 12:00 PM by Prakash
-				</div>
-				<div class="meeting-notify-section">
-					<div class="mn-left">
-						<div>Meeting @ conference 2</div>
-						<div>Conflux Designer Tab</div>
-						<div class="meeting-notify-icon"></div>
-					</div>
-					<div class="mn-right">
-						<div>4 Mar</div>
-						<div>4:00 PM</div>
-					</div>
-				</div>
-			</div>
+			<% }); %>
 		</div>
 	</div>
-
-	<div class="day-notifications">
-		<div class="day-notifications-label">Yesterday</div>
-		<div class="notifications-holder">
-			<div class="notification-item review-request-type">
-				<div class="notification-title">
-					Balfour: Image Share
-				</div>
-				<div class="notification-time">
-					On 6 MAR by Prakash
-				</div>
-			</div>
-
-			<div class="notification-item review-request-type">
-				<div class="notification-title">
-					Balfour: Image Share
-				</div>
-				<div class="notification-time">
-					On 8 MAR by Siju
-				</div>
-			</div>
-
-			<div class="notification-item comment-type">
-				<div class="notification-title">
-					EdgeFX Kits: Mobile
-				</div>
-				<div class="notification-time">
-					On 9 MAR by Prakash
-				</div>
-			</div>
-		</div>
-	</div>
+	<% }); %>
 </div>

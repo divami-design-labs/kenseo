@@ -28,6 +28,12 @@ var i18n = {
 	    'headerView': {
 	    	'path': 'app/modules/header/headerView.js'
 	    }
+	},
+	views: {
+
+	},
+	models: {
+		
 	}
 };
 

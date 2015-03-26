@@ -30,6 +30,10 @@
   top: 0;
   bottom: 0; }
 
+.ellipsis, .mn-left-title {
+  text-overflow: ellipsis;
+  overflow: hidden; }
+
 .show {
   display: block; }
 
@@ -47,7 +51,8 @@
   position: absolute;
   width: 35px;
   top: 0;
-  bottom: 0; }
+  bottom: 0;
+  cursor: pointer; }
 
 .hamburger-notify {
   width: 16px;
@@ -192,7 +197,16 @@
   padding-left: 40px;
   position: absolute;
   left: 0;
-  top: 100%; }
+  top: 100%;
+  z-index: 1;
+  cursor: default;
+  display: none; }
+
+.active .menu {
+  display: block; }
+
+.active.hamburger {
+  background-color: #566277; }
 
 .menu-header {
   width: inherit;
@@ -593,7 +607,9 @@
   -ms-transform: translate(-50%, 0);
   z-index: 1;
   width: 160px;
-  height: 40px; }
+  height: 40px;
+  text-decoration: none;
+  line-height: 40px; }
 
 .project-block-title {
   font-size: 17px;
