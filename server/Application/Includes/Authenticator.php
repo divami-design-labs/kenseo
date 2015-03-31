@@ -36,7 +36,7 @@ class Authenticator
 		$this->authUrl = $this->client->createAuthUrl();
 
 		// Just check if we got a cookie with the SID.
-		$this->kenseoSID = (isset($_COOKIE['DivamikenseoSID']) ? $_COOKIE['DivamikenseoSID'] : FALSE);
+		$this->kenseoSID = (isset($_COOKIE['DivamiKenseoSID']) ? $_COOKIE['DivamiKenseoSID'] : FALSE);
 		$this->googleAccessToken = (isset($_COOKIE['DivamiKenseoGAT']) ? $_COOKIE['DivamiKenseoGAT'] : FALSE);
 	}
 	
@@ -97,7 +97,7 @@ class Authenticator
 		
 		// for now, store the access token also in a cookie. @TODO
 		$this->storeSessionInfo($userId);
-		setcookie("DivamiNestorUserID", $userId, 0, "/");
+		setcookie("DivamiKenseoUserID", $userId, 0, "/");
 		return $userId;
 	}
 	
@@ -133,9 +133,9 @@ class Authenticator
 	
 	
 	public function setUserInfoCookies() {
-		setcookie("DivamiNestorUserName", $this->userInfo['name'], 0, "/");
-		setrawcookie("DivamiNestorUserEmail", $this->userInfo['email'], 0, "/");
-		setrawcookie("DivamiNestorUserPicture", $this->userInfo['picture'], 0, "/");
+		setcookie("DivamiKenseoUserName", $this->userInfo['name'], 0, "/");
+		setrawcookie("DivamiKenseoUserEmail", $this->userInfo['email'], 0, "/");
+		setrawcookie("DivamiKenseoUserPicture", $this->userInfo['picture'], 0, "/");
 	}
 
 
@@ -168,6 +168,9 @@ class Authenticator
 
 
 	public function validateSession() {
+		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Printing tokens");
+		Master::getLogManager()->log(DEBUG, MOD_MAIN, $this->kenseoSID);
+		Master::getLogManager()->log(DEBUG, MOD_MAIN, $this->googleAccessToken);
 		if (!$this->kenseoSID || !$this->googleAccessToken) {
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Session Id or Google Access Token missing.");
 			return FALSE;

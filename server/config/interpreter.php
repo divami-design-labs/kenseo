@@ -9,9 +9,8 @@ global $AppGlobal;
 $AppGlobal['cmdmap'] = array();
 $AppGlobal['urlmap'] = array();
 
-//$AppGlobal['cmdmap']['calendar'] = array ("class" => "TaskController", "method" => "getPeriodTasks");
-//$AppGlobal['urlmap']['/calendar'] = array ('command' => 'calendar', 'type' => 'GET');
+$AppGlobal['cmdmap']['getCustomers'] = array ("class" => "Customers", "method" => "getCustomers");
+$AppGlobal['urlmap']['/getCustomers'] = array ('command' => 'getCustomers', 'type' => 'POST');
 
-  
-  
+
 ?>

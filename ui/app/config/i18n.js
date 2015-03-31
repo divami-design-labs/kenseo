@@ -27,6 +27,12 @@ var i18n = {
 	    },
 	    'headerView': {
 	    	'path': 'app/modules/header/headerView.js'
+	    },
+	    'apiCallList' : {
+	    	'path': 'app/common/API_CallList.js'
+	    },
+	    'ServerCommunication' : {
+	    	'path': 'app/common/ServerCommunication.js'
 	    }
 	},
 	views: {

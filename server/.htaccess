@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /GIT/Kenseo/server/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.+)$ route.php?uri=$1 [QSA,L]
