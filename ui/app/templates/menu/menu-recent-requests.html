@@ -1,0 +1,13 @@
+<p class="requests-hd">Requests (<% data.reviews.length %>)</p>
+
+<% _.each(data.reviews, function(r){ %>
+<div class="menu-requests-cnt">
+    <div class="menu-requests-img-dv">
+        <img src="assets/imgs/file13.svg" class="menu-requests-img" />
+    </div>
+    <div class="menu-requests-txt">
+        <span class="menu-requests-txt-nm"><%= r.title %></span>
+        <span class="menu-requests-txt-tm"><%= r.requestedBy %> posts @ <%= sb.timeFormat(r.requestTime) %></span>
+    </div>
+</div>
+<% }); %>

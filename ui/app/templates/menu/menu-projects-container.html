@@ -1,0 +1,7 @@
+<p class="projects-hd">Projects</p>
+<% _.each(data.projects, function(p){ %>
+<div class="projects-img-dv">
+    <img src="<%= p.image %>" class="menu-project-img" />
+    <span class="projects-img-dv-txt"><%= p.name %></span>
+</div>
+<% }); %>
