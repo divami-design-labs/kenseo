@@ -4,24 +4,29 @@
             {
                 "id": "135",
                 "name": "EdgeFx Landing Page",
-                "lastUpdated": "2015-03-21"
+                "lastUpdated": "2015-03-21",
+                "image": "http://lorempixel.com/nature/188/118"
             },
             {
                 "id": "153",
                 "name": "Balfour Image share",
-                "lastUpdated": "2015-03-21"
+                "lastUpdated": "2015-03-21",
+                "image": "http://lorempixel.com/food/188/118"
             },
             {
                 "id": "154",
                 "name": "Manage My Spa",
-                "lastUpdated": "2015-02-11"
+                "lastUpdated": "2015-02-11",
+                "image": "http://lorempixel.com/cats/188/118" 
             },
             {
                 "id": "121",
                 "name": "Price Master",
-                "lastUpdated": "2015-02-11"
+                "lastUpdated": "2015-02-11",
+                "image": "http://lorempixel.com/food/188/118"
             }
         ]
     },
     "status": "success"
 }
+

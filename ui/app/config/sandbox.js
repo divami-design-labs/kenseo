@@ -8,6 +8,7 @@ var sb = (function(){
    			var counter = 0;
    			var head = document.head || document.getElementsByTagName("head")[0];
    			var totalLength = 	(payload.files  && payload.files.length  || 0) +
+   								(payload.collections  && payload.collections.length  || 0) +
    								(payload.views  && payload.views.length  || 0) +
    								(payload.models && payload.models.length || 0);
    			if(payload.files){
@@ -25,6 +26,7 @@ var sb = (function(){
 	                head.appendChild(fileref);
 		        }
 		    }
+
 
 		    if(payload.views){
 		    	var views = payload.views;
@@ -72,6 +74,29 @@ var sb = (function(){
 		            }
 		        }
 		    }
+		    if(payload.collections){
+		    	var collections = payload.collections;
+				for (var i = 0; i < collections.length; i++) {
+					if(i18n.collections[collections[i]]){
+						counter++;
+	                	if(counter === totalLength){
+	                		fn();
+	                	}
+					}
+					else{
+	                var fileref = document.createElement('script');
+		                fileref.setAttribute("type", "text/javascript");
+		                fileref.setAttribute("src", 'app/modules/collections/' + collections[i] + 'Collection.js');
+		                fileref.onload = function(){
+		                	counter++;
+		                	if(counter === totalLength){
+		                		fn();
+		                	}
+		                }
+		                head.appendChild(fileref);
+		            }
+		        }
+		    }
 	        if(totalLength === 0){
 	        	fn();
 	        }
@@ -107,19 +132,28 @@ var sb = (function(){
 	        }
 	        sb.loadFiles(filesToLoad.js, callBackFunc);
 	    },
-	    renderTemplate: function(templateString, $el, model){
+	    renderTemplate: function(templateString, $el, model, callBackFunc){
             var template = templates[templateString];
             // Setting the view's template property using the Underscore template method
             // Backbone will automatically include Underscore plugin in it.
             var compiler = _.template(template);
             if(model){
-	            model.fetch().then(function(x){
-	                // Dynamically updates the UI with the view's template
-	                $el.html(compiler(x));            
-	            });
+	            model.fetch({
+	            	// data: data,
+	            	success: function(a, x){
+		                // Dynamically updates the UI with the view's template
+		                $el.html(compiler(x));  
+		                if(callBackFunc){
+		                	callBackFunc();
+		                }
+		            }
+            	});
             }
             else{
             	$el.html(compiler());
+            	if(callBackFunc){
+                	callBackFunc();
+                }
             }
         },
         timeFormat: function(time){

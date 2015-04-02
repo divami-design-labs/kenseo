@@ -151,7 +151,7 @@
 	float: left;
 }
 .rr-owner-image{
-	@include elementWithBackground("profilepic1.png", 32px, 32px);
+	@include dimensions(32px, 32px);
 	position: absolute;
 	right: 0;
 	bottom: 0;

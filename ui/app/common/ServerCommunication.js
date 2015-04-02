@@ -61,7 +61,7 @@ function ServerConnection() {
 	}
 	
 	var buildUrl= function(key) {
-		var serverPath = "http://localhost:8088/git/kenseo/server";
+		var serverPath = "http://localhost/kenseo/server";
 		var call = {
 			url : serverPath + '/' + APIList[key][0],
 			type: APIList[key][1],

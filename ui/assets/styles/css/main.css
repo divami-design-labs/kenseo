@@ -100,7 +100,8 @@
   -moz-transform: translate(0, -50%);
   -ms-transform: translate(0, -50%);
   position: absolute;
-  top: 50%; }
+  top: 50%;
+  display: block; }
 
 .create-plus-icon {
   background-image: url("../../imgs/add.svg");
@@ -190,6 +191,81 @@
   .timer-overlay .notification-item {
     margin-top: 0; }
 
+.input-field {
+  position: relative;
+  margin: 0 auto;
+  width: 520px; }
+
+#input-text-field {
+  width: 472px;
+  height: 55px;
+  font-size: 16px;
+  color: #3e4354;
+  position: relative;
+  display: inline-block;
+  padding-left: 46px;
+  background-image: url("../../imgs/search.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-size: 25px 25px;
+  background-position: 12px center;
+  line-height: 55px;
+  border: 1px solid #ffffff;
+  background-color: #ececed; }
+
+.input-field > label {
+  position: absolute;
+  font-size: 16px;
+  color: #7d808f;
+  font-style: italic;
+  left: 46px;
+  top: 50%;
+  margin-top: -0.7em;
+  padding-right: 5px;
+  opacity: 0.5; }
+
+.input-field > input[type=text]:focus + label {
+  display: none; }
+
+.search-results {
+  width: 498px;
+  height: auto;
+  background-color: #ffffff;
+  margin: 0 auto;
+  border: 1px solid #fff;
+  padding-left: 20px;
+  padding-bottom: 20px; }
+
+.search-row {
+  height: 28px;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #3e4354; }
+
+.search-row-img {
+  width: 27px;
+  height: 27px;
+  float: left; }
+
+.search-row-txt {
+  line-height: 28px;
+  margin-left: 37px; }
+
+.search-img-type-file {
+  background-image: url("../../imgs/search-file.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%; }
+
+.search-img-type-folder {
+  background-image: url("../../imgs/search-folder.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%; }
+
+.search-img-type-pic {
+  background-image: url("../../imgs/search-pic.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%; }
+
 .menu {
   width: 812px;
   height: 675px;
@@ -202,11 +278,16 @@
   cursor: default;
   display: none; }
 
-.active .menu {
+.active.hamburger .menu {
   display: block; }
 
 .active.hamburger {
   background-color: #566277; }
+
+.active.hamburger .hamburger-icon {
+  background-image: url("../../imgs/hamburger1.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%; }
 
 .menu-header {
   width: inherit;
@@ -703,9 +784,6 @@
   float: left; }
 
 .rr-owner-image {
-  background-image: url("../../imgs/profilepic1.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
   width: 32px;
   height: 32px;
   position: absolute;
@@ -865,9 +943,6 @@
   margin-top: 45px; }
 
 .people-icon {
-  background-image: url("../../imgs/profilepic1.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
   width: 34px;
   height: 34px; }
 

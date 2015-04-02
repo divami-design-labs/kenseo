@@ -10,11 +10,14 @@
     cursor: default;
     display: none;
 }
-.active .menu{
+.active.hamburger .menu{
     display: block;
 }
 .active.hamburger{
     background-color: #566277;
+}
+.active.hamburger .hamburger-icon{
+    @include backgroundImage('hamburger1.svg');
 }
 .menu-header {
     width: inherit;

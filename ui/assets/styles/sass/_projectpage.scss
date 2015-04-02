@@ -41,7 +41,7 @@
 //People section
 
 .people-icon{
-	@include elementWithBackground("profilepic1.png", 34px, 34px);
+	@include dimensions(34px, 34px);
 }
 .people-item-left{
 	float: left;

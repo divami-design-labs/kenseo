@@ -1,8 +1,8 @@
-Kenseo.Model.Projects = Backbone.Model.extend({
-    urlRoot: "app/packages/db-projects.json"
+Kenseo.models.Projects = Backbone.Model.extend({
+    // urlRoot: "app/packages/db-projects.json",
+    default: {
+    	'id': null,
+    	'name': null,
+    	'lastUpdated': null
+    }
 });
-
-
-// Kenseo.Model.Projectspage = Backbone.Model.extend({
-// 	urlRoot: "app/packages/projectpage.json"
-// });

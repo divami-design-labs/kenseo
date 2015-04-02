@@ -11,6 +11,6 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./assets/styles/css'));
 });
 gulp.task('watch', function(){
-	gulp.watch(['app/templates/*.html', 'templateRunner.js'], ['template']);
+	gulp.watch(['app/templates/*/*.html', 'templateRunner.js'], ['template']);
 	gulp.watch(['assets/styles/sass/*.scss', 'assets/styles/sass-utilities/*.scss'], ['sass']);
 })

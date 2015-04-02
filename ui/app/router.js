@@ -7,35 +7,35 @@ var Router = Backbone.Router.extend({
     routes: {
         // When there is no hash on the url, the home method is called
         "": "index",
-        "projectspage": "projectsPage",
-        "menu": "showMenu"
+        "projectspage": "projectsPage"
     },
     index: function() {
         sb.loadFiles(   
             {
-                'views': ['Header', 'Dashboard'],
-                'models': ['Header', 'Notifications', 'Projects', 'Requests']
+                'views' : ['Header', 'Dashboard'],
+                'models': ['Header', 'Notifications', 'Projects', 'Requests'],
+                'collections': ['Projects', 'Requests', 'Notifications']
             },
             function(){
                 // Instantiates a new view which will render the header text to the page
-                new Kenseo.View.Header({'model': new Kenseo.Model.Header()});
-
-                new Kenseo.View.Dashboard({
-                    'notificationModel': new Kenseo.Model.Notifications(),
-                    'projectModel': new Kenseo.Model.Projects(),
-                    'reviewModel': new Kenseo.Model.Requests()
+                new Kenseo.views.Dashboard({
+                    // 'projectModel': new Kenseo.models.Projects(),
+                    'projectCollection': new Kenseo.collections.Projects(),
+                    'reviewCollection': new Kenseo.collections.Requests(),
+                    'notificationCollection': new Kenseo.collections.Notifications()
                 });
             }
         );
     },
-    projectsPage: function(){
+    projectsPage: function(x){
         sb.loadFiles(
             {
                 'views': ['Header', 'Projectspage'],
-                'models': []
+                'models': ['Header','Artifacts', 'Activities', 'People'],
+                'collections': ['Activities', 'Artifacts', 'People']
             },
             function(){
-                new Kenseo.View.Projectspage();
+                new Kenseo.views.Projectspage();
             }
         )
     }

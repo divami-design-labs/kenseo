@@ -1,6 +1,7 @@
 var Kenseo = {
-    View: {},
-    Model: {},
+    views: {},
+    models: {},
+    collections: {},
     init: function(){
 		sb.viewPortSwitch(function(){
 			var router = new Router();

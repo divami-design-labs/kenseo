@@ -34,6 +34,7 @@ $headerHeight: 64px;
 }
 .logo{
 	@include verticalMiddle();
+	display: block;
 }
 
 .create-plus-icon{

@@ -1,0 +1,22 @@
+{
+    "data": {
+        "people": [
+            {
+                "id": 1,
+                "name": "Prakash",
+                "icon": ""
+            },
+            {
+                "id": 2,
+                "name": "Hemanth",
+                "icon": ""
+            },
+            {
+                "id": 3,
+                "name": "Anurag",
+                "icon": ""
+            }
+        ]
+    },
+    "status": "success"
+}
