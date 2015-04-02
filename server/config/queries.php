@@ -11,7 +11,7 @@ $AppGlobal['sql']['validateSID'] = "SELECT employee.user_id, employee.email, aut
 										FROM " . TABLE_AUTH_SESSION ." as auth_session, 
 										". TABLE_USERS ." as employee
 										WHERE auth_session.sid = @~~sid~~@ AND auth_session.expiry > @~~now~~@
-												AND auth_session.user_id = employee.user_id";
+										AND auth_session.user_id = employee.user_id";
 $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id 
 											FROM ". TABLE_USERS ." 
 											WHERE email = @~~email~~@";
@@ -31,4 +31,14 @@ $AppGlobal['sql']['getProjectArtefacts'] = "SELECT artefacts.artefact_id, artefa
 											JOIN " . TABLE_ARTEFACT_VERSIONS . " on artefacts.latest_version_id = artefact_versions.artefact_ver_id
 											JOIN " . TABLE_USERS . " on users.user_id = artefact_versions.created_by
 											WHERE project_id = @~~projectid~~@ ";											 	 
+$AppGlobal['sql']['getReviewRequests'] = "select * from " . TABLE_ARTEFACTS . " as artefacts 
+											WHERE artefacts.artefact_id in 
+											(select versions.artefact_id from ". Table_ARTEFACTS_VERSIONS ." as versions 
+											WHERE versions.shared = 1 and versions.artefact_ver_id in 
+											(select versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as members 
+											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@))";		 
+$AppGlobal['sql']['getPeopleInProjects'] = "select * from users WHERE user_id in (select user_id from project_members WHERE proj_id in (select proj_id from project_members WHERE user_id = @~~userid~~@))";
+
+$AppGlobal['sql']['getNotifications'] = "SELECT * FROM " . TABLE_NOTIFICATIONS . " WHERE user_id = @~~id~~@";
+											
 ?>
