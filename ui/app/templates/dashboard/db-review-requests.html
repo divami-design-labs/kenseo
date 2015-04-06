@@ -3,7 +3,7 @@
 	<div class="heading-text">Review Requests</div>
 </div>
 <div class="review-requests-content">
-	<% _.each(data.reviews, function(r){ %>
+	<% _.each(data, function(r){ %>
 	<div class="review-request-item">
 		<div class="rr-left">
 			<div class="rr-status status-<%= r.attention %>"><%= r.doctype %></div>

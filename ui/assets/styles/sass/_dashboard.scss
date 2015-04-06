@@ -97,8 +97,12 @@
 	@include elementWithBackground("one1.svg", 15px, 15px);
 	float: left;
 }
+
+// requests
+
 .review-request-item{
 	@include clearFloat();
+	position: relative;
 }
 .review-request-item + .review-request-item{
 	margin-top: 50px;
@@ -137,9 +141,17 @@
 	background-color: $colorApproved;
 }
 .rr-state{
-	@include textSeven();
-	margin-right: 10px;
+	@include text(12px, #ffffff);
+	@include dimensions(20px, 20px);
+	@include border-radius(50%);
+	background-color: $colorJ;
 	line-height: 20px;
+	text-align: center;
+	margin-right: 10px;
+	font-family: $boldFont;
+	&:first-letter{
+		font-family: $normalFont;
+	}
 }
 .rr-comment{
 	@include elementWithBackground("baloon.svg", 40px, 26px);
@@ -156,7 +168,54 @@
 	right: 0;
 	bottom: 0;
 }
-
+.requests-dropdown{
+	//display: none;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	@include dimensions(36px, 28px);
+	cursor: pointer;
+	z-index: 1;
+}
+.requests-dropdown-icon{
+	@include elementWithBackground("dropdown1.svg", 16px, 16px);
+	@include fullMiddle();
+}
+.review-request-item:hover .requests-dropdown{
+	display: block;
+}
+.requests-dropdown:hover{
+	background-color: $colorK;
+}
+.requests-dropdown-items{
+	position: absolute;
+	top: 100%;
+	padding-top: 10px;
+	background-color: $colorK;
+}
+.requests-dropdown-items > div{
+	white-space: nowrap;
+	padding-left: 35px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	position: relative;
+	@include text(12px, $colorL);
+}
+@mixin requestHoverListType($image){
+	@include listTypeWithGap($image, 17px, 17px, 0px, 10px);
+}
+.requests-archive-item{
+	@include requestHoverListType("archive1.svg");
+}
+.requests-replace-item{
+	@include requestHoverListType("replace.svg");	
+}
+.requests-add-version-item{
+	@include requestHoverListType("addversion.svg");
+}
+.requests-share-item{
+	@include requestHoverListType("share.svg");
+}
 //Notifications
 .notifications-content{
 	margin-top: 30px;

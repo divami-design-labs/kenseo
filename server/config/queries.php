@@ -16,6 +16,8 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 											FROM ". TABLE_USERS ." 
 											WHERE email = @~~email~~@";
 
+$AppGlobal['sql']['getHeader'] = "SELECT * FROM". TABLE_USERS ."WHERE user_id = @~~userid~~@";
+
 $AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id, project_name, last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
@@ -28,12 +30,12 @@ $AppGlobal['sql']['getMyRecentArtefacts'] = "SELECT projects.project_id, project
 											 WHERE logged_by = @~~userid~~@ AND performed_on =  'A'";
 $AppGlobal['sql']['getProjectArtefacts'] = "SELECT artefacts.artefact_id, artefacts.artefact_title, artefacts.latest_version_id, artefacts.state, artefacts.artefact_type, users.name, users.profile_pic_url, users.user_id, artefact_versions.created_date, artefact_versions.document_path, artefact_versions.version_label
 											FROM " . TABLE_ARTEFACTS . " 
-											JOIN " . TABLE_ARTEFACT_VERSIONS . " on artefacts.latest_version_id = artefact_versions.artefact_ver_id
+											JOIN " . TABLE_ARTEFACTS_VERSIONS . " on artefacts.latest_version_id = artefact_versions.artefact_ver_id
 											JOIN " . TABLE_USERS . " on users.user_id = artefact_versions.created_by
 											WHERE project_id = @~~projectid~~@ ";											 	 
 $AppGlobal['sql']['getReviewRequests'] = "select * from " . TABLE_ARTEFACTS . " as artefacts 
 											WHERE artefacts.artefact_id in 
-											(select versions.artefact_id from ". Table_ARTEFACTS_VERSIONS ." as versions 
+											(select versions.artefact_id from ". TABLE_ARTEFACTS_VERSIONS ." as versions 
 											WHERE versions.shared = 1 and versions.artefact_ver_id in 
 											(select versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as members 
 											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@))";		 

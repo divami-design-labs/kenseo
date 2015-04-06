@@ -20,7 +20,7 @@ Kenseo.views.Header = Backbone.View.extend({
         // }
         // catch(e){}
 
-        sb.renderTemplate('header', this.$el, this.model, this.attachEvents.bind(this));
+        sb.renderTemplate('header', this.$el, this.model, this.attachEvents.bind(this), null, {userid: 3});
         // Maintains chainability
         return this;
     },

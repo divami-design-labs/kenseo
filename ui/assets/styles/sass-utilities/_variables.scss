@@ -26,6 +26,9 @@ $colorF: #454b58;
 $colorG: #171b24;
 $colorH: #9699a6;
 $colorI: #566277;
+$colorJ: #52626e;
+$colorK: #566277;
+$colorL: #dbdce0;
 
 $colorCritical: #ed554b;
 $colorNormal: #37bcd3;
@@ -152,7 +155,15 @@ $semiBoldFont  : 'OpenSansSemibold';
 		top: 2px;
 	}
 }
-
+@mixin listTypeWithGap($image, $w, $h, $t, $l){
+	&::before{
+		content: "";
+		@include elementWithBackground($image, $w, $h);
+		position: absolute;
+		top: $t;
+		left:$l;
+	}	
+}
 @mixin clearFloat(){
 	&::after{
 		content: "";

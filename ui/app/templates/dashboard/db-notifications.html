@@ -6,7 +6,7 @@
 	<div class="day-notifications">
 		<div class="day-notifications-label">Today</div>
 		<div class="notifications-holder">
-			<% _.each(notifications, function(n){ %>
+			<% _.each(data, function(n){ %>
 			<div class="notification-item <%= n.type %>-type">
 				<div class="notification-title">
 					<%= n.title %>

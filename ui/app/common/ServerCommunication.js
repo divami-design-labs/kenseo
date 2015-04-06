@@ -5,7 +5,7 @@ function ServerConnection() {
 	
 	this.buildAjaxPayload = function(options) {
 		//builds the requried paylod to make ajax call
-		console.log("insdide send Request Method")
+		console.log("inside send Request Method");
 		//get this url from the api calllist based on command/key
 		var urlDetails = buildUrl(options.command);
 		var url = urlDetails.url;
@@ -22,7 +22,9 @@ function ServerConnection() {
 			type: type,
 			data : data,
 			dataType: "json",
-			success: "defaultSuccessHandler",
+			success: function(response){
+				// defaultSuccessHandler(response);
+			},
 			error: "defaultFailureHandler",
 			contentType: "application/json",
 			cache : false,

@@ -132,22 +132,71 @@ var sb = (function(){
 	        }
 	        sb.loadFiles(filesToLoad.js, callBackFunc);
 	    },
-	    renderTemplate: function(templateString, $el, model, callBackFunc){
+	    renderTemplate: function(templateString, $el, model, callBackFunc, data){
             var template = templates[templateString];
             // Setting the view's template property using the Underscore template method
             // Backbone will automatically include Underscore plugin in it.
             var compiler = _.template(template);
+            $.ajaxSetup({ cache: false });
             if(model){
-	            model.fetch({
-	            	// data: data,
-	            	success: function(a, x){
-		                // Dynamically updates the UI with the view's template
-		                $el.html(compiler(x));  
+
+           //  	connect.buildAjaxPayload({
+           //   		command : 'getMyProjectsList',
+           //   		data : {
+           // 				userid : 3
+           //   		}
+           //   	});
+	         	// connect.send();
+
+
+	    //         model.fetch({
+	    //         	data: {
+					// 	'data': data? data: {},
+					// 	'client' : {
+					// 		sid : Cookie.getCookie('DivamiKenseoSID')	
+					// 	}
+					// },
+					// success: function(a, x){
+		   //              // Dynamically updates the UI with the view's template
+		   //              console.dir(x);
+		   //              $el.html(compiler(x));  
+		   //              if(callBackFunc){
+		   //              	callBackFunc();
+		   //              }
+		   //          }
+     //        	});
+				var url = model.urlRoot? model.urlRoot: model.url;
+	
+				$.ajax({
+					url: "http://localhost/kenseo/server/" + url,
+					data: {
+						"data": data,
+						'client' : {
+							sid : Cookie.getCookie('DivamiKenseoSID')	
+						}
+					},
+					success: function(response){
+						if(response){
+							var obj = JSON.parse(response);
+						}
+						else{
+							var obj = {};
+						}
+						console.dir(obj);
+		                $el.html(compiler(obj));  
 		                if(callBackFunc){
 		                	callBackFunc();
 		                }
-		            }
-            	});
+					}
+				});
+				// connect = new ServerConnection();
+				// connect.buildAjaxPayload({
+    //          		command : model.url,
+    //          		data : data
+    //          	});
+    //          	connect.setSuccessHandler(handle);
+    //  			connect.send();
+
             }
             else{
             	$el.html(compiler());
@@ -156,6 +205,9 @@ var sb = (function(){
                 }
             }
         },
+        // handle: function(response) {
+
+        // }
         timeFormat: function(time){
         	return time;
         }

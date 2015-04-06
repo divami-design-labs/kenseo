@@ -51,7 +51,7 @@ try
 				util_redirectToURL($authenticator->getAuthURL());
 			}
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to UI URL");
-			util_redirectToURL('http://localhost:8088/git/kenseo/ui/index.html');
+			util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.html');
 		} else {
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "GAT token unavailable");
 			$authenticator->invalidateSession();
@@ -67,7 +67,7 @@ try
 		setcookie("DivamiKenseoUserID", $userObj->id, 0, "/");
 		// everything is fine. redirect to app page.
 		// Not needed anymore -- $authenticator->setUserInfoCookies();
-		util_redirectToURL('localhost:8088/git/kenseo/ui/index.html');
+		util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.html');
 	}
 	
 } catch (CustomeException $exception) {
