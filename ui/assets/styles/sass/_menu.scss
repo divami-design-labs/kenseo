@@ -45,8 +45,7 @@
 }
 
 .menu-profile-txt-nm {
-    font-size: $fontSizeOne;
-    color: $color1;
+    @include text(18px, $color1);
 }
 
 .menu-profile-txt-dsgn {
@@ -95,8 +94,7 @@
 
 .projects-hd {
     margin-bottom: 20px;
-    font-size: $fontSizeOne;
-    color: $color2;
+    @include text(18px, $color2);
 }
 
 .projects-img-dv {
@@ -127,7 +125,7 @@
 
 .recent-hd {
     margin-bottom: 25px;
-    @include text($fontSizeOne, $color2);
+    @include text(18px, $color2);
 }
 
 .menu-recent-activity {
@@ -166,7 +164,7 @@
 
 .requests-hd {
     margin-bottom: 25px;
-    @include text($fontSizeOne, $color2);
+    @include text(18px, $color2);
 }
 
 .menu-requests-cnt {
@@ -205,7 +203,7 @@
 
 .notifications-hd {
     margin-bottom: 25px;
-    @include text($fontSizeOne, $color2);
+    @include text(18px, $color2);
 }
 
 .menu-notifications-cnt {
@@ -265,7 +263,7 @@
 
 .people-hd {
     margin-bottom: 25px;
-    @include text($fontSizeOne, $color2);
+    @include text(18px, $color2);
 }
 
 .menu-recent-people-cnt {

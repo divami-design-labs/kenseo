@@ -115,12 +115,11 @@
 }
 .search-img-type-file {
   @include backgroundImage("search-file.svg");
-    
 }
 .search-img-type-folder {
   @include backgroundImage("search-folder.svg");
     
-}.search-img-type-pic {
+}
+.search-img-type-pic {
   @include backgroundImage("search-pic.svg");
-    
 }

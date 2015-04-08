@@ -1,3 +1,5 @@
+@import "../sass-utilities/fonts";
+@import "../sass-utilities/colors";
 @import "../sass-utilities/variables";
 @import "header";
 @import "miscellaneous";
@@ -5,6 +7,7 @@
 @import "sections";
 @import "dashboard";
 @import "projectpage";
+@import "popup";
 
 //variables
 $viewPortWidth: 1346px;

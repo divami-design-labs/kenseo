@@ -1,98 +1,7 @@
 //Variables
 $imgPath: "../../imgs/";
-$fontPath: "../../fonts/";
-
-$colorOne: #464c5f;
-$colorTwo: #3e4354;
-$colorThree: #5e626e;
-$colorFour: #ffffff;
-$colorFive: #6f7588;
-$colorSix: #ed1d1d;
-$colorSeven: #9397aa;
-
-$color1:#dedede;
-$color2:#efeff0;
-$color3:#bec0cf;
-$color4:#344158;
-$color5:#7d808f;
-$color6:#ececed;
-
-$colorA: #2aa2d3;
-$colorB: #aaacb4;
-$colorC: #62656f;
-$colorD: #797d86;
-$colorE: #828591;
-$colorF: #454b58;
-$colorG: #171b24;
-$colorH: #9699a6;
-$colorI: #566277;
-$colorJ: #52626e;
-$colorK: #566277;
-$colorL: #dbdce0;
-
-$colorCritical: #ed554b;
-$colorNormal: #37bcd3;
-$colorApproved: #46a133;
-
-$colorMeetingOne: #cceffc;
-$colorMeetingTwo: #00aeef;
 
 $fontSizeOne: 18px;
-
-//Fonts
-
-@font-face {
-    font-family: 'OpenSansRegular';
-    src: url($fontPath + 'opensans-regular.eot');
-    src: url($fontPath + 'opensans-regular.eot') format('embedded-opentype'),
-         url($fontPath + 'opensans-regular.woff') format('woff'),
-         url($fontPath + 'opensans-regular.ttf') format('truetype'),
-         url($fontPath + 'opensans-regular.svg#OpenSansRegular') format('svg');
-}
-
-
-@font-face {
-    font-family: 'OpenSansBold';
-    src: url($fontPath + 'opensans-bold.eot');
-    src: url($fontPath + 'opensans-bold.eot') format('embedded-opentype'),
-         url($fontPath + 'opensans-bold.woff') format('woff'),
-         url($fontPath + 'opensans-bold.ttf') format('truetype'),
-         url($fontPath + 'opensans-bold.svg#OpenSansBold') format('svg');
-}
-
-
-@font-face {
-    font-family: 'OpenSansBoldItalic';
-    src: url($fontPath + 'opensans-bolditalic.eot');
-    src: url($fontPath + 'opensans-bolditalic.eot') format('embedded-opentype'),
-         url($fontPath + 'opensans-bolditalic.woff') format('woff'),
-         url($fontPath + 'opensans-bolditalic.ttf') format('truetype'),
-         url($fontPath + 'opensans-bolditalic.svg#OpenSansBoldItalic') format('svg');
-}
-
-
-@font-face {
-    font-family: 'OpenSansItalic';
-    src: url($fontPath + 'opensans-italic.eot');
-    src: url($fontPath + 'opensans-italic.eot') format('embedded-opentype'),
-         url($fontPath + 'opensans-italic.woff') format('woff'),
-         url($fontPath + 'opensans-italic.ttf') format('truetype'),
-         url($fontPath + 'opensans-italic.svg#OpenSansItalic') format('svg');
-}
-
-@font-face {
-	font-family: 'OpenSansSemibold';
-    src: url($fontPath + 'opensans-semibold.eot');
-    src: url($fontPath + 'opensans-semibold.eot') format('embedded-opentype'),
-         url($fontPath + 'opensans-semibold.woff') format('woff'),
-         url($fontPath + 'opensans-semibold.ttf') format('truetype'),
-         url($fontPath + 'opensans-semibold.svg#OpenSansSemibold') format('svg');
-}
-
-$normalFont    : 'OpenSansRegular';
-$boldFont      : 'OpenSansBold';
-$boldItalicFont: 'OpenSansBoldItalic';
-$semiBoldFont  : 'OpenSansSemibold';
 
 //mixins
 @mixin border-radius($radius){
@@ -118,12 +27,22 @@ $semiBoldFont  : 'OpenSansSemibold';
 	@include backgroundImage($icon);
 	@include dimensions($w, $h);
 }
-
+@mixin transition($v){
+	transition: $v;
+	-webkit-transition: $v;
+	-moz-transition: $v;
+	-o-transition: $v;
+	-ms-transition: $v;
+}
+@mixin transform($v){
+	transform: $v;
+	-webkit-transform: $v;
+	-moz-transform: $v;
+	-ms-transform: $v;
+	-o-transform: $v;
+}
 @mixin translate($x, $y){
-	transform: translate($x, $y);
-	-webkit-transform: translate($x, $y);
-	-moz-transform: translate($x, $y);
-	-ms-transform: translate($x, $y);
+	@include transform(translate($x, $y));
 }
 
 @mixin verticalMiddle(){
@@ -171,42 +90,64 @@ $semiBoldFont  : 'OpenSansSemibold';
 		clear: both;
 	}
 }
+@mixin absoluter($t, $l, $r, $b){
+	position: absolute;
+	top: $t;
+	left: $l;
+	right: $r;
+	bottom: $b;
+}
 @mixin text($fontSize, $color){
 	font-size: $fontSize;
 	color: $color;
 }
+@mixin placeHolder($color, $size, $font){
+	@if $color == null  {$color: inherit}
+	@if $size == null  {$size: inherit}
+	@if $font == null  {$font: inherit}
 
-@mixin textOne(){
-	@include text(18px, $colorOne);
-}
+	&::-webkit-input-placeholder {
+	   color: $color;
+	   font-size: $size;
+	   font-family: $font;
+	}
 
-@mixin textTwo(){
-	@include text(17px, $colorTwo);
-}
+	&:-moz-placeholder { /* Firefox 18- */
+	   color: $color;  
+	   font-size: $size;
+	   font-family: $font;
+	}
 
-@mixin textThree(){
-	@include text(11px, $colorThree);
-}
-@mixin textFour(){
-	@include text(14px, $colorFour);
-}
+	&::-moz-placeholder {  /* Firefox 19+ */
+	   color: $color;  
+	   font-size: $size;
+	   font-family: $font;
+	}
 
-@mixin textFive(){
-	@include text(14px, $colorTwo);
-}
-@mixin textSix(){
-	@include text(13px, $colorFive);
-}
-
-@mixin textSeven(){
-	@include text(13px, $colorSix);
-}
-
-@mixin textEight(){
-	@include text(11px, $colorSeven);
-	font-family: $boldFont;
+	&:-ms-input-placeholder {  
+	   color: $color;  
+	   font-size: $size;
+	   font-family: $font;
+	}
 }
 
+//Close-icon
+@mixin closeIcon($x){
+	@include elementWithBackground('close.svg', $x, $x);
+	@extend .hand;
+}
+//extends
+.fullMiddle{
+	@include translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+.squareFullMiddle{
+	@include translate(-50%, -50%);
+	margin-top: 50%;
+	margin-left: 50%;
+}
 .stretch{
 	position: absolute;
 	left: 0;
@@ -224,4 +165,107 @@ $semiBoldFont  : 'OpenSansSemibold';
 
 .hide{
 	display: none;
+}
+.disappear{
+	visibility: hidden;
+	position: absolute;
+	pointer-events: none;
+}
+.a{
+	text-decoration: none;
+}
+.hand{
+	cursor: pointer;
+}
+.wrap{
+	display: inline-block;
+	&:after{
+		content: "";
+		display: block;
+	}
+}
+.unselectable {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+} 
+
+
+//Checkbox
+
+.checkbox {
+    padding-left: 30px;
+    position: relative;
+    @extend .unselectable;
+    @include text(14px, $colorTwo);
+}
+.checkbox:after, .checkbox > span:after {
+    content:"";
+    display: block;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    @include transform(translate(0%, -50%));
+}
+.checkbox:after {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    @include border-radius(3px);
+}
+.checkbox > input[type="checkbox"] {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+}
+:checked + span:after {
+    width: 10px;
+    height: 5px;
+    left: 5px;
+    @include transform(translate(0, -50%) rotate(-45deg));
+    border-left: 2px solid red;
+    border-bottom: 2px solid red;
+    margin-top: -2px;
+}
+//Toggle
+.toggle-checkbox {
+    $h: 26px;
+    display: block;
+    @extend .unselectable;
+    width: $h * 2;
+    @include border-radius($h);
+    position: relative;
+    height: $h;
+    background-color: $colorW;
+    border: 1px solid $colorV;
+    cursor: pointer;
+    input[type="checkbox"] {
+        position: absolute;
+        visibility: hidden;
+        pointer-events: none;
+        & + span {
+            display: block;
+            width: $h;
+            height: $h;
+            left: 0;
+            @include border-radius($h);
+            background-color: $colorV;
+            position: absolute;
+            @include transition(all 0.1s ease-out);
+        }
+        &:checked + span {
+            left: $h;
+        }
+    }
+}
+
+// Dropdown
+.dropdown{
+	width: 230px;
+	height: 30px;
+	padding: 10px;
+	display: block;
+	margin: 10px 0px;
 }

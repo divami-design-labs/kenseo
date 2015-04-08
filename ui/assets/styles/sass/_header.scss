@@ -39,7 +39,7 @@ $headerHeight: 64px;
 
 .create-plus-icon{
 	@include elementWithBackground("add.svg", 24px, 24px);
-	right: 130px;
+	@include fullMiddle();
 }
 
 .search-icon{
@@ -54,7 +54,30 @@ $headerHeight: 64px;
 	position: relative;
 	cursor: pointer;
 }
-
-.create-plus-icon, .search-icon{
+.create-icon-holder{
+	position: absolute;
+	right: 122px;
+	height: 70px;
+	width: 40px;
+	@extend .hand;
+	&:hover{
+		background-color: $colorI;
+	}
+}
+.create-plus-nav{
+	position: absolute;
+	top: 100%;
+	background-color: $colorI;
+	right: 0;
+	z-index: 1;
+	width: 180px;
+	padding: 10px;
+}
+.create-plus-nav-item{
+	white-space: nowrap;
+	padding: 10px;
+	@include text(14px, $color2);
+}
+.search-icon{
 	@include verticalMiddle();
 }

@@ -141,16 +141,83 @@
 	background-color: $colorApproved;
 }
 .rr-state{
-	@include text(12px, #ffffff);
-	@include dimensions(20px, 20px);
-	@include border-radius(50%);
-	background-color: $colorJ;
-	line-height: 20px;
-	text-align: center;
-	margin-right: 10px;
-	font-family: $boldFont;
-	&:first-letter{
-		font-family: $normalFont;
+	span{
+		@include text(12px, #ffffff);
+		@include dimensions(20px, 20px);
+		@include border-radius(50%);
+		@extend .hand;
+		display: inline-block;
+		background-color: $colorJ;
+		line-height: 20px;
+		text-align: center;
+		font-family: $boldFont;
+		&:first-letter{
+			font-family: $normalFont;
+		}
+		&:nth-of-type(3n + 1):after{
+			content: "";
+			display: block;
+			color: red;
+		}
+	}
+	.rr-other-versions{
+		$mr: 28px;
+		span{
+			margin-top: 20px;
+			margin-right: $mr;
+			position: relative;
+			background-color: $colorY;
+			&:after{
+				content: "";
+				position: absolute;
+				background-color: $colorX;
+			}
+			&:before{
+				content: attr(data-date);
+				@include text(10px, #798791);
+				white-space: nowrap;
+				position: absolute;
+				top: 100%;
+				left: 50%;
+				@include translate(-50%, 0);
+				margin-top: -2px;
+				z-index: 1;
+			}
+			&:first-child:after{
+				width: 1px;
+				height: 20px;
+				bottom: 100%;
+				left: 50%;
+				margin-left: -1px;
+			}
+		}
+		& > div{
+			@include clearFloat();
+		}
+		& > div:nth-child(2n+1){
+			& > span{
+				float: left;
+				&:not(:first-child):after{
+					width: $mr;
+					height: 1px;
+					right: 100%;
+					top: 50%;
+					margin-top: -1px;
+				}
+			}
+		}
+		& > div:nth-child(2n){
+			& > span{
+				float: right;
+				&:not(:first-child):after{
+					width: $mr;
+					height: 1px;
+					left: 100%;
+					top: 50%;
+					margin-top: -1px;
+				}
+			}
+		}
 	}
 }
 .rr-comment{
@@ -158,8 +225,11 @@
 	line-height: 21px;
 	text-align: center;
 	@include textEight();
+	position: absolute;
+	left: 93px;
+  	top: 43px;
 }
-.rr-state, .rr-comment{
+.rr-comment{
 	float: left;
 }
 .rr-owner-image{
@@ -177,17 +247,35 @@
 	cursor: pointer;
 	z-index: 1;
 }
-.requests-dropdown-icon{
-	@include elementWithBackground("dropdown1.svg", 16px, 16px);
-	@include fullMiddle();
-}
-.review-request-item:hover .requests-dropdown{
-	display: block;
-}
-.requests-dropdown:hover{
-	background-color: $colorK;
+.review-request-item{
+	input[type="checkbox"]{
+		@extend .disappear;
+	}
+	.requests-dropdown-icon{
+		@include fullMiddle();
+	}
+	&:hover{
+		.requests-dropdown-icon{
+			@include elementWithBackground("dropdown.svg", 16px, 16px);
+			z-index: 2;	
+		}
+	}
+	.requests-dropdown{
+		display: block;
+		&:hover{
+			background-color: $colorK;
+			.requests-dropdown-items{
+				display: block;
+			}
+			.requests-dropdown-icon{
+				@include elementWithBackground("dropdown1.svg", 16px, 16px);
+				z-index: 2;
+			}
+		}
+	}
 }
 .requests-dropdown-items{
+	display: none;
 	position: absolute;
 	top: 100%;
 	padding-top: 10px;
