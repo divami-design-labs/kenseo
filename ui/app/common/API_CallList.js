@@ -8,3 +8,7 @@ APIList['getMyRecentArtefacts'] = ["getMyRecentArtefacts", "GET", 10000];
 APIList['getProjectArtefacts'] = ["getProjectArtefacts", "GET", 10000];
 APIList['getReviewRequests'] = ["getReviewRequests", "GET", 10000];
 APIList['getProjectsPeople'] = ["getProjectsPeople", "GET", 10000];
+APIList['search'] = ["search", "GET", 10000];
+APIList['getTeamMembersList'] = ["getTeamMembersList", "GET", 10000];
+APIList['getTagsList'] = ["getTagsList", "GET", 10000];
+

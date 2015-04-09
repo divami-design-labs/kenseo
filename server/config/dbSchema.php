@@ -11,4 +11,6 @@
 	define("TABLE_ARTEFACTS_VERSIONS", "artefact_versions");
 	define("TABLE_ARTEFACTS_SHARED_MEMBERS", "artefact_shared_members");
 	define("TABLE_NOTIFICATIONS", "notifications");
+	define("TABLE_ORGANIZATIONS", "organizations");
+	define("TABLE_TAGS", "tags");
 ?>

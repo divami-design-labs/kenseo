@@ -33,4 +33,15 @@ $AppGlobal['urlmap']['/getProjectsPeople'] = array ('command' => 'getProjectsPeo
 $AppGlobal['cmdmap']['getNotifications'] = array ("class" => "Notifications", "method" => "getNotifications");
 $AppGlobal['urlmap']['/getNotifications'] = array ('command' => 'getNotifications', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['search'] = array ("class" => "Common", "method" => "searchAll");
+$AppGlobal['urlmap']['/search'] = array ('command' => 'search', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['getTeamMembersList'] = array ("class" => "Projects", "method" => "getTeamMembersList");
+$AppGlobal['urlmap']['/getTeamMembersList'] = array ('command' => 'getTeamMembersList', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['getTagsList'] = array ("class" => "Common", "method" => "getTagsList");
+$AppGlobal['urlmap']['/getTagsList'] = array ('command' => 'getTagsList', 'type' => 'GET');
+
+
+
 ?>
