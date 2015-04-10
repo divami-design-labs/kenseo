@@ -27,6 +27,7 @@ Kenseo.views.Header = Backbone.View.extend({
     attachEvents: function(){
         $('.hamburger').on('click', this.menuClick);
         $('.menu').on('click', this.stopMenuClick);
+        $('.search-icon').on('click', this.showSearch);
     },
     menuClick: function(e){
         // console.log("-----------------");
@@ -53,5 +54,10 @@ Kenseo.views.Header = Backbone.View.extend({
     },
     stopMenuClick: function(e){
         e.stopPropagation();
+    },
+    showSearch: function(){
+        var $popupContainer = $('.popup-container');
+        $popupContainer.show();
+        sb.renderTemplate('search', $popupContainer);
     }
 });

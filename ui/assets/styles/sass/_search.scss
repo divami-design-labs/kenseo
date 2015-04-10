@@ -1,0 +1,70 @@
+.search-section{
+	width: 518px;
+	position: absolute;
+	top: 80px;
+	@include translate(-50%, 0);
+	left: 50%;
+}
+
+.input-field {   
+	position: relative;
+}
+
+#input-text-field {
+    @include dimensions(472px, 55px);
+    @include text(16px, $colorTwo);
+    position: relative;
+    display: block;
+	padding-left: 46px;
+    @include backgroundImage("search.svg");
+    background-size: 25px 25px;
+    background-position: 12px center;
+    line-height: 55px;
+    border: 1px solid $colorFour;
+    background-color: $color6;
+}
+
+.input-field > label {
+    position: absolute;
+    @include text(16px, $color5);
+    font-style:italic;
+    left: 46px;
+    top: 50%;
+    margin-top: -0.7em;
+    padding-right:5px;
+    opacity: 0.5;
+}
+
+.input-field > input[type=text]:focus + label {
+    display: none;
+}
+.search-results {
+    @include dimensions(498px, auto);
+    background-color: $colorFour;
+    margin:0 auto;
+    border: 1px solid #fff;
+    padding-left:20px;
+    padding-bottom:20px;
+}
+.search-row {
+    height:28px;
+    margin-top:20px;
+    @include text(16px, $colorTwo);
+}
+.search-row-img {
+	@include dimensions(27px, 27px);
+	float:left;
+}
+.search-row-txt {
+    line-height:28px;
+    margin-left:37px;
+}
+.search-img-type-file {
+	@include backgroundImage("search-file.svg");
+}
+.search-img-type-folder {
+	@include backgroundImage("search-folder.svg");
+}
+.search-img-type-pic {
+	@include backgroundImage("search-pic.svg");
+}

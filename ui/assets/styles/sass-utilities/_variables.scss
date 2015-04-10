@@ -272,3 +272,8 @@ $fontSizeOne: 18px;
 		outline: none;
 	}
 }
+
+
+input[type=text]:focus{
+	outline: none;
+}

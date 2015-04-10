@@ -43,6 +43,7 @@ $headerHeight: 64px;
 .search-icon{
 	@include elementWithBackground("search.svg", 24px, 24px);
 	right: 86px;
+	@extend .hand;
 }
 
 .profile-pic-holder{

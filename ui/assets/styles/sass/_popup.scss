@@ -1,0 +1,304 @@
+.popup-container{
+	//@include backgroundImage("semi-bg.png");
+	background-color: rgba(82,85,104, 0.48);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+}
+.popup{
+	@include fullMiddle();
+	border: 1px solid $color8;
+}
+.popup-small{
+	@include dimensions(425px, 260px);
+}
+.popup-large{
+	@include dimensions(725px, 555px);
+}
+.popup-large-df{
+	@include dimensions(730px, 590px)
+}
+.popup-header{
+	height: 55px;
+	position: relative;
+	background-color: $color6;
+}
+.popup-title{
+	@include text(18px, $color7);
+	padding-left: 30px;
+	@include verticalMiddle();
+}
+.files-section ~ .dropdown{
+	margin-left: 30px;
+}
+.popup-close-icon{
+	@include closeIcon(14px);
+	position: absolute;
+	right: 30px;
+	top: 20px;
+}
+.dropdown{
+	@include dimensions(250px, 38px);
+}
+.popup-body{
+	@include absoluter(55px, 0, 0, 0);
+	background-color: white;
+}
+.popup-body-wrapper{
+	padding: 30px;
+	padding-left: 50px;
+}
+.popup-buttons-section > a{
+	float: right;
+	margin-left: 30px;
+}
+.popup-buttons-section{
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+}
+.main-btn{
+	@include text(16px, white);
+	background-color: $colorN;
+	padding: 5px 25px;
+	@extend .a;
+}
+.lnk-btn{
+	@include text(14px, $colorTwo);
+	padding: 8px;
+	@extend .a;
+}
+.projects-dropdown{
+	width: 300px;
+	height: 40px;
+}
+
+
+/* second artefact popup*/
+.popup-meta-heading{
+	@include text(13px, $colorO);
+}
+.popup-meta-text{
+	@include text(15px, $colorTwo);
+}
+.popup-meta-item{
+	padding-left:50px;
+	margin-top: 20px;
+}
+$popup-content-space: 175px;
+.popup-left-section{
+	width: $popup-content-space;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	border-right: 1px dashed $colorP;
+	background-color: $colorQ;
+}
+.popup-right-section{
+	margin-left: $popup-content-space;
+}
+.uploader-section{
+}
+.uploader-section-img{
+	@include elementWithBackground("pdfnpng.svg", 125px, 200px);
+	margin-top: 45px;
+}
+.file-heading{
+	@include text(16px, $colorTwo);
+	font-family: $boldFont;
+}
+.files-section{
+	@include clearFloat();
+	margin-bottom: 45px;
+}
+.upload-file-section{
+	border-right: 1px solid $colorP;	
+	padding-right: 55px;
+}
+.upload-file-section, .create-file-section{
+	float: left;
+}
+.create-file-section{
+	padding-left: 60px;
+	width: 210px;
+}
+.create-file-item{
+	position: relative;
+}
+.create-file-close-icon{
+	@include closeIcon(10px);
+	position: absolute;
+	top: 6px;
+	right: 2px;
+}
+.coming-soon-text{
+	@include text(14px, $colorTwo);
+	font-family: $italicFont;
+	margin-top: 30px;
+}
+.or-btn{
+	@include text(20px, white);
+	@include dimensions(55px, 35px);
+	@include border-radius(5px);
+	font-family: $semiBoldFont;
+	text-align: center;
+	line-height: 35px;
+	background-color: $colorS;
+	@extend .a;
+	display: block;
+	position: absolute;
+	left: 390px;
+	top: 160px;
+}
+
+
+
+// third popup
+.input-label{
+	@include text(16px, $colorTwo);
+	margin-bottom: 10px;
+}
+
+.field-section, .input-wrapper{
+	@extend .wrap;
+}
+.field-section + .field-section{
+	margin-top: 20px;
+}
+.input-text{
+	@include placeHolder($colorTwo, 14px, $italicFont);
+	@include dimensions(345px, 18px);
+	border: 1px solid $colorB;
+	padding: 10px;
+	&:focus{
+		outline: none;
+	}
+}
+.reference-item{
+	@include text(14px, $colorTwo);
+	padding: 15px 10px;
+}
+.reference-item-close-icon{
+	@include closeIcon(10px);
+	float: right;
+	margin-top: 6px;
+}
+
+//tags
+.tags-holder{
+	margin-top: 10px;
+}
+.tag{
+	display: inline-block;
+	padding: 3px;
+	padding-right: 25px;
+	background-color: $colorR;
+	position: relative;
+	@include text(14px, $colorTwo);
+	.tag-close{
+		@include elementWithBackground("close.svg", 10px, 10px);
+		@include absoluter(8px, auto, 5px, auto);
+		@extend .hand;
+	}
+}
+.tags + .tags{
+	margin-left: 10px;
+}
+
+
+// Share an artefact
+.your-team-heading{
+	@extend .file-heading;
+	border-bottom: 1px solid black;
+	display: inline;
+}
+.your-team-body{
+	padding-top: 25px;
+}
+.your-team-section .input-text{
+	width: 460px;
+}
+.your-team-field{
+	margin-top: 30px;
+}
+.share-artefact-people{
+	position: relative;
+}
+.share-artefact-people-item{
+	@include clearFloat();
+	$w: 230px;
+	$x: 20px;
+	margin-top: 25px;
+	margin-left: $x;
+	width: $w - $x;
+	@extend .hand;
+	.share-artefacts-text{
+		line-height: 40px;
+  		margin-left: 10px;
+  		@include text(14px, $colorTwo);
+	}
+	.share-artefact-right-panel{
+		margin-left: 20px;
+	}
+	.sarp-text{
+		@include text(14px, $colorTwo);
+		margin-bottom: 10px;
+		margin-top: 15px;
+	}
+	.share-artefacts-img-holder{
+		@include border-radius(50%);
+		border: 1px solid black;
+		float: left;
+		margin-left: -$x;
+		border: 5px solid transparent;
+		position: relative;
+		img{
+			display: block;
+			position: relative;
+			z-index: 2;
+		}
+		&:after{
+			$v: -2px;
+			content: "";
+			@include absoluter($v,$v,$v,$v);
+			border: 2px solid $colorU;
+			@include border-radius(50%);
+			z-index: 1;
+		}
+	}
+	&:hover{
+		background-color: $colorR;
+		.share-artefacts-text{
+			font-family: $boldFont;
+		}
+		.share-artefacts-img-holder:after{
+			$v: -6px;
+			content: "";
+			@include absoluter($v,$v,$v,$v);
+			border: 2px solid $colorT;
+			@include border-radius(50%);
+			background-color: white;
+			z-index: 1;
+		}
+		.share-artefact-people-item-section{
+			display: block;
+		}
+	}
+	.share-artefact-people-item-section{
+		display: none;
+		position: absolute;
+		left: $w - 1;
+		right: 8px;
+		top: 0;
+		bottom: 0;
+		background-color: $colorR;
+	}
+}
+.sarp-checkbox-holder{
+	margin-top: 10px;
+	margin-left: 10px;
+}
