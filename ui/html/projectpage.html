@@ -12,7 +12,15 @@
 						<div class="hamburger-icon"></div>
 					</div>
 					<div class="logo"></div>
-					<div class="create-plus-icon"></div>
+					<div class="create-icon-holder">
+						<div class="create-plus-icon"></div>
+						<div class="create-plus-nav">
+	                        <div class="create-plus-nav-item">Add a project</div>
+	                        <div class="create-plus-nav-item">Add an Artefact</div>
+	                        <div class="create-plus-nav-item">Share an artefact</div>
+	                        <div class="create-plus-nav-item">Create a meeting</div>
+	                    </div>
+					</div>
 					<div class="search-icon"></div>
 					<div class="profile-pic-holder">
 	                    <img src="../assets/imgs/profilepic.png"/>
@@ -35,7 +43,7 @@
 									</div>
 									<div class="artifacts-content sub-section-content">
 										<div class="review-requests-content">
-											<div class="review-request-item">
+											<div class="review-request-item" data-pass="0">
 												<div class="rr-left">
 													<div class="rr-status status-critical">IxD</div>
 													<img class="rr-owner-image" src="../assets/imgs/people/small/Prakash.png"/>
@@ -46,12 +54,20 @@
 													<div class="rr-state-details">
 														<div class="rr-state">
 															<span>v8</span>
+															<div class="rr-other-versions">
+																<div>
+																	<span data-date="30 Apr">v7</span>
+																	<span data-date="25 Apr">v6</span>
+																	<span data-date="22 Apr">v5</span>
+																	<span data-date="18 Apr">v4</span>
+																</div>
+															</div>
 														</div>
 														<div class="rr-comment">122</div>
 													</div>
 												</div>
 											</div>
-											<div class="review-request-item">
+											<div class="review-request-item xl">
 												<div class="rr-left">
 													<div class="rr-status status-normal">IxD</div>
 													<img class="rr-owner-image" src="../assets/imgs/people/small/Prakash.png"/>
@@ -81,7 +97,48 @@
 												</div>
 											</div>
 
-											<div class="review-request-item">
+											<div class="review-request-item xxl" data-pass="1">
+												<div class="rr-left">
+													<div class="rr-status status-approved">IxD</div>
+													<img class="rr-owner-image" src="../assets/imgs/people/small/Prakash.png"/>
+												</div>
+												<div class="rr-right">
+													<div class="rr-title">Conflux Mapping Editor Doc</div>
+													<div class="rr-details">Prakash posts @ 1:00 PM</div>
+													<div class="rr-state-details">
+														<div class="rr-state">
+															<span>v8</span>
+														</div>
+														<div class="rr-comment">122</div>
+													</div>
+												</div>
+											</div>
+											<div class="review-request-item" data-pass="0">
+												<div class="rr-left">
+													<div class="rr-status status-critical">IxD</div>
+													<img class="rr-owner-image" src="../assets/imgs/people/small/Prakash.png"/>
+												</div>
+												<div class="rr-right">
+													<div class="rr-title">Conflux Mapping Editor Doc</div>
+													<div class="rr-details">Prakash posts @ 1:00 PM</div>
+													<div class="rr-state-details">
+														<div class="rr-state">
+															<span>v8</span>
+															<div class="rr-other-versions">
+																<div>
+																	<span data-date="30 Apr">v7</span>
+																	<span data-date="25 Apr">v6</span>
+																	<span data-date="22 Apr">v5</span>
+																	<span data-date="18 Apr">v4</span>
+																</div>
+															</div>
+														</div>
+														<div class="rr-comment">122</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="review-request-item" data-pass="0">
 												<div class="rr-left">
 													<div class="rr-status status-approved">IxD</div>
 													<img class="rr-owner-image" src="../assets/imgs/people/small/Prakash.png"/>
@@ -98,7 +155,7 @@
 												</div>
 											</div>
 
-											<div class="review-request-item">
+											<div class="review-request-item" data-pass="1">
 												<div class="rr-left">
 													<div class="rr-status status-approved">IxD</div>
 													<img class="rr-owner-image" src="../assets/imgs/people/small/Prakash.png"/>
@@ -114,49 +171,38 @@
 													</div>
 												</div>
 											</div>
+
+											<div class="review-request-item" data-pass="0">
+												<div class="rr-left">
+													<div class="rr-status status-critical">IxD</div>
+													<img class="rr-owner-image" src="../assets/imgs/people/small/Prakash.png"/>
+												</div>
+												<div class="rr-right">
+													<div class="rr-title">Conflux Mapping Editor Doc</div>
+													<div class="rr-details">Prakash posts @ 1:00 PM</div>
+													<div class="rr-state-details">
+														<div class="rr-state">
+															<span>v8</span>
+															<div class="rr-other-versions">
+																<div>
+																	<span data-date="30 Apr">v7</span>
+																	<span data-date="25 Apr">v6</span>
+																	<span data-date="22 Apr">v5</span>
+																	<span data-date="18 Apr">v4</span>
+																</div>
+															</div>
+														</div>
+														<div class="rr-comment">122</div>
+													</div>
+												</div>
+											</div>
+
+
 										</div>
 									</div>
 								</div>
 
-								<div class="people-section sub-section">
-									<div class="sub-heading-section">
-										<div class="sub-heading">
-											<div class="sub-heading-label">People</div>
-											<div class="sub-heading-add-icon"></div>
-										</div>
-									</div>
-									<div class="people-section-content sub-section-content">
-										<div class="people-item-holder">
-											<div class="people-item-left">
-												<img class="people-icon" src="../assets/imgs/people/small/Prakash.png" />
-											</div>
-											<div class="people-item-right">
-												<div class="people-name">Prakash Gidugu</div>
-												<div class="people-access-text">Can Edit</div>
-											</div>
-										</div>
-
-										<div class="people-item-holder">
-											<div class="people-item-left">
-												<img class="people-icon" src="../assets/imgs/people/small/Prakash.png" />
-											</div>
-											<div class="people-item-right">
-												<div class="people-name">Prakash Gidugu</div>
-												<div class="people-access-text">Can Edit</div>
-											</div>
-										</div>
-
-										<div class="people-item-holder">
-											<div class="people-item-left">
-												<img class="people-icon" src="../assets/imgs/people/small/Prakash.png" />
-											</div>
-											<div class="people-item-right">
-												<div class="people-name">Prakash Gidugu</div>
-												<div class="people-access-text">Can Edit</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								
 
 								<div class="activity-section sub-section">
 									<div class="sub-heading-section">
@@ -258,6 +304,49 @@
 										</div>
 									</div>
 								</div>
+
+
+								<div class="people-section sub-section">
+									<div class="sub-heading-section">
+										<div class="sub-heading">
+											<div class="sub-heading-label">People</div>
+											<div class="sub-heading-add-icon"></div>
+										</div>
+									</div>
+									<div class="people-section-content sub-section-content">
+										<div class="people-item-holder">
+											<div class="people-item-left">
+												<img class="people-icon" src="../assets/imgs/people/small/Prakash.png" />
+											</div>
+											<div class="people-item-right">
+												<div class="people-name">Prakash Gidugu</div>
+												<div class="people-access-text">Can Edit</div>
+											</div>
+										</div>
+
+										<div class="people-item-holder">
+											<div class="people-item-left">
+												<img class="people-icon" src="../assets/imgs/people/small/Prakash.png" />
+											</div>
+											<div class="people-item-right">
+												<div class="people-name">Prakash Gidugu</div>
+												<div class="people-access-text">Can Edit</div>
+											</div>
+										</div>
+
+										<div class="people-item-holder">
+											<div class="people-item-left">
+												<img class="people-icon" src="../assets/imgs/people/small/Prakash.png" />
+											</div>
+											<div class="people-item-right">
+												<div class="people-name">Prakash Gidugu</div>
+												<div class="people-access-text">Can Edit</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								
 							</div>
 						</div>
 					</div>

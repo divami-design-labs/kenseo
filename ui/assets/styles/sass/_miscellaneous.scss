@@ -29,32 +29,40 @@
 	position: absolute;
 	width: 250px;
 	padding: 20px;
-	background-color: #F4F4F4;
+	background-color: $colorZ;
 	top: 100%;
-	margin-top: 5px;
-	left: -20px;
-	border: 1px solid #979FAD;
-
+	margin-top: 18px;
+  	left: -12px;
+	border: 1px solid $color0;
+	cursor: default;
 	&::after, &::before{
 		content: "";
 		border-style: solid;
 		position: absolute;
 		top: 0px;
+		left: 5px;
 		@include translate(0, -100%);
 	}
 	&::after{
 		border-width: 10px;
-		border-color: transparent transparent #979FAD transparent;
+		border-color: transparent transparent $color0 transparent;
 	}
 	&::before{
 		border-width: 9px;
-		border-color: transparent transparent #F4F4F4 transparent;	
+		border-color: transparent transparent $colorZ transparent;	
 		z-index: 1;
 		margin-left: 1px;
 	}
 	.notification-item{
 		margin-top: 0;
 	}
+}
+
+.notification-close-icon{
+	@include closeIcon(10px);
+	position: absolute;
+	right: 10px;
+	top: 10px;
 }
 
 .input-field {   

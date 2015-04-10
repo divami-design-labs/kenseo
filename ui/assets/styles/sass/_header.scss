@@ -1,7 +1,5 @@
 //Header section
 $headerHeight: 64px;
-
-
 .header{
 	position: relative;
 	@include clearFloat();
@@ -62,6 +60,12 @@ $headerHeight: 64px;
 	@extend .hand;
 	&:hover{
 		background-color: $colorI;
+		.create-plus-icon{
+			@include backgroundImage("Add1.svg");
+		}
+		.create-plus-nav{
+			display: block;
+		}
 	}
 }
 .create-plus-nav{
@@ -72,6 +76,7 @@ $headerHeight: 64px;
 	z-index: 1;
 	width: 180px;
 	padding: 10px;
+	display: none;
 }
 .create-plus-nav-item{
 	white-space: nowrap;

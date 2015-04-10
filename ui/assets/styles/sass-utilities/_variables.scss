@@ -265,7 +265,10 @@ $fontSizeOne: 18px;
 .dropdown{
 	width: 230px;
 	height: 30px;
-	padding: 10px;
+	padding: 5px;
 	display: block;
 	margin: 10px 0px;
+	&:focus{
+		outline: none;
+	}
 }

@@ -105,3 +105,57 @@
 .activity-holder + .activity-holder{
 	margin-top: 30px;
 }
+
+//Linked artefacts
+.artifacts-content.sub-section-content .review-request-item {
+    $b: 1px solid #cbd0d3;
+    $s: 10px;
+    $h: 57px;    
+    $mT: 55px;
+    $xlMT: 92px;
+    $xxlMT: 130px;
+    .rr-status{
+    	position: relative;
+    }
+    & + .review-request-item .rr-status:after {
+        content:"";
+        position: absolute;
+        right: 100%;
+        width: $s;
+        height: $h + $mT;
+        border-top: $b;
+        border-left: $b;
+        bottom: 50%;
+        margin-top: 1px;
+    }
+    &[data-pass="0"] .rr-status:after,&[data-pass="0"] .rr-status:before{
+        display: none !important;
+    }       
+    &[data-pass="1"] .rr-status:after{
+        border-bottom: $b;
+    }
+    & + .review-request-item .rr-status:before{
+        content: "";
+        @include elementWithBackground("link.svg", 8px, 21px);
+        background-color: white;
+        position: absolute;
+        bottom: 100%;
+        right: 100%;
+        margin-right: $s;
+        transform: translate(50%, 50%);
+        margin-bottom: $mT/2;
+        z-index: 1;
+    }
+    &.xl .rr-status:after{
+        height: $h + $xlMT;
+    }
+    &.xl .rr-status:before{
+        margin-bottom: $xlMT/2;
+    }
+    &.xxl .rr-status:after{
+        height: $h + $xxlMT;
+    }
+    &.xxl .rr-status:before{
+        margin-bottom: $xxlMT/2;
+    }
+}

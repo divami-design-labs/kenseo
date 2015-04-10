@@ -32,7 +32,7 @@
 }
 .project-action{
 	display: inline-block;
-	margin: 0 14px;
+	margin: 0 12px;
 	margin-top: 8px;
 }
 .project-action-icon{
@@ -66,9 +66,9 @@
 	display: inline-block;
 }
 .btn-project-open{
-	background-color: $colorG;
+	background-color: #e7e7e7;
 	border: none;
-	@include text(13px, white);
+	@include text(13px, #3e4354);
 	position: absolute;
 	bottom: 0px;
 	margin-bottom: 5%;
