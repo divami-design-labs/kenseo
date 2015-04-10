@@ -1,0 +1,56 @@
+//Fonts
+$fontPath: "../../fonts/";
+
+@font-face {
+    font-family: 'OpenSansRegular';
+    src: url($fontPath + 'opensans-regular.eot');
+    src: url($fontPath + 'opensans-regular.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-regular.woff') format('woff'),
+         url($fontPath + 'opensans-regular.ttf') format('truetype'),
+         url($fontPath + 'opensans-regular.svg#OpenSansRegular') format('svg');
+}
+
+
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url($fontPath + 'opensans-bold.eot');
+    src: url($fontPath + 'opensans-bold.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-bold.woff') format('woff'),
+         url($fontPath + 'opensans-bold.ttf') format('truetype'),
+         url($fontPath + 'opensans-bold.svg#OpenSansBold') format('svg');
+}
+
+
+@font-face {
+    font-family: 'OpenSansBoldItalic';
+    src: url($fontPath + 'opensans-bolditalic.eot');
+    src: url($fontPath + 'opensans-bolditalic.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-bolditalic.woff') format('woff'),
+         url($fontPath + 'opensans-bolditalic.ttf') format('truetype'),
+         url($fontPath + 'opensans-bolditalic.svg#OpenSansBoldItalic') format('svg');
+}
+
+
+@font-face {
+    font-family: 'OpenSansItalic';
+    src: url($fontPath + 'opensans-italic.eot');
+    src: url($fontPath + 'opensans-italic.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-italic.woff') format('woff'),
+         url($fontPath + 'opensans-italic.ttf') format('truetype'),
+         url($fontPath + 'opensans-italic.svg#OpenSansItalic') format('svg');
+}
+
+@font-face {
+	font-family: 'OpenSansSemibold';
+    src: url($fontPath + 'opensans-semibold.eot');
+    src: url($fontPath + 'opensans-semibold.eot') format('embedded-opentype'),
+         url($fontPath + 'opensans-semibold.woff') format('woff'),
+         url($fontPath + 'opensans-semibold.ttf') format('truetype'),
+         url($fontPath + 'opensans-semibold.svg#OpenSansSemibold') format('svg');
+}
+
+$normalFont    : 'OpenSansRegular';
+$italicFont    : 'OpenSansItalic';
+$boldFont      : 'OpenSansBold';
+$boldItalicFont: 'OpenSansBoldItalic';
+$semiBoldFont  : 'OpenSansSemibold';

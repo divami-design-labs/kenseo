@@ -1,0 +1,83 @@
+$colorOne:   #464c5f;
+$colorTwo:   #3e4354;
+$colorThree: #5e626e;
+$colorFour:  #ffffff;
+$colorFive:  #6f7588;
+$colorSix:   #ed1d1d;
+$colorSeven: #9397aa;
+
+$color1: #dedede;
+$color2: #efeff0;
+$color3: #bec0cf;
+$color4: #344158;
+$color5: #7d808f;
+$color6: #ececed;
+$color7: #464c5f;
+$color8: #8d8f96;
+$color9: #878b97;
+$color0: #979FAD;
+
+$colorA: #2aa2d3;
+$colorB: #aaacb4;
+$colorC: #62656f;
+$colorD: #797d86;
+$colorE: #828591;
+$colorF: #454b58;
+$colorG: #171b24;
+$colorH: #9699a6;
+$colorI: #566277;
+$colorJ: #52626e;
+$colorK: #566277;
+$colorL: #dbdce0;
+$colorM: #acaeb7;
+$colorN: #435383;
+$colorO: #858993;
+$colorP: #c3c5ca;
+$colorQ: #f5f5f6;
+$colorR: #d1e5fe;
+$colorS: #959db4;
+$colorT: #7eb7fd;
+$colorU: #b9bbc4;
+$colorV: #a4a7b2;
+$colorW: #dbdfeb;
+$colorX: #cbd0d3;
+$colorY: #91a0ab;
+$colorZ: #F4F4F4;
+
+$colorCritical: #ed554b;
+$colorNormal: #37bcd3;
+$colorApproved: #46a133;
+
+$colorMeetingOne: #cceffc;
+$colorMeetingTwo: #00aeef;
+
+@mixin textOne(){
+	@include text(18px, $colorOne);
+}
+
+@mixin textTwo(){
+	@include text(17px, $colorTwo);
+}
+
+@mixin textThree(){
+	@include text(11px, $colorThree);
+}
+@mixin textFour(){
+	@include text(14px, $colorFour);
+}
+
+@mixin textFive(){
+	@include text(14px, $colorTwo);
+}
+@mixin textSix(){
+	@include text(13px, $colorFive);
+}
+
+@mixin textSeven(){
+	@include text(13px, $colorSix);
+}
+
+@mixin textEight(){
+	@include text(11px, $colorSeven);
+	font-family: $boldFont;
+}
