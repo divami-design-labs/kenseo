@@ -14,5 +14,9 @@ var templates = {
     'menu-recent-activity': fs.readFileSync('app/templates/menu/menu-recent-activity.html', 'utf8'),
     'menu-recent-requests': fs.readFileSync('app/templates/menu/menu-recent-requests.html', 'utf8'),
     'menu-recent-notifications': fs.readFileSync('app/templates/menu/menu-recent-notifications.html', 'utf8'),
-    'menu-recent-people': fs.readFileSync('app/templates/menu/menu-recent-people.html', 'utf8')
+    'menu-recent-people': fs.readFileSync('app/templates/menu/menu-recent-people.html', 'utf8'),
+    'search': fs.readFileSync('app/templates/header/search.html', 'utf8'),
+    'search-results': fs.readFileSync('app/templates/header/search-results.html', 'utf8'),
+    'add-artefact': fs.readFileSync('app/templates/addartefact/add-artefact.html', 'utf8'),
+    'add-artefact-two': fs.readFileSync('app/templates/addartefact/add-artefact-two.html', 'utf8')
 };

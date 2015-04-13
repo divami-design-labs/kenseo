@@ -139,32 +139,6 @@ var sb = (function(){
             var compiler = _.template(template);
             $.ajaxSetup({ cache: false });
             if(model){
-
-           //  	connect.buildAjaxPayload({
-           //   		command : 'getMyProjectsList',
-           //   		data : {
-           // 				userid : 3
-           //   		}
-           //   	});
-	         	// connect.send();
-
-
-	    //         model.fetch({
-	    //         	data: {
-					// 	'data': data? data: {},
-					// 	'client' : {
-					// 		sid : Cookie.getCookie('DivamiKenseoSID')	
-					// 	}
-					// },
-					// success: function(a, x){
-		   //              // Dynamically updates the UI with the view's template
-		   //              console.dir(x);
-		   //              $el.html(compiler(x));  
-		   //              if(callBackFunc){
-		   //              	callBackFunc();
-		   //              }
-		   //          }
-     //        	});
 				var url = model.urlRoot? model.urlRoot: model.url;
 	
 				$.ajax({
@@ -182,21 +156,13 @@ var sb = (function(){
 						else{
 							var obj = {};
 						}
-						console.dir(obj);
+						// console.dir(obj);
 		                $el.html(compiler(obj));  
 		                if(callBackFunc){
 		                	callBackFunc();
 		                }
 					}
 				});
-				// connect = new ServerConnection();
-				// connect.buildAjaxPayload({
-    //          		command : model.url,
-    //          		data : data
-    //          	});
-    //          	connect.setSuccessHandler(handle);
-    //  			connect.send();
-
             }
             else{
             	$el.html(compiler());
@@ -209,7 +175,32 @@ var sb = (function(){
 
         // }
         timeFormat: function(time){
-        	return time;
+			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		    var theDate = new Date(time);
+		    var currentDate = new Date();
+		    
+		    var year = theDate.getFullYear();
+		    var month = theDate.getMonth();
+		    var day = theDate.getDate();
+		    
+		    var currentYear = currentDate.getFullYear();
+		    var currentMonth = currentDate.getMonth();
+		    var currentDay = currentDate.getDate();
+		    
+		    var resultDateFormat = "";
+		    if(currentYear !== year){
+		        resultDateFormat = day + " " + months[month] + " " + year;
+		    }
+		    else if(month == currentMonth && day === currentDay - 1){
+		        resultDateFormat = "yesterday";
+		    }
+		    else if(month === currentMonth && day === currentDay){
+		        resultDateFormat = "today";
+		    }
+		    else{
+		        resultDateFormat = day + " " + months[month];
+		    }
+		    return resultDateFormat;
         }
 	};
 })();

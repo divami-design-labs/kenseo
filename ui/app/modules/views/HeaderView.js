@@ -13,26 +13,34 @@ Kenseo.views.Header = Backbone.View.extend({
     // },
     // Renders the view's template to the UI
     render: function() {
-        // try{
-        //     // detach events (to refresh)
-        //     $('.hamburger')[0].onclick = null;
-        //     $('.menu')[0].onclick = null;
-        // }
-        // catch(e){}
-
-        sb.renderTemplate('header', this.$el, this.model, this.attachEvents.bind(this), null, {userid: 3});
+        sb.renderTemplate('header', this.$el, this.model, this.headerAttachEvents.bind(this), null, {userid: 3});
         // Maintains chainability
         return this;
     },
-    attachEvents: function(){
+    headerAttachEvents: function(){
         $('.hamburger').on('click', this.menuClick);
         $('.menu').on('click', this.stopMenuClick);
-        $('.search-icon').on('click', this.showSearch);
+        $('.search-icon').on('click', this.showSearchBox);
+        $('.popup-container').on('keyup','#input-text-field', this.validateSearch);
+        $('.create-icon-holder').on('click', function(e){
+            // if($(e.target).hasClass('create-plus-nav-item')){
+            //     e.stopPropagation();
+            //     return false;
+            // }
+            $(this).toggleClass('active');
+        });
+        $('.create-plus-nav-item').on('click', function(){
+            $('.popup-container').show();
+            sb.renderTemplate($(this).data('url'), $('.popup-container'), null, function(){
+                $('.main-btn').on('click', function(e){
+                    // debugger;
+                    e.preventDefault();
+                    sb.renderTemplate($(this).data('url'), $('.popup-container'));
+                });
+            });
+        });
     },
     menuClick: function(e){
-        // console.log("-----------------");
-        // console.log("clicked");
-
         $(e.currentTarget).toggleClass('active');
         if(!$('.menu').html().length){
             sb.loadFiles(
@@ -55,9 +63,22 @@ Kenseo.views.Header = Backbone.View.extend({
     stopMenuClick: function(e){
         e.stopPropagation();
     },
-    showSearch: function(){
+    showSearchBox: function(){
         var $popupContainer = $('.popup-container');
         $popupContainer.show();
         sb.renderTemplate('search', $popupContainer);
+    },
+    validateSearch: function(e) {
+        var searchString = this.value;
+        if(searchString.length > 2) {
+            sb.loadFiles({
+                'models': ['Search'],
+                'collections': ['Search']
+            }, function(){
+                sb.renderTemplate('search-results', $('.search-section').find('.search-results'), new Kenseo.collections.Search(), null, {
+                    'string': searchString
+                });
+            });
+        }
     }
 });

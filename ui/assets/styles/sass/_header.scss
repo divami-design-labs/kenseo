@@ -59,7 +59,8 @@ $headerHeight: 64px;
 	height: 70px;
 	width: 40px;
 	@extend .hand;
-	&:hover{
+	@extend .unselectable;
+	&.active{
 		background-color: $colorI;
 		.create-plus-icon{
 			@include backgroundImage("Add1.svg");

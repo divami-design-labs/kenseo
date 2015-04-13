@@ -206,6 +206,7 @@ $fontSizeOne: 18px;
     display: block;
     position: absolute;
     top: 50%;
+    left: 0;
     cursor: pointer;
     @include transform(translate(0%, -50%));
 }

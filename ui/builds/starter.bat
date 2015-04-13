@@ -1,10 +1,9 @@
 c:
 cd\
-cd xampp/htdocs/kenseo/ui
-npm install browserify -g
-npm install brfs -g
-npm install --save-dev brfs
-npm install gulp -g
-npm install --save-dev gulp-shell
-npm install --save-dev gulp-sass
-gulp
+cd xampp/htdocs/git/kenseo/ui
+call npm install browserify -g
+call npm install brfs -g
+call npm install gulp -g
+call npm install --save-dev gulp-shell
+call npm install --save-dev gulp-sass
+

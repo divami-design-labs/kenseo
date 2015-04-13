@@ -12,5 +12,7 @@ gulp.task('sass', function () {
 });
 gulp.task('watch', function(){
 	gulp.watch(['app/templates/*/*.html', 'templateRunner.js'], ['template']);
-	gulp.watch(['assets/styles/sass/*.scss', 'assets/styles/sass-utilities/*.scss'], ['sass']);
+	// If you want to watch sass files using gulp, uncomment the below code
+	// Alert: Better use Sass engine instead of this
+	// gulp.watch(['assets/styles/sass/*.scss', 'assets/styles/sass-utilities/*.scss'], ['sass']);
 })
