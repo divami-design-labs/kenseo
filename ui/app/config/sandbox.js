@@ -2,6 +2,9 @@ var sb = (function(){
 	var labels = {
 		popupContainer: '.popup-container'
 	};
+	var popups = {
+		'add-artefact': ['add-artefact', 'add-artefact-two', 'add-artefact-three']
+	};
 	function log(msg){
 		console.log(msg);
 	}
@@ -145,7 +148,7 @@ var sb = (function(){
 				var url = model.urlRoot? model.urlRoot: model.url;
 	
 				$.ajax({
-					url: "http://localhost/kenseo/server/" + url,
+					url: "../server/" + url,
 					data: {
 						"data": data,
 						'client' : {
@@ -173,6 +176,11 @@ var sb = (function(){
                 	callBackFunc();
                 }
             }
+        },
+        renderTemplateOff: function(templateString, $el, obj){
+        	var template = templates[templateString];
+            var compiler = _.template(template);
+            $el.html(compiler(obj));
         },
         // handle: function(response) {
 
@@ -205,24 +213,8 @@ var sb = (function(){
 		    }
 		    return resultDateFormat;
         },
-        closePopup: function(el){
-        	function popupCloser($el){
-        		$el.hide();
-        		$el.find('.popup').remove();
-        	}
-        	$(document).on('click', el, function(){
-        		popupCloser($(this).parents(labels.popupContainer));
-        	})
-        	.on('keyup', function(e){
-        		var keycode = e.which || e.keyCode;
-        		if(keycode == 27){
-        			popupCloser($(el).parents(labels.popupContainer));
-        		}
-        	})
-        	.on('click', labels.popupContainer + " .lnk-btn", function(e){
-        		e.preventDefault();
-        		popupCloser($(this).parents(labels.popupContainer));
-        	});
+        getPopupsInfo: function(info){
+        	return popups[info];
         }
 	};
 })();

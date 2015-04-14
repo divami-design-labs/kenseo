@@ -47,7 +47,7 @@ $AppGlobal['sql']['getReviewRequests-old'] = "SELECT artefacts.*,(SELECT COUNT(*
 											
 $AppGlobal['sql']['getReviewRequests']="SELECT requestor.name AS requestedBy,versions.version_label AS title, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
-										requestor.user_id AS requestorId, members.shared_date AS requestTime,
+										requestor.user_id AS requestorId, DATE(members.shared_date) AS requestTime,
 										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as version, 
 										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where artefacts.artefact_id = comments.artefact_id and
 										artefacts.latest_version_id = comments.artefact_ver_id) as commentCount

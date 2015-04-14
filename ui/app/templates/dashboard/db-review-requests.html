@@ -11,10 +11,10 @@
 		</div>
 		<div class="rr-right">
 			<div class="rr-title"><%= r.title %></div>
-			<div class="rr-details">@ <%= r.requestTime %> by <%= r.requestedBy %></div>
+			<div class="rr-details">@ <%= sb.timeFormat(r.requestTime) %> by <%= r.requestedBy %></div>
 			<div class="rr-state-details">
-				<div class="rr-state"><span><%= r.version %></span></div>
-				<div class="rr-comment"><%= r.comments %></div>
+				<div class="rr-state"><span>v<%= r.version %></span></div>
+				<div class="rr-comment"><%= r.commentCount %></div>
 			</div>
 		</div>
 	</div>
