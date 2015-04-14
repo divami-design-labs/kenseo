@@ -162,17 +162,15 @@
     .toggle-checkbox input[type="checkbox"]:checked + span {
       left: 26px; }
 
+.unfocus:focus, .dropdown:focus, input[type=text]:focus {
+  outline: none; }
+
 .dropdown {
   width: 230px;
   height: 30px;
   padding: 5px;
   display: block;
   margin: 10px 0px; }
-  .dropdown:focus {
-    outline: none; }
-
-input[type=text]:focus {
-  outline: none; }
 
 .header {
   position: relative; }
@@ -1793,7 +1791,7 @@ input[type=text]:focus {
     display: none;
     position: absolute;
     left: 229px;
-    right: 8px;
+    right: -10px;
     top: 0;
     bottom: 0;
     background-color: #d1e5fe; }

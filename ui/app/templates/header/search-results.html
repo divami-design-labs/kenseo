@@ -1,0 +1,24 @@
+<% _.each(data.projects, function(p){ %>
+<div class="search-row">
+    <div class="search-row-img search-img-type-folder"></div>
+    <div  class="search-row-txt"><%= p.matchedString %></div> 
+</div>
+<% }); %>
+<% _.each(data.artefacts, function(a){ %>
+<div class="search-row">
+    <div class="search-row-img search-img-type-file"></div>
+    <div  class="search-row-txt"><%= a.matchedString %></div> 
+</div>
+<% }); %>
+<% _.each(data.images, function(i){ %>
+<div class="search-row">
+    <div class="search-row-img search-img-type-pic"></div>
+    <div  class="search-row-txt"><%= i.matchedString %></div> 
+</div>
+<% }); %>
+<% _.each(data.users, function(u){ %>
+<div class="search-row">
+    <div class="search-row-img search-img-type-folder"></div>
+    <div  class="search-row-txt"><%= u.matchedString %></div> 
+</div>
+<% }); %>

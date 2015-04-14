@@ -261,7 +261,11 @@ $fontSizeOne: 18px;
         }
     }
 }
-
+.unfocus{
+	&:focus{
+		outline: none;
+	}
+}
 // Dropdown
 .dropdown{
 	width: 230px;
@@ -269,12 +273,8 @@ $fontSizeOne: 18px;
 	padding: 5px;
 	display: block;
 	margin: 10px 0px;
-	&:focus{
-		outline: none;
-	}
+	@extend .unfocus;
 }
-
-
-input[type=text]:focus{
-	outline: none;
+input[type=text]{
+	@extend .unfocus;
 }

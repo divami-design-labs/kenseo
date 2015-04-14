@@ -292,7 +292,7 @@ $popup-content-space: 175px;
 		display: none;
 		position: absolute;
 		left: $w - 1;
-		right: 8px;
+		right: -10px;
 		top: 0;
 		bottom: 0;
 		background-color: $colorR;
