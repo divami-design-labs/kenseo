@@ -14,8 +14,9 @@ define("TABLEPART_IDGENERATOR", "idgenerator_");
 class DBSchema
 {
 	public static $Table_Session = "auth_session";
+	public static $Table_USERS = "users";
 	public static $Table_Session_Cols = array("sid", "user_id", "client_id", "expiry");
-	
+	public static $Table_USERS_Cols = array("prof_pic_url");
 	/*public static $Table_Appuser = "appuser";
 	public static $Table_Appuser_Cols = array("profileId", "username", "authtype", "password");
 	

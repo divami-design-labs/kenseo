@@ -13,4 +13,5 @@
 	define("TABLE_NOTIFICATIONS", "notifications");
 	define("TABLE_ORGANIZATIONS", "organizations");
 	define("TABLE_TAGS", "tags");
+	define("TABLE_COMMENTS", "artefact_comments");
 ?>
