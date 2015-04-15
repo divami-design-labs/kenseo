@@ -18,6 +18,9 @@ Kenseo.views.Dashboard = Backbone.View.extend({
         sb.renderTemplate('db-projects-section', $('.projects-section')       , this.collections.projectCollection, null, {userid : this.userid, limit: 6});
         sb.renderTemplate('db-notifications'   , $('.notifications-section')  , this.collections.notificationCollection);
         sb.renderTemplate('db-review-requests' , $('.review-requests-section'), this.collections.reviewCollection, null, {userid: this.userid, limit: 8});
+        this.attachEvents();
         return this;
+    },
+    attachEvents: function(){
     }
 });

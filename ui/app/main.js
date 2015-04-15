@@ -7,6 +7,9 @@ $(function(){
 		$el.hide();
 		$el.find('.popup').remove();
 	}
+
+	// Events
+
 	$(document).on('click', closePopupIcon, function(){
 		popupCloser($(this).parents(popupContainer));
 	})
@@ -19,10 +22,15 @@ $(function(){
 	.on('click', popupContainer + " .lnk-btn", function(e){
 		e.preventDefault();
 		popupCloser($(this).parents(popupContainer));
-	});
-
-	$(document).on('click', '.main-btn', function(e){
+	})
+	.on('click', '.main-btn', function(e){
         e.preventDefault();
-        sb.renderTemplateOff($(this).data('url'), $('.popup-container'), Kenseo.popup);
+        var $dataUrl = $(this).data('url');
+        sb.renderTemplateOff($dataUrl, $('.popup-container'), Kenseo.popup[$dataUrl]);
+    })
+    .on('click', '.toggle-click', function(){
+    	var $this = $(this);
+    	$('.active').not($this).removeClass('active');
+    	$this.toggleClass('active');
     });
 });

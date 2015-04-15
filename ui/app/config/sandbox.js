@@ -3,7 +3,34 @@ var sb = (function(){
 		popupContainer: '.popup-container'
 	};
 	var popups = {
-		'add-artefact': ['add-artefact', 'add-artefact-two', 'add-artefact-three']
+	    "add-artefact": [
+	        {
+	            "page_name": "add-artefact",
+	            "title": "Add Artefact",
+	        },
+	        {
+	            "page_name": "add-artefact-two",
+	            "title": "Add Artefact",
+	            "next_page": "add-artefact-three",
+	            "show_coming_soon": true
+	        },
+	        {
+	            "page_name": "add-artefact-three"
+	        }
+	    ],
+	    "share-artefact": [
+	        {
+	            "page_name": "add-artefact",
+	            "title": "share Artefact",
+	            "next_page": "add-artefact-two",
+	        },
+	        {
+	        	"page_name": "add-artefact-two",
+	            "title": "share Artefact",
+	            "next_page": "add-artefact-three",
+	            "show_coming_soon": false	
+	        }
+	    ]
 	};
 	function log(msg){
 		console.log(msg);

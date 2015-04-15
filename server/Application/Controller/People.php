@@ -2,8 +2,7 @@
     class People {
     	public function getProjectsPeople($interpreter) {
     		$data = $interpreter->getData()->data;
-			$userId = $data->userId;
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $userId);
+			$userId = $data->userid;
 			$db = Master::getDBConnectionManager();
 			$querDetails = getQuery('getPeopleInProjects',array('userid'=>$userId));
 			$resultObj = $db->multiObjectQuery($querDetails);

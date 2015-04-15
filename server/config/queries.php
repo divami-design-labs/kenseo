@@ -16,7 +16,7 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 											FROM ". TABLE_USERS ." 
 											WHERE email = @~~email~~@";
 
-$AppGlobal['sql']['getHeader'] = "SELECT * FROM". TABLE_USERS ."WHERE user_id = @~~userid~~@";
+$AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
 
 $AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id, project_name, last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
@@ -95,7 +95,7 @@ $AppGlobal['sql']['getReviewRequests']="SELECT requestor.name AS requestedBy,ver
 										(SELECT artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
 										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@))";
 													 
-$AppGlobal['sql']['getPeopleInProjects'] = "SELECT * from users WHERE user_id in (SELECT user_id from project_members WHERE proj_id in (SELECT proj_id from project_members WHERE user_id = @~~userid~~@))";
+$AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email, user_id as id from users WHERE user_id in (SELECT user_id from project_members WHERE proj_id in (SELECT proj_id from project_members WHERE user_id = @~~userid~~@)) and user_id != @~~userid~~@";
 
 $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots.message as title, nots.notification_type as type,
 										 Date(nots.notification_date) as time, notifier.name as notifier, nots.notification_by as notifierId  

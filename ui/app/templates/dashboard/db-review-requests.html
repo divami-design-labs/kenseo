@@ -6,8 +6,8 @@
 	<% _.each(data, function(r){ %>
 	<div class="review-request-item">
 		<div class="rr-left">
-			<div class="rr-status status-<%= r.attention %>"><%= r.doctype %></div>
-			<img class="rr-owner-image" src="assets/imgs/people/small/<%= r.requestedBy %>.png"/>
+			<div class="rr-status status-<%= r.status %>"><%= r.doctype %></div>
+			<img class="rr-owner-image" src="<%= r.requestorImage %>"/>
 		</div>
 		<div class="rr-right">
 			<div class="rr-title"><%= r.title %></div>
@@ -15,6 +15,15 @@
 			<div class="rr-state-details">
 				<div class="rr-state"><span>v<%= r.version %></span></div>
 				<div class="rr-comment"><%= r.commentCount %></div>
+			</div>
+		</div>
+		<div class="requests-dropdown toggle-click">
+			<div class="requests-dropdown-icon"></div>
+			<div class="requests-dropdown-items">
+				<div class="requests-archive-item">Archive</div>
+				<div class="requests-replace-item">Replace</div>
+				<div class="requests-add-version-item">Add Version</div>
+				<div class="requests-share-item">Share</div>
 			</div>
 		</div>
 	</div>

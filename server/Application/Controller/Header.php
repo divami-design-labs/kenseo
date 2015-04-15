@@ -9,7 +9,7 @@
 			
 			$queryParams = array('userid' => $userid );
 			$dbQuery = getQuery('getHeader', $queryParams);
-			$resultObj = $db->multiObjectQuery($dbQuery);
+			$resultObj = $db->singleObjectQuery($dbQuery);
 			return $resultObj;
 		}		
 	}

@@ -1,4 +1,4 @@
 Kenseo.collections.People = Backbone.Collection.extend({
-	url: 'app/packages/people.json',
+	url: 'getProjectsPeople',
 	model: Kenseo.models.People
 });

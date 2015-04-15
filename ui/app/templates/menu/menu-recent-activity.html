@@ -1,9 +1,11 @@
-<p class="recent-hd">Recent Activity</p>
-<% _.each(activities, function(a){ %>
+<p class="recent-hd">Recent Artefacts</p>
+<% _.each(data, function(a){ %>
 <div class="menu-recent-cnt">
     <div class="menu-recent-img-dv"><img src="assets/imgs/addfile.svg" class="menu-recent-img" />
     </div>
-    <div class="menu-recent-cnt-txt"><%= a.project %>
-        <br><%= a.activityName %></div>
+    <div class="menu-recent-cnt-txt">
+    	<div><%= a.project_name %></div>
+        <div><%= a.artefact_title %></div>
+    </div>
 </div>
 <% }); %>
