@@ -136,6 +136,9 @@ class Authenticator
 		setcookie("DivamiKenseoUserName", $this->userInfo['name'], 0, "/");
 		setrawcookie("DivamiKenseoUserEmail", $this->userInfo['email'], 0, "/");
 		setrawcookie("DivamiKenseoUserPicture", $this->userInfo['picture'], 0, "/");
+		
+		$db = Master::getDBConnectionManager();
+		$db->updateTable(TABLE_USERS, array("profile_pic_url"),array($this->userInfo['picture']),"email = '" . $this->userInfo['email'] . "'");
 	}
 
 

@@ -3,11 +3,11 @@
 		public function getMyProjectsList($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userid = $data->userid;
-			$count = $data->count;
+			$count = $data->limit;
 			
 			$db = Master::getDBConnectionManager();
 			
-			$queryParams = array('userid' => $userid );
+			$queryParams = array('userid' => $userid, '@limit'=>$count );
 			$dbQuery = getQuery('getMyProjectsList',$queryParams);
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
@@ -16,16 +16,16 @@
 		public function getProjectArtefacts($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userid = $data->userid;
-			$userSpecific = $data->userSpecific;
+			$sharePermission = $data->sharePermission;
 			$projectid = $data->projectid;
 			$count = $data->count;
 			
 			$db = Master::getDBConnectionManager();
 			$queryParams = array('userid' => $userid, 'projectid' => $projectid );
-			if($userSpecific) {
-				$dbQuery = getQuery('getProjectArtefactsWithUsers',$queryParams);
+			if($sharePermission) {
+				$dbQuery = getQuery('getProjectArtefactsWithSharePermission',$queryParams);
 			} else {
-				$dbQuery = getQuery('getProjectArtefactsWithoutUsers',$queryParams);
+				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);
 			}
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;

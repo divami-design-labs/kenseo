@@ -42,6 +42,11 @@ $AppGlobal['urlmap']['/getTeamMembersList'] = array ('command' => 'getTeamMember
 $AppGlobal['cmdmap']['getTagsList'] = array ("class" => "Common", "method" => "getTagsList");
 $AppGlobal['urlmap']['/getTagsList'] = array ('command' => 'getTagsList', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['addArtefactVersion'] = array ("class" => "Artefacts", "method" => "addArtefactVersion");
+$AppGlobal['urlmap']['/addArtefactVersion'] = array ('command' => 'addArtefactVersion', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['test'] = array ("class" => "Common", "method" => "test");
+$AppGlobal['urlmap']['/test'] = array ('command' => 'test', 'type' => 'GET');
 
 
 ?>
