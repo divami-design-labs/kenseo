@@ -10,9 +10,10 @@
 	position: relative;
 }
 
-#input-text-field {
+.search-field {
     @include dimensions(472px, 55px);
     @include text(16px, $colorTwo);
+    @include placeHolder($color5, 16px/50px $italicFont);
     position: relative;
     display: block;
 	padding-left: 46px;

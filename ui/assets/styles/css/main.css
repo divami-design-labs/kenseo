@@ -266,6 +266,9 @@
   padding-top: 10px;
   position: relative;
   cursor: pointer; }
+  .profile-pic-holder img {
+    max-width: 54px;
+    max-height: 54px; }
 
 .create-icon-holder {
   position: absolute;
@@ -390,7 +393,7 @@
 .input-field {
   position: relative; }
 
-#input-text-field {
+.search-field {
   width: 472px;
   height: 55px;
   font-size: 16px;
@@ -406,6 +409,20 @@
   line-height: 55px;
   border: 1px solid #ffffff;
   background-color: #ececed; }
+  .search-field::-webkit-input-placeholder {
+    color: #7d808f;
+    font: 16px/50px "OpenSansItalic"; }
+  .search-field:-moz-placeholder {
+    /* Firefox 18- */
+    color: #7d808f;
+    font: 16px/50px "OpenSansItalic"; }
+  .search-field::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #7d808f;
+    font: 16px/50px "OpenSansItalic"; }
+  .search-field:-ms-input-placeholder {
+    color: #7d808f;
+    font: 16px/50px "OpenSansItalic"; }
 
 .input-field > label {
   position: absolute;
@@ -497,6 +514,9 @@
   height: 60px;
   margin-top: 20px;
   float: left; }
+  .menu-profile-img-dv img {
+    max-width: 54px;
+    max-height: 54px; }
 
 .menu-profile-img {
   width: 60px;
@@ -950,13 +970,16 @@
   margin-top: 6px;
   margin-bottom: 5px; }
 
-.status-critical {
+.status-c {
+  /* critical */
   background-color: #ed554b; }
 
-.status-normal {
+.status-n {
+  /* normal */
   background-color: #37bcd3; }
 
-.status-approved {
+.status-a {
+  /* approved */
   background-color: #46a133; }
 
 .rr-state span {
@@ -1083,11 +1106,11 @@
   z-index: 2; }
 .review-request-item .requests-dropdown {
   display: block; }
-  .review-request-item .requests-dropdown:hover {
+  .review-request-item .requests-dropdown.active {
     background-color: #566277; }
-    .review-request-item .requests-dropdown:hover .requests-dropdown-items {
+    .review-request-item .requests-dropdown.active .requests-dropdown-items {
       display: block; }
-    .review-request-item .requests-dropdown:hover .requests-dropdown-icon {
+    .review-request-item .requests-dropdown.active .requests-dropdown-icon {
       background-image: url("../../imgs/dropdown1.svg");
       background-repeat: no-repeat;
       background-size: 100% 100%;
@@ -1642,22 +1665,18 @@
   padding: 10px; }
   .input-text::-webkit-input-placeholder {
     color: #3e4354;
-    font-size: 14px;
-    font-family: "OpenSansItalic"; }
+    font: 14px "OpenSansItalic"; }
   .input-text:-moz-placeholder {
     /* Firefox 18- */
     color: #3e4354;
-    font-size: 14px;
-    font-family: "OpenSansItalic"; }
+    font: 14px "OpenSansItalic"; }
   .input-text::-moz-placeholder {
     /* Firefox 19+ */
     color: #3e4354;
-    font-size: 14px;
-    font-family: "OpenSansItalic"; }
+    font: 14px "OpenSansItalic"; }
   .input-text:-ms-input-placeholder {
     color: #3e4354;
-    font-size: 14px;
-    font-family: "OpenSansItalic"; }
+    font: 14px "OpenSansItalic"; }
   .input-text:focus {
     outline: none; }
 

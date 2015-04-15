@@ -32,6 +32,10 @@
     @include dimensions(60px, 60px);
     margin-top: 20px;
     float: left;
+    img{
+        max-width: 54px;
+        max-height: 54px;
+    }
 }
 .menu-profile-img {
     width: 60px;

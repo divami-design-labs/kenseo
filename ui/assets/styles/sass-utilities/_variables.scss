@@ -101,33 +101,28 @@ $fontSizeOne: 18px;
 	font-size: $fontSize;
 	color: $color;
 }
-@mixin placeHolder($color, $size, $font){
+@mixin placeHolder($color, $size){
 	@if $color == null  {$color: inherit}
 	@if $size == null  {$size: inherit}
-	@if $font == null  {$font: inherit}
 
 	&::-webkit-input-placeholder {
 	   color: $color;
-	   font-size: $size;
-	   font-family: $font;
+	   font: $size;
 	}
 
 	&:-moz-placeholder { /* Firefox 18- */
-	   color: $color;  
-	   font-size: $size;
-	   font-family: $font;
+	   color: $color;
+	   font: $size;
 	}
 
 	&::-moz-placeholder {  /* Firefox 19+ */
-	   color: $color;  
-	   font-size: $size;
-	   font-family: $font;
+	   color: $color;
+	   font: $size;
 	}
 
 	&:-ms-input-placeholder {  
-	   color: $color;  
-	   font-size: $size;
-	   font-family: $font;
+	   color: $color;
+	   font: $size;
 	}
 }
 

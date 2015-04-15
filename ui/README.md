@@ -11,7 +11,8 @@ We are using [Backbone.js](http://backbonejs.org/) to write the code in MVC stru
 - Keep the project folder in `C:\xampp\htdocs\` with name `Kenseo`.
 - Install [Node.js](https://nodejs.org/)
 - Install [Ruby 1.9.3p551](http://rubyinstaller.org/downloads/) (_stable version_)
-- Open Command prompt
+- Install sass through Ruby command prompt. `gem install sass`.
+- Open Windows Command prompt
 - Drag and drop `Kenseo/ui/builds/starter.bat` file in the command prompt.
 - Press Enter (if necessary)
 - Wait till all the files are installed. 

@@ -170,7 +170,7 @@ $popup-content-space: 175px;
 	margin-top: 20px;
 }
 .input-text{
-	@include placeHolder($colorTwo, 14px, $italicFont);
+	@include placeHolder($colorTwo, 14px $italicFont);
 	@include dimensions(345px, 18px);
 	border: 1px solid $colorB;
 	padding: 10px;

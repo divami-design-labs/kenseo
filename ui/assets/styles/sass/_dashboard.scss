@@ -131,13 +131,13 @@
 	margin-top: 6px;
 	margin-bottom: 5px;
 }
-.status-critical{
+.status-c{ /* critical */
 	background-color: $colorCritical;
 }
-.status-normal{
+.status-n{ /* normal */
 	background-color: $colorNormal;
 }
-.status-approved{
+.status-a{ /* approved */
 	background-color: $colorApproved;
 }
 .rr-state{
@@ -262,7 +262,7 @@
 	}
 	.requests-dropdown{
 		display: block;
-		&:hover{
+		&.active{
 			background-color: $colorK;
 			.requests-dropdown-items{
 				display: block;
