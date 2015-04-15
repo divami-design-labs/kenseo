@@ -14,4 +14,6 @@
 	define("TABLE_ORGANIZATIONS", "organizations");
 	define("TABLE_TAGS", "tags");
 	define("TABLE_COMMENTS", "artefact_comments");
+	define("TABLE_MEETINGS", "meetings");
+
 ?>

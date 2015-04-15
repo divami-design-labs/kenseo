@@ -97,12 +97,13 @@ $AppGlobal['sql']['getReviewRequests']="SELECT requestor.name AS requestedBy,ver
 													 
 $AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email, user_id as id from users WHERE user_id in (SELECT user_id from project_members WHERE proj_id in (SELECT proj_id from project_members WHERE user_id = @~~userid~~@)) and user_id != @~~userid~~@";
 
-$AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots.message as title, nots.notification_type as type,
+$AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots.message as title, nots.notification_type as type, notification_ref_id as refId,
 										 Date(nots.notification_date) as time, notifier.name as notifier, nots.notification_by as notifierId  
 										 FROM " . TABLE_NOTIFICATIONS . " as nots
 										 JOIN " . TABLE_USERS . " as notifier on notifier.user_id = nots.notification_by
 										 WHERE nots.user_id = @~~id~~@ or nots.notification_by = @~~id~~@ LIMIT @~~limit~~@";
-$AppGlobal['sql']['getMeetingNotificationDetails'] = "";
+
+$AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_agenda as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 
 $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
 
