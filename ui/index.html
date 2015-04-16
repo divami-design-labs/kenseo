@@ -28,7 +28,7 @@
        
        
         <script type="text/javascript">
-	        // connect = new ServerConnection();
+	        connect = new ServerConnection();
         	// connect.buildAjaxPayload({
         	//  	command : 'search',
         	//  	data : {
@@ -50,15 +50,16 @@
 	        //  			projectId : 1
 	        // 		}
 	        // });
-	        // connect.send()
-	        //          	connect.buildAjaxPayload({
-	        //          		command : 'getProjectArtefacts',
-	        //          		data : {
-	        //        				userid : 3,
-	        //        				projectid: 1
-	        //          		}
-	        //          	});
-	        //  connect.send();        	
+    		// connect.send()
+			connect.buildAjaxPayload({
+				command : 'replaceArtefact',
+				data : {
+					replaceArtefactId : 1,
+					newArtefactid: 3,
+					file: null
+				}
+			});
+			connect.send();        	
         </script>
     </head>
     <body>

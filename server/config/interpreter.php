@@ -45,6 +45,9 @@ $AppGlobal['urlmap']['/getTagsList'] = array ('command' => 'getTagsList', 'type'
 $AppGlobal['cmdmap']['addArtefactVersion'] = array ("class" => "Artefacts", "method" => "addArtefactVersion");
 $AppGlobal['urlmap']['/addArtefactVersion'] = array ('command' => 'addArtefactVersion', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['replaceArtefact'] = array ("class" => "Artefacts", "method" => "replaceArtefact");
+$AppGlobal['urlmap']['/replaceArtefact'] = array ('command' => 'replaceArtefact', 'type' => 'GET');
+
 $AppGlobal['cmdmap']['test'] = array ("class" => "Common", "method" => "test");
 $AppGlobal['urlmap']['/test'] = array ('command' => 'test', 'type' => 'GET');
 

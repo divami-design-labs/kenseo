@@ -12,3 +12,5 @@ APIList['search'] = ["search", "GET", 10000];
 APIList['getTeamMembersList'] = ["getTeamMembersList", "GET", 10000];
 APIList['getTagsList'] = ["getTagsList", "GET", 10000];
 APIList['addArtefactVersion'] = ["addArtefactVersion", "GET", 10000];
+APIList['replaceArtefact'] = ["replaceArtefact", "GET", 10000];
+

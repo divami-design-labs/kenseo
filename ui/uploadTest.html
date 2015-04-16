@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	</head>
+	<body>
+		<input type="file" id="upload">
+		<button id="subBtn">Submit</button>
+		<script>
+		var file = null;
+			$('#subBtn').click(function(e) {
+				console.log("well done");
+				var data = new FormData();
+				data.append("name", 'Super nice doc');
+				data.append("command", 'test');
+				data.append("description" , "hfvjdhdfjdjf");
+				data.append("state" , 'A');
+				data.append("type", "IxD");
+				data.append("versionLabel", "conf");
+				data.append("userId", 3);
+				data.append("size", file.size);
+				data.append("type", file.type);
+				data.append("sid", 's7c11jjk5vshhlflf07lt7m815');
+				data.append("file",file);
+				$.ajax({
+					url : "../server/extUpload.php",
+					data: data,
+					type: 'POST',
+					contentType: false,
+					processData: false,
+					success : function(response){
+						alert ("success");
+					}
+				});
+			});
+			$('#upload').change(function(e) {
+				console.log("select");
+				file = this.files[0];
+			});
+		</script>
+	</body>
+</html>
