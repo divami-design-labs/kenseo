@@ -2,7 +2,7 @@
 	Class Notifications {
 		public function getNotifications($interpreter){
 			$data = $interpreter->getData()->data;
-			$userId = $data->userId;
+			$userId = $data->userid;
 			$limit = $data->limit;
 			
 			$db = Master::getDBConnectionMAnager();

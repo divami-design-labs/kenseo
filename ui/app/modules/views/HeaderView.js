@@ -57,7 +57,7 @@ Kenseo.views.Header = Backbone.View.extend({
                     sb.renderTemplate('menu-projects-container', $('.menu-projects-container'), new Kenseo.collections.Projects(), null, {userid: userid, limit: 3});
                     sb.renderTemplate('menu-recent-activity', $('.menu-recent-activity'), new Kenseo.collections.Activities(), null, {userid: userid, limit: 3});
                     sb.renderTemplate('menu-recent-requests', $('.menu-recent-requests'), new Kenseo.collections.Requests(), null, {userid: userid, limit: 3});
-                    sb.renderTemplate('menu-recent-notifications', $('.menu-recent-notifications'),  new Kenseo.collections.Notifications());
+                    sb.renderTemplate('menu-recent-notifications', $('.menu-recent-notifications'),  new Kenseo.collections.Notifications(), null, {userid: userid, limit: 3});
                     sb.renderTemplate('menu-recent-people', $('.menu-recent-people'),  new Kenseo.collections.People(), null, {userid: userid, limit: 3});
                 }
             )

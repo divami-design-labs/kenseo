@@ -240,6 +240,18 @@ var sb = (function(){
 		    }
 		    return resultDateFormat;
         },
+        getTime: function(time){
+        	var fullDate = new Date(time);
+        	var hours = fullDate.getHours();
+        	var minutes = fullDate.getMinutes();
+        	if(hours > 11){
+        		hours = ("0" + (hours - 12)).slice(-2);
+        		return hours + ": " + minutes + " PM";
+        	}
+        	else{
+        		return hours + ": " + minutes + " AM";	
+        	}
+        },
         getPopupsInfo: function(info){
         	return popups[info];
         }

@@ -1,4 +1,5 @@
 <p class="notifications-hd">Notifications</p>
+<% _.each(data, function(d){ %>
 <div class="menu-notifications-cnt">
 
     <div class="menu-notifications-img-dv">
@@ -6,34 +7,12 @@
     </div>
     <div class="menu-notifications-txt">
         <span class="menu-notifications-txt-nm">Conflux:Designer</span>
-        <span class="menu-notifications-txt-tm">12:00AM from Prakash</span>
+        <span class="menu-notifications-txt-tm"><%= sb.timeFormat(d.time) %> from <%= d.notifier %></span>
+        <% if(d.meetingDetails){ %>
         <div class="menu-notifications-txt-dttme">
-            <img src="assets/imgs/clock.svg" class="menu-notifications-txt-dttme-img" />4 Mar, 4:00PM
+            <img src="assets/imgs/clock.svg" class="menu-notifications-txt-dttme-img" /><%= sb.timeFormat(d.meetingDetails.time) %>, <%= sb.getTime(d.meetingDetails.time) %>
         </div>
+        <% } %>
     </div>
 </div>
-
-<div class="menu-notifications-cnt">
-
-    <div class="menu-notifications-img-dv">
-        <img src="assets/imgs/baloon1.svg" class="menu-notifications-img" />
-    </div>
-    <div class="menu-notifications-txt">
-        <span class="menu-notifications-txt-nm">Vsoft:ACH Transfer</span>
-        <span class="menu-notifications-txt-tm">10:00AM from Vani</span>
-
-    </div>
-</div>
-<div class="menu-notifications-cnt">
-
-    <div class="menu-notifications-img-dv">
-        <img src="assets/imgs/one.svg" class="menu-notifications-img" />
-    </div>
-    <div class="menu-notifications-txt">
-        <span class="menu-notifications-txt-nm">Conflux:Designer</span>
-        <span class="menu-notifications-txt-tm">12:00AM from Prakash</span>
-        <div class="menu-notifications-txt-dttme">
-            <img src="assets/imgs/clock.svg" class="menu-notifications-txt-dttme-img" /> 4 Mar, 4:00PM
-        </div>
-    </div>
-</div>
+<% }); %>

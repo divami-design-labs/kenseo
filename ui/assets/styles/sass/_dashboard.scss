@@ -325,8 +325,7 @@
 	@include text(12px, $colorC);
 }
 .mn-left{
-	float: left;
-	width: 150px;
+	display: table-cell;
 	background-color: $colorMeetingOne;
 	position: relative;
 	@include text(12px, $colorA);
@@ -335,7 +334,7 @@
 	@extend .ellipsis;
 }
 .mn-right{
-	margin-left: 160px;
+	display: table-cell;
 	background-color: $colorMeetingTwo;
 	text-align: center;
 	@include text(12px, $colorFour);
@@ -350,16 +349,16 @@
 	position: relative;
 	margin-top: 20px;
 }
-.notification-item.meeting-type{
+.notification-item.M-type{
 	@include listTypeImage("one.svg");
 }
-.notification-item.comment-type{
+.notification-item.C-type{
 	@include listTypeImage("baloon1.svg");
 }
-.notification-item.review-request-type{
+.notification-item.R-type{
 	@include listTypeImage("file.svg");
 }
-.notification-item.meeting-type .mn-left::after{
+.notification-item.M-type .mn-left::after{
 	content: "";
 	@include elementWithBackground("clock.svg", 16px, 16px);
 	position: absolute;

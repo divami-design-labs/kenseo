@@ -1203,15 +1203,14 @@
   color: #62656f; }
 
 .mn-left {
-  float: left;
-  width: 150px;
+  display: table-cell;
   background-color: #cceffc;
   position: relative;
   font-size: 12px;
   color: #2aa2d3; }
 
 .mn-right {
-  margin-left: 160px;
+  display: table-cell;
   background-color: #00aeef;
   text-align: center;
   font-size: 12px;
@@ -1227,7 +1226,7 @@
   position: relative;
   margin-top: 20px; }
 
-.notification-item.meeting-type::before {
+.notification-item.M-type::before {
   content: "";
   background-image: url("../../imgs/one.svg");
   background-repeat: no-repeat;
@@ -1238,7 +1237,7 @@
   left: 0;
   top: 2px; }
 
-.notification-item.comment-type::before {
+.notification-item.C-type::before {
   content: "";
   background-image: url("../../imgs/baloon1.svg");
   background-repeat: no-repeat;
@@ -1249,7 +1248,7 @@
   left: 0;
   top: 2px; }
 
-.notification-item.review-request-type::before {
+.notification-item.R-type::before {
   content: "";
   background-image: url("../../imgs/file.svg");
   background-repeat: no-repeat;
@@ -1260,7 +1259,7 @@
   left: 0;
   top: 2px; }
 
-.notification-item.meeting-type .mn-left::after {
+.notification-item.M-type .mn-left::after {
   content: "";
   background-image: url("../../imgs/clock.svg");
   background-repeat: no-repeat;

@@ -1,12 +1,28 @@
+<%
+	// Data Manipulations
+	var newData = {};
+	for(var i=0; i<data.length; i++){
+		var d = data[i];
+		var time = sb.timeFormat(d.time);
+		if(!newData[time]){
+			newData[time] = [];
+			newData[time].push(d);
+		}
+		else{
+			newData[time].push(d);
+		}
+	}
+%>
 <div class="notifications-heading">
 	<div class="notifications-heading-icon"></div>
 	<div class="heading-text">Notifications</div>
 </div>
 <div class="notifications-content">
+	<% for(var key in newData){ %>
 	<div class="day-notifications">
-		<div class="day-notifications-label">Today</div>
+		<div class="day-notifications-label"><%= key %></div>
 		<div class="notifications-holder">
-			<% _.each(data, function(n){ %>
+			<% _.each(newData[key], function(n){ %>
 			<div class="notification-item <%= n.type %>-type">
 				<div class="notification-title">
 					<%= n.title %>
@@ -17,13 +33,13 @@
 				<% if(n.meetingDetails){ %>
 				<div class="meeting-notify-section">
 					<div class="mn-left">
-						<div>Meeting @ <%= n.meetingDetails.room %></div>
+						<div>Meeting @ Conference 2</div>
 						<div class="mn-left-title"><%= n.meetingDetails.title %></div>
 						<div class="meeting-notify-icon"></div>
 					</div>
 					<div class="mn-right">
-						<div>4 Mar</div>
-						<div>4:00 PM</div>
+						<div><%= sb.timeFormat(n.meetingDetails.time) %></div>
+						<div><%= sb.getTime(n.meetingDetails.time) %></div>
 					</div>
 				</div>
 				<% } %>
@@ -31,4 +47,5 @@
 			<% }); %>
 		</div>
 	</div>
+	<% } %>
 </div>

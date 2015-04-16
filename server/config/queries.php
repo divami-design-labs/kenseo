@@ -103,7 +103,7 @@ $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots
 										 JOIN " . TABLE_USERS . " as notifier on notifier.user_id = nots.notification_by
 										 WHERE nots.user_id = @~~id~~@ or nots.notification_by = @~~id~~@ LIMIT @~~limit~~@";
 
-$AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_agenda as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
+$AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT DATE(meeting_time) as time, meeting_agenda as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 
 $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
 
