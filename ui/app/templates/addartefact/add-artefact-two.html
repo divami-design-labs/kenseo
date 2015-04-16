@@ -1,13 +1,13 @@
 <div class="popup popup-large">
 	<div class="popup-header">
-		<div class="popup-title">Add an Artefact</div>
+		<div class="popup-title"><%= data[key].title %></div>
 		<div class="popup-close-icon"></div>
 	</div>
 	<div class="popup-body">
 		<div class="popup-left-section">
 			<div class="popup-meta-item">
 				<div class="popup-meta-heading">Under</div>
-				<div class="popup-meta-text"><%= project_name %></div>
+				<div class="popup-meta-text"><%= data.project_name %></div>
 			</div>
 		</div>
 		<div class="popup-body-wrapper popup-right-section">
@@ -25,7 +25,7 @@
 					<div class="file-heading">
 						Create file
 					</div>
-					<% if(show_coming_soon){ %>
+					<% if(data[key].show_coming_soon){ %>
 						<div class="coming-soon-text">Coming soon!</div>
 					<% } %>
 					<div class="create-file-item">
@@ -39,8 +39,8 @@
 			<select class="dropdown"></select>
 		</div>
 		<div class="popup-buttons-section">
-			<a href="#" class="main-btn">Proceed</a>
+			<a href="#" class="main-btn" data-url="<%= key + 1 %>">Proceed</a>
 			<a href="#" class="lnk-btn">Cancel</a>
 		</div>
 	</div>
-	</div>
+</div>

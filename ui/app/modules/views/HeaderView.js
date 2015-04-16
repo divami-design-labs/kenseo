@@ -30,12 +30,13 @@ Kenseo.views.Header = Backbone.View.extend({
                 'models': ['Projects'],
                 'collections': ['Projects']
             }, function(){
+                var userid = Kenseo.cookie.userid;
                 var key = 0;
-                var popupsInfo = sb.getPopupsInfo($self.data('url'));
-                sb.renderTemplateOff(popupsInfo[key]["page_name"], $('.popup-container'), { data: popupsInfo, key: key});
+                Kenseo.popup = sb.getPopupsInfo($self.data('url'));
+                sb.renderTemplateOff(Kenseo.popup[key]["page_name"], $('.popup-container'), { data: Kenseo.popup, key: key});
                 sb.renderTemplate('dropdown', $('.dropdown'), new Kenseo.collections.Projects(), function(){
                     Kenseo.popup['project_name'] = $('.dropdown').val();
-                }, {userid: this.userid});
+                }, {userid: userid});
                 
                 $('.dropdown').on('change', function(){
                     Kenseo.popup['project_name'] = this.value;

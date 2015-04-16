@@ -19,6 +19,11 @@ $(function(){
 			popupCloser($(closePopupIcon).parents(popupContainer));
 		}
 	})
+	.on('click', popupContainer, function(e){
+		if($(e.target) === $(popupContainer)){
+			$(popupContainer)[0].removeChild($(popupContainer).children()[0]);
+		}
+	})
 	.on('click', popupContainer + " .lnk-btn", function(e){
 		e.preventDefault();
 		popupCloser($(this).parents(popupContainer));
@@ -26,7 +31,12 @@ $(function(){
 	.on('click', '.main-btn', function(e){
         e.preventDefault();
         var $dataUrl = $(this).data('url');
-        sb.renderTemplateOff($dataUrl, $('.popup-container'), Kenseo.popup[$dataUrl]);
+        sb.renderTemplateOff(Kenseo.popup[$dataUrl].page_name, $('.popup-container'), 
+        	{ 
+        		"data": Kenseo.popup,
+        		"key": $dataUrl
+        	}
+    	);
     })
     .on('click', '.toggle-click', function(){
     	var $this = $(this);

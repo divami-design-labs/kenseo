@@ -8,7 +8,12 @@
 			$db = Master::getDBConnectionManager();
 			
 			$queryParams = array('userid' => $userid, '@limit'=>$count );
-			$dbQuery = getQuery('getMyProjectsList',$queryParams);
+			if($count){
+				$dbQuery = getQuery('getMyProjectsList',$queryParams);
+			}
+			else{
+				$dbQuery = getQuery('getMyProjectsListAll',$queryParams);
+			}
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
 		}

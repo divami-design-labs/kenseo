@@ -18,12 +18,17 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 
 $AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
 
-$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id, project_name, last_updated_date, intro_image_url 
+$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id, project_name, Date(last_updated_date) as last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
 											WHERE user_id = @~~userid~~@)
 											LIMIT @~~limit~~@";	
+$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id, project_name, Date(last_updated_date) as last_updated_date, intro_image_url 
+											FROM " . TABLE_PROJECTS . " 
+											WHERE project_id IN (SELECT proj_id
+											FROM " . TABLE_PROJECT_MEMBERS . " 
+											WHERE user_id = @~~userid~~@)";
 $AppGlobal['sql']['getMyRecentArtefacts'] = "SELECT projects.project_id, projects.project_name, artefacts.artefact_title, project_activity.activity_id, project_activity.activity_type, project_activity.performed_on_id
 											 FROM " . TABLE_PROJECT_ACTIVITY . "
 											 JOIN " . TABLE_PROJECTS . " ON project_activity.project_id = projects.project_id
@@ -38,7 +43,7 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 
 $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT requestor.name AS requestedBy,versions.version_label AS title, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
-										requestor.user_id AS requestorId, DATE(members.shared_date) AS requestTime,
+										requestor.user_id AS requestorId, Date(members.shared_date) AS requestTime,
 										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as version, 
 										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where artefacts.artefact_id = comments.artefact_id and
 										artefacts.latest_version_id = comments.artefact_ver_id) as commentCount
@@ -72,7 +77,7 @@ $AppGlobal['sql']['getReviewRequests-old'] = "SELECT artefacts.*,(SELECT COUNT(*
 											
 $AppGlobal['sql']['getReviewRequests']="SELECT requestor.name AS requestedBy,versions.version_label AS title, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
-										requestor.user_id AS requestorId, DATE(members.shared_date) AS requestTime,
+										requestor.user_id AS requestorId, Date(members.shared_date) AS requestTime,
 										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as version, 
 										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where artefacts.artefact_id = comments.artefact_id and
 										artefacts.latest_version_id = comments.artefact_ver_id) as commentCount
@@ -103,7 +108,7 @@ $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots
 										 JOIN " . TABLE_USERS . " as notifier on notifier.user_id = nots.notification_by
 										 WHERE nots.user_id = @~~id~~@ or nots.notification_by = @~~id~~@ LIMIT @~~limit~~@";
 
-$AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT DATE(meeting_time) as time, meeting_agenda as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
+$AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT Date(meeting_time) as time, meeting_agenda as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 
 $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
 

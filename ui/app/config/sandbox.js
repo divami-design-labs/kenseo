@@ -21,14 +21,16 @@ var sb = (function(){
 	    "share-artefact": [
 	        {
 	            "page_name": "add-artefact",
-	            "title": "share Artefact",
-	            "next_page": "add-artefact-two",
+	            "title": "Share Artefact",
 	        },
 	        {
 	        	"page_name": "add-artefact-two",
-	            "title": "share Artefact",
+	            "title": "Share Artefact",
 	            "next_page": "add-artefact-three",
 	            "show_coming_soon": false	
+	        },
+	        {
+	            "page_name": "add-artefact-three"
 	        }
 	    ]
 	};

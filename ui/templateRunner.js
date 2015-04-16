@@ -19,5 +19,6 @@ var templates = {
     'search-results': fs.readFileSync('app/templates/header/search-results.html', 'utf8'),
     'add-artefact': fs.readFileSync('app/templates/addartefact/add-artefact.html', 'utf8'),
     'add-artefact-two': fs.readFileSync('app/templates/addartefact/add-artefact-two.html', 'utf8'),
+    'add-artefact-three': fs.readFileSync('app/templates/addartefact/add-artefact-three.html', 'utf8'),
     'dropdown': fs.readFileSync('app/templates/common/dropdown.html', 'utf8')
 };
