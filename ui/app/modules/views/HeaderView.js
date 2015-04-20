@@ -26,22 +26,8 @@ Kenseo.views.Header = Backbone.View.extend({
         $('.create-plus-nav-item').on('click', function(){
             $('.popup-container').show();
             var $self = $(this);
-            sb.loadFiles({
-                'models': ['Projects'],
-                'collections': ['Projects']
-            }, function(){
-                var userid = Kenseo.cookie.userid;
-                var key = 0;
-                Kenseo.popup = sb.getPopupsInfo($self.data('url'));
-                sb.renderTemplateOff(Kenseo.popup[key]["page_name"], $('.popup-container'), { data: Kenseo.popup, key: key});
-                sb.renderTemplate('dropdown', $('.dropdown'), new Kenseo.collections.Projects(), function(){
-                    Kenseo.popup['project_name'] = $('.dropdown').val();
-                }, {userid: userid});
-                
-                $('.dropdown').on('change', function(){
-                    Kenseo.popup['project_name'] = this.value;
-                });
-            });
+            Kenseo.popup = sb.getPopupsInfo($self.data('url'));
+            sb.callPopup(0);
         });
     },
     menuClick: function(e){

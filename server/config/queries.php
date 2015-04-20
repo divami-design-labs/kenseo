@@ -18,13 +18,13 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 
 $AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
 
-$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id, project_name, Date(last_updated_date) as last_updated_date, intro_image_url 
+$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id, project_name as name, Date(last_updated_date) as last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
 											WHERE user_id = @~~userid~~@)
 											LIMIT @~~limit~~@";	
-$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id, project_name, Date(last_updated_date) as last_updated_date, intro_image_url 
+$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id, project_name as name, Date(last_updated_date) as last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
@@ -41,7 +41,7 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 																JOIN " . TABLE_USERS . " AS user on memb.user_id = user.user_id
 																WHERE memb.user_id = @~~userid~~@ AND arts.project_id = @~~projectid~~@";
 
-$AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT requestor.name AS requestedBy,versions.version_label AS title, 
+$AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT requestor.name AS requestedBy,versions.version_label AS name, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
 										requestor.user_id AS requestorId, Date(members.shared_date) AS requestTime,
 										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as version, 
@@ -55,11 +55,11 @@ $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT request
 										versions.artefact_id = artefacts.artefact_id 
 										JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." AS members ON 
 										artefacts.latest_version_id = members.artefact_ver_id AND
-										artefacts.artefact_id = members.artefact_id AND
+										artefacts.artefact_id = members.artefact_id
 										JOIN " . TABLE_USERS . " AS requestor ON 
 										members.shared_by = requestor.user_id
 										WHERE
-										artefacts.project_id = @~~projectid~~@  
+										artefacts.project_id = @~~projectid~~@  AND
 										artefacts.artefact_id 
 										in 
 										(SELECT versions.artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " AS versions 

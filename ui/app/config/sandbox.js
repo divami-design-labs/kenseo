@@ -2,137 +2,78 @@ var sb = (function(){
 	var labels = {
 		popupContainer: '.popup-container'
 	};
-	var popups = {
-	    "add-artefact": [
-	        {
-	            "page_name": "add-artefact",
-	            "title": "Add Artefact",
-	        },
-	        {
-	            "page_name": "add-artefact-two",
-	            "title": "Add Artefact",
-	            "next_page": "add-artefact-three",
-	            "show_coming_soon": true
-	        },
-	        {
-	            "page_name": "add-artefact-three"
-	        }
-	    ],
-	    "share-artefact": [
-	        {
-	            "page_name": "add-artefact",
-	            "title": "Share Artefact",
-	        },
-	        {
-	        	"page_name": "add-artefact-two",
-	            "title": "Share Artefact",
-	            "next_page": "add-artefact-three",
-	            "show_coming_soon": false	
-	        },
-	        {
-	            "page_name": "add-artefact-three"
-	        }
-	    ]
-	};
+	var scripts = {
+		'views': {},
+		'models': {},
+		'collections': {},
+		'files': {}
+	}
 	function log(msg){
 		console.log(msg);
+	}
+	function getModulePath(moduleType, moduleName){
+		return 'app/modules/' + moduleType + '/' + moduleName + _.capitalize(moduleType).substring(0, moduleType.length - 1) + '.js';
 	}
 	return {
 		log: log,
 		loadFiles: function(payload, fn){
    			var counter = 0;
+   			var blnCallbackCalled = false;
    			var head = document.head || document.getElementsByTagName("head")[0];
    			var totalLength = 	(payload.files  && payload.files.length  || 0) +
    								(payload.collections  && payload.collections.length  || 0) +
    								(payload.views  && payload.views.length  || 0) +
    								(payload.models && payload.models.length || 0);
-   			if(payload.files){
-   				var files = payload.files;
-				for (var i = 0; i < files.length; i++) {
-	                var fileref = document.createElement('script');
-	                fileref.setAttribute("type", "text/javascript");
-	                fileref.setAttribute("src", files[i]);
-	                fileref.onload = function(){
-	                	counter++;
-	                	if(counter === totalLength){
-	                		fn();
-	                	}
-	                }
-	                head.appendChild(fileref);
-		        }
-		    }
 
+   			var types = ['files', 'views', 'models', 'collections'];
+   			for(var k = 0;k<types.length; k++){
+   				var type = types[k];
+	   			if(payload[type]){
+	   				var files = payload[type];
+					for (var i = 0; i < files.length; i++) {
+						var file = files[i];
 
-		    if(payload.views){
-		    	var views = payload.views;
-				for (var i = 0; i < views.length; i++) {
-					if(i18n.views[views[i]]){
-						counter++;
-	                	if(counter === totalLength){
-	                		fn();
-	                	}
-					}
-					else{
-	                var fileref = document.createElement('script');
-		                fileref.setAttribute("type", "text/javascript");
-		                fileref.setAttribute("src", 'app/modules/views/' + views[i] + 'View.js');
-		                fileref.onload = function(){
-		                	counter++;
-		                	if(counter === totalLength){
-		                		fn();
-		                	}
-		                }
-		                head.appendChild(fileref);
-		            }
-		        }
-		    }
-		    if(payload.models){
-		    	var models = payload.models;
-				for (var i = 0; i < models.length; i++) {
-					if(i18n.models[models[i]]){
-						counter++;
-	                	if(counter === totalLength){
-	                		fn();
-	                	}
-					}
-					else{
-		                var fileref = document.createElement('script');
-		                fileref.setAttribute("type", "text/javascript");
-		                fileref.setAttribute("src", 'app/modules/models/' + models[i] + 'Model.js');
-		                fileref.onload = function(){
-		                	counter++;
-		                	if(counter === totalLength){
-		                		fn();
-		                	}
-		                }
-		                head.appendChild(fileref);
-		            }
-		        }
-		    }
-		    if(payload.collections){
-		    	var collections = payload.collections;
-				for (var i = 0; i < collections.length; i++) {
-					if(i18n.collections[collections[i]]){
-						counter++;
-	                	if(counter === totalLength){
-	                		fn();
-	                	}
-					}
-					else{
-	                var fileref = document.createElement('script');
-		                fileref.setAttribute("type", "text/javascript");
-		                fileref.setAttribute("src", 'app/modules/collections/' + collections[i] + 'Collection.js');
-		                fileref.onload = function(){
-		                	counter++;
-		                	if(counter === totalLength){
-		                		fn();
-		                	}
-		                }
-		                head.appendChild(fileref);
-		            }
-		        }
-		    }
-	        if(totalLength === 0){
+						// Checking the file whether it is already loaded or not.
+						if(!scripts[type][file]){
+
+							// Creating a new script tag.
+			                var fileref = document.createElement('script');
+			                fileref.setAttribute("type", "text/javascript");
+
+		                	var src = type === "files"? file: getModulePath(type, file);
+
+			                fileref.setAttribute("src", src);
+
+			                // Setting the loaded flag to true to avoid loading a same file again.
+			                scripts[type][file] = true;
+
+			                // Used to call a callback function
+			                fileref.onload = function(){
+			                	// Incrementing counter to track number files loaded
+			                	counter++;
+
+			                	// Calling a global callback function provided by user.
+			                	if(counter === totalLength){
+			                		blnCallbackCalled = true;
+			                		fn();
+			                	}
+			                }
+
+			                // Appending the script tag to the head tag.
+			                head.appendChild(fileref);
+			            }
+			            else{
+			            	// Only incrementing the counter value if the file is already has been loaded.
+			            	counter++;
+			            }
+			        }
+			    }
+   			}
+
+   			// In case when all files were already loaded or there are no files to load,
+   			// the callback function will not get called
+   			// To cover that case, the following check is done.
+	        if(totalLength === 0 || (totalLength === counter && !blnCallbackCalled)){
 	        	fn();
 	        }
         },
@@ -255,7 +196,18 @@ var sb = (function(){
         	}
         },
         getPopupsInfo: function(info){
-        	return popups[info];
+        	return Kenseo.popups.getPopupsInfo(info);
+        },
+        callPopup: function(key){
+        	sb.renderTemplateOff(Kenseo.popup[key].page_name, $('.popup-container'), 
+	        	{ 
+	        		"data": Kenseo.popup,
+	        		"key": key
+	        	}
+	    	);
+	    	if(Kenseo.popup[key].callbackfunc){
+	    		Kenseo.popup[key].callbackfunc();
+	    	}
         }
 	};
 })();

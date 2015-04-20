@@ -31,12 +31,7 @@ $(function(){
 	.on('click', '.main-btn', function(e){
         e.preventDefault();
         var $dataUrl = $(this).data('url');
-        sb.renderTemplateOff(Kenseo.popup[$dataUrl].page_name, $('.popup-container'), 
-        	{ 
-        		"data": Kenseo.popup,
-        		"key": $dataUrl
-        	}
-    	);
+        sb.callPopup($dataUrl);
     })
     .on('click', '.toggle-click', function(){
     	var $this = $(this);

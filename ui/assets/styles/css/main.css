@@ -54,7 +54,7 @@
 .hide {
   display: none; }
 
-.disappear, .review-request-item input[type="checkbox"] {
+.disappear, .review-request-item input[type="checkbox"], .upload-file-section input[type="file"] {
   visibility: hidden;
   position: absolute;
   pointer-events: none; }
@@ -62,7 +62,7 @@
 .a, .main-btn, .lnk-btn, .or-btn {
   text-decoration: none; }
 
-.hand, .search-icon, .create-icon-holder, .notification-close-icon, .rr-state span, .popup-close-icon, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item {
+.hand, .search-icon, .create-icon-holder, .notification-close-icon, .rr-state span, .popup-close-icon, .upload-file-section, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item {
   cursor: pointer; }
 
 .wrap, .field-section, .input-wrapper {
@@ -1531,9 +1531,11 @@
   padding: 30px;
   padding-left: 50px; }
 
-.popup-buttons-section > a {
+.popup-buttons-section > button {
+  border: none;
   float: right;
-  margin-left: 30px; }
+  height: 35px;
+  margin-left: 25px; }
 
 .popup-buttons-section {
   position: absolute;
@@ -1549,7 +1551,8 @@
 .lnk-btn {
   font-size: 14px;
   color: #3e4354;
-  padding: 8px; }
+  padding: 8px;
+  background-color: transparent; }
 
 .projects-dropdown {
   width: 300px;
@@ -1647,7 +1650,8 @@
   display: block;
   position: absolute;
   left: 390px;
-  top: 160px; }
+  top: 160px;
+  cursor: default; }
 
 .input-label {
   font-size: 16px;
@@ -1822,8 +1826,9 @@ body {
   font-family: "OpenSansRegular"; }
 
 .page {
+  height: 100%;
+  margin: 0 auto;
   max-width: 1346px;
-  min-width: 1180px;
-  margin: 0 auto; }
+  min-width: 1180px; }
 
 /*# sourceMappingURL=main.css.map */

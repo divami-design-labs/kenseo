@@ -17,8 +17,9 @@ var templates = {
     'menu-recent-people': fs.readFileSync('app/templates/menu/menu-recent-people.html', 'utf8'),
     'search': fs.readFileSync('app/templates/header/search.html', 'utf8'),
     'search-results': fs.readFileSync('app/templates/header/search-results.html', 'utf8'),
-    'add-artefact': fs.readFileSync('app/templates/addartefact/add-artefact.html', 'utf8'),
-    'add-artefact-two': fs.readFileSync('app/templates/addartefact/add-artefact-two.html', 'utf8'),
-    'add-artefact-three': fs.readFileSync('app/templates/addartefact/add-artefact-three.html', 'utf8'),
+    'artefact-one': fs.readFileSync('app/templates/addartefact/artefact-one.html', 'utf8'),
+    'artefact-two': fs.readFileSync('app/templates/addartefact/artefact-two.html', 'utf8'),
+    'artefact-three': fs.readFileSync('app/templates/addartefact/artefact-three.html', 'utf8'),
+    'artefact-four': fs.readFileSync('app/templates/addartefact/artefact-four.html', 'utf8'),
     'dropdown': fs.readFileSync('app/templates/common/dropdown.html', 'utf8')
 };

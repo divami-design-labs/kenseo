@@ -17,7 +17,8 @@ body{
 	font-family: $normalFont;
 }
 .page{
-	max-width: $viewPortWidth;
-	min-width: 1180px;
-	margin: 0 auto;
+    height: 100%;
+    margin: 0 auto;
+    max-width: $viewPortWidth;
+    min-width: 1180px;
 }
