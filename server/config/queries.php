@@ -75,21 +75,18 @@ $AppGlobal['sql']['getReviewRequests-old'] = "SELECT artefacts.*,(SELECT COUNT(*
 											(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
 											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@))";
 											
-$AppGlobal['sql']['getReviewRequests']="SELECT requestor.name AS requestedBy,versions.version_label AS title, 
+$AppGlobal['sql']['getReviewRequests']="SELECT DISTINCT requestor.name AS requestedBy,versions.version_label AS title, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
 										requestor.user_id AS requestorId, Date(members.shared_date) AS requestTime,
 										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as version, 
-										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where artefacts.artefact_id = comments.artefact_id and
+										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where 
 										artefacts.latest_version_id = comments.artefact_ver_id) as commentCount
 										from " . TABLE_ARTEFACTS . " AS artefacts 
 										JOIN " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
 										ON 
-										artefacts.latest_version_id = versions.artefact_ver_id 
-										AND  
-										versions.artefact_id = artefacts.artefact_id 
+										artefacts.latest_version_id = versions.artefact_ver_id
 										JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." AS members ON 
-										artefacts.latest_version_id = members.artefact_ver_id AND
-										artefacts.artefact_id = members.artefact_id
+										artefacts.latest_version_id = members.artefact_ver_id
 										JOIN " . TABLE_USERS . " AS requestor ON 
 										members.shared_by = requestor.user_id
 										WHERE artefacts.artefact_id 
@@ -97,8 +94,9 @@ $AppGlobal['sql']['getReviewRequests']="SELECT requestor.name AS requestedBy,ver
 										(SELECT versions.artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
 										WHERE versions.shared = 1 AND versions.artefact_ver_id 
 										in 
-										(SELECT artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
-										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@))";
+										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
+										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
+										artefacts.replace_ref_id = 0";
 													 
 $AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email, user_id as id from users WHERE user_id in (SELECT user_id from project_members WHERE proj_id in (SELECT proj_id from project_members WHERE user_id = @~~userid~~@)) and user_id != @~~userid~~@";
 
