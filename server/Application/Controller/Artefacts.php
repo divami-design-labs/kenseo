@@ -77,5 +77,57 @@
 			
 			return true;
 		}
+		
+		public function linkArtefacts($interpreter) {
+			$data = $interpreter->getData()->data;
+			$artefactId = 1;
+			$linkArtefacts = $data -> linkIds;
+			
+			$date = date("Y-m-d H:i:s");
+			
+			$db = Master::getDBConnectionManager();
+			//$db->updateTable (TABLE_ARTEFACTS,array("linked_id"),array(0), "artefact_id = " . $artefactId);			
+			//Get the artefact link id
+			$queryParams = array('artefactid' => $artefactId );
+			$dbQuery = getQuery('getArtefactLinkId',$queryParams);
+			$artefactLinkId = $db->singleObjectQuery($dbQuery);
+			$artefactLinkId	= $artefactLinkId -> linked_id;		
+		
+			if($artefactLinkId == 0) {
+				$dbQuery = getQuery('getMaxLinkId');
+				$artefactLinkId = $db->singleObjectQuery($dbQuery);
+				
+				//Get the max link id of all the artefacts link id and add one to get a new linked id.
+				$artefactLinkId = $artefactLinkId -> linked_id + 1;
+				
+				//Update artefact linked id in artefacts table
+				$db->updateTable (TABLE_ARTEFACTS,array("linked_id"),array("$artefactLinkId"), "artefact_id = " . $artefactId);
+			}
+			
+			for($i = 0; $i < sizeof($linkArtefacts); $i++) {
+				//Get the linked artefact link id
+				$queryParams = array('artefactid' => $linkArtefacts[$i] );
+				$dbQuery = getQuery('getArtefactLinkId',$queryParams);
+				$linkedArtefactLinkId = $db->singleObjectQuery($dbQuery);
+				$linkedArtefactLinkId = $linkedArtefactLinkId -> linked_id;
+				
+				if($artefactLinkId != $linkedArtefactLinkId) {
+					if($linkedArtefactLinkId != 0) {
+						//Update all linked artefacts linked id with artefact link id in artefacts table
+						$db->updateTable (TABLE_ARTEFACTS,array("linked_id"),array("$artefactLinkId"), "linked_id = " . $linkedArtefactLinkId);	
+						
+						//Update only that linked artefacts linked id with artefact link id in artefact links table
+						$db->updateTable (TABLE_ARTEFACT_LINKS,array("linked_id"),array("$artefactLinkId"), "linked_id = " . $linkedArtefactLinkId);
+					} else {
+						//Update linked artefacts linked id with artefact link id in artefacts table
+						$db->updateTable (TABLE_ARTEFACTS,array("linked_id"),array("$artefactLinkId"), "artefact_id = " . $linkArtefacts[$i]);							
+					}
+					
+					//Add link entry in artefact link table
+					$db->insertSingleRow (TABLE_ARTEFACT_LINKS,array("linked_from_id","linked_to_id","linked_id","linked_date"),array("$artefactId","$linkArtefacts[$i]","$artefactLinkId","$date"));										
+				}					
+			}
+			return $artefactLinkId -> linked_id + 1;
+		}		
 	}
 ?>
