@@ -4,6 +4,15 @@ Kenseo.popups = (function(){
 	        {
 	            "page_name": "artefact-one",
 	            "title": "Add Artefact",
+	            "buttons": [{
+	            	"label": "Cancel",
+	            	"cls": "lnk-btn"
+	            },
+	            {
+	            	"label": "Proceed",
+	            	"cls": "main-btn",
+	            	"disabled": true
+	            }],
 	            "callbackfunc": function(){
 	            	sb.loadFiles({
 		                'models': ['Projects'],
@@ -31,6 +40,18 @@ Kenseo.popups = (function(){
 	            "page_name": "artefact-two",
 	            "title": "Add Artefact",
 	            "show_coming_soon": true,
+	            "buttons": [{
+	            	"label": "Back",
+	            	"cls": "lnk-btn"
+	            },{
+	            	"label": "Cancel",
+	            	"cls": "lnk-btn"
+	            },
+	            {
+	            	"label": "Proceed",
+	            	"cls": "main-btn",
+	            	"disabled": true
+	            }],
 	            "callbackfunc": function(){
 	        		$('.upload-files-input').change(function(){
 	        			$('.files-list').html(this.value);
@@ -61,6 +82,15 @@ Kenseo.popups = (function(){
 	        },
 	        {
 	            "page_name": "artefact-three",
+	            "buttons": [{
+	            	"label": "Cancel",
+	            	"cls": "lnk-btn"
+	            },
+	            {
+	            	"label": "Done",
+	            	"cls": "main-btn",
+	            	"disabled": true
+	            }],
 	            "callbackfunc": function(){
 	            	sb.loadFiles({
 	            		'collections': ['References', 'Tags'],

@@ -1,6 +1,7 @@
+<% var dataObj = data[key] %>
 <div class="popup popup-small">
 	<div class="popup-header">
-		<div class="popup-title"><%= data[key].title %></div>
+		<div class="popup-title"><%= dataObj.title %></div>
 		<div class="popup-close-icon"></div>
 	</div>
 	<div class="popup-body">
@@ -9,8 +10,18 @@
 			</select>
 		</div>
 		<div class="popup-buttons-section">
-			<button href="#" class="main-btn" data-url="<%= key+1 %>" disabled="true" autocomplete="off">Proceed</button>
-			<button href="#" class="lnk-btn">Cancel</button>
+			<% var buttons = dataObj.buttons %>
+			<% for(var i=buttons.length-1; i>= 0; i--){ %>
+				<% var b = buttons[i]; %>
+				<button class="<%= b.cls %>" 
+					<% if(b.disabled){ %> 
+						disabled="true" autocomplete="off" 
+					<% } %> 
+					<% if(b.cls === "main-btn"){ %> 
+						data-url="<%= key+1 %>" 
+					<% } %>
+				><%= b.label %></button>
+			<% }; %>
 		</div>
 	</div>
 </div>

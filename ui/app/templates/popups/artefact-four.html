@@ -1,3 +1,4 @@
+<% var dataObj = data[key] %>
 <div class="popup popup-large">
 	<div class="popup-header">
 		<div class="popup-title">Share an artefact</div>
@@ -119,9 +120,18 @@
 						</div>
 					</div>
 					<div class="popup-buttons-section">
-						<button href="#" class="main-btn" data-url="<%= key + 1 %>" disabled="true" autocomplete="off">Proceed</button>
-						<button href="#" class="lnk-btn">Back</button>
-						<button href="#" class="lnk-btn">Cancel</button>
+						<% var buttons = dataObj.buttons %>
+						<% for(var i=buttons.length-1; i>= 0; i--){ %>
+							<% var b = buttons[i]; %>
+							<button class="<%= b.cls %>" 
+								<% if(b.disabled){ %> 
+									disabled="true" autocomplete="off" 
+								<% } %> 
+								<% if(b.cls === "main-btn"){ %> 
+									data-url="<%= key+1 %>" 
+								<% } %>
+							><%= b.label %></button>
+						<% }; %>
 					</div>
 				</form>
 			</div>
