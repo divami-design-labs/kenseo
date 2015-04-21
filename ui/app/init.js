@@ -4,7 +4,12 @@ var Kenseo = {
     collections: {},
     popup: {},
     cookie: {
-        userid: Cookie.getCookie('DivamiKenseoUserID')
+        userid: function(){
+            return Cookie.getCookie('DivamiKenseoUserID');
+        } ,
+        sessionid: function(){
+            return Cookie.getCookie('DivamiKenseoSID')
+        }
     },
     init: function(){
 		sb.viewPortSwitch(function(){

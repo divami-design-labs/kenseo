@@ -18,13 +18,13 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 
 $AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
 
-$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id, project_name as name, Date(last_updated_date) as last_updated_date, intro_image_url 
+$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name as name, Date(last_updated_date) as last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
 											WHERE user_id = @~~userid~~@)
 											LIMIT @~~limit~~@";	
-$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id, project_name as name, Date(last_updated_date) as last_updated_date, intro_image_url 
+$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_name as name, Date(last_updated_date) as last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
@@ -147,4 +147,18 @@ $AppGlobal['sql']['getArtefactsLink'] = "SELECT DISTINCT artefacts.artefact_id,a
 										WHERE artefacts.project_id = @~~projectid~~@ AND artefacts.replace_ref_id = 0
 										AND (members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)
 										ORDER BY artefacts.linked_id";
+										
+$AppGlobal['sql']['getReferences'] = "SELECT DISTINCT artefacts.artefact_id as id, artefacts.artefact_title as name
+										from " . TABLE_ARTEFACTS . " AS artefacts 
+										WHERE artefacts.artefact_id 
+										in 
+										(SELECT versions.artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
+										WHERE versions.shared = 1 AND versions.artefact_ver_id 
+										in 
+										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
+										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
+										artefacts.replace_ref_id = 0 AND 
+										artefacts.artefact_id != @~~ignore~~@ AND 
+										artefacts.project_id = @~~projectid~~@";
+
 ?>

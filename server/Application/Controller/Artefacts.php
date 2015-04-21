@@ -143,6 +143,23 @@
 				}					
 			}
 			return $artefactLinkId -> linked_id + 1;
-		}		
+		}	
+
+		public function getReferences($interpreter) {
+			$data = $interpreter -> getData() -> data;
+			
+			$userid = $data->userid;
+			$ignore = $data->ignore;
+			$projectid = $data->projectid;
+			$db = Master::getDBConnectionManager();
+
+			$queryParams = array("userid" =>$userid, "ignore"=>$ignore, "projectid" => $projectid);
+
+			$dbQuery = getQuery('getReferences',$queryParams);
+			
+			$refs = $db-> multiObjectQuery($dbQuery);
+
+			return $refs;
+		}
 	}
 ?>

@@ -1,7 +1,7 @@
 Kenseo.views.Header = Backbone.View.extend({
     // The DOM Element associated with this view
     el: ".header",
-    userid: Kenseo.cookie.userid,
+    userid: Kenseo.cookie.userid(),
     // View constructor
     initialize: function() {
         // Calls the view's render method
@@ -38,7 +38,7 @@ Kenseo.views.Header = Backbone.View.extend({
                     'collections': ['Projects', 'Activities', 'Requests', 'People']
                 },
                 function(){
-                    var userid = Kenseo.cookie.userid;
+                    var userid = Kenseo.cookie.userid();
                     sb.renderTemplate('nav-menu', $('.menu'));
                     sb.renderTemplate('menu-header', $('.menu-header'), new Kenseo.models.Header(), null, {userid: userid});
                     sb.renderTemplate('menu-projects-container', $('.menu-projects-container'), new Kenseo.collections.Projects(), null, {userid: userid, limit: 3});

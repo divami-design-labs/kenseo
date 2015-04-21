@@ -108,24 +108,32 @@ var sb = (function(){
 	        }
 	        sb.loadFiles(filesToLoad.js, callBackFunc);
 	    },
+	    ajaxCall: function(payload){
+	    	$.ajaxSetup({ cache: false });
+	    	var collection = payload.collection;
+			var url = collection.urlRoot? collection.urlRoot: collection.url;
+			$.ajax({
+				url: "../server/" + url,
+				data: {
+					"data": payload.data,
+					'client' : {
+						sid : Kenseo.cookie.sessionid()	
+					}
+				},
+				success: payload.success
+			});
+	    },
 	    renderTemplate: function(templateString, $el, model, callBackFunc, data){
             var template = templates[templateString];
             // Setting the view's template property using the Underscore template method
             // Backbone will automatically include Underscore plugin in it.
             var compiler = _.template(template);
-            $.ajaxSetup({ cache: false });
             if(model){
-				var url = model.urlRoot? model.urlRoot: model.url;
-	
-				$.ajax({
-					url: "../server/" + url,
-					data: {
-						"data": data,
-						'client' : {
-							sid : Cookie.getCookie('DivamiKenseoSID')	
-						}
-					},
-					success: function(response){
+				
+				sb.ajaxCall({
+					"collection": model, 
+					"data": data, 
+					"success": function(response){
 						if(response){
 							var obj = JSON.parse(response);
 						}
@@ -137,7 +145,7 @@ var sb = (function(){
 		                if(callBackFunc){
 		                	callBackFunc();
 		                }
-					}
+		            }
 				});
             }
             else{

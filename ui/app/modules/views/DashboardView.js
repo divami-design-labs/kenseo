@@ -6,7 +6,7 @@ Kenseo.views.Dashboard = Backbone.View.extend({
         this.collections = collections;
         new Kenseo.views.Header({'model': new Kenseo.models.Header()});
         // Calls the view's render method
-        this.userid = Kenseo.cookie.userid;
+        this.userid = Kenseo.cookie.userid();
         this.render();
     },
     // View Event Handlers
