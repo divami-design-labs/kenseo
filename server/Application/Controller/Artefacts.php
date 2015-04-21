@@ -78,6 +78,21 @@
 			return true;
 		}
 		
+		
+		public function getArtefactsLink($interpreter) {
+			$data = $interpreter->getData()->data;
+			$userId =  $data -> userId;
+			$projectId = $data -> projectId;
+			
+			$db = Master::getDBConnectionManager();
+			
+			$queryParams = array('userid' => $userId, 'projectid' => $projectId);
+			$dbQuery = getQuery('getArtefactsLink',$queryParams);
+			$resultObj = $db->multiObjectQuery($dbQuery);
+			
+			return $resultObj;
+		}		
+		
 		public function linkArtefacts($interpreter) {
 			$data = $interpreter->getData()->data;
 			$artefactId = 1;

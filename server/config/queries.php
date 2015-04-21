@@ -140,4 +140,11 @@ $AppGlobal['sql']['getVerionDetailsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEF
 $AppGlobal['sql']['getArtefactLinkId'] = "SELECT artefacts.linked_id FROM " . TABLE_ARTEFACTS . " AS artefacts where artefacts.artefact_id = @~~artefactid~~@";
 
 $AppGlobal['sql']['getMaxLinkId'] = "SELECT MAX(artefacts.linked_id) as linked_id FROM " . TABLE_ARTEFACTS . " AS artefacts";
+
+$AppGlobal['sql']['getArtefactsLink'] = "SELECT DISTINCT artefacts.artefact_id,artefacts.linked_id FROM " . TABLE_ARTEFACTS . " AS artefacts 
+										JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." AS members ON
+										members.artefact_id = artefacts.artefact_id
+										WHERE artefacts.project_id = @~~projectid~~@ AND artefacts.replace_ref_id = 0
+										AND (members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)
+										ORDER BY artefacts.linked_id";
 ?>
