@@ -2,11 +2,8 @@ var Kenseo = {
     views: {},
     models: {},
     collections: {},
-    popup: {},
+    popup: {"info":{},"data":{}},
     cookie: {
-        userid: function(){
-            return Cookie.getCookie('DivamiKenseoUserID');
-        } ,
         sessionid: function(){
             return Cookie.getCookie('DivamiKenseoSID')
         }

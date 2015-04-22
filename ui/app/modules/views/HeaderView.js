@@ -1,7 +1,6 @@
 Kenseo.views.Header = Backbone.View.extend({
     // The DOM Element associated with this view
     el: ".header",
-    userid: Kenseo.cookie.userid(),
     // View constructor
     initialize: function() {
         // Calls the view's render method
@@ -14,7 +13,7 @@ Kenseo.views.Header = Backbone.View.extend({
     // },
     // Renders the view's template to the UI
     render: function() {
-        sb.renderTemplate('header', this.$el, this.model, this.headerAttachEvents.bind(this), {userid: this.userid});
+        sb.renderTemplate('header', this.$el, this.model, this.headerAttachEvents.bind(this));
         // Maintains chainability
         return this;
     },
@@ -26,7 +25,7 @@ Kenseo.views.Header = Backbone.View.extend({
         $('.create-plus-nav-item').on('click', function(){
             $('.popup-container').show();
             var $self = $(this);
-            Kenseo.popup = sb.getPopupsInfo($self.data('url'));
+            Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
             sb.callPopup(0);
         });
     },
@@ -38,14 +37,13 @@ Kenseo.views.Header = Backbone.View.extend({
                     'collections': ['Projects', 'Activities', 'Requests', 'People']
                 },
                 function(){
-                    var userid = Kenseo.cookie.userid();
                     sb.renderTemplate('nav-menu', $('.menu'));
-                    sb.renderTemplate('menu-header', $('.menu-header'), new Kenseo.models.Header(), null, {userid: userid});
-                    sb.renderTemplate('menu-projects-container', $('.menu-projects-container'), new Kenseo.collections.Projects(), null, {userid: userid, limit: 3});
-                    sb.renderTemplate('menu-recent-activity', $('.menu-recent-activity'), new Kenseo.collections.Activities(), null, {userid: userid, limit: 3});
-                    sb.renderTemplate('menu-recent-requests', $('.menu-recent-requests'), new Kenseo.collections.Requests(), null, {userid: userid, limit: 3});
-                    sb.renderTemplate('menu-recent-notifications', $('.menu-recent-notifications'),  new Kenseo.collections.Notifications(), null, {userid: userid, limit: 3});
-                    sb.renderTemplate('menu-recent-people', $('.menu-recent-people'),  new Kenseo.collections.People(), null, {userid: userid, limit: 3});
+                    sb.renderTemplate('menu-header', $('.menu-header'), new Kenseo.models.Header());
+                    sb.renderTemplate('menu-projects-container', $('.menu-projects-container'), new Kenseo.collections.Projects(), null, {limit: 3});
+                    sb.renderTemplate('menu-recent-activity', $('.menu-recent-activity'), new Kenseo.collections.Activities(), null, {limit: 3});
+                    sb.renderTemplate('menu-recent-requests', $('.menu-recent-requests'), new Kenseo.collections.Requests(), null, {limit: 3});
+                    sb.renderTemplate('menu-recent-notifications', $('.menu-recent-notifications'),  new Kenseo.collections.Notifications(), null, {limit: 3});
+                    sb.renderTemplate('menu-recent-people', $('.menu-recent-people'),  new Kenseo.collections.People(), null, {limit: 3});
                 }
             )
         }

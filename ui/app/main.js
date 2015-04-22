@@ -5,18 +5,27 @@ $(function(){
 
 	function popupCloser($el){
 		$el.hide();
-		$el.find('.popup').remove();
+		$el.children().remove();
+		sb.popup.resetPopupData();
 	}
 
 	// Events
 
-	$(document).on('click', closePopupIcon, function(){
+	$(document)
+	.on('click', function(e){
+		var $el = $(e.target);
+		var bln = $el.hasClass('.toggle-click') || $el.parents('.toggle-click').length;
+		if(!bln){
+			$('.toggle-click').removeClass('active');
+		}
+	})
+	.on('click', closePopupIcon, function(){
 		popupCloser($(this).parents(popupContainer));
 	})
 	.on('keyup', function(e){
 		var keycode = e.which || e.keyCode;
 		if(keycode == 27){
-			popupCloser($(closePopupIcon).parents(popupContainer));
+			popupCloser($(popupContainer));
 		}
 	})
 	.on('click', popupContainer, function(e){
@@ -24,11 +33,11 @@ $(function(){
 			$(popupContainer)[0].removeChild($(popupContainer).children()[0]);
 		}
 	})
-	.on('click', popupContainer + " .lnk-btn", function(e){
+	.on('click', popupContainer + " .cancel-btn", function(e){
 		e.preventDefault();
 		popupCloser($(this).parents(popupContainer));
 	})
-	.on('click', '.main-btn', function(e){
+	.on('click', '.nav-btn', function(e){
         e.preventDefault();
         var $dataUrl = $(this).data('url');
         sb.callPopup($dataUrl);

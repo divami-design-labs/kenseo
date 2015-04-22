@@ -116,7 +116,7 @@ $popup-content-space: 175px;
 }
 .files-section{
 	@include clearFloat();
-	margin-bottom: 45px;
+	margin-bottom: 10px;
 }
 .upload-file-section{
 	border-right: 1px solid $colorP;	
@@ -135,6 +135,9 @@ $popup-content-space: 175px;
 }
 .create-file-item{
 	position: relative;
+	width: 250px;
+	margin-bottom: 10px;
+	display: none;
 }
 .create-file-close-icon{
 	@include closeIcon(10px);

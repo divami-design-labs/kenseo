@@ -207,15 +207,131 @@ var sb = (function(){
         	return Kenseo.popups.getPopupsInfo(info);
         },
         callPopup: function(key){
-        	sb.renderTemplateOff(Kenseo.popup[key].page_name, $('.popup-container'), 
+        	sb.renderTemplateOff(Kenseo.popup.info[key].page_name, $('.popup-container'), 
 	        	{ 
 	        		"data": Kenseo.popup,
 	        		"key": key
 	        	}
 	    	);
-	    	if(Kenseo.popup[key].callbackfunc){
-	    		Kenseo.popup[key].callbackfunc();
+	    	if(Kenseo.popup.info[key].callbackfunc){
+	    		Kenseo.popup.info[key].callbackfunc();
 	    	}
-        }
+        },
+        popup: {
+        	resetPopupData: function(){
+        		Kenseo.popup = {
+        			"info": {},
+        			"data": {}
+        		}
+        	},
+        	firstLoader: function(){
+				sb.loadFiles({
+		            'models': ['Projects'],
+		            'collections': ['Projects']
+		        }, function(){
+					
+			    	sb.renderTemplate('dropdown', $('.dropdown'), new Kenseo.collections.Projects(), function(){
+			            if(Kenseo.popup.data['project_name']){
+			            	$('.dropdown').val(Kenseo.popup.data['project_name']);
+			            	$('.main-btn').prop('disabled', false);	
+			            } 
+			        });
+			        
+			        $('.dropdown').on('change', function(){
+			            if(this.selectedIndex){
+			                Kenseo.popup.data['project_name'] = this.value;
+			                Kenseo.popup.data['project_id'] = this.selectedOptions[0].getAttribute('name');                     
+			                $('.main-btn').prop('disabled', false);
+			            }
+			            else{
+			                $('.main-btn').prop('disabled', true);
+			            }
+			        });
+				});
+			},
+			secondLoader: function(){
+            	if(Kenseo.popup.data.fileName){
+            		$('.create-file-item .notification-title').html(Kenseo.popup.data.fileName);
+            		$('.create-file-item').show();
+            		$('.main-btn').prop('disabled', false);
+            	}
+        		$('.upload-files-input').change(function(){
+        			$('.create-file-item').show();
+        			$('.create-file-item .notification-title').html(this.value);
+
+        			Kenseo.popup.data.fileName = this.value;
+        			$('.main-btn').prop('disabled', false);
+        		});
+
+        		sb.loadFiles({
+        			'collections': ['Artefacts'],
+        			'models': ['Artefacts']
+        		},function(){
+        			sb.renderTemplate('dropdown', $('.existing-files-dropdown'), new Kenseo.collections.Artefacts(), null, { projectid:Kenseo.popup.data['project_id'], sharepermission: true});
+        			$('.dropdown').on('change', function(){
+	                    if(this.selectedIndex){
+	                        $('.main-btn').prop('disabled', false);
+	                    }
+	                    else{
+	                        $('.main-btn').prop('disabled', true);
+	                    }
+	                });
+
+	                $('.existing-files-chk').change(function(){
+	                	$('.existing-files-dropdown').prop('disabled', !this.checked);
+	                });
+
+	                $('.create-file-close-icon').click(function(){
+	                	$('.create-file-item').hide();
+	                	$('.main-btn').prop('disabled', true);
+	                	Kenseo.popup.data.fileName = null;
+	                });
+        		});
+            },
+            thirdLoader: function(){
+            	sb.loadFiles({
+            		'collections': ['References', 'Tags'],
+            		'models': ['Artefacts']
+            	}, function(){
+            		sb.ajaxCall(
+						{ 
+							'collection': new Kenseo.collections.References(),
+							'data': {ignore: 0, projectid: Kenseo.popup.data.project_id},
+							'success': function(response){
+								var objResponse = JSON.parse(response);
+			            		$('.reference-files-text').on('keyup', function(){
+			            			var self = this;
+			            			var filteredData = _.filter(objResponse.data, function(item){
+			            				if(self.value.length){
+			            					$(self).parent().next('.reference-files-suggestions').show();
+				            				var re = new RegExp("^" + self.value, "i");
+				            				return re.test(item.name);
+				            			}
+				            			else{
+				            				return false;
+				            			}
+			            			});
+			            			sb.renderTemplateOff('reference-items', $(this).parent().next('.reference-files-suggestions'), {data: filteredData});
+			            			$('.reference-suggestion-item').click(function(){
+			            				var $holder = $(this).parent().next();
+			            				var html = $holder.html();
+			            				$holder.html(html + '<div class="reference-item" name="' + this.getAttribute('name') + '">' + this.innerHTML + '<div class="reference-item-close-icon"></div></div>');
+			            				$(this).parent().hide();
+			            				self.value = "";
+			            			});
+			            		});
+							}
+						}
+					);
+
+
+					// Tags listing
+					
+            	});
+            },
+            fourthLoader: function(){
+
+            }
+		}
 	};
 })();
