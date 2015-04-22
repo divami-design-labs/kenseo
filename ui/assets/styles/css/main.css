@@ -265,7 +265,8 @@
   padding: 0 10px;
   padding-top: 10px;
   position: relative;
-  cursor: pointer; }
+  cursor: pointer;
+  z-index: 1; }
   .profile-pic-holder img {
     max-width: 54px;
     max-height: 54px; }

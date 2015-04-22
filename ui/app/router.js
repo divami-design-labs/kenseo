@@ -31,8 +31,8 @@ var Router = Backbone.Router.extend({
         sb.loadFiles(
             {
                 'views': ['Header', 'Projectspage'],
-                'models': ['Header','Artifacts', 'Activities', 'People'],
-                'collections': ['Activities', 'Artifacts', 'People']
+                'models': ['Header','Artefacts', 'Activities', 'People'],
+                'collections': ['Activities', 'Artefacts', 'People']
             },
             function(){
                 new Kenseo.views.Projectspage();

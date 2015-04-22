@@ -46,5 +46,17 @@ $(function(){
     	var $this = $(this);
     	$('.active').not($this).removeClass('active');
     	$this.toggleClass('active');
+    })
+    .on('click', '.popup-click', function(){
+    	$('.popup-container').show();
+        var $self = $(this);
+        var index = 0;
+        Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
+        var dump = $self.data('dump');
+        if(dump){
+        	Kenseo.popup.data = dump;
+        	index = dump.index;
+        }
+        sb.callPopup(index);
     });
 });

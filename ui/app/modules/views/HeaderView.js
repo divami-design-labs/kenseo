@@ -22,12 +22,6 @@ Kenseo.views.Header = Backbone.View.extend({
         $('.menu').on('click', this.stopMenuClick);
         $('.search-icon').on('click', this.showSearchBox);
         $('.popup-container').on('keyup','.search-field', this.validateSearch);
-        $('.create-plus-nav-item').on('click', function(){
-            $('.popup-container').show();
-            var $self = $(this);
-            Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
-            sb.callPopup(0);
-        });
     },
     menuClick: function(e){
         if(!$('.menu').html().length){
