@@ -14,7 +14,9 @@
 	define("TABLE_ARTEFACTS", "artefacts");
 	define("TABLE_ARTEFACTS_VERSIONS", "artefact_versions");
 	define("TABLE_ARTEFACTS_SHARED_MEMBERS", "artefact_shared_members");
-	define("TABLE_ARTEFACT_LINKS", "artefact_links");	
+	define("TABLE_ARTEFACT_LINKS", "artefact_links");
+	define("TABLE_ARTEFACT_REFS", "artefact_ref_docs");
+	define("TABLE_ARTEFACTS_TAGS", "artefact_tags");	
 
 	define("TABLE_COMMENTS", "artefact_comments");
 	define("TABLE_COMMENT_HISTORY", "comment_history");

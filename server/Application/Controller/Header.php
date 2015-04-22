@@ -2,7 +2,7 @@
 	class Header {
 		function getHeader($interpreter) {
 			$data = $interpreter->getData()->data;
-			$userid = $data->userid;
+			$userid = $interpreter->getUser()->user_id;
 			$count = $data->count;
 			
 			$db = Master::getDBConnectionManager();

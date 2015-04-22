@@ -9,6 +9,7 @@ $AppGlobal['log']['modules'] = "ALL" ;
 
 $AppGlobal['global']['domain'] = "http://localhost/kenseo/";
 $AppGlobal['store']['path'] = "D://tmp/";
+$AppGlobal['gloabl']['storeLocation'] = "E://tmp/";
 
 $AppGlobal['cache'] = array();
 $AppGlobal['cache']['type'] = "apc";

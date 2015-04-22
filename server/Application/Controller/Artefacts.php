@@ -2,7 +2,7 @@
 	class Artefacts {
 		public function getMyRecentArtefacts($interpreter) {
 			$data = $interpreter->getData()->data;
-			$userid = $data->userid;
+			$userid = $interpreter->getUser()->user_id;;
 			$count = $data->count;
 			
 			$db = Master::getDBConnectionManager();
@@ -14,7 +14,7 @@
 		}
 		public function addArtefactVersion($interpreter) {
 			$data = $interpreter->getData()->data;
-			$userId = $data->userId;
+			$userId = $interpreter->getUser()->user_id;;
 			$previousArtefactid = $data->previousArtefactid;
 			$latestArtefactid = $data -> latestArtefactid;
 			
@@ -73,7 +73,7 @@
 			$artId = $data -> artefactId;
 			
 			$db = Master::getDBConnectionManager();
-			$db->updateTable (TABLE_ARTEFACTS,array("state"),array('A'), "artefact_id = " . $artId);
+			$db->updateTable(TABLE_ARTEFACTS,array("state"),array('A'), "artefact_id = " . $artId);
 			
 			return true;
 		}
@@ -81,7 +81,7 @@
 		
 		public function getArtefactsLink($interpreter) {
 			$data = $interpreter->getData()->data;
-			$userId =  $data -> userId;
+			$userId =  $interpreter->getUser()->user_id;
 			$projectId = $data -> projectId;
 			
 			$db = Master::getDBConnectionManager();
@@ -148,7 +148,7 @@
 		public function getReferences($interpreter) {
 			$data = $interpreter -> getData() -> data;
 			
-			$userid = $data->userid;
+			$userid = $interpreter->getUser()->user_id;
 			$ignore = $data->ignore;
 			$projectid = $data->projectid;
 			$db = Master::getDBConnectionManager();

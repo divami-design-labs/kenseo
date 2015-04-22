@@ -13,14 +13,17 @@
 				data.append("name", 'Super nice doc');
 				data.append("command", 'test');
 				data.append("description" , "hfvjdhdfjdjf");
-				data.append("state" , 'A');
-				data.append("type", "IxD");
-				data.append("versionLabel", "conf");
+				data.append("project" , 1);
+				data.append("MIMEtype", "IxD");
 				data.append("userId", 3);
 				data.append("size", file.size);
 				data.append("type", file.type);
-				data.append("sid", 's7c11jjk5vshhlflf07lt7m815');
+				data.append("sid", '9hal4k29ath2hu3oivuqetn967');
 				data.append("file",file);
+				data.append("tags", [1,3,4,5]);
+				data.append("refs", [1]);
+				data.append("share", false);
+				
 				$.ajax({
 					url : "../server/extUpload.php",
 					data: data,
