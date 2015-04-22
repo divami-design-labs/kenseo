@@ -2,7 +2,7 @@
 	class Projects {
 		public function getMyProjectsList($interpreter) {
 			$data = $interpreter->getData()->data;
-			$userid = $data->userid;
+			$userid = $interpreter->getUser()->user_id;;
 			$count = $data->limit;
 			
 			$db = Master::getDBConnectionManager();
@@ -20,8 +20,8 @@
 		
 		public function getProjectArtefacts($interpreter) {
 			$data = $interpreter->getData()->data;
-			$userid = $data->userid;
-			$sharePermission = $data->sharePermission;
+			$userid = $interpreter->getUser()->user_id;;
+			$sharePermission = $data->sharepermission;
 			$projectid = $data->projectid;
 			$count = $data->count;
 			
@@ -38,7 +38,7 @@
 		
 		public function getTeamMembersList($interpreter) {
 			$data = $interpreter->getData()->data;
-			$userId = $data->userId;
+			$userId = $interpreter->getUser()->user_id;
 			$projectId = $data->projectId;
 			
 			$db = Master::getDBConnectionManager();

@@ -2,7 +2,7 @@
 	class Requests  {
 		function getReviewRequests($interpreter) {
 			$data = $interpreter->getData();
-			$userid = $data->data->userid;
+			$userid = $interpreter->getUser()->user_id;;
 			
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $userid);
 			
