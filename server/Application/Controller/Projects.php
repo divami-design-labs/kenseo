@@ -51,6 +51,28 @@
 			
 			return $resultObj;
 			
-		}		
+		}
+				
+		public function deleteProject($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->projectId;
+			
+			// Delete the project
+			$db = Master::getDBConnectionManager();
+			$db->deleteTable(TABLE_PROJECTS, "project_id = " . $projectId);
+			
+			return true;
+		}
+											
+		public function archiveProject($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->projectId;
+			
+			//Archive project
+			$db = Master::getDBConnectionManager();
+			$db->updateTable(TABLE_PROJECTS,array("state"),array('A'), "project_id = " . $projectId);
+			
+			return true;		
+		}	
 	}
 ?>

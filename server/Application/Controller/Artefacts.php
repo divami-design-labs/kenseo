@@ -119,7 +119,15 @@
 			return true;
 		}
 		
-		
+		public function deleteArtefact($interpreter) {
+			$data = $interpreter->getData()->data;			
+			$artId = $data -> artefactId;
+			
+			$db = Master::getDBConnectionManager();
+			$db->deleteTable(TABLE_ARTEFACTS, "artefact_id = " . $artId);
+			
+			return true;
+		}		
 		
 		public function linkArtefacts($interpreter) {
 			$data = $interpreter->getData()->data;

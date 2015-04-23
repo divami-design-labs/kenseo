@@ -14,4 +14,7 @@ APIList['getTagsList'] = ["getTagsList", "GET", 10000];
 APIList['addArtefactVersion'] = ["addArtefactVersion", "GET", 10000];
 APIList['replaceArtefact'] = ["replaceArtefact", "GET", 10000];
 APIList['getArtefactsLink'] = ["getArtefactsLink", "GET", 10000];
-
+APIList['archiveProject'] = ["archiveProject", "GET", 10000];
+APIList['deleteProject'] = ["deleteProject", "GET", 10000];
+APIList['archiveArtefact'] = ["archiveArtefact", "GET", 10000];
+APIList['deleteArtefact'] = ["deleteArtefact", "GET", 10000];

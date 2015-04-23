@@ -60,4 +60,15 @@ $AppGlobal['urlmap']['/test'] = array ('command' => 'test', 'type' => 'GET');
 $AppGlobal['cmdmap']['getArtefactsLink'] = array ("class" => "Artefacts", "method" => "getArtefactsLink");
 $AppGlobal['urlmap']['/getArtefactsLink'] = array ('command' => 'getArtefactsLink', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['archiveArtefact'] = array ("class" => "Artefacts", "method" => "archiveArtefact");
+$AppGlobal['urlmap']['/archiveArtefact'] = array ('command' => 'archiveArtefact', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['deleteArtefact'] = array ("class" => "Artefacts", "method" => "deleteArtefact");
+$AppGlobal['urlmap']['/deleteArtefact'] = array ('command' => 'deleteArtefact', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['deleteProject'] = array ("class" => "Projects", "method" => "deleteProject");
+$AppGlobal['urlmap']['/deleteProject'] = array ('command' => 'deleteProject', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['archiveProject'] = array ("class" => "Projects", "method" => "archiveProject");
+$AppGlobal['urlmap']['/archiveProject'] = array ('command' => 'archiveProject', 'type' => 'GET');
 ?>
