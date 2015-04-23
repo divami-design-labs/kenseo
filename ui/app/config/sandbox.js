@@ -217,6 +217,9 @@ var sb = (function(){
 	    		Kenseo.popup.info[key].callbackfunc();
 	    	}
         },
+        page: {
+        	
+        },
         popup: {
         	resetPopupData: function(){
         		Kenseo.popup = {

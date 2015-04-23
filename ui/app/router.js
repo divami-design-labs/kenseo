@@ -13,15 +13,15 @@ var Router = Backbone.Router.extend({
         sb.loadFiles(   
             {
                 'views' : ['Header', 'Dashboard'],
-                'models': ['Header', 'Notifications', 'Projects', 'Requests'],
-                'collections': ['Projects', 'Requests', 'Notifications']
+                'models': ['Header', 'Notifications', 'Projects', 'Artefacts'],
+                'collections': ['Projects', 'Artefacts', 'Notifications']
             },
             function(){
                 // Instantiates a new view which will render the header text to the page
                 new Kenseo.views.Dashboard({
                     // 'projectModel': new Kenseo.models.Projects(),
                     'projectCollection': new Kenseo.collections.Projects(),
-                    'reviewCollection': new Kenseo.collections.Requests(),
+                    'artefactCollection': new Kenseo.collections.Artefacts(),
                     'notificationCollection': new Kenseo.collections.Notifications()
                 });
             }
@@ -31,8 +31,8 @@ var Router = Backbone.Router.extend({
         sb.loadFiles(
             {
                 'views': ['Header', 'Projectspage'],
-                'models': ['Header','Artefacts', 'Activities', 'People'],
-                'collections': ['Activities', 'Artefacts', 'People']
+                'models': ['Header','Artefacts', 'People'],
+                'collections': ['Artefacts', 'People']
             },
             function(){
                 new Kenseo.views.Projectspage();

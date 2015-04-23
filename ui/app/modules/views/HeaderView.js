@@ -27,15 +27,15 @@ Kenseo.views.Header = Backbone.View.extend({
         if(!$('.menu').html().length){
             sb.loadFiles(
                 {
-                    'models': ['Header', 'Projects', 'Activities', 'Requests', 'People'],
-                    'collections': ['Projects', 'Activities', 'Requests', 'People']
+                    'models': ['Header', 'Projects', 'Artefacts', 'People'],
+                    'collections': ['Projects', 'Artefacts', 'People']
                 },
                 function(){
                     sb.renderTemplate('nav-menu', $('.menu'));
                     sb.renderTemplate('menu-header', $('.menu-header'), new Kenseo.models.Header());
                     sb.renderTemplate('menu-projects-container', $('.menu-projects-container'), new Kenseo.collections.Projects(), null, {limit: 3});
-                    sb.renderTemplate('menu-recent-activity', $('.menu-recent-activity'), new Kenseo.collections.Activities(), null, {limit: 3});
-                    sb.renderTemplate('menu-recent-requests', $('.menu-recent-requests'), new Kenseo.collections.Requests(), null, {limit: 3});
+                    sb.renderTemplate('menu-recent-activity', $('.menu-recent-activity'), new Kenseo.collections.Artefacts(), null, {activities: true, limit: 3});
+                    sb.renderTemplate('menu-recent-requests', $('.menu-recent-requests'), new Kenseo.collections.Artefacts(), null, {shared: true, limit: 3});
                     sb.renderTemplate('menu-recent-notifications', $('.menu-recent-notifications'),  new Kenseo.collections.Notifications(), null, {limit: 3});
                     sb.renderTemplate('menu-recent-people', $('.menu-recent-people'),  new Kenseo.collections.People(), null, {limit: 3});
                 }

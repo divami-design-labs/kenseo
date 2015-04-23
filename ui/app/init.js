@@ -3,6 +3,7 @@ var Kenseo = {
     models: {},
     collections: {},
     popup: {"info":{},"data":{}},
+    page: {"info":{},"data": {}},
     cookie: {
         sessionid: function(){
             return Cookie.getCookie('DivamiKenseoSID')

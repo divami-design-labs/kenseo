@@ -1,4 +1,4 @@
 Kenseo.collections.Artefacts = Backbone.Collection.extend({
-	url: 'getProjectArtefacts',
+	url: 'getArtefacts',
 	model: Kenseo.models.Artefacts
 });

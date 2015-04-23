@@ -1,6 +1,34 @@
 <?php 
 	class Artefacts {
-		public function getMyRecentArtefacts($interpreter) {
+		public function getArtefacts($interpreter){
+			// return "I am in";
+			$data = $interpreter->getData()->data;
+			if($data->shared){
+				return $this->getSharedArtefacts($interpreter);
+			}
+			elseif($data->activities){
+				return $this->getRecentArtefactActivities($interpreter);
+			}
+			elseif($data->linked){
+				return $this->getArtefactsLink($interpreter);
+			}
+			elseif($data->references){
+				return $this->getReferences($interpreter);
+			}
+			return "something else";
+		}
+		function getSharedArtefacts($interpreter) {
+			$data = $interpreter->getData();
+			$userid = $interpreter->getUser()->user_id;;
+			
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $userid);
+			
+			$db = Master::getDBConnectionManager();
+			$querDetails = getQuery('getReviewRequests',array('userid'=>$userid));
+			$resultObj = $db->multiObjectQuery($querDetails);
+			return $resultObj;
+		}
+		public function getRecentArtefactActivities($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userid = $interpreter->getUser()->user_id;;
 			$count = $data->count;
@@ -12,6 +40,19 @@
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
 		}
+		public function getArtefactsLink($interpreter) {
+			$data = $interpreter->getData()->data;
+			$userId =  $interpreter->getUser()->user_id;
+			$projectId = $data -> projectId;
+			
+			$db = Master::getDBConnectionManager();
+			
+			$queryParams = array('userid' => $userId, 'projectid' => $projectId);
+			$dbQuery = getQuery('getArtefactsLink',$queryParams);
+			$resultObj = $db->multiObjectQuery($dbQuery);
+			
+			return $resultObj;
+		}		
 		public function addArtefactVersion($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;;
@@ -79,19 +120,6 @@
 		}
 		
 		
-		public function getArtefactsLink($interpreter) {
-			$data = $interpreter->getData()->data;
-			$userId =  $interpreter->getUser()->user_id;
-			$projectId = $data -> projectId;
-			
-			$db = Master::getDBConnectionManager();
-			
-			$queryParams = array('userid' => $userId, 'projectid' => $projectId);
-			$dbQuery = getQuery('getArtefactsLink',$queryParams);
-			$resultObj = $db->multiObjectQuery($dbQuery);
-			
-			return $resultObj;
-		}		
 		
 		public function linkArtefacts($interpreter) {
 			$data = $interpreter->getData()->data;
