@@ -63,8 +63,7 @@
 					
 							
 				$verColumnNames = array("artefact_id", "version_label","created_by","document_path","MIME_type", "file_size", "state", "created_date");
-				$verRowValues = array($artId, $data->MIMEtype->name, $data->userId, $targetPath, $data->MIMEtype->type,  $data->size, 'c', date("Y-m-d H:i:s"));
-				
+				$verRowValues = array($artId, $data->name, $data->userId, $targetPath, $data->MIMEtype->type,  $data->size, 'c', date("Y-m-d H:i:s"));
 				
 				$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $verColumnNames, $verRowValues);
 				
@@ -96,9 +95,10 @@
 				//now link the artefacts
 				
 				//if it is  share share it with others as well
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,"share : $data->share");
 				if($data->share) {
 					//now send the data to be shared for those people
-					shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
+					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
 				} 
 				return $targetPath;
 				
@@ -109,7 +109,7 @@
 			
 		}
 		
-		private function shareForTeam($artId, $artVerId, $team, $sharedBy) {
+		public function shareForTeam($artId, $artVerId, $team, $sharedBy) {
 			$db = Master::getDBConnectionManager();
 			for($i = 0; $i < count($team); $i++) {
 				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
@@ -127,7 +127,7 @@
 			$artVerId = $data-> artefactVerId;
 			$artId = $data->artId;
 			$userId = $interpreter->getUser()->user_id;
-			shareForTeam($artId, $artVerId,$data->sharedTo, $data->userId);
+			$this->shareForTeam($artId, $artVerId,$data->sharedTo, $data->userId);
 		}
     }
 ?>

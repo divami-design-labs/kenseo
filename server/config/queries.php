@@ -100,7 +100,7 @@ $AppGlobal['sql']['getReviewRequests']="SELECT DISTINCT requestor.name AS reques
 										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
 										artefacts.replace_ref_id = 0
 										ORDER BY members.shared_date DESC
-										LIMIT @~~limit~~@";
+										LIMIT 8";
 													 
 $AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email, user_id as id from users WHERE user_id in (SELECT user_id from project_members WHERE proj_id in (SELECT proj_id from project_members WHERE user_id = @~~userid~~@)) and user_id != @~~userid~~@";
 

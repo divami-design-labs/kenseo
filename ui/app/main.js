@@ -47,7 +47,6 @@ $(function(){
     	$('.active').not($this).removeClass('active');
     	$this.toggleClass('active');
     })
-<<<<<<< Updated upstream
     .on('click', '.popup-click', function(){
     	$('.popup-container').show();
         var $self = $(this);
@@ -59,7 +58,7 @@ $(function(){
         	index = dump.index;
         }
         sb.callPopup(index);
-=======
+     })
     .on('click', '.done-btn', function() {
 		var data = new FormData();
 		data.append("name", Kenseo.popup.data.fileName);
@@ -74,6 +73,14 @@ $(function(){
 		data.append("tags", [1,3,4,5]);
 		data.append("refs", [1]);
 		data.append("share", Kenseo.popup.data.share);
+		data.append("sharedTo", [{
+			"userId" : 2,
+			"permission" : 'S'
+		},{
+			"userId" : 3,
+			"permission" : 'W'
+		}]);
+		
 		
 		$.ajax({
 			url : "../server/extUpload.php",
@@ -85,6 +92,5 @@ $(function(){
 				alert ("success");
 			}
 		});
->>>>>>> Stashed changes
     });
 });

@@ -293,7 +293,7 @@ var sb = (function(){
         		});
             },
             thirdLoader: function(){
-            	Kenseo.popup.data.share = true;
+            	Kenseo.popup.data.share = false;
             	sb.loadFiles({
             		'collections': ['References', 'Tags'],
             		'models': ['Artefacts']
