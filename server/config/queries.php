@@ -78,7 +78,9 @@ $AppGlobal['sql']['getReviewRequests-old'] = "SELECT artefacts.*,(SELECT COUNT(*
 $AppGlobal['sql']['getReviewRequests']="SELECT DISTINCT requestor.name AS requestedBy,versions.version_label AS title, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
 										requestor.user_id AS requestorId, Date(members.shared_date) AS requestTime,
-										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as version, 
+										versions.state AS status, artefacts.artefact_id as id, 
+										(SELECT COUNT(artefact_id) FROM " . TABLE_ARTEFACTS_VERSIONS . " AS ver WHERE 
+										ver.artefact_id = artefacts.artefact_id) as version, 
 										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where 
 										artefacts.latest_version_id = comments.artefact_ver_id) as commentCount
 										from " . TABLE_ARTEFACTS . " AS artefacts 
@@ -92,11 +94,13 @@ $AppGlobal['sql']['getReviewRequests']="SELECT DISTINCT requestor.name AS reques
 										WHERE artefacts.artefact_id 
 										in 
 										(SELECT versions.artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
-										WHERE versions.shared = 1 AND versions.artefact_ver_id 
+										WHERE versions.artefact_ver_id 
 										in 
 										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
 										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
-										artefacts.replace_ref_id = 0";
+										artefacts.replace_ref_id = 0
+										ORDER BY members.shared_date DESC
+										LIMIT @~~limit~~@";
 													 
 $AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email, user_id as id from users WHERE user_id in (SELECT user_id from project_members WHERE proj_id in (SELECT proj_id from project_members WHERE user_id = @~~userid~~@)) and user_id != @~~userid~~@";
 

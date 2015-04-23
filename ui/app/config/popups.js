@@ -45,7 +45,7 @@ Kenseo.popups = (function(){
 	            {
 	            	"label": "Done",
 	            	"cls": "main-btn done-btn",
-	            	"disabled": true
+	            	"disabled": false
 	            }],
 	            "callbackfunc": sb.popup.thirdLoader
 	        }

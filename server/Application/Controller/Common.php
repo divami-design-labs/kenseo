@@ -60,9 +60,11 @@
 				$columnnames = array('project_id','artefact_title', 'description', 'artefact_type', );
 				$rowvals = array($data->project, $data->name, $data->description, $data->type);
 				$artId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS, $columnnames, $rowvals);
-			
+					
+							
 				$verColumnNames = array("artefact_id", "version_label","created_by","document_path","MIME_type", "file_size", "state", "created_date");
-				$verRowValues = array($artId, $data->name, $data->userId, $targetPath, $data->MIMEtype,  $data->size, 'c', date("Y-m-d H:i:s"));
+				$verRowValues = array($artId, $data->MIMEtype->name, $data->userId, $targetPath, $data->MIMEtype->type,  $data->size, 'c', date("Y-m-d H:i:s"));
+				
 				
 				$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $verColumnNames, $verRowValues);
 				
@@ -93,13 +95,39 @@
 				
 				//now link the artefacts
 				
-				//if it is  share share it with others as well 
+				//if it is  share share it with others as well
+				if($data->share) {
+					//now send the data to be shared for those people
+					shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
+				} 
 				return $targetPath;
 				
 			} else {
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $interpreter->getData()->data->type);
+				return false;
 			}
-			return true;
+			
+		}
+		
+		private function shareForTeam($artId, $artVerId, $team, $sharedBy) {
+			$db = Master::getDBConnectionManager();
+			for($i = 0; $i < count($team); $i++) {
+				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				
+				$shareRowValues = array($artVerId, $artId, $team[i]->userId, $team[i]->permission , date("Y-m-d H:i:s"), $sharedBy);
+				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+			}
+			
+			$db->updateTable(TABLE_ARTEFACTS_VERSIONS,array('shared'),array(1), "artefact_ver_id = $artVerId");
+			
+		}
+		
+		public function shareArtefact($interpreter) {
+			$data = $interpreter->getData();
+			$artVerId = $data-> artefactVerId;
+			$artId = $data->artId;
+			$userId = $interpreter->getUser()->user_id;
+			shareForTeam($artId, $artVerId,$data->sharedTo, $data->userId);
 		}
     }
 ?>

@@ -47,6 +47,7 @@ $(function(){
     	$('.active').not($this).removeClass('active');
     	$this.toggleClass('active');
     })
+<<<<<<< Updated upstream
     .on('click', '.popup-click', function(){
     	$('.popup-container').show();
         var $self = $(this);
@@ -58,5 +59,32 @@ $(function(){
         	index = dump.index;
         }
         sb.callPopup(index);
+=======
+    .on('click', '.done-btn', function() {
+		var data = new FormData();
+		data.append("name", Kenseo.popup.data.fileName);
+		data.append("command", 'test');
+		data.append("description" , "hfvjdhdfjdjf");
+		data.append("project" , Kenseo.popup.data['project_id']);
+		data.append("MIMEtype", Kenseo.popup.data.file);
+		data.append("size", Kenseo.popup.data.file.size);
+		data.append("type", Kenseo.popup.data.file.type);
+		data.append("sid", '9hal4k29ath2hu3oivuqetn967');
+		data.append("file",Kenseo.popup.data.file);
+		data.append("tags", [1,3,4,5]);
+		data.append("refs", [1]);
+		data.append("share", Kenseo.popup.data.share);
+		
+		$.ajax({
+			url : "../server/extUpload.php",
+			data: data,
+			type: 'POST',
+			contentType: false,
+			processData: false,
+			success : function(response){
+				alert ("success");
+			}
+		});
+>>>>>>> Stashed changes
     });
 });

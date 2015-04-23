@@ -261,7 +261,8 @@ var sb = (function(){
         		$('.upload-files-input').change(function(){
         			$('.create-file-item').show();
         			$('.create-file-item .notification-title').html(this.value);
-
+					
+					Kenseo.popup.data.file = this.files[0];
         			Kenseo.popup.data.fileName = this.value;
         			$('.main-btn').prop('disabled', false);
         		});
@@ -292,6 +293,7 @@ var sb = (function(){
         		});
             },
             thirdLoader: function(){
+            	Kenseo.popup.data.share = true;
             	sb.loadFiles({
             		'collections': ['References', 'Tags'],
             		'models': ['Artefacts']
@@ -333,7 +335,7 @@ var sb = (function(){
             	});
             },
             fourthLoader: function(){
-
+				Kenseo.popup.data.share = true;
             }
 		}
 	};
