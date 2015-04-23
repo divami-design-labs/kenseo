@@ -86,6 +86,7 @@
 }
 .popup-meta-text{
 	@include text(15px, $colorTwo);
+	@extend .ellipsis;
 }
 .popup-meta-item{
 	padding-left:50px;
@@ -173,7 +174,9 @@ $popup-content-space: 175px;
 	@include text(16px, $colorTwo);
 	margin-bottom: 10px;
 }
-
+.field-section{
+	position: relative;
+}
 .field-section, .input-wrapper{
 	@extend .wrap;
 }
@@ -312,4 +315,20 @@ $popup-content-space: 175px;
 .sarp-checkbox-holder{
 	margin-top: 10px;
 	margin-left: 10px;
+}
+.reference-suggestion-item {
+    padding: 5px;
+    background-color: $colorFour;
+    border: 1px solid #fff;
+    @extend .hand;
+    @include text(14px, $colorTwo);
+}
+.reference-files-suggestions{
+    background-color: white;
+    border: 1px solid #ccc;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 72px;
+    z-index: 1;
 }

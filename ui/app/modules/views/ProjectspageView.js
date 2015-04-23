@@ -6,7 +6,6 @@ Kenseo.views.Projectspage = Backbone.View.extend({
         new Kenseo.views.Header({'model': new Kenseo.models.Header()});
 
         this.artefactsCollection  = new Kenseo.collections.Artefacts();
-        this.activitiesCollection = new Kenseo.collections.Activities();
         this.peopleCollection     = new Kenseo.collections.People();
         // Calls the view's render method
         this.render();
@@ -18,9 +17,9 @@ Kenseo.views.Projectspage = Backbone.View.extend({
     // Renders the view's template to the UI
     render: function() {
         sb.renderTemplate('projects-page', this.$el);
-        sb.renderTemplate('artifacts', $('.artifacts-section'), this.artefactsCollection);
+        sb.renderTemplate('artifacts', $('.artifacts-section'), this.artefactsCollection, null, {linked: true});
         sb.renderTemplate('people', $('.people-section'), this.peopleCollection);
-        sb.renderTemplate('activities', $('.activity-section'), this.activitiesCollection);
+        sb.renderTemplate('activities', $('.activity-section'), this.artefactsCollection, null, {activities: true});
         // Maintains chainability
         return this;
     }

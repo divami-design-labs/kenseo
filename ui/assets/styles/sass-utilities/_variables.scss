@@ -151,8 +151,9 @@ $fontSizeOne: 18px;
 	bottom: 0;
 }
 .ellipsis{
-	text-overflow: ellipsis;
 	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .show{
 	display: block;

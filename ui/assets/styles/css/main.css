@@ -44,9 +44,10 @@
   top: 0;
   bottom: 0; }
 
-.ellipsis, .mn-left-title {
+.ellipsis, .menu-notifications-txt-tm, .rr-details, .notification-title, .notification-time, .mn-left-title, .popup-meta-text {
+  overflow: hidden;
   text-overflow: ellipsis;
-  overflow: hidden; }
+  white-space: nowrap; }
 
 .show {
   display: block; }
@@ -62,7 +63,7 @@
 .a, .main-btn, .lnk-btn, .or-btn {
   text-decoration: none; }
 
-.hand, .search-icon, .create-icon-holder, .notification-close-icon, .rr-state span, .popup-close-icon, .upload-file-section, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item {
+.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-close-icon, .upload-file-section, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item, .reference-suggestion-item {
   cursor: pointer; }
 
 .wrap, .field-section, .input-wrapper {
@@ -189,6 +190,7 @@
 .hamburger-notify {
   width: 16px;
   height: 16px;
+  display: none;
   background-color: #ee603a;
   font-size: 10px;
   color: white;
@@ -381,7 +383,6 @@
   top: 10px; }
 
 .search-section {
-  width: 518px;
   position: absolute;
   top: 80px;
   transform: translate(-50%, 0);
@@ -440,17 +441,15 @@
   display: none; }
 
 .search-results {
-  width: 498px;
-  height: auto;
   background-color: #ffffff;
-  margin: 0 auto;
   border: 1px solid #fff;
-  padding-left: 20px;
-  padding-bottom: 20px; }
+  margin: 0 auto;
+  display: none;
+  padding-top: 10px; }
 
 .search-row {
   height: 28px;
-  margin-top: 20px;
+  padding: 10px 20px;
   font-size: 16px;
   color: #3e4354; }
 
@@ -695,7 +694,8 @@
 .menu-notifications-img-dv {
   width: 18px;
   height: auto;
-  float: left; }
+  float: left;
+  margin-top: 3px; }
 
 .menu-notifications-img {
   width: 18px;
@@ -1662,6 +1662,9 @@
   color: #3e4354;
   margin-bottom: 10px; }
 
+.field-section {
+  position: relative; }
+
 .field-section + .field-section {
   margin-top: 20px; }
 
@@ -1825,6 +1828,22 @@
 .sarp-checkbox-holder {
   margin-top: 10px;
   margin-left: 10px; }
+
+.reference-suggestion-item {
+  padding: 5px;
+  background-color: #ffffff;
+  border: 1px solid #fff;
+  font-size: 14px;
+  color: #3e4354; }
+
+.reference-files-suggestions {
+  background-color: white;
+  border: 1px solid #ccc;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 72px;
+  z-index: 1; }
 
 body {
   font-family: "OpenSansRegular"; }

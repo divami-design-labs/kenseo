@@ -219,6 +219,7 @@
 .menu-notifications-img-dv {
     @include dimensions(18px, auto);
     float: left;
+    margin-top: 3px;
 }
 
 .menu-notifications-img {
@@ -240,6 +241,7 @@
     display: block;
     margin-top: 4px;
     @include text(12px, $color3);
+    @extend .ellipsis;
 }
 
 .menu-notifications-txt-dttme {

@@ -53,6 +53,7 @@ Kenseo.views.Header = Backbone.View.extend({
     validateSearch: function(e) {
         var searchString = this.value;
         if(searchString.length > 2) {
+            $('.search-results').show();
             sb.loadFiles({
                 'models': ['Search'],
                 'collections': ['Search']
@@ -61,6 +62,9 @@ Kenseo.views.Header = Backbone.View.extend({
                     'string': searchString
                 });
             });
+        }
+        else{
+            $('.search-results').hide();
         }
     }
 });
