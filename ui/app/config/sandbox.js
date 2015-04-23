@@ -295,13 +295,13 @@ var sb = (function(){
             thirdLoader: function(){
             	Kenseo.popup.data.share = false;
             	sb.loadFiles({
-            		'collections': ['References', 'Tags'],
+            		'collections': ['Artefacts', 'Tags'],
             		'models': ['Artefacts']
             	}, function(){
             		sb.ajaxCall(
 						{ 
-							'collection': new Kenseo.collections.References(),
-							'data': {ignore: 0, projectid: Kenseo.popup.data.project_id},
+							'collection': new Kenseo.collections.Artefacts(),
+							'data': {references: true, ignore: 0, projectid: Kenseo.popup.data.project_id},
 							'success': function(response){
 								var objResponse = JSON.parse(response);
 			            		$('.reference-files-text').on('keyup', function(){
@@ -323,6 +323,10 @@ var sb = (function(){
 			            				$holder.html(html + '<div class="reference-item" name="' + this.getAttribute('name') + '">' + this.innerHTML + '<div class="reference-item-close-icon"></div></div>');
 			            				$(this).parent().hide();
 			            				self.value = "";
+			            			});
+
+			            			$(document).on('click', '.reference-item-close-icon', function(){
+			            				$(this).parent().remove();
 			            			});
 			            		});
 							}

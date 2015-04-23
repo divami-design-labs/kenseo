@@ -13,6 +13,7 @@ $headerHeight: 64px;
 }
 .hamburger-notify{
 	@include dimensions(16px, 16px);
+	display: none;
 	background-color: #ee603a;
 	@include text(10px, white);
 	@include border-radius(50%);

@@ -1,5 +1,4 @@
 .search-section{
-	width: 518px;
 	position: absolute;
 	top: 80px;
 	@include translate(-50%, 0);
@@ -40,16 +39,16 @@
     display: none;
 }
 .search-results {
-    @include dimensions(498px, auto);
     background-color: $colorFour;
-    margin:0 auto;
     border: 1px solid #fff;
-    padding-left:20px;
-    padding-bottom:20px;
+    margin:0 auto;
+    display: none;
+    padding-top: 10px;
 }
 .search-row {
     height:28px;
-    margin-top:20px;
+    padding:10px 20px;
+    @extend .hand;
     @include text(16px, $colorTwo);
 }
 .search-row-img {

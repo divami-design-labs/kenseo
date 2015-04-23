@@ -130,6 +130,7 @@
 	@include textSix();
 	margin-top: 6px;
 	margin-bottom: 5px;
+	@extend .ellipsis;
 }
 .status-c{ /* critical */
 	background-color: $colorCritical;
@@ -320,9 +321,11 @@
 }
 .notification-title{
 	@include textFive();
+	@extend .ellipsis;
 }
 .notification-time{
 	@include text(12px, $colorC);
+	@extend .ellipsis;
 }
 .mn-left{
 	display: table-cell;
