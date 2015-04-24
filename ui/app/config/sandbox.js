@@ -108,10 +108,18 @@ var sb = (function(){
 	        }
 	        sb.loadFiles(filesToLoad.js, callBackFunc);
 	    },
+	    saveData: function(payload){
+	    	var popupData = Kenseo.popup.data;
+			for(key in popupData){
+				data.append(key, popupData[key]);
+			}
+			payload.data = popupData;
+			ajaxCall(payload);
+	    },
 	    ajaxCall: function(payload){
 	    	$.ajaxSetup({ cache: false });
 	    	var collection = payload.collection;
-			var url = collection.urlRoot? collection.urlRoot: collection.url;
+			var url = payload.url || collection.urlRoot || collection.url;
 			$.ajax({
 				url: "../server/" + url,
 				data: {
@@ -120,6 +128,7 @@ var sb = (function(){
 						sid : Kenseo.cookie.sessionid()	
 					}
 				},
+				type: payload.type || "GET",
 				success: payload.success
 			});
 	    },

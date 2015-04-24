@@ -54,9 +54,9 @@ $headerHeight: 64px;
 	position: relative;
 	cursor: pointer;
 	z-index: 1;
+	width: 58px;
+	height: 60px;
 	img{
-		max-width: 50px;
-		max-height: 50px;
 		@include border-radius(50%);
 		background-color: white;
 		border: 2px solid white;

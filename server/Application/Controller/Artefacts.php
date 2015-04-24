@@ -3,19 +3,19 @@
 		public function getArtefacts($interpreter){
 			// return "I am in";
 			$data = $interpreter->getData()->data;
-			if($data->shared){
+			if($data->shared == "true"){
 				return $this->getSharedArtefacts($interpreter);
 			}
-			elseif($data->activities){
+			elseif($data->activities == "true"){
 				return $this->getRecentArtefactActivities($interpreter);
 			}
-			elseif($data->linked){
+			elseif($data->linked == "true"){
 				return $this->getArtefactsLink($interpreter);
 			}
-			elseif($data->projects){
+			elseif($data->projects == "true"){
 				return $this->getProjectArtefacts($interpreter);
 			}
-			elseif($data->references){
+			elseif($data->references == "true"){
 				return $this->getReferences($interpreter);
 			}
 			return "something else";
@@ -29,7 +29,7 @@
 			
 			$db = Master::getDBConnectionManager();
 			$queryParams = array('userid' => $userid, 'projectid' => $projectid );
-			if($sharePermission) {
+			if($sharePermission == "true") {
 				$dbQuery = getQuery('getProjectArtefactsWithSharePermission',$queryParams);
 			} else {
 				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);

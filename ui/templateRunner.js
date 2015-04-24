@@ -4,11 +4,9 @@ var templates = {
 	'nav-menu':fs.readFileSync('app/templates/menu/nav-menu.html', 'utf8'),
 	'db-notifications': fs.readFileSync('app/templates/dashboard/db-notifications.html', 'utf8'),
 	'db-projects-section': fs.readFileSync('app/templates/dashboard/db-projects-section.html', 'utf8'),
-	'db-review-requests': fs.readFileSync('app/templates/dashboard/db-review-requests.html', 'utf8'),
-	'projects-page': fs.readFileSync('app/templates/projectspage/projects-page.html', 'utf8'),
-	'artifacts': fs.readFileSync('app/templates/projectspage/artifacts.html', 'utf8'),
-	'people': fs.readFileSync('app/templates/projectspage/people.html', 'utf8'),
-	'activities': fs.readFileSync('app/templates/projectspage/activities.html', 'utf8'),
+    'projects-page': fs.readFileSync('app/templates/projectspage/projects-page.html', 'utf8'),
+    'people': fs.readFileSync('app/templates/projectspage/people.html', 'utf8'),
+    'activities': fs.readFileSync('app/templates/projectspage/activities.html', 'utf8'),
     'menu-header': fs.readFileSync('app/templates/menu/menu-header.html', 'utf8'),
     'menu-projects-container': fs.readFileSync('app/templates/menu/menu-projects-container.html', 'utf8'),
     'menu-recent-activity': fs.readFileSync('app/templates/menu/menu-recent-activity.html', 'utf8'),
@@ -22,5 +20,6 @@ var templates = {
     'artefact-three': fs.readFileSync('app/templates/popups/artefact-three.html', 'utf8'),
     'artefact-four': fs.readFileSync('app/templates/popups/artefact-four.html', 'utf8'),
     'dropdown': fs.readFileSync('app/templates/common/dropdown.html', 'utf8'),
+	'artefacts': fs.readFileSync('app/templates/common/artefacts.html', 'utf8'),
     'reference-items': fs.readFileSync('app/templates/artefacts/reference-items.html', 'utf8')
 };

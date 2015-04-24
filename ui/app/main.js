@@ -64,6 +64,7 @@ $(function(){
     })
     .on('click', '.done-btn', function() {
 		var data = new FormData();
+		
 		data.append("name", Kenseo.popup.data.fileName);
 		data.append("command", 'test');
 		data.append("description" , "hfvjdhdfjdjf");

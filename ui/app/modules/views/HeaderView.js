@@ -1,6 +1,6 @@
 Kenseo.views.Header = Backbone.View.extend({
     // The DOM Element associated with this view
-    el: ".header",
+    el: ".profile-pic-holder",
     // View constructor
     initialize: function() {
         // Calls the view's render method

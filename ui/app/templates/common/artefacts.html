@@ -1,0 +1,37 @@
+<% var dataComparer = -1; %>
+<% _.each(data, function(r){ %>
+<div class="review-request-item" 
+	data-pass="<%= 
+					function(){
+						if(dataComparer == r.linkedId){
+							dataComparer = r.linkedId; 
+							return 1; 
+						} else{
+							dataComparer = r.linkedId; 
+							return 0; 
+						}
+					}() 
+				%>">
+	<div class="rr-left">
+		<div class="rr-status status-<%= r.status %>"><%= function(){ if(r.documentType == "U"){ return "UID"; }else if(r.documentType === "I"){ return "IXD"; }}() %></div>
+		<img class="rr-owner-image" src="<%= r.requestorImage %>"/>
+	</div>
+	<div class="rr-right">
+		<div class="rr-title"><%= r.title %></div>
+		<div class="rr-details">@ <%= sb.timeFormat(r.requestTime) %> by <%= r.requestedBy %></div>
+		<div class="rr-state-details">
+			<div class="rr-state"><span>v<%= r.version %></span></div>
+			<div class="rr-comment"><%= r.commentCount %></div>
+		</div>
+	</div>
+	<div class="requests-dropdown toggle-click">
+		<div class="requests-dropdown-icon"></div>
+		<div class="requests-dropdown-items">
+			<div class="requests-archive-item">Archive</div>
+			<div class="requests-replace-item">Replace</div>
+			<div class="requests-add-version-item">Add Version</div>
+			<div class="requests-share-item">Share</div>
+		</div>
+	</div>
+</div>
+<% }); %>
