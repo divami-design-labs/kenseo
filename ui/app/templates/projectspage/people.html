@@ -5,10 +5,10 @@
 	</div>
 </div>
 <div class="people-section-content sub-section-content">
-	<% _.each(data.people, function(p){ %>
+	<% _.each(data, function(p){ %>
 	<div class="people-item-holder">
 		<div class="people-item-left">
-			<img class="people-icon" src="assets/imgs/people/small/<%= p.name %>.png" />
+			<img class="people-icon" src="<%= p.picture %>" />
 		</div>
 		<div class="people-item-right">
 			<div class="people-name"><%= p.name %></div>

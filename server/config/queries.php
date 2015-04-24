@@ -41,32 +41,36 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 																JOIN " . TABLE_USERS . " AS user on memb.user_id = user.user_id
 																WHERE memb.user_id = @~~userid~~@ AND arts.project_id = @~~projectid~~@";
 
-$AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT requestor.name AS requestedBy,versions.version_label AS name, 
-										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
-										requestor.user_id AS requestorId, Date(members.shared_date) AS requestTime,
-										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as version, 
-										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where artefacts.artefact_id = comments.artefact_id and
-										artefacts.latest_version_id = comments.artefact_ver_id) as commentCount
-										from " . TABLE_ARTEFACTS . " AS artefacts 
-										JOIN " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
-										ON 
-										artefacts.latest_version_id = versions.artefact_ver_id 
-										AND  
-										versions.artefact_id = artefacts.artefact_id 
-										JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." AS members ON 
-										artefacts.latest_version_id = members.artefact_ver_id AND
-										artefacts.artefact_id = members.artefact_id
-										JOIN " . TABLE_USERS . " AS requestor ON 
-										members.shared_by = requestor.user_id
-										WHERE
-										artefacts.project_id = @~~projectid~~@  AND
-										artefacts.artefact_id 
-										in 
-										(SELECT versions.artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
-										WHERE versions.shared = 1 AND versions.artefact_ver_id 
-										in 
-										(SELECT artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
-										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@))";
+$AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINCT
+											requestor.name as requestedBy, 
+											versions.version_label as title, 
+											requestor.profile_pic_url as requestorImage, 
+											artefacts.artefact_type as documentType,
+											requestor.user_id as requestorId,
+											Date(members.shared_date) AS requestTime,
+											versions.state AS status, 
+											artefacts.artefact_id as id,
+											artefacts.linked_id as linkedId, 
+											(select count(comment_id) from ". TABLE_COMMENTS ." as comments where 
+											artefacts.latest_version_id = comments.artefact_ver_id) as commentCount 
+											FROM " . TABLE_ARTEFACTS . " as artefacts 
+											JOIN ". TABLE_ARTEFACTS_VERSIONS ." as versions 
+											on 
+											artefacts.latest_version_id = versions.artefact_ver_id 
+											JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." as members on 
+											artefacts.latest_version_id = members.artefact_ver_id
+											JOIN " . TABLE_USERS . " as requestor on 
+											members.shared_by = requestor.user_id or versions.created_by = requestor.user_id
+											WHERE artefacts.project_id = @~~projectid~~@ and
+											artefacts.artefact_id 
+											in 
+											(select versions.artefact_id from ". TABLE_ARTEFACTS_VERSIONS ." as versions 
+											WHERE versions.artefact_ver_id 
+											in 
+											(select versions.artefact_ver_id from ". TABLE_ARTEFACTS_SHARED_MEMBERS ." as members 
+											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
+											artefacts.replace_ref_id = 0
+											ORDER BY artefacts.linked_id,members.shared_date";
 
 $AppGlobal['sql']['getReviewRequests-old'] = "SELECT artefacts.*,(SELECT COUNT(*) FROM ". TABLE_COMMENTS ." AS comments where comments.artefact_ver_id = artefacts.latest_version_id) AS commentsCount from " . TABLE_ARTEFACTS . " AS artefacts 
 											WHERE artefacts.artefact_id in 

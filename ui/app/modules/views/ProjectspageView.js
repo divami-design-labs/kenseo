@@ -17,9 +17,9 @@ Kenseo.views.Projectspage = Backbone.View.extend({
     // Renders the view's template to the UI
     render: function() {
         sb.renderTemplate('projects-page', this.$el);
-        sb.renderTemplate('artifacts', $('.artifacts-section'), this.artefactsCollection, null, {linked: true});
+        sb.renderTemplate('artifacts', $('.artifacts-section'), this.artefactsCollection, null, {projects: true, project_id: 1, sharePermission: false});
         sb.renderTemplate('people', $('.people-section'), this.peopleCollection);
-        sb.renderTemplate('activities', $('.activity-section'), this.artefactsCollection, null, {activities: true});
+        sb.renderTemplate('activities', $('.activity-section'), this.artefactsCollection, null, {activities: true, project_id: Kenseo.page.data.project_id});
         // Maintains chainability
         return this;
     }

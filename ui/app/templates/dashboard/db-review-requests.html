@@ -6,7 +6,7 @@
 	<% _.each(data, function(r){ %>
 	<div class="review-request-item">
 		<div class="rr-left">
-			<div class="rr-status status-<%= r.status %>"><%= r.doctype %></div>
+			<div class="rr-status status-<%= r.status %>"><%= function(){ if(r.documentType == "U"){ return "UID"; }else if(r.documentType === "I"){ return "IXD"; }}() %></div>
 			<img class="rr-owner-image" src="<%= r.requestorImage %>"/>
 		</div>
 		<div class="rr-right">

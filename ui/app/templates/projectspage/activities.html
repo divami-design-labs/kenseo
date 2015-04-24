@@ -9,13 +9,13 @@
 			Today
 		</div>
 		<div class="day-activity-section">
-			<% _.each(activities, function(a){ %>
+			<% _.each(data, function(a){ %>
 			<div class="activity-holder create-activity-type">
 				<div class="activity-left">
 					<div class="activity-icon"></div>
 				</div>
 				<div class="activity-right">
-					<div class="activity-title"><%= a.project %>: <%= a.activityName %></div>
+					<div class="activity-title"><%= a.project_name %>: <%= a.activityName %></div>
 					<div class="activity-details">
 						<div class="activity-time">10:00 PM</div>
 						<div class="activity-sender"> - from Rakesh</div>

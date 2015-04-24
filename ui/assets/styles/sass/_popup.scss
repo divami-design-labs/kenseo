@@ -8,6 +8,9 @@
 	bottom: 0;
 	z-index: 100;
 }
+.popup-click{
+	@extend .hand;
+}
 .popup{
 	@include fullMiddle();
 	border: 1px solid $color8;

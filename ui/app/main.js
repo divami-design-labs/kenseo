@@ -59,6 +59,9 @@ $(function(){
         }
         sb.callPopup(index);
      })
+    .on('click', '.page-click', function(){
+    	Kenseo.page.data = $(this).data('dump');
+    })
     .on('click', '.done-btn', function() {
 		var data = new FormData();
 		data.append("name", Kenseo.popup.data.fileName);

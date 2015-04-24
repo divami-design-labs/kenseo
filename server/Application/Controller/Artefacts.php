@@ -12,10 +12,30 @@
 			elseif($data->linked){
 				return $this->getArtefactsLink($interpreter);
 			}
+			elseif($data->projects){
+				return $this->getProjectArtefacts($interpreter);
+			}
 			elseif($data->references){
 				return $this->getReferences($interpreter);
 			}
 			return "something else";
+		}
+		public function getProjectArtefacts($interpreter) {
+			$data = $interpreter->getData()->data;
+			$userid = $interpreter->getUser()->user_id;
+			$sharePermission = $data->sharePermission;
+			$projectid = $data->project_id;
+			$count = $data->count;
+			
+			$db = Master::getDBConnectionManager();
+			$queryParams = array('userid' => $userid, 'projectid' => $projectid );
+			if($sharePermission) {
+				$dbQuery = getQuery('getProjectArtefactsWithSharePermission',$queryParams);
+			} else {
+				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);
+			}
+			$resultObj = $db->multiObjectQuery($dbQuery);
+			return $resultObj;
 		}
 		function getSharedArtefacts($interpreter) {
 			$data = $interpreter->getData();

@@ -55,8 +55,11 @@ $headerHeight: 64px;
 	cursor: pointer;
 	z-index: 1;
 	img{
-		max-width: 54px;
-		max-height: 54px;
+		max-width: 50px;
+		max-height: 50px;
+		@include border-radius(50%);
+		background-color: white;
+		border: 2px solid white;
 	}
 }
 .create-icon-holder{

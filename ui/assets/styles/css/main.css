@@ -63,7 +63,7 @@
 .a, .main-btn, .lnk-btn, .or-btn {
   text-decoration: none; }
 
-.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-close-icon, .upload-file-section, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item, .reference-suggestion-item {
+.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item, .reference-suggestion-item {
   cursor: pointer; }
 
 .wrap, .field-section, .input-wrapper {
@@ -270,8 +270,15 @@
   cursor: pointer;
   z-index: 1; }
   .profile-pic-holder img {
-    max-width: 54px;
-    max-height: 54px; }
+    max-width: 50px;
+    max-height: 50px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid white; }
 
 .create-icon-holder {
   position: absolute;
@@ -963,7 +970,8 @@
 .rr-title {
   font-size: 14px;
   color: #3e4354;
-  line-height: 11px; }
+  line-height: 11px;
+  text-transform: capitalize; }
 
 .rr-details {
   font-size: 13px;
@@ -1074,11 +1082,14 @@
   float: left; }
 
 .rr-owner-image {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   position: absolute;
   right: 0;
-  bottom: 0; }
+  bottom: 0;
+  background-color: white;
+  border: 2px solid transparent;
+  border-radius: 50%; }
 
 .requests-dropdown {
   position: absolute;

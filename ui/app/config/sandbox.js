@@ -181,10 +181,10 @@ var sb = (function(){
 		        resultDateFormat = day + " " + months[month] + " " + year;
 		    }
 		    else if(month == currentMonth && day === currentDay - 1){
-		        resultDateFormat = "yesterday";
+		        resultDateFormat = "Yesterday";
 		    }
 		    else if(month === currentMonth && day === currentDay){
-		        resultDateFormat = "today";
+		        resultDateFormat = "Today";
 		    }
 		    else{
 		        resultDateFormat = day + " " + months[month];

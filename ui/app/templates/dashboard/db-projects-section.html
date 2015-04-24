@@ -20,7 +20,7 @@
 			<div class="project-actions-wrapper">
 				<div class="project-action popup-click" data-url="add-artefact" data-dump=<%= JSON.stringify({'project_id':p.id, 'project_name': p.name, 'index': 1}) %>>
 					<div class="project-action-icon add-artefact-icon"></div>
-					<div class="project-action-label">Add artefact</div>
+					<div class="project-action-label">Add an artefact</div>
 				</div>
 				<div class="project-action">
 					<div class="project-action-icon add-user-icon"></div>
@@ -31,7 +31,7 @@
 					<div class="project-action-label">Archive</div>
 				</div>
 			</div>
-			<a href="#projectspage" class="btn-project-open">Open Project</a>
+			<a href="#projectspage" data-dump=<%= JSON.stringify({'project_id': p.id, 'project_name': p.name}) %> class="btn-project-open page-click">Open Project</a>
 		</div>
 	</div>
 	<% }); %>

@@ -27,7 +27,8 @@ var Router = Backbone.Router.extend({
             }
         );
     },
-    projectsPage: function(x){
+    projectsPage: function(id){
+        Kenseo.page.data.project_id = id;
         sb.loadFiles(
             {
                 'views': ['Header', 'Projectspage'],
