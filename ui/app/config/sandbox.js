@@ -121,7 +121,7 @@ var sb = (function(){
 	    	var collection = payload.collection;
 			var url = payload.url || collection.urlRoot || collection.url;
 			$.ajax({
-				url: "../server/" + url,
+				url: "../" + url,
 				data: {
 					"data": payload.data,
 					'client' : {
@@ -129,7 +129,13 @@ var sb = (function(){
 					}
 				},
 				type: payload.type || "GET",
-				success: payload.success
+				success: function(response) {
+					if(JSON.parse(response).status == 'success') {
+						payload.success(response);
+					} else {
+						 window.location.assign("http://kenseo.divami.com");
+					}
+				}
 			});
 	    },
 	    renderTemplate: function(templateString, $el, model, callBackFunc, data){
@@ -280,10 +286,11 @@ var sb = (function(){
         			'collections': ['Artefacts'],
         			'models': ['Artefacts']
         		},function(){
-        			sb.renderTemplate('dropdown', $('.existing-files-dropdown'), new Kenseo.collections.Artefacts(), null, { projectid:Kenseo.popup.data['project_id'], sharepermission: true});
+        			sb.renderTemplate('dropdown', $('.existing-files-dropdown'), new Kenseo.collections.Artefacts(), null, { shared : true, projectid:Kenseo.popup.data['project_id'], sharepermission: false});
         			$('.dropdown').on('change', function(){
 	                    if(this.selectedIndex){
 	                        $('.main-btn').prop('disabled', false);
+	                        Kenseo.popup.data['artefact_id'] = this.selectedOptions[0].getAttribute('name');;
 	                    }
 	                    else{
 	                        $('.main-btn').prop('disabled', true);

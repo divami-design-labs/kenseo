@@ -1,7 +1,6 @@
 <?php 
 	class Artefacts {
 		public function getArtefacts($interpreter){
-			// return "I am in";
 			$data = $interpreter->getData()->data;
 			if($data->shared == "true"){
 				return $this->getSharedArtefacts($interpreter);
@@ -92,8 +91,7 @@
 			$dbQuery = getQuery('getVerionDetailsOfArtefact', $artefactOldVersionParams);
 			$existingArtVersionDetails = $db->multiObjectQuery($dbQuery);
 			
-			$existingArtVersionDetails = $existingArtVersionDetails[0];
-			
+			$existingArtVersionDetails = $existingArtVersionDetails[0];			
 
 			//insert a new row for the new artefact version of the main artefact
 			$column_names = array('artefact_ver_id','artefact_id','version_label','created_by','created_date','document_path','MIME_type','file_size','state','shared');
@@ -154,6 +152,11 @@
 			$artefactId = 1;
 			$linkArtefacts = $data -> linkIds;
 			
+			return $this->linkarts();
+		}	
+		
+		public function linkArts ($artefactId, $linkArtefacts) {
+			
 			$date = date("Y-m-d H:i:s");
 			
 			$db = Master::getDBConnectionManager();
@@ -199,7 +202,7 @@
 				}					
 			}
 			return $artefactLinkId -> linked_id + 1;
-		}	
+		}
 
 		public function getReferences($interpreter) {
 			$data = $interpreter -> getData() -> data;
@@ -216,6 +219,110 @@
 			$refs = $db-> multiObjectQuery($dbQuery);
 
 			return $refs;
+		}
+		
+		public function addArtefact($interpreter) {
+			
+			if(isset($_FILES["file"]["type"])) {
+
+				$data = $interpreter->getData();
+				$uploadFile = $_FILES["file"]["type"];
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,$_FILES["file"]["tmp_name"]);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,"interpreter is");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,$interpreter->getUser());
+				
+				$data->userId = $interpreter->getUser()->user_id;
+				
+				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
+				$targetPath = $AppGlobal['gloabl']['storeLocation'].$_FILES['file']['name']; // Target path where file is to be stored
+				move_uploaded_file($sourcePath,$targetPath) ;
+				
+				//now store the artefact detail in the tables related to artefacts and versions
+				$db = Master::getDBConnectionManager();
+				
+				if($data->artefact_id) {
+					$artId = $data->artefact_id;
+				} else {
+					//if it is a new artefact
+					$columnnames = array('project_id','artefact_title', 'description', 'artefact_type', );
+					$rowvals = array($data->project, $_FILES['file']['name'], $data->description, $data->type);
+					$artId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS, $columnnames, $rowvals);
+				}
+				
+				//else 
+				$verColumnNames = array("artefact_id", "version_label","created_by","document_path","MIME_type", "file_size", "state", "created_date");
+				$verRowValues = array($artId, $_FILES['file']['name'], $data->userId, $targetPath, $data->MIMEtype->type,  $data->size, 'c', date("Y-m-d H:i:s"));
+				
+				$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $verColumnNames, $verRowValues);
+				
+				//update the latest art version id
+				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($artVerId), "artefact_id = " . $artId );
+				
+				//now share the artversion to the owner
+				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				
+				$shareRowValues = array($artVerId, $artId, $data->userId, 'S', date("Y-m-d H:i:s"), $data->userId);
+				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+				
+				//add the tags to the artefacts
+				$tagsList = $data->tags;
+				for($i = 0 ; $i<count($tagsList); $i++) {
+					$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
+					$tagRowValues = array($artId, $tagsList[$i], date("Y-m-d H:i:s"), $data->userId );
+					$db->insertSingleRow(TABLE_ARTEFACTS_TAGS, $tagColumnNames, $tagRowValues);
+				}
+				
+				//now add artefact references
+				$refDocs = $data->refs;
+				for($i = 0 ; $i< count($refDocs); $i++) {
+					$refColumnNames = array("artefact_ver_id", "ref_artefact_id", "created_date", "created_by");
+					$refRowValues = array($artVerId, $refDocs, date("Y-m-d H:i:s"), $data->userId );
+					$db->insertSingleRow(TABLE_ARTEFACT_REFS, $refColumnNames, $refRowValues);
+				}
+				
+				//now link the artefacts
+				
+				//if it is  share share it with others as well
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,"share : $data->share");
+				if($data->share) {
+					//now send the data to be shared for those people
+					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
+				}
+				
+				if($data->linkIds) {
+					$links = $this->linkArts ($artId, $data->linkIds);
+				} 
+				
+				
+				return $targetPath;
+				
+			} else {
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $interpreter->getData()->data->type);
+				return false;
+			}
+			
+		}
+		
+		public function shareForTeam($artId, $artVerId, $team, $sharedBy) {
+			$db = Master::getDBConnectionManager();
+			for($i = 0; $i < count($team); $i++) {
+				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				
+				$shareRowValues = array($artVerId, $artId, $team[i]->userId, $team[i]->permission , date("Y-m-d H:i:s"), $sharedBy);
+				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+			}
+			
+			$db->updateTable(TABLE_ARTEFACTS_VERSIONS,array('shared'),array(1), "artefact_ver_id = $artVerId");
+			
+		}
+		
+		public function shareArtefact($interpreter) {
+			$data = $interpreter->getData();
+			$artVerId = $data-> artefactVerId;
+			$artId = $data->artId;
+			$userId = $interpreter->getUser()->user_id;
+			$this->shareForTeam($artId, $artVerId,$data->sharedTo, $data->userId);
 		}
 	}
 ?>

@@ -66,16 +66,18 @@ $(function(){
 		var data = new FormData();
 		
 		data.append("name", Kenseo.popup.data.fileName);
-		data.append("command", 'test');
+		data.append("command", 'addArtefact');
 		data.append("description" , "hfvjdhdfjdjf");
 		data.append("project" , Kenseo.popup.data['project_id']);
 		data.append("MIMEtype", Kenseo.popup.data.file);
 		data.append("size", Kenseo.popup.data.file.size);
-		data.append("type", Kenseo.popup.data.file.type);
+		data.append("type", 'I');
 		data.append("sid", '9hal4k29ath2hu3oivuqetn967');
 		data.append("file",Kenseo.popup.data.file);
 		data.append("tags", [1,3,4,5]);
+		data.append("linkIds", [1,2,3]);
 		data.append("refs", [1]);
+		data.append("artefact_id", Kenseo.popup.data['artefact_id']);
 		data.append("share", Kenseo.popup.data.share);
 		data.append("sharedTo", [{
 			"userId" : 2,

@@ -17,8 +17,8 @@
 		<img class="rr-owner-image" src="<%= r.requestorImage %>"/>
 	</div>
 	<div class="rr-right">
-		<div class="rr-title"><%= r.title %></div>
-		<div class="rr-details">@ <%= sb.timeFormat(r.requestTime) %> by <%= r.requestedBy %></div>
+		<div class="rr-title ellipsis"><%= r.title %></div>
+		<div class="rr-details ellipsis">@ <%= sb.timeFormat(r.requestTime) %> by <%= r.requestedBy %></div>
 		<div class="rr-state-details">
 			<div class="rr-state"><span>v<%= r.version %></span></div>
 			<div class="rr-comment"><%= r.commentCount %></div>
