@@ -64,7 +64,7 @@ try
 			util_redirectToURL($authenticator->getAuthURL());
 		}
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "set cookie ");
-		setcookie("DivamiKenseoUserID", $userObj->id, 0, "/");
+		setcookie("DivamiKenseoUserID", $userObj->user_id, 0, "/");
 		// everything is fine. redirect to app page.
 		// Not needed anymore -- $authenticator->setUserInfoCookies();
 		util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.html');

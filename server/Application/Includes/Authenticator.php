@@ -31,7 +31,7 @@ class Authenticator
 		$this->client->setApprovalPrompt('auto');
 		$this->client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/calendar'));
 
-		$this->oauth2 = new Google_Service_OAuth2($this->client);
+		$this->oauth2 = new Google_Service_Oauth2($this->client);
 		
 		$this->authUrl = $this->client->createAuthUrl();
 
