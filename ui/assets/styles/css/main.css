@@ -492,7 +492,7 @@
   position: absolute;
   left: 0;
   top: 100%;
-  z-index: 1;
+  z-index: 10;
   cursor: default;
   display: none; }
 
@@ -761,9 +761,11 @@
   height: 40px; }
 
 .content-wrapper {
-  padding-left: 37px;
   padding-top: 55px;
   padding-right: 38px; }
+
+.projects-heading, .project-section {
+  margin-left: 37px; }
 
 .projects-heading, .review-requests-heading, .notifications-heading {
   position: relative; }
@@ -824,18 +826,15 @@
 
 .project-block {
   float: left;
-  width: 45%;
+  width: 43%;
   height: 200px;
   background-color: cornflowerblue;
-  position: relative; }
+  position: relative;
+  margin-bottom: 60px;
+  max-width: 350px;
+  margin-left: 37px; }
   .project-block:hover .project-block-hover-content {
     display: block; }
-
-.project-block:nth-child(2n) {
-  float: right; }
-
-.project-block:nth-child(n+3) {
-  margin-top: 60px; }
 
 .project-block-hover-content {
   text-align: center;
@@ -1485,6 +1484,10 @@
   left: 50%;
   border: 1px solid #8d8f96; }
 
+.popup-message {
+  width: 425px;
+  height: 200px; }
+
 .popup-small {
   width: 425px;
   height: 260px; }
@@ -1548,11 +1551,22 @@
   float: right;
   height: 35px;
   margin-left: 25px; }
+  .popup-buttons-section > button:last-child {
+    margin-left: 0; }
 
 .popup-buttons-section {
   position: absolute;
   bottom: 30px;
   right: 30px; }
+
+.popup-message .popup-buttons-section {
+  left: 50%;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  right: auto; }
 
 .main-btn {
   font-size: 16px;
@@ -1862,7 +1876,6 @@ body {
 .page {
   height: 100%;
   margin: 0 auto;
-  max-width: 1346px;
   min-width: 1180px; }
 
 /*# sourceMappingURL=main.css.map */
