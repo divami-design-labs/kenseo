@@ -123,12 +123,25 @@ var sb = (function(){
 			payload.data = popupData;
 			ajaxCall(payload);
 	    },
+	    getUrl: function(p){
+			var relativePath = "../";
+			if(p.collection){
+				return relativePath + p.collection.url;
+			}
+			else if(p.model){
+				return relativePath + p.model.urlRoot;
+			}
+			else if(p.url){
+				return p.url;
+			}
+			return false;
+	    },
 	    ajaxCall: function(payload){
 	    	$.ajaxSetup({ cache: false });
-	    	var collection = payload.collection;
-			var url = payload.url || collection.urlRoot || collection.url;
+			// var url = payload.url || collection.urlRoot || collection.url;
+			var url = sb.getUrl(payload);
 			$.ajax({
-				url: "../" + url,
+				url: url,
 				data: {
 					"data": payload.data,
 					'client' : {
@@ -150,10 +163,10 @@ var sb = (function(){
             // Setting the view's template property using the Underscore template method
             // Backbone will automatically include Underscore plugin in it.
             var compiler = _.template(template);
-            if(p.collection){
-				
+            var url = sb.getUrl(p);
+            if(url){
 				sb.ajaxCall({
-					"collection": p.collection, 
+					"url": url, 
 					"data": p.data, 
 					"success": function(response){
 						if(response){
@@ -253,7 +266,7 @@ var sb = (function(){
 		            'models': ['Projects'],
 		            'collections': ['Projects']
 		        }, function(){
-					
+					Kenseo.dropdown.name = "Choose a project..";
 			    	sb.renderTemplate({"templateName": 'dropdown', "templateHolder": $('.dropdown'), "collection": new Kenseo.collections.Projects(), "callbackfunc": function(){
 			            if(Kenseo.popup.data['project_name']){
 			            	$('.dropdown').val(Kenseo.popup.data['project_name']);
@@ -274,6 +287,7 @@ var sb = (function(){
 				});
 			},
 			secondLoader: function(){
+				Kenseo.dropdown.name = "Choose an Artefact..";
             	if(Kenseo.popup.data.fileName){
             		$('.create-file-item .notification-title').html(Kenseo.popup.data.fileName);
             		$('.create-file-item').show();

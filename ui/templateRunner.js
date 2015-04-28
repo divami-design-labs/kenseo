@@ -10,7 +10,6 @@ var templates = {
     'menu-header': fs.readFileSync('app/templates/menu/menu-header.html', 'utf8'),
     'menu-projects-container': fs.readFileSync('app/templates/menu/menu-projects-container.html', 'utf8'),
     'menu-recent-activity': fs.readFileSync('app/templates/menu/menu-recent-activity.html', 'utf8'),
-    'menu-recent-requests': fs.readFileSync('app/templates/menu/menu-recent-requests.html', 'utf8'),
     'menu-recent-notifications': fs.readFileSync('app/templates/menu/menu-recent-notifications.html', 'utf8'),
     'menu-recent-people': fs.readFileSync('app/templates/menu/menu-recent-people.html', 'utf8'),
     'search': fs.readFileSync('app/templates/header/search.html', 'utf8'),

@@ -27,14 +27,17 @@
     width: 675px;
     height: inherit;
     float: left;
+    margin-top: 20px;
 }
 .menu-profile-img-dv {
-    @include dimensions(60px, 60px);
-    margin-top: 20px;
     float: left;
+    height: 60px;
     img{
         max-width: 54px;
         max-height: 54px;
+        @include border-radius(50%);
+        background-color: white;
+        border: 2px solid $colorEight;
     }
 }
 .menu-profile-img {
@@ -42,10 +45,8 @@
     height: 60px;
 }
 .menu-profile-text {
-    @include dimensions(565px, 42px);
-    margin-top: 28px;
-    margin-left: 10px;
-    float: left;
+    margin-left: 65px;
+    margin-top: 3px;
 }
 
 .menu-profile-txt-nm {
@@ -74,20 +75,27 @@
     display: block;
     float: left;
 }
-
+.menu-dashboard-icon{
+    @include backgroundImage("dashboard.svg");
+}
+.menu-analytics-icon{
+    @include backgroundImage("analytics.svg");
+}
+.menu-archive-icon{
+    @include backgroundImage("archive3.svg");
+}
+.menu-settings-icon{
+    @include backgroundImage("settings.svg");
+}
 .menu-settings-txt {
-    float: left;
     @include dimensions(80px, auto);
-    display: block;
     @include text(13px, $color3);
-    margin-left: 5px;
     line-height: 24px;
+    margin-left: 8px;
 }
 
 .menu-settings-dshbd-dv {
-    @include dimensions(inherit, 20px);
     margin-top: 10px;
-    //    background-color: beige;
 }
 
 .menu-projects-container {
@@ -164,6 +172,24 @@
     margin-left: 55px;
     //    background-color: aqua;
     float: left;
+    .review-request-item + .review-request-item{
+        margin-top: 25px;
+    }
+    .review-request-item .requests-dropdown{
+        display: none;
+    }
+    .review-request-item:hover .requests-dropdown-icon{
+        display: none;
+    }
+    .requests-hd{
+        display: block !important;
+    }
+    .rr-details, .rr-title{
+        @include text(14px, $color3);
+    }
+    .rr-state-details{
+        display: none;
+    }
 }
 
 .requests-hd {
@@ -275,6 +301,11 @@
 .menu-recent-people-cnt {
     text-align: center;
     margin-bottom: 20px;
+    img{
+        @include border-radius(50%);
+        background-color: white;
+        border: 2px solid $colorEight;
+    }
 }
 
 .menu-people-img {

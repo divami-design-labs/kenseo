@@ -42,6 +42,9 @@
 
 .people-icon{
 	@include dimensions(34px, 34px);
+    @include border-radius(50%);
+    background-color: white;
+    border: 2px solid #EBECEE;
 }
 .people-item-left{
 	float: left;

@@ -1,13 +1,16 @@
 .project-block{
 	float: left;
-	@include dimensions(43%, 200px);
-	background-color: cornflowerblue;
+	@include dimensions(45%, auto);
 	position: relative;
+	margin-right: 5%;
 	margin-bottom: 60px;
-	max-width: 350px;
-	margin-left: 37px;
+	max-width: 500px;
+	min-height: 200px;
 	&:hover .project-block-hover-content{
 		display: block;
+	}
+	img{
+		width: 100%;
 	}
 }
 //.project-block:nth-child(2n){
@@ -27,10 +30,13 @@
 }
 .project-actions-wrapper{
 	display: inline-block;
-	text-align: center;
-	position: relative;
-	z-index: 1;
-	padding-top: 11%;
+    left: 0;
+    padding-top: 5%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    z-index: 1;
 }
 .project-action{
 	display: inline-block;
@@ -72,8 +78,7 @@
 	border: none;
 	@include text(13px, #3e4354);
 	position: absolute;
-	bottom: 0px;
-	margin-bottom: 5%;
+	bottom: 20px;
 	left: 50%;
 	@include translate(-50%,0);
 	z-index: 1;
@@ -92,7 +97,7 @@
 }
 .fixed-content{
 	float: right;
-	width: 655px;
+	width: 700px;
 }
 .project-block-details::before{
 	content: "";
@@ -127,6 +132,7 @@
 .rr-title{
 	@include textFive();
 	line-height: 11px;
+	height: 14px;
 	text-transform: capitalize;
 }
 .rr-details{
@@ -134,6 +140,9 @@
 	margin-top: 6px;
 	margin-bottom: 5px;
 	@extend .ellipsis;
+}
+.rr-state{
+	position: relative;
 }
 .status-c{ /* critical */
 	background-color: $colorCritical;
@@ -230,8 +239,8 @@
 	text-align: center;
 	@include textEight();
 	position: absolute;
-	left: 93px;
-  	top: 43px;
+	left: 40px;
+  	top: 3px;
 }
 .rr-comment{
 	float: left;

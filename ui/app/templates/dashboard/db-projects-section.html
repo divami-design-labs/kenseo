@@ -2,6 +2,7 @@
 <% _.each(data, function(p){ %>
 <% var dump = sb.getDump({'project_id':p.id, 'project_name': p.name}) %>
 <div class="project-block">
+	<img src="http://lorempixel.com/sports/280/200" />
 	<div class="project-block-overlay">
 		<div class="project-block-overlay-wrapper">
 			<div class="project-block-title">
@@ -17,7 +18,7 @@
 		<div class="project-actions-wrapper">
 			<div class="project-action popup-click" data-url="add-artefact" data-dump=<%= dump %> data-key="1">
 				<div class="project-action-icon add-artefact-icon"></div>
-				<div class="project-action-label">Add an artefact</div>
+				<div class="project-action-label">Add an Artefact</div>
 			</div>
 			<div class="project-action">
 				<div class="project-action-icon add-user-icon"></div>

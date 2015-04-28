@@ -13564,3 +13564,6 @@ ui/node_modules/streamqueue/package.json
 ui/node_modules/streamqueue/README.md
 ui/node_modules/streamqueue/src/index.js
 ui/node_modules/streamqueue/tests/index.mocha.js
+server/.htaccess
+server/config/config.php
+server/config/googleauth.php

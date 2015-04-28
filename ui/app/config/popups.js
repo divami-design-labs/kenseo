@@ -3,7 +3,7 @@ Kenseo.popups = (function(){
 	    "add-artefact": [
 	        {
 	            "page_name": "artefact-one",
-	            "title": "Add Artefact",
+	            "title": "Add an Artefact",
 	            "buttons": [{
 	            	"label": "Cancel",
 	            	"cls": "lnk-btn cancel-btn"
@@ -17,7 +17,7 @@ Kenseo.popups = (function(){
 	        },
 	        {
 	            "page_name": "artefact-two",
-	            "title": "Add Artefact",
+	            "title": "Add an Artefact",
 	            "show_coming_soon": true,
 	            "buttons": [{
 	            	"label": "Back",
@@ -35,6 +35,7 @@ Kenseo.popups = (function(){
 	        },
 	        {
 	            "page_name": "artefact-three",
+	            "title": "Add an Artefact",
 	            "buttons": [{
 	            	"label": "Back",
 	            	"cls": "lnk-btn"
@@ -53,7 +54,7 @@ Kenseo.popups = (function(){
 	    "share-artefact": [
 	        {
 	            "page_name": "artefact-one",
-	            "title": "Share Artefact",
+	            "title": "Share an Artefact",
 	            "buttons": [{
 	            	"label": "Cancel",
 	            	"cls": "cancel-btn lnk-btn"
@@ -67,7 +68,7 @@ Kenseo.popups = (function(){
 	        },
 	        {
 	        	"page_name": "artefact-two",
-	            "title": "Share Artefact",
+	            "title": "Share an Artefact",
 	            "show_coming_soon": false,
 	            "buttons": [{
 	            	"label": "Back",
@@ -85,6 +86,7 @@ Kenseo.popups = (function(){
 	        },
 	        {
 	            "page_name": "artefact-three",
+	            "title": "Share an Artefact",
 	            "buttons": [{
 	            	"label": "Back",
 	            	"cls": "lnk-btn"
@@ -100,6 +102,7 @@ Kenseo.popups = (function(){
 	        },
 	        {
 	        	"page_name": "artefact-four",
+	        	"title": "Share an Artefact",
 	        	"buttons": [{
 	            	"label": "Back",
 	            	"cls": "lnk-btn"
