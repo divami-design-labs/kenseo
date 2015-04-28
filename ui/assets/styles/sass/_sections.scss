@@ -1,10 +1,12 @@
 // content
 .content-wrapper{
-	padding-left: 37px;
+//	padding-left: 37px;
 	padding-top: 55px;
 	padding-right: 38px;
 }
-
+.projects-heading, .project-section{
+	margin-left: 37px;
+}
 .projects-heading, .review-requests-heading, .notifications-heading{
 	position: relative;
 }

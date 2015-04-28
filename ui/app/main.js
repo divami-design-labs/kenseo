@@ -42,7 +42,10 @@ $(function(){
         var $dataUrl = $(this).data('url');
         sb.callPopup($dataUrl);
     })
-    .on('click', '.toggle-click', function(){
+    .on('click', '.toggle-click', function(e){
+    	if($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length){
+    		return false;
+    	}
     	var $this = $(this);
     	$('.active').not($this).removeClass('active');
     	$this.toggleClass('active');
@@ -50,13 +53,16 @@ $(function(){
     .on('click', '.popup-click', function(){
     	$('.popup-container').show();
         var $self = $(this);
-        var index = 0;
-        Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
+        var index = $(this).data('key') || 0;
         var dump = $self.data('dump');
         if(dump){
+        	if(typeof dump === "string"){
+        		dump = JSON.parse(dump);
+        	}
         	Kenseo.popup.data = dump;
-        	index = dump.index;
         }
+        // Important: this should be called after dump object is stored in the Kenseo.popup.data
+        Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
         sb.callPopup(index);
      })
     .on('click', '.page-click', function(){

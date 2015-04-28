@@ -1,14 +1,12 @@
 <% var dataObj = Kenseo.popup.info[key] %>
-<div class="popup popup-small">
+<div class="popup popup-message">
 	<div class="popup-header">
 		<div class="popup-title"><%= dataObj.title %></div>
 		<div class="popup-close-icon"></div>
 	</div>
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
-			<select class="projects-dropdown dropdown">
-			</select>
-		</div>
+			<%= dataObj.message() %>
 		<div class="popup-buttons-section">
 			<% var buttons = dataObj.buttons %>
 			<% for(var i=buttons.length-1; i>= 0; i--){ %>

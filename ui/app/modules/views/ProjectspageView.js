@@ -16,10 +16,10 @@ Kenseo.views.Projectspage = Backbone.View.extend({
     },
     // Renders the view's template to the UI
     render: function() {
-        sb.renderTemplate('projects-page', this.$el);
-        sb.renderTemplate('artefacts', $('.artifacts-content.sub-section-content'), this.artefactsCollection, null, {projects: true, project_id: Kenseo.page.data.project_id, sharePermission: false});
-        sb.renderTemplate('people', $('.people-section'), this.peopleCollection);
-        sb.renderTemplate('activities', $('.activity-section'), this.artefactsCollection, null, {activities: true, project_id: Kenseo.page.data.project_id});
+        sb.renderTemplate({"templateName": 'projects-page', "templateHolder": this.$el});
+        sb.renderTemplate({"templateName": 'artefacts',"templateHolder": $('.artifacts-content.sub-section-content'), "collection": this.artefactsCollection, "data": {projects: true, project_id: Kenseo.page.data.project_id, sharePermission: false}});
+        sb.renderTemplate({"templateName": 'people', "templateHolder": $('.people-section'), "collection": this.peopleCollection});
+        sb.renderTemplate({"templateName": 'activities', "templateHolder": $('.activity-section'), "collection": this.artefactsCollection, "data": {activities: true, project_id: Kenseo.page.data.project_id}});
         // Maintains chainability
         return this;
     }

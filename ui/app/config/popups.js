@@ -113,8 +113,55 @@ Kenseo.popups = (function(){
 	            	"disabled": false
 	            }],
 	            "callbackfunc": sb.popup.fourthLoader
-	        }
-	    ]
+	        },
+	    ],
+        "archive-artefact": [
+        	{
+        		"page_name": "message",
+        		"title": "Archive an Artefact",
+        		"message": function(){
+        			return "Do you want to archive " + Kenseo.popup.data.artefact_name + " artefact?";
+        		},
+	        	"buttons": [{
+	            	"label": "Yes",
+	            	"cls": "main-btn done-btn",
+	            },{
+	            	"label": "No",
+	            	"cls": "main-btn cancel-btn"
+	            }],
+        	}
+        ],
+        "archive-project": [
+        	{
+        		"page_name": "message",
+        		"title": "Archive a Project",
+        		"message": function(){
+        			return "Do you want to archive " + Kenseo.popup.data.project_name + " project ?";
+        		},
+	        	"buttons": [{
+	            	"label": "Yes",
+	            	"cls": "main-btn done-btn",
+	            },{
+	            	"label": "No",
+	            	"cls": "main-btn cancel-btn"
+	            }],
+        	}
+        ],
+        "replace-artefact": [
+        	{
+        		"page_name": "artefact-two",
+        		"title": "Replace an Artefact",
+        		"buttons": [{
+	            	"label": "Cancel",
+	            	"cls": "cancel-btn lnk-btn"
+	            },
+	            {
+	            	"label": "Done",
+	            	"cls": "main-btn done-btn",
+	            	"disabled": false
+	            }],
+        	}
+        ]
 	};
 
 	return {

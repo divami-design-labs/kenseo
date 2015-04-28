@@ -14,9 +14,9 @@ Kenseo.views.Dashboard = Backbone.View.extend({
     },
     // Renders the view's template to the UI
     render: function() {
-        sb.renderTemplate('db-projects-section', $('.projects-section-content')       , this.collections.projectCollection, null, {limit: 6});
-        sb.renderTemplate('db-notifications'   , $('.notifications-content')  , this.collections.notificationCollection, null, {limit: 12});
-        sb.renderTemplate('artefacts' , $('.review-requests-content'), this.collections.artefactCollection, null, {shared: true, limit: 8});
+        sb.renderTemplate({"templateName": 'db-projects-section', "templateHolder": $('.projects-section-content'), "collection": this.collections.projectCollection, "data": {limit: 6}});
+        sb.renderTemplate({"templateName": 'db-notifications',"templateHolder": $('.notifications-content'), "collection": this.collections.notificationCollection,"data": {limit: 12}});
+        sb.renderTemplate({"templateName": 'artefacts', "templateHolder": $('.review-requests-content'), "collection": this.collections.artefactCollection,"data": {shared: true, limit: 8}});
         this.attachEvents();
         return this;
     },

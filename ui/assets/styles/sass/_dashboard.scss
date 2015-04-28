@@ -1,19 +1,21 @@
 .project-block{
 	float: left;
-	@include dimensions(45%, 200px);
+	@include dimensions(43%, 200px);
 	background-color: cornflowerblue;
 	position: relative;
-
+	margin-bottom: 60px;
+	max-width: 350px;
+	margin-left: 37px;
 	&:hover .project-block-hover-content{
 		display: block;
 	}
 }
-.project-block:nth-child(2n){
-	float: right;
-}
-.project-block:nth-child(n+3){
-	margin-top: 60px;
-}
+//.project-block:nth-child(2n){
+	//float: right;
+//}
+//.project-block:nth-child(n+3){
+//	margin-top: 60px;
+//}
 .project-block-hover-content{
 	text-align: center;
 	display: none;

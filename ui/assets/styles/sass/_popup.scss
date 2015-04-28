@@ -15,6 +15,9 @@
 	@include fullMiddle();
 	border: 1px solid $color8;
 }
+.popup-message{
+	@include dimensions(425px, 200px);
+}
 .popup-small{
 	@include dimensions(425px, 260px);
 }
@@ -59,11 +62,20 @@
     float: right;
     height: 35px;
     margin-left: 25px;
+    &:last-child{
+    	margin-left: 0;
+    }
 }
 .popup-buttons-section{
 	position: absolute;
 	bottom: 30px;
 	right: 30px;
+}
+
+.popup-message .popup-buttons-section{
+	left: 50%;
+	@include transform(translate(-50%,0));
+	right: auto;
 }
 .main-btn{
 	@include text(16px, white);

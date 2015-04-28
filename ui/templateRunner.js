@@ -19,6 +19,8 @@ var templates = {
     'artefact-two': fs.readFileSync('app/templates/popups/artefact-two.html', 'utf8'),
     'artefact-three': fs.readFileSync('app/templates/popups/artefact-three.html', 'utf8'),
     'artefact-four': fs.readFileSync('app/templates/popups/artefact-four.html', 'utf8'),
+    'archive-one': fs.readFileSync('app/templates/popups/archive-one.html', 'utf8'),
+    'message': fs.readFileSync('app/templates/popups/message.html', 'utf8'),
     'dropdown': fs.readFileSync('app/templates/common/dropdown.html', 'utf8'),
 	'artefacts': fs.readFileSync('app/templates/common/artefacts.html', 'utf8'),
     'reference-items': fs.readFileSync('app/templates/artefacts/reference-items.html', 'utf8')

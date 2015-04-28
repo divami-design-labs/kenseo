@@ -13,7 +13,7 @@ Kenseo.views.Header = Backbone.View.extend({
     // },
     // Renders the view's template to the UI
     render: function() {
-        sb.renderTemplate('header', this.$el, this.model, this.headerAttachEvents.bind(this));
+        sb.renderTemplate({"templateName": 'header', "templateHolder": this.$el, "collection": this.model, "callbackfunc": this.headerAttachEvents.bind(this) });
         // Maintains chainability
         return this;
     },
@@ -31,13 +31,13 @@ Kenseo.views.Header = Backbone.View.extend({
                     'collections': ['Projects', 'Artefacts', 'People']
                 },
                 function(){
-                    sb.renderTemplate('nav-menu', $('.menu'));
-                    sb.renderTemplate('menu-header', $('.menu-header'), new Kenseo.models.Header());
-                    sb.renderTemplate('menu-projects-container', $('.menu-projects-container'), new Kenseo.collections.Projects(), null, {limit: 3});
-                    sb.renderTemplate('menu-recent-activity', $('.menu-recent-activity'), new Kenseo.collections.Artefacts(), null, {activities: true, limit: 3});
-                    sb.renderTemplate('menu-recent-requests', $('.menu-recent-requests'), new Kenseo.collections.Artefacts(), null, {shared: true, limit: 3});
-                    sb.renderTemplate('menu-recent-notifications', $('.menu-recent-notifications'),  new Kenseo.collections.Notifications(), null, {limit: 3});
-                    sb.renderTemplate('menu-recent-people', $('.menu-recent-people'),  new Kenseo.collections.People(), null, {limit: 3});
+                    sb.renderTemplate({ "templateName": 'nav-menu', "templateHolder":$('.menu')});
+                    sb.renderTemplate({"templateName": 'menu-header', "templateHolder": $('.menu-header'), "collection": new Kenseo.models.Header()});
+                    sb.renderTemplate({"templateName": 'menu-projects-container',"templateHolder": $('.menu-projects-container'), "collection": new Kenseo.collections.Projects(), "data": {limit: 3}});
+                    sb.renderTemplate({"templateName": 'menu-recent-activity', "templateHolder": $('.menu-recent-activity'), "collection": new Kenseo.collections.Artefacts(), "data": {activities: true, limit: 3}});
+                    sb.renderTemplate({"templateName": 'menu-recent-requests', "templateHolder": $('.menu-recent-requests'), "collection": new Kenseo.collections.Artefacts(), "data": {shared: true, limit: 3}});
+                    sb.renderTemplate({"templateName": 'menu-recent-notifications', "templateHolder": $('.menu-recent-notifications'), "collection": new Kenseo.collections.Notifications(),"data": {limit: 3}});
+                    sb.renderTemplate({"templateName": 'menu-recent-people', "templateHolder": $('.menu-recent-people'), "collection": new Kenseo.collections.People(), "data": {limit: 3}});
                 }
             )
         }
@@ -53,12 +53,13 @@ Kenseo.views.Header = Backbone.View.extend({
     validateSearch: function(e) {
         var searchString = this.value;
         if(searchString.length > 2) {
-            $('.search-results').show();
             sb.loadFiles({
                 'models': ['Search'],
                 'collections': ['Search']
             }, function(){
-                sb.renderTemplate('search-results', $('.search-section').find('.search-results'), new Kenseo.collections.Search(), null, {
+                sb.renderTemplate('search-results', $('.search-section').find('.search-results'), new Kenseo.collections.Search(), function(){
+                    $('.search-results').show();
+                }, {
                     'string': searchString
                 });
             });

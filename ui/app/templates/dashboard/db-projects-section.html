@@ -1,34 +1,34 @@
 
-	<% _.each(data, function(p){ %>
-	<div class="project-block">
-		<div class="project-block-overlay">
-			<div class="project-block-overlay-wrapper">
-				<div class="project-block-title">
-					<%= p.name %>
-				</div>
-				<div class="project-block-details">
-					Last Updated on <%= sb.timeFormat(p.last_updated_date) %>
-				</div>
+<% _.each(data, function(p){ %>
+<% var dump = sb.getDump({'project_id':p.id, 'project_name': p.name}) %>
+<div class="project-block">
+	<div class="project-block-overlay">
+		<div class="project-block-overlay-wrapper">
+			<div class="project-block-title">
+				<%= p.name %>
 			</div>
-		</div>
-		<div class="project-block-hover-content">
-			<div class="project-black-out"></div>
-			<div class="project-actions-wrapper">
-				<div class="project-action popup-click" data-url="add-artefact" data-dump=<%= JSON.stringify({'project_id':p.id, 'project_name': p.name, 'index': 1}) %>>
-					<div class="project-action-icon add-artefact-icon"></div>
-					<div class="project-action-label">Add an artefact</div>
-				</div>
-				<div class="project-action">
-					<div class="project-action-icon add-user-icon"></div>
-					<div class="project-action-label">Add User</div>
-				</div>
-				<div class="project-action">
-					<div class="project-action-icon archive-icon"></div>
-					<div class="project-action-label">Archive</div>
-				</div>
+			<div class="project-block-details">
+				Last Updated on <%= sb.timeFormat(p.last_updated_date) %>
 			</div>
-			<a href="#projectspage" data-dump=<%= JSON.stringify({'project_id': p.id, 'project_name': p.name}) %> class="btn-project-open page-click">Open Project</a>
 		</div>
 	</div>
-	<% }); %>
+	<div class="project-block-hover-content">
+		<div class="project-black-out"></div>
+		<div class="project-actions-wrapper">
+			<div class="project-action popup-click" data-url="add-artefact" data-dump=<%= dump %> data-key="1">
+				<div class="project-action-icon add-artefact-icon"></div>
+				<div class="project-action-label">Add an artefact</div>
+			</div>
+			<div class="project-action">
+				<div class="project-action-icon add-user-icon"></div>
+				<div class="project-action-label">Add User</div>
+			</div>
+			<div class="project-action popup-click" data-dump=<%= dump %> data-url="archive-project" data-key="0">
+				<div class="project-action-icon archive-icon"></div>
+				<div class="project-action-label">Archive</div>
+			</div>
+		</div>
+		<a href="#projectspage" data-dump=<%= dump %> class="btn-project-open page-click">Open Project</a>
+	</div>
 </div>
+<% }); %>

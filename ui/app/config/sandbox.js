@@ -16,6 +16,13 @@ var sb = (function(){
 	}
 	return {
 		log: log,
+		getDump: function(p){
+			var n = {};
+			for(var k in p){
+				n[k] = p[k].split(" ").join("\r");
+			}
+			return JSON.stringify(n);
+		},
 		loadFiles: function(payload, fn){
    			var counter = 0;
    			var blnCallbackCalled = false;
@@ -138,16 +145,16 @@ var sb = (function(){
 				}
 			});
 	    },
-	    renderTemplate: function(templateString, $el, model, callBackFunc, data){
-            var template = templates[templateString];
+	    renderTemplate: function(p){
+            var template = templates[p.templateName];
             // Setting the view's template property using the Underscore template method
             // Backbone will automatically include Underscore plugin in it.
             var compiler = _.template(template);
-            if(model){
+            if(p.collection){
 				
 				sb.ajaxCall({
-					"collection": model, 
-					"data": data, 
+					"collection": p.collection, 
+					"data": p.data, 
 					"success": function(response){
 						if(response){
 							var obj = JSON.parse(response);
@@ -156,24 +163,24 @@ var sb = (function(){
 							var obj = {};
 						}
 						// console.dir(obj);
-		                $el.html(compiler(obj));  
-		                if(callBackFunc){
-		                	callBackFunc();
+		                p.templateHolder.html(compiler(obj));  
+		                if(p.callbackfunc){
+		                	p.callbackfunc();
 		                }
 		            }
 				});
             }
             else{
-            	$el.html(compiler());
-            	if(callBackFunc){
-                	callBackFunc();
+            	p.templateHolder.html(compiler());
+            	if(p.callbackfunc){
+                	p.callbackfunc();
                 }
             }
         },
-        renderTemplateOff: function(templateString, $el, obj){
-        	var template = templates[templateString];
+        renderTemplateOff: function(p){
+        	var template = templates[p.templateName];
             var compiler = _.template(template);
-            $el.html(compiler(obj));
+            p.templateHolder.html(compiler(p.data));
         },
         // handle: function(response) {
 
@@ -222,12 +229,11 @@ var sb = (function(){
         	return Kenseo.popups.getPopupsInfo(info);
         },
         callPopup: function(key){
-        	sb.renderTemplateOff(Kenseo.popup.info[key].page_name, $('.popup-container'), 
-	        	{ 
-	        		"data": Kenseo.popup,
+        	sb.renderTemplateOff({"templateName": Kenseo.popup.info[key].page_name, "templateHolder": $('.popup-container'), 
+	        	"data": { 
 	        		"key": key
 	        	}
-	    	);
+	    	});
 	    	if(Kenseo.popup.info[key].callbackfunc){
 	    		Kenseo.popup.info[key].callbackfunc();
 	    	}
@@ -248,12 +254,12 @@ var sb = (function(){
 		            'collections': ['Projects']
 		        }, function(){
 					
-			    	sb.renderTemplate('dropdown', $('.dropdown'), new Kenseo.collections.Projects(), function(){
+			    	sb.renderTemplate({"templateName": 'dropdown', "templateHolder": $('.dropdown'), "collection": new Kenseo.collections.Projects(), "callbackfunc": function(){
 			            if(Kenseo.popup.data['project_name']){
 			            	$('.dropdown').val(Kenseo.popup.data['project_name']);
 			            	$('.main-btn').prop('disabled', false);	
 			            } 
-			        });
+			        }});
 			        
 			        $('.dropdown').on('change', function(){
 			            if(this.selectedIndex){
@@ -286,7 +292,7 @@ var sb = (function(){
         			'collections': ['Artefacts'],
         			'models': ['Artefacts']
         		},function(){
-        			sb.renderTemplate('dropdown', $('.existing-files-dropdown'), new Kenseo.collections.Artefacts(), null, { shared : true, projectid:Kenseo.popup.data['project_id'], sharepermission: false});
+        			sb.renderTemplate({"templateName": 'dropdown', "templateHolder": $('.existing-files-dropdown'), "collection": new Kenseo.collections.Artefacts(), "data": { projectid:Kenseo.popup.data['project_id'], sharepermission: true}});
         			$('.dropdown').on('change', function(){
 	                    if(this.selectedIndex){
 	                        $('.main-btn').prop('disabled', false);
@@ -332,7 +338,7 @@ var sb = (function(){
 				            				return false;
 				            			}
 			            			});
-			            			sb.renderTemplateOff('reference-items', $(this).parent().next('.reference-files-suggestions'), {data: filteredData});
+			            			sb.renderTemplateOff({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
 			            			$('.reference-suggestion-item').click(function(){
 			            				var $holder = $(this).parent().next();
 			            				var html = $holder.html();
