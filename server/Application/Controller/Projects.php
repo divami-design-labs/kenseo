@@ -55,6 +55,44 @@
 			$db->updateTable(TABLE_PROJECTS,array("state"),array('A'), "project_id = " . $projectId);
 			
 			return true;		
-		}	
+		}
+														
+		public function addProject($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectName = $data->projectName;
+			$date = date("Y-m-d H:i:s");
+			
+			//Archive project
+			$db = Master::getDBConnectionManager();
+			$db->insertSingleRow (TABLE_PROJECTS,array("project_name","description","intro_img_url","state","last_updated_date"),array("$projectName","","","O","$date"));
+			
+			return true;		
+		}
+		
+		public function addPeople($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->projectId;
+			$peopleId = $data->peopleId;
+			$accessType = $data->accessType;
+			$groupType = $data->groupType;
+			
+			//Archive project
+			$db = Master::getDBConnectionManager();
+			$db->insertSingleRow (TABLE_PROJECT_MEMBERS,array("proj_id","user_id","role","access_type","group_type"),array("$projectId","$peopleId","","$accessType","$groupType"));
+			
+			return true;		
+		}
+		
+		public function removePeople($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->projectId;
+			$peopleId = $data->peopleId;
+			
+			//Archive project
+			$db = Master::getDBConnectionManager();
+			$db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId and "user_id" . $peopleId);
+			
+			return true;		
+		}
 	}
 ?>

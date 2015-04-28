@@ -18,3 +18,6 @@ APIList['archiveProject'] = ["archiveProject", "GET", 10000];
 APIList['deleteProject'] = ["deleteProject", "GET", 10000];
 APIList['archiveArtefact'] = ["archiveArtefact", "GET", 10000];
 APIList['deleteArtefact'] = ["deleteArtefact", "GET", 10000];
+APIList['addProject'] = ["addProject", "POST", 10000];
+APIList['addPeople'] = ["addPeople", "POST", 10000];
+APIList['removePeople'] = ["removePeople", "GET", 10000];

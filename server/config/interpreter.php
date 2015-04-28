@@ -71,4 +71,13 @@ $AppGlobal['urlmap']['/deleteProject'] = array ('command' => 'deleteProject', 't
 
 $AppGlobal['cmdmap']['archiveProject'] = array ("class" => "Projects", "method" => "archiveProject");
 $AppGlobal['urlmap']['/archiveProject'] = array ('command' => 'archiveProject', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['addProject'] = array ("class" => "Projects", "method" => "addProject");
+$AppGlobal['urlmap']['/addProject'] = array ('command' => 'addProject', 'type' => 'POST');
+
+$AppGlobal['cmdmap']['addPeople'] = array ("class" => "Projects", "method" => "addPeople");
+$AppGlobal['urlmap']['/addPeople'] = array ('command' => 'addPeople', 'type' => 'POST');
+
+$AppGlobal['cmdmap']['removePeople'] = array ("class" => "Projects", "method" => "removePeople");
+$AppGlobal['urlmap']['/removePeople'] = array ('command' => 'removePeople', 'type' => 'GET');
 ?>
