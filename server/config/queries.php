@@ -71,7 +71,7 @@ $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINC
 											(select versions.artefact_ver_id from ". TABLE_ARTEFACTS_SHARED_MEMBERS ." as members 
 											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
 											artefacts.replace_ref_id = 0
-											ORDER BY artefacts.linked_id,members.shared_date";
+											ORDER BY @~~sortBy~~@";
 
 $AppGlobal['sql']['getReviewRequests-old'] = "SELECT artefacts.*,(SELECT COUNT(*) FROM ". TABLE_COMMENTS ." AS comments where comments.artefact_ver_id = artefacts.latest_version_id) AS commentsCount from " . TABLE_ARTEFACTS . " AS artefacts 
 											WHERE artefacts.artefact_id in 

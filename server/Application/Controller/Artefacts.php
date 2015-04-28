@@ -23,16 +23,35 @@
 			$data = $interpreter->getData()->data;
 			$userid = $interpreter->getUser()->user_id;
 			$sharePermission = $data->sharePermission;
+			$sortBy = $data->sortBy;
 			$projectid = $data->project_id;
 			$count = $data->count;
 			
+			switch ($sortBy) {
+			    case "name":
+			        $sortBy = "versions.version_label";
+			        break;
+			    case "date":
+			        $sortBy = "members.shared_date";
+			        break;
+			    case "owner":
+			        $sortBy = "requestor.name";
+			        break;
+				case "default":
+			        $sortBy = "artefacts.linked_id";
+			        break;
+			    default:
+			        $sortBy = "artefacts.linked_id";
+			}
+			
 			$db = Master::getDBConnectionManager();
-			$queryParams = array('userid' => $userid, 'projectid' => $projectid );
+			$queryParams = array('userid' => $userid, 'projectid' => $projectid, '@sortBy' => $sortBy );
 			if($sharePermission == "true") {
 				$dbQuery = getQuery('getProjectArtefactsWithSharePermission',$queryParams);
 			} else {
 				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);
 			}
+			
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
 		}
