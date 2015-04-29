@@ -6,7 +6,7 @@ $headerHeight: 64px;
 }
 .hamburger{
 	position: absolute;
-	width: 35px;
+	width: 40px;
 	top: 0;
 	bottom: 0;
 	cursor: pointer;
@@ -34,7 +34,7 @@ $headerHeight: 64px;
 }
 .logo{
 	@include elementWithBackground("logo.svg", 138px, 32px);
-	left: 37px;
+	left: 42px;
 }
 .logo{
 	@include verticalMiddle();

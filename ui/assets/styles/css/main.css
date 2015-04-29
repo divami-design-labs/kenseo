@@ -182,7 +182,7 @@
 
 .hamburger {
   position: absolute;
-  width: 35px;
+  width: 40px;
   top: 0;
   bottom: 0;
   cursor: pointer; }
@@ -227,7 +227,7 @@
   background-size: 100% 100%;
   width: 138px;
   height: 32px;
-  left: 37px; }
+  left: 42px; }
 
 .logo {
   transform: translate(0, -50%);
@@ -1396,7 +1396,7 @@
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   border-radius: 50%;
-  background-color: #EBECEE;
+  background-color: white;
   border: 2px solid #EBECEE; }
 
 .people-item-left {
