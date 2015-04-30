@@ -1,4 +1,4 @@
-
+<% if(data.length){ %> 
 <% _.each(data, function(p){ %>
 <% var dump = sb.getDump({'project_id':p.id, 'project_name': p.name}) %>
 <div class="project-block">
@@ -33,3 +33,8 @@
 	</div>
 </div>
 <% }); %>
+<% } else{ %>
+<div class="no-items">
+	No projects to show
+</div>
+<% } %>

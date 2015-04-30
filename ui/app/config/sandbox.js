@@ -198,7 +198,7 @@ var sb = (function(){
         // handle: function(response) {
 
         // }
-        timeFormat: function(time){
+        timeFormat: function(time, OnlyTime, OnlyDays){
 			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 		    var theDate = new Date(time);
 		    var currentDate = new Date();
@@ -210,19 +210,24 @@ var sb = (function(){
 		    var currentYear = currentDate.getFullYear();
 		    var currentMonth = currentDate.getMonth();
 		    var currentDay = currentDate.getDate();
-		    
 		    var resultDateFormat = "";
+		    var text = "";
 		    if(currentYear !== year){
-		        resultDateFormat = day + " " + months[month] + " " + year;
-		    }
-		    else if(month == currentMonth && day === currentDay - 1){
-		        resultDateFormat = "Yesterday";
+				text = OnlyTime? "": "On ";
+		        resultDateFormat = text + day + " " + months[month] + " " + year;
 		    }
 		    else if(month === currentMonth && day === currentDay){
-		        resultDateFormat = "Today";
+		    	text = OnlyTime? "": "@ ";
+		    	if(OnlyDays){
+		    		resultDateFormat = text + day + " " + months[month];	
+		    	}
+		    	else{
+			        resultDateFormat = text + sb.getTime(time);
+			    }
 		    }
 		    else{
-		        resultDateFormat = day + " " + months[month];
+		    	text = OnlyTime? "": "On ";
+		        resultDateFormat = text + day + " " + months[month];
 		    }
 		    return resultDateFormat;
         },
@@ -237,6 +242,29 @@ var sb = (function(){
         	else{
         		return hours + ": " + minutes + " AM";	
         	}
+        },
+        getDayTime: function(time){
+
+        },
+        getDayWiseData: function(data){
+        	if(data.length){
+	        	var newData = {};
+				for(var i=0; i<data.length; i++){
+					var d = data[i];
+					var time = sb.timeFormat(d.time, true, true);
+					if(!newData[time]){
+						newData[time] = [];
+						newData[time].push(d);
+					}
+					else{
+						newData[time].push(d);
+					}
+				}
+				return newData;
+			}
+			else{
+				return false;
+			}
         },
         getPopupsInfo: function(info){
         	return Kenseo.popups.getPopupsInfo(info);
@@ -290,11 +318,11 @@ var sb = (function(){
 				Kenseo.dropdown.name = "Choose an Artefact..";
             	if(Kenseo.popup.data.fileName){
             		$('.create-file-item .notification-title').html(Kenseo.popup.data.fileName);
-            		$('.create-file-item').show();
+            		$('.create-file-item').css({'visibility': 'visible'});
             		$('.main-btn').prop('disabled', false);
             	}
         		$('.upload-files-input').change(function(){
-        			$('.create-file-item').show();
+        			$('.create-file-item').css({'visibility': 'visible'});
         			$('.create-file-item .notification-title').html(this.value);
 					
 					Kenseo.popup.data.file = this.files[0];

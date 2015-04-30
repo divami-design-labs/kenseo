@@ -153,7 +153,7 @@ $popup-content-space: 175px;
 	position: relative;
 	width: 250px;
 	margin-bottom: 10px;
-	display: none;
+	visibility: hidden;
 }
 .create-file-close-icon{
 	@include closeIcon(10px);

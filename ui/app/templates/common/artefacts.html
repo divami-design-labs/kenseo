@@ -1,41 +1,76 @@
-<% var dataComparer = -1; %>
-<% _.each(data, function(r){ %>
-<% var dump = sb.getDump({"artefact_id":r.id, "artefact_name": r.title}) %>
-<div class="review-request-item" 
-	data-pass="<%= 
-					function(){
-						if(dataComparer == r.linkedId){
-							dataComparer = r.linkedId; 
-							return 1; 
-						} else{
-							dataComparer = r.linkedId; 
-							return 0; 
-						}
-					}() 
-				%>">
-	<div class="rr-left">
-		<div class="rr-status status-<%= r.status %>"><%= function(){ if(r.documentType == "U"){ return "UID"; }else if(r.documentType === "I"){ return "IXD"; }}() %></div>
-		<img class="rr-owner-image" src="<%= r.requestorImage %>"/>
-	</div>
-	<div class="rr-right">
-		<div class="rr-title ellipsis"><%= r.title %></div>
-		<div class="rr-details ellipsis">@ <%= sb.timeFormat(r.requestTime) %> by <%= r.requestedBy %></div>
-		<div class="rr-state-details">
-			<div class="rr-state">
-				<span>v<%= r.version %></span>
-				<div class="rr-other-versions"></div>
-				<div class="rr-comment"><%= r.commentCount %></div>
+<% if(params.projects && params.sortBy){ %>
+<div class="sub-heading-section">
+	<div class="artifacts-heading sub-heading">
+		<div class="sub-heading-label">Artefacts</div>
+		<% if(data.length){ %>
+		<div class="sub-heading-add-wrapper">
+			<div class="sub-heading-add-icon"></div>
+		</div>
+		<div class="sub-heading-more-options toggle-click sub-menu-nav">
+			<div class="sub-heading-more-icon"></div>
+			<div class="sub-menu-holder left-nav bottom-nav">
+				<div class="sub-menu-item">Sort by Name</div>
+				<div class="sub-menu-item">Sort by Date</div>
+				<div class="sub-menu-item">Group by Owner</div>
 			</div>
 		</div>
-	</div>
-	<div class="requests-dropdown toggle-click">
-		<div class="requests-dropdown-icon"></div>
-		<div class="requests-dropdown-items">
-			<div class="requests-archive-item popup-click" data-dump=<%= dump %> data-url="archive-artefact" data-key="0">Archive</div>
-			<div class="requests-replace-item popup-click" data-dump=<%= dump %> data-url="replace-artefact" data-key="0">Replace</div>
-			<div class="requests-add-version-item">Add Version</div>
-			<div class="requests-share-item">Share</div>
-		</div>
+		<% } %>
 	</div>
 </div>
-<% }); %>
+<div class="artifacts-content sub-section-content">
+<% } %>
+	<% var dataComparer = -1; %>
+	<% if(data.length){ %>
+		<% _.each(data, function(r){ %>
+		<% var dump = sb.getDump({"artefact_id":r.id, "artefact_name": r.title}) %>
+		<div class="review-request-item" 
+			data-pass="<%= 
+							function(){
+								if(dataComparer == r.linkedId){
+									dataComparer = r.linkedId; 
+									return 1; 
+								} else{
+									dataComparer = r.linkedId; 
+									return 0; 
+								}
+							}() 
+						%>">
+			<div class="rr-left">
+				<div class="rr-status status-<%= r.status %>"><%= function(){ if(r.documentType == "U"){ return "UID"; }else if(r.documentType === "I"){ return "IXD"; }}() %></div>
+				<img class="rr-owner-image" src="<%= r.requestorImage %>"/>
+			</div>
+			<div class="rr-right">
+				<div class="rr-title ellipsis"><%= r.title %></div>
+				<div class="rr-details ellipsis"><%= sb.timeFormat(r.requestTime) %> by <%= r.requestedBy %></div>
+				<div class="rr-state-details">
+					<div class="rr-state">
+						<span>v<%= r.version %></span>
+						<div class="rr-other-versions"></div>
+						<div class="rr-comment"><%= r.commentCount %></div>
+					</div>
+				</div>
+			</div>
+			<div class="requests-dropdown toggle-click">
+				<div class="requests-dropdown-icon"></div>
+				<div class="requests-dropdown-items">
+					<div class="requests-archive-item popup-click" data-dump=<%= dump %> data-url="archive-artefact" data-key="0">Archive</div>
+					<div class="requests-replace-item popup-click" data-dump=<%= dump %> data-url="replace-artefact" data-key="0">Replace</div>
+					<div class="requests-add-version-item">Add Version</div>
+					<div class="requests-share-item">Share</div>
+				</div>
+			</div>
+		</div>
+		<% }); %>
+	<% } else { %>
+		<div class="no-items">
+			<div class="add-icon big inlineBlockMid"></div>
+			<div class="no-items-text inlineBlockMid">Add Artefact</div>
+		</div>
+	<% } %>
+<% if(params.projects && params.sortBy){ %>
+</div>
+<% } %>
+
+
+
+

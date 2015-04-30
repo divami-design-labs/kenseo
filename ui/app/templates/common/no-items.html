@@ -1,0 +1,8 @@
+<div class="no-items <% data.classes %>">
+	<% if(data.message){ %>
+		<%= data.message %>
+	<% } else if(data.add){ %>
+		<div class="add-icon big inlineBlockMid"></div>
+		<div class="no-items-text inlineBlockMid"><%= data.name %></div>
+	<% } %>
+</div>	

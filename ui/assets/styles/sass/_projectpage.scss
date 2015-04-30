@@ -26,6 +26,9 @@
 .sub-heading-add-icon{
 	@include elementWithBackground("add.svg", 20px, 20px);
 }
+.add-icon.big{
+    @include elementWithBackground("add.svg", 28px, 28px);   
+}
 .sub-section-content{
 	padding-top: 20px;
 }
@@ -67,15 +70,15 @@
 .activity-left{
 	float: left;
 }
-.activity-holder.review-activity-type .activity-icon{
-	@include elementWithBackground("file12.svg", 34px, 38px);
-}
-.activity-holder.comment-activity-type .activity-icon{
-	@include elementWithBackground("file14.svg", 34px, 38px);
-}
-.activity-holder.create-activity-type .activity-icon{
-	@include elementWithBackground("addfile.svg", 34px, 38px);
-}
+//.activity-holder.review-activity-type .activity-icon{
+//	@include elementWithBackground("file12.svg", 34px, 38px);
+//}
+//.activity-holder.comment-activity-type .activity-icon{
+//	@include elementWithBackground("file14.svg", 34px, 38px);
+//}
+//.activity-holder.create-activity-type .activity-icon{
+//	@include elementWithBackground("addfile.svg", 34px, 38px);
+//}
 .activity-right{
 	margin-left: 44px;
 }
@@ -200,4 +203,45 @@
 }
 .people-manage-icon{
     @include listImage('lock1.svg', 15px, 15px);
+}
+.no-items{
+    @include text(14px, $colorOne);
+}
+
+.activity-section-content{
+    .user-added-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon11.svg", 34px, 38px);
+        }
+    }
+    .artefact-approved-activity-type{
+        .activity-icon{
+            @include elementWithBackground("file12.svg", 34px, 38px);
+        }
+    }
+    .artefact-added-activity-type{
+        .activity-icon{
+            @include elementWithBackground("addfile.svg", 34px, 38px);
+        }
+    }
+    .artefact-comment-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon15.svg", 34px, 38px);
+        }
+    }
+    .artefact-share-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon11.svg", 34px, 38px);
+        }
+    }
+    .meeting-added-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon4.svg", 34px, 38px);
+        }
+    }   
+    .user-removed-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon2.svg", 34px, 38px);
+        }
+    }
 }

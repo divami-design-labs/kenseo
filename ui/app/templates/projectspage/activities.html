@@ -1,29 +1,46 @@
+<%
+	var newData = sb.getDayWiseData(data)
+%>
 <div class="sub-heading-section">
 	<div class="sub-heading">
 		<div class="sub-heading-label">Activity</div>
 	</div>
 </div>
 <div class="activity-section-content sub-section-content">
+	<% if(newData){ %>
+	<% for(var key in newData){ %>
 	<div class="day-activity">
 		<div class="day-activity-label">
-			Today
+			<%= key %>
 		</div>
 		<div class="day-activity-section">
-			<% _.each(data, function(a){ %>
-			<div class="activity-holder create-activity-type">
+			<% _.each(newData[key], function(a){ %>
+			<div class="activity-holder <%= a.activityOn.toLowerCase() %>-<%= a.activityType.toLowerCase() %>-activity-type">
 				<div class="activity-left">
 					<div class="activity-icon"></div>
 				</div>
 				<div class="activity-right">
-					<div class="activity-title"><%= a.project_name %>: <%= a.activityName %></div>
-					<div class="activity-details">
-						<div class="activity-time">10:00 PM</div>
-						<div class="activity-sender"> - from Rakesh</div>
+					<div class="activity-title ellipsis"><%= Kenseo.page.data.project_name %>: 
+						<% if(a.activityType.toLowerCase() === "removed" && a.activityName.toLowerCase() === "user"){ %>
+							<%= a.activityType %> <%= a.activityName %>	
+						<% } else { %>
+							<%= a.activityName %>
+						<% } %>
+					</div>
+					<div class="activity-details ellipsis">
+						<div class="activity-time"><%= sb.timeFormat(a.time) %></div>
+						<div class="activity-sender"> by <%= a.doneBy %></div>
 					</div>
 				</div>
 			</div>
 			<% }); %>
 		</div>
 	</div>
+	<% } %>
+	<% } else{ %>
+	<div class="no-items">
+		No activies yet
+	</div>
+	<% } %>
 </div>
 

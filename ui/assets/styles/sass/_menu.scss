@@ -22,7 +22,7 @@
 .menu-header {
     width: inherit;
     height: 78px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 .menu-profile {
     width: 675px;
@@ -132,7 +132,7 @@
     width: inherit;
     height: auto;
     @include dimensions(inherit, auto);
-    margin-top: 75px;
+    margin-top: 60px;
     //    background-color: darkseagreen;
 }
 

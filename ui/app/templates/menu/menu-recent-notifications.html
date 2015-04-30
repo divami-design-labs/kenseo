@@ -6,10 +6,10 @@
     </div>
     <div class="menu-notifications-txt">
         <span class="menu-notifications-txt-nm">Conflux:Designer</span>
-        <span class="menu-notifications-txt-tm"><%= sb.timeFormat(d.time) %> from <%= d.notifier %></span>
+        <span class="menu-notifications-txt-tm"><%= sb.timeFormat(d.time) %> by <%= d.notifier %></span>
         <% if(d.meetingDetails){ %>
         <div class="menu-notifications-txt-dttme">
-            <img src="assets/imgs/clock.svg" class="menu-notifications-txt-dttme-img" /><%= sb.timeFormat(d.meetingDetails.time) %>, <%= sb.getTime(d.meetingDetails.time) %>
+            <img src="assets/imgs/clock.svg" class="menu-notifications-txt-dttme-img" /><%= sb.timeFormat(d.meetingDetails.time, true) %>, <%= sb.getTime(d.meetingDetails.time) %>
         </div>
         <% } %>
     </div>

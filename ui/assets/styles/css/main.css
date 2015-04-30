@@ -519,7 +519,7 @@
 .menu-header {
   width: inherit;
   height: 78px;
-  margin-top: 10px; }
+  margin-top: 15px; }
 
 .menu-profile {
   width: 675px;
@@ -637,7 +637,7 @@
   height: auto;
   width: inherit;
   height: auto;
-  margin-top: 75px; }
+  margin-top: 60px; }
 
 .recent-hd {
   margin-bottom: 25px;
@@ -1173,14 +1173,9 @@
   height: 16px; }
 
 .review-request-item .requests-dropdown-icon {
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
+  left: 10px;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 10px;
   display: none; }
 .review-request-item:hover .requests-dropdown-icon {
   display: block;
@@ -1398,6 +1393,13 @@
   width: 20px;
   height: 20px; }
 
+.add-icon.big {
+  background-image: url("../../imgs/add.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 28px;
+  height: 28px; }
+
 .sub-section-content {
   padding-top: 20px; }
 
@@ -1437,27 +1439,6 @@
 
 .activity-left {
   float: left; }
-
-.activity-holder.review-activity-type .activity-icon {
-  background-image: url("../../imgs/file12.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 34px;
-  height: 38px; }
-
-.activity-holder.comment-activity-type .activity-icon {
-  background-image: url("../../imgs/file14.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 34px;
-  height: 38px; }
-
-.activity-holder.create-activity-type .activity-icon {
-  background-image: url("../../imgs/addfile.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 34px;
-  height: 38px; }
 
 .activity-right {
   margin-left: 44px; }
@@ -1614,6 +1595,53 @@
     -ms-transform: translate(0, -50%);
     -o-transform: translate(0, -50%);
     left: 0; }
+
+.no-items {
+  font-size: 14px;
+  color: #464c5f; }
+
+.activity-section-content .user-added-activity-type .activity-icon {
+  background-image: url("../../imgs/icon11.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 34px;
+  height: 38px; }
+.activity-section-content .artefact-approved-activity-type .activity-icon {
+  background-image: url("../../imgs/file12.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 34px;
+  height: 38px; }
+.activity-section-content .artefact-added-activity-type .activity-icon {
+  background-image: url("../../imgs/addfile.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 34px;
+  height: 38px; }
+.activity-section-content .artefact-comment-activity-type .activity-icon {
+  background-image: url("../../imgs/icon15.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 34px;
+  height: 38px; }
+.activity-section-content .artefact-share-activity-type .activity-icon {
+  background-image: url("../../imgs/icon11.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 34px;
+  height: 38px; }
+.activity-section-content .meeting-added-activity-type .activity-icon {
+  background-image: url("../../imgs/icon4.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 34px;
+  height: 38px; }
+.activity-section-content .user-removed-activity-type .activity-icon {
+  background-image: url("../../imgs/icon2.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 34px;
+  height: 38px; }
 
 .popup-container {
   background-color: rgba(82, 85, 104, 0.48);
@@ -1795,7 +1823,7 @@
   position: relative;
   width: 250px;
   margin-bottom: 10px;
-  display: none; }
+  visibility: hidden; }
 
 .create-file-close-icon {
   background-image: url("../../imgs/close.svg");
@@ -2020,6 +2048,94 @@
   right: 0;
   top: 72px;
   z-index: 1; }
+
+.popup-meeting {
+  width: 565px;
+  height: 700px; }
+
+.input-meeting-text {
+  width: 365px;
+  height: 18px;
+  border: 1px solid #aaacb4;
+  padding: 10px; }
+  .input-meeting-text::-webkit-input-placeholder {
+    color: #3e4354;
+    font: 14px "OpenSansRegular"; }
+  .input-meeting-text:-moz-placeholder {
+    /* Firefox 18- */
+    color: #3e4354;
+    font: 14px "OpenSansRegular"; }
+  .input-meeting-text::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #3e4354;
+    font: 14px "OpenSansRegular"; }
+  .input-meeting-text:-ms-input-placeholder {
+    color: #3e4354;
+    font: 14px "OpenSansRegular"; }
+  .input-meeting-text:focus {
+    outline: none; }
+
+.mini-dropdown {
+  width: 105px;
+  height: 38px; }
+
+.mini-datepicker {
+  width: 155px;
+  height: 40px; }
+
+.input-meeting-date {
+  width: 115px;
+  height: 36px; }
+
+.datepicker-icon {
+  background-image: url("../../imgs/calendar.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 17px;
+  height: 17px;
+  margin: 10px 8px; }
+
+.datepicker-icon-holder {
+  width: 35px;
+  height: 40px;
+  background-color: #f3f2f2;
+  border: 1px solid #aaacb4;
+  border-left: 0px; }
+
+.float-left {
+  float: left; }
+
+.time-label {
+  line-height: 38px;
+  margin: 0px 10px; }
+
+.no-margin {
+  margin: 0px; }
+
+.input-meeting-textarea {
+  width: 365px;
+  height: 58px;
+  border: 1px solid #aaacb4;
+  padding: 10px;
+  margin-bottom: 20px;
+  resize: none;
+  vertical-align: top; }
+  .input-meeting-textarea::-webkit-input-placeholder {
+    color: #3e4354;
+    font: 14px "OpenSansRegular"; }
+  .input-meeting-textarea:-moz-placeholder {
+    /* Firefox 18- */
+    color: #3e4354;
+    font: 14px "OpenSansRegular"; }
+  .input-meeting-textarea::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #3e4354;
+    font: 14px "OpenSansRegular"; }
+  .input-meeting-textarea:-ms-input-placeholder {
+    color: #3e4354;
+    font: 14px "OpenSansRegular"; }
+  .input-meeting-textarea:focus {
+    outline: none; }
 
 body {
   font-family: "OpenSansRegular"; }

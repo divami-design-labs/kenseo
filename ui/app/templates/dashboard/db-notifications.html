@@ -1,18 +1,7 @@
 <%
-	var newData = {};
-	for(var i=0; i<data.length; i++){
-		var d = data[i];
-		var time = sb.timeFormat(d.time);
-		if(!newData[time]){
-			newData[time] = [];
-			newData[time].push(d);
-		}
-		else{
-			newData[time].push(d);
-		}
-	}
+	var newData = sb.getDayWiseData(data)
 %>
-
+<% if(newData){ %>
 <% for(var key in newData){ %>
 <div class="day-notifications">
 	<div class="day-notifications-label"><%= key %></div>
@@ -23,7 +12,7 @@
 				<%= n.title %>
 			</div>
 			<div class="notification-time">
-				@ <%= sb.timeFormat(n.time) %> by <%= n.notifier %>
+				<%= sb.timeFormat(n.time) %> by <%= n.notifier %>
 			</div>
 			<% if(n.meetingDetails){ %>
 			<div class="meeting-notify-section">
@@ -41,5 +30,10 @@
 		</div>
 		<% }); %>
 	</div>
+</div>
+<% } %>
+<% } else{ %>
+<div class="no-items">
+	No notifications yet
 </div>
 <% } %>

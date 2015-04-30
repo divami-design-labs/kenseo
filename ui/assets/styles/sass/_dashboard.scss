@@ -275,7 +275,9 @@
 		@extend .disappear;
 	}
 	.requests-dropdown-icon{
-		@include fullMiddle();
+		left: 10px;
+	    position: absolute;
+	    top: 10px;
 		display: none;
 	}
 	&:hover{

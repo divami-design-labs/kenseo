@@ -82,7 +82,7 @@ class Result
 	}
 	
 	public function setParams($params) {
-		$this->params = $params;
+		$this->params = $params ? $params: new Object();
 	}
 	
 	public function getParams() {

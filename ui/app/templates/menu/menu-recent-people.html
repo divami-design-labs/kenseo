@@ -1,5 +1,11 @@
+<% if(data.length){ %>
 <% _.each(data, function(p){ %>
 <div class="menu-recent-people-cnt">
     <img src="<%= p.picture %>" class="menu-people-img" />
 </div>
 <% }); %>
+<% } else{ %>
+<div class="no-items">
+	No added people
+</div>
+<% } %>

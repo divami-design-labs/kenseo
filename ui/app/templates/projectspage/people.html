@@ -7,6 +7,7 @@
 	</div>
 </div>
 <div class="people-section-content sub-section-content">
+	<% if(data.length){ %>
 	<% _.each(data, function(p){ %>
 	<div class="people-item-holder">
 		<div class="people-item-left">
@@ -27,4 +28,10 @@
 		</div>
 	</div>
 	<% }); %>
+	<% } else{ %>
+	<div class="no-items">
+		<div class="add-icon big inlineBlockMid"></div>
+		<div class="no-items-text inlineBlockMid">Add People</div>
+	</div>
+	<% } %>
 </div>
