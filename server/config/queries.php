@@ -29,7 +29,9 @@ $AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_na
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
 											WHERE user_id = @~~userid~~@)";
-$AppGlobal['sql']['getMyRecentArtefacts'] = "SELECT projects.project_id, projects.project_name, artefacts.artefact_title, project_activity.activity_id, project_activity.activity_type, project_activity.performed_on_id
+$AppGlobal['sql']['getMyRecentArtefacts'] = "SELECT projects.project_id, projects.project_name, 
+											 artefacts.artefact_title, project_activity.activity_id, 
+											 project_activity.activity_type, project_activity.performed_on_id
 											 FROM " . TABLE_PROJECT_ACTIVITY . "
 											 JOIN " . TABLE_PROJECTS . " ON project_activity.project_id = projects.project_id
 											 JOIN " . TABLE_ARTEFACTS . " ON artefacts.artefact_id = project_activity.performed_on_id
@@ -176,5 +178,36 @@ $AppGlobal['sql']['getReferences'] = "SELECT DISTINCT artefacts.artefact_id as i
 										artefacts.replace_ref_id = 0 AND 
 										artefacts.artefact_id != @~~ignore~~@ AND 
 										artefacts.project_id = @~~projectid~~@";
+
+$AppGlobal['sql']['getProjectActivity'] = "SELECT Date(pa.logged_time) as time, 
+											pa.performed_on as activityOn, 
+											pa.activity_id as id, 
+											actBy.name as doneBy, 
+											CASE activity_type
+												WHEN 'N' THEN 'Added'
+												WHEN 'R' THEN 'Removed'
+												WHEN 'U' THEN 'Updated'
+												WHEN 'H' THEN 'Hold'
+												WHEN 'C' THEN 'Comment'
+												WHEN 'S' THEN 'Share'
+											END as activityType,
+											CASE performed_on
+												WHEN 'U' THEN 'User'
+												WHEN 'A' THEN 'Artefact'
+												WHEN 'M' THEN 'Meeting'
+											END as activityType,
+											CASE performed_on
+												WHEN 'A' THEN (SELECT vers.version_label FROM artefacts as arts join artefact_versions as vers on vers.artefact_ver_id = arts.latest_version_id WHERE arts.artefact_id = pa.performed_on_id)
+												WHEN 'U' THEN (SELECT name FROM users where user_id = pa.performed_on_id)
+												WHEN 'M' THEN (SELECT meeting_agenda FROM meetings WHERE meeting_id = pa.performed_on_id)
+											END as activityName	
+											FROM 
+											`project_activity` as pa
+											JOIN users as actBy 
+											on 
+											actBy.user_id = pa.logged_by  
+											WHERE 
+											pa.project_id = @~~projectid~~@";
+$AppGlobal['sql']['getMyRecentActivity'] = "";
 
 ?>

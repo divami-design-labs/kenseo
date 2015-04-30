@@ -94,5 +94,18 @@
 			
 			return true;		
 		}
+		
+		public function getProjectActivity($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->projectId;
+			
+			$db = Master::getDBConnectionManager();
+			$queryParams = array('projectId' => $projectId);
+			
+			$dbQuery = getQuery('getProjectActivity',$queryParams);
+			
+			$resultObj = $db->multiObjectQuery($dbQuery);
+			
+		}
 	}
 ?>

@@ -80,4 +80,8 @@ $AppGlobal['urlmap']['/addPeople'] = array ('command' => 'addPeople', 'type' => 
 
 $AppGlobal['cmdmap']['removePeople'] = array ("class" => "Projects", "method" => "removePeople");
 $AppGlobal['urlmap']['/removePeople'] = array ('command' => 'removePeople', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['getProjectActivity'] = array ("class" => "Projects", "method" => "getProjectActivity");
+$AppGlobal['urlmap']['/getProjectActivity'] = array ('command' => 'getProjectActivity', 'type' => 'GET');
+
 ?>
