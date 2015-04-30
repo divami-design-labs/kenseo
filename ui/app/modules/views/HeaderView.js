@@ -48,7 +48,7 @@ Kenseo.views.Header = Backbone.View.extend({
     showSearchBox: function(){
         var $popupContainer = $('.popup-container');
         $popupContainer.show();
-        sb.renderTemplate('search', $popupContainer);
+        sb.renderTemplate({"templateName": 'search', "templateHolder": $popupContainer});
     },
     validateSearch: function(e) {
         var searchString = this.value;
@@ -57,11 +57,11 @@ Kenseo.views.Header = Backbone.View.extend({
                 'models': ['Search'],
                 'collections': ['Search']
             }, function(){
-                sb.renderTemplate('search-results', $('.search-section').find('.search-results'), new Kenseo.collections.Search(), function(){
+                sb.renderTemplate({"templateName": 'search-results',"templateHolder": $('.search-section').find('.search-results'), "collection": new Kenseo.collections.Search(), "callbackfunc": function(){
                     $('.search-results').show();
-                }, {
+                }, "data": {
                     'string': searchString
-                });
+                }});
             });
         }
         else{

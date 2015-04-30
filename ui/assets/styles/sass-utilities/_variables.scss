@@ -74,6 +74,20 @@ $fontSizeOne: 18px;
 		top: 2px;
 	}
 }
+@mixin listImage($image, $w, $h){
+	padding-left: $w + 10;
+	position: relative;
+	&::before{
+		content: "";
+		@include elementWithBackground($image, $w, $h);
+		width: $w;
+		height: $w;
+		position: absolute;
+		top: 50%;
+		@include transform(translate(0, -50%));
+		left: 0;
+	}
+}
 @mixin listTypeWithGap($image, $w, $h, $t, $l){
 	&::before{
 		content: "";

@@ -1,12 +1,12 @@
 var gulp = require('gulp');
-// var brfs = require('brfs');
 var fs   = require('fs');
 var tap = require('gulp-tap');
-// var minifyHTML = require('gulp-minify-html');
-var gutil = require('gulp-util');
 var path = require('path');
-// var uglifyJs = require('gulp-uglifyjs');
 var stringify = require('stringify-object');
+// var gutil = require('gulp-util');
+// var brfs = require('brfs');
+// var minifyHTML = require('gulp-minify-html');
+// var uglifyJs = require('gulp-uglifyjs');
 // var sass = require('gulp-sass')
 // var shell = require('gulp-shell')
 
@@ -20,7 +20,7 @@ gulp.task('sass', function () {
 gulp.task('template-build', function() {
 	var templates = {};
 	gulp.src('app/templates/*/*.html')
-	.pipe(minifyHTML())
+	// .pipe(minifyHTML())
 	.pipe(gulp.dest('app/templatesUglify/'))
 	;
 

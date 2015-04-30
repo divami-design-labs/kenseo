@@ -1,25 +1,26 @@
-.profile-pic-nav{
+.sub-menu-holder{
 	position: absolute;
 	background-color: $colorI;
 	color: white;
-	right: 0;
-	width: 100px;
 	padding: 5px 10px;
-	width: 145px;
 	display: none;
 }
-.active .profile-pic-nav{
+.active .sub-menu-holder{
 	display: block;
 }
-.profile-pic-nav-item{
+.right-nav{
+	right: 0px;
+}
+.bottom-nav{
+	top: 100%;
+}
+.left-nav{
+	left: 0px;
+}
+.sub-menu-item{
 	padding: 10px;
 	@include text(14px, $color2);
-}
-.profile-pic-nav-item:first-child + .profile-pic-nav-item{
-	padding-top: 15px;
-}
-.profile-pic-holder.active{
-	background-color: $colorI;
+	white-space: nowrap;
 }
 .separator{
 	border-bottom: 1px solid $colorH;

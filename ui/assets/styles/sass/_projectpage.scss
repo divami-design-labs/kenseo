@@ -15,19 +15,16 @@
 	@include clearFloat();
 	margin-top: 30px;
 	position: relative;
-	display: inline-block;
 }
-.sub-heading-label, .sub-heading-add-icon{
-	float: left;
+.sub-heading-label, .sub-heading-add-wrapper, .sub-heading-more-options{
+	display: inline-block;
+    vertical-align: middle;
 }
 .sub-heading-label{
 	@include textOne();
 }
 .sub-heading-add-icon{
-	@include elementWithBackground("add.svg", 16px, 16px);
-	@include verticalMiddle();
-	left: 100%;
-	margin-left: 10px;
+	@include elementWithBackground("add.svg", 20px, 20px);
 }
 .sub-section-content{
 	padding-top: 20px;
@@ -51,6 +48,9 @@
 }
 .people-item-right{
 	margin-left: 44px;
+}
+.people-item-holder:hover .people-request-holder{
+    display: inline-block;
 }
 .people-name{
 	@include text(14px, $colorTwo);
@@ -161,4 +161,43 @@
     &.xxl .rr-status:before{
         margin-bottom: $xxlMT/2;
     }
+}
+.sub-heading-add-wrapper{
+    padding: 5px;
+}
+.sub-heading-more-options{
+    position: relative;
+    padding: 5px;
+}
+.sub-menu-nav.active {
+    background-color: $colorI;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+}
+.sub-heading-more-icon{
+    @include elementWithBackground("more1.svg", 20px, 20px);
+}
+.active .sub-heading-more-icon{
+    @include backgroundImage("more.svg");
+}
+
+.people-name-section{
+    position: relative;
+}
+
+.people-request-holder{
+    padding: 10px 10px 0 10px;
+    margin-top: -7px;
+    display: none;
+}
+.main-section-project-icon-holder{
+    padding: 5px 5px 0;
+    position: relative;
+}
+.people-remove-icon{
+    @include listImage('delete.svg', 15px, 15px);
+}
+.people-manage-icon{
+    @include listImage('lock1.svg', 15px, 15px);
 }

@@ -1,7 +1,9 @@
 <div class="sub-heading-section">
 	<div class="sub-heading">
 		<div class="sub-heading-label">People</div>
-		<div class="sub-heading-add-icon"></div>
+		<div class="sub-heading-add-wrapper">
+			<div class="sub-heading-add-icon"></div>
+		</div>
 	</div>
 </div>
 <div class="people-section-content sub-section-content">
@@ -11,7 +13,16 @@
 			<img class="people-icon" src="<%= p.picture %>" />
 		</div>
 		<div class="people-item-right">
-			<div class="people-name"><%= p.name %></div>
+			<div class="people-name-section">
+				<div class="people-name inlineBlockTop"><%= p.name %></div>
+				<div class="people-request-holder toggle-click sub-menu-nav inlineBlockTop">
+					<div class="requests-dropdown-icon"></div>
+					<div class="sub-menu-holder left-nav bottom-nav">
+						<div class="sub-menu-item people-remove-icon">Remove</div>
+						<div class="sub-menu-item people-manage-icon">Manage Permissions</div>
+					</div>
+				</div>
+			</div>
 			<div class="people-access-text">Can Edit</div>
 		</div>
 	</div>

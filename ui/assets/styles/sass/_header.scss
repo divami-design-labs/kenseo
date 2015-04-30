@@ -66,6 +66,9 @@ $headerHeight: 64px;
 		background-color: white;
 		border: 2px solid white;
 	}
+	.sub-menu-holder{
+		min-width: 150px;
+	}
 }
 .create-icon-holder{
 	position: absolute;
@@ -75,7 +78,6 @@ $headerHeight: 64px;
 	@extend .hand;
 	@extend .unselectable;
 	&.active{
-		background-color: $colorI;
 		.create-plus-icon{
 			@include backgroundImage("Add1.svg");
 		}
