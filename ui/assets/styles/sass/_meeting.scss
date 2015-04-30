@@ -1,0 +1,63 @@
+.popup-meeting{
+	@include dimensions(565px, 700px);
+}
+
+.input-meeting-text{
+	@include placeHolder($colorTwo, 14px $normalFont);
+	@include dimensions(365px, 18px);
+	border: 1px solid $colorB;
+	padding: 10px;
+	&:focus{
+		outline: none;
+	}
+}
+
+.mini-dropdown {
+	@include dimensions(105px, 38px);
+}
+
+.mini-datepicker {
+	@include dimensions(155px, 40px);
+}
+
+.input-meeting-date {
+	@include dimensions(115px, 36px);
+}
+.datepicker-icon {
+	@include backgroundImage('calendar.svg');
+	@include dimensions(17px, 17px);
+	margin: 10px 8px;
+}
+
+.datepicker-icon-holder {
+	@include dimensions(35px, 40px);
+	background-color: $colorNine;
+	border: 1px solid $colorB;
+ 	border-left: 0px;
+}
+
+.float-left {
+	float: left;
+}
+
+.time-label {
+	line-height: 38px;
+	margin: 0px 10px;
+}
+
+.no-margin {
+	margin: 0px;
+}
+
+.input-meeting-textarea{
+	@include placeHolder($colorTwo, 14px $normalFont);
+	@include dimensions(365px, 58px);
+	border: 1px solid $colorB;
+	padding: 10px;
+	margin-bottom: 20px;
+	resize: none;
+	&:focus{
+		outline: none;
+	}
+	vertical-align: top;
+}

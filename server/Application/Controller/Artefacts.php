@@ -248,9 +248,6 @@
 				$data = $interpreter->getData();
 				$uploadFile = $_FILES["file"]["type"];
 				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,$_FILES["file"]["tmp_name"]);
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,"interpreter is");
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,$interpreter->getUser());
 				
 				$data->userId = $interpreter->getUser()->user_id;
 				
@@ -260,8 +257,11 @@
 				
 				//now store the artefact detail in the tables related to artefacts and versions
 				$db = Master::getDBConnectionManager();
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "do we have artefact id");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->artefact_id);
 				
-				if($data->artefact_id) {
+				if($data->artefact_id != undefined) {
+					Master::getLogManager()->log(DEBUG, MOD_MAIN, "artefactid is not undefined");
 					$artId = $data->artefact_id;
 				} else {
 					//if it is a new artefact
