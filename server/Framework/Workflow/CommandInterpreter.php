@@ -67,9 +67,10 @@ class CommandInterpreter
 			return Result::interpreterExceptionResult($exception);
 		}
 
+		$result = Result::instance();
+		$result->setParams($this->data->data);
 		$this->data = $controllerObject->$controllerMethod($this);
 		
-		$result = Result::instance();
 		$result->setStatus(SUCCESS);
 		$result->setData($this->data);
 		return $result;

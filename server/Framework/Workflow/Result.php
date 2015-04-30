@@ -81,10 +81,19 @@ class Result
 		return $this->data;
 	}
 	
+	public function setParams($params) {
+		$this->params = $params;
+	}
+	
+	public function getParams() {
+		return $this->params;
+	}
+	
 	public function toJSON()
 	{
 		$str = '{"status":"' . $this->status . '", "command":"' . $this->command . '", '
 				. '"client":' . json_encode($this->client) . ', '
+				. '"params":' . json_encode($this->params) . ', '
 				. '"data":' . json_encode($this->data)
 				. '}';
 		return $str;
