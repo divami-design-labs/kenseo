@@ -107,7 +107,14 @@ $AppGlobal['sql']['getReviewRequests']="SELECT DISTINCT requestor.name AS reques
 										ORDER BY members.shared_date DESC
 										LIMIT @~~limit~~@";
 													 
-$AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email, user_id as id from users WHERE user_id in (SELECT user_id from project_members WHERE proj_id in (SELECT proj_id from project_members WHERE user_id = @~~userid~~@)) and user_id != @~~userid~~@";
+$AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email, 
+											user_id as id from users 
+											WHERE 
+											user_id in (SELECT user_id from project_members 
+											WHERE 
+											proj_id in (SELECT proj_id from project_members 
+											WHERE user_id = @~~userid~~@)) 
+											and user_id != @~~userid~~@ LIMIT @~~limit~~@";
 
 $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots.message as title, nots.notification_type as type, notification_ref_id as refId,
 										 Date(nots.notification_date) as time, notifier.name as notifier, nots.notification_by as notifierId  
