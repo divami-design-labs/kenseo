@@ -61,3 +61,86 @@
 	}
 	vertical-align: top;
 }
+
+
+//Venkateshwar
+.meeting-section{
+	position: relative;
+}
+.meeting-wrapper{
+	margin-top: 20px;
+	@include clearFloat();
+}
+.meeting-people-section{
+	padding-top: 20px;
+	position: relative;
+}
+.meeting-left-section{
+	border-right: 1px dashed $colorP;
+	background-color: $colorQ;
+	float: left;
+	width: 200px;
+}
+.meeting-right-section{
+	margin-left: 220px;
+}
+.people-img-wrapper{
+	img{
+		background-color: white;
+	    border: 2px solid transparent;
+	    border-radius: 50%;
+	    height: 28px;
+	    width: 28px;
+	    display: inline-block;
+		vertical-align: middle;
+	}
+	display: inline-block;
+	vertical-align: middle;
+}
+.meeting-people-other{
+	position: absolute;
+	right: 0;
+	top: 20px;
+}
+.v-separator{
+	display: inline-block;
+	height: 10px;
+	border: 1px solid black;
+}
+.text-editor-section{
+	border: 1px solid grey;
+	margin-top: 20px;
+	@include border-radius(4px);
+}
+.text-actions-section{
+	background-color: $colorQ;
+	padding: 10px;
+	@extend .hand;
+	& > div{
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 10px;
+	}
+	& > div + div{
+		padding-left: 10px;
+		border-left: 1px solid black;
+	}
+}
+.text-action-bold{
+	font-family: $boldFont;
+}
+.text-action-italic{
+	font-family: $italicFont;
+}
+.text-action-underline{
+	text-decoration: underline;
+}
+.text-editor{
+	min-height: 200px
+}
+.people-img-wrapper.active{
+	background-color: $colorI;
+}
+.meeting-section .buttons-section{
+	right: 0;
+}

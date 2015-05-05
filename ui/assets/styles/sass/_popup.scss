@@ -57,7 +57,7 @@
 	padding: 30px;
 	padding-left: 50px;
 }
-.popup-buttons-section > button{
+.buttons-section > button{
 	border: none;
     float: right;
     height: 35px;
@@ -66,13 +66,13 @@
     	margin-left: 0;
     }
 }
-.popup-buttons-section{
+.buttons-section{
 	position: absolute;
 	bottom: 30px;
 	right: 30px;
 }
 
-.popup-message .popup-buttons-section{
+.popup-message .buttons-section{
 	left: 50%;
 	@include transform(translate(-50%,0));
 	right: auto;
@@ -96,14 +96,14 @@
 
 
 /* second artefact popup*/
-.popup-meta-heading{
+.meta-heading{
 	@include text(13px, $colorO);
 }
-.popup-meta-text{
+.meta-text{
 	@include text(15px, $colorTwo);
 	@extend .ellipsis;
 }
-.popup-meta-item{
+.meta-item{
 	padding-left:50px;
 	margin-top: 20px;
 }

@@ -6,13 +6,13 @@
 	</div>
 	<div class="popup-body">
 		<div class="popup-left-section">
-			<div class="popup-meta-item">
-				<div class="popup-meta-heading">Under</div>
-				<div class="popup-meta-text"><%= Kenseo.popup.data.project_name %></div>
+			<div class="meta-item">
+				<div class="meta-heading">Under</div>
+				<div class="meta-text"><%= Kenseo.popup.data.project_name %></div>
 			</div>
-			<div class="popup-meta-item">
-				<div class="popup-meta-heading">File</div>
-				<div class="popup-meta-text"><%= Kenseo.popup.data.fileName %></div>
+			<div class="meta-item">
+				<div class="meta-heading">File</div>
+				<div class="meta-text"><%= Kenseo.popup.data.fileName %></div>
 			</div>
 		</div>
 		<div class="popup-body-wrapper popup-right-section">
@@ -41,7 +41,7 @@
 					<div class="reference-files-holder">
 					</div>
 				</div>
-				<div class="popup-buttons-section">
+				<div class="buttons-section">
 					<% var buttons = dataObj.buttons %>
 					<% for(var i=buttons.length-1; i>= 0; i--){ %>
 						<% var b = buttons[i]; %>
