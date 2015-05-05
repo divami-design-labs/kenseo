@@ -9,15 +9,17 @@
 		<div class="sub-heading-more-options toggle-click sub-menu-nav">
 			<div class="sub-heading-more-icon"></div>
 			<div class="sub-menu-holder left-nav bottom-nav">
-				<div class="sub-menu-item">Sort by Name</div>
-				<div class="sub-menu-item">Sort by Date</div>
-				<div class="sub-menu-item">Group by Owner</div>
+				<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>
+				<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>
+				<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>
+				<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>
 			</div>
 		</div>
 		<% } %>
 	</div>
 </div>
-<div class="artifacts-content sub-section-content">
+<div class="artifacts-content sub-section-content <% if(params.sortBy && params.sortBy === 'default'){ %> linked-artefacts <% } %>">
+	<div class="sort-view">Sort By <% if(params && params.sortBy){ %> <%= _.capitalize(params.sortBy) %> <% } else { %>Default <% } %></div>
 <% } %>
 	<% var dataComparer = -1; %>
 	<% if(data.length){ %>

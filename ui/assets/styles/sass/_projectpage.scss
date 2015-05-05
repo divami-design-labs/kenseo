@@ -91,19 +91,26 @@
 .day-activity-section{
 	padding-top: 20px;
 }
-
+.activity-details{
+    @include text(12px, $colorE);
+}
 .activity-title{
 	@include text(14px, $colorTwo);
 }
 .activity-time{
 	@include text(12px, $colorC);
 }
+.sort-view{
+    @include text(12px, $colorC);
+    margin-bottom: 20px;
+    margin-top: -20px;
+}
 .activity-sender{
 	@include text(12px, $colorE);
 	margin-left: 5px;
 }
 .activity-time, .activity-sender{
-	float: left;
+	display: inline;
 }
 .activity-holder{
 	@include clearFloat();
@@ -113,7 +120,7 @@
 }
 
 //Linked artefacts
-.artifacts-content.sub-section-content .review-request-item {
+.artifacts-content.sub-section-content.linked-artefacts .review-request-item {
     $b: 1px solid #cbd0d3;
     $s: 10px;
     $h: 57px;    

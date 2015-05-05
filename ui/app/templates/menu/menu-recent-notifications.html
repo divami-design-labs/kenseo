@@ -1,3 +1,4 @@
+<% if(data && data.length){ %>
 <% _.each(data, function(d){ %>
 <div class="menu-notifications-cnt">
 
@@ -15,3 +16,8 @@
     </div>
 </div>
 <% }); %>
+<% } else{ %>
+<div class="no-items">
+    No notifications to show
+</div>
+<% } %>

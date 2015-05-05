@@ -19,12 +19,13 @@ gulp.task('sass', function () {
 // task without watch
 gulp.task('template-build', function() {
 	var templates = {};
-	gulp.src('app/templates/*/*.html')
+	// gulp.src('app/templates/*/*.html')
 	// .pipe(minifyHTML())
-	.pipe(gulp.dest('app/templatesUglify/'))
-	;
+	// .pipe(gulp.dest('app/templatesUglify/'))
+	// ;
 
-	gulp.src('app/templatesUglify/*/*.html')
+	// gulp.src('app/templatesUglify/*/*.html')
+	gulp.src('app/templates/*/*.html')
 	// Run a loop through all files in 'app/templates/*/*.html'
 	.pipe(tap(function(file, t){
 		// For each file in the loop get "file name" and "file path"

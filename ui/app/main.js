@@ -68,6 +68,19 @@ $(function(){
     .on('click', '.page-click', function(){
     	Kenseo.page.data = $(this).data('dump');
     })
+    .on('click', '.sort-item', function(){
+        sb.renderTemplate({
+            "templateName": 'artefacts',
+            "templateHolder": $('.artifacts-section'), 
+            "collection": new Kenseo.collections.Artefacts(), 
+            "data": {
+                projects: true, 
+                project_id: Kenseo.page.data.project_id, 
+                sharePermission: false, 
+                sortBy: $(this).data('stype')
+            }
+        });
+    })
     .on('click', '.done-btn', function() {
 		var data = new FormData();
 		
