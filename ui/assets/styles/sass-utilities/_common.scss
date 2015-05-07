@@ -7,3 +7,25 @@
 	display: inline-block;
 	vertical-align: top;
 }
+
+.profile-image-black{
+	@include border-radius(50%);
+    background-color: white;
+    border: 2px solid #EBECEE;
+}
+.profile-image-white{
+	@include border-radius(50%);
+	background-color: white;
+	border: 2px solid white;
+}
+.version-num{
+	@include border-radius(50%);
+	display: inline-block;
+	background-color: $colorJ;
+	text-align: center;
+	font-family: $boldFont;
+	@include text(12px, #ffffff);
+	&:first-letter{
+		font-family: $normalFont;
+	}
+}

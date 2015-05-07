@@ -15,12 +15,29 @@ var slider = (function(){
 			var width = $mgHolder().width() + $mgItems().width();
 			$sliderComponent().width(width);
 
-			$('.slider-right, .slider-left').on('mousedown', function(){
+			$('.slider-component').on('mousedown', function(e){
 				$self = $(this);
+				var $target = $(e.target);
+				var pLeft = $self.offset().left;
+				var remaining = e.pageX  - pLeft - $self.position().left;
 				$(window).on('mousemove', function(e){
-					var $slider = $self.parent();
-					var pLeft = $slider.offset().left;
-					$slider.width(e.pageX - pLeft);
+					var width = $self.width();
+					var movement = e.pageX - pLeft;
+					if($target.hasClass('slider-right')){
+						$self.width(movement);
+					}
+					else if($target.hasClass('slider-left')){
+						// $self.width(width - (movement));
+						$self.css({
+							'left': movement - remaining + "px",
+							// 'width': width - movement + "px"
+						});
+					}
+					else{
+						$self.css({
+							'left': movement - remaining + "px"
+						});	
+					}
 				});
 				$(window).on('mouseup', function(){
 					$(window).off('mouseup');

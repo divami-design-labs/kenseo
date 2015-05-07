@@ -97,9 +97,7 @@
 }
 .people-img-wrapper{
 	img{
-		background-color: white;
-	    border: 2px solid transparent;
-	    border-radius: 50%;
+		@extend .profile-image-white;
 	    height: 28px;
 	    width: 28px;
 	    display: inline-block;

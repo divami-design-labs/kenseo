@@ -63,7 +63,6 @@
 	height: 69px;
 	border: 1px solid rgba(141, 143, 150, 0.7);
 	position: relative;
-	width: 90%;
 	.time-frame-extended{
 		@include middleSetter(6px);
 	}
@@ -77,16 +76,8 @@
 	background-color: white;
 	.version-type{
 		@include dimensions(23px, 23px);
-		@include border-radius(50%);
-		display: inline-block;
-		background-color: $colorJ;
 		line-height: 20px;
-		text-align: center;
-		font-family: $boldFont;
-		@include text(12px, #ffffff);
-		&:first-letter{
-			font-family: $normalFont;
-		}
+		@extend .version-num;
 	}
 
 	.meeting-type{
@@ -200,7 +191,7 @@
 }
 
 .summary-section-footer {
-    padding: 10px;
+    padding: 10px 10px 10px 30px;
 }
 .close-icon{
 	@include closeIcon(10px);
@@ -247,4 +238,75 @@
 			@include transform(rotate(45deg));
 		}
 	}
+}
+.summary-section-below-content{
+	display: none;
+}
+.summary-section-overlay.view{
+	.summary-section-header{
+		background-color: $color6;
+	}
+	.summary-section-body{
+		padding: 30px 30px 55px 30px;
+		.close-icon{
+			display: none;
+		}
+	}
+	.time-frame-section{
+		height: auto;
+		border-top: none;
+	}
+	.time-frame-extended{
+		display: none;
+	}
+	.slider-component{
+		display: none;
+	}
+	.summary-section-below-content{
+		display: block;
+	}
+}
+.summary-section-below-content{
+	@include clearFloat();
+	& > div{
+		float: left;
+		width: calc(25% - 60px);
+		margin-right: 30px;
+		&:first-child{
+			margin-left: 30px;
+		}
+	}
+}
+.summary-people-item{
+	
+}
+.sp-left{
+	float: left;
+	margin-top: 7px;
+	img{
+		@extend .profile-image-black;
+		@include square(28px);
+	}
+}
+.sp-right{
+	margin-left: 40px;
+}
+
+.version-type{
+	@extend .version-num;
+	@include square(20px);
+	line-height: 20px;
+}
+.summary-version-date{
+	margin-left: 28px;
+}
+.summary-compare-btn{
+	@extend .a;
+	display: block;
+    margin-top: -20px;
+    @include text(12px, #9ABACC);
+    margin-bottom: 5px;
+}
+.summary-reference-item{
+	@include listImage("", 15px, 17px);
 }

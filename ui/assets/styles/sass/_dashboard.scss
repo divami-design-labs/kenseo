@@ -333,6 +333,9 @@
 .requests-share-item{
 	@include requestHoverListType("share.svg");
 }
+.requests-delete-item{
+	@include requestHoverListType("delete.svg");
+}
 //Notifications
 .notifications-content{
 	margin-top: 30px;

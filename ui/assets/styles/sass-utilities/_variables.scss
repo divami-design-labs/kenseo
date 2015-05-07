@@ -22,7 +22,9 @@ $fontSizeOne: 18px;
 	width: $width;
 	height: $height;
 }
-
+@mixin square($x){
+	@include dimensions($x, $x);
+}
 @mixin elementWithBackground($icon, $w, $h){
 	@include backgroundImage($icon);
 	@include dimensions($w, $h);
@@ -144,6 +146,29 @@ $fontSizeOne: 18px;
 @mixin closeIcon($x){
 	@include elementWithBackground('close.svg', $x, $x);
 	@extend .hand;
+}
+.mg-parent{
+	$border: 1px;
+	margin: 0 $border;
+	display: table;
+	table-layout: fixed;
+	.mg-holder{
+		display: table-cell;
+		vertical-align: top;
+	}
+	// For high specificity
+	.mg-holder.mg-holder:last-child{
+		width: 0px;
+	}
+}
+@mixin middleSetter($x){
+	width: calc(100% - #{$x});
+	width: -webkit-calc(100% - #{$x});
+	width: -moz-calc(100% - #{$x});
+	margin-left: $x;
+	.mg-holder > .mg-item{
+		margin-left: -$x;
+	}
 }
 //extends
 .fullMiddle{
