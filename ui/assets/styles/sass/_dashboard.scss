@@ -125,7 +125,7 @@
 	margin-right: 12px;
 }
 .rr-right{
-	margin-left: 50px;
+	margin-left: 62px;
 }
 .rr-status{
 	@include dimensions(37px, 57px);
@@ -239,14 +239,16 @@
 }
 .rr-comment{
 	@include elementWithBackground("baloon.svg", 40px, 26px);
-	line-height: 21px;
-	text-align: center;
 	@include textEight();
+	text-align: center;
+	line-height: 21px;
+}
+.rr-state .rr-comment{
 	position: absolute;
 	left: 40px;
   	top: 3px;
 }
-.rr-comment{
+.rr-state .rr-comment{
 	float: left;
 }
 .rr-owner-image{
@@ -358,6 +360,7 @@
 	background-color: $colorMeetingOne;
 	position: relative;
 	@include text(12px, $colorA);
+	max-width: 140px;
 }
 .mn-left-title{
 	@extend .ellipsis;

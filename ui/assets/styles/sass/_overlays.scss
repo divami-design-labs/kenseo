@@ -1,0 +1,250 @@
+.overlay{
+	border: 1px solid $colorTwo;
+}
+.summary-section-overlay{
+	width: 85%;
+	height: 614px;
+	.rr-comment{
+		@extend .inlineBlockTop;
+	}
+}
+.secondary-status-rr{
+	padding: 10px;
+	@include border-radius(50%);
+	width: 0;
+	height: 0;
+	@extend .inlineBlockTop;
+}
+.summary-section-header{
+	padding: 30px;
+	height: 100px
+}
+
+.summary-header-left, .summary-header-right{
+	float: left;
+	width: 50%;
+}
+.summary-header-right{
+	text-align: right;
+	direction: rtl;
+	.summary-header-action-item{
+		text-align: left;
+		width: 60px;
+		margin-bottom: 15px;
+		@include text(12px, $colorFive);
+		cursor: pointer;
+	}
+}
+
+.submit-action-icon{
+	@include listImage($iconSubmit, 20px, 20px);
+}
+.archive-action-icon{
+	@include listImage($iconArchive, 20px, 20px);
+}
+.delete-action-icon{
+	@include listImage($iconDelete, 20px, 20px);
+}
+
+.summary-section-body{
+	background-color: $color6;
+	padding: 205px 35px 95px 35px;
+	position: relative;
+}
+.time-frame-extended{
+	position: absolute;
+	top: -4px;
+	left: 0;
+	right: 0;
+}
+.time-frame-section{
+	margin: 0 auto;
+	background-color: white;
+	height: 69px;
+	border: 1px solid rgba(141, 143, 150, 0.7);
+	position: relative;
+	width: 90%;
+	.time-frame-extended{
+		@include middleSetter(6px);
+	}
+}
+.time-frame-item{
+	$w: 4px;
+	width: $w;
+	height: $w;
+	border: 1px solid black;
+	margin-left: -6px;
+	background-color: white;
+	.version-type{
+		@include dimensions(23px, 23px);
+		@include border-radius(50%);
+		display: inline-block;
+		background-color: $colorJ;
+		line-height: 20px;
+		text-align: center;
+		font-family: $boldFont;
+		@include text(12px, #ffffff);
+		&:first-letter{
+			font-family: $normalFont;
+		}
+	}
+
+	.meeting-type{
+		@include elementWithBackground("calendar1.svg", 23px, 25px);
+	}
+	.file-type{
+		@include elementWithBackground("file_1.svg", 24px, 26px);
+	}
+	.comment-type{
+		@include elementWithBackground("chat.svg", 30px, 27px);
+	}
+	.user-type{
+		@include elementWithBackground("user.svg", 23px, 26px);
+	}
+	.top-hover-viewer{
+		background-color: $colorI;
+		bottom: 100%;
+		margin-bottom: 15px;
+		padding: 10px;
+		position: absolute;
+		z-index: 1;
+		&:after{
+			content: "";
+			border-width: 8px 5px;
+			border-color: $colorI transparent transparent transparent;
+			border-style: solid;
+			position: absolute;
+			top: 100%;
+			left: 5px;
+		}
+	}
+	.meeting-type-content{
+		@include listImage("calendar1.svg", 23px, 25px);
+		width: 140px;
+		text-align: left;
+		@include text(13px, $color2);
+		font-family: $normalFont;
+	}
+}
+.time-frame-holder{
+	position: relative;
+	z-index: 1;
+}
+.time-frame{
+	position: relative;
+}
+.top-viewer{
+	position: absolute;
+    @include transform(translate(-50%, 0));
+	margin-bottom: 5px;
+	bottom: 100%;
+	left: 50%;
+	&:hover > .top-hover-viewer{
+		display: block;
+	}
+}
+.top-hover-viewer{
+	display: none;
+}
+.time-frame-date{
+	position: absolute;
+	top: 100%;
+	margin-top: 10px;
+	left: 50%;
+	@include transform(translate(-50%, 0));
+	@include textSix();
+	white-space: nowrap;
+}
+.tf-images{
+	@extend .inlineBlockMid;
+	img{
+		background-color: white;
+	    border: 2px solid transparent;
+	    @include border-radius(50%);
+	    height: 28px;
+	    width: 28px;
+	}
+}
+.comment-type-viewer{
+	width: 140px;
+}
+.tf-more-people{
+	@extend .inlineBlockMid;
+	width: 66px;
+	@include text(13px, $color2);
+	font-family: $normalFont;
+}
+.user-type-content {
+    width: 110px;
+}
+.time-frame-selector{
+	position: absolute;
+	bottom: -4px;
+	margin: 0;
+	left: 0;
+	right: 0;
+	@include middleSetter(6px);
+	.time-selector-item{
+		width: 6px;
+		height: 6px;
+		background-color: black;
+	}
+}
+.summary-footer-item{
+	padding-right:15px;
+	@extend .inlineBlockMid;
+	& + &{
+		border-left: 1px solid black;
+		padding-left: 15px;
+	}
+}
+
+.summary-section-footer {
+    padding: 10px;
+}
+.close-icon{
+	@include closeIcon(10px);
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+.slider-component{
+	background-color: white;
+	height: 40px;
+	position: absolute;
+	top: 100%;
+	margin-top: 1px;
+	max-width: 100% !important;
+	.slider-left, .slider-right{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 1px;
+		background-color: rgba(141, 143, 150, 0.7);
+		@extend .hand;
+		&:after{
+			content: "";
+			position: absolute;
+			top: 100%;
+			margin-top: 4px;
+			border-width: 10px;
+			border-color: rgba(141, 143, 150, 1) transparent transparent transparent;
+			border-style: solid;
+		}
+	}
+	.slider-left{
+		left: 0;
+		&:after{
+			left: -9px;
+			@include transform(rotate(-45deg));
+		}
+	}
+	.slider-right{
+		right: 0;
+		&:after{
+			right: -9px;
+			@include transform(rotate(45deg));
+		}
+	}
+}

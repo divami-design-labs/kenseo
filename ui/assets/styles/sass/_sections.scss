@@ -14,8 +14,17 @@
 	@include textOne();
 	line-height: 24px;
 	margin-left: 13px;
-	display: inline-block;
-	vertical-align: top;
+	@extend .inlineBlockTop;	
+}
+.heading-text-project{
+	@include textOne();
+	line-height: 24px;
+	margin-left: 13px;
+	@extend .inlineBlockMid;
+}
+.heading-text-project-name{
+	@include text(20px, $colorOne);
+	@extend .inlineBlockMid;
 }
 .projects-heading-icon, .review-requests-icon, .notifications-heading-icon{
 	float: left;

@@ -164,6 +164,21 @@ Kenseo.popups = (function(){
 	            	"disabled": false
 	            }],
         	}
+        ],
+        "add-people": [
+        	{
+        		"page_name": "add-people",
+        		"title": "Add People to this Project",
+        		"buttons": [{
+        			"label": "Cancel",
+        			"cls": "cancel-btn lnk-btn"
+        		},
+        		{
+        			"label": "Done",
+        			"cls": "main-btn done-btn",
+        			"disabled": false
+        		}]
+        	}
         ]
 	};
 

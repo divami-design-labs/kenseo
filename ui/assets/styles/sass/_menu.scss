@@ -91,6 +91,7 @@
 .menu-settings-txt {
     @include dimensions(80px, auto);
     @include text(13px, $color3);
+    @extend .a;
     line-height: 24px;
     margin-left: 8px;
 }
@@ -246,7 +247,6 @@
 .menu-notifications-img-dv {
     @include dimensions(18px, auto);
     float: left;
-    margin-top: 3px;
 }
 
 .menu-notifications-img {
@@ -262,6 +262,7 @@
 
 .menu-notifications-txt-nm {
     @include text(14px, $color3);
+    display: block;
 }
 
 .menu-notifications-txt-tm {

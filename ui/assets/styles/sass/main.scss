@@ -2,6 +2,7 @@
 @import "../sass-utilities/colors";
 @import "../sass-utilities/variables";
 @import "../sass-utilities/common";
+@import "../sass-utilities/icons";
 @import "header";
 @import "miscellaneous";
 @import "search";
@@ -11,6 +12,7 @@
 @import "projectpage";
 @import "popup";
 @import "meeting";
+@import "overlays";
 
 //variables
 $viewPortWidth: 1346px;

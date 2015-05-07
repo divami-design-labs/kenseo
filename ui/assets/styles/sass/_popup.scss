@@ -102,6 +102,9 @@
 .meta-text{
 	@include text(15px, $colorTwo);
 	@extend .ellipsis;
+	div{
+		@extend .ellipsis;
+	}
 }
 .meta-item{
 	padding-left:50px;
@@ -346,4 +349,28 @@ $popup-content-space: 175px;
     right: 0;
     top: 72px;
     z-index: 1;
+}
+//Add people
+.popup-add-people{
+	@include dimensions(468px, 406px);
+}
+
+.permission-item{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 20px;
+}
+.add-people-text-project{
+	@include text(14px, $colorOne);
+	margin-bottom: 15px;
+}
+.permissions-header{
+	@include text(16px, $colorOne);
+	margin-bottom: 15px;
+}
+.permission-item-text{
+	@include text(14px, $colorOne);
+}
+.people-permissions-section{
+	margin-top: 40px;
 }

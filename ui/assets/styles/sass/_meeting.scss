@@ -65,11 +65,19 @@
 
 //Venkateshwar
 .meeting-section{
-	position: relative;
+	.checkbox{
+		margin: 10px 0 20px 0;
+	}
+}
+.heading-date{
+	@include text(20px, $colorTen);
+	@extend .inlineBlockMid;
 }
 .meeting-wrapper{
+	position: relative;
 	margin-top: 20px;
 	@include clearFloat();
+	padding-bottom: 35px;
 }
 .meeting-people-section{
 	padding-top: 20px;
@@ -78,11 +86,14 @@
 .meeting-left-section{
 	border-right: 1px dashed $colorP;
 	background-color: $colorQ;
-	float: left;
 	width: 200px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
 }
 .meeting-right-section{
 	margin-left: 220px;
+	@include clearFloat();
 }
 .people-img-wrapper{
 	img{
@@ -94,6 +105,7 @@
 	    display: inline-block;
 		vertical-align: middle;
 	}
+	padding: 5px;
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -102,28 +114,35 @@
 	right: 0;
 	top: 20px;
 }
+.meeting-people-name{
+	@include text(14px, $colorTwo);
+}
 .v-separator{
-	display: inline-block;
-	height: 10px;
-	border: 1px solid black;
+	@extend .inlineBlockMid;
+	height: 30px;
+	border-left: 1px solid $colorTwo;
 }
 .text-editor-section{
-	border: 1px solid grey;
+	border: 1px solid $color8;
 	margin-top: 20px;
 	@include border-radius(4px);
+	margin-bottom: 10px;
+	overflow: hidden;
 }
 .text-actions-section{
 	background-color: $colorQ;
 	padding: 10px;
-	@extend .hand;
+	height: 30px;
 	& > div{
 		display: inline-block;
 		vertical-align: middle;
 		margin-right: 10px;
+		@include text(14px, $colorTwo);
+		@extend .hand;
 	}
 	& > div + div{
 		padding-left: 10px;
-		border-left: 1px solid black;
+		border-left: 1px solid $colorTwo;
 	}
 }
 .text-action-bold{
@@ -136,11 +155,10 @@
 	text-decoration: underline;
 }
 .text-editor{
-	min-height: 200px
+	padding: 10px 20px;
+	@include text(13px, $colorTwo);
+	min-height: 260px;
 }
 .people-img-wrapper.active{
-	background-color: $colorI;
-}
-.meeting-section .buttons-section{
-	right: 0;
+	background-color: $colorEleven;
 }
