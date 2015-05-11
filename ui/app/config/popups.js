@@ -193,7 +193,7 @@ Kenseo.popups = (function(){
 				"disabled": false
 			}],
 			"callbackfunc": sb.popup.meetingIvite
-    	}]
+    	}],
         "add-version":[
         	{
         		"page_name": "artefact-two",
