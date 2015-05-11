@@ -118,6 +118,15 @@ $AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, n
 											WHERE user_id = @~~userid~~@)) 
 											and user_id != @~~userid~~@ LIMIT @~~limit~~@";
 
+$AppGlobal['sql']['getPeopleInProject'] = "SELECT profile_pic_url as picture, name, email, 
+											user_id as id from users 
+											WHERE 
+											user_id in (SELECT user_id from project_members 
+											WHERE 
+											proj_id = @~~projectId~~@) 
+											and user_id != @~~userid~~@ LIMIT @~~limit~~@";
+
+
 $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots.message as title, nots.notification_type as type, notification_ref_id as refId,
 										 Date(nots.notification_date) as time, notifier.name as notifier, nots.notification_by as notifierId  
 										 FROM " . TABLE_NOTIFICATIONS . " as nots
@@ -139,7 +148,7 @@ $AppGlobal['sql']['matchArtefacts'] = "SELECT versions.version_label, artefacts.
 
 $AppGlobal['sql']['matchProjects'] = "SELECT project_name AS matchedString, project_id AS id FROM " . TABLE_PROJECTS . " WHERE project_name LIKE @~~string~~@";
 
-$AppGlobal['sql']['getTeamMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url 
+$AppGlobal['sql']['getTeamMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url as picture
 											FROM " . TABLE_PROJECT_MEMBERS . " AS members 
 											INNER JOIN " . TABLE_USERS . " AS users ON members.user_id = users.user_id  
 											WHERE members.proj_id = @~~projectId~~@ AND members.user_id != @~~userId~~@";
@@ -209,5 +218,9 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT Date(pa.logged_time) as time,
 											WHERE 
 											pa.project_id = @~~projectid~~@";
 $AppGlobal['sql']['getMyRecentActivity'] = "";
+$AppGlobal['sql']['getMeetingNotes'] = "SELECT * FROM " . TABLE_MEETING_NOTES . " as notes 
+										JOIN " . TABLE_USERS . " as users ON 
+										notes.participant_id = users.user_id
+										WHERE meeting_id = @~~meetingId~~@ ";
 
 ?>

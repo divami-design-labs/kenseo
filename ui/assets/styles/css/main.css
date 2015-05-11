@@ -2137,13 +2137,13 @@
 
 .popup-meeting {
   width: 565px;
-  height: 700px; }
+  height: 650px; }
 
 .input-meeting-text {
   width: 365px;
   height: 18px;
   border: 1px solid #aaacb4;
-  padding: 10px; }
+  padding: 7px; }
   .input-meeting-text::-webkit-input-placeholder {
     color: #3e4354;
     font: 14px "OpenSansRegular"; }
@@ -2171,7 +2171,7 @@
 
 .input-meeting-date {
   width: 115px;
-  height: 36px; }
+  height: 30px; }
 
 .datepicker-icon {
   background-image: url("../../imgs/calendar.svg");
@@ -2179,11 +2179,11 @@
   background-size: 100% 100%;
   width: 17px;
   height: 17px;
-  margin: 10px 8px; }
+  margin: 8px 8px; }
 
 .datepicker-icon-holder {
   width: 35px;
-  height: 40px;
+  height: 34px;
   background-color: #f3f2f2;
   border: 1px solid #aaacb4;
   border-left: 0px; }
@@ -2202,7 +2202,7 @@
   width: 365px;
   height: 58px;
   border: 1px solid #aaacb4;
-  padding: 10px;
+  padding: 5px;
   margin-bottom: 20px;
   resize: none;
   vertical-align: top; }
@@ -2323,6 +2323,20 @@
 
 .people-img-wrapper.active {
   background-color: #d7d7d9; }
+
+.meeting-section .buttons-section {
+  right: 0; }
+
+.people-suggestions {
+  display: none;
+  top: 110px; }
+
+.people-name {
+  border: 0px; }
+
+.names-holder {
+  float: left;
+  margin-right: 10px; }
 
 .overlay {
   border: 1px solid #3e4354; }

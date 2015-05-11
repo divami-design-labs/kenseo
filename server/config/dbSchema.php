@@ -23,6 +23,9 @@
 	define("TABLE_COMMENT_THREADS", "comment_threads");
 
 	define("TABLE_MEETINGS", "meetings");
+	define("TABLE_MEETING_PARTICIPENTS", "meeting_participents");
+	define("TABLE_MEETING_NOTES", "meeting_notes");
+	
 	
 	define("TABLE_NOTIFICATIONS", "notifications");
 ?>

@@ -124,7 +124,7 @@ var sb = (function(){
 			ajaxCall(payload);
 	    },
 	    getUrl: function(p){
-			var relativePath = "../";
+			var relativePath = "../server/";
 			if(p.collection){
 				return relativePath + p.collection.url;
 			}
@@ -399,11 +399,136 @@ var sb = (function(){
 
 
 					// Tags listing
+					sb.ajaxCall(
+						{ 
+							'collection': new Kenseo.collections.Tags(),
+							'data': {},
+							'success': function(response){
+								var objResponse = JSON.parse(response);
+			            		$('.tags-text').on('keyup', function(){
+			            			var self = this;
+			            			var filteredData = _.filter(objResponse.data, function(item){
+			            				if(self.value.length){
+			            					$(self).parent().next('.tags-suggestions').show();
+				            				var index = item.tag_name.toLowerCase().indexOf(self.value.toLowerCase());
+				            				return (index != -1) ? true : false;
+				            			}
+				            			else{
+				            				return false;
+				            			}
+			            			});
+			            			
+									sb.renderTemplateOff({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
+			            			$('.reference-suggestion-item').click(function(){
+			            				var $holder = $(this).parent().next();
+			            				var html = $holder.html();
+			            				$holder.html(html + '<div class="reference-item" name="' + this.getAttribute('name') + '">' + this.innerHTML + '<div class="reference-item-close-icon"></div></div>');
+			            				$(this).parent().hide();
+			            				self.value = "";
+			            			});
+			            			
+			            			$(document).on('click', '.reference-item-close-icon', function(){
+			            				$(this).parent().remove();
+			            			});
+			            		});
+							}
+						}
+					);
 					
             	});
             },
             fourthLoader: function(){
 				Kenseo.popup.data.share = true;
+            },
+            meetingIvite: function() {
+            	sb.loadFiles({
+		            'models': ['Projects', 'People'],
+		            'collections': ['Projects', 'People']
+		        }, function(){
+		        	$('.input-meeting-date').Zebra_DatePicker({
+		        		default_position: 'below',
+		        		format: 'M d, Y',
+		        		 onSelect: function(display, date) {
+		        		 	console.log("changed something");
+		        		 	Kenseo.popup.data.date = date;
+		        		 },
+		        		 
+		        	});
+					sb.ajaxCall({ 
+						'collection': new Kenseo.collections.Projects(),
+						'data': {},
+						'success': function(response){
+							var objResponse = JSON.parse(response);
+		            		$('.meeting-project-name').on('keyup', function(){
+		            			var self = this;
+		            			var filteredData = _.filter(objResponse.data, function(item){
+		            				if(self.value.length){
+		            					$(self).parent().next('.project-suggestions').show();
+			            				var re = new RegExp("^" + self.value, "i");
+			            				return re.test(item.name);
+			            			}
+			            			else{
+			            				return false;
+			            			}
+		            			});
+		            			if(filteredData.length > 0) {
+			            			sb.renderTemplateOff({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.project-suggestions'), "data": {data: filteredData}});
+		            			} else {
+		            				$('.project-suggestions').hide();
+		            			}
+		            			$('.reference-suggestion-item').click(function(){
+		            				$('.meeting-project-name')[0].value = this.innerText;
+		            				var projectId = this.getAttribute('name');
+		            				Kenseo.popup.data.projectId = projectId;
+		            				Kenseo.popup.data.projectName = this.innerText;
+		            				
+		            				$(this).parent().hide();
+		            				Kenseo.popup.data.selectedUsers = new Array();
+		            				// now set the project people
+		            				sb.ajaxCall({ 
+										'collection': new Kenseo.collections.People(),
+										'data': {
+											projectId : projectId
+										},
+										'success': function(response){
+				            				var objResponse = JSON.parse(response);
+				            				$('.people-name').on('keyup', function(){
+				            					var self = this;
+						            			var filteredData = _.filter(objResponse.data, function(item){
+						            				if(self.value.length){
+						            					$(self).parent().parent().next('.people-suggestions').show();
+							            				var re = new RegExp("^" + self.value, "i");
+							            				return re.test(item.name);
+							            			}
+							            			else{
+							            				return false;
+							            			}
+						            			});
+						            			if(filteredData.length > 0) {
+							            			sb.renderTemplateOff({"templateName": 'reference-items', "templateHolder": $(this).parent().parent().next('.people-suggestions'), "data": {data: filteredData}});
+						            			} else {
+						            				$('.people-suggestions').hide();
+						            			}
+						            			$('.reference-suggestion-item').click(function(){
+						            				$('.people-name')[0].value = this.innerText;
+						            				var selectedUser = this.innerText;
+						            				Kenseo.popup.data.selectedUsers.push({
+						            					id : this.getAttribute('name'),
+						            					email: this.getAttribute('email')
+						            				})
+						            				$('.names-holder').append(" <div class='tag'>" + selectedUser + "<div class='tag-close'></div</div>");
+						            				
+						            				self.value = "";
+						            				$(this).parent().hide();
+						            			});
+				            				});
+				            			}
+			            			});
+		            			});
+		            		});
+						}
+					});
+				});
             }
 		}
 	};

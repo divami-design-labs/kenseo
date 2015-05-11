@@ -117,5 +117,64 @@ $(function(){
 				alert ("success");
 			}
 		});
+    })
+    
+    .on ('focusout', '.meeting-venue', function() {
+    	venue = this.value;
+    })
+    
+    .on ('focusout', '.meeting-agenda', function() {
+    	agenda = this.value;
+    })
+    
+    .on ('change', '.fromTime', function() {
+    	console.log('from time changed')
+    })
+    .on ('change', '.toTime', function() {
+    	console.log("totime changed")
+    })
+    
+    .on ('select', '.toTime', function() {
+    	console.log("totime changed")
+    })
+    
+    
+    .on('click', '.meeting-btn', function(e) {
+		//     	sb.ajaxCall({
+		// 	collection : {
+		// 		"url": "setMeetingInvitaion"
+		// 	},
+		// 	data : {
+		// 		location : Kenseo.popup.data.venue,
+		// 		projectId: Kenseo.popup.data.projectId,
+		// 		projectName: Kenseo.popup.data.projectName,
+		// 		fromTime : "2015-03-06T10:00:00.000-07:00",
+		// 		toTime : "2015-03-06T10:25:00.000-07:00",
+		// 		attendees: Kenseo.popup.data.selectedUsers
+		// 	},
+		// 	type: 'POST',
+		// 	success : function(response){
+		// 		alert ("success");
+		// 	}
+		// });
+		connect = new ServerConnection();
+		connect.buildAjaxPayload({
+    	  	command : 'setMeetingInvitaion',
+    	  	data : {
+    	  		location : Kenseo.popup.data.venue,
+				projectId: Kenseo.popup.data.projectId,
+				projectName: Kenseo.popup.data.projectName,
+				fromTime : Kenseo.popup.data.date + "T10:00:00.000-07:00",
+				toTime : Kenseo.popup.data.date + "T10:25:00.000-07:00",
+				attendees: Kenseo.popup.data.selectedUsers
+    	  	},
+			type: 'POST',
+			success : function(response){
+				alert ("success");
+			}
+    	});
+    	connect.send();
     });
+     
+     
 });

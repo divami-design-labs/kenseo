@@ -13,11 +13,13 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
         <link href="assets/styles/css/normalize.css" type="text/css" rel="stylesheet" />
         <link href="assets/styles/css/main.css" type="text/css" rel="stylesheet" />
+		<link href="assets/styles/css/zebra-default.css" type="text/css" rel="stylesheet"/>
         <!--Detect if the browser is a mobile browser or a desktop browser and conditionally include your JavaScript --> 
         <script src="app/libs/jquery.js" type="text/javascript"></script>
         <script src="app/libs/lodash.js" type="text/javascript"></script>
         <script src="app/libs/backbone.js" type="text/javascript"></script>
         <script src="app/libs/cookie.js" type="text/javascript"></script>
+        <script src="app/libs/zebra_datepicker.src.js" type="text/javascript"></script>
 		
 		<script src="app/common/API_CallList.js" type="text/javascript"></script>
 		<script src="app/common/ServerCommunication.js" type="text/javascript"></script>
@@ -63,7 +65,26 @@
 			// 		file: null
 			// 	}
 			// });
-			// connect.send();        	
+			// connect.send();
+			// connect.buildAjaxPayload({
+			//         	  	command : 'setMeetingInvitaion',
+			//         	  	data : {
+			//         	  		location : 'conference2',
+			//         	  		projectId: 1,
+			//         	  		projectName: 'Balfour',
+			//         	  		fromTime : "2015-03-06T10:00:00.000-07:00",
+			//         	  		toTime : "2015-03-06T10:25:00.000-07:00",
+			//         	  		feature : "Annotator",
+			//         	  		meetingType : "conflict resolution",
+			//         	  		description : "Description",
+			//         	  		attendees: [{
+			//         	  			id : 1,
+			//         	  			email: 'venkateshwar@divami.com'
+			//         	  		}]
+			//         	  	}
+			//         	});
+        	//connect.send();
+			  	
         </script>
     </head>
     <body>
@@ -86,7 +107,7 @@
                             <div class="popup-click sub-menu-item">Add a Project</div>
                             <div class="popup-click sub-menu-item" data-url="add-artefact">Add an Artefact</div>
                             <div class="popup-click sub-menu-item" data-url="share-artefact">Share an Artefact</div>
-                            <div class="popup-click sub-menu-item">Create a Meeting</div>
+                            <div class="popup-click sub-menu-item" data-url="create-meeting">Create a Meeting</div>
                         </div>
                     </div>
                     <div class="search-icon"></div>
