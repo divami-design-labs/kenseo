@@ -165,33 +165,50 @@ Kenseo.popups = (function(){
 	            }],
         	}
         ],
-        "add-people": [{
-    		"page_name": "add-people",
-    		"title": "Add People to this Project",
-    		"buttons": [{
-    			"label": "Cancel",
-    			"cls": "cancel-btn lnk-btn"
-    		},
-    		{
-    			"label": "Done",
-    			"cls": "main-btn done-btn",
-    			"disabled": false
-    		}]
-		}],
-        "create-meeting" : [{
-    		"page_name": "createInvite",
-    		"title": "Create meeting invitation",
-    		"buttons": [{
-            	"label": "Cancel",
-            	"cls": "cancel-btn lnk-btn"
-            },
-            {
-            	"label": "Done",
-            	"cls": "main-btn meeting-btn",
-            	"disabled": false
-            }],
-            "callbackfunc": sb.popup.meetingIvite
+        "add-people": [
+        	{
+        		"page_name": "add-people",
+        		"title": "Add People to this Project",
+        		"buttons": [{
+        			"label": "Cancel",
+        			"cls": "cancel-btn lnk-btn"
+        		},
+        		{
+        			"label": "Done",
+        			"cls": "main-btn done-btn",
+        			"disabled": false
+        		}]
+        	}
+        ],
+		"create-meeting" : [{
+			"page_name": "createInvite",
+			"title": "Create meeting invitation",
+			"buttons": [{
+				"label": "Cancel",
+				"cls": "cancel-btn lnk-btn"
+			},
+			{
+				"label": "Done",
+				"cls": "main-btn meeting-btn",
+				"disabled": false
+			}],
+			"callbackfunc": sb.popup.meetingIvite
     	}]
+        "add-version":[
+        	{
+        		"page_name": "artefact-two",
+        		"title": "Add Version",
+        		"buttons": [{
+        			"label": "Cancel",
+        			"cls": "cancel-btn lnk-btn"
+        		},
+        		{
+        			"label": "Done",
+        			"cls": "main-btn done-btn",
+        			"disabled": false
+        		}]
+        	}
+        ]
 	};
 
 	return {

@@ -3,6 +3,7 @@ var Kenseo = {
     models: {},
     collections: {},
     dropdown: {},
+    data: {},
     popup: {"info":{},"data":{}},
     page: {"info":{},"data": {}},
     cookie: {

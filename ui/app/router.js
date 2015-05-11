@@ -7,7 +7,7 @@ var Router = Backbone.Router.extend({
     routes: {
         // When there is no hash on the url, the home method is called
         "": "index",
-        "projectspage": "projectsPage"
+        "projectpage": "projectPage"
     },
     index: function() {
         sb.loadFiles(   
@@ -27,10 +27,10 @@ var Router = Backbone.Router.extend({
             }
         );
     },
-    projectsPage: function(){
+    projectPage: function(){
         sb.loadFiles(
             {
-                'views': ['Header', 'Projectspage'],
+                'views': ['Header', 'Projectpage'],
                 'models': ['Header','Artefacts', 'People'],
                 'collections': ['Artefacts', 'People']
             },

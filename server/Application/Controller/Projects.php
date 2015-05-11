@@ -1,5 +1,12 @@
 <?php 
 	class Projects {
+		public function getProjects($interpreter){
+			$data = $interpreter->getData()->data;
+
+			if($data->userProjects == "true"){
+				return $this->getMyProjectsList($interpreter);
+			}
+		}
 		public function getMyProjectsList($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userid = $interpreter->getUser()->user_id;;
@@ -16,23 +23,6 @@
 			}
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
-		}
-		
-		public function getTeamMembersList($interpreter) {
-			$data = $interpreter->getData()->data;
-			$userId = $interpreter->getUser()->user_id;
-			$projectId = $data->projectId;
-			
-			$db = Master::getDBConnectionManager();
-			
-			$queryParams = array('userId' => $userId, 'projectId' => $projectId );
-			
-			$dbQuery = getQuery('getTeamMembersList',$queryParams);
-			
-			$resultObj = $db->multiObjectQuery($dbQuery);
-			
-			return $resultObj;
-			
 		}
 				
 		public function deleteProject($interpreter) {
@@ -65,32 +55,6 @@
 			//Archive project
 			$db = Master::getDBConnectionManager();
 			$db->insertSingleRow (TABLE_PROJECTS,array("project_name","description","intro_img_url","state","last_updated_date"),array("$projectName","","","O","$date"));
-			
-			return true;		
-		}
-		
-		public function addPeople($interpreter) {
-			$data = $interpreter->getData()->data;
-			$projectId = $data->projectId;
-			$peopleId = $data->peopleId;
-			$accessType = $data->accessType;
-			$groupType = $data->groupType;
-			
-			//Archive project
-			$db = Master::getDBConnectionManager();
-			$db->insertSingleRow (TABLE_PROJECT_MEMBERS,array("proj_id","user_id","role","access_type","group_type"),array("$projectId","$peopleId","","$accessType","$groupType"));
-			
-			return true;		
-		}
-		
-		public function removePeople($interpreter) {
-			$data = $interpreter->getData()->data;
-			$projectId = $data->projectId;
-			$peopleId = $data->peopleId;
-			
-			//Archive project
-			$db = Master::getDBConnectionManager();
-			$db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId and "user_id" . $peopleId);
 			
 			return true;		
 		}

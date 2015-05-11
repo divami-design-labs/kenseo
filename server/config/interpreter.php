@@ -9,6 +9,23 @@ global $AppGlobal;
 $AppGlobal['cmdmap'] = array();
 $AppGlobal['urlmap'] = array();
 
+$AppGlobal['cmdmap']['getArtefacts'] = array ("class" => "Artefacts", "method" => "getArtefacts");
+$AppGlobal['urlmap']['/getArtefacts'] = array ('command' => 'getArtefacts', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['getProjects'] = array ("class" => "Projects", "method" => "getProjects");
+$AppGlobal['urlmap']['/getProjects'] = array ('command' => 'getProjects', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['getPeople'] = array ("class" => "People", "method" => "getPeople");
+$AppGlobal['urlmap']['/getPeople'] = array ('command' => 'getPeople', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['getNotifications'] = array ("class" => "Notifications", "method" => "getNotifications");
+$AppGlobal['urlmap']['/getNotifications'] = array ('command' => 'getNotifications', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['search'] = array ("class" => "Common", "method" => "searchAll");
+$AppGlobal['urlmap']['/search'] = array ('command' => 'search', 'type' => 'GET');
+
+
+
 $AppGlobal['cmdmap']['getHeader'] = array ("class" => "Header", "method" => "getHeader");
 $AppGlobal['urlmap']['/getHeader'] = array ('command' => 'getHeader', 'type' => 'GET');
 
@@ -21,8 +38,6 @@ $AppGlobal['urlmap']['/getMyProjectsList'] = array ('command' => 'getMyProjectsL
 $AppGlobal['cmdmap']['getMyRecentArtefacts'] = array ("class" => "Artefacts", "method" => "getMyRecentArtefacts");
 $AppGlobal['urlmap']['/getMyRecentArtefacts'] = array ('command' => 'getMyRecentArtefacts', 'type' => 'GET');
 
-$AppGlobal['cmdmap']['getArtefacts'] = array ("class" => "Artefacts", "method" => "getArtefacts");
-$AppGlobal['urlmap']['/getArtefacts'] = array ('command' => 'getArtefacts', 'type' => 'GET');
 
 $AppGlobal['cmdmap']['getProjectArtefacts'] = array ("class" => "Projects", "method" => "getProjectArtefacts");
 $AppGlobal['urlmap']['/getProjectArtefacts'] = array ('command' => 'getProjectArtefacts', 'type' => 'GET');
@@ -33,13 +48,7 @@ $AppGlobal['urlmap']['/getReviewRequests'] = array ('command' => 'getReviewReque
 $AppGlobal['cmdmap']['getProjectsPeople'] = array ("class" => "People", "method" => "getProjectsPeople");
 $AppGlobal['urlmap']['/getProjectsPeople'] = array ('command' => 'getProjectsPeople', 'type' => 'GET');
 
-$AppGlobal['cmdmap']['getNotifications'] = array ("class" => "Notifications", "method" => "getNotifications");
-$AppGlobal['urlmap']['/getNotifications'] = array ('command' => 'getNotifications', 'type' => 'GET');
-
-$AppGlobal['cmdmap']['search'] = array ("class" => "Common", "method" => "searchAll");
-$AppGlobal['urlmap']['/search'] = array ('command' => 'search', 'type' => 'GET');
-
-$AppGlobal['cmdmap']['getTeamMembersList'] = array ("class" => "Projects", "method" => "getTeamMembersList");
+$AppGlobal['cmdmap']['getTeamMembersList'] = array ("class" => "People", "method" => "getTeamMembersList");
 $AppGlobal['urlmap']['/getTeamMembersList'] = array ('command' => 'getTeamMembersList', 'type' => 'GET');
 
 $AppGlobal['cmdmap']['getTagsList'] = array ("class" => "Common", "method" => "getTagsList");
@@ -75,10 +84,10 @@ $AppGlobal['urlmap']['/archiveProject'] = array ('command' => 'archiveProject', 
 $AppGlobal['cmdmap']['addProject'] = array ("class" => "Projects", "method" => "addProject");
 $AppGlobal['urlmap']['/addProject'] = array ('command' => 'addProject', 'type' => 'POST');
 
-$AppGlobal['cmdmap']['addPeople'] = array ("class" => "Projects", "method" => "addPeople");
+$AppGlobal['cmdmap']['addPeople'] = array ("class" => "People", "method" => "addPeople");
 $AppGlobal['urlmap']['/addPeople'] = array ('command' => 'addPeople', 'type' => 'POST');
 
-$AppGlobal['cmdmap']['removePeople'] = array ("class" => "Projects", "method" => "removePeople");
+$AppGlobal['cmdmap']['removePeople'] = array ("class" => "People", "method" => "removePeople");
 $AppGlobal['urlmap']['/removePeople'] = array ('command' => 'removePeople', 'type' => 'GET');
 
 $AppGlobal['cmdmap']['getProjectActivity'] = array ("class" => "Projects", "method" => "getProjectActivity");

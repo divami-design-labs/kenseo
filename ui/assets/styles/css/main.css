@@ -1208,7 +1208,7 @@
   width: 36px;
   height: 28px;
   cursor: pointer;
-  z-index: 1; }
+  z-index: 0; }
 
 .requests-dropdown-icon {
   background-image: url("../../imgs/dropdown.svg");
@@ -1228,7 +1228,8 @@
 .review-request-item .requests-dropdown {
   display: block; }
   .review-request-item .requests-dropdown.active {
-    background-color: #566277; }
+    background-color: #566277;
+    z-index: 1; }
     .review-request-item .requests-dropdown.active .requests-dropdown-items {
       display: block; }
     .review-request-item .requests-dropdown.active .requests-dropdown-icon {
@@ -2733,7 +2734,7 @@
   position: relative; }
   .summary-reference-item::before {
     content: "";
-    background-image: url("../../imgs/");
+    background-image: url("../../imgs/one.svg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 15px;

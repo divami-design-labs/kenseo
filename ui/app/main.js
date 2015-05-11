@@ -175,6 +175,4 @@ $(function(){
     	});
     	connect.send();
     });
-     
-     
 });
