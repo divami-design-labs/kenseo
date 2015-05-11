@@ -300,7 +300,7 @@ var sb = (function(){
 			            	$('.dropdown').val(Kenseo.popup.data['project_name']);
 			            	$('.main-btn').prop('disabled', false);	
 			            } 
-			        }});
+			        },"data": {userProjects: true}});
 			        
 			        $('.dropdown').on('change', function(){
 			            if(this.selectedIndex){
