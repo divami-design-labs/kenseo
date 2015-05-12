@@ -13,7 +13,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn",
 	            	"disabled": true
 	            }],
-	            "callbackfunc": sb.popup.firstLoader
+	            "callbackfunc": sb.popup.getProjectsPopup
 	        },
 	        {
 	            "page_name": "artefact-two",
@@ -31,7 +31,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn",
 	            	"disabled": true
 	            }],
-	            "callbackfunc": sb.popup.secondLoader
+	            "callbackfunc": sb.popup.createFilePopup
 	        },
 	        {
 	            "page_name": "artefact-three",
@@ -48,7 +48,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn done-btn",
 	            	"disabled": false
 	            }],
-	            "callbackfunc": sb.popup.thirdLoader
+	            "callbackfunc": sb.popup.teamPopup
 	        }
 	    ],
 	    "share-artefact": [
@@ -64,7 +64,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn",
 	            	"disabled": true
 	            }],
-	            "callbackfunc": sb.popup.firstLoader
+	            "callbackfunc": sb.popup.getProjectsPopup
 	        },
 	        {
 	        	"page_name": "artefact-two",
@@ -82,7 +82,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn",
 	            	"disabled": true
 	            }],
-	            "callbackfunc": sb.popup.secondLoader
+	            "callbackfunc": sb.popup.createFilePopup
 	        },
 	        {
 	            "page_name": "artefact-three",
@@ -98,7 +98,7 @@ Kenseo.popups = (function(){
 	            	"label": "Proceed",
 	            	"cls": "main-btn"
 	            }],
-	            "callbackfunc": sb.popup.thirdLoader
+	            "callbackfunc": sb.popup.teamPopup
 	        },
 	        {
 	        	"page_name": "artefact-four",
@@ -115,7 +115,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn done-btn",
 	            	"disabled": false
 	            }],
-	            "callbackfunc": sb.popup.fourthLoader
+	            "callbackfunc": sb.popup.shareWithPeoplePopup
 	        },
 	    ],
         "archive-artefact": [
@@ -123,7 +123,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive an Artefact",
         		"message": function(){
-        			return "Do you want to archive " + Kenseo.popup.data.artefact_name + " artefact?";
+        			return "Do you want to archive " + Kenseo.popup.data.title + " artefact?";
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -139,7 +139,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive a Project",
         		"message": function(){
-        			return "Do you want to archive " + Kenseo.popup.data.project_name + " project ?";
+        			return "Do you want to archive " + Kenseo.popup.data.name + " project ?";
         		},
 	        	"buttons": [{
 	            	"label": "Yes",

@@ -151,12 +151,28 @@ var sb = (function(){
 				type: payload.type || "GET",
 				success: function(response) {
 					if(JSON.parse(response).status == 'success') {
+						if(!payload.excludeDump){
+							sb.setDump(response);
+						}
 						payload.success(response);
 					} else {
 						 window.location.assign("http://kenseo.divami.com");
 					}
 				}
 			});
+	    },
+	    setDump: function(response){
+	    	var obj = JSON.parse(response);
+	    	var key = obj.command.slice(3).toLowerCase(); // removing "get" prefix
+			var dump = Kenseo.data[key];
+			for(var i=0; i<obj.data.length; i++){
+				var data = obj.data[i];
+				if(!dump){
+					dump = {};
+				} 
+				dump[data.id] = data;
+			}
+			Kenseo.data[key] = dump;
 	    },
 	    renderTemplate: function(p){
             var template = templates[p.templateName];
@@ -184,20 +200,12 @@ var sb = (function(){
 				});
             }
             else{
-            	p.templateHolder.html(compiler());
+            	p.templateHolder.html(compiler(p.data));
             	if(p.callbackfunc){
                 	p.callbackfunc();
                 }
             }
         },
-        renderTemplateOff: function(p){
-        	var template = templates[p.templateName];
-            var compiler = _.template(template);
-            p.templateHolder.html(compiler(p.data));
-        },
-        // handle: function(response) {
-
-        // }
         timeFormat: function(time, OnlyTime, OnlyDays){
 			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 		    var theDate = new Date(time);
@@ -270,13 +278,15 @@ var sb = (function(){
         	return Kenseo.popups.getPopupsInfo(info);
         },
         callPopup: function(key){
-        	sb.renderTemplateOff({"templateName": Kenseo.popup.info[key].page_name, "templateHolder": $('.popup-container'), 
+        	var info = Kenseo.popup.info[key];
+        	sb.renderTemplate({"templateName": info.page_name, "templateHolder": $('.popup-container'), 
 	        	"data": { 
+	        		"data": info,
 	        		"key": key
 	        	}
 	    	});
-	    	if(Kenseo.popup.info[key].callbackfunc){
-	    		Kenseo.popup.info[key].callbackfunc();
+	    	if(info.callbackfunc){
+	    		info.callbackfunc();
 	    	}
         },
         page: {
@@ -289,7 +299,7 @@ var sb = (function(){
         			"data": {}
         		}
         	},
-        	firstLoader: function(){
+        	getProjectsPopup: function(){
 				sb.loadFiles({
 		            'models': ['Projects'],
 		            'collections': ['Projects']
@@ -314,7 +324,7 @@ var sb = (function(){
 			        });
 				});
 			},
-			secondLoader: function(){
+			createFilePopup: function(){
 				Kenseo.dropdown.name = "Choose an Artefact..";
             	if(Kenseo.popup.data.fileName){
             		$('.create-file-item .notification-title').html(Kenseo.popup.data.fileName);
@@ -356,7 +366,7 @@ var sb = (function(){
 	                });
         		});
             },
-            thirdLoader: function(){
+            teamPopup: function(){
             	Kenseo.popup.data.share = false;
             	sb.loadFiles({
             		'collections': ['Artefacts', 'Tags'],
@@ -380,7 +390,7 @@ var sb = (function(){
 				            				return false;
 				            			}
 			            			});
-			            			sb.renderTemplateOff({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
+			            			sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
 			            			$('.reference-suggestion-item').click(function(){
 			            				var $holder = $(this).parent().next();
 			            				var html = $holder.html();
@@ -418,7 +428,7 @@ var sb = (function(){
 				            			}
 			            			});
 			            			
-									sb.renderTemplateOff({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
+									sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
 			            			$('.reference-suggestion-item').click(function(){
 			            				var $holder = $(this).parent().next();
 			            				var html = $holder.html();
@@ -437,7 +447,7 @@ var sb = (function(){
 					
             	});
             },
-            fourthLoader: function(){
+            shareWithPeoplePopup: function(){
 				Kenseo.popup.data.share = true;
             },
             meetingIvite: function() {
@@ -455,27 +465,27 @@ var sb = (function(){
 		        		 
 		        	});
 		        	
-				    $(document).on ('focusout', '.meeting-venue', function() {
+				    $('.meeting-venue').on ('focusout', function() {
 				    	venue = this.value;
-				    })
+				    });
 				    
-				    .on ('focusout', '.meeting-agenda', function() {
+				    $('.meeting-agenda').on ('focusout', function() {
 				    	agenda = this.value;
-				    })
+				    });
 				    
-				    .on ('change', '.fromTime', function() {
+				    $('.fromTime').on ('change', function() {
 				    	console.log('from time changed')
-				    })
-				    .on ('change', '.toTime', function() {
+				    });
+				    $('.toTime').on ('change', function() {
 				    	console.log("totime changed")
-				    })
+				    });
 				    
-				    .on ('select', '.toTime', function() {
+				    $('.toTime').on ('select', function() {
 				    	console.log("totime changed")
-				    })
+				    });
 				    
 				    
-				    .on('click', '.meeting-btn', function(e) {
+				    $('.meeting-btn').on('click', function(e) {
 						//     	sb.ajaxCall({
 						// 	collection : {
 						// 		"url": "setMeetingInvitaion"
@@ -510,7 +520,7 @@ var sb = (function(){
 							}
 				    	});
 				    	connect.send();
-    });
+					});
 					sb.ajaxCall({ 
 						'collection': new Kenseo.collections.Projects(),
 						'data': {},
@@ -529,7 +539,7 @@ var sb = (function(){
 			            			}
 		            			});
 		            			if(filteredData.length > 0) {
-			            			sb.renderTemplateOff({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.project-suggestions'), "data": {data: filteredData}});
+			            			sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.project-suggestions'), "data": {data: filteredData}});
 		            			} else {
 		            				$('.project-suggestions').hide();
 		            			}
@@ -562,7 +572,7 @@ var sb = (function(){
 							            			}
 						            			});
 						            			if(filteredData.length > 0) {
-							            			sb.renderTemplateOff({"templateName": 'reference-items', "templateHolder": $(this).parent().parent().next('.people-suggestions'), "data": {data: filteredData}});
+							            			sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $(this).parent().parent().next('.people-suggestions'), "data": {data: filteredData}});
 						            			} else {
 						            				$('.people-suggestions').hide();
 						            			}

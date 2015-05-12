@@ -1,6 +1,5 @@
 <% if(data.length){ %> 
 <% _.each(data, function(p){ %>
-<% var dump = sb.getDump({'project_id':p.id, 'project_name': p.name}) %>
 <div class="project-block">
 	<img src="http://lorempixel.com/sports/280/200" />
 	<div class="project-block-overlay">
@@ -16,7 +15,7 @@
 	<div class="project-block-hover-content">
 		<div class="project-black-out"></div>
 		<div class="project-actions-wrapper">
-			<div class="project-action popup-click" data-url="add-artefact" data-dump=<%= dump %> data-key="1">
+			<div class="project-action popup-click" data-url="add-artefact" data-index="0" data-key="projects" data-id="<%= p.id %>">
 				<div class="project-action-icon add-artefact-icon"></div>
 				<div class="project-action-label">Add an Artefact</div>
 			</div>
@@ -24,12 +23,12 @@
 				<div class="project-action-icon add-user-icon"></div>
 				<div class="project-action-label">Add User</div>
 			</div>
-			<div class="project-action popup-click" data-dump=<%= dump %> data-url="archive-project" data-key="0">
+			<div class="project-action popup-click" data-url="archive-project" data-index="0" data-key="projects" data-id="<%= p.id %>">
 				<div class="project-action-icon archive-icon"></div>
 				<div class="project-action-label">Archive</div>
 			</div>
 		</div>
-		<a href="#projectpage" data-dump=<%= dump %> class="btn-project-open page-click">Open Project</a>
+		<a href="#projectpage" class="btn-project-open page-click" data-key="projects" data-id="<%= p.id %>">Open Project</a>
 	</div>
 </div>
 <% }); %>

@@ -53,20 +53,31 @@ $(function(){
     .on('click', '.popup-click', function(){
     	$('.popup-container').show();
         var $self = $(this);
-        var index = $(this).data('key') || 0;
-        var dump = $self.data('dump');
-        if(dump){
-        	if(typeof dump === "string"){
-        		dump = JSON.parse(dump);
-        	}
-        	Kenseo.popup.data = dump;
-        }
+        var index = $(this).data('index') || 0;
+        // var dump = $self.data('dump');
+        // if(dump){
+        // 	if(typeof dump === "string"){
+        // 		dump = JSON.parse(dump);
+        // 	}
+        // 	Kenseo.popup.data = dump;
+        // }
+        if($self.data("key")){
+	        Kenseo.popup.data = Kenseo.data[$self.data("key")][$self.data("id")];
+	    }
+
         // Important: this should be called after dump object is stored in the Kenseo.popup.data
         Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
         sb.callPopup(index);
      })
-    .on('click', '.page-click', function(){
-    	Kenseo.page.data = $(this).data('dump');
+    .on('click', '.page-click', function(e){
+    	var $self = $(this);
+    	// Kenseo.page.data = $(this).data('dump');
+
+    	var key = $self.data('key');
+    	var id = $self.data('id');
+    	if(key){
+	    	Kenseo.page.data = Kenseo.data[key][id];
+	    }
     })
     .on('click', '.sort-item', function(){
         sb.renderTemplate({

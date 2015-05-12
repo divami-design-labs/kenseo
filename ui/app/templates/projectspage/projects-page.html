@@ -1,14 +1,13 @@
-<% var dump = sb.getDump({'project_id':Kenseo.page.data.project_id, 'project_name': Kenseo.page.data.project_name}) %>
 <div class="project-section">
 	<div class="project-heading">
 		<div class="projects-heading-icon"></div>
 		<span class="heading-text-project">Projects > </span>
-		<span class="heading-text-project-name"><%= Kenseo.page.data.project_name %></span>
+		<span class="heading-text-project-name"><%= Kenseo.page.data.name %></span>
 		<div class="main-section-project-icon-holder toggle-click sub-menu-nav inlineBlockTop">
 			<div class="sub-heading-more-icon"></div>
 			<div class="sub-menu-holder right-nav bottom-nav">
 				<div class="sub-menu-item">Add an Artefact</div>
-				<div class="sub-menu-item popup-click" data-url="add-people" data-dump=<%= dump %>>Add People</div>
+				<div class="sub-menu-item popup-click" data-url="add-people" data-key="projects" data-id="<%= Kenseo.page.data.id %>">Add People</div>
 				<div class="sub-menu-item">Create a Meeting</div>
 				<div class="sub-menu-item">Share a Project</div>
 				<div class="sub-menu-item">Archive a Project</div>

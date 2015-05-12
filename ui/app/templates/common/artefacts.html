@@ -24,7 +24,6 @@
 	<% var dataComparer = -1; %>
 	<% if(data.length){ %>
 		<% _.each(data, function(r){ %>
-		<% var dump = sb.getDump({"artefact_id":r.id, "artefact_name": r.title}) %>
 		<div class="review-request-item" 
 			data-pass="<%= 
 							function(){
@@ -55,11 +54,11 @@
 			<div class="requests-dropdown toggle-click">
 				<div class="requests-dropdown-icon"></div>
 				<div class="requests-dropdown-items">
-					<div class="requests-archive-item popup-click" data-dump=<%= dump %> data-url="archive-artefact" data-key="0">Archive</div>
-					<div class="requests-replace-item popup-click" data-dump=<%= dump %> data-url="replace-artefact" data-key="0">Replace</div>
-					<div class="requests-add-version-item popup-click" data-dump=<%= dump %> data-url="add-version" data-key="0">Add Version</div>
-					<div class="requests-share-item">Share</div>
-					<div class="requests-delete-item">Delete</div>
+					<div class="requests-archive-item popup-click" data-url="archive-artefact" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Archive</div>
+					<div class="requests-replace-item popup-click" data-url="replace-artefact" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Replace</div>
+					<div class="requests-add-version-item popup-click" data-url="add-version" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Add Version</div>
+					<div class="requests-share-item popup-click" data-url="add-version" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Share</div>
+					<div class="requests-delete-item popup-click" data-url="add-version" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Delete</div>
 				</div>
 			</div>
 		</div>
