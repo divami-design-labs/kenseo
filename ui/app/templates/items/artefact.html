@@ -1,0 +1,25 @@
+<div class="rr-left">
+	<div class="rr-status status-<%= data.status %>"><%= function(){ if(data.documentType == "U"){ return "UID"; }else if(data.documentType === "I"){ return "IXD"; }}() %></div>
+	<img class="rr-owner-image" src="<%= data.requestorImage %>"/>
+</div>
+<div class="rr-right">
+	<div class="rr-title ellipsis"><%= data.title %></div>
+	<div class="rr-details ellipsis"><%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %></div>
+	<div class="rr-state-details">
+		<div class="rr-state">
+			<span>v<%= data.version %></span>
+			<div class="rr-other-versions"></div>
+			<div class="rr-comment"><%= data.commentCount %></div>
+		</div>
+	</div>
+</div>
+<div class="requests-dropdown toggle-click">
+	<div class="requests-dropdown-icon"></div>
+	<div class="requests-dropdown-items">
+		<div class="requests-archive-item popup-click" data-id="<%= data.id %>" data-url="archive-artefact" data-key="0">Archive</div>
+		<div class="requests-replace-item popup-click" data-url="replace-artefact" data-key="0">Replace</div>
+		<div class="requests-add-version-item popup-click" data-url="add-version" data-key="0">Add Version</div>
+		<div class="requests-share-item">Share</div>
+		<div class="requests-delete-item">Delete</div>
+	</div>
+</div>

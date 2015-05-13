@@ -1,0 +1,20 @@
+<% var buttons = data.buttons %>
+<% for(var i=buttons.length-1; i>= 0; i--){ %>
+	<% var b = buttons[i]; %>
+	<button  
+		<% if(b.disabled){ %> 
+			disabled="true" autocomplete="off" 
+		<% } %> 
+		<% if(b.label === "Proceed"){ %> 
+			class="<%= b.cls %> nav-btn"
+			data-index="<%= index+1 %>" 
+		<% } else if(b.label === "Back"){ %>
+			class="<%= b.cls %> nav-btn"
+			data-index="<%= index-1 %>" 
+		<% } else{ %>
+			class="<%= b.cls %>"
+		<% } %>
+	>
+		<%= b.label %>
+	</button>
+<% }; %>

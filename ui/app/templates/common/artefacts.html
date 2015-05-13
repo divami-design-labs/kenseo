@@ -21,54 +21,7 @@
 <div class="artifacts-content sub-section-content <% if(params.sortBy && params.sortBy === 'default'){ %> linked-artefacts <% } %>">
 	<div class="sort-view">Sort By <% if(params && params.sortBy){ %> <%= _.capitalize(params.sortBy) %> <% } else { %>Default <% } %></div>
 <% } %>
-	<% var dataComparer = -1; %>
-	<% if(data.length){ %>
-		<% _.each(data, function(r){ %>
-		<div class="review-request-item" 
-			data-pass="<%= 
-							function(){
-								if(dataComparer == r.linkedId){
-									dataComparer = r.linkedId; 
-									return 1; 
-								} else{
-									dataComparer = r.linkedId; 
-									return 0; 
-								}
-							}() 
-						%>">
-			<div class="rr-left">
-				<div class="rr-status status-<%= r.status %>"><%= function(){ if(r.documentType == "U"){ return "UID"; }else if(r.documentType === "I"){ return "IXD"; }}() %></div>
-				<img class="rr-owner-image" src="<%= r.requestorImage %>"/>
-			</div>
-			<div class="rr-right">
-				<div class="rr-title ellipsis"><%= r.title %></div>
-				<div class="rr-details ellipsis"><%= sb.timeFormat(r.requestTime) %> by <%= r.requestedBy %></div>
-				<div class="rr-state-details">
-					<div class="rr-state">
-						<span>v<%= r.version %></span>
-						<div class="rr-other-versions"></div>
-						<div class="rr-comment"><%= r.commentCount %></div>
-					</div>
-				</div>
-			</div>
-			<div class="requests-dropdown toggle-click">
-				<div class="requests-dropdown-icon"></div>
-				<div class="requests-dropdown-items">
-					<div class="requests-archive-item popup-click" data-url="archive-artefact" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Archive</div>
-					<div class="requests-replace-item popup-click" data-url="replace-artefact" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Replace</div>
-					<div class="requests-add-version-item popup-click" data-url="add-version" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Add Version</div>
-					<div class="requests-share-item popup-click" data-url="add-version" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Share</div>
-					<div class="requests-delete-item popup-click" data-url="add-version" data-index="0" data-key="artefacts" data-id="<%= r.id %>">Delete</div>
-				</div>
-			</div>
-		</div>
-		<% }); %>
-	<% } else { %>
-		<div class="no-items">
-			<div class="add-icon big inlineBlockMid"></div>
-			<div class="no-items-text inlineBlockMid">Add Artefact</div>
-		</div>
-	<% } %>
+	
 <% if(params.projects && params.sortBy){ %>
 </div>
 <% } %>

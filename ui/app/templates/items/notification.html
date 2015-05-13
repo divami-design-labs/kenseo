@@ -1,0 +1,28 @@
+<div class="day-notifications">
+	<div class="day-notifications-label"><%= key %></div>
+	<div class="notifications-holder">
+		<% _.each(newData[key], function(n){ %>
+		<div class="notification-item <%= n.type %>-type">
+			<div class="notification-title">
+				<%= n.title %>
+			</div>
+			<div class="notification-time">
+				<%= sb.timeFormat(n.time) %> by <%= n.notifier %>
+			</div>
+			<% if(n.meetingDetails){ %>
+			<div class="meeting-notify-section">
+				<div class="mn-left">
+					<div>Meeting @ Conference 2</div>
+					<div class="mn-left-title"><%= n.meetingDetails.title %></div>
+					<div class="meeting-notify-icon"></div>
+				</div>
+				<div class="mn-right">
+					<div><%= sb.timeFormat(n.meetingDetails.time) %></div>
+					<div><%= sb.getTime(n.meetingDetails.time) %></div>
+				</div>
+			</div>
+			<% } %>
+		</div>
+		<% }); %>
+	</div>
+</div>

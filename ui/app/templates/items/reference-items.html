@@ -1,0 +1,5 @@
+<% _.each(data, function(d){ %>
+<div class="reference-suggestion-item" name="<%= d.id %>" <%if(d.email) { %>email= "<%= d.email %>" <% } %> >
+	<%= d.name %>
+</div>
+<% }); %>

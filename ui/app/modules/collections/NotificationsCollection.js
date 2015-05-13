@@ -1,5 +1,5 @@
 Kenseo.collections.Notifications = Backbone.Collection.extend({
     // url: "app/packages/db-notifications.json",
-    url: "getNotifications",
+    url: sb.getRelativePath("getNotifications"),
     model: Kenseo.models.Notifications
 });

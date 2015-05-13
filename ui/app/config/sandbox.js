@@ -165,14 +165,68 @@ var sb = (function(){
 	    	var obj = JSON.parse(response);
 	    	var key = obj.command.slice(3).toLowerCase(); // removing "get" prefix
 			var dump = Kenseo.data[key];
-			for(var i=0; i<obj.data.length; i++){
-				var data = obj.data[i];
-				if(!dump){
-					dump = {};
-				} 
-				dump[data.id] = data;
+			if(obj.data.length){
+				for(var i=0; i<obj.data.length; i++){
+					var data = obj.data[i];
+					if(!dump){
+						dump = {};
+					} 
+					dump[data.id] = data;
+				}
+				Kenseo.data[key] = dump;
 			}
-			Kenseo.data[key] = dump;
+	    },
+	    getRelativePath: function(str){
+	    	return '../server/' + str;
+	    },
+	    getStandardData: function(p){
+	    	p = p || {};
+	    	var data = _.cloneDeep(p.data);
+	    	if(p.data){
+		    	p.data = {
+	    			client: {
+	    				sid: Kenseo.cookie.sessionid()
+	    			},
+	    			data: data
+		    	}
+		    }
+
+	    	return p;
+	    },
+	    renderXTemplate: function(_this, p){
+			// debugger;
+			p = p || {};
+			var colStr = _this.colStr;
+			var data = _this.data;
+			if(colStr){
+				var collection = new Kenseo.collections[colStr]();
+				collection.fetch(sb.getStandardData({data: data})
+				).then(function(response){
+					// _.each(x.data, _this.renderArtefact);
+					if(_this.preLoader){
+						_this.preLoader(response);
+					}
+
+
+					var data = response.data;
+					var el = $(_this.el);
+					if(!el || !el.length){
+						el = $(_this.$el);
+					}
+
+					if(data.length > 0){
+						var c = new Kenseo.collections[colStr](data);
+						c.each(function(item){
+							var artefact = _this.itemView({model: item});
+							el.append(artefact.render().$el);
+						});
+					}
+					else{
+						var html = _this.noItemsTemplate({data: p.noData});
+						el.html(html);
+					}
+				});
+			}
 	    },
 	    renderTemplate: function(p){
             var template = templates[p.templateName];
@@ -277,12 +331,46 @@ var sb = (function(){
         getPopupsInfo: function(info){
         	return Kenseo.popups.getPopupsInfo(info);
         },
-        callPopup: function(key){
-        	var info = Kenseo.popup.info[key];
+        getDynamicData: function(str, id){
+        	var key = Kenseo.data[str];
+        	if(key){
+        		return key[id];
+        	}
+        	else{
+        		sb.log("provide valid key id pair");
+        	}
+        },
+        getOffDynamicData: function(str){
+        	return Kenseo[str].data;
+        },
+        setOffDynamicData: function(str){
+
+        },
+        setDynamicData: function(){
+        	Kenseo.data
+        },
+        navigate: function(str, el){
+	        var $self = $(el);
+			// var key = $self.data("key");
+			// var id = $self.data("id");
+			// if(key){
+			// 	// Storing the current dump data in popup's data
+			//     Kenseo[str].data = Kenseo.data[key][id];
+			// }
+		    if(str == "popup"){
+	        	var index = $self.data('index') || 0;
+	        	$('.popup-container').show();
+		        // Important: this should be called after dump object is stored in the Kenseo.popup.data
+		        Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
+		        sb.callPopup(index);
+		    }
+        },
+        callPopup: function(index){
+        	var info = Kenseo.popup.info[index];
         	sb.renderTemplate({"templateName": info.page_name, "templateHolder": $('.popup-container'), 
 	        	"data": { 
 	        		"data": info,
-	        		"key": key
+	        		"index": index
 	        	}
 	    	});
 	    	if(info.callbackfunc){

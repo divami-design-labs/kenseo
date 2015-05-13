@@ -7,35 +7,51 @@ var Router = Backbone.Router.extend({
     routes: {
         // When there is no hash on the url, the home method is called
         "": "index",
-        "projectpage": "projectPage"
+        "projectpage/:id": "projectPage"
     },
     index: function() {
         sb.loadFiles(   
             {
-                'views' : ['Header', 'Dashboard'],
+                'views' : ['Header', 'Artefacts', 'Projects', 'Notifications'],
                 'models': ['Header', 'Notifications', 'Projects', 'Artefacts'],
                 'collections': ['Projects', 'Artefacts', 'Notifications']
             },
             function(){
-                // Instantiates a new view which will render the header text to the page
-                new Kenseo.views.Dashboard({
-                    // 'projectModel': new Kenseo.models.Projects(),
-                    'projectCollection': new Kenseo.collections.Projects(),
-                    'artefactCollection': new Kenseo.collections.Artefacts(),
-                    'notificationCollection': new Kenseo.collections.Notifications()
-                });
+                new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+                new Kenseo.views.Projects({colStr: 'Projects', data: {limit: 6, userProjects: true}});
+                new Kenseo.views.Notifications({collection: new Kenseo.collections.Notifications(), data: {limit: 12}});
+                new Kenseo.views.Artefacts({colStr: 'Artefacts', data: {limit: 8, shared: true}});
             }
         );
     },
-    projectPage: function(){
+    projectPage: function(id){
         sb.loadFiles(
             {
-                'views': ['Header', 'Projectpage'],
+                'views': ['Header', 'Artefacts', 'People'],
                 'models': ['Header','Artefacts', 'People'],
                 'collections': ['Artefacts', 'People']
             },
             function(){
-                new Kenseo.views.Projectspage();
+                sb.renderTemplate({"templateName": 'projects-page', "templateHolder": $(".content-wrapper")});
+                new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+
+                new Kenseo.views.Artefacts({
+                    el: '.artifacts-section', 
+                    colStr: 'Artefacts', 
+                    data: {projects: true, project_id: id, sharePermission: false, sortBy: "default"}, 
+                    preLoader: function(response){
+                        $('.artifacts-section').html(_.template(templates['artefacts'])(response));
+                    }
+                });
+                new Kenseo.views.Activities({collection: new Kenseo.collections.Artefacts(), data: {projectActivities: true, project_id: id}});
+                new Kenseo.views.People({
+                    el: '.people-section-content', 
+                    colStr: 'People', 
+                    data: {projectId: id},
+                    preLoader: function(response){
+                        $('.people-section').html(_.template(templates['people'])());
+                    }
+                });
             }
         )
     }

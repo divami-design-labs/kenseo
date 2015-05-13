@@ -1,4 +1,4 @@
-<% var dataObj = Kenseo.popup.info[key] %>
+<% var dataObj = Kenseo.popup.info[index] %>
 <div class="popup popup-small">
 	<div class="popup-header">
 		<div class="popup-title"><%= dataObj.title %></div>
@@ -10,26 +10,7 @@
 			</select>
 		</div>
 		<div class="buttons-section">
-			<% var buttons = dataObj.buttons %>
-			<% for(var i=buttons.length-1; i>= 0; i--){ %>
-				<% var b = buttons[i]; %>
-				<button  
-					<% if(b.disabled){ %> 
-						disabled="true" autocomplete="off" 
-					<% } %> 
-					<% if(b.label === "Proceed"){ %> 
-						class="<%= b.cls %> nav-btn"
-						data-url="<%= key+1 %>" 
-					<% } else if(b.label === "Back"){ %>
-						class="<%= b.cls %> nav-btn"
-						data-url="<%= key-1 %>" 
-					<% } else{ %>
-						class="<%= b.cls %>"
-					<% } %>
-				>
-					<%= b.label %>
-				</button>
-			<% }; %>
+			<%= _.template(templates[buttons])({"data": dataObj, "index": index}) %>
 		</div>
 	</div>
 </div>
