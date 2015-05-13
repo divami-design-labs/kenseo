@@ -40,6 +40,6 @@ Kenseo.views.Project = Backbone.View.extend({
     openPopup: function(e){
         e.preventDefault();
         var model = this.model.collection.get($(e.currentTarget).data('id'));
-        Kenseo.data = model.toJSON();
+        sb.setDynamicData("popup", model.toJSON());
     }
 });

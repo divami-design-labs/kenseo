@@ -11,16 +11,28 @@ Kenseo.views.Artefacts = Backbone.View.extend({
         this.el = payload.el;
         this.$el.html(this.template)
         this.preLoader = payload.preLoader;
+        this.id = payload.id;
         // this.payload = payload;
         this.render();
     },
     events: {
-
+        'click .sort-item': 'sortArtefacts'
     },
     render: function() {
         sb.renderXTemplate(this);
 
         return this;
+    },
+    sortArtefacts: function(e){
+        new Kenseo.views.Artefacts({
+            el: '.artifacts-section',
+            id: this.id, 
+            colStr: 'Artefacts', 
+            data: {projects: true, project_id: this.id, sharePermission: false, sortBy: $(e.currentTarget).data('stype')}, 
+            preLoader: function(response){
+                $('.artifacts-section').html(_.template(templates['artefacts'])(response));
+            }
+        });
     }
 });
 
@@ -56,29 +68,6 @@ Kenseo.views.Artefact = Backbone.View.extend({
     openPopup: function(e){
         e.preventDefault();
         var model = this.model.collection.get($(e.currentTarget).data('id'));
-        Kenseo.data = model.toJSON();
-    }
-});
-
-
-Kenseo.views.Activities = Backbone.View.extend({
-    // The DOM Element associated with this view
-    el: '.activity-section',
-    // template: _.template(templates['activities']),
-    // View constructor
-    initialize: function(payload) {
-        this.data = payload.data;
-        this.render();
-    },
-    events: {
-
-    },
-    render: function() {
-        var _this = this;
-        this.collection.fetch(sb.getStandardData({data: this.data})).then(function(response){
-            var html = _.template(templates['activities'])({data: response.data});
-            _this.$el.html(html);
-        });
-        return this;
+        sb.setDynamicData("popup", model.toJSON());
     }
 });

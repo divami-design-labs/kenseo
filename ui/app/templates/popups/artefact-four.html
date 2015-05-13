@@ -1,4 +1,5 @@
 <% var dataObj = Kenseo.popup.info[index] %>
+<% var kData = Kenseo.popup.data %>
 <div class="popup popup-large">
 	<div class="popup-header">
 		<div class="popup-title"><%= dataObj.title %></div>
@@ -8,24 +9,31 @@
 		<div class="popup-left-section">
 			<div class="meta-item">
 				<div class="meta-heading">Under</div>
-				<div class="meta-text">Conflux</div>
+				<div class="meta-text"><%= kData.name %></div>
 			</div>
 			<div class="meta-item">
 				<div class="meta-heading">File</div>
-				<div class="meta-text">Conflux screen.png</div>
+				<div class="meta-text"><%= kData.fileName %></div>
 			</div>
 			<div class="meta-item">
 				<div class="meta-heading">Type</div>
-				<div class="meta-text">IA</div>
+				<div class="meta-text"><%= kData.docType %></div>
 			</div>
 			<div class="meta-item">
 				<div class="meta-heading">References</div>
-				<div class="meta-text">Personas</div>
-				<div class="meta-text">Information Architecture</div>
+				<% if(Kenseo.popup.references){ %>
+					<% _.each(Kenseo.popup.references, function(r){ %>
+						<div class="meta-text">r</div>
+					<% }); %>
+				<% } %>
 			</div>
 			<div class="meta-item">
 				<div class="meta-heading">Tags</div>
-				<div class="meta-text">@IxD, #Designer, Workflows</div>
+				<div class="meta-text">
+					<% if(kData.tags){ %>
+						<%= kData.tags.join(", ") %>
+					<% } %>
+				</div>
 			</div>
 		</div>
 		<div class="popup-body-wrapper popup-right-section">

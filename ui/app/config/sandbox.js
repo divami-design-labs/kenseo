@@ -346,8 +346,8 @@ var sb = (function(){
         setOffDynamicData: function(str){
 
         },
-        setDynamicData: function(){
-        	Kenseo.data
+        setDynamicData: function(str, val){
+        	Kenseo[str].data = val;
         },
         navigate: function(str, el){
 	        var $self = $(el);
@@ -394,15 +394,15 @@ var sb = (function(){
 		        }, function(){
 					Kenseo.dropdown.name = "Choose a project..";
 			    	sb.renderTemplate({"templateName": 'dropdown', "templateHolder": $('.dropdown'), "collection": new Kenseo.collections.Projects(), "callbackfunc": function(){
-			            if(Kenseo.popup.data['project_name']){
-			            	$('.dropdown').val(Kenseo.popup.data['project_name']);
+			            if(Kenseo.popup.data['name']){
+			            	$('.dropdown').val(Kenseo.popup.data['name']);
 			            	$('.main-btn').prop('disabled', false);	
 			            } 
 			        },"data": {userProjects: true}});
 			        
 			        $('.dropdown').on('change', function(){
 			            if(this.selectedIndex){
-			                Kenseo.popup.data['project_name'] = this.value;
+			                Kenseo.popup.data['name'] = this.value;
 			                Kenseo.popup.data['project_id'] = this.selectedOptions[0].getAttribute('name');                     
 			                $('.main-btn').prop('disabled', false);
 			            }

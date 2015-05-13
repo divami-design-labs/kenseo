@@ -27,7 +27,7 @@ var Router = Backbone.Router.extend({
     projectPage: function(id){
         sb.loadFiles(
             {
-                'views': ['Header', 'Artefacts', 'People'],
+                'views': ['Header', 'Artefacts', 'People', 'Activities'],
                 'models': ['Header','Artefacts', 'People'],
                 'collections': ['Artefacts', 'People']
             },
@@ -36,7 +36,8 @@ var Router = Backbone.Router.extend({
                 new Kenseo.views.Header({'model': new Kenseo.models.Header()});
 
                 new Kenseo.views.Artefacts({
-                    el: '.artifacts-section', 
+                    el: '.artifacts-section',
+                    id: id,
                     colStr: 'Artefacts', 
                     data: {projects: true, project_id: id, sharePermission: false, sortBy: "default"}, 
                     preLoader: function(response){
