@@ -29,6 +29,16 @@
 					</div>
 					<% if(dataObj.show_coming_soon){ %>
 						<div class="coming-soon-text">Coming soon!</div>
+					<% } else { %>
+						<div class="field-section">
+							<div class="input-wrapper">
+								<input type="text" class="input-text reference-files-text" placeholder="Type file or feature name"></input>
+							</div>
+							<div class="reference-files-suggestions"></div>
+							<div class="reference-files-holder">
+							<div class="notifications-holder"></div>
+							</div>
+						</div>
 					<% } %>
 					<div class="create-file-item">
 					</div>
@@ -47,11 +57,13 @@
 					<div class="create-file-close-icon"></div>
 				</div>
 			</div>
-			<label class="checkbox">
-				<input type="checkbox" class="existing-files-chk"></input>
-				<span>This is a new version of an existing file</span>
-			</label>
-			<select disabled="true" class="dropdown existing-files-dropdown"></select>
+			<% if(dataObj.allow_artefact_selection){ %>
+				<label class="checkbox">
+					<input type="checkbox" class="existing-files-chk"></input>
+					<span>This is a new version of an existing file</span>
+				</label>
+				<select disabled="true" class="dropdown existing-files-dropdown"></select>
+			<% } %>
 		</div>
 		<div class="buttons-section">
 			<%= _.template(templates['buttons'])({"data": data, "index": index}) %>

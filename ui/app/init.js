@@ -4,7 +4,8 @@ var Kenseo = {
     collections: {},
     dropdown: {},
     data: {},
-    popup: {"info":{},"data":{}},
+    popup: {"info":{},"data":{}, "replace": {}},
+    overlays: {"info":{},"data":{}},
     page: {"info":{},"data": {}},
     cookie: {
         sessionid: function(){

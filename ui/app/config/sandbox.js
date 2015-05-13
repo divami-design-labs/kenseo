@@ -465,32 +465,7 @@ var sb = (function(){
 							'collection': new Kenseo.collections.Artefacts(),
 							'data': {references: true, ignore: 0, projectid: Kenseo.popup.data.project_id},
 							'success': function(response){
-								var objResponse = JSON.parse(response);
-			            		$('.reference-files-text').on('keyup', function(){
-			            			var self = this;
-			            			var filteredData = _.filter(objResponse.data, function(item){
-			            				if(self.value.length){
-			            					$(self).parent().next('.reference-files-suggestions').show();
-				            				var re = new RegExp("^" + self.value, "i");
-				            				return re.test(item.name);
-				            			}
-				            			else{
-				            				return false;
-				            			}
-			            			});
-			            			sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
-			            			$('.reference-suggestion-item').click(function(){
-			            				var $holder = $(this).parent().next();
-			            				var html = $holder.html();
-			            				$holder.html(html + '<div class="reference-item" name="' + this.getAttribute('name') + '">' + this.innerHTML + '<div class="reference-item-close-icon"></div></div>');
-			            				$(this).parent().hide();
-			            				self.value = "";
-			            			});
-
-			            			$(document).on('click', '.reference-item-close-icon', function(){
-			            				$(this).parent().remove();
-			            			});
-			            		});
+								Kenseo.popup.data.refObjResponse = JSON.parse(response);
 							}
 						}
 					);
@@ -502,33 +477,7 @@ var sb = (function(){
 							'collection': new Kenseo.collections.Tags(),
 							'data': {},
 							'success': function(response){
-								var objResponse = JSON.parse(response);
-			            		$('.tags-text').on('keyup', function(){
-			            			var self = this;
-			            			var filteredData = _.filter(objResponse.data, function(item){
-			            				if(self.value.length){
-			            					$(self).parent().next('.tags-suggestions').show();
-				            				var index = item.tag_name.toLowerCase().indexOf(self.value.toLowerCase());
-				            				return (index != -1) ? true : false;
-				            			}
-				            			else{
-				            				return false;
-				            			}
-			            			});
-			            			
-									sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
-			            			$('.reference-suggestion-item').click(function(){
-			            				var $holder = $(this).parent().next();
-			            				var html = $holder.html();
-			            				$holder.html(html + '<div class="reference-item" name="' + this.getAttribute('name') + '">' + this.innerHTML + '<div class="reference-item-close-icon"></div></div>');
-			            				$(this).parent().hide();
-			            				self.value = "";
-			            			});
-			            			
-			            			$(document).on('click', '.reference-item-close-icon', function(){
-			            				$(this).parent().remove();
-			            			});
-			            		});
+								Kenseo.popup.data.tagObjResponse = JSON.parse(response);
 							}
 						}
 					);

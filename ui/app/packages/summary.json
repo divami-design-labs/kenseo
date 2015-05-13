@@ -1,11 +1,12 @@
 {
+	"status" : "success",
 	"data" : {
 		"artefactDetails": {
 			"artefactId" : 16,
 			"title" : "Conflux:Mapping Editor Doc",
 			"version" : 3,
 			"commetCount" : 122,
-			"status" : 'c',
+			"status" : "c",
 			"createdBy" : "Prakash",
 			"creatorId" : 4,
 			"reatorPic" : "url"
@@ -17,7 +18,7 @@
 			"profilePic" : "url",
 			"permission" : "S",
 			"commentcount" : 10,
-			"state" : 'c'
+			"state" : "c"
 		},{
 			"id" : 1,
 			"name" : "Vasu",
@@ -25,7 +26,7 @@
 			"profilePic" : "url",
 			"permission" : "C",
 			"commentCount" : 19,
-			"State" : 'c'
+			"State" : "c"
 		}],
 		"versions" : [{
 			"title" : "Conflux:Mapping Editor Doc",
@@ -58,8 +59,38 @@
 			"id": 2,
 			"name": "name"
 		}],
-		"timeline" : [{
-		
+		"timeline" : [{ 
+			"date" : "3-22-2015", 
+			"data" : [{
+				"title" : "Conflux:Mapping Editor Doc",
+				"version" : 1,
+				"actionType" : "newVersion",
+				"time" : "3-22-2015 10:33 PM"
+			},{
+				"title" : "Conflux:Mapping Editor Doc",
+				"version" : 1,
+				"userPic" : "url",
+				"actionType" : "comment",
+				"time" : "3-22-2015 10:33 PM"
+			},{
+				"title" : "Conflux:Mapping Editor Doc",
+				"actionType" : "meeting",
+				"time" : "3-22-2015 10:33 PM"
+			},{
+				"title" : "",
+				"replaceId" : 3,
+				"actionType" : "replace",
+				"replaceDetails" : [{
+					"title" : "Conflux:Mapping Editor Doc",
+					"version" : 1
+				},{
+					"title" : "Conflux:Mapping Editor Doc",
+					"version" : 2,
+					"title" : "Conflux:Mapping Editor Doc",
+					"version" : 3
+				}],
+				"time" : "3-22-2015 10:33 PM"
+			}] 
 		}]
 	}
 }

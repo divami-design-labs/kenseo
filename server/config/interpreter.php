@@ -24,8 +24,6 @@ $AppGlobal['urlmap']['/getNotifications'] = array ('command' => 'getNotification
 $AppGlobal['cmdmap']['search'] = array ("class" => "Common", "method" => "searchAll");
 $AppGlobal['urlmap']['/search'] = array ('command' => 'search', 'type' => 'GET');
 
-
-
 $AppGlobal['cmdmap']['getHeader'] = array ("class" => "Header", "method" => "getHeader");
 $AppGlobal['urlmap']['/getHeader'] = array ('command' => 'getHeader', 'type' => 'GET');
 
@@ -37,7 +35,6 @@ $AppGlobal['urlmap']['/getMyProjectsList'] = array ('command' => 'getMyProjectsL
 
 $AppGlobal['cmdmap']['getMyRecentArtefacts'] = array ("class" => "Artefacts", "method" => "getMyRecentArtefacts");
 $AppGlobal['urlmap']['/getMyRecentArtefacts'] = array ('command' => 'getMyRecentArtefacts', 'type' => 'GET');
-
 
 $AppGlobal['cmdmap']['getProjectArtefacts'] = array ("class" => "Projects", "method" => "getProjectArtefacts");
 $AppGlobal['urlmap']['/getProjectArtefacts'] = array ('command' => 'getProjectArtefacts', 'type' => 'GET');

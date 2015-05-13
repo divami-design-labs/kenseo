@@ -149,18 +149,56 @@
 			$data = $interpreter->getData()->data;
 			
 			$artId = $data -> replaceArtefactId;
+			$projId = $data -> projectId;
 			$newArt = $data -> newArtefactid;
 			$file = $data -> file;
+			
+			$userId = $interpreter->getUser()->user_id;
 			
 			$db = Master::getDBConnectionManager();
 			if($newArt > 0) {
 				//control comes here while replacing with an existing artefact
-				$db->updateTable(TABLE_ARTEFACTS, array("replace_ref_id"), array($newArt), "artefact_id = " . $artId);
+
+				//first get all the versions of newArt
+				$queryParams = array('artId' => $newArt);
+				$dbQuery = getQuery('getAllVersionsOfArtefact', $queryParams);
+				$newArtVers = $db->multiObjectQuery($dbQuery);
+				
+				//get the latestVersion of the artefact
+				$queryParams = array('artId' => $newArt);
+				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
+				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
+				
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "VK VK");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $userId);
+
+				$date = date("Y-m-d H:i:s");
+				//now add the versions of newArt to artId
+				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
+				
+				for($i = 0 ; $i < count($newArtVers); $i++) {
+					$latestVer++;
+					$rowValues = array($artId, $newArtVers[$i]->version_label,$latestVer, $userId, $date, $newArtVers[$i]->document_path, $newArtVers[$i]->MIME_type, $newArtVers[$i]->file_size, $newArtVers[$i]->state, 0);
+					$db->insertSingleRow(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
+				}
+
+				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($latestVer), "artefact_id = " . $artId);
+				//update the new artefact that it is replaced.
+				$db->updateTable(TABLE_ARTEFACTS, array("replace_ref_id"), array($artId), "artefact_id = " . $newArt);
+				
+				//add an activity of replacement
+				$columnNames = array('project_id', 'logged_by', 'logged_time', 'performed_on', 'activity_type', 'performed_on_id');
+				$rowValues = array($projId, $userId, $date, 'A', 'R', $artId);
+				$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $columnNames, $rowValues);
+
+				return true;
+				
 			} else {
-				//replacingg with a new file
+				//replacing with a new file
+				
+				return true;
 			}
 			
-			return true;
 		}
 		
 		public function archiveArtefact($interpreter) {
@@ -242,7 +280,7 @@
 		}
 
 		public function getReferences($interpreter) {
-			$data = $interpreter -> getData() -> data;
+			$data = $interpreter->getData()->data;
 			
 			$userid = $interpreter->getUser()->user_id;
 			$ignore = $data->ignore;
@@ -343,7 +381,7 @@
 			for($i = 0; $i < count($team); $i++) {
 				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
 				
-				$shareRowValues = array($artVerId, $artId, $team[i]->userId, $team[i]->permission , date("Y-m-d H:i:s"), $sharedBy);
+				$shareRowValues = array($artVerId, $artId, $team[$i]->userId, $team[$i]->permission , date("Y-m-d H:i:s"), $sharedBy);
 				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 			}
 			

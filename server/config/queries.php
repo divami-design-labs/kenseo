@@ -82,12 +82,13 @@ $AppGlobal['sql']['getReviewRequests-old'] = "SELECT artefacts.*,(SELECT COUNT(*
 											(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
 											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@))";
 											
-$AppGlobal['sql']['getReviewRequests']="SELECT DISTINCT requestor.name AS requestedBy,versions.version_label AS title, 
+$AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requestedBy,versions.version_label AS title, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
 										requestor.user_id AS requestorId, Date(members.shared_date) AS requestTime,
 										versions.state AS status, artefacts.artefact_id as id, 
 										(SELECT COUNT(artefact_id) FROM " . TABLE_ARTEFACTS_VERSIONS . " AS ver WHERE 
-										ver.artefact_id = artefacts.artefact_id) as version, 
+										ver.artefact_id = artefacts.artefact_id) as version,
+										artefacts.project_id as projectId,
 										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where 
 										artefacts.latest_version_id = comments.artefact_ver_id) as commentCount
 										from " . TABLE_ARTEFACTS . " AS artefacts 
@@ -153,7 +154,7 @@ $AppGlobal['sql']['getTeamMembersList'] = "SELECT users.user_id, users.name, use
 											INNER JOIN " . TABLE_USERS . " AS users ON members.user_id = users.user_id  
 											WHERE members.proj_id = @~~projectId~~@ AND members.user_id != @~~userId~~@";
 
-$AppGlobal['sql']['getTagsList'] = "SELECT tags.tag_id, tags.tag_name from " . TABLE_USERS . " AS users
+$AppGlobal['sql']['getTagsList'] = "SELECT tags.tag_id as id, tags.tag_name as name from " . TABLE_USERS . " AS users
 											INNER JOIN " . TABLE_ORGANIZATIONS . " AS organizations ON
 											users.org_id = organizations.org_id
 											INNER JOIN " . TABLE_TAGS . " AS tags ON
@@ -175,14 +176,19 @@ $AppGlobal['sql']['getArtefactsLink'] = "SELECT DISTINCT artefacts.artefact_id,a
 										AND (members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)
 										ORDER BY artefacts.linked_id";
 										
-$AppGlobal['sql']['getReferences'] = "SELECT DISTINCT artefacts.artefact_id as id, artefacts.artefact_title as name
+$AppGlobal['sql']['getReferences'] = "SELECT DISTINCT 
+										artefacts.artefact_id as id, artefacts.artefact_title as name, date(vers.created_date) as date, user.name as userName
 										from " . TABLE_ARTEFACTS . " AS artefacts 
+										JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers on
+										vers.artefact_ver_id = artefacts.latest_version_id
+										JOIN " . TABLE_USERS . " as user on
+										user.user_id = vers.created_by
 										WHERE artefacts.artefact_id 
 										in 
 										(SELECT versions.artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
 										WHERE versions.shared = 1 AND versions.artefact_ver_id 
 										in 
-										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
+										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members
 										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
 										artefacts.replace_ref_id = 0 AND 
 										artefacts.artefact_id != @~~ignore~~@ AND 
@@ -194,7 +200,8 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT Date(pa.logged_time) as time,
 											actBy.name as doneBy, 
 											CASE activity_type
 												WHEN 'N' THEN 'Added'
-												WHEN 'R' THEN 'Removed'
+												WHEN 'D' THEN 'Removed'
+												WHEN 'R' THEN 'Replace'
 												WHEN 'U' THEN 'Updated'
 												WHEN 'H' THEN 'Hold'
 												WHEN 'C' THEN 'Comment'
@@ -204,6 +211,7 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT Date(pa.logged_time) as time,
 												WHEN 'U' THEN 'User'
 												WHEN 'A' THEN 'Artefact'
 												WHEN 'M' THEN 'Meeting'
+												WHEN 'V' THEN 'Version'
 											END as activityOn,
 											CASE performed_on
 												WHEN 'A' THEN (SELECT vers.version_label FROM artefacts as arts join artefact_versions as vers on vers.artefact_ver_id = arts.latest_version_id WHERE arts.artefact_id = pa.performed_on_id)
@@ -217,10 +225,69 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT Date(pa.logged_time) as time,
 											actBy.user_id = pa.logged_by  
 											WHERE 
 											pa.project_id = @~~projectid~~@";
+
 $AppGlobal['sql']['getMyRecentActivity'] = "";
+
 $AppGlobal['sql']['getMeetingNotes'] = "SELECT * FROM " . TABLE_MEETING_NOTES . " as notes 
 										JOIN " . TABLE_USERS . " as users ON 
 										notes.participant_id = users.user_id
 										WHERE meeting_id = @~~meetingId~~@ ";
+
+$AppGlobal['sql']['getDocumentDetails'] = "SELECT arts.artefact_id as artefactId,
+											arts.artefact_title as title,
+											(SELECT COUNT(artefact_ver_id) FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@) as version,
+											(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments WHERE arts.latest_version_id = comments.artefact_ver_id) as commentCount,
+											vers.state as status,
+											user.name as createdBy,
+											user.user_id as creatorId,
+											user.profile_pic_url as picture
+											FROM " . TABLE_ARTEFACTS . " as arts 
+											JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers
+											ON
+											arts.latest_version_id = vers.artefact_ver_id
+											JOIN users as user on 
+											user.user_id = vers.created_by
+											WHERE arts.artefact_id = 1";								
+
+$AppGlobal['sql']['getDocumentVersions'] = "SELECT arts.artefact_title  as title,
+											vers.version_no version,
+											CASE vers.artefact_ver_id 
+												when arts.latest_version_id then true
+												else false 
+											END as isCurrentVersion,
+											Date(vers.created_date) as date
+											
+											FROM " . TABLE_ARTEFACTS_VERSIONS . " as vers 
+											JOIN " . TABLE_ARTEFACTS . " as arts on
+											arts.artefact_id = vers.artefact_id
+											where vers.artefact_id = @~~artId~~@";
+
+$AppGlobal['sql']['getDocumentSharedDetails'] = "SELECT user.user_id as id,
+												user.name as name,
+												user.email as email,
+												user.profile_pic_url as profilePic,
+												members.access_type as permission,
+												(SELECT COUNT(comment_id) from " . TABLE_COMMENTS . " as comments WHERE arts.latest_version_id = comments.artefact_ver_id and comments.comment_by = user.user_id) as commentcount
+												FROM " . TABLE_ARTEFACTS . " as arts
+												JOIN " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as members on
+												members.artefact_ver_id = arts.latest_version_id
+												JOIN " . TABLE_USERS . " as user on
+												members.user_id = user.user_id
+												WHERE arts.artefact_id = @~~artId~~@";
+
+$AppGlobal['sql']['getDocumentReferences'] = "SELECT refs.artefact_id as id,
+											refs.artefact_title as name 
+											FROM  " . TABLE_ARTEFACTS . " as arts 
+											join " . TABLE_ARTEFACT_REFS . " as docs on 
+											arts.latest_version_id = docs.artefact_ver_id
+											join " . TABLE_ARTEFACTS . " as refs on
+											docs.artefact_id = refs.artefact_id
+											where arts.artefact_id = @~~artId~~@";
+
+$AppGlobal['sql']['getDocumentLinks'] = "SELECT * FROM " . TABLE_ARTEFACT_LINKS . " where linked_id = (select DISTINCT (linked_id) from " . TABLE_ARTEFACT_LINKS . " WHERE linked_from_id = @~~artId~~@ or linked_to_id = @~~artId~~@)";
+
+$AppGlobal['sql']['getAllVersionsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@";
+
+$AppGlobal['sql']['getHighestVersionOfArtefact'] = "SELECT count(version_no) as vers FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@";
 
 ?>

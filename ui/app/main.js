@@ -105,5 +105,87 @@ $(function(){
 				alert ("success");
 			}
 		});
-   });
+		
+	})
+	.on('click', '.replace-btn', function() {
+		var $self = $(this);
+		sb.renderTemplate({
+			"url": '../server/replaceArtefact', 
+			"data": {
+				projectId : Kenseo.popup.replace.projectId,
+				replaceArtefactId: Kenseo.popup.replace.replaceArt,
+				newArtefactid : Kenseo.popup.replace.replacedWith
+			}, 
+			type: 'GET',
+			"callbackfunc" : function() {
+				popupCloser($self.parents(popupContainer));
+			}
+		});
+	})
+	.on('click', '.overlay-click', function(){
+		$('.popup-container').show();
+		var $self = $(this);
+		var index = $(this).data('key') || 0;
+		var dump = $self.data('dump');
+		if(dump){
+			if(typeof dump === "string"){
+				dump = JSON.parse(dump);
+			}
+			Kenseo.overlays.data = dump;
+		}
+		// Important: this should be called after dump object is stored in the Kenseo.popup.data
+		Kenseo.overlays.info = sb.getOverlaysInfo($self.data('url'));
+		sb.callOverlay(index);
+   })
+   
+   .on('keyup', '.suggestion-text-input', function(e) {
+		var type = this.getAttribute('data-elem');
+		if( type == 'references') {
+			var useData = Kenseo.popup.data.refObjResponse;
+			var suggestionHolder = $(this).parent().next('.ref-suggestions');
+		} else if(type == 'tags') {
+			var useData = Kenseo.popup.data.tagObjResponse;
+			var suggestionHolder = $(this).parent().next('.tags-suggestions');
+		} else if(type == 'links') {
+			var useData = Kenseo.popup.data.refObjResponse;
+			var suggestionHolder = $(this).parent().next('.link-suggestions');
+		}
+		
+		var self = this;
+		var filteredData = _.filter(useData.data, function(item){
+			if(self.value.length){
+				suggestionHolder.show();
+				var index = item.name.toLowerCase().indexOf(self.value.toLowerCase());
+				return (index != -1) ? true : false;
+			}
+			else{
+				return false;
+			}
+		});
+		
+		sb.renderTemplate({"templateName": 'reference-items', "templateHolder": suggestionHolder, "data": {data: filteredData}});
+   })
+   
+   .on('click','.reference-suggestion-item',function() {
+		var $holder = $(this).parent().next();
+		var html = $holder.html();
+		var type = $(this).parent().parent().find('.suggestion-text-input').attr('data-elem')
+		if(type == 'tags') {
+			var appendText = "<div class='tag' name='"  + this.getAttribute('name') + "'>" + this.innerHTML + "<div class='tag-close'></div</div>";
+		} else if (type == "references" || type == "links") {
+			var appendText = '<div class="reference-item" name="' + this.getAttribute('name') + '">' + this.innerHTML + '<div class="reference-item-close-icon"></div></div>';
+		}
+		$holder.html(html + appendText);
+		$(this).parent().hide();
+		$(this).parent().parent().find('.suggestion-text-input')[0].value = "";
+   })
+   
+   .on('click', '.reference-item-close-icon', function(){
+		$(this).parent().remove();
+	})
+	
+   .on('click', '.tag-close', function(){
+		$(this).parent().remove();
+	});
+	
 });

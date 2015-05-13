@@ -33,7 +33,6 @@ Kenseo.views.Header = Backbone.View.extend({
                 },
                 function(){
                     sb.renderTemplate({ "templateName": 'nav-menu', "templateHolder":$('.menu')});
-                    
                     sb.renderTemplate({"templateName": 'menu-header', "templateHolder": $('.menu-header'), "model": new Kenseo.models.Header()});
                     sb.renderTemplate({"templateName": 'menu-projects-container',"templateHolder": $('.menu-projects-section'), "collection": new Kenseo.collections.Projects(), "data": {limit: 3, userProjects: true}});
                     sb.renderTemplate({"templateName": 'menu-recent-activity', "templateHolder": $('.menu-recent-activity-section'), "collection": new Kenseo.collections.Artefacts(), "data": {activities: true, limit: 3}});
