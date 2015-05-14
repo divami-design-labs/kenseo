@@ -19,6 +19,7 @@ Kenseo.popups = (function(){
 	            "page_name": "artefact-two",
 	            "title": "Add an Artefact",
 	            "show_coming_soon": true,
+	            "allow_artefact_selection": true,
 	            "buttons": [{
 	            	"label": "Back",
 	            	"cls": "lnk-btn"
@@ -70,6 +71,7 @@ Kenseo.popups = (function(){
 	        	"page_name": "artefact-two",
 	            "title": "Share an Artefact",
 	            "show_coming_soon": false,
+	            allow_artefact_selection: true,
 	            "buttons": [{
 	            	"label": "Back",
 	            	"cls": "lnk-btn"

@@ -1,0 +1,22 @@
+<div class="field-section">
+	<% if(data.label){ %><div class="input-label"><%= data.label %></div><% } %>
+	<div class="input-wrapper">
+		<input 
+			type="text" 
+			class="input-text field <% if(data.enableSuggestions){ %>suggestion-text-input<% } %>" 
+			<% if(data.placeholder){ %>placeholder="<%= data.placeholder %>" <% } %> 
+			<% if(data.attr && typeof data.attr == "object"){ 
+
+				var attributes = data.attr;
+				for(var key in attributes){ %>
+					<%= key %> = "<%= attributes[key] %>" 
+			<%	}
+			 } %>
+
+		></input>
+	</div>
+	<% if(data.enableSuggestions){ %>
+	<div class="field-suggestions"></div>
+	<div class="field-suggestions-viewer"></div>
+	<% } %>
+</div>

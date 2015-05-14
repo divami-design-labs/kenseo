@@ -12,7 +12,7 @@ Kenseo.views.Notifications = Backbone.View.extend({
     },
     render: function() {
         var _this = this;
-        this.collection.fetch(sb.getStandardData({data: this.data})).then(function(response){
+        sb.fetch(this.collection, this.data, function(response){
             var html = _.template(templates['db-notifications'])({data: response.data});
             _this.$el.html(html);
         });

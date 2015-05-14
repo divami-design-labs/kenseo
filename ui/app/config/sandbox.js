@@ -200,8 +200,7 @@ var sb = (function(){
 			var data = _this.data;
 			if(colStr){
 				var collection = new Kenseo.collections[colStr]();
-				collection.fetch(sb.getStandardData({data: data})
-				).then(function(response){
+				sb.fetch(collection, data, function(response){
 					// _.each(x.data, _this.renderArtefact);
 					if(_this.preLoader){
 						_this.preLoader(response);
@@ -379,9 +378,34 @@ var sb = (function(){
 	    		info.callbackfunc();
 	    	}
         },
+        toolbox: {
+        	textBox: function(data){
+        		return _.template(templates['textbox'])({data: data});
+        	},
+        	buttons: function(data, index){
+        		return _.template(templates['buttons'])({"data": data, "index": index});
+        	},
+        	comboBox: function(data){
+				sb.fetch(data.collection, data.data, function(response){
+					if(data.callbackfunc){
+						data.callbackfunc();
+					}
+					var combobox = new comboBox(data.elem, response.data, {
+						"placeholder": data.placeholder
+					});
+					combobox.onchange = data.onchange;
+				});
+        	}
+        },
         page: {
         	
         },
+        overlay: {
+
+        },
+    	fetch: function(collection, data, func){
+    		collection.fetch(sb.getStandardData({data: data})).then(func);
+    	},
         popup: {
         	resetPopupData: function(){
         		Kenseo.popup = {
@@ -394,24 +418,23 @@ var sb = (function(){
 		            'models': ['Projects'],
 		            'collections': ['Projects']
 		        }, function(){
-					Kenseo.dropdown.name = "Choose a project..";
-			    	sb.renderTemplate({"templateName": 'dropdown', "templateHolder": $('.dropdown'), "collection": new Kenseo.collections.Projects(), "callbackfunc": function(){
-			            if(Kenseo.popup.data['name']){
-			            	$('.dropdown').val(Kenseo.popup.data['name']);
-			            	$('.main-btn').prop('disabled', false);	
-			            } 
-			        },"data": {userProjects: true}});
-			        
-			        $('.dropdown').on('change', function(){
-			            if(this.selectedIndex){
-			                Kenseo.popup.data['name'] = this.value;
-			                Kenseo.popup.data['project_id'] = this.selectedOptions[0].getAttribute('name');                     
-			                $('.main-btn').prop('disabled', false);
-			            }
-			            else{
-			                $('.main-btn').prop('disabled', true);
-			            }
-			        });
+					var container = document.querySelector('.combobox');
+					sb.toolbox.comboBox({
+						elem: container,
+						data: {userProjects: true},
+						collection: new Kenseo.collections.Projects(),
+						placeholder: "Choose Project",
+						onchange: function($input, $selectedEl, bln){
+							if(bln){
+								Kenseo.popup.data['name'] = $selectedEl.html();
+				                Kenseo.popup.data['project_id'] = $selectedEl.attr('name'); 
+				                $('.main-btn').prop('disabled', false);
+				            }
+				            else{
+				            	$('.main-btn').prop('disabled', true);
+				            }
+						}
+					});
 				});
 			},
 			createFilePopup: function(){
@@ -434,6 +457,19 @@ var sb = (function(){
         			'collections': ['Artefacts'],
         			'models': ['Artefacts']
         		},function(){
+        			sb.ajaxCall(
+						{ 
+							'collection': new Kenseo.collections.Artefacts(),
+							'data': {references: true, ignore: 0, projectid: Kenseo.popup.data.project_id},
+							'success': function(response){
+								var data = JSON.parse(response);
+								Kenseo.popup.data.referencesObjResponse = data;
+								Kenseo.popup.data.linksObjResponse = data;
+							}
+						}
+					);
+
+
         			sb.renderTemplate({"templateName": 'dropdown', "templateHolder": $('.existing-files-dropdown'), "collection": new Kenseo.collections.Artefacts(), "data": { projectid:Kenseo.popup.data['project_id'], sharepermission: true}});
         			$('.dropdown').on('change', function(){
 	                    if(this.selectedIndex){
@@ -462,17 +498,6 @@ var sb = (function(){
             		'collections': ['Artefacts', 'Tags'],
             		'models': ['Artefacts']
             	}, function(){
-            		sb.ajaxCall(
-						{ 
-							'collection': new Kenseo.collections.Artefacts(),
-							'data': {references: true, ignore: 0, projectid: Kenseo.popup.data.project_id},
-							'success': function(response){
-								Kenseo.popup.data.refObjResponse = JSON.parse(response);
-							}
-						}
-					);
-
-
 					// Tags listing
 					sb.ajaxCall(
 						{ 

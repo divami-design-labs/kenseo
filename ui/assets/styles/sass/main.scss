@@ -30,3 +30,62 @@ body{
 .toggle-click{
 	@extend .hand;
 }
+
+
+
+
+// Combobox
+
+.combobox{
+	position: relative;
+	height: 25px;
+	padding: 10px 40px 10px 15px;
+	border: 1px solid $colorB;
+	&:after{
+	    content: "";
+		border-bottom: 1px solid $colorB;
+	    border-left: 1px solid $colorB;
+	    height: 10px;
+	    position: absolute;
+	    right: 15px;
+	    top: 15px;
+	    @include transform(rotate(-45deg));
+	    width: 10px;
+	}
+	input{
+	    margin: 0;
+	    padding: 0;
+	    width: 100%;
+	    height: 100%;
+	    @include placeHolder($colorTwo, 18px $italicFont);
+	    @include text(18px, black);
+	    border: none;
+	    &:focus{
+	    	outline: none;
+	    }
+	}
+	.suggestionsContainer{
+		display: none;
+		left: -1px;
+	    position: absolute;
+	    right: -1px;
+	    z-index: 1;
+	    top: 100%;
+	    background-color: white;
+	    border: 1px solid $colorB;
+	}
+	& ul, & li{
+    	padding: 0;
+    	margin: 0;
+		display: block;
+	}
+	.selectable{
+		padding: 10px;
+		margin: 0;
+		display: block;
+		cursor: pointer;
+		&.active{
+			background-color: $colorB;
+		}
+	}
+}

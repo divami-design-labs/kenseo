@@ -17,32 +17,51 @@
 		</div>
 		<div class="popup-body-wrapper popup-right-section">
 			<form>
-				<div class="field-section">
-					<div class="input-label">References</div>
-					<div class="input-wrapper">
-						<input type="text" class="input-text reference-files-text suggestion-text-input" data-elem="references" placeholder="Type file or feature name and press enter"></input>
-					</div>
-					<div class="reference-files-suggestions ref-suggestions"></div>
-					<div class="reference-files-holder refs-holder"></div>
-				</div>
-				<div class="field-section">
-					<div class="input-label">Tags</div>
-					<div class="input-wrapper">
-						<input type="text" class="input-text tags-text suggestion-text-input" data-elem="tags" placeholder="Type a tag and press enter"></input>
-					</div>
-					<div class="reference-files-suggestions tags-suggestions"></div>
-					<div class="tags-holder">
-					</div>
-				</div>
-				<div class="field-section">
-					<div class="input-label">Links</div>
-					<div class="input-wrapper">
-						<input type="text" class="input-text link-text suggestion-text-input" data-elem="links" placeholder="Type file or feature name and press enter"></input>
-					</div>
-					<div class="reference-files-suggestions link-suggestions"></div>
-					<div class="links-holder">
-					</div>
-				</div>
+				<%
+				var fields = {
+					textBoxOne: sb.toolbox.textBox({
+						"label": "References",
+						"class": "reference-files-text",
+						"enableSuggestions": true,
+						"attr": {
+							"data-elem": "references",
+							"placeholder": "Type file or feature name and press enter",
+						},
+						"suggestions-holder": "reference-files-suggestions",
+						"suggestions-viewer": "reference-files-holder"
+					}),
+					textBoxTwo: sb.toolbox.textBox({
+						"label": "Tags",
+						"class": "tags-text",
+						"enableSuggestions": true,
+						"attr": {
+							"data-elem": "tag",
+							"placeholder": "Type a tag and press enter",
+						},
+						"suggestions-holder": "reference-files-suggestions",
+						"suggestions-viewer": "tags-holder"
+					}),
+					textBoxThree: sb.toolbox.textBox({
+						"label": "Links",
+						"class": "link-text",
+						"enableSuggestions": true,
+						"attr": {
+							"data-elem": "links",
+							"placeholder": "Type file or feature name and press enter",
+						},
+						"suggestions-holder": "reference-files-suggestions",
+						"suggestions-viewer": "links-holder"
+					})
+				}
+
+				%>
+
+				
+
+				<%= fields.textBoxOne %>
+				<%= fields.textBoxTwo %>
+				<%= fields.textBoxThree %>
+				
 				<div class="buttons-section">
 					<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
 				</div>

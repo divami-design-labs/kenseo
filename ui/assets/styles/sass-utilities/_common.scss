@@ -19,11 +19,15 @@
 	border: 2px solid white;
 }
 .version-num{
-	@include border-radius(50%);
+	@include border-radius(20px);
+	height: 20px;
+	min-width: 10px;
+	padding: 0 4px;
 	display: inline-block;
 	background-color: $colorJ;
 	text-align: center;
 	font-family: $boldFont;
+	line-height: 20px;
 	@include text(12px, #ffffff);
 	&:first-letter{
 		font-family: $normalFont;

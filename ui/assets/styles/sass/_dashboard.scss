@@ -159,18 +159,8 @@
 }
 .rr-state{
 	span{
-		@include text(12px, #ffffff);
-		@include dimensions(20px, 20px);
-		@include border-radius(50%);
 		@extend .hand;
-		display: inline-block;
-		background-color: $colorJ;
-		line-height: 20px;
-		text-align: center;
-		font-family: $boldFont;
-		&:first-letter{
-			font-family: $normalFont;
-		}
+		@extend .version-num;
 		&:nth-of-type(3n + 1):after{
 			content: "";
 			display: block;

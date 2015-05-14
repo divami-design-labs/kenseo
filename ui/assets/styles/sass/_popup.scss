@@ -56,6 +56,7 @@
 .popup-body-wrapper{
 	padding: 30px;
 	padding-left: 50px;
+	@include clearFloat();
 }
 .buttons-section > button{
 	border: none;
@@ -90,7 +91,7 @@
 	@extend .a;
 }
 .projects-dropdown{
-	width: 300px;
+	width: 280px;
 	height: 40px;
 }
 
@@ -194,8 +195,10 @@ $popup-content-space: 175px;
 }
 .field-section{
 	position: relative;
+	float: left;
+	clear: both;
 }
-.field-section, .input-wrapper{
+.input-wrapper{
 	@extend .wrap;
 }
 .field-section + .field-section{
@@ -203,7 +206,7 @@ $popup-content-space: 175px;
 }
 .input-text{
 	@include placeHolder($colorTwo, 14px $italicFont);
-	@include dimensions(345px, 18px);
+	height: 18px;
 	border: 1px solid $colorB;
 	padding: 10px;
 	&:focus{
@@ -334,21 +337,21 @@ $popup-content-space: 175px;
 	margin-top: 10px;
 	margin-left: 10px;
 }
-.reference-suggestion-item {
+.suggestion-item {
     padding: 5px;
     background-color: $colorFour;
     border: 1px solid #fff;
     @extend .hand;
     @include text(14px, $colorTwo);
 }
-.reference-files-suggestions{
+.field-suggestions{
     background-color: white;
     border: 1px solid #ccc;
     left: 0;
     position: absolute;
     right: 0;
-    top: 72px;
     z-index: 1;
+    display: none;
 }
 //Add people
 .popup-add-people{
