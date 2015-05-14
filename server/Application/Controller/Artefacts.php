@@ -215,9 +215,39 @@
 		public function deleteArtefact($interpreter) {
 			$data = $interpreter->getData()->data;			
 			$artId = $data -> artefactId;
+			$userId = $interpreter->getUser()->user_id;
 			
+			//first get project ID
 			$db = Master::getDBConnectionManager();
+			$queryParams = array('artId' => $artId );
+			$dbQuery = getQuery('getProjectOfArtefact',$queryParams);
+			$artefactProjId = $db->singleObjectQuery($dbQuery);
+			$project_id = $artefactProjId -> project_id;
+			
 			$db->deleteTable(TABLE_ARTEFACTS, "artefact_id = " . $artId);
+			
+			//now delete all versions of this artefact
+			$db->deleteTable(TABLE_ARTEFACTS_VERSIONS, "artefact_id = " . $artId);
+			
+			//delete from artefact comments
+			$db->deleteTable(TABLE_COMMENTS, "artefact_id = " . $artId);
+			
+			// delete from artefact links and delink
+			$db->deleteTable(TABLE_ARTEFACT_LINKS, "linked_to_id = " . $artId . " OR linked_from_id = " . $artId);
+			
+			//remove ref docs
+			$db->deleteTable(TABLE_ARTEFACT_REFS, "artefact_id = " . $artId);
+			
+			// now delete all project activity of this artefact
+			$db->deleteTable(TABLE_PROJECT_ACTIVITY, "performed_on_id = " . $artId . " AND performed_on = 'A'");
+			
+			//now delete project shared members
+			$db->deleteTable(TABLE_ARTEFACTS_SHARED_MEMBERS, "artefact_id = " . $artId);
+			
+			//Add project activity that this artefact is deleted
+			$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
+			$activityRowValues = array($project_id, $userId, date("Y-m-d H:i:s"), 'A', 'D',$artId);
+			$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 			
 			return true;
 		}		

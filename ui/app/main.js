@@ -107,12 +107,25 @@ $(function(){
 		});
 		
 	})
-	
 	.on('click', '.archive-btn', function() {
 		var $self = $(this);
 		var artId = Kenseo.popup.data.id;
 		sb.renderTemplate({
 			"url": '../server/archiveArtefact', 
+			"data": {
+				"artefactId": artId
+			}, 
+			type: 'GET',
+			"callbackfunc" : function() {
+				popupCloser($self.parents(popupContainer));
+			}
+		});
+	})
+	.on('click', '.delete-btn', function() {
+		var $self = $(this);
+		var artId = Kenseo.popup.data.id;
+		sb.renderTemplate({
+			"url": '../server/deleteArtefact', 
 			"data": {
 				"artefactId": artId
 			}, 

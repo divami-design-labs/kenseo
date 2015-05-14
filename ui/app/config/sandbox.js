@@ -589,7 +589,7 @@ var sb = (function(){
 				    	  	},
 							type: 'POST',
 							success : function(response){
-								alert ("success");
+								popupCloser($self.parents(popupContainer));
 							}
 				    	});
 				    	connect.send();
