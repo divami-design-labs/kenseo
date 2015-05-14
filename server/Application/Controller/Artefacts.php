@@ -312,8 +312,8 @@
 				
 				//now store the artefact detail in the tables related to artefacts and versions
 				$db = Master::getDBConnectionManager();
-				
-				if(isset($data->artefact_id)) {
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,$data->artefact_id);
+				if($data->artefact_id != undefined) {
 					$artId = $data->artefact_id;
 				} else {
 					//if it is a new artefact
@@ -333,7 +333,6 @@
 				
 				//now share the artversion to the owner
 				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
-				
 				$shareRowValues = array($artVerId, $artId, $data->userId, 'S', date("Y-m-d H:i:s"), $data->userId);
 				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 				
@@ -348,7 +347,7 @@
 				//now add artefact references
 				$refDocs = $data->refs;
 				for($i = 0 ; $i< count($refDocs); $i++) {
-					$refColumnNames = array("artefact_ver_id", "ref_artefact_id", "created_date", "created_by");
+					$refColumnNames = array("artefact_ver_id", "artefact_id", "created_date", "created_by");
 					$refRowValues = array($artVerId, $refDocs, date("Y-m-d H:i:s"), $data->userId );
 					$db->insertSingleRow(TABLE_ARTEFACT_REFS, $refColumnNames, $refRowValues);
 				}
@@ -356,9 +355,9 @@
 				//now link the artefacts
 				
 				//if it is  share share it with others as well
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,"share : $data->share");
-				if($data->share) {
+				if($data->share == 'true') {
 					//now send the data to be shared for those people
+					Master::getLogManager()->log(DEBUG, MOD_MAIN,"share : $data->share");
 					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
 				}
 				
@@ -366,9 +365,19 @@
 					$links = $this->linkArts ($artId, $data->linkIds);
 				} 
 				
+				//now add this into project activity
+				$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
+				$activityRowValues = array($data->project, $data->userId, date("Y-m-d H:i:s"), 'A', 'N',$artId);
+				$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
+
+				//now add this notification
+				$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
+				$notificationRowValues = array($data->userId, $_FILES['file']['name'], $data->project, $data->userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
+				$db->insertSingleRow(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
+				
+				
 				
 				return $targetPath;
-				
 			} else {
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $interpreter->getData()->data->type);
 				return false;

@@ -246,7 +246,9 @@ var sb = (function(){
 							var obj = {};
 						}
 						// console.dir(obj);
-		                p.templateHolder.html(compiler(obj));  
+						if(p.templateHolder) {
+			                p.templateHolder.html(compiler(obj));  
+						}
 		                if(p.callbackfunc){
 		                	p.callbackfunc();
 		                }
@@ -487,6 +489,40 @@ var sb = (function(){
             shareWithPeoplePopup: function(){
 				Kenseo.popup.data.share = true;
             },
+            replaceArtefact:function() {
+            	sb.ajaxCall({ 
+					'collection': new Kenseo.collections.Artefacts(),
+					'data': {references: true, ignore: 0, projectid: Kenseo.popup.data.project_id},
+					'success': function(response){
+						var objResponse = JSON.parse(response);
+	            		$('.reference-files-text').on('keyup', function(){
+	            			var self = this;
+	            			var filteredData = _.filter(objResponse.data, function(item){
+	            				if(self.value.length){
+	            					$(self).parent().next('.reference-files-suggestions').show();
+		            				var re = new RegExp("^" + self.value, "i");
+		            				return re.test(item.name);
+		            			}
+		            			else{
+		            				return false;
+		            			}
+	            			});
+	            			sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
+	            			$('.reference-suggestion-item').click(function(){
+	            				var $holder = $(this).parent().next();
+	            				var html = $holder.html();
+	            				$holder.html(html + '<div class="reference-item" name="' + this.getAttribute('name') + '">' + this.innerHTML + '<div class="reference-item-close-icon"></div></div>');
+	            				$(this).parent().hide();
+	            				self.value = "";
+	            			});
+
+	            			$(document).on('click', '.reference-item-close-icon', function(){
+	            				$(this).parent().remove();
+	            			});
+	            		});
+					}
+				});
+            },
             meetingIvite: function() {
             	sb.loadFiles({
 		            'models': ['Projects', 'People'],
@@ -560,7 +596,7 @@ var sb = (function(){
 					});
 					sb.ajaxCall({ 
 						'collection': new Kenseo.collections.Projects(),
-						'data': {},
+						'data': {"userProjects" : true},
 						'success': function(response){
 							var objResponse = JSON.parse(response);
 		            		$('.meeting-project-name').on('keyup', function(){

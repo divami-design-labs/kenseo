@@ -127,7 +127,7 @@ Kenseo.popups = (function(){
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
-	            	"cls": "main-btn done-btn",
+	            	"cls": "main-btn archive-btn",
 	            },{
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"
@@ -143,7 +143,7 @@ Kenseo.popups = (function(){
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
-	            	"cls": "main-btn done-btn",
+	            	"cls": "main-btn archiveProject-btn",
 	            },{
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"

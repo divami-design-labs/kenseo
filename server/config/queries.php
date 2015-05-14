@@ -106,7 +106,8 @@ $AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requ
 										in 
 										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
 										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
-										artefacts.replace_ref_id = 0
+										artefacts.replace_ref_id = 0 AND
+										artefacts.state != 'A'
 										ORDER BY members.shared_date DESC
 										LIMIT @~~limit~~@";
 													 

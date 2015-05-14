@@ -1,7 +1,7 @@
 <% var buttons = data.buttons %>
 <% for(var i=buttons.length-1; i>= 0; i--){ %>
 	<% var b = buttons[i]; %>
-	<button  
+	<button  type="button"
 		<% if(b.disabled){ %> 
 			disabled="true" autocomplete="off" 
 		<% } %> 
