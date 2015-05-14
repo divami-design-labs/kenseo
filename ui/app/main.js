@@ -70,42 +70,87 @@ $(function(){
         });
     })
     .on('click', '.done-btn', function() {
-		var data = new FormData();
+    	var $self = $(this);
+    	var actionType = Kenseo.popup.data.actionType;
+    	var data = null;
+    	switch(actionType) {
+    		case 'art-archive' :
+    			data = {
+    				"artefactId": Kenseo.popup.data.id
+    			};
+    			url = "../server/archiveArtefact";
+    			type= 'GET';
+    			break;
+    		case 'art-replace' :
+    			data = {
+					projectId : Kenseo.popup.replace.projectId,
+					replaceArtefactId: Kenseo.popup.replace.replaceArt,
+					newArtefactid : Kenseo.popup.replace.replacedWith
+				};
+				url = "../server/replaceArtefact";
+				type= 'GET';
+    			break;
+    		case 'art-add-version' :
+    			data = "";
+    			url = "";
+    			break;
+    		case 'art-delete' :
+    			data = {
+    				"artefactId": Kenseo.popup.data.id
+    			};
+    			url = "../server/deleteArtefact";
+    			type= 'GET';
+    			break;
+    		default :
+				var data = new FormData();
+				
+				data.append("name", Kenseo.popup.data.fileName);
+				data.append("command", 'addArtefact');
+				data.append("description" , "hfvjdhdfjdjf");
+				data.append("project" , Kenseo.popup.data['project_id']);
+				data.append("MIMEtype", Kenseo.popup.data.file);
+				data.append("size", Kenseo.popup.data.file.size);
+				data.append("type", 'I');
+				data.append("sid", '9hal4k29ath2hu3oivuqetn967');
+				data.append("file",Kenseo.popup.data.file);
+				data.append("tags", [1,3,4,5]);
+				data.append("linkIds", [1,2,3]);
+				data.append("refs", [1]);
+				data.append("artefact_id", Kenseo.popup.data['artefact_id']);
+				data.append("share", Kenseo.popup.data.share);
+				data.append("sharedTo", [{
+					"userId" : 2,
+					"permission" : 'S'
+				},{
+					"userId" : 3,
+					"permission" : 'W'
+				}]);
+				
+				$.ajax({
+					url : "../server/extUpload.php",
+					data: data,
+					type: 'POST',
+					contentType: false,
+					processData: false,
+					success : function(response){
+						popupCloser($self.parents(popupContainer));
+					}
+				});
+				
+				return;
+			
+    	}
 		
-		data.append("name", Kenseo.popup.data.fileName);
-		data.append("command", 'addArtefact');
-		data.append("description" , "hfvjdhdfjdjf");
-		data.append("project" , Kenseo.popup.data['project_id']);
-		data.append("MIMEtype", Kenseo.popup.data.file);
-		data.append("size", Kenseo.popup.data.file.size);
-		data.append("type", 'I');
-		data.append("sid", '9hal4k29ath2hu3oivuqetn967');
-		data.append("file",Kenseo.popup.data.file);
-		data.append("tags", [1,3,4,5]);
-		data.append("linkIds", [1,2,3]);
-		data.append("refs", [1]);
-		data.append("artefact_id", Kenseo.popup.data['artefact_id']);
-		data.append("share", Kenseo.popup.data.share);
-		data.append("sharedTo", [{
-			"userId" : 2,
-			"permission" : 'S'
-		},{
-			"userId" : 3,
-			"permission" : 'W'
-		}]);
-		
-		
-		$.ajax({
-			url : "../server/extUpload.php",
+		sb.renderTemplate({
+			url : url,
 			data: data,
-			type: 'POST',
+			type: type,
 			contentType: false,
 			processData: false,
-			success : function(response){
-				alert ("success");
+			"callbackfunc" : function() {
+				popupCloser($self.parents(popupContainer));
 			}
 		});
-		
 	})
 	.on('click', '.archive-btn', function() {
 		var $self = $(this);

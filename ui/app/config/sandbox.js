@@ -363,6 +363,10 @@ var sb = (function(){
 	        	$('.popup-container').show();
 		        // Important: this should be called after dump object is stored in the Kenseo.popup.data
 		        Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
+		        if(index > 0) {
+		        	Kenseo.popup.info = Kenseo.popup.info.slice(index);
+			        index = 0;
+		        }
 		        sb.callPopup(index);
 		    }
         },
@@ -427,7 +431,7 @@ var sb = (function(){
 						onchange: function($input, $selectedEl, bln){
 							if(bln){
 								Kenseo.popup.data['name'] = $selectedEl.html();
-				                Kenseo.popup.data['project_id'] = $selectedEl.attr('name'); 
+				                Kenseo.popup.data['project_id'] = $selectedEl.data('id'); 
 				                $('.main-btn').prop('disabled', false);
 				            }
 				            else{

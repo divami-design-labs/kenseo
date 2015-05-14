@@ -129,11 +129,14 @@ Kenseo.popups = (function(){
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
-	            	"cls": "main-btn archive-btn",
+	            	"cls": "main-btn done-btn",
 	            },{
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"
 	            }],
+	            "callbackfunc": function() {
+	            	Kenseo.popup.data.actionType = 'art-archive'
+	            }
         	}
         ],
         "delete-artefact": [
@@ -145,11 +148,14 @@ Kenseo.popups = (function(){
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
-	            	"cls": "main-btn delete-btn",
+	            	"cls": "main-btn done-btn",
 	            },{
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"
 	            }],
+	            "callbackfunc": function() {
+	            	Kenseo.popup.data.actionType = 'art-delete'
+	            }
         	}
         ],
         "archive-project": [
@@ -166,6 +172,7 @@ Kenseo.popups = (function(){
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"
 	            }],
+	            
         	}
         ],
         "replace-artefact": [
@@ -181,6 +188,9 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn done-btn",
 	            	"disabled": false
 	            }],
+	            "callbackfunc": function() {
+	            	Kenseo.popup.data.actionType = 'art-replace'
+	            }
         	}
         ],
         "add-people": [
