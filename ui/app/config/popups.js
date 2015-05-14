@@ -134,6 +134,22 @@ Kenseo.popups = (function(){
 	            }],
         	}
         ],
+        "delete-artefact": [
+        	{
+        		"page_name": "message",
+        		"title": "Delete an Artefact",
+        		"message": function(){
+        			return "Do you want to Delete " + Kenseo.popup.data.title + " artefact?";
+        		},
+	        	"buttons": [{
+	            	"label": "Yes",
+	            	"cls": "main-btn delete-btn",
+	            },{
+	            	"label": "No",
+	            	"cls": "main-btn cancel-btn"
+	            }],
+        	}
+        ],
         "archive-project": [
         	{
         		"page_name": "message",
