@@ -63,16 +63,22 @@ body{
 	    &:focus{
 	    	outline: none;
 	    }
+	    &:disabled{
+	    	background-color: white;
+	    }
 	}
 	.suggestionsContainer{
-		display: none;
-		left: -1px;
+		background-color: white;
+	    border: 1px solid #aaacb4;
+	    display: none;
+	    left: -1px;
+	    line-height: 20px;
+	    max-height: 160px;
+	    overflow: auto;
 	    position: absolute;
 	    right: -1px;
-	    z-index: 1;
 	    top: 100%;
-	    background-color: white;
-	    border: 1px solid $colorB;
+	    z-index: 1;
 	}
 	& ul, & li{
     	padding: 0;

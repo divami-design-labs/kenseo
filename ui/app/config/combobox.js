@@ -15,7 +15,7 @@ var comboBox = function(elem, suggestions, values) {
 		values.expandArrow = values.expandArrow || "expandArrow",
 		values.listClass = values.listClass || "selectable",
 		values.noChild = "noChild",
-		values.placeholder = values.placeholder || "";
+		values.placeholder = values.placeholder || "",
 		dot = ".",
 		suggestionsContainerClass = dot + values.suggestionsContainer;
 
@@ -24,6 +24,9 @@ var comboBox = function(elem, suggestions, values) {
 	var textBox = document.createElement('input');
 	textBox.setAttribute('type', 'text');
 	renderSuggestions(elem, suggestions, textBox);
+	if(values.disabled){
+		textBox.setAttribute('disabled', true);
+	}
 
 	// <--  Hide section -->
 	//events
@@ -183,6 +186,7 @@ var comboBox = function(elem, suggestions, values) {
 			else{
 				$elem.find(dot + values.listClass).last().addClass(values.hoveredElement);
 			}
+			showActiveItemTop();
 		}
 		// 'DOWN' key pressed
 		else if(code.down === keyCode){
@@ -209,6 +213,7 @@ var comboBox = function(elem, suggestions, values) {
 			else{
 				$elem.find(dot + values.listClass).first().addClass(values.hoveredElement);
 			}
+			showActiveItemDown();
 		}
 		// 'ENTER' Key pressed
 		else if(code.enter === keyCode){
@@ -225,7 +230,25 @@ var comboBox = function(elem, suggestions, values) {
 			filterSuggestions(el);
 		}
 	}
-
+	function showActiveItemTop(){
+		var $activeItem = $elem.find(dot + values.hoveredElement);
+		var $suggestionsContainer = $elem.find(dot + values.suggestionsContainer);
+		var top = $activeItem.position().top;
+		var actualTop = top + $suggestionsContainer.scrollTop();
+		$suggestionsContainer.scrollTop(actualTop);
+	}
+	function showActiveItemDown(){
+		var $activeItem = $elem.find(dot + values.hoveredElement);
+		var $suggestionsContainer = $elem.find(dot + values.suggestionsContainer);
+		var top = $activeItem.position().top;
+		var actualTop = top + $suggestionsContainer.scrollTop();
+		if(actualTop === 0){
+			$suggestionsContainer.scrollTop(0);
+		}
+		else if(actualTop >= $suggestionsContainer.height()){
+			$suggestionsContainer.scrollTop(40 + $suggestionsContainer.scrollTop());
+		}
+	}
 	/*
 	 * Styles the hovered item (parent or child).
 	 * @constructor

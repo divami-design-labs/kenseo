@@ -395,9 +395,11 @@ var sb = (function(){
 						data.callbackfunc();
 					}
 					var combobox = new comboBox(data.elem, response.data, {
-						"placeholder": data.placeholder
+						"placeholder": data.placeholder,
+						"disabled": data.disabled
 					});
 					combobox.onchange = data.onchange;
+					return combobox;
 				});
         	}
         },
@@ -474,19 +476,51 @@ var sb = (function(){
 					);
 
 
-        			sb.renderTemplate({"templateName": 'dropdown', "templateHolder": $('.existing-files-dropdown'), "collection": new Kenseo.collections.Artefacts(), "data": { projectid:Kenseo.popup.data['project_id'], sharepermission: true}});
-        			$('.dropdown').on('change', function(){
-	                    if(this.selectedIndex){
-	                        $('.main-btn').prop('disabled', false);
-	                        Kenseo.popup.data['artefact_id'] = this.selectedOptions[0].getAttribute('name');;
-	                    }
-	                    else{
-	                        $('.main-btn').prop('disabled', true);
-	                    }
-	                });
+					sb.toolbox.comboBox({
+						elem: document.querySelector('.existing-files-dropdown'),
+						data: { 
+        					projectid:Kenseo.popup.data['project_id'], 
+        					references: true
+        				},
+						collection: new Kenseo.collections.Artefacts(),
+						placeholder: "Choose Files",
+						disabled: true,
+						onchange: function($input, $selectedEl, bln){
+							if(bln){
+				                $('.main-btn').prop('disabled', false);
+	                        	Kenseo.popup.data['artefact_id'] = $selectedEl.data('id');
+				            }
+				            else{
+				            	$('.main-btn').prop('disabled', true);
+				            }
+						}
+					});
+
+
+
+
+
+        			// sb.renderTemplate({
+        			// 	"templateName": 'dropdown', 
+        			// 	"templateHolder": $('.existing-files-dropdown'), 
+        			// 	"collection": new Kenseo.collections.Artefacts(), 
+        			// 	"data": { 
+        			// 		projectid:Kenseo.popup.data['project_id'], 
+        			// 		sharepermission: true
+        			// 	}
+        			// });
+        			// $('.dropdown').on('change', function(){
+	          //           if(this.selectedIndex){
+	          //               $('.main-btn').prop('disabled', false);
+	          //               Kenseo.popup.data['artefact_id'] = this.selectedOptions[0].getAttribute('name');
+	          //           }
+	          //           else{
+	          //               $('.main-btn').prop('disabled', true);
+	          //           }
+	          //       });
 
 	                $('.existing-files-chk').change(function(){
-	                	$('.existing-files-dropdown').prop('disabled', !this.checked);
+	                	$('.existing-files-dropdown').find('input').prop('disabled', !this.checked);
 	                });
 
 	                $('.create-file-close-icon').click(function(){
