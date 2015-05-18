@@ -434,7 +434,6 @@ var sb = (function(){
 		            'models': ['Projects'],
 		            'collections': ['Projects']
 		        }, function(){
-
 					sb.ajaxCall({
 						collection: new Kenseo.collections.Projects(),
 						data: {userProjects: true},
@@ -445,7 +444,6 @@ var sb = (function(){
 								elem: container,
 								data: data.data,
 								settings: {
-									// multiSelect: true,
 									placeholder: "Choose Project"
 								},
 								onchange: function($input, $selectedEl, bln){
@@ -459,6 +457,10 @@ var sb = (function(){
 						            }
 								}
 							});
+							if(Kenseo.popup.data && Kenseo.popup.data['project_name']){
+								$(container).find('input').val(Kenseo.popup.data['project_name']);
+								$('.main-btn').prop('disabled', false);
+							}
 						}
 					})
 

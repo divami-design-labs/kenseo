@@ -73,7 +73,7 @@
 .a, .menu-settings-txt, .main-btn, .lnk-btn, .or-btn, .summary-compare-btn {
   text-decoration: none; }
 
-.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item, .suggestion-item, .text-actions-section > div, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .toggle-click, .sv-item .sv-close {
+.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .share-artefact-people-item, .suggestion-item, .text-actions-section > div, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .toggle-click, .sv-item .sv-close {
   cursor: pointer; }
 
 .wrap, .input-wrapper {
@@ -1930,45 +1930,37 @@
 .field-section + .field-section {
   margin-top: 20px; }
 
-.input-text {
+.field-section .input-text {
   height: 18px;
   border: 1px solid #aaacb4;
   padding: 10px; }
-  .input-text::-webkit-input-placeholder {
+  .field-section .input-text::-webkit-input-placeholder {
     color: #3e4354;
     font: 14px "OpenSansItalic"; }
-  .input-text:-moz-placeholder {
+  .field-section .input-text:-moz-placeholder {
     /* Firefox 18- */
     color: #3e4354;
     font: 14px "OpenSansItalic"; }
-  .input-text::-moz-placeholder {
+  .field-section .input-text::-moz-placeholder {
     /* Firefox 19+ */
     color: #3e4354;
     font: 14px "OpenSansItalic"; }
-  .input-text:-ms-input-placeholder {
+  .field-section .input-text:-ms-input-placeholder {
     color: #3e4354;
     font: 14px "OpenSansItalic"; }
-  .input-text:focus {
+  .field-section .input-text:focus {
     outline: none; }
 
-.reference-item {
+.reference-combobox .sv-item, .links-combobox .sv-item {
   font-size: 14px;
   color: #3e4354;
   padding: 15px 10px; }
+.reference-combobox .sv-close, .links-combobox .sv-close {
+  position: absolute;
+  right: 5px;
+  top: 20px; }
 
-.reference-item-close-icon {
-  background-image: url("../../imgs/close.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 10px;
-  height: 10px;
-  float: right;
-  margin-top: 6px; }
-
-.tags-holder {
-  margin-top: 10px; }
-
-.tag {
+.tags-combobox .sv-item {
   display: inline-block;
   padding: 3px;
   padding-right: 25px;
@@ -1976,17 +1968,17 @@
   position: relative;
   font-size: 14px;
   color: #3e4354; }
-  .tag .tag-close {
-    background-image: url("../../imgs/close.svg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width: 10px;
-    height: 10px;
+  .tags-combobox .sv-item .sv-close {
     position: absolute;
     top: 8px;
     left: auto;
     right: 5px;
     bottom: auto; }
+.tags-combobox .sv-item + .sv-item {
+  margin-left: 10px; }
+
+.tags-holder {
+  margin-top: 10px; }
 
 .tags + .tags {
   margin-left: 10px; }
@@ -1997,6 +1989,10 @@
 
 .your-team-body {
   padding-top: 25px; }
+  .your-team-body::after {
+    content: "";
+    display: block;
+    clear: both; }
 
 .your-team-section .input-text {
   width: 460px; }
@@ -2005,16 +2001,21 @@
   margin-top: 30px; }
 
 .share-artefact-people {
-  position: relative; }
+  position: relative;
+  float: left;
+  margin-top: 20px;
+  position: relative;
+  width: 100%; }
 
 .share-artefact-people-item {
-  margin-top: 25px;
   margin-left: 20px;
   width: 210px; }
   .share-artefact-people-item::after {
     content: "";
     display: block;
     clear: both; }
+  .share-artefact-people-item + .share-artefact-people-item {
+    margin-top: 25px; }
   .share-artefact-people-item .share-artefacts-text {
     line-height: 40px;
     margin-left: 10px;
@@ -2830,34 +2831,33 @@ body {
     cursor: pointer; }
     .combobox-wrapper .selectable.active {
       background-color: #aaacb4; }
-  .combobox-wrapper.xm {
-    width: 320px;
+
+.combobox.xm {
+  width: 320px; }
+  .combobox.xm .combobox-wrapper {
     height: 28px; }
-    .combobox-wrapper.xm input::-webkit-input-placeholder {
-      color: #3e4354;
-      font: 18px/28px "OpenSansItalic"; }
-    .combobox-wrapper.xm input:-moz-placeholder {
-      /* Firefox 18- */
-      color: #3e4354;
-      font: 18px/28px "OpenSansItalic"; }
-    .combobox-wrapper.xm input::-moz-placeholder {
-      /* Firefox 19+ */
-      color: #3e4354;
-      font: 18px/28px "OpenSansItalic"; }
-    .combobox-wrapper.xm input:-ms-input-placeholder {
-      color: #3e4354;
-      font: 18px/28px "OpenSansItalic"; }
+  .combobox.xm input::-webkit-input-placeholder {
+    color: #3e4354;
+    font: 18px/28px "OpenSansItalic"; }
+  .combobox.xm input:-moz-placeholder {
+    /* Firefox 18- */
+    color: #3e4354;
+    font: 18px/28px "OpenSansItalic"; }
+  .combobox.xm input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #3e4354;
+    font: 18px/28px "OpenSansItalic"; }
+  .combobox.xm input:-ms-input-placeholder {
+    color: #3e4354;
+    font: 18px/28px "OpenSansItalic"; }
 
 .sv-item {
   position: relative; }
   .sv-item .sv-close {
-    position: absolute;
-    top: 0;
-    right: 0;
     background-image: url("../../imgs/close.svg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    width: 12px;
-    height: 12px; }
+    width: 10px;
+    height: 10px; }
 
 /*# sourceMappingURL=main.css.map */

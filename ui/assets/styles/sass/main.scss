@@ -104,22 +104,21 @@ body{
 	}
 
 
-	&.xm{
-		$h: 28px;
-		width: 320px;
+}
+.combobox.xm{
+	$h: 28px;
+	width: 320px;
+	.combobox-wrapper{
 		height: $h;
+	}
 
-		input{
-			@include placeHolder($colorTwo, 18px/#{$h} $italicFont);
-		}
+	input{
+		@include placeHolder($colorTwo, 18px/#{$h} $italicFont);
 	}
 }
 .sv-item{
 	position: relative;
 	.sv-close{
-		position: absolute;
-		top: 0;
-		right: 0;
-		@include closeIcon(12px);
+		@include closeIcon(10px);
 	}
 }

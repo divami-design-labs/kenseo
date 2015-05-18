@@ -210,41 +210,48 @@ $popup-content-space: 175px;
 .field-section + .field-section{
 	margin-top: 20px;
 }
-.input-text{
-	@include placeHolder($colorTwo, 14px $italicFont);
-	height: 18px;
-	border: 1px solid $colorB;
-	padding: 10px;
-	&:focus{
-		outline: none;
+.field-section{
+	.input-text{
+		@include placeHolder($colorTwo, 14px $italicFont);
+		height: 18px;
+		border: 1px solid $colorB;
+		padding: 10px;
+		&:focus{
+			outline: none;
+		}
 	}
 }
-.reference-item{
-	@include text(14px, $colorTwo);
-	padding: 15px 10px;
-}
-.reference-item-close-icon{
-	@include closeIcon(10px);
-	float: right;
-	margin-top: 6px;
+.reference-combobox, .links-combobox{
+	.sv-item{
+		@include text(14px, $colorTwo);
+		padding: 15px 10px;
+	}
+	.sv-close{
+	    position: absolute;
+	    right: 5px;
+	    top: 20px;
+	}
 }
 
 //tags
+.tags-combobox{
+	.sv-item{
+		display: inline-block;
+		padding: 3px;
+		padding-right: 25px;
+		background-color: $colorR;
+		position: relative;
+		@include text(14px, $colorTwo);
+		.sv-close{
+			@include absoluter(8px, auto, 5px, auto);
+		}
+	}
+	.sv-item + .sv-item{
+		margin-left: 10px;
+	}
+}
 .tags-holder{
 	margin-top: 10px;
-}
-.tag{
-	display: inline-block;
-	padding: 3px;
-	padding-right: 25px;
-	background-color: $colorR;
-	position: relative;
-	@include text(14px, $colorTwo);
-	.tag-close{
-		@include elementWithBackground("close.svg", 10px, 10px);
-		@include absoluter(8px, auto, 5px, auto);
-		@extend .hand;
-	}
 }
 .tags + .tags{
 	margin-left: 10px;
@@ -259,6 +266,7 @@ $popup-content-space: 175px;
 }
 .your-team-body{
 	padding-top: 25px;
+	@include clearFloat();
 }
 .your-team-section .input-text{
 	width: 460px;
@@ -268,12 +276,18 @@ $popup-content-space: 175px;
 }
 .share-artefact-people{
 	position: relative;
+	float: left;
+    margin-top: 20px;
+    position: relative;
+    width: 100%;
 }
 .share-artefact-people-item{
 	@include clearFloat();
 	$w: 230px;
 	$x: 20px;
-	margin-top: 25px;
+	& + &{
+		margin-top: 25px;
+	}
 	margin-left: $x;
 	width: $w - $x;
 	@extend .hand;

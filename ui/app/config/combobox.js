@@ -124,6 +124,7 @@ var comboBox = function(elem, suggestions, values) {
 			svItem.appendChild(svClose);
 			// $elem.find('.suggestions-viewer').append("<div class='sv-item'><div>" + html + "</div><div class='sv-close'></div></div>");
 			$elem.find('.suggestions-viewer').append($(svItem));
+			$text.val('');
 		}
 		hideSuggestions();
 
@@ -299,48 +300,16 @@ var comboBox = function(elem, suggestions, values) {
 			showSuggestions();
 		}
 		var query = el.val().toLowerCase();
-		var queryString = "";
-
-		if(query.indexOf(":") > -1){
-			subQuery = query.substring(query.indexOf(":",0)+1, query.length);
-			queryString = query.substring(0, query.indexOf(":",0));
-		}
-		else{
-			subQuery = "";
-		}
-
 		for(var i = 0; i< suggestions.length; i++){
 			var p = suggestions[i];
-			if(p.name.toLowerCase() === queryString.toLowerCase()){
-				p.excludeParent = false;
-				p.excludeChildren = false;
-				var f = p.children;
-				for(var j=0;j<f.length;j++){
-					var feature = f[j];
-					if(feature.name.indexOf(subQuery) > -1){
-						feature.excludeChild = false;
-					}
-					else{
-						feature.excludeChild = true;
-					}
-				}	
-			}
-			else if(p.name.toLowerCase().indexOf(query) < 0){
+			if(p.name.toLowerCase().indexOf(query) < 0){
 				p.excludeParent = true;
 			}
 			else{
-				p.excludeParent = false;
-				p.excludeChildren = true;
-				var f = p.children;
-				if(f){
-					for(var j=0;j<f.length;j++){
-						var feature = f[j];
-						feature.excludeChild = false;
-					}	
-				}			
+				p.excludeParent = false;	
 			}
 		}
-		renderSuggestions(elem, suggestions);
+		renderSuggestions(elem, suggestions, el.get(0));
 
 		// Preparing change event call
 		var $selecteds = $elem.find('.selectable').filter(function(){
@@ -373,62 +342,57 @@ var comboBox = function(elem, suggestions, values) {
 			});
 		}
 		if(newList){
-			// Making sure nothing is present in the using container.
-			$(el).find('.combobox-wrapper').remove();
-			// Container reset section
-			// Before resetting the container, save the suggestion viewer list
-			if($suggestionsViewer.length){
-				var suggestionsViewer = $suggestionsViewer[0];
+			var ul = document.createElement('ul');
+
+			for(var i=0; i< newList.length; i++){
+				var project = newList[i];
+				if(!project.excludeParent){
+					var projectHeadingWrapper = document.createElement('div');
+
+					projectHeadingWrapper.className = values.listClass;
+					projectHeadingWrapper.onmouseover = makeActive;
+					projectHeadingWrapper.innerHTML = project.name;
+					projectHeadingWrapper.setAttribute('data-id', project.id);
+					projectHeadingWrapper.onclick = insertData;
+					projectHeadingWrapper.name = project.id;
+
+					var li = document.createElement('li');
+					li.appendChild(projectHeadingWrapper);
+
+					ul.appendChild(li);
+				}
 			}
-			else{
-				var suggestionsViewer = document.createElement('div');
-				suggestionsViewer.className = "suggestions-viewer";
-			}
-			// if textBox variable is present, then it means that the rendering is happening for the first time.
 			if(!textBox){
+				var suggestionsViewer = document.createElement('div');
+				var comboboxWrapper = document.createElement('div');
+				var suggestionsContainer = document.createElement('div');
+				suggestionsViewer.className = "suggestions-viewer";
+				suggestionsContainer.className = values.suggestionsContainer;
+				comboboxWrapper.className = "combobox-wrapper";
 				textBox = document.createElement('input');
 				textBox.setAttribute('type', 'text');
 				if(values.disabled){
 					textBox.setAttribute('disabled', true);
 				}
+				//event
+				textBox.onclick = toggleSuggestions;
+				textBox.onkeyup = keyOperations;
+				suggestionsContainer.appendChild(ul);
+				comboboxWrapper.appendChild(textBox);
+				comboboxWrapper.appendChild(suggestionsContainer);
+				el.appendChild(comboboxWrapper);
+				el.appendChild(suggestionsViewer);
 			}
-
-			//event
-			textBox.onclick = toggleSuggestions;
-			textBox.onkeyup = keyOperations;
+			else{
+				$elem.find(dot + values.suggestionsContainer).html('');
+				$elem.find(dot + values.suggestionsContainer).get(0).appendChild(ul);
+			}
+			// textBox.value = txtValue;
 			if(!newList.length){
 				textBox.placeholder = "No items to choose";
 			}else{
 				textBox.placeholder = values.placeholder;
 			}
-
-			var ul = document.createElement('ul');
-			var comboboxWrapper = document.createElement('div');
-			comboboxWrapper.className = "combobox-wrapper";
-			var suggestionsContainer = document.createElement('div');
-
-			for(var i=0; i< newList.length; i++){
-				var project = newList[i];
-				var projectHeadingWrapper = document.createElement('div');
-
-				projectHeadingWrapper.className = values.listClass;
-				projectHeadingWrapper.onmouseover = makeActive;
-				projectHeadingWrapper.innerHTML = project.name;
-				projectHeadingWrapper.setAttribute('data-id', project.id);
-				projectHeadingWrapper.onclick = insertData;
-				projectHeadingWrapper.name = project.id;
-
-				var li = document.createElement('li');
-				li.appendChild(projectHeadingWrapper);
-
-				ul.appendChild(li);
-			}
-			suggestionsContainer.className = values.suggestionsContainer;
-			suggestionsContainer.appendChild(ul);
-			comboboxWrapper.appendChild(textBox);
-			comboboxWrapper.appendChild(suggestionsContainer);
-			el.appendChild(comboboxWrapper);
-			el.appendChild(suggestionsViewer);
 			textBox.focus();
 		}
 	}
