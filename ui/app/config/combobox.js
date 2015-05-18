@@ -113,6 +113,7 @@ var comboBox = function(elem, suggestions, values) {
 			var svItem = document.createElement('div');
 			svItem.className = "sv-item";
 			var svName = document.createElement('div');
+			svName.className = "sv-name";
 			svName.innerHTML = html;
 			var svClose = document.createElement('div');
 			svClose.className = "sv-close";

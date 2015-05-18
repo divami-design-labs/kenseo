@@ -39,6 +39,27 @@ $(function(){
 	})
 	.on('click', '.nav-btn', function(e){
         e.preventDefault();
+
+        var $fieldSection = $('.popup').find('.field-section');
+        if($fieldSection.length){
+        	$fieldSection.each(function(){
+        		var $self = $(this);
+        		var property = $self.data('name');
+        		var $combobox = $self.find('.combobox');
+        		var $text = $self.find('input');
+        		if($combobox.length){
+        			var arrValue = [];
+        			$combobox.find('.sv-name').each(function(){
+        				arrValue.push($(this).html());
+        			});
+        			Kenseo.popup.data[property] = arrValue;
+        		}
+        		else{
+        			Kenseo.popup.data[property] = $text.val();
+        		}
+
+        	});
+        }
         var $dataUrl = $(this).data('index');
         sb.callPopup($dataUrl);
     })
