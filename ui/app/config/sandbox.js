@@ -341,14 +341,14 @@ var sb = (function(){
         		sb.log("provide valid key id pair");
         	}
         },
-        getOffDynamicData: function(str){
-        	return Kenseo[str].data;
+        setPageData: function(val){
+        	Kenseo.page.data = val;
         },
-        setOffDynamicData: function(str){
-
+        getPopupData: function(){
+        	return Kenseo.popup.data;
         },
-        setDynamicData: function(str, val){
-        	Kenseo[str].data = val;
+        setPopupData: function(value){
+        	Kenseo.popup.data = value;
         },
         navigate: function(str, el){
 	        var $self = $(el);
@@ -390,17 +390,27 @@ var sb = (function(){
         		return _.template(templates['buttons'])({"data": data, "index": index});
         	},
         	comboBox: function(data){
-				sb.fetch(data.collection, data.data, function(response){
-					if(data.callbackfunc){
-						data.callbackfunc();
-					}
-					var combobox = new comboBox(data.elem, response.data, {
-						"placeholder": data.placeholder,
-						"disabled": data.disabled
-					});
-					combobox.onchange = data.onchange;
-					return combobox;
-				});
+        		return _.template(templates['combobox'])({"data": data});
+        	},
+    //     	applyComboBox: function(data){
+				// sb.fetch(data.collection, data.data, function(response){
+				// 	if(data.callbackfunc){
+				// 		data.callbackfunc();
+				// 	}
+				// 	var combobox = new comboBox(data.elem, response.data, {
+				// 		"placeholder": data.placeholder,
+				// 		"disabled": data.disabled
+				// 	});
+				// 	combobox.onchange = data.onchange;
+				// 	if(data.postLoader){
+				// 		data.postLoader(combobox);
+				// 	}
+				// });
+    //     	},
+        	applyComboBox: function(data){
+				var combobox = new comboBox(data.elem, data.data, data.settings);
+				combobox.onchange = data.onchange;
+				return combobox;
         	}
         },
         page: {
@@ -424,27 +434,37 @@ var sb = (function(){
 		            'models': ['Projects'],
 		            'collections': ['Projects']
 		        }, function(){
-					var container = document.querySelector('.combobox');
-					sb.toolbox.comboBox({
-						elem: container,
-						data: {userProjects: true},
+
+					sb.ajaxCall({
 						collection: new Kenseo.collections.Projects(),
-						placeholder: "Choose Project",
-						onchange: function($input, $selectedEl, bln){
-							if(bln){
-								Kenseo.popup.data['name'] = $selectedEl.html();
-				                Kenseo.popup.data['project_id'] = $selectedEl.data('id'); 
-				                $('.main-btn').prop('disabled', false);
-				            }
-				            else{
-				            	$('.main-btn').prop('disabled', true);
-				            }
+						data: {userProjects: true},
+						success: function(response){
+							var data = JSON.parse(response);
+							var container = document.querySelector('.combobox');
+							sb.toolbox.applyComboBox({
+								elem: container,
+								data: data.data,
+								settings: {
+									// multiSelect: true,
+									placeholder: "Choose Project"
+								},
+								onchange: function($input, $selectedEl, bln){
+									if(bln){
+										Kenseo.popup.data['project_name'] = $selectedEl.html();
+						                Kenseo.popup.data['project_id'] = $selectedEl.data('id'); 
+						                $('.main-btn').prop('disabled', false);
+						            }
+						            else{
+						            	$('.main-btn').prop('disabled', true);
+						            }
+								}
+							});
 						}
-					});
+					})
+
 				});
 			},
 			createFilePopup: function(){
-				Kenseo.dropdown.name = "Choose an Artefact..";
             	if(Kenseo.popup.data.fileName){
             		$('.create-file-item .notification-title').html(Kenseo.popup.data.fileName);
             		$('.create-file-item').css({'visibility': 'visible'});
@@ -463,68 +483,62 @@ var sb = (function(){
         			'collections': ['Artefacts'],
         			'models': ['Artefacts']
         		},function(){
-        			sb.ajaxCall(
-						{ 
-							'collection': new Kenseo.collections.Artefacts(),
-							'data': {references: true, ignore: 0, projectid: Kenseo.popup.data.project_id},
-							'success': function(response){
-								var data = JSON.parse(response);
-								Kenseo.popup.data.referencesObjResponse = data;
-								Kenseo.popup.data.linksObjResponse = data;
-							}
-						}
-					);
+					// sb.ajaxCall(
+					// 	{ 
+					// 		'collection': new Kenseo.collections.Artefacts(),
+					// 		'data': {references: true, ignore: 0, projectid: Kenseo.popup.data.project_id},
+					// 		'success': function(response){
+					// 			var data = JSON.parse(response);
+					// 			Kenseo.popup.data.referencesObjResponse = data;
+					// 			Kenseo.popup.data.linksObjResponse = data;
+					// 		}
+					// 	}
+					// );
 
-
-					sb.toolbox.comboBox({
-						elem: document.querySelector('.existing-files-dropdown'),
+					sb.ajaxCall({
+						collection: new Kenseo.collections.Artefacts(),
 						data: { 
         					projectid:Kenseo.popup.data['project_id'], 
-        					references: true
+        					references: true,
+        					ignore: 0
         				},
-						collection: new Kenseo.collections.Artefacts(),
-						placeholder: "Choose Files",
-						disabled: true,
-						onchange: function($input, $selectedEl, bln){
-							if(bln){
-				                $('.main-btn').prop('disabled', false);
-	                        	Kenseo.popup.data['artefact_id'] = $selectedEl.data('id');
-				            }
-				            else{
-				            	$('.main-btn').prop('disabled', true);
-				            }
-						}
+        				success: function(response){
+        					var data = JSON.parse(response);
+        					var container = document.querySelector('.existing-files-dropdown');
+							var combobox = sb.toolbox.applyComboBox({
+								elem: container,
+								data: data.data,
+								settings: {
+									placeholder: "Choose Files"
+								},
+								onchange: function($input, $selectedEl, bln){
+									if(bln){
+						                $('.main-btn').prop('disabled', false);
+			                        	Kenseo.popup.data['artefact_id'] = $selectedEl.data('id');
+						            }
+						            else{
+						            	$('.main-btn').prop('disabled', true);
+						            }
+								}
+							});
+
+							$('.existing-files-chk').change(function(){
+								var $elem = combobox.$elem;
+								var $input = $elem.find('input');
+								var $selectables = $elem.find('.selectable');
+								if($selectables.length){
+				                	$input.prop('disabled', !this.checked);
+				                	if(!this.checked){
+				                		$input.val("");
+				                	}
+				                }
+			                });
+        				}
 					});
-
-
-
-
-
-        			// sb.renderTemplate({
-        			// 	"templateName": 'dropdown', 
-        			// 	"templateHolder": $('.existing-files-dropdown'), 
-        			// 	"collection": new Kenseo.collections.Artefacts(), 
-        			// 	"data": { 
-        			// 		projectid:Kenseo.popup.data['project_id'], 
-        			// 		sharepermission: true
-        			// 	}
-        			// });
-        			// $('.dropdown').on('change', function(){
-	          //           if(this.selectedIndex){
-	          //               $('.main-btn').prop('disabled', false);
-	          //               Kenseo.popup.data['artefact_id'] = this.selectedOptions[0].getAttribute('name');
-	          //           }
-	          //           else{
-	          //               $('.main-btn').prop('disabled', true);
-	          //           }
-	          //       });
-
-	                $('.existing-files-chk').change(function(){
-	                	$('.existing-files-dropdown').find('input').prop('disabled', !this.checked);
-	                });
+	                
 
 	                $('.create-file-close-icon').click(function(){
-	                	$('.create-file-item').hide();
+	                	$('.create-file-item').css({'visibility': 'hidden'});
 	                	$('.main-btn').prop('disabled', true);
 	                	Kenseo.popup.data.fileName = null;
 	                });
@@ -539,14 +553,78 @@ var sb = (function(){
 					// Tags listing
 					sb.ajaxCall(
 						{ 
-							'collection': new Kenseo.collections.Tags(),
-							'data': {},
-							'success': function(response){
-								Kenseo.popup.data.tagObjResponse = JSON.parse(response);
+							'collection': new Kenseo.collections.Artefacts(),
+							'data': {references: true, ignore: 0, projectid: Kenseo.popup.data.project_id},
+							success: function(response){
+	        					var data = JSON.parse(response);
+	        					var container = document.querySelector('.reference-combobox');
+								var combobox = sb.toolbox.applyComboBox({
+									elem: container,
+									data: data.data,
+									settings: {
+										multiSelect: true
+									},
+									onchange: function($input, $selectedEl, bln){
+										if(bln){
+							                $('.main-btn').prop('disabled', false);
+				                        	Kenseo.popup.data['artefact_id'] = $selectedEl.data('id');
+							            }
+							            else{
+							            	$('.main-btn').prop('disabled', true);
+							            }
+									}
+								});
+
+
+
+
+	        					var links = document.querySelector('.links-combobox');
+								var linksCombobox = new sb.toolbox.applyComboBox({
+									elem: links,
+									data: data.data,
+									settings: {
+										multiSelect: true
+									},
+									onchange: function($input, $selectedEl, bln){
+										if(bln){
+							                $('.main-btn').prop('disabled', false);
+				                        	Kenseo.popup.data['artefact_id'] = $selectedEl.data('id');
+							            }
+							            else{
+							            	$('.main-btn').prop('disabled', true);
+							            }
+									}
+								});
 							}
 						}
 					);
-					
+
+					sb.ajaxCall(
+						{ 
+							'collection': new Kenseo.collections.Tags(),
+							'data': {},
+							success: function(response){
+	        					var data = JSON.parse(response);
+	        					var container = document.querySelector('.tags-combobox');
+								var combobox = sb.toolbox.applyComboBox({
+									elem: container,
+									data: data.data,
+									settings: {
+										multiSelect: true
+									},
+									onchange: function($input, $selectedEl, bln){
+										if(bln){
+							                $('.main-btn').prop('disabled', false);
+				                        	Kenseo.popup.data['artefact_id'] = $selectedEl.data('id');
+							            }
+							            else{
+							            	$('.main-btn').prop('disabled', true);
+							            }
+									}
+								});
+							}
+						}
+					);
             	});
             },
             shareWithPeoplePopup: function(){

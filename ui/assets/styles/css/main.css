@@ -73,7 +73,7 @@
 .a, .menu-settings-txt, .main-btn, .lnk-btn, .or-btn, .summary-compare-btn {
   text-decoration: none; }
 
-.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item, .suggestion-item, .text-actions-section > div, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .toggle-click {
+.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .reference-item-close-icon, .tag .tag-close, .share-artefact-people-item, .suggestion-item, .text-actions-section > div, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .toggle-click, .sv-item .sv-close {
   cursor: pointer; }
 
 .wrap, .input-wrapper {
@@ -1721,7 +1721,7 @@
 
 .popup-large {
   width: 725px;
-  height: 555px; }
+  height: 570px; }
 
 .popup-large-df {
   width: 730px;
@@ -1812,7 +1812,7 @@
   background-color: transparent; }
 
 .projects-dropdown {
-  width: 280px;
+  width: 330px;
   height: 40px; }
 
 /* second artefact popup*/
@@ -1873,9 +1873,13 @@
 
 .create-file-item {
   position: relative;
-  width: 250px;
+  width: 195px;
   margin-bottom: 10px;
   visibility: hidden; }
+  .create-file-item .notification-item {
+    margin-top: 10px; }
+  .create-file-item .notification-title {
+    margin-right: 15px; }
 
 .create-file-close-icon {
   background-image: url("../../imgs/close.svg");
@@ -2127,6 +2131,10 @@
 
 .people-permissions-section {
   margin-top: 40px; }
+
+.combobox.existing-files-dropdown {
+  margin-top: 10px;
+  width: 250px; }
 
 .popup-meeting {
   width: 565px;
@@ -2750,26 +2758,30 @@ body {
   margin: 0 auto;
   min-width: 1180px; }
 
-.combobox {
+.combobox-wrapper {
   position: relative;
-  height: 25px;
-  padding: 10px 40px 10px 15px;
+  height: 35px;
+  padding: 5px 40px 5px 15px;
   border: 1px solid #aaacb4; }
-  .combobox:after {
+  .combobox-wrapper:after, .combobox-wrapper:before {
     content: "";
-    border-bottom: 1px solid #aaacb4;
-    border-left: 1px solid #aaacb4;
-    height: 10px;
+    border-width: 10px;
+    border-style: solid;
     position: absolute;
     right: 15px;
-    top: 15px;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    width: 10px; }
-  .combobox input {
+    top: 50%;
+    margin-top: 5px;
+    transform: translate(0px, -50%);
+    -webkit-transform: translate(0px, -50%);
+    -moz-transform: translate(0px, -50%);
+    -ms-transform: translate(0px, -50%);
+    -o-transform: translate(0px, -50%); }
+  .combobox-wrapper:after {
+    border-color: white transparent transparent transparent;
+    margin-top: 0px; }
+  .combobox-wrapper:before {
+    border-color: #aaacb4 transparent transparent transparent; }
+  .combobox-wrapper input {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -2777,25 +2789,25 @@ body {
     font-size: 18px;
     color: black;
     border: none; }
-    .combobox input::-webkit-input-placeholder {
+    .combobox-wrapper input::-webkit-input-placeholder {
       color: #3e4354;
-      font: 18px "OpenSansItalic"; }
-    .combobox input:-moz-placeholder {
+      font: 18px/35px "OpenSansItalic"; }
+    .combobox-wrapper input:-moz-placeholder {
       /* Firefox 18- */
       color: #3e4354;
-      font: 18px "OpenSansItalic"; }
-    .combobox input::-moz-placeholder {
+      font: 18px/35px "OpenSansItalic"; }
+    .combobox-wrapper input::-moz-placeholder {
       /* Firefox 19+ */
       color: #3e4354;
-      font: 18px "OpenSansItalic"; }
-    .combobox input:-ms-input-placeholder {
+      font: 18px/35px "OpenSansItalic"; }
+    .combobox-wrapper input:-ms-input-placeholder {
       color: #3e4354;
-      font: 18px "OpenSansItalic"; }
-    .combobox input:focus {
+      font: 18px/35px "OpenSansItalic"; }
+    .combobox-wrapper input:focus {
       outline: none; }
-    .combobox input:disabled {
+    .combobox-wrapper input:disabled {
       background-color: white; }
-  .combobox .suggestionsContainer {
+  .combobox-wrapper .suggestionsContainer {
     background-color: white;
     border: 1px solid #aaacb4;
     display: none;
@@ -2807,16 +2819,45 @@ body {
     right: -1px;
     top: 100%;
     z-index: 1; }
-  .combobox ul, .combobox li {
+  .combobox-wrapper ul, .combobox-wrapper li {
     padding: 0;
     margin: 0;
     display: block; }
-  .combobox .selectable {
+  .combobox-wrapper .selectable {
     padding: 10px;
     margin: 0;
     display: block;
     cursor: pointer; }
-    .combobox .selectable.active {
+    .combobox-wrapper .selectable.active {
       background-color: #aaacb4; }
+  .combobox-wrapper.xm {
+    width: 320px;
+    height: 28px; }
+    .combobox-wrapper.xm input::-webkit-input-placeholder {
+      color: #3e4354;
+      font: 18px/28px "OpenSansItalic"; }
+    .combobox-wrapper.xm input:-moz-placeholder {
+      /* Firefox 18- */
+      color: #3e4354;
+      font: 18px/28px "OpenSansItalic"; }
+    .combobox-wrapper.xm input::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #3e4354;
+      font: 18px/28px "OpenSansItalic"; }
+    .combobox-wrapper.xm input:-ms-input-placeholder {
+      color: #3e4354;
+      font: 18px/28px "OpenSansItalic"; }
+
+.sv-item {
+  position: relative; }
+  .sv-item .sv-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url("../../imgs/close.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 12px;
+    height: 12px; }
 
 /*# sourceMappingURL=main.css.map */

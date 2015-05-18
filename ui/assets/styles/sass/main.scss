@@ -36,28 +36,36 @@ body{
 
 // Combobox
 
-.combobox{
+.combobox-wrapper{
+	$h: 35px;
 	position: relative;
-	height: 25px;
-	padding: 10px 40px 10px 15px;
+	$borderWidth: 10px;
+	height: $h;
+	padding: 5px 40px 5px 15px;
 	border: 1px solid $colorB;
-	&:after{
+	&:after, &:before{
 	    content: "";
-		border-bottom: 1px solid $colorB;
-	    border-left: 1px solid $colorB;
-	    height: 10px;
+	    border-width: $borderWidth;
+	    border-style: solid;
 	    position: absolute;
 	    right: 15px;
-	    top: 15px;
-	    @include transform(rotate(-45deg));
-	    width: 10px;
+	    top: 50%;
+	    margin-top: $borderWidth/2;
+	    @include transform(translate(0px, -50%));
+	}
+	&:after{
+		border-color: white transparent transparent transparent;
+		margin-top: 0px;
+	}
+	&:before{
+	    border-color: $colorB transparent transparent transparent;
 	}
 	input{
 	    margin: 0;
 	    padding: 0;
 	    width: 100%;
 	    height: 100%;
-	    @include placeHolder($colorTwo, 18px $italicFont);
+	    @include placeHolder($colorTwo, 18px/#{$h} $italicFont);
 	    @include text(18px, black);
 	    border: none;
 	    &:focus{
@@ -93,5 +101,25 @@ body{
 		&.active{
 			background-color: $colorB;
 		}
+	}
+
+
+	&.xm{
+		$h: 28px;
+		width: 320px;
+		height: $h;
+
+		input{
+			@include placeHolder($colorTwo, 18px/#{$h} $italicFont);
+		}
+	}
+}
+.sv-item{
+	position: relative;
+	.sv-close{
+		position: absolute;
+		top: 0;
+		right: 0;
+		@include closeIcon(12px);
 	}
 }

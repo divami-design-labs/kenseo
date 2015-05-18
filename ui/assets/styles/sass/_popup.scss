@@ -22,7 +22,7 @@
 	@include dimensions(425px, 260px);
 }
 .popup-large{
-	@include dimensions(725px, 555px);
+	@include dimensions(725px, 570px);
 }
 .popup-large-df{
 	@include dimensions(730px, 590px)
@@ -91,7 +91,7 @@
 	@extend .a;
 }
 .projects-dropdown{
-	width: 280px;
+	width: 330px;
 	height: 40px;
 }
 
@@ -155,9 +155,15 @@ $popup-content-space: 175px;
 }
 .create-file-item{
 	position: relative;
-	width: 250px;
+	width: 195px;
 	margin-bottom: 10px;
 	visibility: hidden;
+	.notification-item{
+		margin-top: 10px;
+	}
+	.notification-title{
+		margin-right: 15px;
+	}
 }
 .create-file-close-icon{
 	@include closeIcon(10px);
@@ -376,4 +382,9 @@ $popup-content-space: 175px;
 }
 .people-permissions-section{
 	margin-top: 40px;
+}
+
+.combobox.existing-files-dropdown {
+    margin-top: 10px;
+    width: 250px;
 }

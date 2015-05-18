@@ -251,5 +251,4 @@ $(function(){
    .on('click', '.tag-close', function(){
 		$(this).parent().remove();
 	});
-	
 });

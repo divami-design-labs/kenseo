@@ -10,16 +10,18 @@
 			data-index="<%= index+1 %>">
 		<%= b.label %>
 		</button>
-	<% } else if(b.label === "Back" && index > 0){ %>
-		<button  type="button"
-		<% if(b.disabled){ %> 
-			disabled="true" autocomplete="off" 
-		<% } %> 
-			class="<%= b.cls %> nav-btn"
-			data-index="<%= index-1 %>">
-			<%= b.label %>
-		</button>
-	<% } else if(b.label === "Cancel" || b.label === "Done"){ %>
+	<% } else if(b.label === "Back"){ %>
+		<%  if(index > 0){ %>
+			<button  type="button"
+			<% if(b.disabled){ %> 
+				disabled="true" autocomplete="off" 
+			<% } %> 
+				class="<%= b.cls %> nav-btn"
+				data-index="<%= index-1 %>">
+				<%= b.label %>
+			</button>
+		<% } %>
+	<% } else { %>
 		<button  type="button"
 		<% if(b.disabled){ %> 
 			disabled="true" autocomplete="off" 

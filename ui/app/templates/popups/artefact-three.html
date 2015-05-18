@@ -19,38 +19,17 @@
 			<form>
 				<%
 				var fields = {
-					textBoxOne: sb.toolbox.textBox({
+					comboBoxOne: sb.toolbox.comboBox({
 						"label": "References",
-						"class": "reference-files-text",
-						"enableSuggestions": true,
-						"attr": {
-							"data-elem": "references",
-							"placeholder": "Type file or feature name and press enter",
-						},
-						"suggestions-holder": "reference-files-suggestions",
-						"suggestions-viewer": "reference-files-holder"
+						"class": "xm reference-combobox"
 					}),
-					textBoxTwo: sb.toolbox.textBox({
+					comboBoxTwo: sb.toolbox.comboBox({
 						"label": "Tags",
-						"class": "tags-text",
-						"enableSuggestions": true,
-						"attr": {
-							"data-elem": "tag",
-							"placeholder": "Type a tag and press enter",
-						},
-						"suggestions-holder": "reference-files-suggestions",
-						"suggestions-viewer": "tags-holder"
+						"class": "xm tags-combobox"
 					}),
-					textBoxThree: sb.toolbox.textBox({
+					comboBoxThree: sb.toolbox.comboBox({
 						"label": "Links",
-						"class": "link-text",
-						"enableSuggestions": true,
-						"attr": {
-							"data-elem": "links",
-							"placeholder": "Type file or feature name and press enter",
-						},
-						"suggestions-holder": "reference-files-suggestions",
-						"suggestions-viewer": "links-holder"
+						"class": "xm links-combobox"
 					})
 				}
 
@@ -58,9 +37,9 @@
 
 				
 
-				<%= fields.textBoxOne %>
-				<%= fields.textBoxTwo %>
-				<%= fields.textBoxThree %>
+				<%= fields.comboBoxOne %>
+				<%= fields.comboBoxTwo %>
+				<%= fields.comboBoxThree %>
 				
 				<div class="buttons-section">
 					<%= _.template(templates['buttons'])({"data": data, "index": index}) %>

@@ -21,12 +21,13 @@ var comboBox = function(elem, suggestions, values) {
 
 	$elem.addClass(values.container);
 
-	var textBox = document.createElement('input');
-	textBox.setAttribute('type', 'text');
-	renderSuggestions(elem, suggestions, textBox);
-	if(values.disabled){
-		textBox.setAttribute('disabled', true);
-	}
+	_this.$elem = $elem;
+	// var textBox = document.createElement('input');
+	// textBox.setAttribute('type', 'text');
+	renderSuggestions(elem, suggestions);
+	// if(values.disabled){
+	// 	textBox.setAttribute('disabled', true);
+	// }
 
 	// <--  Hide section -->
 	//events
@@ -105,7 +106,25 @@ var comboBox = function(elem, suggestions, values) {
 		if($text.val().toLowerCase() !== html.toLowerCase() && _this.onchange){
 			_this.onchange($text, $el, true);
 		}
-		$text.val(html);
+		if(!values.multiSelect){
+			$text.val(html);
+		}
+		else{
+			var svItem = document.createElement('div');
+			svItem.className = "sv-item";
+			var svName = document.createElement('div');
+			svName.innerHTML = html;
+			var svClose = document.createElement('div');
+			svClose.className = "sv-close";
+			svClose.onclick = function(e){
+				var el = e.currentTarget;
+				$(el.parentElement).remove();
+			}
+			svItem.appendChild(svName);
+			svItem.appendChild(svClose);
+			// $elem.find('.suggestions-viewer').append("<div class='sv-item'><div>" + html + "</div><div class='sv-close'></div></div>");
+			$elem.find('.suggestions-viewer').append($(svItem));
+		}
 		hideSuggestions();
 
 	}
@@ -129,7 +148,14 @@ var comboBox = function(elem, suggestions, values) {
 		if(e){
 			filterSuggestions($(e.currentTarget), true);
 		}
-		$elem.find(suggestionsContainerClass).toggle();
+		var $suggestionsContainer = $elem.find(suggestionsContainerClass);
+		if($suggestionsContainer.css('display') !== "none"){
+			$suggestionsContainer.hide();
+		}
+		else{
+			$('.combobox').not($elem).find(suggestionsContainerClass).hide();
+			$suggestionsContainer.show();
+		}
 	}
 	/**
 	 * Hides the suggestions
@@ -246,7 +272,7 @@ var comboBox = function(elem, suggestions, values) {
 			$suggestionsContainer.scrollTop(0);
 		}
 		else if(actualTop >= $suggestionsContainer.height()){
-			$suggestionsContainer.scrollTop(40 + $suggestionsContainer.scrollTop());
+			$suggestionsContainer.scrollTop($activeItem.outerHeight() + $suggestionsContainer.scrollTop());
 		}
 	}
 	/*
@@ -335,53 +361,75 @@ var comboBox = function(elem, suggestions, values) {
 	 * @param {object} el - represents the element in which the suggestions are to be rendered.
 	 */
 	function renderSuggestions(el, list, textBox){
-		if(list.length){
-			var ul = document.createElement('ul');
+		var $suggestionsViewer = $elem.find(".suggestions-viewer");
+		var newList = _.cloneDeep(list);
+		if($suggestionsViewer.length){
+			$suggestionsViewer.find('.sv-item').each(function(){
+				for(var i=0;i<newList.length;i++){
+					if(newList[i].name.toLowerCase() === this.textContent.toLowerCase()){
+						newList.splice(i,1);
+					}
+				}
+			});
+		}
+		if(newList){
+			// Making sure nothing is present in the using container.
+			$(el).find('.combobox-wrapper').remove();
+			// Container reset section
+			// Before resetting the container, save the suggestion viewer list
+			if($suggestionsViewer.length){
+				var suggestionsViewer = $suggestionsViewer[0];
+			}
+			else{
+				var suggestionsViewer = document.createElement('div');
+				suggestionsViewer.className = "suggestions-viewer";
+			}
+			// if textBox variable is present, then it means that the rendering is happening for the first time.
+			if(!textBox){
+				textBox = document.createElement('input');
+				textBox.setAttribute('type', 'text');
+				if(values.disabled){
+					textBox.setAttribute('disabled', true);
+				}
+			}
 
-			for(var i=0; i< list.length; i++){
+			//event
+			textBox.onclick = toggleSuggestions;
+			textBox.onkeyup = keyOperations;
+			if(!newList.length){
+				textBox.placeholder = "No items to choose";
+			}else{
+				textBox.placeholder = values.placeholder;
+			}
+
+			var ul = document.createElement('ul');
+			var comboboxWrapper = document.createElement('div');
+			comboboxWrapper.className = "combobox-wrapper";
+			var suggestionsContainer = document.createElement('div');
+
+			for(var i=0; i< newList.length; i++){
+				var project = newList[i];
 				var projectHeadingWrapper = document.createElement('div');
 
 				projectHeadingWrapper.className = values.listClass;
+				projectHeadingWrapper.onmouseover = makeActive;
+				projectHeadingWrapper.innerHTML = project.name;
+				projectHeadingWrapper.setAttribute('data-id', project.id);
+				projectHeadingWrapper.onclick = insertData;
+				projectHeadingWrapper.name = project.id;
 
 				var li = document.createElement('li');
 				li.appendChild(projectHeadingWrapper);
 
-				//active
-				projectHeadingWrapper.onmouseover = makeActive;
-
-				var project = list[i];
-				var features = project.children;
-				if(!project.excludeParent){
-					projectHeadingWrapper.innerHTML = project.name;
-					projectHeadingWrapper.setAttribute('data-id', project.id);
-
-					projectHeadingWrapper.onclick = insertData;
-
-					projectHeadingWrapper.name = project.id;
-					ul.appendChild(li);
-				}
+				ul.appendChild(li);
 			}
-			// if textBox variable is present, then it means that the rendering is happening for the first time.
-			if(textBox){
-				// Making sure nothing is present in the using container.
-				el.innerHTML = "";
-				el.appendChild(textBox);
-
-				//event
-				textBox.onclick = toggleSuggestions;
-				textBox.onkeyup = keyOperations;
-				textBox.setAttribute('placeholder', values.placeholder);
-
-				var suggestionsContainer = document.createElement('div');
-				suggestionsContainer.className = values.suggestionsContainer;
-			}
-			else{
-				// keep the textbox
-				var suggestionsContainer = $(el).children(suggestionsContainerClass)[0];
-				suggestionsContainer.innerHTML = "";
-			}
+			suggestionsContainer.className = values.suggestionsContainer;
 			suggestionsContainer.appendChild(ul);
-			el.appendChild(suggestionsContainer);
-		}	
+			comboboxWrapper.appendChild(textBox);
+			comboboxWrapper.appendChild(suggestionsContainer);
+			el.appendChild(comboboxWrapper);
+			el.appendChild(suggestionsViewer);
+			textBox.focus();
+		}
 	}
 }

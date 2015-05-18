@@ -68,6 +68,6 @@ Kenseo.views.Artefact = Backbone.View.extend({
     openPopup: function(e){
         e.preventDefault();
         var model = this.model.collection.get($(e.currentTarget).data('id'));
-        sb.setDynamicData("popup", model.toJSON());
+        sb.setPopupData(model.toJSON());
     }
 });

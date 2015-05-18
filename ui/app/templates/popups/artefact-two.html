@@ -1,4 +1,5 @@
 <% var dataObj = Kenseo.popup.info[index] %>
+<% var dump = sb.getPopupData() %>
 <div class="popup popup-large">
 	<div class="popup-header">
 		<div class="popup-title"><%= dataObj.title %></div>
@@ -8,7 +9,7 @@
 		<div class="popup-left-section">
 			<div class="meta-item">
 				<div class="meta-heading">Under</div>
-				<div class="meta-text"><%= Kenseo.popup.data.name %></div>
+				<div class="meta-text"><%= dump.project_name %></div>
 			</div>
 		</div>
 		<div class="popup-body-wrapper popup-right-section">
