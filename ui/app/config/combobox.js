@@ -331,6 +331,9 @@ var comboBox = function(elem, suggestions, values) {
 	 * @param {object} el - represents the element in which the suggestions are to be rendered.
 	 */
 	function renderSuggestions(el, list, textBox){
+		if(!el){
+			return;
+		}
 		var $suggestionsViewer = $elem.find(".suggestions-viewer");
 		var newList = _.cloneDeep(list);
 		if($suggestionsViewer.length){
@@ -397,4 +400,36 @@ var comboBox = function(elem, suggestions, values) {
 			textBox.focus();
 		}
 	}
+
+
+	function renderSelectedItems(){
+		var key = $elem.parent().data('name');
+		if(key){
+			var selectedItems = Kenseo.popup.data[key];
+			if(selectedItems){
+				var $suggestionsViewer = $elem.find('.suggestions-viewer');
+				for(var i=0; i< selectedItems.length; i++){
+					var svItem = document.createElement('div');
+					svItem.className = "sv-item";
+					var s = selectedItems[i];
+					var svName = document.createElement('div');
+					svName.innerHTML = s.name;
+					svName.className = "sv-name";
+					svName.setAttribute('data-id', s.id)
+					var svClose = document.createElement('div');
+					svClose.className = "sv-close";
+					svClose.onclick = function(e){
+						var el = e.currentTarget;
+						$(el.parentElement).remove();
+					}
+					svItem.appendChild(svName);
+					svItem.appendChild(svClose);
+					$elem.find('.suggestions-viewer').append($(svItem));
+					// $text.val('');
+				}
+			}
+		}
+	}
+
+	renderSelectedItems();
 }

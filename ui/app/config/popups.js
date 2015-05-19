@@ -72,6 +72,7 @@ Kenseo.popups = (function(){
 	            "title": "Share an Artefact",
 	            "show_coming_soon": false,
 	            allow_artefact_selection: true,
+	            chooseExistingFile: true,
 	            "buttons": [{
 	            	"label": "Back",
 	            	"cls": "lnk-btn"
@@ -125,7 +126,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive an Artefact",
         		"message": function(){
-        			return "Do you want to archive " + Kenseo.popup.data.title + " artefact?";
+        			return "Do you want to archive " + sb.getPopupData('title') + " artefact?";
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -135,7 +136,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn cancel-btn"
 	            }],
 	            "callbackfunc": function() {
-	            	Kenseo.popup.data.actionType = 'art-archive'
+	            	sb.setPopupData('art-archive', 'actionType'); 
 	            }
         	}
         ],
@@ -144,7 +145,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Delete an Artefact",
         		"message": function(){
-        			return "Do you want to Delete " + Kenseo.popup.data.title + " artefact?";
+        			return "Do you want to Delete " + sb.getPopupData('title') + " artefact?";
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -154,7 +155,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn cancel-btn"
 	            }],
 	            "callbackfunc": function() {
-	            	Kenseo.popup.data.actionType = 'art-delete'
+	            	sb.setPopupData('art-delete', 'actionType');
 	            }
         	}
         ],
@@ -163,7 +164,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive a Project",
         		"message": function(){
-        			return "Do you want to archive " + Kenseo.popup.data.name + " project ?";
+        			return "Do you want to archive " + sb.getPopupData('name') + " project ?";
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -189,7 +190,7 @@ Kenseo.popups = (function(){
 	            	"disabled": false
 	            }],
 	            "callbackfunc": function() {
-	            	Kenseo.popup.data.actionType = 'art-replace'
+	            	sb.setPopupData('art-replace', 'actionType');
 	            }
         	}
         ],

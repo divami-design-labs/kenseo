@@ -50,12 +50,12 @@ $(function(){
         		if($combobox.length){
         			var arrValue = [];
         			$combobox.find('.sv-name').each(function(){
-        				arrValue.push($(this).html());
+        				arrValue.push({name: $(this).html(), id: $(this).data('id')});
         			});
-        			Kenseo.popup.data[property] = arrValue;
+        			sb.setPopupData(arrValue, property);
         		}
         		else{
-        			Kenseo.popup.data[property] = $text.val();
+        			sb.setPopupData($text.val(), property);
         		}
 
         	});
@@ -92,12 +92,12 @@ $(function(){
     })
     .on('click', '.done-btn', function() {
     	var $self = $(this);
-    	var actionType = Kenseo.popup.data.actionType;
+    	var actionType = sb.getPopupData('actionType');
     	var data = null;
     	switch(actionType) {
     		case 'art-archive' :
     			data = {
-    				"artefactId": Kenseo.popup.data.id
+    				"artefactId": sb.getPopupData('id')
     			};
     			url = "../server/archiveArtefact";
     			type= 'GET';
@@ -117,28 +117,29 @@ $(function(){
     			break;
     		case 'art-delete' :
     			data = {
-    				"artefactId": Kenseo.popup.data.id
+    				"artefactId": sb.getPopupData('id')
     			};
     			url = "../server/deleteArtefact";
     			type= 'GET';
     			break;
     		default :
 				var data = new FormData();
-				
-				data.append("name", Kenseo.popup.data.fileName);
+				var dump = sb.getPopupData();
+
+				data.append("name", dump['fileName']);
 				data.append("command", 'addArtefact');
 				data.append("description" , "hfvjdhdfjdjf");
-				data.append("project" , Kenseo.popup.data['project_id']);
-				data.append("MIMEtype", Kenseo.popup.data.file);
-				data.append("size", Kenseo.popup.data.file.size);
+				data.append("project" , dump['project_id']);
+				data.append("MIMEtype", dump['file']);
+				data.append("size", dump.file.size);
 				data.append("type", 'I');
 				data.append("sid", '9hal4k29ath2hu3oivuqetn967');
-				data.append("file",Kenseo.popup.data.file);
+				data.append("file", dump['file']);
 				data.append("tags", [1,3,4,5]);
 				data.append("linkIds", [1,2,3]);
 				data.append("refs", [1]);
-				data.append("artefact_id", Kenseo.popup.data['artefact_id']);
-				data.append("share", Kenseo.popup.data.share);
+				data.append("artefact_id", dump['artefact_id']);
+				data.append("share", dump['share']);
 				data.append("sharedTo", [{
 					"userId" : 2,
 					"permission" : 'S'
@@ -175,7 +176,7 @@ $(function(){
 	})
 	.on('click', '.archive-btn', function() {
 		var $self = $(this);
-		var artId = Kenseo.popup.data.id;
+		var artId = sb.getPopupData('id');
 		sb.renderTemplate({
 			"url": '../server/archiveArtefact', 
 			"data": {
@@ -189,7 +190,7 @@ $(function(){
 	})
 	.on('click', '.delete-btn', function() {
 		var $self = $(this);
-		var artId = Kenseo.popup.data.id;
+		var artId = sb.getPopupData('id');
 		sb.renderTemplate({
 			"url": '../server/deleteArtefact', 
 			"data": {
@@ -235,7 +236,7 @@ $(function(){
    .on('keyup', '.suggestion-text-input', function(e) {
 		var type = this.getAttribute('data-elem');
 
-		var useData = Kenseo.popup.data[type + "ObjResponse"];
+		var useData = sb.getPopupData(type + "ObjResponse");
 		var $suggestionHolder = $(this).parent().next('.field-suggestions');
 		
 		var self = this;
@@ -253,23 +254,23 @@ $(function(){
 		sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $suggestionHolder, "data": {data: filteredData}});
    })
    
-   .on('click','.suggestion-item',function() {
-   	var $parent = $(this).parent();
-		var $holder = $parent.next();
-		var html = $holder.html();
-		var $input = $parent.parent().find('.suggestion-text-input');
-		var type = $input.attr('data-elem')
-		var appendText = "<div class='" + type + "' name='"  + this.getAttribute('name') + "'>" + this.innerHTML + "<div class='" + type + "-close'></div</div>";
-		$holder.html(html + appendText);
-		$parent.hide();
-		$input.val('');
-   })
+ //   .on('click','.suggestion-item',function() {
+ //   	var $parent = $(this).parent();
+	// 	var $holder = $parent.next();
+	// 	var html = $holder.html();
+	// 	var $input = $parent.parent().find('.suggestion-text-input');
+	// 	var type = $input.attr('data-elem')
+	// 	var appendText = "<div class='" + type + "' name='"  + this.getAttribute('name') + "'>" + this.innerHTML + "<div class='" + type + "-close'></div</div>";
+	// 	$holder.html(html + appendText);
+	// 	$parent.hide();
+	// 	$input.val('');
+ //   })
    
-   .on('click', '.references-close', function(){
-		$(this).parent().remove();
-	})
+ //   .on('click', '.references-close', function(){
+	// 	$(this).parent().remove();
+	// })
 	
-   .on('click', '.tag-close', function(){
-		$(this).parent().remove();
-	});
+ //   .on('click', '.tag-close', function(){
+	// 	$(this).parent().remove();
+	// });
 });

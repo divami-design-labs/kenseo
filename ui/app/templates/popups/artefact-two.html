@@ -1,5 +1,21 @@
 <% var dataObj = Kenseo.popup.info[index] %>
 <% var dump = sb.getPopupData() %>
+<%
+
+var fields = {
+	chooseCombobox: sb.toolbox.comboBox({
+		"class": "xs choose-file-combobox",
+		"dataName": "choose-file"
+	}),
+	existingCombobox: sb.toolbox.comboBox({
+		"class": "xm existing-files-combobox",
+		"dataName": "choose-file"
+	})
+}
+
+%>
+
+
 <div class="popup popup-large">
 	<div class="popup-header">
 		<div class="popup-title"><%= dataObj.title %></div>
@@ -25,21 +41,18 @@
 				</label>
 				<a href="" class="or-btn">Or</a>
 				<div class="create-file-section">
-					<div class="file-heading">
-						Create file
-					</div>
+					<% if(dataObj.chooseExistingFile){ %>
+						<div class="file-heading">
+							Choose an existing file
+						</div>
+						<%= fields.chooseCombobox %>
+					<% } else{ %>
+						<div class="file-heading">
+							Create file
+						</div>
+					<% } %>
 					<% if(dataObj.show_coming_soon){ %>
 						<div class="coming-soon-text">Coming soon!</div>
-					<% } else { %>
-						<div class="field-section">
-							<div class="input-wrapper">
-								<input type="text" class="input-text suggestion-text-input" placeholder="Type file or feature name" data-elem="references"></input>
-							</div>
-							<div class="reference-files-suggestions suggestions-holder"></div>
-							<div class="reference-files-holder">
-							<div class="notifications-holder"></div>
-							</div>
-						</div>
 					<% } %>
 					<div class="create-file-item">
 					</div>
@@ -63,7 +76,7 @@
 					<input type="checkbox" class="existing-files-chk"></input>
 					<span>This is a new version of an existing file</span>
 				</label>
-				<div class="combobox existing-files-dropdown"></div>
+				<%= fields.existingCombobox %>
 			<% } %>
 		</div>
 		<div class="buttons-section">
