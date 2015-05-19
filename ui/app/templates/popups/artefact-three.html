@@ -1,4 +1,5 @@
 <% var dataObj = Kenseo.popup.info[index] %>
+<% var popDataObj = Kenseo.popup.data %>
 <div class="popup popup-large">
 	<div class="popup-header">
 		<div class="popup-title"><%= dataObj.title %></div>
@@ -43,6 +44,8 @@
 				<%= fields.comboBoxOne %>
 				<%= fields.comboBoxTwo %>
 				<%= fields.comboBoxThree %>
+				
+				
 				
 				<div class="buttons-section">
 					<%= _.template(templates['buttons'])({"data": data, "index": index}) %>

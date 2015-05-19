@@ -148,15 +148,44 @@
 		public function replaceArtefact($interpreter) {
 			$data = $interpreter->getData()->data;
 			
-			$artId = $data -> replaceArtefactId;
+			$artId = $data -> replaceArt;
 			$projId = $data -> projectId;
-			$newArt = $data -> newArtefactid;
+			$newArt = $data -> replacedWith;
 			$file = $data -> file;
 			
 			$userId = $interpreter->getUser()->user_id;
-			
+			$date = date("Y-m-d H:i:s");
 			$db = Master::getDBConnectionManager();
-			if($newArt > 0) {
+			
+			if(isset($_FILES["file"]["type"])) {
+				
+				//replacing with a new file
+				$uploadFile = $_FILES["file"]["type"];
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
+				
+				$data->userId = $interpreter->getUser()->user_id;
+				
+				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
+				$targetPath = $AppGlobal['gloabl']['storeLocation'].$_FILES['file']['name']; // Target path where file is to be stored
+				move_uploaded_file($sourcePath,$targetPath) ;
+				
+				//now store the artefact detail in the tables related to artefacts and versions
+				Master::getLogManager()->log(DEBUG, MOD_MAIN);
+				//get the latest version 
+				$queryParams = array('artId' => $newArt);
+				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
+				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
+				
+				//create a new version
+				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
+				$rowValues = array($artId, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'C', 0);
+				$newVer = $db->insertAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
+				
+				//update the artefact table
+				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
+				
+				return true;
+			} else {
 				//control comes here while replacing with an existing artefact
 
 				//first get all the versions of newArt
@@ -172,17 +201,16 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "VK VK");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $userId);
 
-				$date = date("Y-m-d H:i:s");
 				//now add the versions of newArt to artId
 				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
 				
 				for($i = 0 ; $i < count($newArtVers); $i++) {
 					$latestVer++;
 					$rowValues = array($artId, $newArtVers[$i]->version_label,$latestVer, $userId, $date, $newArtVers[$i]->document_path, $newArtVers[$i]->MIME_type, $newArtVers[$i]->file_size, $newArtVers[$i]->state, 0);
-					$db->insertSingleRow(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
+					$newVer = $db->insertAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				}
 
-				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($latestVer), "artefact_id = " . $artId);
+				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
 				//update the new artefact that it is replaced.
 				$db->updateTable(TABLE_ARTEFACTS, array("replace_ref_id"), array($artId), "artefact_id = " . $newArt);
 				
@@ -193,18 +221,14 @@
 
 				return true;
 				
-			} else {
-				//replacing with a new file
-				
-				return true;
 			}
 			
 		}
 		
 		public function archiveArtefact($interpreter) {
 			$data = $interpreter->getData()->data;
-			
-			$artId = $data -> artefactId;
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
+			$artId = $data -> id;
 			
 			$db = Master::getDBConnectionManager();
 			$db->updateTable(TABLE_ARTEFACTS,array("state"),array('A'), "artefact_id = " . $artId);
@@ -214,7 +238,7 @@
 		
 		public function deleteArtefact($interpreter) {
 			$data = $interpreter->getData()->data;			
-			$artId = $data -> artefactId;
+			$artId = $data -> id;
 			$userId = $interpreter->getUser()->user_id;
 			
 			//first get project ID
@@ -257,7 +281,7 @@
 			$artefactId = 1;
 			$linkArtefacts = $data -> linkIds;
 			
-			return $this->linkarts();
+			return $this->linkarts($artefactId, $linkArtefacts);
 		}	
 		
 		public function linkArts ($artefactId, $linkArtefacts) {
@@ -343,12 +367,13 @@
 				//now store the artefact detail in the tables related to artefacts and versions
 				$db = Master::getDBConnectionManager();
 				Master::getLogManager()->log(DEBUG, MOD_MAIN,$data->artefact_id);
-				if($data->artefact_id != undefined) {
+				if(isset($data->artefact_id)) {
+					Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have a selected artefcat");
 					$artId = $data->artefact_id;
 				} else {
 					//if it is a new artefact
 					$columnnames = array('project_id','artefact_title', 'description', 'artefact_type', );
-					$rowvals = array($data->project, $_FILES['file']['name'], $data->description, $data->type);
+					$rowvals = array($data->project_id, $_FILES['file']['name'], $data->description, $data->type);
 					$artId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS, $columnnames, $rowvals);
 				}
 				
@@ -367,7 +392,7 @@
 				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 				
 				//add the tags to the artefacts
-				$tagsList = $data->tags;
+				$tagsList = $data->tagsIds;
 				for($i = 0 ; $i<count($tagsList); $i++) {
 					$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
 					$tagRowValues = array($artId, $tagsList[$i], date("Y-m-d H:i:s"), $data->userId );
@@ -375,14 +400,13 @@
 				}
 				
 				//now add artefact references
-				$refDocs = $data->refs;
+				$refDocs = $data->referencesIds;
 				for($i = 0 ; $i< count($refDocs); $i++) {
 					$refColumnNames = array("artefact_ver_id", "artefact_id", "created_date", "created_by");
 					$refRowValues = array($artVerId, $refDocs, date("Y-m-d H:i:s"), $data->userId );
 					$db->insertSingleRow(TABLE_ARTEFACT_REFS, $refColumnNames, $refRowValues);
 				}
 				
-				//now link the artefacts
 				
 				//if it is  share share it with others as well
 				if($data->share == 'true') {
@@ -391,18 +415,19 @@
 					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
 				}
 				
-				if($data->linkIds) {
-					$links = $this->linkArts ($artId, $data->linkIds);
-				} 
+				//now link the artefacts
+				if($data->linksIds) {
+					$links = $this->linkArts ($artId, $data->linksIds);
+				}
 				
 				//now add this into project activity
 				$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
-				$activityRowValues = array($data->project, $data->userId, date("Y-m-d H:i:s"), 'A', 'N',$artId);
+				$activityRowValues = array($data->project_id, $data->userId, date("Y-m-d H:i:s"), 'A', 'N',$artId);
 				$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 
 				//now add this notification
 				$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
-				$notificationRowValues = array($data->userId, $_FILES['file']['name'], $data->project, $data->userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
+				$notificationRowValues = array($data->userId, $_FILES['file']['name'], $data->project_id, $data->userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
 				$db->insertSingleRow(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
 				
 				

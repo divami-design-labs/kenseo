@@ -88,7 +88,7 @@ $AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requ
 										versions.state AS status, artefacts.artefact_id as id, 
 										(SELECT COUNT(artefact_id) FROM " . TABLE_ARTEFACTS_VERSIONS . " AS ver WHERE 
 										ver.artefact_id = artefacts.artefact_id) as version,
-										artefacts.project_id as projectId,
+										artefacts.project_id as project_id,
 										(SELECT COUNT(comment_id) FROM " . TABLE_COMMENTS . " as comments where 
 										artefacts.latest_version_id = comments.artefact_ver_id) as commentCount
 										from " . TABLE_ARTEFACTS . " AS artefacts 
@@ -177,23 +177,31 @@ $AppGlobal['sql']['getArtefactsLink'] = "SELECT DISTINCT artefacts.artefact_id,a
 										AND (members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)
 										ORDER BY artefacts.linked_id";
 										
-$AppGlobal['sql']['getReferences'] = "SELECT DISTINCT 
-										artefacts.artefact_id as id, artefacts.artefact_title as name, date(vers.created_date) as date, user.name as userName
-										from " . TABLE_ARTEFACTS . " AS artefacts 
-										JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers on
-										vers.artefact_ver_id = artefacts.latest_version_id
-										JOIN " . TABLE_USERS . " as user on
-										user.user_id = vers.created_by
+$AppGlobal['sql']['getReferences'] = "SELECT DISTINCT
+				 						artefacts.artefact_id as id, 
+										artefacts.artefact_title as name, 
+										date(versions.created_date) as date,
+										requestor.name as userName
+										FROM " . TABLE_ARTEFACTS . " AS artefacts 
+										
+										JOIN " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
+										ON 
+										artefacts.latest_version_id = versions.artefact_ver_id
+										
+										JOIN " . TABLE_USERS . " AS requestor ON 
+										versions.created_by = requestor.user_id
+										
 										WHERE artefacts.artefact_id 
 										in 
+										
 										(SELECT versions.artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
-										WHERE versions.shared = 1 AND versions.artefact_ver_id 
+										WHERE versions.artefact_ver_id 
 										in 
-										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members
-										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
+										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
+										WHERE members.user_id = @~~userid~~@ or members.shared_by =  @~~userid~~@)) AND
 										artefacts.replace_ref_id = 0 AND 
-										artefacts.artefact_id != @~~ignore~~@ AND 
-										artefacts.project_id = @~~projectid~~@";
+										artefacts.artefact_id != @~~ignore~~@ AND
+										artefacts.state != 'A' AND artefacts.project_id = @~~projectid~~@";
 
 $AppGlobal['sql']['getProjectActivity'] = "SELECT Date(pa.logged_time) as time, 
 											pa.performed_on as activityOn, 

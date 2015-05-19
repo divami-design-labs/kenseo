@@ -49,10 +49,14 @@ $(function(){
         		var $text = $self.find('input');
         		if($combobox.length){
         			var arrValue = [];
+        			var arrayIds = [];
         			$combobox.find('.sv-name').each(function(){
         				arrValue.push({name: $(this).html(), id: $(this).data('id')});
+        				arrayIds.push($(this).data('id'));
         			});
         			sb.setPopupData(arrValue, property);
+        			Kenseo.popup.data[property] = arrValue;
+        			Kenseo.popup.data[property+'Ids'] = arrayIds;
         		}
         		else{
         			sb.setPopupData($text.val(), property);
@@ -61,7 +65,9 @@ $(function(){
         	});
         }
         var $dataUrl = $(this).data('index');
-        sb.callPopup($dataUrl);
+        if($dataUrl) {
+	        sb.callPopup($dataUrl);
+        }
     })
     .on('click', '.toggle-click', function(e){
     	if($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length){
@@ -95,20 +101,15 @@ $(function(){
     	var actionType = sb.getPopupData('actionType');
     	var data = null;
     	switch(actionType) {
-    		case 'art-archive' :
-    			data = {
-    				"artefactId": sb.getPopupData('id')
-    			};
-    			url = "../server/archiveArtefact";
+    		case 'archiveArtefact' :
+    		case 'deleteArtefact' :
+    			data = Kenseo.popup.data,
+    			url = "../server/" + actionType;
     			type= 'GET';
     			break;
-    		case 'art-replace' :
-    			data = {
-					projectId : Kenseo.popup.replace.projectId,
-					replaceArtefactId: Kenseo.popup.replace.replaceArt,
-					newArtefactid : Kenseo.popup.replace.replacedWith
-				};
-				url = "../server/replaceArtefact";
+    		case 'replaceArtefact' :
+    			data = Kenseo.popup.replace;
+				url = "../server/" + actionType;
 				type= 'GET';
     			break;
     		case 'art-add-version' :
@@ -122,16 +123,14 @@ $(function(){
     			url = "../server/deleteArtefact";
     			type= 'GET';
     			break;
+    			
     		default :
 				var data = new FormData();
-				var dump = sb.getPopupData();
-
-				data.append("name", dump['fileName']);
-				data.append("command", 'addArtefact');
-				data.append("description" , "hfvjdhdfjdjf");
-				data.append("project" , dump['project_id']);
-				data.append("MIMEtype", dump['file']);
-				data.append("size", dump.file.size);
+				
+				for(x in Kenseo.popup.data) {
+					data.append(x,Kenseo.popup.data[x]);
+				}
+				
 				data.append("type", 'I');
 				data.append("sid", Kenseo.cookie.sessionid());
 				data.append("file", dump['file']);

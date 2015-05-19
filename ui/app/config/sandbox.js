@@ -489,6 +489,11 @@ var sb = (function(){
 					
 					sb.setPopupData(this.files[0], 'file');
 					sb.setPopupData(this.value, 'fileName');
+					sb.setPopupData(this.value, 'description');
+					sb.setPopupData(this.files[0], 'MIMEtype');
+					sb.setPopupData(this.files[0].size, 'size');
+					sb.setPopupData('addArtefact', 'actionType');
+        			
         			$('.main-btn').prop('disabled', false);
         		});
 
@@ -578,6 +583,7 @@ var sb = (function(){
         		});
             },
             teamPopup: function(){
+            	sb.setPopupData('addArtefact', 'command');
             	sb.setPopupData(false, 'share');
             	sb.loadFiles({
             		'collections': ['Artefacts', 'Tags'],
@@ -589,7 +595,7 @@ var sb = (function(){
 							'collection': new Kenseo.collections.Artefacts(),
 							'data': {references: true, ignore: 0, projectid: sb.getPopupData('project_id')},
 							success: function(response){
-	        					var data = JSON.parse(response);
+								var data = JSON.parse(response);
 	        					var container = document.querySelector('.reference-combobox');
 								var combobox = sb.toolbox.applyComboBox({
 									elem: container,
@@ -598,9 +604,6 @@ var sb = (function(){
 										multiSelect: true
 									}
 								});
-
-
-
 
 	        					var links = document.querySelector('.links-combobox');
 								var linksCombobox = new sb.toolbox.applyComboBox({
@@ -637,37 +640,32 @@ var sb = (function(){
 				sb.setPopupData(true, 'share');
             },
             replaceArtefact:function() {
-            	sb.ajaxCall({ 
-					'collection': new Kenseo.collections.Artefacts(),
-					'data': {references: true, ignore: 0, projectid: sb.getPopupData('project_id')},
-					'success': function(response){
-						var objResponse = JSON.parse(response);
-	            		$('.reference-files-text').on('keyup', function(){
-	            			var self = this;
-	            			var filteredData = _.filter(objResponse.data, function(item){
-	            				if(self.value.length){
-	            					$(self).parent().next('.reference-files-suggestions').show();
-		            				var re = new RegExp("^" + self.value, "i");
-		            				return re.test(item.name);
-		            			}
-		            			else{
-		            				return false;
-		            			}
-	            			});
-	            			sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $(this).parent().next('.reference-files-suggestions'), "data": {data: filteredData}});
-	            			$('.reference-suggestion-item').click(function(){
-	            				var $holder = $(this).parent().next();
-	            				var html = $holder.html();
-	            				$holder.html(html + '<div class="reference-item" name="' + this.getAttribute('name') + '">' + this.innerHTML + '<div class="reference-item-close-icon"></div></div>');
-	            				$(this).parent().hide();
-	            				self.value = "";
-	            			});
-
-	            			$(document).on('click', '.reference-item-close-icon', function(){
-	            				$(this).parent().remove();
-	            			});
-	            		});
-					}
+            	sb.setPopupData('replaceArtefact', 'actionType');
+				sb.setPopupData('replaceArtefact', 'command');
+				
+            	if(sb.getPopupData('fileName')){
+            		$('.create-file-item .notification-title').html(sb.getPopupData('fileName'));
+            		$('.create-file-item').css({'visibility': 'visible'});
+            		$('.main-btn').prop('disabled', false);
+            	}
+        		$('.upload-files-input').change(function(){
+        			$('.create-file-item').css({'visibility': 'visible'});
+        			$('.create-file-item .notification-title').html(this.value);
+					
+					sb.setPopupData(this.files[0], 'file');
+					sb.setPopupData(this.value, 'fileName');
+					sb.setPopupData(this.value, 'description');
+					sb.setPopupData(this.files[0], 'MIMEtype');
+					sb.setPopupData(this.files[0].size, 'size');
+        			
+        			$('.main-btn').prop('disabled', false);
+        		});
+        		
+        		$('.create-file-close-icon').click(function(){
+                	$('.create-file-item').css({'visibility': 'hidden'});
+                	$('.main-btn').prop('disabled', true);
+                	sb.setPopupData(null, 'fileName');
+                	sb.setPopupData(null, 'file');
 				});
             },
             meetingIvite: function() {

@@ -46,7 +46,7 @@ Kenseo.popups = (function(){
 	            },
 	            {
 	            	"label": "Done",
-	            	"cls": "main-btn done-btn",
+	            	"cls": "main-btn nav-btn done-btn",
 	            	"disabled": false
 	            }],
 	            "callbackfunc": sb.popup.teamPopup
@@ -136,7 +136,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn cancel-btn"
 	            }],
 	            "callbackfunc": function() {
-	            	sb.setPopupData('art-archive', 'actionType'); 
+	            	sb.setPopupData('archiveArtefact', 'actionType'); 
 	            }
         	}
         ],
@@ -155,7 +155,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn cancel-btn"
 	            }],
 	            "callbackfunc": function() {
-	            	sb.setPopupData('art-delete', 'actionType');
+	            	sb.setPopupData('deleteArtefact', 'actionType');
 	            }
         	}
         ],
@@ -180,6 +180,8 @@ Kenseo.popups = (function(){
         	{
         		"page_name": "artefact-two",
         		"title": "Replace an Artefact",
+        		allow_artefact_selection: false,
+	            chooseExistingFile: true,
         		"buttons": [{
 	            	"label": "Cancel",
 	            	"cls": "cancel-btn lnk-btn"
@@ -187,11 +189,9 @@ Kenseo.popups = (function(){
 	            {
 	            	"label": "Done",
 	            	"cls": "main-btn done-btn",
-	            	"disabled": false
+	            	"disabled": true
 	            }],
-	            "callbackfunc": function() {
-	            	sb.setPopupData('art-replace', 'actionType');
-	            }
+	            "callbackfunc": sb.popup.replaceArtefact
         	}
         ],
         "add-people": [
