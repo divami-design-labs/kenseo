@@ -123,7 +123,10 @@ var comboBox = function(elem, suggestions, values) {
 			$text.val('');
 		}
 		hideSuggestions();
-
+		// Trigger change event
+		if(_this.insertAfter){
+			_this.insertAfter($text, $el, true);
+		}
 	}
 
 	/**

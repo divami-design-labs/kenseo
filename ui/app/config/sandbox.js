@@ -402,24 +402,10 @@ var sb = (function(){
         	comboBox: function(data){
         		return _.template(templates['combobox'])({"data": data});
         	},
-    //     	applyComboBox: function(data){
-				// sb.fetch(data.collection, data.data, function(response){
-				// 	if(data.callbackfunc){
-				// 		data.callbackfunc();
-				// 	}
-				// 	var combobox = new comboBox(data.elem, response.data, {
-				// 		"placeholder": data.placeholder,
-				// 		"disabled": data.disabled
-				// 	});
-				// 	combobox.onchange = data.onchange;
-				// 	if(data.postLoader){
-				// 		data.postLoader(combobox);
-				// 	}
-				// });
-    //     	},
         	applyComboBox: function(data){
 				var combobox = new comboBox(data.elem, data.data, data.settings);
 				combobox.onchange = data.onchange;
+				combobox.insertAfter = data.insertAfter;
 				return combobox;
         	}
         },
@@ -495,8 +481,17 @@ var sb = (function(){
 					sb.setPopupData('addArtefact', 'actionType');
         			
         			$('.main-btn').prop('disabled', false);
-        		});
 
+        			$('.choose-file-combobox input').attr('disabled', true);
+        			$('.existing-files-chk').attr('disabled', false);
+        		});
+        		$('.create-file-close-icon').click(function(){
+                	$('.create-file-item').css({'visibility': 'hidden'});
+                	$('.choose-file-combobox input').attr('disabled', false);
+                	$('.main-btn').prop('disabled', true);
+                	sb.setPopupData(null, 'fileName');
+                	$('.existing-files-chk').attr('disabled', true);
+                });
         		sb.loadFiles({
         			'collections': ['Artefacts'],
         			'models': ['Artefacts']
@@ -547,17 +542,45 @@ var sb = (function(){
 								elem: document.querySelector('.choose-file-combobox'),
 								data: data.data,
 								settings: {
-									placeholder: "Choose Files",
-									multiSelect: true
+									placeholder: "Choose Files"
 								},
 								onchange: function($input, $selectedEl, bln){
 									if(bln){
-						                $('.main-btn').prop('disabled', false);
 			                        	sb.setPopupData($selectedEl.data('id'), 'artefact_id');
+
+
+			                        	var obj = {};
+						   				var attrs = $selectedEl[0].attributes;
+						   				for(var i=0; i< attrs.length; i++){
+						   					var attr = attrs[i];
+						   					if(attr.name.indexOf('data-') > -1){
+						   						obj[attr.name.substr(5)] = attr.value;
+						   					}
+						   				}
+						   				obj.name = $selectedEl.html();
+
+			                        	$('.choose-existing-file-holder').html(_.template(templates['new-file'])({data: obj}))
+
+			                        	$('.choose-existing-file-holder .close-icon').click(function(){
+			                        		$('.choose-existing-file-holder').html("");
+			                        		//
+			                        		$('.upload-files-input').attr('disabled', false);
+			                        		$('.existing-files-chk').attr('disabled', true);
+			                        		$('.main-btn').prop('disabled', true);
+			                        	});
+			                        	$input.val("");
+
+			                        	//
+			                        	$('.upload-files-input').attr('disabled', true);
+			                        	$('.existing-files-chk').attr('disabled', false);
+						                $('.main-btn').prop('disabled', false);
 						            }
 						            else{
 						            	$('.main-btn').prop('disabled', true);
 						            }
+								},
+								insertAfter: function($input, $selectedEl, bln){
+									$input.val('');
 								}
 							});
 
@@ -574,13 +597,6 @@ var sb = (function(){
 			                });
         				}
 					});
-	                
-
-	                $('.create-file-close-icon').click(function(){
-	                	$('.create-file-item').css({'visibility': 'hidden'});
-	                	$('.main-btn').prop('disabled', true);
-	                	sb.setPopupData(null, 'fileName');
-	                });
         		});
             },
             teamPopup: function(){

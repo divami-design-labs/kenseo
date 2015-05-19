@@ -54,7 +54,7 @@ var fields = {
 					<% if(dataObj.show_coming_soon){ %>
 						<div class="coming-soon-text">Coming soon!</div>
 					<% } %>
-					<div class="create-file-item">
+					<div class="choose-existing-file-holder">
 					</div>
 				</div>
 			</div>
@@ -73,7 +73,7 @@ var fields = {
 			</div>
 			<% if(dataObj.allow_artefact_selection){ %>
 				<label class="checkbox">
-					<input type="checkbox" class="existing-files-chk"></input>
+					<input type="checkbox" disabled="true" class="existing-files-chk"></input>
 					<span>This is a new version of an existing file</span>
 				</label>
 				<%= fields.existingCombobox %>

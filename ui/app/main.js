@@ -73,7 +73,7 @@ $(function(){
         	});
         }
         var $dataUrl = $(this).data('index');
-        if($dataUrl) {
+        if($dataUrl >= 0) {
 	        sb.callPopup($dataUrl);
         }
     })

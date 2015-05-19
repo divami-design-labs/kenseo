@@ -99,6 +99,7 @@ body{
 		margin: 0;
 		display: block;
 		cursor: pointer;
+		@extend .ellipsis;
 		&.active{
 			background-color: $colorB;
 		}

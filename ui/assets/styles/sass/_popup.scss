@@ -415,3 +415,17 @@ $popup-content-space: 175px;
     margin-top: 10px;
     width: 250px;
 }
+
+.choose-existing-file-holder{
+	float: left;
+	width: 100%;
+	.close-icon{
+		@include closeIcon(10px);
+		position: absolute;
+	    right: 2px;
+	    top: 3px;
+	}
+	.notification-title{
+		margin-right: 15px;
+	}
+}
