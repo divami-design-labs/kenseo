@@ -110,21 +110,7 @@ var comboBox = function(elem, suggestions, values) {
 			$text.val(html);
 		}
 		else{
-			var svItem = document.createElement('div');
-			svItem.className = "sv-item";
-			var svName = document.createElement('div');
-			svName.className = "sv-name";
-			svName.innerHTML = html;
-			var svClose = document.createElement('div');
-			svClose.className = "sv-close";
-			svClose.onclick = function(e){
-				var el = e.currentTarget;
-				$(el.parentElement).remove();
-			}
-			svItem.appendChild(svName);
-			svItem.appendChild(svClose);
-			// $elem.find('.suggestions-viewer').append("<div class='sv-item'><div>" + html + "</div><div class='sv-close'></div></div>");
-			$elem.find('.suggestions-viewer').append($(svItem));
+			setSuggestionViewerItem({name: html, id: $el.data('id')});
 			$text.val('');
 		}
 		hideSuggestions();
@@ -397,10 +383,26 @@ var comboBox = function(elem, suggestions, values) {
 			}else{
 				textBox.placeholder = values.placeholder;
 			}
-			textBox.focus();
+			// textBox.focus();
 		}
 	}
-
+	function setSuggestionViewerItem(s){
+		var svItem = document.createElement('div');
+		svItem.className = "sv-item";
+		var svName = document.createElement('div');
+		svName.innerHTML = s.name;
+		svName.className = "sv-name";
+		svName.setAttribute('data-id', s.id)
+		var svClose = document.createElement('div');
+		svClose.className = "sv-close";
+		svClose.onclick = function(e){
+			var el = e.currentTarget;
+			$(el.parentElement).remove();
+		}
+		svItem.appendChild(svName);
+		svItem.appendChild(svClose);
+		$elem.find('.suggestions-viewer').append($(svItem));
+	}
 
 	function renderSelectedItems(){
 		var key = $elem.parent().data('name');
@@ -409,23 +411,7 @@ var comboBox = function(elem, suggestions, values) {
 			if(selectedItems){
 				var $suggestionsViewer = $elem.find('.suggestions-viewer');
 				for(var i=0; i< selectedItems.length; i++){
-					var svItem = document.createElement('div');
-					svItem.className = "sv-item";
-					var s = selectedItems[i];
-					var svName = document.createElement('div');
-					svName.innerHTML = s.name;
-					svName.className = "sv-name";
-					svName.setAttribute('data-id', s.id)
-					var svClose = document.createElement('div');
-					svClose.className = "sv-close";
-					svClose.onclick = function(e){
-						var el = e.currentTarget;
-						$(el.parentElement).remove();
-					}
-					svItem.appendChild(svName);
-					svItem.appendChild(svClose);
-					$elem.find('.suggestions-viewer').append($(svItem));
-					// $text.val('');
+					setSuggestionViewerItem(selectedItems[i]);
 				}
 			}
 		}

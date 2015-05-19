@@ -133,7 +133,7 @@ $(function(){
 				data.append("MIMEtype", dump['file']);
 				data.append("size", dump.file.size);
 				data.append("type", 'I');
-				data.append("sid", '9hal4k29ath2hu3oivuqetn967');
+				data.append("sid", Kenseo.cookie.sessionid());
 				data.append("file", dump['file']);
 				data.append("tags", [1,3,4,5]);
 				data.append("linkIds", [1,2,3]);

@@ -281,14 +281,20 @@ $popup-content-space: 175px;
     position: relative;
     width: 100%;
 }
+.share-artefact-people-wrapper{
+    height: 186px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 .share-artefact-people-item{
 	@include clearFloat();
-	$w: 230px;
-	$x: 20px;
+	$w: 200px;
+	$x: 22px;
 	& + &{
 		margin-top: 25px;
 	}
-	margin-left: $x;
+	margin-top: 2px;
+	margin-left: $x + 3px;
 	width: $w - $x;
 	@extend .hand;
 	.share-artefacts-text{
@@ -348,8 +354,8 @@ $popup-content-space: 175px;
 		position: absolute;
 		left: $w - 1;
 		right: -10px;
-		top: 0;
-		bottom: 0;
+		top: 2px;
+		bottom: 2px;
 		background-color: $colorR;
 	}
 }

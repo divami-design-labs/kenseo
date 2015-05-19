@@ -19,7 +19,7 @@
 				<div class="meta-heading">Type</div>
 				<% if(kData.docType){ %>
 					<% _.each(kData.docType, function(r){ %>
-						<div class="meta-text"><%= r %></div>
+						<div class="meta-text"><%= r.name %></div>
 					<% }); %>
 				<% } %>
 			</div>
@@ -27,7 +27,7 @@
 				<div class="meta-heading">References</div>
 				<% if(kData.references){ %>
 					<% _.each(kData.references, function(r){ %>
-						<div class="meta-text"><%= r %></div>
+						<div class="meta-text"><%= r.name %></div>
 					<% }); %>
 				<% } %>
 			</div>
@@ -35,7 +35,14 @@
 				<div class="meta-heading">Tags</div>
 				<div class="meta-text">
 					<% if(kData.tags){ %>
-						<%= kData.tags.join(", ") %>
+						<% 
+							var arrVal = [];
+							for(var i=0; i<kData.tags.length; i++){
+								var t = kData.tags[i];
+								arrVal.push(t.name);
+							}
+						%>
+						<%= arrVal.join(", ") %>
 					<% } %>
 				</div>
 			</div>
@@ -55,78 +62,130 @@
 						</div>
 					</div>
 					<div class="share-artefact-people">
-						<div class="share-artefact-people-item">
-							<div class="share-artefacts-img-holder">
-								<img class="share-artefacts-img" src="assets/imgs/people/small/Hemanth.png" />
-							</div>
-							<span class="share-artefacts-text">Hemanth</span>
-							<div class="share-artefact-people-item-section">
-								<div class="share-artefact-right-panel">
-									<div class="sarp-text">Can Add comments</div>
-									<label class="toggle-checkbox">
-										<input type="checkbox"></input><span></span>
-									</label>
+						<div class="share-artefact-people-wrapper">
+							<div class="share-artefact-people-item">
+								<div class="share-artefacts-img-holder">
+									<img class="share-artefacts-img" src="assets/imgs/people/small/Hemanth.png" />
 								</div>
-								<div class="share-artefact-right-panel">
-									<div class="sarp-text">Share with others</div>
-									<label class="toggle-checkbox">
-										<input type="checkbox"></input><span></span>
-									</label>
-								</div>
-								<div class="sarp-checkbox-holder">
-									<label class="checkbox">
-										<input type="checkbox"></input><span>Apply to all users in this group</span>
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="share-artefact-people-item">
-							<div class="share-artefacts-img-holder">
-								<img class="share-artefacts-img" src="assets/imgs/people/small/Anurag.png" />
-							</div>
-							<span class="share-artefacts-text">Anurag</span>
-							<div class="share-artefact-people-item-section">
-								<div class="share-artefact-right-panel">
-									<div class="sarp-text">Can Add comments</div>
-									<label class="toggle-checkbox">
-										<input type="checkbox"></input><span></span>
-									</label>
-								</div>
-								<div class="share-artefact-right-panel">
-									<div class="sarp-text">Share with others</div>
-									<label class="toggle-checkbox">
-										<input type="checkbox"></input><span></span>
-									</label>
-								</div>
-								<div class="sarp-checkbox-holder">
-									<label class="checkbox">
-										<input type="checkbox"></input><span>Apply to all users in this group</span>
-									</label>
+								<span class="share-artefacts-text">Hemanth</span>
+								<div class="share-artefact-people-item-section">
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Can Add comments</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Share with others</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="sarp-checkbox-holder">
+										<label class="checkbox">
+											<input type="checkbox"></input><span>Apply to all users in this group</span>
+										</label>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="share-artefact-people-item">
-							<div class="share-artefacts-img-holder">
-								<img class="share-artefacts-img" src="assets/imgs/people/small/Prakash.png" />
+							<div class="share-artefact-people-item">
+								<div class="share-artefacts-img-holder">
+									<img class="share-artefacts-img" src="assets/imgs/people/small/Anurag.png" />
+								</div>
+								<span class="share-artefacts-text">Anurag</span>
+								<div class="share-artefact-people-item-section">
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Can Add comments</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Share with others</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="sarp-checkbox-holder">
+										<label class="checkbox">
+											<input type="checkbox"></input><span>Apply to all users in this group</span>
+										</label>
+									</div>
+								</div>
 							</div>
-							<span class="share-artefacts-text">Prakash</span>
-							<div class="share-artefact-people-item-section">
-								<div class="share-artefact-right-panel">
-									<div class="sarp-text">Can Add comments</div>
-									<label class="toggle-checkbox">
-										<input type="checkbox"></input><span></span>
-									</label>
+							<div class="share-artefact-people-item">
+								<div class="share-artefacts-img-holder">
+									<img class="share-artefacts-img" src="assets/imgs/people/small/Prakash.png" />
 								</div>
-								<div class="share-artefact-right-panel">
-									<div class="sarp-text">Share with others</div>
-									<label class="toggle-checkbox">
-										<input type="checkbox"></input><span></span>
-									</label>
+								<span class="share-artefacts-text">Prakash</span>
+								<div class="share-artefact-people-item-section">
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Can Add comments</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Share with others</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="sarp-checkbox-holder">
+										<label class="checkbox">
+											<input type="checkbox"></input><span>Apply to all users in this group</span>
+										</label>
+									</div>
 								</div>
-								<div class="sarp-checkbox-holder">
-									<label class="checkbox">
-										<input type="checkbox"></input><span>Apply to all users in this group</span>
-									</label>
+							</div>
+							<div class="share-artefact-people-item">
+								<div class="share-artefacts-img-holder">
+									<img class="share-artefacts-img" src="assets/imgs/people/small/Anurag.png" />
+								</div>
+								<span class="share-artefacts-text">Anurag</span>
+								<div class="share-artefact-people-item-section">
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Can Add comments</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Share with others</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="sarp-checkbox-holder">
+										<label class="checkbox">
+											<input type="checkbox"></input><span>Apply to all users in this group</span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="share-artefact-people-item">
+								<div class="share-artefacts-img-holder">
+									<img class="share-artefacts-img" src="assets/imgs/people/small/Prakash.png" />
+								</div>
+								<span class="share-artefacts-text">Prakash</span>
+								<div class="share-artefact-people-item-section">
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Can Add comments</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="share-artefact-right-panel">
+										<div class="sarp-text">Share with others</div>
+										<label class="toggle-checkbox">
+											<input type="checkbox"></input><span></span>
+										</label>
+									</div>
+									<div class="sarp-checkbox-holder">
+										<label class="checkbox">
+											<input type="checkbox"></input><span>Apply to all users in this group</span>
+										</label>
+									</div>
 								</div>
 							</div>
 						</div>
