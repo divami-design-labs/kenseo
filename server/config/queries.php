@@ -182,6 +182,7 @@ $AppGlobal['sql']['getReferences'] = "SELECT DISTINCT
 										artefacts.artefact_title as name, 
 										date(versions.created_date) as date,
 										requestor.name as userName
+										
 										FROM " . TABLE_ARTEFACTS . " AS artefacts 
 										
 										JOIN " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
@@ -301,5 +302,11 @@ $AppGlobal['sql']['getAllVersionsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFAC
 $AppGlobal['sql']['getHighestVersionOfArtefact'] = "SELECT count(version_no) as vers FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@";
 
 $AppGlobal['sql']['getProjectOfArtefact'] = "SELECT project_id FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
+
+$AppGlobal['sql']['getOtherMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url as picture 
+											FROM " . TABLE_USERS . " AS users WHERE users.user_id NOT IN 
+											(SELECT members.user_id
+											FROM " . TABLE_PROJECT_MEMBERS . " AS members   
+											WHERE members.proj_id = @~~projectId~~@)" ;
 
 ?>

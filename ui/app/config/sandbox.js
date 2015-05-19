@@ -638,6 +638,47 @@ var sb = (function(){
             },
             shareWithPeoplePopup: function(){
 				sb.setPopupData(true, 'share');
+				//now you need 2 sets of people, people those who are arleady in the project and all the remaining people
+				
+				sb.loadFiles({
+            		'collections': ['People'],
+            		'models': ['People']
+            	}, function(){
+					sb.ajaxCall({
+						collection: new Kenseo.collections.People(),
+						data : {
+							"all" : true,
+							"projectId" : sb.getPopupData('project_id'),
+						},
+						success: function(resp) {
+							resp = JSON.parse(resp);
+							//reder all the others in a COMBO
+							var data = resp.data.otherMembers;
+							var container = document.querySelector('.people-combobox');
+							sb.toolbox.applyComboBox({
+								elem: container,
+								data: data,
+								settings: {
+									placeholder: "Type mail ID or username and press enter "
+								},
+								onchange: function($input, $selectedEl, bln){
+									if(bln){
+										console.log("test");
+						            }
+						            else {
+						            	console.log("tester");
+						            }
+								}
+							});
+							
+							//render all the team members
+							for(var i=0 ; i<resp.data.teamMembers.length; i++) {
+								$('.share-artefact-people-wrapper').append(_.template(templates['share-people'])({data: resp.data.teamMembers[i]}));
+							}
+						}
+					})
+				})
+				
             },
             replaceArtefact:function() {
             	sb.setPopupData('replaceArtefact', 'actionType');

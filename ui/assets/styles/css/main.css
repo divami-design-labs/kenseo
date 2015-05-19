@@ -2034,6 +2034,10 @@
     color: #3e4354;
     margin-bottom: 10px;
     margin-top: 15px; }
+  .share-artefact-people-item .share-artefacts-img {
+    height: 28px;
+    width: 28px;
+    border-radius: 28px; }
   .share-artefact-people-item .share-artefacts-img-holder {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -2825,7 +2829,7 @@ body {
     position: absolute;
     right: -1px;
     top: 100%;
-    z-index: 1; }
+    z-index: 3; }
   .combobox-wrapper ul, .combobox-wrapper li {
     padding: 0;
     margin: 0;

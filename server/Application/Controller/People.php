@@ -4,8 +4,9 @@
     		$data = $interpreter->getData()->data;
     		if($data->projects == "true"){
     			return $this->getProjectsPeople($interpreter);
-    		}
-    		elseif($data->projectId){
+    		} elseif ($data->all == "true") {
+    			return $this->getOthersAndProjectPeople($interpreter);
+    		} elseif($data->projectId){
     			return $this->getTeamMembersList($interpreter);
     		}
     	}
@@ -71,6 +72,26 @@
 			$db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId and "user_id" . $peopleId);
 			
 			return true;		
+		}
+		
+		public function getOthersAndProjectPeople($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->projectId;
+			
+			$teamMembers = $this->getTeamMembersList($interpreter);
+			
+			$db = Master::getDBConnectionManager();
+			$queryParams = array('projectId' => $projectId );
+			
+			$dbQuery = getQuery('getOtherMembersList',$queryParams);
+			
+			$otherMembers = $db->multiObjectQuery($dbQuery);
+			
+			$resultObj = array(
+				otherMembers => $otherMembers,
+				teamMembers => $teamMembers
+			);
+			return $resultObj;
 		}
     }
 ?>
