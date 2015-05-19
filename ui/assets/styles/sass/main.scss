@@ -21,7 +21,8 @@ body{
 	font-family: $normalFont;
 }
 .page{
-    height: 100%;
+    @include absoluter(0,0,0,0);
+    overflow: auto;
     margin: 0 auto;
     //max-width: $viewPortWidth;
     min-width: 1180px;
@@ -86,7 +87,7 @@ body{
 	    position: absolute;
 	    right: -1px;
 	    top: 100%;
-	    z-index: 1;
+	    z-index: 3;
 	}
 	& ul, & li{
     	padding: 0;
@@ -120,5 +121,15 @@ body{
 	position: relative;
 	.sv-close{
 		@include closeIcon(10px);
+	}
+}
+.choose-file-combobox.xm.combobox{
+	width: auto;
+}
+
+.combobox.xm.people-combobox{
+	width: 460px;
+	.suggestions-viewer{
+		display: none;
 	}
 }

@@ -547,7 +547,8 @@ var sb = (function(){
 								elem: document.querySelector('.choose-file-combobox'),
 								data: data.data,
 								settings: {
-									placeholder: "Choose Files"
+									placeholder: "Choose Files",
+									multiSelect: true
 								},
 								onchange: function($input, $selectedEl, bln){
 									if(bln){
@@ -595,7 +596,7 @@ var sb = (function(){
 							'collection': new Kenseo.collections.Artefacts(),
 							'data': {references: true, ignore: 0, projectid: sb.getPopupData('project_id')},
 							success: function(response){
-								var data = JSON.parse(response);
+	        					var data = JSON.parse(response);
 	        					var container = document.querySelector('.reference-combobox');
 								var combobox = sb.toolbox.applyComboBox({
 									elem: container,
@@ -659,15 +660,28 @@ var sb = (function(){
 								elem: container,
 								data: data,
 								settings: {
-									placeholder: "Type mail ID or username and press enter "
+									placeholder: "Type mail ID or username and press enter ",
+									multiSelect: true
 								},
 								onchange: function($input, $selectedEl, bln){
-									if(bln){
-										console.log("test");
-						            }
-						            else {
-						            	console.log("tester");
-						            }
+									// if(bln){
+									// 	console.log("test");
+									// }
+									// else {
+									// 	console.log("tester");
+									// }
+						   			if(bln){
+						   				var obj = {};
+						   				var attrs = $selectedEl[0].attributes;
+						   				for(var i=0; i< attrs.length; i++){
+						   					var attr = attrs[i];
+						   					if(attr.name.indexOf('data-') > -1){
+						   						obj[attr.name.substr(5)] = attr.value;
+						   					}
+						   				}
+						   				obj.name = $selectedEl.html();
+						   				$('.share-artefact-people-wrapper').append(_.template(templates['share-people'])({data: obj}));
+						   			}
 								}
 							});
 							

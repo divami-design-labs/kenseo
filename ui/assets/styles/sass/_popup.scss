@@ -7,12 +7,14 @@
 	right: 0;
 	bottom: 0;
 	z-index: 100;
+	overflow: auto;
 }
 .popup-click{
 	@extend .hand;
 }
 .popup{
-	@include fullMiddle();
+	@include absoluter(0,0,0,0);
+	margin: auto;
 	border: 1px solid $color8;
 }
 .popup-message{
@@ -311,9 +313,9 @@ $popup-content-space: 175px;
 		margin-top: 15px;
 	}
 	.share-artefacts-img {
-		height: 28px;
-		width: 28px;
-		  border-radius: 28px;
+		height: 34px;
+		width: 34px;
+		  @include border-radius(50%);
 	}
 	.share-artefacts-img-holder{
 		@include border-radius(50%);
@@ -359,8 +361,8 @@ $popup-content-space: 175px;
 		position: absolute;
 		left: $w - 1;
 		right: -10px;
-		top: 2px;
-		bottom: 2px;
+		top: 0px;
+		bottom: 0px;
 		background-color: $colorR;
 	}
 }

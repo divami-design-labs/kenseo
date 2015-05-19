@@ -110,7 +110,16 @@ var comboBox = function(elem, suggestions, values) {
 			$text.val(html);
 		}
 		else{
-			setSuggestionViewerItem({name: html, id: $el.data('id')});
+			var obj = {};
+			var attrs = $el[0].attributes;
+			for(var i = 0; i < attrs.length; i++){
+				var attr = attrs[i];
+				if(attr.name !== "class"){
+					obj[attr.name] = attr.value;
+				}
+			}
+			obj.name = html;
+			setSuggestionViewerItem(obj);
 			$text.val('');
 		}
 		hideSuggestions();
@@ -341,8 +350,19 @@ var comboBox = function(elem, suggestions, values) {
 
 					projectHeadingWrapper.className = values.listClass;
 					projectHeadingWrapper.onmouseover = makeActive;
+
 					projectHeadingWrapper.innerHTML = project.name;
-					projectHeadingWrapper.setAttribute('data-id', project.id);
+
+					for(var key in project){
+						if(key !== "name"){
+							if(key === "date"){
+								project[key] = sb.timeFormat(project[key]);
+							}
+							projectHeadingWrapper.setAttribute('data-' + key, project[key]);
+						}
+					}
+					// projectHeadingWrapper.setAttribute('data-id', project.id);
+
 					projectHeadingWrapper.onclick = insertData;
 					projectHeadingWrapper.name = project.id;
 
@@ -392,7 +412,10 @@ var comboBox = function(elem, suggestions, values) {
 		var svName = document.createElement('div');
 		svName.innerHTML = s.name;
 		svName.className = "sv-name";
-		svName.setAttribute('data-id', s.id)
+		for(var key in s){
+			if(key !== "name")
+				svName.setAttribute(key, s[key]);
+		}
 		var svClose = document.createElement('div');
 		svClose.className = "sv-close";
 		svClose.onclick = function(e){

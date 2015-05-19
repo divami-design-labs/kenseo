@@ -51,8 +51,16 @@ $(function(){
         			var arrValue = [];
         			var arrayIds = [];
         			$combobox.find('.sv-name').each(function(){
-        				arrValue.push({name: $(this).html(), id: $(this).data('id')});
-        				arrayIds.push($(this).data('id'));
+        				var obj = {};
+        				var attrs = this.attributes;
+        				for(var i=0; i<attrs.length; i++){
+        					var attr = attrs[i];
+        					obj[attr.name] = attr.value;
+        				}
+        				obj.name = $(this).html();
+        				arrValue.push(obj);
+                //TODO: Remove arrayIds concept
+                arrayIds.push($(this).data('id'));
         			});
         			sb.setPopupData(arrValue, property);
         			Kenseo.popup.data[property] = arrValue;
