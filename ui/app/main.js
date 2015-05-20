@@ -133,14 +133,10 @@ $(function(){
     	switch(actionType) {
     		case 'archiveArtefact' :
     		case 'deleteArtefact' :
+    		case 'replaceArtefact' :
     			data = sb.getPopupData(),
     			url = sb.getRelativePath(actionType);
     			type= 'GET';
-    			break;
-    		case 'replaceArtefact' :
-    			data = sb.getPopupData();
-				url = sb.getRelativePath(actionType);
-				type= 'GET';
     			break;
     		case 'art-add-version' :
     			data = "";

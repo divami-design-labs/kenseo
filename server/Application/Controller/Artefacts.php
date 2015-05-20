@@ -146,11 +146,14 @@
 		}
 
 		public function replaceArtefact($interpreter) {
-			$data = $interpreter->getData()->data;
+			$data = $interpreter->getData();
+			if($data->data != null) {
+				$data = $data->data;
+			}
 			
-			$artId = $data -> replaceArt;
-			$projId = $data -> projectId;
-			$newArt = $data -> replacedWith;
+			$artId = $data -> id;
+			$projId = $data -> project_id;
+			$newArt = $data -> artefact_id;
 			$file = $data -> file;
 			
 			$userId = $interpreter->getUser()->user_id;
@@ -179,7 +182,7 @@
 				//create a new version
 				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
 				$rowValues = array($artId, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'C', 0);
-				$newVer = $db->insertAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
+				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				
 				//update the artefact table
 				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
@@ -198,8 +201,7 @@
 				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
 				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
 				
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, "VK VK");
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, $userId);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $latestVer);
 
 				//now add the versions of newArt to artId
 				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
@@ -207,7 +209,7 @@
 				for($i = 0 ; $i < count($newArtVers); $i++) {
 					$latestVer++;
 					$rowValues = array($artId, $newArtVers[$i]->version_label,$latestVer, $userId, $date, $newArtVers[$i]->document_path, $newArtVers[$i]->MIME_type, $newArtVers[$i]->file_size, $newArtVers[$i]->state, 0);
-					$newVer = $db->insertAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
+					$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				}
 
 				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);

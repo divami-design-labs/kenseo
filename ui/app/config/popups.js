@@ -191,7 +191,10 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn done-btn",
 	            	"disabled": true
 	            }],
-	            "callbackfunc": sb.popup.replaceArtefact
+	            "callbackfunc": function() {
+	            	sb.setPopupData('replaceArtefact', 'actionType');
+	            	sb.popup.createFilePopup();	
+	            }
         	}
         ],
         "add-people": [

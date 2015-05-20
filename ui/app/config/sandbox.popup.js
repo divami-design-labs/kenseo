@@ -62,7 +62,10 @@ sb.popup= {
             sb.setPopupData(this.value, 'description');
             sb.setPopupData(this.files[0], 'MIMEtype');
             sb.setPopupData(this.files[0].size, 'size');
-            sb.setPopupData('addArtefact', 'actionType');
+            //if this is an add artefact in the next popup call back it will be set taccordingly
+            //for replace this is the only place we can decide wheteher it is a replace call or not
+            sb.setPopupData('replaceArtefact', 'command');
+            sb.setPopupData('replaceArtefactFile', 'actionType');
 
             $('.main-btn').prop('disabled', false);
 
@@ -76,6 +79,11 @@ sb.popup= {
             $('.choose-file-combobox input').attr('disabled', false);
             $('.main-btn').prop('disabled', true);
             sb.setPopupData(null, 'fileName');
+            sb.setPopupData(null, 'file');
+            sb.setPopupData(null, 'MIMEType');
+            sb.setPopupData(null, 'size');
+            sb.setPopupData(null, 'description');
+            
             $('.existing-files-chk').attr('disabled', true);
         });
         sb.loadFiles({
@@ -185,6 +193,7 @@ sb.popup= {
         });
     },
     teamPopup: function() {
+        sb.setPopupData('addArtefact', 'actionType');
         sb.setPopupData('addArtefact', 'command');
         sb.setPopupData(false, 'share');
         sb.loadFiles({
