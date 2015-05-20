@@ -407,14 +407,6 @@
 					$db->insertSingleRow(TABLE_ARTEFACT_REFS, $refColumnNames, $refRowValues);
 				}
 				
-				
-				//if it is  share share it with others as well
-				if($data->share == 'true') {
-					//now send the data to be shared for those people
-					Master::getLogManager()->log(DEBUG, MOD_MAIN,"share : $data->share");
-					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
-				}
-				
 				//now link the artefacts
 				if($data->linksIds) {
 					$links = $this->linkArts ($artId, $data->linksIds);
@@ -430,7 +422,11 @@
 				$notificationRowValues = array($data->userId, $_FILES['file']['name'], $data->project_id, $data->userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
 				$db->insertSingleRow(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
 				
-				
+				//if it is  share share it with others as well
+				if($data->share == 'true') {
+					//now send the data to be shared for those people
+					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
+				}
 				
 				return $targetPath;
 			} else {
@@ -442,6 +438,7 @@
 		
 		public function shareForTeam($artId, $artVerId, $team, $sharedBy) {
 			$db = Master::getDBConnectionManager();
+			$team = json_decode($team);
 			for($i = 0; $i < count($team); $i++) {
 				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
 				
@@ -455,8 +452,8 @@
 		
 		public function shareArtefact($interpreter) {
 			$data = $interpreter->getData();
-			$artVerId = $data-> artefactVerId;
-			$artId = $data->artId;
+			$artVerId = $data-> versionId;
+			$artId = $data->id;
 			$userId = $interpreter->getUser()->user_id;
 			$this->shareForTeam($artId, $artVerId,$data->sharedTo, $data->userId);
 		}

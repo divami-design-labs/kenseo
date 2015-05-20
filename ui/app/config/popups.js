@@ -115,7 +115,7 @@ Kenseo.popups = (function(){
 	            },
 	            {
 	            	"label": "Done",
-	            	"cls": "main-btn done-btn",
+	            	"cls": "main-btn share-btn done-btn",
 	            	"disabled": false
 	            }],
 	            "callbackfunc": sb.popup.shareWithPeoplePopup
@@ -237,7 +237,24 @@ Kenseo.popups = (function(){
         			"disabled": false
         		}]
         	}
-        ]
+        ],
+        "share" : [{
+        	"page_name": "artefact-four",
+        	"title": "Share an Artefact",
+        	"buttons": [{
+            	"label": "Cancel",
+            	"cls": "cancel-btn lnk-btn"
+            },
+            {
+            	"label": "Done",
+            	"cls": "main-btn share-btn done-btn",
+            	"disabled": false
+            }],
+            "callbackfunc": function() {
+            	sb.setPopupData('shareArtefact', 'actionType');
+            	sb.popup.shareWithPeoplePopup()	
+            }
+        }]
 	};
 
 	return {

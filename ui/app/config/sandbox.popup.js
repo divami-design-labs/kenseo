@@ -240,66 +240,88 @@ sb.popup= {
             });
         });
     },
-    shareWithPeoplePopup: function() {
-        sb.setPopupData(true, 'share');
-        //now you need 2 sets of people, people those who are arleady in the project and all the remaining people
-
-        sb.loadFiles({
-            'collections': ['People'],
-            'models': ['People']
-        }, function() {
-            sb.ajaxCall({
-                collection: new Kenseo.collections.People(),
-                data: {
-                    "all": true,
-                    "projectId": sb.getPopupData('project_id'),
-                },
-                success: function(resp) {
-                    resp = JSON.parse(resp);
-                    //reder all the others in a COMBO
-                    var data = resp.data.otherMembers;
-                    var container = document.querySelector('.people-combobox');
-                    sb.toolbox.applyComboBox({
-                        elem: container,
-                        data: data,
-                        settings: {
-                            placeholder: "Type mail ID or username and press enter ",
-                            multiSelect: true
-                        },
-                        onchange: function($input, $selectedEl, bln) {
-                            // if(bln){
-                            // 	console.log("test");
-                            // }
-                            // else {
-                            // 	console.log("tester");
-                            // }
-                            if (bln) {
-                                var obj = {};
-                                var attrs = $selectedEl[0].attributes;
-                                for (var i = 0; i < attrs.length; i++) {
-                                    var attr = attrs[i];
-                                    if (attr.name.indexOf('data-') > -1) {
-                                        obj[attr.name.substr(5)] = attr.value;
-                                    }
-                                }
-                                obj.name = $selectedEl.html();
-                                $('.share-artefact-people-wrapper').append(_.template(templates['share-people'])({
-                                    data: obj
-                                }));
-                            }
-                        }
-                    });
-
-                    //render all the team members
-                    for (var i = 0; i < resp.data.teamMembers.length; i++) {
-                        $('.share-artefact-people-wrapper').append(_.template(templates['share-people'])({
-                            data: resp.data.teamMembers[i]
-                        }));
-                    }
-                }
-            })
-        })
-
+    shareWithPeoplePopup: function(){
+		sb.setPopupData(true, 'share');
+		//now you need 2 sets of people, people those who are arleady in the project and all the remaining people
+		
+		sb.loadFiles({
+    		'collections': ['People'],
+    		'models': ['People']
+    	}, function(){
+			sb.ajaxCall({
+				collection: new Kenseo.collections.People(),
+				data : {
+					"all" : true,
+					"projectId" : sb.getPopupData('project_id'),
+				},
+				success: function(resp) {
+					resp = JSON.parse(resp);
+					//reder all the others in a COMBO
+					var data = resp.data.otherMembers;
+					var container = document.querySelector('.people-combobox');
+					sb.toolbox.applyComboBox({
+						elem: container,
+						data: data,
+						settings: {
+							placeholder: "Type mail ID or username and press enter ",
+							multiSelect: true
+						},
+						onchange: function($input, $selectedEl, bln){
+				   			if(bln){
+				   				var obj = {};
+				   				var attrs = $selectedEl[0].attributes;
+				   				for(var i=0; i< attrs.length; i++){
+				   					var attr = attrs[i];
+				   					if(attr.name.indexOf('data-') > -1){
+				   						obj[attr.name.substr(5)] = attr.value;
+				   					}
+				   				}
+				   				obj.name = $selectedEl.html();
+				   				$('.share-artefact-people-wrapper').append(_.template(templates['share-people'])({data: obj}));
+				   			}
+						}
+					});
+					
+					//render all the team members
+					for(var i=0 ; i<resp.data.teamMembers.length; i++) {
+						$('.share-artefact-people-wrapper').append(_.template(templates['share-people'])({data: resp.data.teamMembers[i]}));
+					}
+					
+					// $(document).on('change', '.user-permission', function(e) {
+					// 	var curState = this.checked; 
+					// 	if($(this).parent().parent().parent().find('.checkbox').find("input[type=checkbox]").is(':checked')) {
+					// 		//change the permission for all users
+					// 		var dataElem = this.getAttribute('data-elem');
+					// 		$(".user-permission[data-elem=" + dataElem + "]").each(function() {
+					// 			this.setAttribute("checked", curState);
+					// 		});
+					// 	} else {
+					// 		this.setAttribute("checked", curState);
+					// 	}
+					// }).on('change', '.apply-to-all', function(e) {
+					// 	//now collect the permissions of above
+					// 	var curState = this.checked; 
+					// 	$('.apply-to-all').each(function() {
+					// 		this.checked = curState;
+					// 	});
+					// 	if(curState || curState == 'true') {
+					// 		var commentState = $(this).parent().find(".user-permission[data-elem='comment']").is(':checked');
+					// 		$(".user-permission[data-elem='comment']").each(function() {
+					// 			this.setAttribute("checked", commentState);
+					// 		});
+					// 		var shareState = $(this).parent().find(".user-permission[data-elem='share']").is(':checked');
+					// 		$(".user-permission[data-elem='share']").each(function() {
+					// 			this.setAttribute("checked", shareState);
+					// 		});
+					// 	}
+					// 	return true
+					// });
+					
+					
+				}
+			})
+		})
+		
     },
     replaceArtefact: function() {
         sb.setPopupData('replaceArtefact', 'actionType');

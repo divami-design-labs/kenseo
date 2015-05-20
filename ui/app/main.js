@@ -104,6 +104,28 @@ $(function(){
             }
         });
     })
+    .on('click', '.share-btn', function() {
+    	var container = document.querySelectorAll('.share-artefact-people-item');
+    	console.log(container);
+    	var sharedDetails = [];
+    	for(var i =0 ; i<container.length; i++) {
+    		var $elem = $(container[i])
+    		var userId = $elem.attr("data-id")
+    		var permissions = $elem.find(".user-permission");
+    		for(var j=0; j<permissions.length; j++) {
+    			var $permission = $(permissions[j])
+    			if($permission[0].checked == true) {
+    				var permissionType = ($($permission[0]).attr("data-elem") == "comment") ? 'c' : 's'
+	    			sharedDetails.push({
+	    				"userId" : userId,
+	    				"permission" : permissionType
+	    			})
+    			}
+    		}
+    	}
+    	sb.setPopupData(JSON.stringify(sharedDetails), 'sharedTo')
+    	console.log("parsing is completed")
+    })
     .on('click', '.done-btn', function() {
     	var $self = $(this);
     	var actionType = sb.getPopupData('actionType');
@@ -111,13 +133,13 @@ $(function(){
     	switch(actionType) {
     		case 'archiveArtefact' :
     		case 'deleteArtefact' :
-    			data = Kenseo.popup.data,
-    			url = "../server/" + actionType;
+    			data = sb.getPopupData(),
+    			url = sb.getRelativePath(actionType);
     			type= 'GET';
     			break;
     		case 'replaceArtefact' :
-    			data = Kenseo.popup.replace;
-				url = "../server/" + actionType;
+    			data = sb.getPopupData();
+				url = sb.getRelativePath(actionType);
 				type= 'GET';
     			break;
     		case 'art-add-version' :
@@ -132,6 +154,14 @@ $(function(){
     			type= 'GET';
     			break;
     			
+    		case 'shareArtefact' : 
+    			data = {
+    				"artefactId": sb.getPopupData()
+    			};
+    			url = sb.getRelativePath(actionType);;
+    			type= 'GET';
+    			break;
+    			
     		default :
 				var data = new FormData();
 				
@@ -141,19 +171,6 @@ $(function(){
 				
 				data.append("type", 'I');
 				data.append("sid", Kenseo.cookie.sessionid());
-				data.append("file", dump['file']);
-				data.append("tags", [1,3,4,5]);
-				data.append("linkIds", [1,2,3]);
-				data.append("refs", [1]);
-				data.append("artefact_id", dump['artefact_id']);
-				data.append("share", dump['share']);
-				data.append("sharedTo", [{
-					"userId" : 2,
-					"permission" : 'S'
-				},{
-					"userId" : 3,
-					"permission" : 'W'
-				}]);
 				
 				$.ajax({
 					url : "../server/extUpload.php",
