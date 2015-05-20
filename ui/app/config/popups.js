@@ -46,7 +46,7 @@ Kenseo.popups = (function(){
 	            },
 	            {
 	            	"label": "Done",
-	            	"cls": "main-btn nav-btn done-btn",
+	            	"cls": "main-btn done-btn",
 	            	"disabled": false
 	            }],
 	            "callbackfunc": sb.popup.teamPopup

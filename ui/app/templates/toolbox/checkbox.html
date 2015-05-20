@@ -1,4 +1,12 @@
-<label class="<% if(data.toggle){ %>toggle-checkbox<% } else {%>checkbox<% } %> <%= data.class %>">
-	<input type="checkbox"></input>
-	<span><%= data.text %></span>
-</label>
+<div class="field-section" <% if(data['dataName']) { %>data-name=<%= data.dataName %><% } %> <% if(data['data-array']){ %> data-array="<%= data['data-array'] %>" <% } %>>
+	<label class="<% if(data.toggle){ %>toggle-checkbox<% } else {%>checkbox<% } %> <%= data.class %>">
+		<input type="checkbox" 
+			<% if(data.attribs) {%> 
+				<% for(var key in data.attribs){ %>
+					<%= key %>=<%= data.attribs[key] %>
+				<% } %>
+			<% } %>
+		></input>
+		<span><%= data.text %></span>
+	</label>
+</div>

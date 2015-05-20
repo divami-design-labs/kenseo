@@ -306,6 +306,7 @@ $popup-content-space: 175px;
 	}
 	.share-artefact-right-panel{
 		margin-left: 20px;
+		@include clearFloat();
 	}
 	.sarp-text{
 		@include text(14px, $colorTwo);

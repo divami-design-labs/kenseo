@@ -390,6 +390,86 @@ var sb = (function() {
             collection.fetch(sb.getStandardData({
                 data: data
             })).then(func);
+        },
+        registerData: function(){
+            var $fieldSection = $('.popup').find('.field-section');
+            if($fieldSection.length){
+                $fieldSection.each(function(){
+                    var $self = $(this);
+                    if($self.data('ignore') !== "1"){
+                        var property = $self.data('name');
+                        var $combobox = $self.find('.combobox');
+                        var $text = $self.find('input[type="text"]');
+                        var $checkbox = $self.find('input[type="checkbox"]');
+                        var asArray = $self.data('array') === 1;
+                        if($combobox.length){
+                            var arrValue = [];
+                            var arrayIds = [];
+                            $combobox.find('.sv-name').each(function(){
+                                var obj = {};
+                                var attrs = this.attributes;
+                                for(var i=0; i<attrs.length; i++){
+                                    var attr = attrs[i];
+                                    obj[attr.name] = attr.value;
+                                }
+                                obj.name = $(this).html();
+                                arrValue.push(obj);
+                                //TODO: Remove arrayIds concept
+                                arrayIds.push($(this).data('id'));
+                            });
+                            // settings
+                            if(property){
+                                sb.setPopupData(arrValue, property);
+                                sb.setPopupData(arrayIds, property+'Ids');
+                            }
+                        }
+                        else if($text.length){
+                            var arrValue = [];
+                            var arrayIds = [];
+                            sb.setPopupData($text.val(), property);
+
+                            // settings
+                            if(property){
+                                sb.setPopupData(arrValue, property);
+                                sb.setPopupData(arrayIds, property+'Ids');
+                            }
+                        }
+                        else if($checkbox.length){
+                            var arrValue = [];
+                            var arrayIds = [];
+                            $checkbox.each(function(){
+                                if(this.checked){
+                                    var obj = {};
+                                    var attrs = this.attributes;
+                                    for(var i=0; i<attrs.length; i++){
+                                        var attr = attrs[i];
+                                        obj[attr.name] = attr.value;
+                                    }
+                                    // obj.name = $(this).html();
+                                    // arrValue.push(obj);
+                                    if(asArray){
+                                        var dump = sb.getPopupData(property);
+                                        if(!dump){
+                                            dump = [];
+                                        }
+                                        dump.push(obj);
+                                        sb.setPopupData(dump, property);
+                                    }
+                                    else{
+                                        arrValue.push(obj);
+                                    }
+                                }
+                            });
+
+                            // settings
+                            if(!asArray && property){
+                                sb.setPopupData(arrValue, property);
+                            }
+                        }
+                    }
+
+                });
+            }
         }
     };
 })();

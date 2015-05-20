@@ -2028,6 +2028,10 @@
     color: #3e4354; }
   .share-artefact-people-item .share-artefact-right-panel {
     margin-left: 20px; }
+    .share-artefact-people-item .share-artefact-right-panel::after {
+      content: "";
+      display: block;
+      clear: both; }
   .share-artefact-people-item .sarp-text {
     font-size: 14px;
     color: #3e4354;

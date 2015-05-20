@@ -268,7 +268,7 @@ sb.popup= {
             function attachEvents(){
                 $('.apply-to-all').off('change');
                 $('.add-comments-chk input').off('click');
-                $('.add-comments-chk input').off('click');
+                $('.others-chk input input').off('click');
                 $('.apply-to-all').on('change', function(){
                     var $self = $(this);
                     var $parent = $self.parents('.share-artefact-people-item-section');

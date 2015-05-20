@@ -40,38 +40,7 @@ $(function(){
 	.on('click', '.nav-btn', function(e){
         e.preventDefault();
 
-        var $fieldSection = $('.popup').find('.field-section');
-        if($fieldSection.length){
-        	$fieldSection.each(function(){
-        		var $self = $(this);
-        		var property = $self.data('name');
-        		var $combobox = $self.find('.combobox');
-        		var $text = $self.find('input');
-        		if($combobox.length){
-        			var arrValue = [];
-        			var arrayIds = [];
-        			$combobox.find('.sv-name').each(function(){
-        				var obj = {};
-        				var attrs = this.attributes;
-        				for(var i=0; i<attrs.length; i++){
-        					var attr = attrs[i];
-        					obj[attr.name] = attr.value;
-        				}
-        				obj.name = $(this).html();
-        				arrValue.push(obj);
-                //TODO: Remove arrayIds concept
-                arrayIds.push($(this).data('id'));
-        			});
-        			sb.setPopupData(arrValue, property);
-        			Kenseo.popup.data[property] = arrValue;
-        			Kenseo.popup.data[property+'Ids'] = arrayIds;
-        		}
-        		else{
-        			sb.setPopupData($text.val(), property);
-        		}
-
-        	});
-        }
+        sb.registerData();
         var $dataUrl = $(this).data('index');
         if($dataUrl >= 0) {
 	        sb.callPopup($dataUrl);
@@ -123,10 +92,11 @@ $(function(){
     			}
     		}
     	}
-    	sb.setPopupData(JSON.stringify(sharedDetails), 'sharedTo')
+    	// sb.setPopupData(JSON.stringify(sharedDetails), 'sharedTo')
     	console.log("parsing is completed")
     })
     .on('click', '.done-btn', function() {
+    	sb.registerData();
     	var $self = $(this);
     	var actionType = sb.getPopupData('actionType');
     	var data = null;
@@ -163,7 +133,11 @@ $(function(){
 				var data = new FormData();
 				
 				for(x in Kenseo.popup.data) {
-					data.append(x,Kenseo.popup.data[x]);
+					var dump = sb.getPopupData(x);
+					if(typeof dump === "object" && x !== "file"){
+						dump = JSON.stringify(dump);
+					}
+					data.append(x, dump);
 				}
 				
 				data.append("type", 'I');

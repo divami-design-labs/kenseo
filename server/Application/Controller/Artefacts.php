@@ -512,7 +512,7 @@
 			for($i = 0; $i < count($team); $i++) {
 				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
 				
-				$shareRowValues = array($artVerId, $artId, $team[$i]->userId, $team[$i]->permission , date("Y-m-d H:i:s"), $sharedBy);
+				$shareRowValues = array($artVerId, $artId, $team[$i]->userid, $team[$i]->permission , date("Y-m-d H:i:s"), $sharedBy);
 				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 			}
 			
