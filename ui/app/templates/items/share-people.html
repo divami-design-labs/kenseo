@@ -7,20 +7,35 @@
 	<div class="share-artefact-people-item-section">
 		<div class="share-artefact-right-panel">
 			<div class="sarp-text">Can Add comments</div>
-			<label class="toggle-checkbox">
-				<input type="checkbox" class="user-permission" data-elem="comment"></input><span></span>
-			</label>
+			<%= 
+				_.template(templates['checkbox'])({
+					data:{
+						class: "add-comments-chk",
+						toggle: true
+					}
+				}) 
+			%>
 		</div>
 		<div class="share-artefact-right-panel">
 			<div class="sarp-text">Share with others</div>
-			<label class="toggle-checkbox">
-				<input type="checkbox" class="user-permission" data-elem="share"></input><span></span>
-			</label>
+			<%= 
+				_.template(templates['checkbox'])({
+					data:{
+						class: "others-chk",
+						toggle: true
+					}
+				}) 
+			%>
 		</div>
 		<div class="sarp-checkbox-holder">
-			<label class="checkbox">
-				<input type="checkbox" class="apply-to-all"></input><span>Apply to all users in this group</span>
-			</label>
+			<%= 
+				_.template(templates['checkbox'])({
+					data:{
+						class: "apply-to-all",
+						text: "Apply to all users in this group"
+					}
+				}) 
+			%>
 		</div>
 	</div>
 </div>

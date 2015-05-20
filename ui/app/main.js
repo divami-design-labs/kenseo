@@ -173,7 +173,7 @@ $(function(){
 				data.append("sid", Kenseo.cookie.sessionid());
 				
 				$.ajax({
-					url : "../server/extUpload.php",
+					url : sb.getRelativePath("extUpload.php"),
 					data: data,
 					type: 'POST',
 					contentType: false,

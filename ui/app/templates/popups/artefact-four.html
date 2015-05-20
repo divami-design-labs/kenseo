@@ -51,10 +51,13 @@
 			<div class="your-team-section">
 				<div class="your-team-heading">Your Team</div>
 				<form class="your-team-body">
-					<label class="checkbox">
-						<input type="checkbox"></input>
-						<span>Temporarily hide file from this group</span>
-					</label>
+					<%= 
+						_.template(templates['checkbox'])({
+							data:{
+								text: "Temporarily hide file from this group"
+							}
+						}) 
+					%>
 					<div class="field-section your-team-field" data-name="new-people">
 						<form>
 							<%

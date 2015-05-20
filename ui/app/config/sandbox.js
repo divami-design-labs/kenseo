@@ -24,14 +24,7 @@ var sb = (function() {
             return JSON.stringify(n);
         },
         loadFiles: function(payload, fn) {
-            var counter = 0;
-            var blnCallbackCalled = false;
-            var head = document.head || document.getElementsByTagName("head")[0];
-            var totalLength = (payload.files && payload.files.length || 0) +
-                (payload.collections && payload.collections.length || 0) +
-                (payload.views && payload.views.length || 0) +
-                (payload.models && payload.models.length || 0);
-
+            var allFiles = [];
             var types = ['files', 'views', 'models', 'collections'];
             for (var k = 0; k < types.length; k++) {
                 var type = types[k];
@@ -42,46 +35,24 @@ var sb = (function() {
 
                         // Checking the file whether it is already loaded or not.
                         if (!scripts[type][file]) {
-
-                            // Creating a new script tag.
-                            var fileref = document.createElement('script');
-                            fileref.setAttribute("type", "text/javascript");
-
                             var src = type === "files" ? file : getModulePath(type, file);
-
-                            fileref.setAttribute("src", src);
-
                             // Setting the loaded flag to true to avoid loading a same file again.
                             scripts[type][file] = true;
-
-                            // Used to call a callback function
-                            fileref.onload = function() {
-                                // Incrementing counter to track number files loaded
-                                counter++;
-
-                                // Calling a global callback function provided by user.
-                                if (counter === totalLength) {
-                                    blnCallbackCalled = true;
-                                    fn();
-                                }
-                            }
-
-                            // Appending the script tag to the head tag.
-                            head.appendChild(fileref);
-                        } else {
-                            // Only incrementing the counter value if the file is already has been loaded.
-                            counter++;
-                        }
+                            allFiles.push($.getScript(src));
+                        } 
                     }
                 }
             }
 
-            // In case when all files were already loaded or there are no files to load,
-            // the callback function will not get called
-            // To cover that case, the following check is done.
-            if (totalLength === 0 || (totalLength === counter && !blnCallbackCalled)) {
+            allFiles.push($.Deferred(function( deferred ){
+                $( deferred.resolve );
+            }));
+            $.when.apply($, allFiles).done(function(){
+
+                //place your code here, the scripts are all loaded
                 fn();
-            }
+
+            });
         },
         getPath: function(type, fileName) {
             var o = i18n[type];
@@ -149,19 +120,19 @@ var sb = (function() {
                 },
                 type: payload.type || "GET",
                 success: function(response) {
-                    if (JSON.parse(response).status == 'success') {
+                    var data = JSON.parse(response);
+                    if (data.status == 'success') {
                         if (!payload.excludeDump) {
-                            sb.setDump(response);
+                            sb.setDump(data);
                         }
-                        payload.success(response);
+                        payload.success(data);
                     } else {
                         window.location.assign("http://kenseo.divami.com");
                     }
                 }
             });
         },
-        setDump: function(response) {
-            var obj = JSON.parse(response);
+        setDump: function(obj) {
             var key = obj.command.slice(3).toLowerCase(); // removing "get" prefix
             var dump = Kenseo.data[key];
             if (obj.data.length) {
@@ -239,12 +210,12 @@ var sb = (function() {
                 sb.ajaxCall({
                     "url": url,
                     "data": p.data,
-                    "success": function(response) {
-                        if (response) {
-                            var obj = JSON.parse(response);
-                        } else {
-                            var obj = {};
-                        }
+                    "success": function(obj) {
+                        // if (response) {
+                        //     var obj = JSON.parse(response);
+                        // } else {
+                        //     var obj = {};
+                        // }
                         // console.dir(obj);
                         if (p.templateHolder) {
                             p.templateHolder.html(compiler(obj));

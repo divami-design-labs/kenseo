@@ -15,8 +15,7 @@ sb.popup= {
                 data: {
                     userProjects: true
                 },
-                success: function(response) {
-                    var data = JSON.parse(response);
+                success: function(data) {
                     var container = document.querySelector('.combobox');
                     sb.toolbox.applyComboBox({
                         elem: container,
@@ -90,8 +89,7 @@ sb.popup= {
                     references: true,
                     ignore: 0
                 },
-                success: function(response) {
-                    var data = JSON.parse(response);
+                success: function(data) {
                     var container = document.querySelector('.existing-files-combobox');
                     var existingCombobox = sb.toolbox.applyComboBox({
                         elem: container,
@@ -201,8 +199,7 @@ sb.popup= {
                     ignore: 0,
                     projectid: sb.getPopupData('project_id')
                 },
-                success: function(response) {
-                    var data = JSON.parse(response);
+                success: function(data) {
                     var container = document.querySelector('.reference-combobox');
                     var combobox = sb.toolbox.applyComboBox({
                         elem: container,
@@ -226,8 +223,7 @@ sb.popup= {
             sb.ajaxCall({
                 'collection': new Kenseo.collections.Tags(),
                 'data': {},
-                success: function(response) {
-                    var data = JSON.parse(response);
+                success: function(data) {
                     var container = document.querySelector('.tags-combobox');
                     var combobox = sb.toolbox.applyComboBox({
                         elem: container,
@@ -287,35 +283,67 @@ sb.popup= {
 						$('.share-artefact-people-wrapper').append(_.template(templates['share-people'])({data: resp.data.teamMembers[i]}));
 					}
 					
-					// $(document).on('change', '.user-permission', function(e) {
-					// 	var curState = this.checked; 
-					// 	if($(this).parent().parent().parent().find('.checkbox').find("input[type=checkbox]").is(':checked')) {
-					// 		//change the permission for all users
-					// 		var dataElem = this.getAttribute('data-elem');
-					// 		$(".user-permission[data-elem=" + dataElem + "]").each(function() {
-					// 			this.setAttribute("checked", curState);
-					// 		});
-					// 	} else {
-					// 		this.setAttribute("checked", curState);
-					// 	}
-					// }).on('change', '.apply-to-all', function(e) {
-					// 	//now collect the permissions of above
-					// 	var curState = this.checked; 
-					// 	$('.apply-to-all').each(function() {
-					// 		this.checked = curState;
-					// 	});
-					// 	if(curState || curState == 'true') {
-					// 		var commentState = $(this).parent().find(".user-permission[data-elem='comment']").is(':checked');
-					// 		$(".user-permission[data-elem='comment']").each(function() {
-					// 			this.setAttribute("checked", commentState);
-					// 		});
-					// 		var shareState = $(this).parent().find(".user-permission[data-elem='share']").is(':checked');
-					// 		$(".user-permission[data-elem='share']").each(function() {
-					// 			this.setAttribute("checked", shareState);
-					// 		});
-					// 	}
-					// 	return true
-					// });
+					 function getChecked($el){
+                        return $el.attr('checked') === "checked";
+                    }
+                    function setChecked($el, bln){
+                        $el.attr('checked', bln);
+                        $el[0].checked = bln;
+                    }
+                    $('.apply-to-all').on('change', function(){
+                        var $self = $(this);
+                        var $parent = $self.parents('.share-artefact-people-item-section');
+                        var $grandParent = $self.parents('.share-artefact-people-wrapper');
+                        var states = {
+                            comment: getChecked($parent.find('.add-comments-chk input')),
+                            others: getChecked($parent.find('.others-chk input')),
+                            all: !getChecked($self.find('input'))
+                        }
+                        
+                        $grandParent.find('.add-comments-chk').each(function(){
+                            setChecked($(this).find('input'), states.comment);
+                        });
+
+                        $grandParent.find('.others-chk').each(function(){
+                            setChecked($(this).find('input'), states.others);
+                        });
+
+                        $grandParent.find('.apply-to-all').each(function(){
+                            setChecked($(this).find('input'), states.all);
+                        });
+                    });
+                    $('.add-comments-chk input').on('click', function(){
+                        var $self = $(this);
+                        var $parent = $self.parents('.share-artefact-people-item-section');
+                        var $grandParent = $self.parents('.share-artefact-people-wrapper');
+                        var thisChk = !getChecked($self);
+                        var allChk = getChecked($parent.find('.apply-to-all input'));
+                        if(allChk){
+                            $grandParent.find('.add-comments-chk').each(function(){
+                                setChecked($(this).find('input'), thisChk);
+                            });
+                        }
+                        else{
+                            setChecked($(this), thisChk);
+                        }
+                    });
+
+
+                    $('.others-chk input').on('click', function(){
+                        var $self = $(this);
+                        var $parent = $self.parents('.share-artefact-people-item-section');
+                        var $grandParent = $self.parents('.share-artefact-people-wrapper');
+                        var thisChk = !getChecked($self);
+                        var allChk = getChecked($parent.find('.apply-to-all input'));
+                        if(allChk){
+                            $grandParent.find('.others-chk').each(function(){
+                                setChecked($(this).find('input'), thisChk);
+                            });
+                        }
+                        else{
+                            setChecked($(this), thisChk);
+                        }
+                    });
 					
 					
 				}
@@ -434,8 +462,7 @@ sb.popup= {
                 'data': {
                     "userProjects": true
                 },
-                'success': function(response) {
-                    var objResponse = JSON.parse(response);
+                'success': function(objResponse) {
                     $('.meeting-project-name').on('keyup', function() {
                         var self = this;
                         var filteredData = _.filter(objResponse.data, function(item) {
@@ -472,8 +499,7 @@ sb.popup= {
                                 'data': {
                                     projectId: projectId
                                 },
-                                'success': function(response) {
-                                    var objResponse = JSON.parse(response);
+                                'success': function(objResponse) {
                                     $('.people-name').on('keyup', function() {
                                         var self = this;
                                         var filteredData = _.filter(objResponse.data, function(item) {
