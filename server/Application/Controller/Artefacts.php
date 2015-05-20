@@ -1,4 +1,5 @@
 <?php 
+	//@TODO: too much code is repetetive in here needs refinement
 	class Artefacts {
 		public function getArtefacts($interpreter){
 			$data = $interpreter->getData()->data;
@@ -110,12 +111,48 @@
 			return $resultObj;
 		}		
 		public function addArtefactVersion($interpreter) {
-			$data = $interpreter->getData()->data;
+			$data = $interpreter->getData();
+			if($data->data != null) {
+				$data = $data->data;
+			}
+			
 			$userId = $interpreter->getUser()->user_id;;
-			$previousArtefactid = $data->previousArtefactid;
-			$latestArtefactid = $data -> latestArtefactid;
+			$previousArtefactid = $data->id;
+			$latestArtefactid = $data -> artefact_id;
 			
 			$db = Master::getDBConnectionManager();
+			
+			
+			if(isset($_FILES["file"]["type"])) {
+				
+				//replacing with a new file
+				$uploadFile = $_FILES["file"]["type"];
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
+				
+				$data->userId = $interpreter->getUser()->user_id;
+				
+				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
+				$targetPath = $AppGlobal['gloabl']['storeLocation'].$_FILES['file']['name']; // Target path where file is to be stored
+				move_uploaded_file($sourcePath,$targetPath) ;
+				
+				//now store the artefact detail in the tables related to artefacts and versions
+				Master::getLogManager()->log(DEBUG, MOD_MAIN);
+				//get the latest version 
+				$queryParams = array('artId' => $previousArtefactid);
+				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
+				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
+				
+				//create a new version
+				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
+				$rowValues = array($previousArtefactid, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'C', 0);
+				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
+				
+				//update the artefact table
+				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $previousArtefactid);
+				
+				return true;
+			} else {
+				
 			//first get the latest artefact version of previos artefact
 			$artefactVersionParams = array(artId => $previousArtefactid);
 			$dbQuery = getQuery('getLatestVerionOfArtefact', $artefactVersionParams);
@@ -143,6 +180,8 @@
 			//$db->deleteTable(TABLE_ARTEFACT_VERSIONS,"artefact_id = ". $latestArtefactid);
 			
 			return true;
+			}
+			
 		}
 
 		public function replaceArtefact($interpreter) {
@@ -151,9 +190,9 @@
 				$data = $data->data;
 			}
 			
-			$artId = $data -> id;
+			$artId = $data -> artefact_id;
 			$projId = $data -> project_id;
-			$newArt = $data -> artefact_id;
+			$newArt = $data -> id;
 			$file = $data -> file;
 			
 			$userId = $interpreter->getUser()->user_id;
@@ -197,7 +236,7 @@
 				$newArtVers = $db->multiObjectQuery($dbQuery);
 				
 				//get the latestVersion of the artefact
-				$queryParams = array('artId' => $newArt);
+				$queryParams = array('artId' => $artId);
 				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
 				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
 				
