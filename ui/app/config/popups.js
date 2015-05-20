@@ -229,16 +229,22 @@ Kenseo.popups = (function(){
         "add-version":[
         	{
         		"page_name": "artefact-two",
-        		"title": "Add Version",
+        		"title": "Replace an Artefact",
+        		allow_artefact_selection: false,
+	            chooseExistingFile: true,
         		"buttons": [{
-        			"label": "Cancel",
-        			"cls": "cancel-btn lnk-btn"
-        		},
-        		{
-        			"label": "Done",
-        			"cls": "main-btn done-btn",
-        			"disabled": false
-        		}]
+	            	"label": "Cancel",
+	            	"cls": "cancel-btn lnk-btn"
+	            },
+	            {
+	            	"label": "Done",
+	            	"cls": "main-btn done-btn",
+	            	"disabled": true
+	            }],
+	            "callbackfunc": function() {
+	            	sb.setPopupData('addArtefactVersion', 'actionType');
+	            	sb.popup.createFilePopup();	
+	            }
         	}
         ],
         "share" : [{

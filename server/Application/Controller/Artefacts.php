@@ -122,7 +122,11 @@
 			
 			$db = Master::getDBConnectionManager();
 			
-			
+			//get the latest version 
+				$queryParams = array('artId' => $previousArtefactid);
+				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
+				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
+				
 			if(isset($_FILES["file"]["type"])) {
 				
 				//replacing with a new file
@@ -137,49 +141,55 @@
 				
 				//now store the artefact detail in the tables related to artefacts and versions
 				Master::getLogManager()->log(DEBUG, MOD_MAIN);
-				//get the latest version 
-				$queryParams = array('artId' => $previousArtefactid);
-				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
-				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
 				
 				//create a new version
 				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
-				$rowValues = array($previousArtefactid, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'C', 0);
+				$rowValues = array($previousArtefactid, $_FILES['file']['name'], $latestVer+1, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'c', 1);
 				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				
 				//update the artefact table
 				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $previousArtefactid);
 				
+				//now share the new vesion to yourself
+				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				$shareRowValues = array($newVer, $previousArtefactid, $userId, 'S', date("Y-m-d H:i:s"), $userId);
+				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+				
+				
 				return true;
 			} else {
 				
-			//first get the latest artefact version of previos artefact
-			$artefactVersionParams = array(artId => $previousArtefactid);
-			$dbQuery = getQuery('getLatestVerionOfArtefact', $artefactVersionParams);
-			
-			$latestVersion = $db->multiObjectQuery($dbQuery);
-			$latestVersion = $latestVersion[0]->verId;
-
-			//get the version details
-			$artefactOldVersionParams = array(artId => $latestArtefactid);
-			$dbQuery = getQuery('getVerionDetailsOfArtefact', $artefactOldVersionParams);
-			$existingArtVersionDetails = $db->multiObjectQuery($dbQuery);
-			
-			$existingArtVersionDetails = $existingArtVersionDetails[0];			
-
-			//insert a new row for the new artefact version of the main artefact
-			$column_names = array('artefact_ver_id','artefact_id','version_label','created_by','created_date','document_path','MIME_type','file_size','state','shared');
-			$columnData = array($latestVersion+1,$previousArtefactid,$existingArtVersionDetails->version_label,$existingArtVersionDetails->created_by,$existingArtVersionDetails->created_date,$existingArtVersionDetails->document_path,$existingArtVersionDetails->MIME_type,$existingArtVersionDetails->file_size,$existingArtVersionDetails->state,0);
-			$db->insertSingleRow(TABLE_ARTEFACTS_VERSIONS, column_names , $columnData);
-			
-			//update the latest version number of the previous artefact
-			$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"),array($latestVersion+1),"artefact_id = " . $previousArtefactid);
-			
-			//now delete the latest artefact from the table
-			//$db->deleteTable(TABLE_ARTEFACTS,"artefact_id = ". $latestArtefactid);
-			//$db->deleteTable(TABLE_ARTEFACT_VERSIONS,"artefact_id = ". $latestArtefactid);
-			
-			return true;
+				//first get the latest artefact version of previos artefact
+				$artefactVersionParams = array(artId => $previousArtefactid);
+				$dbQuery = getQuery('getLatestVerionOfArtefact', $artefactVersionParams);
+				
+				$latestVersion = $db->multiObjectQuery($dbQuery);
+				$latestVersion = $latestVersion[0]->verId;
+	
+				//get the version details
+				$artefactOldVersionParams = array(artId => $latestArtefactid);
+				$dbQuery = getQuery('getVerionDetailsOfArtefact', $artefactOldVersionParams);
+				$existingArtVersionDetails = $db->multiObjectQuery($dbQuery);
+				
+				$existingArtVersionDetails = $existingArtVersionDetails[0];			
+	
+				//insert a new row for the new artefact version of the main artefact
+				$column_names = array('version_no','artefact_id','version_label','created_by','created_date','document_path','MIME_type','file_size','state','shared');
+				$columnData = array(latestVer+1, $previousArtefactid, $existingArtVersionDetails->version_label,$existingArtVersionDetails->created_by,$existingArtVersionDetails->created_date,$existingArtVersionDetails->document_path,$existingArtVersionDetails->MIME_type,$existingArtVersionDetails->file_size,$existingArtVersionDetails->state,0);
+				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $column_names , $columnData);
+				
+				//update the latest version number of the previous artefact
+				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"),array($newVer),"artefact_id = " . $previousArtefactid);
+				
+				//now delete the latest artefact from the table
+				//$db->deleteTable(TABLE_ARTEFACTS,"artefact_id = ". $latestArtefactid);
+				//$db->deleteTable(TABLE_ARTEFACT_VERSIONS,"artefact_id = ". $latestArtefactid);
+				
+				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				$shareRowValues = array($newVer, $previousArtefactid, $userId, 'S', date("Y-m-d H:i:s"), $userId);
+				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+				
+				return true;
 			}
 			
 		}
@@ -190,9 +200,9 @@
 				$data = $data->data;
 			}
 			
-			$artId = $data -> artefact_id;
+			$artId = $data -> id;
 			$projId = $data -> project_id;
-			$newArt = $data -> id;
+			$newArt = $data -> artefact_id;
 			$file = $data -> file;
 			
 			$userId = $interpreter->getUser()->user_id;
@@ -220,11 +230,16 @@
 				
 				//create a new version
 				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
-				$rowValues = array($artId, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'C', 0);
+				$rowValues = array($artId, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'c', 0);
 				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				
 				//update the artefact table
 				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
+				
+				//share the arrtefact to Owner
+				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				$shareRowValues = array($newVer, $artId, $userId, 'S', date("Y-m-d H:i:s"), $userId);
+				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 				
 				return true;
 			} else {
@@ -259,7 +274,12 @@
 				$columnNames = array('project_id', 'logged_by', 'logged_time', 'performed_on', 'activity_type', 'performed_on_id');
 				$rowValues = array($projId, $userId, $date, 'A', 'R', $artId);
 				$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $columnNames, $rowValues);
-
+				
+				//share the arrtefact to Owner
+				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				$shareRowValues = array($newVer, $artId, $userId, 'S', date("Y-m-d H:i:s"), $userId);
+				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+				
 				return true;
 				
 			}
@@ -411,16 +431,25 @@
 				if(isset($data->artefact_id)) {
 					Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have a selected artefcat");
 					$artId = $data->artefact_id;
+
+					$queryParams = array('artId' => $previousArtefactid);
+					$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
+					$ver_no = $db->singleObjectQuery($dbQuery)->vers;
 				} else {
 					//if it is a new artefact
 					$columnnames = array('project_id','artefact_title', 'description', 'artefact_type', );
 					$rowvals = array($data->project_id, $_FILES['file']['name'], $data->description, $data->type);
 					$artId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS, $columnnames, $rowvals);
+					
+					$ver_no = 0;
+					
 				}
 				
+				$ver_no++;
+				
 				//else 
-				$verColumnNames = array("artefact_id", "version_label","created_by","document_path","MIME_type", "file_size", "state", "created_date");
-				$verRowValues = array($artId, $_FILES['file']['name'], $data->userId, $targetPath, $data->MIMEtype->type,  $data->size, 'c', date("Y-m-d H:i:s"));
+				$verColumnNames = array("artefact_id", "version_label","created_by","document_path","MIME_type", "file_size", "state", "created_date", "version_no");
+				$verRowValues = array($artId, $_FILES['file']['name'], $data->userId, $targetPath, $data->MIMEtype->type,  $data->size, 'c', date("Y-m-d H:i:s"), $ver_no);
 				
 				$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $verColumnNames, $verRowValues);
 				

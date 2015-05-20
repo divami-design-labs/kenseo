@@ -134,6 +134,7 @@ $(function(){
     		case 'archiveArtefact' :
     		case 'deleteArtefact' :
     		case 'replaceArtefact' :
+    		case 'addArtefactVersion' :
     			data = sb.getPopupData(),
     			url = sb.getRelativePath(actionType);
     			type= 'GET';

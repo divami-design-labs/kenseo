@@ -18,7 +18,7 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 
 $AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
 
-$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name as name, Date(last_updated_date) as last_updated_date, intro_image_url 
+$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as project_id, project_name as project_name, Date(last_updated_date) as last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
@@ -75,17 +75,11 @@ $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINC
 											artefacts.replace_ref_id = 0
 											ORDER BY @~~sortBy~~@";
 
-$AppGlobal['sql']['getReviewRequests-old'] = "SELECT artefacts.*,(SELECT COUNT(*) FROM ". TABLE_COMMENTS ." AS comments where comments.artefact_ver_id = artefacts.latest_version_id) AS commentsCount from " . TABLE_ARTEFACTS . " AS artefacts 
-											WHERE artefacts.artefact_id in 
-											(SELECT versions.artefact_id from ". TABLE_ARTEFACTS_VERSIONS ." AS versions 
-											WHERE versions.shared = 1 AND versions.artefact_ver_id in 
-											(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
-											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@))";
-											
 $AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requestedBy,versions.version_label AS title, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
 										requestor.user_id AS requestorId, Date(members.shared_date) AS requestTime,
-										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as versionId, 
+										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as versionId,
+										project.project_name as project_name,
 										(SELECT COUNT(artefact_id) FROM " . TABLE_ARTEFACTS_VERSIONS . " AS ver WHERE 
 										ver.artefact_id = artefacts.artefact_id) as version,
 										artefacts.project_id as project_id,
@@ -95,6 +89,8 @@ $AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requ
 										JOIN " . TABLE_ARTEFACTS_VERSIONS . " AS versions 
 										ON 
 										artefacts.latest_version_id = versions.artefact_ver_id
+										JOIN " . TABLE_PROJECTS . " as project ON
+										artefacts.project_id = project.project_id
 										JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." AS members ON 
 										artefacts.latest_version_id = members.artefact_ver_id
 										JOIN " . TABLE_USERS . " AS requestor ON 

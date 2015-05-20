@@ -64,8 +64,13 @@ sb.popup= {
             sb.setPopupData(this.files[0].size, 'size');
             //if this is an add artefact in the next popup call back it will be set taccordingly
             //for replace this is the only place we can decide wheteher it is a replace call or not
-            sb.setPopupData('replaceArtefact', 'command');
-            sb.setPopupData('replaceArtefactFile', 'actionType');
+            if(sb.getPopupData('actionType') == 'replaceArtefact') {
+	            sb.setPopupData('replaceArtefact', 'command');
+	            sb.setPopupData('replaceArtefactFile', 'actionType');
+            } else if(sb.getPopupData('actionType') == 'addArtefactVersion') {
+	            sb.setPopupData('addArtefactVersion', 'command');
+	            sb.setPopupData('addArtefactVersionFile', 'actionType');
+            }
 
             $('.main-btn').prop('disabled', false);
 
