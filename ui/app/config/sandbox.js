@@ -94,7 +94,7 @@ var sb = (function() {
             ajaxCall(payload);
         },
         getUrl: function(p) {
-            var relativePath = "../server/";
+            var relativePath = "../";
             if (p.collection) {
                 return relativePath + p.collection.url;
             } else if (p.model) {
@@ -147,7 +147,7 @@ var sb = (function() {
             }
         },
         getRelativePath: function(str) {
-            return '../server/' + str;
+            return '../' + str;
         },
         getStandardData: function(p) {
             p = p || {};
