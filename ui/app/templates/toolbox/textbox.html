@@ -1,9 +1,10 @@
-<div class="field-section">
+<div class="field-section" <% if(data.dataName){ %> data-name="<%= data.dataName %>" <% } %>>
 	<% if(data.label){ %><div class="input-label"><%= data.label %></div><% } %>
 	<div class="input-wrapper">
+		<% if(!data.textArea){ %>
 		<input 
 			type="text" 
-			class="input-text field <% if(data.enableSuggestions){ %>suggestion-text-input<% } %>" 
+			class="input-text <% if(data.inputClass) { %><%= data.inputClass %> <% } %>" 
 			<% if(data.placeholder){ %>placeholder="<%= data.placeholder %>" <% } %> 
 			<% if(data.attr && typeof data.attr == "object"){ 
 
@@ -14,6 +15,18 @@
 			 } %>
 
 		></input>
+		<% } else { %>
+		<textarea  class="<% if(data.inputClass) { %><%= data.inputClass %> <% } %>" 
+		<% if(data.placeholder){ %>placeholder="<%= data.placeholder %>" <% } %> 
+		<% if(data.attr && typeof data.attr == "object"){ 
+
+			var attributes = data.attr;
+			for(var key in attributes){ %>
+				<%= key %> = "<%= attributes[key] %>" 
+		<%	}
+		 } %>
+		 ></textarea>
+		<% } %>
 	</div>
 	<% if(data.enableSuggestions){ %>
 	<div class="field-suggestions"></div>

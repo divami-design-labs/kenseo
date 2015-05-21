@@ -1,11 +1,16 @@
 .input-meeting-text{
 	@include placeHolder($colorTwo, 14px $normalFont);
-	@include dimensions(365px, 18px);
+	@include dimensions(366px, 18px);
 	border: 1px solid $colorB;
 	padding: 7px;
 	&:focus{
 		outline: none;
 	}
+}
+
+.field-section.in-line {
+	clear: none;
+	margin-top: 50px; 
 }
 
 .mini-dropdown {
@@ -47,10 +52,9 @@
 
 .input-meeting-textarea{
 	@include placeHolder($colorTwo, 14px $normalFont);
-	@include dimensions(365px, 58px);
+	@include dimensions(360px, 58px);
 	border: 1px solid $colorB;
 	padding: 5px;
-	margin-bottom: 20px;
 	resize: none;
 	&:focus{
 		outline: none;

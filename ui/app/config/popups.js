@@ -221,10 +221,13 @@ Kenseo.popups = (function(){
 			},
 			{
 				"label": "Done",
-				"cls": "main-btn meeting-btn",
+				"cls": "main-btn done-btn",
 				"disabled": false
 			}],
-			"callbackfunc": sb.popup.meetingIvite
+			"callbackfunc": function() {
+            	sb.setPopupData('setMeetingInvitation', 'actionType');
+            	sb.popup.meetingIvite();	
+            }
     	}],
         "add-version":[
         	{

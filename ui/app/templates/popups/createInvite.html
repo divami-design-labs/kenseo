@@ -1,113 +1,120 @@
 <% var dataObj = Kenseo.popup.info[index] %>
-<div class="popup-container">
-	<div class="popup popup-meeting">
-		<div class="popup-header">
-			<div class="popup-title">Create meeting invitation</div>
-			<div class="popup-close-icon"></div>
-		</div>
-		<div class="popup-body">
-			<div class="popup-body-wrapper">
-				<form class="meeting-invite-form">
-					<div class="field-section">
-						<div class="input-label">Project</div>
-						<div class="input-wrapper">
-							<input type="text" class="input-meeting-text meeting-project-name" placeholder="Project"></input>
+<%
+	var fields = {
+		projectsCombo: sb.toolbox.comboBox({
+			"label": "Project",
+			"class": "xm project-combobox",
+			"dataName": "meetingProject",
+		}),
+		peopleCombo: sb.toolbox.comboBox({
+			"label": "Recipients List",
+			fieldClass: "recipients-field-section",
+			"class": "xm people-name tags-combobox",
+			"dataName": "attendees"
+		}),
+		textarea: sb.toolbox.textBox({
+			"label": "Agenda",
+			"placeholder": "Type a tag and press enter",
+			textArea: true,
+			dataName: "agenda",
+			"inputClass": "input-meeting-textarea meeting-agenda"
+		}),
+		location: sb.toolbox.textBox({
+			"label": "Venue",
+			inputClass: "meeting-location",
+			dataName: "location"
+		})
+	}
+%>
+<div class="popup popup-meeting">
+	<div class="popup-header">
+		<div class="popup-title">Create meeting invitation</div>
+		<div class="popup-close-icon"></div>
+	</div>
+	<div class="popup-body">
+		<div class="popup-body-wrapper">
+			<form class="meeting-invite-form">
+				
+				<%= fields.projectsCombo %>
+				<%= fields.textarea %>
+
+				<div class="field-section" data-name="date" data-ignore="1">
+					<div class="input-label">Scheduled on</div>
+					<div class="input-wrapper float-left mini-datepicker">
+						<input type="text" class="input-meeting-date float-left"></input>
+						<div class="datepicker-icon-holder float-left">
+							<div class="datepicker-icon"></div>
 						</div>
-						<div class="reference-files-suggestions project-suggestions"></div>
 					</div>
-					<div class="field-section">
-						<div class="input-label">Agenda</div>
-						<div class="input-wrapper">
-							<textarea class="input-meeting-textarea meeting-agenda" placeholder="Type a tag and press enter"></textarea>
-						</div>	
-						<div class="input-label">Scheduled on</div>
-						<div class="input-wrapper float-left mini-datepicker">
-							<input type="text" class="input-meeting-date float-left"></input>
-							<div class="datepicker-icon-holder float-left">
-								<div class="datepicker-icon"></div>
-							</div>
-						</div>
-						<div class="input-wrapper float-left">
-							<div class="time-label float-left">From</div>
-							<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">
-							    <option value="0000">12:00 AM</option>
-							    <option value="0100">01:00 AM</option>
-							    <option value="0200">02:00 AM</option>
-							    <option value="0300">03:00 AM</option>
-							    <option value="0400">04:00 AM</option>
-							    <option value="0500">05:00 AM</option>
-							    <option value="0600">06:00 AM</option>
-							    <option value="0700">07:00 AM</option>
-							    <option value="0800">08:00 AM</option>
-							    <option value="0900">09:00 AM</option>
-							    <option value="1000">10:00 AM</option>
-							    <option value="1100">11:00 AM</option>
-							    <option value="1200">12:00 PM</option>
-							    <option value="1300">01:00 PM</option>
-							    <option value="1400">02:00 PM</option>
-							    <option value="1500">03:00 PM</option>
-							    <option value="1600">04:00 PM</option>
-							    <option value="1700">05:00 PM</option>
-							    <option value="1800">06:00 PM</option>
-							    <option value="1900">07:00 PM</option>
-							    <option value="2000">08:00 PM</option>
-							    <option value="2100">09:00 PM</option>
-							    <option value="2200">10:00 PM</option>
-							    <option value="2300">11:00 PM</option>
-							</select>
-						</div>
-						
-						<div class="input-wrapper float-left">
-							<div class="time-label float-left">To</div>
-							<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">
-							    <option value="0000">12:00 AM</option>
-							    <option value="0100">01:00 AM</option>
-							    <option value="0200">02:00 AM</option>
-							    <option value="0300">03:00 AM</option>
-							    <option value="0400">04:00 AM</option>
-							    <option value="0500">05:00 AM</option>
-							    <option value="0600">06:00 AM</option>
-							    <option value="0700">07:00 AM</option>
-							    <option value="0800">08:00 AM</option>
-							    <option value="0900">09:00 AM</option>
-							    <option value="1000">10:00 AM</option>
-							    <option value="1100">11:00 AM</option>
-							    <option value="1200">12:00 PM</option>
-							    <option value="1300">01:00 PM</option>
-							    <option value="1400">02:00 PM</option>
-							    <option value="1500">03:00 PM</option>
-							    <option value="1600">04:00 PM</option>
-							    <option value="1700">05:00 PM</option>
-							    <option value="1800">06:00 PM</option>
-							    <option value="1900">07:00 PM</option>
-							    <option value="2000">08:00 PM</option>
-							    <option value="2100">09:00 PM</option>
-							    <option value="2200">10:00 PM</option>
-							    <option value="2300">11:00 PM</option>
-							</select>
-						</div>	
+				</div>
+				<div class="field-section in-line" data-name="fromTime">
+					<div class="input-wrapper float-left">
+						<div class="time-label float-left">From</div>
+						<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">
+						    <option value="00:00">12:00 AM</option>
+						    <option value="01:00">01:00 AM</option>
+						    <option value="02:00">02:00 AM</option>
+						    <option value="03:00">03:00 AM</option>
+						    <option value="04:00">04:00 AM</option>
+						    <option value="05:00">05:00 AM</option>
+						    <option value="06:00">06:00 AM</option>
+						    <option value="07:00">07:00 AM</option>
+						    <option value="08:00">08:00 AM</option>
+						    <option value="09:00">09:00 AM</option>
+						    <option value="10:00">10:00 AM</option>
+						    <option value="11:00">11:00 AM</option>
+						    <option value="12:00">12:00 PM</option>
+						    <option value="13:00">01:00 PM</option>
+						    <option value="14:00">02:00 PM</option>
+						    <option value="15:00">03:00 PM</option>
+						    <option value="16:00">04:00 PM</option>
+						    <option value="17:00">05:00 PM</option>
+						    <option value="18:00">06:00 PM</option>
+						    <option value="19:00">07:00 PM</option>
+						    <option value="20:00">08:00 PM</option>
+						    <option value="21:00">09:00 PM</option>
+						    <option value="22:00">10:00 PM</option>
+						    <option value="23:00">11:00 PM</option>
+						</select>
 					</div>
-					<div class="field-section">
-						<div class="input-label">Venue</div>
-						<div class="input-wrapper">
-							<input type="text" class="input-meeting-text meeting-venue" placeholder="Project"></input>
-						</div>	
-					</div>
-					<div class="field-section">
-						<div class="input-label">Recipients List</div>
-						<div class="input-wrapper">
-							<div class="input-meeting-textarea">
-								<div class="names-holder"></div>
-								<input type="text" class="people-name"></input>
-							</div>
-						</div>
-						<div class="reference-files-suggestions people-suggestions"></div>	
-					</div>
-					<div class="buttons-section">
-						<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
-					</div>
-				</form>
-			</div>
+				</div>
+				<div class="field-section in-line" data-name="toTime">
+					<div class="input-wrapper float-left">
+						<div class="time-label float-left">To</div>
+						<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">
+						    <option value="00:00">12:00 AM</option>
+						    <option value="01:00">01:00 AM</option>
+						    <option value="02:00">02:00 AM</option>
+						    <option value="03:00">03:00 AM</option>
+						    <option value="04:00">04:00 AM</option>
+						    <option value="05:00">05:00 AM</option>
+						    <option value="06:00">06:00 AM</option>
+						    <option value="07:00">07:00 AM</option>
+						    <option value="08:00">08:00 AM</option>
+						    <option value="09:00">09:00 AM</option>
+						    <option value="10:00">10:00 AM</option>
+						    <option value="11:00">11:00 AM</option>
+						    <option value="12:00">12:00 PM</option>
+						    <option value="13:00">01:00 PM</option>
+						    <option value="14:00">02:00 PM</option>
+						    <option value="15:00">03:00 PM</option>
+						    <option value="16:00">04:00 PM</option>
+						    <option value="17:00">05:00 PM</option>
+						    <option value="18:00">06:00 PM</option>
+						    <option value="19:00">07:00 PM</option>
+						    <option value="20:00">08:00 PM</option>
+						    <option value="21:00">09:00 PM</option>
+						    <option value="22:00">10:00 PM</option>
+						    <option value="23:00">11:00 PM</option>
+						</select>
+					</div>	
+				</div>
+				<%= fields.location %>
+				<%= fields.peopleCombo %>
+				<div class="buttons-section">
+					<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

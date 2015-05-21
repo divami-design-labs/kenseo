@@ -226,46 +226,5 @@ $(function(){
 		// Important: this should be called after dump object is stored in the Kenseo.popup.data
 		Kenseo.overlays.info = sb.getOverlaysInfo($self.data('url'));
 		sb.callOverlay(index);
-   })
-   
-   .on('keyup', '.suggestion-text-input', function(e) {
-		var type = this.getAttribute('data-elem');
-
-		var useData = sb.getPopupData(type + "ObjResponse");
-		var $suggestionHolder = $(this).parent().next('.field-suggestions');
-		
-		var self = this;
-		var filteredData = _.filter(useData.data, function(item){
-			if(self.value.length){
-				$suggestionHolder.show();
-				var index = item.name.toLowerCase().indexOf(self.value.toLowerCase());
-				return (index != -1);
-			}
-			else{
-				return false;
-			}
-		});
-		
-		sb.renderTemplate({"templateName": 'reference-items', "templateHolder": $suggestionHolder, "data": {data: filteredData}});
-   })
-   
- //   .on('click','.suggestion-item',function() {
- //   	var $parent = $(this).parent();
-	// 	var $holder = $parent.next();
-	// 	var html = $holder.html();
-	// 	var $input = $parent.parent().find('.suggestion-text-input');
-	// 	var type = $input.attr('data-elem')
-	// 	var appendText = "<div class='" + type + "' name='"  + this.getAttribute('name') + "'>" + this.innerHTML + "<div class='" + type + "-close'></div</div>";
-	// 	$holder.html(html + appendText);
-	// 	$parent.hide();
-	// 	$input.val('');
- //   })
-   
- //   .on('click', '.references-close', function(){
-	// 	$(this).parent().remove();
-	// })
-	
- //   .on('click', '.tag-close', function(){
-	// 	$(this).parent().remove();
-	// });
+   });
 });

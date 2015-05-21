@@ -73,7 +73,7 @@
 .a, .menu-settings-txt, .main-btn, .lnk-btn, .or-btn, .summary-compare-btn {
   text-decoration: none; }
 
-.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .share-artefact-people-item, .suggestion-item, .choose-existing-file-holder .close-icon, .text-actions-section > div, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .toggle-click, .sv-item .sv-close {
+.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .share-artefact-people-item, .suggestion-item, .choose-existing-file-holder .close-icon, .text-actions-section > div, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .sv-item .sv-close, .toggle-click {
   cursor: pointer; }
 
 .wrap, .input-wrapper {
@@ -1712,8 +1712,8 @@
 
 .popup-meeting {
   width: 565px;
-  height: 650px; }
-  @media (max-height: 650px) {
+  height: 690px; }
+  @media (max-height: 690px) {
     .popup-meeting {
       bottom: auto; } }
 
@@ -1935,72 +1935,6 @@
   top: 160px;
   cursor: default; }
 
-.input-label {
-  font-size: 16px;
-  color: #3e4354;
-  margin-bottom: 10px; }
-
-.field-section {
-  position: relative;
-  float: left;
-  clear: both; }
-
-.field-section + .field-section {
-  margin-top: 20px; }
-
-.field-section .input-text {
-  height: 18px;
-  border: 1px solid #aaacb4;
-  padding: 10px; }
-  .field-section .input-text::-webkit-input-placeholder {
-    color: #3e4354;
-    font: 14px "OpenSansItalic"; }
-  .field-section .input-text:-moz-placeholder {
-    /* Firefox 18- */
-    color: #3e4354;
-    font: 14px "OpenSansItalic"; }
-  .field-section .input-text::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #3e4354;
-    font: 14px "OpenSansItalic"; }
-  .field-section .input-text:-ms-input-placeholder {
-    color: #3e4354;
-    font: 14px "OpenSansItalic"; }
-  .field-section .input-text:focus {
-    outline: none; }
-
-.reference-combobox .sv-item, .links-combobox .sv-item {
-  font-size: 14px;
-  color: #3e4354;
-  padding: 15px 10px; }
-.reference-combobox .sv-close, .links-combobox .sv-close {
-  position: absolute;
-  right: 5px;
-  top: 20px; }
-
-.tags-combobox .sv-item {
-  display: inline-block;
-  padding: 3px;
-  padding-right: 25px;
-  background-color: #d1e5fe;
-  position: relative;
-  font-size: 14px;
-  color: #3e4354; }
-  .tags-combobox .sv-item .sv-close {
-    position: absolute;
-    top: 8px;
-    left: auto;
-    right: 5px;
-    bottom: auto; }
-.tags-combobox .sv-item + .sv-item {
-  margin-left: 10px; }
-
-.tags-holder {
-  margin-top: 10px; }
-
-.tags + .tags {
-  margin-left: 10px; }
-
 .your-team-heading {
   border-bottom: 1px solid black;
   display: inline; }
@@ -2189,7 +2123,7 @@
     margin-right: 15px; }
 
 .input-meeting-text {
-  width: 365px;
+  width: 366px;
   height: 18px;
   border: 1px solid #aaacb4;
   padding: 7px; }
@@ -2209,6 +2143,10 @@
     font: 14px "OpenSansRegular"; }
   .input-meeting-text:focus {
     outline: none; }
+
+.field-section.in-line {
+  clear: none;
+  margin-top: 50px; }
 
 .mini-dropdown {
   width: 105px;
@@ -2248,11 +2186,10 @@
   margin: 0px; }
 
 .input-meeting-textarea {
-  width: 365px;
+  width: 360px;
   height: 58px;
   border: 1px solid #aaacb4;
   padding: 5px;
-  margin-bottom: 20px;
   resize: none;
   vertical-align: top; }
   .input-meeting-textarea::-webkit-input-placeholder {
@@ -2798,19 +2735,6 @@
     -o-transform: translate(0, -50%);
     left: 0; }
 
-body {
-  font-family: "OpenSansRegular"; }
-
-.page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
-  margin: 0 auto;
-  min-width: 1180px; }
-
 .combobox-wrapper {
   position: relative;
   height: 35px;
@@ -2919,5 +2843,96 @@ body {
   width: 460px; }
   .combobox.xm.people-combobox .suggestions-viewer {
     display: none; }
+
+.combobox.xm.project-combobox {
+  width: 382px; }
+
+.combobox.xm.people-name.tags-combobox {
+  width: 380px;
+  height: 65px;
+  border: 1px solid #aaacb4; }
+  .combobox.xm.people-name.tags-combobox .combobox-wrapper {
+    width: 150px;
+    height: 20px;
+    border: none; }
+    .combobox.xm.people-name.tags-combobox .combobox-wrapper:before, .combobox.xm.people-name.tags-combobox .combobox-wrapper:after {
+      border: none; }
+
+.input-label {
+  font-size: 16px;
+  color: #3e4354;
+  margin-bottom: 10px; }
+
+.field-section {
+  position: relative;
+  float: left;
+  clear: both; }
+
+.field-section + .field-section {
+  margin-top: 20px; }
+
+.field-section .input-text, .field-section textarea {
+  border: 1px solid #aaacb4;
+  padding: 10px; }
+  .field-section .input-text::-webkit-input-placeholder, .field-section textarea::-webkit-input-placeholder {
+    color: #3e4354;
+    font: 14px "OpenSansItalic"; }
+  .field-section .input-text:-moz-placeholder, .field-section textarea:-moz-placeholder {
+    /* Firefox 18- */
+    color: #3e4354;
+    font: 14px "OpenSansItalic"; }
+  .field-section .input-text::-moz-placeholder, .field-section textarea::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #3e4354;
+    font: 14px "OpenSansItalic"; }
+  .field-section .input-text:-ms-input-placeholder, .field-section textarea:-ms-input-placeholder {
+    color: #3e4354;
+    font: 14px "OpenSansItalic"; }
+  .field-section .input-text:focus, .field-section textarea:focus {
+    outline: none; }
+.field-section .input-text {
+  height: 18px; }
+
+.reference-combobox .sv-item, .links-combobox .sv-item {
+  font-size: 14px;
+  color: #3e4354;
+  padding: 15px 10px; }
+.reference-combobox .sv-close, .links-combobox .sv-close {
+  position: absolute;
+  right: 5px;
+  top: 20px; }
+
+.tags-combobox .sv-item {
+  display: inline-block;
+  padding: 3px;
+  padding-right: 25px;
+  background-color: #d1e5fe;
+  position: relative;
+  font-size: 14px;
+  color: #3e4354; }
+  .tags-combobox .sv-item .sv-close {
+    position: absolute;
+    top: 8px;
+    left: auto;
+    right: 5px;
+    bottom: auto; }
+.tags-combobox .sv-item + .sv-item {
+  margin-left: 10px; }
+
+.meeting-location {
+  width: 360px; }
+
+body {
+  font-family: "OpenSansRegular"; }
+
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  margin: 0 auto;
+  min-width: 1180px; }
 
 /*# sourceMappingURL=main.css.map */

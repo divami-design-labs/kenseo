@@ -283,6 +283,15 @@ var sb = (function() {
                 return hours + ": " + minutes + " AM";
             }
         },
+        getTimeZone: function(){
+            var offset = new Date().getTimezoneOffset()
+            var operation = offset < 0? "floor": "ceil";
+            var sign = offset < 0? "+": "-";
+            return sign 
+                    + ("00" + Math[operation](Math.abs(offset / 60))).slice(-2) 
+                    + ":" 
+                    + ("00" + Math.abs(offset % 60)).slice(-2);
+        },
         getDayTime: function(time) {
 
         },
@@ -411,37 +420,63 @@ var sb = (function() {
                         var $combobox = $self.find('.combobox');
                         var $text = $self.find('input[type="text"]');
                         var $checkbox = $self.find('input[type="checkbox"]');
+                        var $textArea = $self.find('textarea');
+                        var $dropdown = $self.find('select');
+
                         var asArray = $self.data('array') === 1;
                         if($combobox.length){
                             var arrValue = [];
                             var arrayIds = [];
-                            $combobox.find('.sv-name').each(function(){
+
+                            var $svName = $combobox.find('.sv-name');
+                            if($svName.length){
+                                $svName.each(function(){
+                                    var obj = {};
+                                    var attrs = this.attributes;
+                                    for(var i=0; i<attrs.length; i++){
+                                        var attr = attrs[i];
+                                        obj[attr.name] = attr.value;
+                                    }
+                                    obj.name = $(this).html();
+                                    arrValue.push(obj);
+                                    //TODO: Remove arrayIds concept
+                                    arrayIds.push($(this).data('id'));
+                                });
+                                // settings
+                                if(property){
+                                    sb.setPopupData(arrValue, property);
+                                    sb.setPopupData(arrayIds, property+'Ids');
+                                }
+                            }
+                            else if($text.length){
+
                                 var obj = {};
-                                var attrs = this.attributes;
+                                var attrs = $text[0].attributes;
                                 for(var i=0; i<attrs.length; i++){
                                     var attr = attrs[i];
                                     obj[attr.name] = attr.value;
                                 }
-                                obj.name = $(this).html();
+                                obj.name = $text.val();
                                 arrValue.push(obj);
-                                //TODO: Remove arrayIds concept
-                                arrayIds.push($(this).data('id'));
-                            });
-                            // settings
-                            if(property){
-                                sb.setPopupData(arrValue, property);
-                                sb.setPopupData(arrayIds, property+'Ids');
+                                // settings
+                                if(property){
+                                    sb.setPopupData(arrValue, property);
+                                    sb.setPopupData(arrayIds, property+'Ids');
+                                }
                             }
                         }
                         else if($text.length){
-                            var arrValue = [];
-                            var arrayIds = [];
-                            sb.setPopupData($text.val(), property);
-
+                            var text = $text[0];
+                            var obj = {};
+                            var attrs = text.attributes;
+                            for(var i=0; i<attrs.length; i++){
+                                var attr = attrs[i];
+                                obj[attr.name] = attr.value;
+                            }
+                            obj.value = text.value;
                             // settings
                             if(property){
-                                sb.setPopupData(arrValue, property);
-                                sb.setPopupData(arrayIds, property+'Ids');
+                                sb.setPopupData(obj, property);
                             }
                         }
                         else if($checkbox.length){
@@ -474,6 +509,40 @@ var sb = (function() {
                             // settings
                             if(!asArray && property){
                                 sb.setPopupData(arrValue, property);
+                            }
+                        }
+                        else if($textArea.length){
+                            var textarea = $textArea[0];
+                            var obj = {};
+                            var attrs = textarea.attributes;
+                            for(var i=0; i<attrs.length; i++){
+                                var attr = attrs[i];
+                                obj[attr.name] = attr.value;
+                            }
+                            obj.value = textarea.value;
+                            // settings
+                            if(property){
+                                sb.setPopupData(obj, property);
+                            }
+                        }
+                        else if($dropdown.length){
+
+                            var dropdown = $dropdown[0];
+                            var obj = {};
+                            var attrs = dropdown.attributes;
+                            for(var i=0; i<attrs.length; i++){
+                                var attr = attrs[i];
+                                obj[attr.name] = attr.value;
+                            }
+                            if(property === "toTime" || property === "fromTime"){
+                                obj.value = "T" + dropdown.value + ":00.000" + sb.getTimeZone();
+                            }
+                            else{
+                                obj.value = dropdown.value;
+                            }
+                            // settings
+                            if(property){
+                                sb.setPopupData(obj, property);
                             }
                         }
                     }

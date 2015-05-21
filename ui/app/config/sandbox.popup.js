@@ -438,6 +438,65 @@ sb.popup= {
             'models': ['Projects', 'People'],
             'collections': ['Projects', 'People']
         }, function() {
+            sb.ajaxCall({
+                'collection': new Kenseo.collections.Projects(),
+                'data': {
+                    userProjects: true
+                },
+                success: function(data) {
+                    var container = document.querySelector('.project-combobox');
+                    var combobox = sb.toolbox.applyComboBox({
+                        elem: container,
+                        data: data.data,
+                        settings: {
+                            placeholder: "Choose Project"
+                        },
+                        insertAfter: function($input, $selectedEl, bln) {
+                            console.log("project name changed");
+
+                            projectId = $selectedEl.attr('data-id');
+                            projectName = $selectedEl.html();
+
+                            sb.setPopupData(projectId, 'projectId');
+                            sb.setPopupData(this.innerText, 'projectName');
+
+                            $(this).parent().hide();
+                            sb.setPopupData([], 'selectedUsers');
+                            // now set the project people
+                            sb.ajaxCall({
+                                'collection': new Kenseo.collections.People(),
+                                'data': {
+                                    projectId: projectId
+                                },
+                                'success': function(data) {
+                                    var peopleHolder = document.querySelector('.people-name'); 
+                                    var combobox = sb.toolbox.applyComboBox({
+                                        elem: peopleHolder,
+                                        data: data.data,
+                                        settings: {
+                                            placeholder: "",
+                                            multiSelect: true,
+                                            suggestionsViewerAlign: "top",
+                                            noplaceholder: " "
+                                        },
+                                        insertAfter: function($input, $selectedEl, bln) {
+                                            // selectedUser = $selectedEl.html()
+                                            // Kenseo.popup.data.selectedUsers.push({
+                                            //     id: $selectedEl.html(),
+                                            //     email: $selectedEl.attr('data-email')
+                                            // })
+                                            // $('.names-holder').append(" <div class='tag'>" + selectedUser + "<div class='tag-close'></div</div>");
+
+                                        }   
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+
             $('.input-meeting-date').Zebra_DatePicker({
                 default_position: 'below',
                 format: 'M d, Y',
@@ -446,147 +505,6 @@ sb.popup= {
                     sb.setPopupData(date, 'date');
                 },
 
-            });
-
-            $('.meeting-venue').on('focusout', function() {
-                venue = this.value;
-            });
-
-            $('.meeting-agenda').on('focusout', function() {
-                agenda = this.value;
-            });
-
-            $('.fromTime').on('change', function() {
-                console.log('from time changed')
-            });
-            $('.toTime').on('change', function() {
-                console.log("totime changed")
-            });
-
-            $('.toTime').on('select', function() {
-                console.log("totime changed")
-            });
-
-
-            $('.meeting-btn').on('click', function(e) {
-                //     	sb.ajaxCall({
-                // 	collection : {
-                // 		"url": "setMeetingInvitaion"
-                // 	},
-                // 	data : {
-                // 		location : sb.getPopupData('venue'),
-                // 		projectId: sb.getPopupData('projectId'),
-                // 		projectName: sb.getPopupData('projectName'),
-                // 		fromTime : "2015-03-06T10:00:00.000-07:00",
-                // 		toTime : "2015-03-06T10:25:00.000-07:00",
-                // 		attendees: sb.getPopupData('selectedUsers')
-                // 	},
-                // 	type: 'POST',
-                // 	success : function(response){
-                // 		alert ("success");
-                // 	}
-                // });
-                connect = new ServerConnection();
-                connect.buildAjaxPayload({
-                    command: 'setMeetingInvitaion',
-                    data: {
-                        location: sb.getPopupData('venue'),
-                        projectId: sb.getPopupData('projectId'),
-                        projectName: sb.getPopupData('projectName'),
-                        fromTime: sb.getPopupData('date') + "T10:00:00.000-07:00",
-                        toTime: sb.getPopupData('date') + "T10:25:00.000-07:00",
-                        attendees: sb.getPopupData('selectedUsers')
-                    },
-                    type: 'POST',
-                    success: function(response) {
-                        popupCloser($self.parents(popupContainer));
-                    }
-                });
-                connect.send();
-            });
-            sb.ajaxCall({
-                'collection': new Kenseo.collections.Projects(),
-                'data': {
-                    "userProjects": true
-                },
-                'success': function(objResponse) {
-                    $('.meeting-project-name').on('keyup', function() {
-                        var self = this;
-                        var filteredData = _.filter(objResponse.data, function(item) {
-                            if (self.value.length) {
-                                $(self).parent().next('.project-suggestions').show();
-                                var re = new RegExp("^" + self.value, "i");
-                                return re.test(item.name);
-                            } else {
-                                return false;
-                            }
-                        });
-                        if (filteredData.length > 0) {
-                            sb.renderTemplate({
-                                "templateName": 'reference-items',
-                                "templateHolder": $(this).parent().next('.project-suggestions'),
-                                "data": {
-                                    data: filteredData
-                                }
-                            });
-                        } else {
-                            $('.project-suggestions').hide();
-                        }
-                        $('.reference-suggestion-item').click(function() {
-                            $('.meeting-project-name')[0].value = this.innerText;
-                            var projectId = this.getAttribute('name');
-                            sb.setPopupData(projectId, 'projectId');
-                            sb.setPopupData(this.innerText, 'projectName');
-
-                            $(this).parent().hide();
-                            sb.setPopupData(new Array(), 'selectedUsers');
-                            // now set the project people
-                            sb.ajaxCall({
-                                'collection': new Kenseo.collections.People(),
-                                'data': {
-                                    projectId: projectId
-                                },
-                                'success': function(objResponse) {
-                                    $('.people-name').on('keyup', function() {
-                                        var self = this;
-                                        var filteredData = _.filter(objResponse.data, function(item) {
-                                            if (self.value.length) {
-                                                $(self).parent().parent().next('.people-suggestions').show();
-                                                var re = new RegExp("^" + self.value, "i");
-                                                return re.test(item.name);
-                                            } else {
-                                                return false;
-                                            }
-                                        });
-                                        if (filteredData.length > 0) {
-                                            sb.renderTemplate({
-                                                "templateName": 'reference-items',
-                                                "templateHolder": $(this).parent().parent().next('.people-suggestions'),
-                                                "data": {
-                                                    data: filteredData
-                                                }
-                                            });
-                                        } else {
-                                            $('.people-suggestions').hide();
-                                        }
-                                        $('.reference-suggestion-item').click(function() {
-                                            $('.people-name')[0].value = this.innerText;
-                                            var selectedUser = this.innerText;
-                                            Kenseo.popup.data.selectedUsers.push({
-                                                id: this.getAttribute('name'),
-                                                email: this.getAttribute('email')
-                                            })
-                                            $('.names-holder').append(" <div class='tag'>" + selectedUser + "<div class='tag-close'></div</div>");
-
-                                            self.value = "";
-                                            $(this).parent().hide();
-                                        });
-                                    });
-                                }
-                            });
-                        });
-                    });
-                }
             });
         });
     }

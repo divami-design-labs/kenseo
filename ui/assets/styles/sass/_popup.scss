@@ -18,7 +18,7 @@
 	border: 1px solid $color8;
 }
 .popup-meeting{
-	@include popupDimensions(565px, 650px);
+	@include popupDimensions(565px, 690px);
 }
 .popup-message{
 	@include popupDimensions(425px, 200px);
@@ -196,72 +196,6 @@ $popup-content-space: 175px;
 	top: 160px;
 	cursor: default;
 }
-
-
-
-// third popup
-.input-label{
-	@include text(16px, $colorTwo);
-	margin-bottom: 10px;
-}
-.field-section{
-	position: relative;
-	float: left;
-	clear: both;
-}
-.input-wrapper{
-	@extend .wrap;
-}
-.field-section + .field-section{
-	margin-top: 20px;
-}
-.field-section{
-	.input-text{
-		@include placeHolder($colorTwo, 14px $italicFont);
-		height: 18px;
-		border: 1px solid $colorB;
-		padding: 10px;
-		&:focus{
-			outline: none;
-		}
-	}
-}
-.reference-combobox, .links-combobox{
-	.sv-item{
-		@include text(14px, $colorTwo);
-		padding: 15px 10px;
-	}
-	.sv-close{
-	    position: absolute;
-	    right: 5px;
-	    top: 20px;
-	}
-}
-
-//tags
-.tags-combobox{
-	.sv-item{
-		display: inline-block;
-		padding: 3px;
-		padding-right: 25px;
-		background-color: $colorR;
-		position: relative;
-		@include text(14px, $colorTwo);
-		.sv-close{
-			@include absoluter(8px, auto, 5px, auto);
-		}
-	}
-	.sv-item + .sv-item{
-		margin-left: 10px;
-	}
-}
-.tags-holder{
-	margin-top: 10px;
-}
-.tags + .tags{
-	margin-left: 10px;
-}
-
 
 // Share an artefact
 .your-team-heading{

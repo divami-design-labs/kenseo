@@ -13,6 +13,7 @@
 @import "popup";
 @import "meeting";
 @import "overlays";
+@import "toolbox";
 
 //variables
 $viewPortWidth: 1346px;
@@ -30,104 +31,4 @@ body{
 
 .toggle-click{
 	@extend .hand;
-}
-
-// Combobox
-
-.combobox-wrapper{
-	$h: 35px;
-	position: relative;
-	$borderWidth: 10px;
-	height: $h;
-	padding: 5px 40px 5px 15px;
-	border: 1px solid $colorB;
-	&:after, &:before{
-	    content: "";
-	    border-width: $borderWidth;
-	    border-style: solid;
-	    position: absolute;
-	    right: 15px;
-	    top: 50%;
-	    margin-top: $borderWidth/2;
-	    @include transform(translate(0px, -50%));
-	}
-	&:after{
-		border-color: white transparent transparent transparent;
-		margin-top: 0px;
-	}
-	&:before{
-	    border-color: $colorB transparent transparent transparent;
-	}
-	input{
-	    margin: 0;
-	    padding: 0;
-	    width: 100%;
-	    height: 100%;
-	    @include placeHolder($colorTwo, 18px/#{$h} $italicFont);
-	    @include text(18px, black);
-	    border: none;
-	    &:focus{
-	    	outline: none;
-	    }
-	    &:disabled{
-	    	background-color: white;
-	    }
-	}
-	.suggestionsContainer{
-		background-color: white;
-	    border: 1px solid #aaacb4;
-	    display: none;
-	    left: -1px;
-	    line-height: 20px;
-	    max-height: 160px;
-	    overflow: auto;
-	    position: absolute;
-	    right: -1px;
-	    top: 100%;
-	    z-index: 3;
-	}
-	& ul, & li{
-    	padding: 0;
-    	margin: 0;
-		display: block;
-	}
-	.selectable{
-		padding: 10px;
-		margin: 0;
-		display: block;
-		cursor: pointer;
-		@extend .ellipsis;
-		&.active{
-			background-color: $colorB;
-		}
-	}
-
-
-}
-.combobox.xm{
-	$h: 28px;
-	width: 320px;
-	.combobox-wrapper{
-		height: $h;
-	}
-
-	input{
-		@include placeHolder($colorTwo, 18px/#{$h} $italicFont);
-	}
-}
-.sv-item{
-	position: relative;
-	.sv-close{
-		@include closeIcon(10px);
-	}
-}
-.choose-file-combobox.xm.combobox{
-	width: auto;
-}
-
-.combobox.xm.people-combobox{
-	width: 460px;
-	.suggestions-viewer{
-		display: none;
-	}
 }

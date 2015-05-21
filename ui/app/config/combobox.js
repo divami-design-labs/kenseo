@@ -107,6 +107,15 @@ var comboBox = function(elem, suggestions, values) {
 			_this.onchange($text, $el, true);
 		}
 		if(!values.multiSelect){
+			var obj = {};
+			var attrs = $el[0].attributes;
+			for(var i = 0; i < attrs.length; i++){
+				var attr = attrs[i];
+				if(attr.name !== "class"){
+					$text.attr(attr.name, attr.value);
+				}
+			}
+
 			$text.val(html);
 		}
 		else{
@@ -393,8 +402,14 @@ var comboBox = function(elem, suggestions, values) {
 				suggestionsContainer.appendChild(ul);
 				comboboxWrapper.appendChild(textBox);
 				comboboxWrapper.appendChild(suggestionsContainer);
-				el.appendChild(comboboxWrapper);
-				el.appendChild(suggestionsViewer);
+				if(values.suggestionsViewerAlign && values.suggestionsViewerAlign == "top"){
+					el.appendChild(suggestionsViewer);
+					el.appendChild(comboboxWrapper);
+				}
+				else{
+					el.appendChild(comboboxWrapper);
+					el.appendChild(suggestionsViewer);
+				}
 			}
 			else{
 				$elem.find(dot + values.suggestionsContainer).html('');
@@ -402,7 +417,7 @@ var comboBox = function(elem, suggestions, values) {
 			}
 			// textBox.value = txtValue;
 			if(!newList.length){
-				textBox.placeholder = "No items to choose";
+				textBox.placeholder = values.noplaceholder || "No items to choose";
 			}else{
 				textBox.placeholder = values.placeholder;
 			}
