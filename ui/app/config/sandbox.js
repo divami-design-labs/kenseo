@@ -275,7 +275,7 @@ var sb = (function() {
         getTime: function(time) {
             var fullDate = new Date(time);
             var hours = fullDate.getHours();
-            var minutes = fullDate.getMinutes();
+            var minutes = ("0" + fullDate.getMinutes()).slice(-2);
             if (hours > 11) {
                 hours = ("0" + (hours - 12)).slice(-2);
                 return hours + ": " + minutes + " PM";

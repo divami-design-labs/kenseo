@@ -3,7 +3,6 @@
 		function getHeader($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userid = $interpreter->getUser()->user_id;
-			$count = $data->count;
 			
 			$db = Master::getDBConnectionManager();
 			

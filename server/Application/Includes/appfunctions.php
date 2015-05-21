@@ -169,9 +169,9 @@ function appUtil_authenticate($clientId, $data)
 		}
 		
 		$clientId->sid = $userObj->sid;
-		$clientId->userId = $userObj->id;
-		$data->userId = $userObj->id;
-		$userObj->userId = $userObj->id;
+		$clientId->userId = $userObj->user_id;
+		$data->userId = $userObj->user_id;
+		$userObj->userId = $userObj->user_id;
 		
 		return $userObj;
 	} catch (CustomException $exception) {

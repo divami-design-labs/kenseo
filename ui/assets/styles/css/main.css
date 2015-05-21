@@ -335,7 +335,7 @@
   height: 70px;
   width: 40px; }
   .create-icon-holder.active .create-plus-icon {
-    background-image: url("../../imgs/Add1.svg");
+    background-image: url("../../imgs/add1.svg");
     background-repeat: no-repeat;
     background-size: 100% 100%; }
   .create-icon-holder.active .create-plus-nav {
