@@ -2146,7 +2146,9 @@
 
 .field-section.in-line {
   clear: none;
-  margin-top: 50px; }
+  display: inline-block;
+  float: none;
+  vertical-align: bottom; }
 
 .mini-dropdown {
   width: 105px;

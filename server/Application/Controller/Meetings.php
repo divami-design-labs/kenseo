@@ -6,7 +6,6 @@
 			
 			$data = $interpreter->getData()->data;
 			$user = $interpreter->getUser();
-			$participents  = $data->participents;
 			
 			// Create the google client.
 			$client = new Google_Client();
@@ -29,14 +28,14 @@
 			
 			//this google event stores the data and this is inserted into the calendar 
 			$event = new Google_Service_Calendar_Event();
-			$projectId = $data->projectId;
-			$location = isset($data->location) ? $data->location : "somewhere";
-			$fromTime = isset($data->fromTime) ? $data->fromTime : "2015-03-06T10:00:00.000-07:00";
-			$toTime = isset($data->toTime) ? $data->toTime : "2015-03-06T10:25:00.000-07:00";
-			$project = isset($data->projectName) ? $data->projectName : "Kenseo";
-			$feature = isset($data->feature) ? $data->feature : "";
-			$meetingType = isset($data->meetingType) ? $data->meetingType : ""; 
-			$description = isset($data->agenda) ? $data->agenda : "Description";
+			$projectId = $data->meetingProject->data-id;
+			$location = $data->location->value;
+			$fromTime = $data->date . $data->fromTime->value;
+			$toTime = $data->date . $data->toTime->value;
+			$project = $data->meetingProject->name;
+			$feature = "";
+			$meetingType = ""; 
+			$description = isset($data->agenda->value) ? $data->agenda->value : "Description";
 			$title = $project ." : " . $feature . " : " . $meetingType;
 			
 			$event->setSummary($title);
@@ -60,10 +59,10 @@
 			$attendees = array($attendee1);
 			
 			for($i = 0; $i < count($data->attendees); $i++) {
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, "test");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "appending attendees");
 				$attendee = new Google_Service_Calendar_EventAttendee();
 				$attendee->setResponseStatus("accepted");
-				$attendee->setEmail($data->attendees[$i]->email);
+				$attendee->setEmail($data->attendees[$i]->{'data-email'});
 				array_push($attendees ,$attendee);
 			}
 			
@@ -89,7 +88,7 @@
 			$notColumnnames = array("user_id", "message","project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
 
 			for($i = 0; $i < count($data->attendees); $i++) {
-				$partsRowvals = array($meetId, $data->attendees[$i]->id, date("Y-m-d H:i:s"), $user->user_id);
+				$partsRowvals = array($meetId, $data->attendees[$i]->{'data-user_id'}, date("Y-m-d H:i:s"), $user->user_id);
 
 				$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $partsColumnnames, $partsRowvals);
 

@@ -415,7 +415,7 @@ var sb = (function() {
             if($fieldSection.length){
                 $fieldSection.each(function(){
                     var $self = $(this);
-                    if($self.data('ignore') !== "1"){
+                    if($self.data('ignore') !== 1){
                         var property = $self.data('name');
                         var $combobox = $self.find('.combobox');
                         var $text = $self.find('input[type="text"]');

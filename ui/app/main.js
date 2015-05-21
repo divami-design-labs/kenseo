@@ -105,6 +105,7 @@ $(function(){
     		case 'deleteArtefact' :
     		case 'replaceArtefact' :
     		case 'addArtefactVersion' :
+    		case 'setMeetingInvitation':
     			data = sb.getPopupData(),
     			url = sb.getRelativePath(actionType);
     			type= 'GET';
