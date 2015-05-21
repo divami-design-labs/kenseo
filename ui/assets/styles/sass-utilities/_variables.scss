@@ -141,7 +141,14 @@ $fontSizeOne: 18px;
 	   font: $size;
 	}
 }
-
+@mixin popupDimensions($w, $h){
+	@include dimensions($w, $h);
+	@media (max-height:#{$h}){
+		&{
+			bottom: auto;
+		}
+	}
+}
 //Close-icon
 @mixin closeIcon($x){
 	@include elementWithBackground('close.svg', $x, $x);

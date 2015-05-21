@@ -52,6 +52,8 @@ var sb = (function() {
                 //place your code here, the scripts are all loaded
                 fn();
 
+            }).fail(function(){
+                sb.log("Loading files Failed!!");
             });
         },
         getPath: function(type, fileName) {

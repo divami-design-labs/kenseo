@@ -1,7 +1,3 @@
-.popup-meeting{
-	@include dimensions(565px, 650px);
-}
-
 .input-meeting-text{
 	@include placeHolder($colorTwo, 14px $normalFont);
 	@include dimensions(365px, 18px);

@@ -1710,21 +1710,40 @@
   margin: auto;
   border: 1px solid #8d8f96; }
 
+.popup-meeting {
+  width: 565px;
+  height: 650px; }
+  @media (max-height: 650px) {
+    .popup-meeting {
+      bottom: auto; } }
+
 .popup-message {
   width: 425px;
   height: 200px; }
+  @media (max-height: 200px) {
+    .popup-message {
+      bottom: auto; } }
 
 .popup-small {
   width: 425px;
   height: 260px; }
+  @media (max-height: 260px) {
+    .popup-small {
+      bottom: auto; } }
 
 .popup-large {
   width: 725px;
   height: 570px; }
+  @media (max-height: 570px) {
+    .popup-large {
+      bottom: auto; } }
 
 .popup-large-df {
   width: 730px;
   height: 590px; }
+  @media (max-height: 590px) {
+    .popup-large-df {
+      bottom: auto; } }
 
 .popup-header {
   height: 55px;
@@ -2168,10 +2187,6 @@
     top: 3px; }
   .choose-existing-file-holder .notification-title {
     margin-right: 15px; }
-
-.popup-meeting {
-  width: 565px;
-  height: 650px; }
 
 .input-meeting-text {
   width: 365px;

@@ -6,7 +6,7 @@ start cmd /k c:\xampp\mysql_start.bat
 :: http://stackoverflow.com/a/22888163/1577396
 
 cd "C:\Program Files (x86)\Mozilla Firefox" 
-start firefox.exe http://localhost/kenseo/ui
+start chrome.exe http://localhost/kenseo/ui gmail.com stackoverflow.com sass-lang.com backbonejs.org
 cd c:\xampp\htdocs\kenseo\ui\assets\styles
 start sass --watch sass:css
 cd c:\xampp\htdocs\kenseo\ui

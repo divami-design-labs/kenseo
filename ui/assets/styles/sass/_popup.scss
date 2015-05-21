@@ -17,17 +17,20 @@
 	margin: auto;
 	border: 1px solid $color8;
 }
+.popup-meeting{
+	@include popupDimensions(565px, 650px);
+}
 .popup-message{
-	@include dimensions(425px, 200px);
+	@include popupDimensions(425px, 200px);
 }
 .popup-small{
-	@include dimensions(425px, 260px);
+	@include popupDimensions(425px, 260px);
 }
 .popup-large{
-	@include dimensions(725px, 570px);
+	@include popupDimensions(725px, 570px);
 }
 .popup-large-df{
-	@include dimensions(730px, 590px)
+	@include popupDimensions(730px, 590px)
 }
 .popup-header{
 	height: 55px;
