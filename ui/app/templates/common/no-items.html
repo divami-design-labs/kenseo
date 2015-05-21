@@ -1,8 +1,10 @@
 <div class="no-items <% if(data.classes){ %> <%= data.classes %> <% } %>">
 	<% if(data.message){ %>
 		<%= data.message %>
-	<% } else if(add){ %>
+	<% } else if(data.add){ %>
 		<div class="add-icon big inlineBlockMid"></div>
 		<div class="no-items-text inlineBlockMid"><%= data.name %></div>
+	<% } else { %>
+		No Items to show
 	<% } %>
 </div>

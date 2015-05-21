@@ -36,7 +36,7 @@ var Router = Backbone.Router.extend({
                 new Kenseo.views.Header({'model': new Kenseo.models.Header()});
 
                 new Kenseo.views.Artefacts({
-                    el: '.artifacts-section',
+                    el: '.artifacts-content',
                     id: id,
                     colStr: 'Artefacts', 
                     data: {projects: true, project_id: id, sharePermission: false, sortBy: "default"}, 

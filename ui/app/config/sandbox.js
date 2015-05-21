@@ -122,12 +122,12 @@ var sb = (function() {
                 },
                 type: payload.type || "GET",
                 success: function(response) {
-                    var data = JSON.parse(response);
-                    if (data.status == 'success') {
+                    var response = JSON.parse(response);
+                    if (response.status == 'success') {
                         if (!payload.excludeDump) {
-                            sb.setDump(data);
+                            sb.setDump(response);
                         }
-                        payload.success(data);
+                        payload.success(response);
                     } else {
                         window.location.assign("http://kenseo.divami.com");
                     }
@@ -165,15 +165,18 @@ var sb = (function() {
 
             return p;
         },
-        renderXTemplate: function(_this, p) {
+        renderXTemplate: function(_this, payload) {
             // debugger;
-            p = p || {};
+            payload = payload || {};
             var colStr = _this.colStr;
             var data = _this.data;
             if (colStr) {
                 var collection = new Kenseo.collections[colStr]();
                 sb.fetch(collection, data, function(response) {
                     // _.each(x.data, _this.renderArtefact);
+                    if (!payload.excludeDump) {
+                        sb.setDump(response);
+                    }
                     if (_this.preLoader) {
                         _this.preLoader(response);
                     }
@@ -194,13 +197,18 @@ var sb = (function() {
                             el.append(artefact.render().$el);
                         });
                     } else {
-                        var html = _this.noItemsTemplate({
-                            data: p.noData
-                        });
-                        el.html(html);
+                        el.html(sb.noItemsTemplate(payload));
                     }
                 });
             }
+        },
+        noItemsTemplate: function(p){
+            if(!p.noData){
+                p.noData = {};
+            }
+            return _.template(templates['no-items'])({
+                data: p.noData
+            });
         },
         renderTemplate: function(p) {
             var template = templates[p.templateName];
