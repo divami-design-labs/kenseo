@@ -58,9 +58,14 @@ $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINC
 											artefacts.artefact_id as id,
 											artefacts.linked_id as linkedId, 
 											versions.version_no as version,
-											(select count(comment_id) from ". TABLE_COMMENTS ." as comments where 
+											project.project_name as project_name,
+											artefacts.project_id as project_id, 
+											(select count(comment_id) from ". TABLE_COMMENTS ." as comments
+											WHERE 
 											artefacts.latest_version_id = comments.artefact_ver_id) as commentCount 
-											FROM " . TABLE_ARTEFACTS . " as artefacts 
+											FROM " . TABLE_ARTEFACTS . " as artefacts
+											JOIN " . TABLE_PROJECTS . " as project on
+											artefacts.project_id = project.project_id
 											JOIN ". TABLE_ARTEFACTS_VERSIONS ." as versions 
 											on 
 											artefacts.latest_version_id = versions.artefact_ver_id 

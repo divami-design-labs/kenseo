@@ -106,30 +106,11 @@ $(function(){
     		case 'replaceArtefact' :
     		case 'addArtefactVersion' :
     		case 'setMeetingInvitation':
+    		case 'archiveProject':
     			data = sb.getPopupData(),
     			url = sb.getRelativePath(actionType);
     			type= 'GET';
     			break;
-    		case 'art-add-version' :
-    			data = "";
-    			url = "";
-    			break;
-    		case 'art-delete' :
-    			data = {
-    				"artefactId": sb.getPopupData('id')
-    			};
-    			url = "../server/deleteArtefact";
-    			type= 'GET';
-    			break;
-    			
-    		case 'shareArtefact' : 
-    			data = {
-    				"artefactId": sb.getPopupData()
-    			};
-    			url = sb.getRelativePath(actionType);;
-    			type= 'GET';
-    			break;
-    			
     		default :
 				var data = new FormData();
 				
@@ -170,49 +151,7 @@ $(function(){
 			}
 		});
 	})
-	.on('click', '.archive-btn', function() {
-		var $self = $(this);
-		var artId = sb.getPopupData('id');
-		sb.renderTemplate({
-			"url": '../server/archiveArtefact', 
-			"data": {
-				"artefactId": artId
-			}, 
-			type: 'GET',
-			"callbackfunc" : function() {
-				popupCloser($self.parents(popupContainer));
-			}
-		});
-	})
-	.on('click', '.delete-btn', function() {
-		var $self = $(this);
-		var artId = sb.getPopupData('id');
-		sb.renderTemplate({
-			"url": '../server/deleteArtefact', 
-			"data": {
-				"artefactId": artId
-			}, 
-			type: 'GET',
-			"callbackfunc" : function() {
-				popupCloser($self.parents(popupContainer));
-			}
-		});
-	})
-	.on('click', '.replace-btn', function() {
-		var $self = $(this);
-		sb.renderTemplate({
-			"url": '../server/replaceArtefact', 
-			"data": {
-				projectId : Kenseo.popup.replace.projectId,
-				replaceArtefactId: Kenseo.popup.replace.replaceArt,
-				newArtefactid : Kenseo.popup.replace.replacedWith
-			}, 
-			type: 'GET',
-			"callbackfunc" : function() {
-				popupCloser($self.parents(popupContainer));
-			}
-		});
-	})
+	
 	.on('click', '.overlay-click', function(){
 		$('.popup-container').show();
 		var $self = $(this);

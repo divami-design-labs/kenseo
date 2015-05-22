@@ -168,11 +168,14 @@ Kenseo.popups = (function(){
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
-	            	"cls": "main-btn archiveProject-btn",
+	            	"cls": "main-btn done-btn",
 	            },{
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"
 	            }],
+	            "callbackfunc": function() {
+	            	sb.setPopupData('archiveProject', 'actionType');
+	            }
 	            
         	}
         ],
