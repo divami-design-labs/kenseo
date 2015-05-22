@@ -59,7 +59,12 @@ Kenseo.views.Header = Backbone.View.extend({
                 'collections': ['Search']
             }, function(){
                 sb.renderTemplate({"templateName": 'search-results',"templateHolder": $('.search-section').find('.search-results'), "collection": new Kenseo.collections.Search(), "callbackfunc": function(){
-                    $('.search-results').show();
+                    if($('.search-results').children().length){
+                        $('.search-results').show();
+                    }
+                    else{
+                        $('.search-results').hide();
+                    }
                 }, "data": {
                     'string': searchString
                 }});

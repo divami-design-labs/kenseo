@@ -468,18 +468,22 @@
   background-color: #ececed; }
   .search-field::-webkit-input-placeholder {
     color: #7d808f;
-    font: 16px/50px "OpenSansItalic"; }
+    font: 16px;
+    font-family: "OpenSansItalic"; }
   .search-field:-moz-placeholder {
     /* Firefox 18- */
     color: #7d808f;
-    font: 16px/50px "OpenSansItalic"; }
+    font: 16px;
+    font-family: "OpenSansItalic"; }
   .search-field::-moz-placeholder {
     /* Firefox 19+ */
     color: #7d808f;
-    font: 16px/50px "OpenSansItalic"; }
+    font: 16px;
+    font-family: "OpenSansItalic"; }
   .search-field:-ms-input-placeholder {
     color: #7d808f;
-    font: 16px/50px "OpenSansItalic"; }
+    font: 16px;
+    font-family: "OpenSansItalic"; }
 
 .input-field > label {
   position: absolute;
@@ -1417,6 +1421,7 @@
 
 .sub-heading {
   margin-top: 30px;
+  height: 30px;
   position: relative; }
   .sub-heading::after {
     content: "";
@@ -2052,7 +2057,7 @@
     display: none;
     position: absolute;
     left: 199px;
-    right: -10px;
+    right: 0px;
     top: 2px;
     bottom: 2px;
     background-color: #d1e5fe; }
@@ -2133,18 +2138,22 @@
   padding: 7px; }
   .input-meeting-text::-webkit-input-placeholder {
     color: #3e4354;
-    font: 14px "OpenSansRegular"; }
+    font: 14px;
+    font-family: "OpenSansRegular"; }
   .input-meeting-text:-moz-placeholder {
     /* Firefox 18- */
     color: #3e4354;
-    font: 14px "OpenSansRegular"; }
+    font: 14px;
+    font-family: "OpenSansRegular"; }
   .input-meeting-text::-moz-placeholder {
     /* Firefox 19+ */
     color: #3e4354;
-    font: 14px "OpenSansRegular"; }
+    font: 14px;
+    font-family: "OpenSansRegular"; }
   .input-meeting-text:-ms-input-placeholder {
     color: #3e4354;
-    font: 14px "OpenSansRegular"; }
+    font: 14px;
+    font-family: "OpenSansRegular"; }
   .input-meeting-text:focus {
     outline: none; }
 
@@ -2159,8 +2168,7 @@
   height: 38px; }
 
 .mini-datepicker {
-  width: 155px;
-  height: 40px; }
+  width: 155px; }
 
 .input-meeting-date {
   width: 115px;
@@ -2200,18 +2208,22 @@
   vertical-align: top; }
   .input-meeting-textarea::-webkit-input-placeholder {
     color: #3e4354;
-    font: 14px "OpenSansRegular"; }
+    font: 14px;
+    font-family: "OpenSansRegular"; }
   .input-meeting-textarea:-moz-placeholder {
     /* Firefox 18- */
     color: #3e4354;
-    font: 14px "OpenSansRegular"; }
+    font: 14px;
+    font-family: "OpenSansRegular"; }
   .input-meeting-textarea::-moz-placeholder {
     /* Firefox 19+ */
     color: #3e4354;
-    font: 14px "OpenSansRegular"; }
+    font: 14px;
+    font-family: "OpenSansRegular"; }
   .input-meeting-textarea:-ms-input-placeholder {
     color: #3e4354;
-    font: 14px "OpenSansRegular"; }
+    font: 14px;
+    font-family: "OpenSansRegular"; }
   .input-meeting-textarea:focus {
     outline: none; }
 
@@ -2774,18 +2786,22 @@
     border: none; }
     .combobox-wrapper input::-webkit-input-placeholder {
       color: #3e4354;
-      font: 18px/35px "OpenSansItalic"; }
+      font: 18px;
+      font-family: "OpenSansItalic"; }
     .combobox-wrapper input:-moz-placeholder {
       /* Firefox 18- */
       color: #3e4354;
-      font: 18px/35px "OpenSansItalic"; }
+      font: 18px;
+      font-family: "OpenSansItalic"; }
     .combobox-wrapper input::-moz-placeholder {
       /* Firefox 19+ */
       color: #3e4354;
-      font: 18px/35px "OpenSansItalic"; }
+      font: 18px;
+      font-family: "OpenSansItalic"; }
     .combobox-wrapper input:-ms-input-placeholder {
       color: #3e4354;
-      font: 18px/35px "OpenSansItalic"; }
+      font: 18px;
+      font-family: "OpenSansItalic"; }
     .combobox-wrapper input:focus {
       outline: none; }
     .combobox-wrapper input:disabled {
@@ -2820,18 +2836,22 @@
     height: 28px; }
   .combobox.xm input::-webkit-input-placeholder {
     color: #3e4354;
-    font: 18px/28px "OpenSansItalic"; }
+    font: 18px;
+    font-family: "OpenSansItalic"; }
   .combobox.xm input:-moz-placeholder {
     /* Firefox 18- */
     color: #3e4354;
-    font: 18px/28px "OpenSansItalic"; }
+    font: 18px;
+    font-family: "OpenSansItalic"; }
   .combobox.xm input::-moz-placeholder {
     /* Firefox 19+ */
     color: #3e4354;
-    font: 18px/28px "OpenSansItalic"; }
+    font: 18px;
+    font-family: "OpenSansItalic"; }
   .combobox.xm input:-ms-input-placeholder {
     color: #3e4354;
-    font: 18px/28px "OpenSansItalic"; }
+    font: 18px;
+    font-family: "OpenSansItalic"; }
 
 .sv-item {
   position: relative; }
@@ -2846,7 +2866,7 @@
   width: auto; }
 
 .combobox.xm.people-combobox {
-  width: 460px; }
+  width: 470px; }
   .combobox.xm.people-combobox .suggestions-viewer {
     display: none; }
 
@@ -2882,18 +2902,22 @@
   padding: 10px; }
   .field-section .input-text::-webkit-input-placeholder, .field-section textarea::-webkit-input-placeholder {
     color: #3e4354;
-    font: 14px "OpenSansItalic"; }
+    font: 14px;
+    font-family: "OpenSansItalic"; }
   .field-section .input-text:-moz-placeholder, .field-section textarea:-moz-placeholder {
     /* Firefox 18- */
     color: #3e4354;
-    font: 14px "OpenSansItalic"; }
+    font: 14px;
+    font-family: "OpenSansItalic"; }
   .field-section .input-text::-moz-placeholder, .field-section textarea::-moz-placeholder {
     /* Firefox 19+ */
     color: #3e4354;
-    font: 14px "OpenSansItalic"; }
+    font: 14px;
+    font-family: "OpenSansItalic"; }
   .field-section .input-text:-ms-input-placeholder, .field-section textarea:-ms-input-placeholder {
     color: #3e4354;
-    font: 14px "OpenSansItalic"; }
+    font: 14px;
+    font-family: "OpenSansItalic"; }
   .field-section .input-text:focus, .field-section textarea:focus {
     outline: none; }
 .field-section .input-text {

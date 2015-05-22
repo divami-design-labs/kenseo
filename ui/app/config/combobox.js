@@ -154,8 +154,11 @@ var comboBox = function(elem, suggestions, values) {
 	}
 
 	function toggleSuggestions(e){
+		if($(e.target).hasClass('selectable')){
+			return;
+		}
 		if(e){
-			filterSuggestions($(e.currentTarget), true);
+			filterSuggestions($(e.currentTarget).find('input'), true);
 		}
 		var $suggestionsContainer = $elem.find(suggestionsContainerClass);
 		if($suggestionsContainer.css('display') !== "none"){
@@ -397,7 +400,7 @@ var comboBox = function(elem, suggestions, values) {
 					textBox.setAttribute('disabled', true);
 				}
 				//event
-				textBox.onclick = toggleSuggestions;
+				comboboxWrapper.onclick = toggleSuggestions;
 				textBox.onkeyup = keyOperations;
 				suggestionsContainer.appendChild(ul);
 				comboboxWrapper.appendChild(textBox);
@@ -426,24 +429,26 @@ var comboBox = function(elem, suggestions, values) {
 		}
 	}
 	function setSuggestionViewerItem(s){
-		var svItem = document.createElement('div');
-		svItem.className = "sv-item";
-		var svName = document.createElement('div');
-		svName.innerHTML = s.name;
-		svName.className = "sv-name";
-		for(var key in s){
-			if(key !== "name")
-				svName.setAttribute(key, s[key]);
+		if(s.name){
+			var svItem = document.createElement('div');
+			svItem.className = "sv-item";
+			var svName = document.createElement('div');
+			svName.innerHTML = s.name;
+			svName.className = "sv-name";
+			for(var key in s){
+				if(key !== "name")
+					svName.setAttribute(key, s[key]);
+			}
+			var svClose = document.createElement('div');
+			svClose.className = "sv-close";
+			svClose.onclick = function(e){
+				var el = e.currentTarget;
+				$(el.parentElement).remove();
+			}
+			svItem.appendChild(svName);
+			svItem.appendChild(svClose);
+			$elem.find('.suggestions-viewer').append($(svItem));
 		}
-		var svClose = document.createElement('div');
-		svClose.className = "sv-close";
-		svClose.onclick = function(e){
-			var el = e.currentTarget;
-			$(el.parentElement).remove();
-		}
-		svItem.appendChild(svName);
-		svItem.appendChild(svClose);
-		$elem.find('.suggestions-viewer').append($(svItem));
 	}
 
 	function renderSelectedItems(){

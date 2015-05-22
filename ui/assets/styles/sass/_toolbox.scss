@@ -29,7 +29,7 @@
 	    padding: 0;
 	    width: 100%;
 	    height: 100%;
-	    @include placeHolder($colorTwo, 18px/#{$h} $italicFont);
+	    @include placeHolder($colorTwo, 18px, $italicFont);
 	    @include text(18px, black);
 	    border: none;
 	    &:focus{
@@ -78,7 +78,7 @@
 	}
 
 	input{
-		@include placeHolder($colorTwo, 18px/#{$h} $italicFont);
+		@include placeHolder($colorTwo, 18px, $italicFont);
 	}
 }
 .sv-item{
@@ -92,7 +92,7 @@
 }
 
 .combobox.xm.people-combobox{
-	width: 460px;
+	width: 470px;
 	.suggestions-viewer{
 		display: none;
 	}
@@ -131,7 +131,7 @@
 }
 .field-section{
 	.input-text, textarea{
-		@include placeHolder($colorTwo, 14px $italicFont);
+		@include placeHolder($colorTwo, 14px, $italicFont);
 		border: 1px solid $colorB;
 		padding: 10px;
 		&:focus{

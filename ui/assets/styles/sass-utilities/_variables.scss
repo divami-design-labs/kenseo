@@ -117,28 +117,33 @@ $fontSizeOne: 18px;
 	font-size: $fontSize;
 	color: $color;
 }
-@mixin placeHolder($color, $size){
+@mixin placeHolder($color, $size, $family){
 	@if $color == null  {$color: inherit}
 	@if $size == null  {$size: inherit}
+	@if $family == null  {$family: inherit}
 
 	&::-webkit-input-placeholder {
 	   color: $color;
 	   font: $size;
+	   font-family: $family;
 	}
 
 	&:-moz-placeholder { /* Firefox 18- */
 	   color: $color;
 	   font: $size;
+	   font-family: $family;
 	}
 
 	&::-moz-placeholder {  /* Firefox 19+ */
 	   color: $color;
 	   font: $size;
+	   font-family: $family;
 	}
 
 	&:-ms-input-placeholder {  
 	   color: $color;
 	   font: $size;
+	   font-family: $family;
 	}
 }
 @mixin popupDimensions($w, $h){

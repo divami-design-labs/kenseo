@@ -1,5 +1,5 @@
 .input-meeting-text{
-	@include placeHolder($colorTwo, 14px $normalFont);
+	@include placeHolder($colorTwo, 14px, $normalFont);
 	@include dimensions(366px, 18px);
 	border: 1px solid $colorB;
 	padding: 7px;
@@ -20,7 +20,7 @@
 }
 
 .mini-datepicker {
-	@include dimensions(155px, 40px);
+	width: 155px;
 }
 
 .input-meeting-date {
@@ -53,7 +53,7 @@
 }
 
 .input-meeting-textarea{
-	@include placeHolder($colorTwo, 14px $normalFont);
+	@include placeHolder($colorTwo, 14px, $normalFont);
 	@include dimensions(360px, 58px);
 	border: 1px solid $colorB;
 	padding: 5px;

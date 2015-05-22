@@ -39,7 +39,7 @@ var Router = Backbone.Router.extend({
                         userProjects: true
                     },
                     success: function(response){
-                        sb.setPopupData(Kenseo.data.projects[id].name, 'project_name');
+                        // sb.setPopupData(Kenseo.data.projects[id].name, 'project_name');
                         sb.setPageData(Kenseo.data.projects[id], 'project');
                         
                         sb.renderTemplate({"templateName": 'project-page', "templateHolder": $(".content-wrapper")});
