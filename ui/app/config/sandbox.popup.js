@@ -507,6 +507,33 @@ sb.popup= {
                 },
 
             });
+            $(document).on('click', '.datepicker-icon-holder', function(e) {
+            	// prevent default action on button (if any)
+				e.preventDefault();
+				
+				// get reference to the plugin
+				var plugin = $('.input-meeting-date').data('Zebra_DatePicker');
+				
+				// if the datepicker is not already visible
+				if (!$(this).data('dp_visible')) {
+				
+				    // set a flag that the datepicker is visible
+				    $(this).data('dp_visible', true);
+				
+				    // show the datepicker
+				    plugin.show();
+				
+				// if datepicker is already visisble
+				} else {
+				
+				    // set a flag that the datepicker is not visible
+				    $(this).data('dp_visible', false);
+				
+				    // hide the datepicker
+				    plugin.hide();
+				
+				}
+            }) 
         });
     }
 };
