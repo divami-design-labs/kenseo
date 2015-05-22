@@ -23,19 +23,23 @@ $AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
 											WHERE user_id = @~~userid~~@)
+											AND 
+											state = 'A'
 											LIMIT @~~limit~~@";	
 $AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url 
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
-											WHERE user_id = @~~userid~~@)";
+											WHERE user_id = @~~userid~~@)
+											AND 
+											state = 'A'";
 $AppGlobal['sql']['getMyRecentArtefacts'] = "SELECT projects.project_id, projects.project_name, 
 											 artefacts.artefact_title, project_activity.activity_id, 
 											 project_activity.activity_type, project_activity.performed_on_id
 											 FROM " . TABLE_PROJECT_ACTIVITY . "
 											 JOIN " . TABLE_PROJECTS . " ON project_activity.project_id = projects.project_id
 											 JOIN " . TABLE_ARTEFACTS . " ON artefacts.artefact_id = project_activity.performed_on_id
-											 WHERE logged_by = @~~userid~~@ AND performed_on =  'A'";
+											 WHERE logged_by = @~~userid~~@ AND performed_on =  'A' AND projects.state = 'A'";
 
 											 
 $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FROM " . TABLE_ARTEFACTS . " AS arts 
@@ -103,7 +107,8 @@ $AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requ
 										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
 										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
 										artefacts.replace_ref_id = 0 AND
-										artefacts.state != 'A'
+										artefacts.state != 'A' AND
+										project.state = 'A'
 										ORDER BY members.shared_date DESC
 										LIMIT @~~limit~~@";
 													 

@@ -28,11 +28,11 @@
 			
 			//this google event stores the data and this is inserted into the calendar 
 			$event = new Google_Service_Calendar_Event();
-			$projectId = $data->meetingProject->data-id;
+			$projectId = $data->meetingProject[0]->{'data-id'};
 			$location = $data->location->value;
 			$fromTime = $data->date . $data->fromTime->value;
 			$toTime = $data->date . $data->toTime->value;
-			$project = $data->meetingProject->name;
+			$project = $data->meetingProject[0]->name;
 			$feature = "";
 			$meetingType = ""; 
 			$description = isset($data->agenda->value) ? $data->agenda->value : "Description";

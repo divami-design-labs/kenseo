@@ -38,11 +38,11 @@
 											
 		public function archiveProject($interpreter) {
 			$data = $interpreter->getData()->data;
-			$projectId = $data->projectId;
+			$projectId = $data->id;
 			
 			//Archive project
 			$db = Master::getDBConnectionManager();
-			$db->updateTable(TABLE_PROJECTS,array("state"),array('A'), "project_id = " . $projectId);
+			$db->updateTable(TABLE_PROJECTS,array("state"),array('Z'), "project_id = " . $projectId);
 			
 			return true;		
 		}
