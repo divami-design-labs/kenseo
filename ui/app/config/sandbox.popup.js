@@ -449,7 +449,8 @@ sb.popup= {
                         elem: container,
                         data: data.data,
                         settings: {
-                            placeholder: "Choose Project"
+                            placeholder: "Choose Project",
+                            value: (Kenseo.page.data.project && Kenseo.page.data.project.name) || ""
                         },
                         insertAfter: function($input, $selectedEl, bln) {
                             console.log("project name changed");

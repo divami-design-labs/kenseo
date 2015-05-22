@@ -326,7 +326,7 @@ $popup-content-space: 175px;
 }
 //Add people
 .popup-add-people{
-	@include dimensions(468px, 406px);
+	@include popupDimensions(468px, 406px);
 }
 
 .permission-item{
@@ -347,6 +347,7 @@ $popup-content-space: 175px;
 }
 .people-permissions-section{
 	margin-top: 40px;
+	float: left;
 }
 
 .combobox.existing-files-combobox {

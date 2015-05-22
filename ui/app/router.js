@@ -28,29 +28,40 @@ var Router = Backbone.Router.extend({
         sb.loadFiles(
             {
                 'views': ['Header', 'Artefacts', 'People', 'Activities'],
-                'models': ['Header','Artefacts', 'People'],
-                'collections': ['Artefacts', 'People']
+                'models': ['Projects', 'Header','Artefacts', 'People'],
+                'collections': ['Projects', 'Artefacts', 'People']
             },
             function(){
-                sb.renderTemplate({"templateName": 'projects-page', "templateHolder": $(".content-wrapper")});
-                new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+                sb.ajaxCall({
+                    collection: new Kenseo.collections.Projects(),
+                    data: {
+                        userProjects: true
+                    },
+                    success: function(response){
+                        sb.setPopupData(Kenseo.data.projects[id].name, 'project_name');
+                        sb.setPageData(Kenseo.data.projects[id], 'project');
+                        
+                        sb.renderTemplate({"templateName": 'projects-page', "templateHolder": $(".content-wrapper")});
+                        new Kenseo.views.Header({'model': new Kenseo.models.Header()});
 
-                new Kenseo.views.Artefacts({
-                    el: '.artifacts-content',
-                    id: id,
-                    colStr: 'Artefacts', 
-                    data: {projects: true, project_id: id, sharePermission: false, sortBy: "default"}, 
-                    preLoader: function(response){
-                        $('.artifacts-section').html(_.template(templates['artefacts'])(response));
-                    }
-                });
-                new Kenseo.views.Activities({collection: new Kenseo.collections.Artefacts(), data: {projectActivities: true, project_id: id}});
-                new Kenseo.views.People({
-                    el: '.people-section-content', 
-                    colStr: 'People', 
-                    data: {projectId: id},
-                    preLoader: function(response){
-                        $('.people-section').html(_.template(templates['people'])());
+                        new Kenseo.views.Artefacts({
+                            el: '.artifacts-content',
+                            id: id,
+                            colStr: 'Artefacts', 
+                            data: {projects: true, project_id: id, sharePermission: false, sortBy: "default"}, 
+                            preLoader: function(response){
+                                $('.artifacts-section').html(_.template(templates['artefacts'])(response));
+                            }
+                        });
+                        new Kenseo.views.Activities({collection: new Kenseo.collections.Artefacts(), data: {projectActivities: true, project_id: id}});
+                        new Kenseo.views.People({
+                            el: '.people-section-content', 
+                            colStr: 'People', 
+                            data: {projectId: id},
+                            preLoader: function(response){
+                                $('.people-section').html(_.template(templates['people'])());
+                            }
+                        });
                     }
                 });
             }

@@ -410,6 +410,7 @@ var comboBox = function(elem, suggestions, values) {
 					el.appendChild(comboboxWrapper);
 					el.appendChild(suggestionsViewer);
 				}
+				textBox.value = values.value || "";
 			}
 			else{
 				$elem.find(dot + values.suggestionsContainer).html('');

@@ -2080,6 +2080,9 @@
 .popup-add-people {
   width: 468px;
   height: 406px; }
+  @media (max-height: 406px) {
+    .popup-add-people {
+      bottom: auto; } }
 
 .permission-item {
   display: inline-block;
@@ -2101,7 +2104,8 @@
   color: #464c5f; }
 
 .people-permissions-section {
-  margin-top: 40px; }
+  margin-top: 40px;
+  float: left; }
 
 .combobox.existing-files-combobox {
   margin-top: 10px;
@@ -2924,6 +2928,8 @@
 .meeting-location {
   width: 360px; }
 
+input[type="text"].xm {
+  width: 365px; }
 body {
   font-family: "OpenSansRegular"; }
 

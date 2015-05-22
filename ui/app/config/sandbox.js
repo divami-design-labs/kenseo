@@ -324,8 +324,19 @@ var sb = (function() {
                 sb.log("provide valid key id pair");
             }
         },
-        setPageData: function(val) {
-            Kenseo.page.data = val;
+        setPageData: function(value, key) {
+            if (key) {
+                Kenseo.page.data[key] = value;
+            } else {
+                Kenseo.page.data = value;
+            }
+        },
+        getPageData: function(key) {
+            if (key) {
+                return Kenseo.page.data[key];
+            } else {
+                return Kenseo.page.data;
+            }
         },
         getPopupData: function(key) {
             if (key) {
