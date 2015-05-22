@@ -166,5 +166,17 @@ $(function(){
 		// Important: this should be called after dump object is stored in the Kenseo.popup.data
 		Kenseo.overlays.info = sb.getOverlaysInfo($self.data('url'));
 		sb.callOverlay(index);
-   });
+	})
+	.on('click', '.sort-item', function(e){
+		var $self = $(e.currentTarget);
+        new Kenseo.views.Artefacts({
+            el: '.artifacts-content',
+            id: sb.getPageData('project').id, 
+            colStr: 'Artefacts', 
+            data: {projects: true, project_id: sb.getPageData('project').id, sharePermission: false, sortBy: $self.data('stype')}, 
+            preLoader: function(response){
+                $('.artifacts-section').html(_.template(templates['artefacts'])(response));
+            }
+        });
+	})
 });

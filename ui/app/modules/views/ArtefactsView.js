@@ -15,24 +15,10 @@ Kenseo.views.Artefacts = Backbone.View.extend({
         // this.payload = payload;
         this.render();
     },
-    events: {
-        'click .sort-item': 'sortArtefacts'
-    },
     render: function() {
         sb.renderXTemplate(this);
 
         return this;
-    },
-    sortArtefacts: function(e){
-        new Kenseo.views.Artefacts({
-            el: '.artifacts-section',
-            id: this.id, 
-            colStr: 'Artefacts', 
-            data: {projects: true, project_id: this.id, sharePermission: false, sortBy: $(e.currentTarget).data('stype')}, 
-            preLoader: function(response){
-                $('.artifacts-section').html(_.template(templates['artefacts'])(response));
-            }
-        });
     }
 });
 
