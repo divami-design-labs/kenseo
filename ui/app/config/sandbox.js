@@ -24,37 +24,45 @@ var sb = (function() {
             return JSON.stringify(n);
         },
         loadFiles: function(payload, fn) {
-            var allFiles = [];
+            var files = [];
             var types = ['files', 'views', 'models', 'collections'];
             for (var k = 0; k < types.length; k++) {
                 var type = types[k];
                 if (payload[type]) {
-                    var files = payload[type];
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
+                    var items = payload[type];
+                    for (var i = 0; i < items.length; i++) {
+                        var file = items[i];
 
                         // Checking the file whether it is already loaded or not.
                         if (!scripts[type][file]) {
                             var src = type === "files" ? file : getModulePath(type, file);
                             // Setting the loaded flag to true to avoid loading a same file again.
                             scripts[type][file] = true;
-                            allFiles.push($.getScript(src));
+                            files.push(src);
                         } 
                     }
                 }
             }
+            // files.push(fn);
 
-            allFiles.push($.Deferred(function( deferred ){
-                $( deferred.resolve );
-            }));
-            $.when.apply($, allFiles).done(function(){
-
-                //place your code here, the scripts are all loaded
-                fn();
-
-            }).fail(function(){
-                sb.log("Loading files Failed!!");
-            });
+            var head = document.head || document.getElementsByTagName('head');
+            function loadFile(index){
+                if(files.length > index){
+                    var fileref = document.createElement('script');
+                    fileref.setAttribute("type", "text/javascript");
+                    fileref.setAttribute("src", files[index]);
+                    head.appendChild(fileref);
+                    index = index + 1;
+                    // Used to call a callback function
+                    fileref.onload = function(){
+                        loadFile(index);
+                    }
+                }
+                else{
+                    fn();
+                }
+            }
+            loadFile(0);
         },
         getPath: function(type, fileName) {
             var o = i18n[type];
@@ -242,10 +250,19 @@ var sb = (function() {
                 }
             }
         },
+        getDate: function(time){
+            if(time){
+                var t = time.split(/[- :]/);
+                return new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+            }
+            else{
+                return new Date();
+            }
+        },
         timeFormat: function(time, OnlyTime, OnlyDays) {
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            var theDate = new Date(time);
-            var currentDate = new Date();
+            var theDate = sb.getDate(time);
+            var currentDate = sb.getDate();
 
             var year = theDate.getFullYear();
             var month = theDate.getMonth();
@@ -273,7 +290,7 @@ var sb = (function() {
             return resultDateFormat;
         },
         getTime: function(time) {
-            var fullDate = new Date(time);
+            var fullDate = sb.getDate(time);
             var hours = fullDate.getHours();
             var minutes = ("0" + fullDate.getMinutes()).slice(-2);
             if (hours > 11) {
@@ -284,7 +301,7 @@ var sb = (function() {
             }
         },
         getTimeZone: function(){
-            var offset = new Date().getTimezoneOffset()
+            var offset = sb.getDate().getTimezoneOffset()
             var operation = offset < 0? "floor": "ceil";
             var sign = offset < 0? "+": "-";
             return sign 
