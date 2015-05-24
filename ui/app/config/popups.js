@@ -269,6 +269,19 @@ Kenseo.popups = (function(){
             	sb.setPopupData('shareArtefact', 'actionType');
             	sb.popup.shareWithPeoplePopup()	
             }
+        }],
+        "add-project": [{
+        	"page_name": "add-project",
+        	title: "Add a Project",
+        	"buttons": [{
+            	"label": "Cancel",
+            	"cls": "cancel-btn lnk-btn"
+            },
+            {
+            	"label": "Done",
+            	"cls": "main-btn share-btn done-btn",
+            	"disabled": false
+            }],
         }]
 	};
 
