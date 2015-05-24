@@ -179,4 +179,23 @@ $(function(){
             }
         });
 	})
+	.on('click', '.people-remove-icon', function(e){
+		var $self = $(e.currentTarget);
+        var userId = $self.attr('data-id');
+        var projectId = Kenseo.page.data.project.id;
+        
+		sb.renderTemplate({
+			url : sb.getRelativePath("removePeople"),
+			data: {
+				projectId: projectId,
+				peopleId : userId
+			},
+			type: "GET",
+			contentType: false,
+			processData: false,
+			"callbackfunc" : function() {
+				popupCloser($self.parents(popupContainer));
+			}
+		});
+	})
 });
