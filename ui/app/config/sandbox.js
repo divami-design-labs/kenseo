@@ -120,14 +120,20 @@ var sb = (function() {
             });
             // var url = payload.url || collection.urlRoot || collection.url;
             var url = sb.getUrl(payload);
-            $.ajax({
-                url: url,
-                data: {
+            if(payload.plainData){
+                var data = payload.data;
+            }
+            else{
+                var data = {
                     "data": payload.data,
                     'client': {
                         sid: Kenseo.cookie.sessionid()
                     }
-                },
+                }
+            }
+            $.ajax({
+                url: url,
+                data: data,
                 type: payload.type || "GET",
                 success: function(response) {
                     var response = JSON.parse(response);

@@ -100,54 +100,53 @@ $(function(){
     	var $self = $(this);
     	var actionType = sb.getPopupData('actionType');
     	var data = null;
-    	switch(actionType) {
-    		case 'archiveArtefact' :
-    		case 'deleteArtefact' :
-    		case 'replaceArtefact' :
-    		case 'addArtefactVersion' :
-    		case 'setMeetingInvitation':
-    		case 'archiveProject':
-    			data = sb.getPopupData(),
-    			url = sb.getRelativePath(actionType);
-    			type= 'GET';
-    			break;
-    		default :
-				var data = new FormData();
-				
-				for(x in Kenseo.popup.data) {
-					var dump = sb.getPopupData(x);
-					if(typeof dump === "object" && x !== "file"){
-						dump = JSON.stringify(dump);
-					}
-					data.append(x, dump);
-				}
-				
-				data.append("type", 'I');
-				data.append("sid", Kenseo.cookie.sessionid());
-				
-				$.ajax({
-					url : sb.getRelativePath("extUpload.php"),
-					data: data,
-					type: 'POST',
-					contentType: false,
-					processData: false,
-					success : function(response){
-						popupCloser($self.parents(popupContainer));
-					}
-				});
-				
-				return;
+    	var file = sb.getPopupData('file');
+    	var plainData = false;
+
+    	if(file){
+			var data = new FormData();
 			
+			for(x in Kenseo.popup.data) {
+				var dump = sb.getPopupData(x);
+				if(typeof dump === "object" && x !== "file"){
+					dump = JSON.stringify(dump);
+				}
+				data.append(x, dump);
+			}
+			
+			data.append("type", 'I');
+			data.append("sid", Kenseo.cookie.sessionid());
+			type = "POST";
+			url = sb.getRelativePath("extUpload.php");
+			plainData = true;
+
+    	}
+    	else{
+			data = sb.getPopupData(),
+			url = sb.getRelativePath(actionType);
+			type = 'GET';
     	}
 		
-		sb.renderTemplate({
+		sb.ajaxCall({
 			url : url,
 			data: data,
 			type: type,
+			plainData : plainData,
 			contentType: false,
 			processData: false,
-			"callbackfunc" : function() {
+			success : function() {
 				popupCloser($self.parents(popupContainer));
+				if(Kenseo.currentModel){
+					if(actionType === "archiveProject"){
+						Kenseo.currentModel.collection.remove(Kenseo.currentModel);
+					}
+					else if(actionType === "archiveArtefact"){
+						Kenseo.currentModel.collection.remove(Kenseo.currentModel);	
+					}
+					else if(actionType === "deleteArtefact"){
+						Kenseo.currentModel.collection.remove(Kenseo.currentModel);	
+					}
+				}
 			}
 		});
 	})

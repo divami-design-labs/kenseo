@@ -26,7 +26,7 @@ Kenseo.views.Project = Backbone.View.extend({
     template: _.template(templates['project-section']),
     // View constructor
     initialize: function() {
-
+        this.listenTo(this.model, 'remove', this.remove);
     },
     events: {
         'click .popup-click': 'openPopup'
@@ -41,5 +41,7 @@ Kenseo.views.Project = Backbone.View.extend({
         e.preventDefault();
         var model = this.model.collection.get($(e.currentTarget).data('id'));
         sb.setPopupData(model.toJSON());
+
+        Kenseo.currentModel = model;
     }
 });

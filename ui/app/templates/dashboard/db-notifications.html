@@ -7,7 +7,7 @@
 	<div class="day-notifications-label"><%= key %></div>
 	<div class="notifications-holder">
 		<% _.each(newData[key], function(n){ %>
-		<div class="notification-item <%= n.type %>-type">
+		<a href="<% if(n.meetingDetails){ %>#meetingnotes/<%= n.id %><% } %>" class="notification-item <%= n.type %>-type page-click" data-url="meeting-notes">
 			<div class="notification-title">
 				<%= n.title %>
 			</div>
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<% } %>
-		</div>
+		</a>
 		<% }); %>
 	</div>
 </div>

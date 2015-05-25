@@ -2,6 +2,7 @@ var Kenseo = {
     views: {},
     models: {},
     collections: {},
+    currentModel: {},
     dropdown: {},
     data: {},
     popup: {"info":{},"data":{}, "replace": {}},

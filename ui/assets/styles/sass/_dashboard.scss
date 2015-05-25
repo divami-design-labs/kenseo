@@ -338,9 +338,6 @@
 	@include textSix();
 	border-bottom: 1px solid $colorB;
 }
-.notification-item{
-	@include clearFloat();
-}
 .notification-title{
 	@include textFive();
 	@extend .ellipsis;
@@ -374,6 +371,9 @@
 	padding-left: 25px;
 	position: relative;
 	margin-top: 20px;
+	@include clearFloat();
+	display: block;
+	text-decoration: none;
 }
 .notification-item.M-type{
 	@include listTypeImage("one.svg");

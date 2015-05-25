@@ -29,7 +29,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
     template: _.template(templates['artefact']),
     // View constructor
     initialize: function() {
-
+        this.listenTo(this.model, 'remove', this.remove);
     },
     events: {
         'click .popup-click': 'openPopup'
@@ -55,5 +55,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
         e.preventDefault();
         var model = this.model.collection.get($(e.currentTarget).data('id'));
         sb.setPopupData(model.toJSON());
+
+        Kenseo.currentModel = model;
     }
 });

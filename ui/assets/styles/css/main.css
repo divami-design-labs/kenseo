@@ -1314,11 +1314,6 @@
   color: #6f7588;
   border-bottom: 1px solid #aaacb4; }
 
-.notification-item::after {
-  content: "";
-  display: block;
-  clear: both; }
-
 .notification-title {
   font-size: 14px;
   color: #3e4354; }
@@ -1350,7 +1345,13 @@
 .notification-item {
   padding-left: 25px;
   position: relative;
-  margin-top: 20px; }
+  margin-top: 20px;
+  display: block;
+  text-decoration: none; }
+  .notification-item::after {
+    content: "";
+    display: block;
+    clear: both; }
 
 .notification-item.M-type::before {
   content: "";

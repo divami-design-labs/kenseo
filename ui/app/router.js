@@ -7,7 +7,8 @@ var Router = Backbone.Router.extend({
     routes: {
         // When there is no hash on the url, the home method is called
         "": "index",
-        "projectpage/:id": "projectPage"
+        "projectpage/:id": "projectPage",
+        "meetingnotes/:id": "meetingNotes"
     },
     index: function() {
         sb.loadFiles(   
@@ -65,6 +66,18 @@ var Router = Backbone.Router.extend({
                         });
                     }
                 });
+            }
+        )
+    },
+    meetingNotes: function(id){
+        sb.loadFiles(
+            {
+                'views': ['Header', 'Artefacts', 'People', 'Activities'],
+                'models': ['Projects', 'Header','Artefacts', 'People'],
+                'collections': ['Projects', 'Artefacts', 'People']
+            },
+            function(){
+                sb.renderTemplate({templateName: "meetingnotes", templateHolder: $(".content-wrapper")});
             }
         )
     }
