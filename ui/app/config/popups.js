@@ -282,6 +282,9 @@ Kenseo.popups = (function(){
             	"cls": "main-btn share-btn done-btn",
             	"disabled": false
             }],
+            "callbackfunc": function() {
+            	sb.setPopupData('addProject', 'actionType');
+            }
         }]
 	};
 

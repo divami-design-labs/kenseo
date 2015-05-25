@@ -49,12 +49,16 @@
 														
 		public function addProject($interpreter) {
 			$data = $interpreter->getData()->data;
-			$projectName = $data->projectName;
+			$projectName = $data->projectName->value;
+			$userId = $interpreter->getUser()->user_id;
 			$date = date("Y-m-d H:i:s");
 			
-			//Archive project
+			//add project
 			$db = Master::getDBConnectionManager();
-			$db->insertSingleRow (TABLE_PROJECTS,array("project_name","description","intro_img_url","state","last_updated_date"),array("$projectName","","","O","$date"));
+			$projId = $db->insertSingleRowAndReturnId (TABLE_PROJECTS,array("project_name","state","last_updated_date"),array("$projectName","A","$date"));
+			
+			//now add user to the project members
+			$db->insertSingleRow (TABLE_PROJECT_MEMBERS,array("proj_id","user_id","access_type","group_type"),array($projId,$userId,"S","I"));
 			
 			return true;		
 		}

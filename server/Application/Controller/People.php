@@ -55,7 +55,7 @@
 			$accessType = $data->accessType;
 			$groupType = $data->groupType;
 			
-			//Archive project
+			//enter DB
 			$db = Master::getDBConnectionManager();
 			$db->insertSingleRow (TABLE_PROJECT_MEMBERS,array("proj_id","user_id","role","access_type","group_type"),array("$projectId","$peopleId","","$accessType","$groupType"));
 			
@@ -67,7 +67,9 @@
 			$projectId = $data->projectId;
 			$peopleId = $data->peopleId;
 			
-			//Archive project
+			//remove people
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "peopleId");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $peopleId);
 			$db = Master::getDBConnectionManager();
 			$db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId . " and user_id =" . $peopleId);
 			
