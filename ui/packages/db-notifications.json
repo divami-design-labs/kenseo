@@ -1,0 +1,84 @@
+{
+    "notifications": [
+        {
+            "id": 33,
+            "title": "Conflux: Designer",
+            "type": "meeting",
+            "time": "2015-03-19 09:00PM",
+            "notifier": "Prakash",
+            "notifierId": 3,
+            "meetingDetails": {
+                "title": "ConfluxDesignerTablocation",
+                "room": "Conference2",
+                "time": "2015-03-190 13:00PM"
+            }
+        },
+        {
+            "id": 42,
+            "title": "Balfour: Imageshare",
+            "type": "review-request",
+            "time": "2015-03-19 11:23AM",
+            "notifier": "Rakesh",
+            "notifierId": 4
+        },
+        {
+            "id": 34,
+            "title": "EdgeFxKits: Mobile",
+            "type": "comment",
+            "time": "2015-03-19 10:00AM",
+            "notifier": "Vasu",
+            "notifierId": 1
+        },
+        {
+            "id": 25,
+            "title": "Vsoft: ACHTransfer",
+            "type": "comment",
+            "time": "2015-03-18 02:23PM",
+            "notifier": "Vani",
+            "notifierId": 60
+        },
+        {
+            "id": 17,
+            "title": "Balfour: Classrings",
+            "type": "review-request",
+            "time": "2015-03-18 11:25AM",
+            "notifier": "Siju",
+            "notifierId": 63
+        },
+        {
+            "id": 16,
+            "title": "Balfour: Imageshare",
+            "type": "review-request",
+            "time": "2015-03-18 10:26AM",
+            "notifier": "Rakesh",
+            "notifierId": 4
+        },
+        {
+            "id": 33,
+            "title": "Conflux: Designer",
+            "type": "meeting",
+            "time": "2015-03-19 09:00PM",
+            "notifier": "Prakash",
+            "notifierId": 3,
+            "meetingDetails": {
+                "title": "ConfluxDesignerTablocation",
+                "room": "Conference2",
+                "time": "2015-03-190 13:00PM"
+            }
+        },
+        {
+            "id": 33,
+            "title": "Conflux: Designer",
+            "type": "meeting",
+            "time": "2015-03-19 09:00PM",
+            "notifier": "Prakash",
+            "notifierId": 3,
+            "meetingDetails": {
+                "title": "ConfluxDesignerTablocation",
+                "room": "Conference2",
+                "time": "2015-03-190 13:00PM"
+            }
+        }
+    ],
+    "status": "success"
+}

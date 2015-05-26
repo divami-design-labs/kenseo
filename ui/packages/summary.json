@@ -1,0 +1,65 @@
+{
+	"data" : {
+		"artefactDetails": {
+			"artefactId" : 16,
+			"title" : "Conflux:Mapping Editor Doc",
+			"version" : 3,
+			"commetCount" : 122,
+			"status" : 'c',
+			"createdBy" : "Prakash",
+			"creatorId" : 4,
+			"reatorPic" : "url"
+		},
+		"sharedTo" : [{
+			"id" : 5,
+			"name" : "Anurag",
+			"email" : "anurag@divami.com",
+			"profilePic" : "url",
+			"permission" : "S",
+			"commentcount" : 10,
+			"state" : 'c'
+		},{
+			"id" : 1,
+			"name" : "Vasu",
+			"email" : "srnivas@divami.com",
+			"profilePic" : "url",
+			"permission" : "C",
+			"commentCount" : 19,
+			"State" : 'c'
+		}],
+		"versions" : [{
+			"title" : "Conflux:Mapping Editor Doc",
+			"version" : 3,
+			"versionId" : 22,
+			"isCurrentVersion" : true,
+			"date" : "03-25-2015"
+		},{
+			"title" : "Conflux:Mapping Editor Doc",
+			"version" : 3,
+			"isCurrentVersion" : false,
+			"date" : "03-23-2015"
+		},{
+			"title" : "Conflux:Mapping Editor Doc",
+			"version" : 1,
+			"isCurrentVersion" : false,
+			"date" : "03-22-2015"
+		}],
+		"references" : [{
+			"id": 1,
+			"name": "name"
+		},{
+			"id": 2,
+			"name": "name"
+		}],
+		"linkedArtefacts" : [{
+			"id": 1,
+			"name": "name"
+		},{
+			"id": 2,
+			"name": "name"
+		}],
+		"timeline" : [{
+		
+		}]
+	}
+}
