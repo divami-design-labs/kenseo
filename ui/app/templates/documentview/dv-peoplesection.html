@@ -1,0 +1,13 @@
+<div class="dv-tb-people-wrapper">
+	<% if(data && data.sharedTo.length > 3){ %>
+		<div class="left-slider"></div>
+	<% } %>
+	<div class="dv-tb-people">
+		<% _.each(data.sharedTo, function(p){ %>
+		<img class="profile-image-black" src="<%= p.profilePic %>"/>
+		<% }); %>
+	</div>
+	<% if(data && data.sharedTo.length > 3){ %>
+		<div class="right-slider"></div>
+	<% } %>
+</div>

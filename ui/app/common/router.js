@@ -84,6 +84,10 @@ var Router = Backbone.Router.extend({
         )
     },
     documentView: function(id){
+    	if(!Kenseo.data.artefact){
+    		Kenseo.data.artefact = {};
+    	} 
+    	Kenseo.data.artefact.id =  id;
         sb.loadFiles(
             {
                 'views': ['Header'],
@@ -97,13 +101,31 @@ var Router = Backbone.Router.extend({
                             ]
             },
             function(){
-                $('.header').addClass('fixed-header');
                 new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+                $('.header').addClass('fixed-header');
+				sb.ajaxCall({
+					url : sb.getRelativePath("getArtefactDetails"),
+					data: {
+						artefactVersionId : Kenseo.data.artefact.id
+					},
+					type: 'GET',
+					success: function(response) {
+						var versCount = response.data.versionCount
+		                annotation.init({
+		                    "fileName": sb.getRelativePath(response.data.versions[versCount-1].documentPath)
+		                });
+						
+						sb.renderTemplate({
+							url: sb.getRelativePath('getVersionDetails'),
+							data: {
+								versionId: Kenseo.data.artefact.id
+							},
+							templateName: "dv-peoplesection", 
+							templateHolder: $(".dv-tb-people-section"),
+						})
+					}
+				});
                 sb.renderTemplate({templateName: "documentview", templateHolder: $(".content")});
-
-                annotation.init({
-                    "fileName": 'compressed.tracemonkey-pldi-09.pdf'
-                });
                 sb.documentview.pagination();
                 sb.documentview.imageSlider();
                 sb.documentview.zoomSlider();

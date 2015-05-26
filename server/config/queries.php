@@ -329,7 +329,7 @@ $AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as
 												FROM " . TABLE_ARTEFACTS_VERSIONS . " AS vers 
 												JOIN " . TABLE_USERS . " AS user on
 												user.user_id = vers. created_by
-												WHERE artefact_id= @~~artefactId~~@";
+												WHERE artefact_id = (SELECT artefact_id from artefact_versions where artefact_ver_id = @~~artefactVerId~~@)";
 												
 $AppGlobal['sql']['getArtefactVersionShared'] = "SELECT user.user_id as id, user.name as name, user.profile_pic_url as profilePic, membs.access_type as permission
 												FROM " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as membs 
