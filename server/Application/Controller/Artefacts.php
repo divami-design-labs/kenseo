@@ -527,5 +527,53 @@
 			$userId = $interpreter->getUser()->user_id;
 			$this->shareForTeam($artId, $artVerId,$data->sharedTo, $data->userId);
 		}
+		
+		public function getArtefactDetails($interpreter) {
+			$data = $interpreter->getData()->data;
+			$userId = $interpreter->getUser()->user_id;
+			$artefactId = $data->artefactId;
+			
+			$db = Master::getDBConnectionManager();
+			
+			//first get the details of the artefact
+			$queryParams = array('artefactId' => $artefactId);
+			
+			$detailsQuery = getQuery('getArtefactDetails',$queryParams);
+			$artefactObj = $db->singleObjectQuery($detailsQuery);
+
+			//now get the versions of artefact
+			$versionQuery = getQuery('getArtefactVersionSummary',$queryParams);
+			$versionSummary = $db->multiObjectQuery($versionQuery);
+			
+			$artefactObj->versions = $versionSummary;
+			
+			return $artefactObj;
+			
+		} 
+		
+		public function getVersionDetails($interpreter) {
+			$data = $interpreter->getData()->data;
+			$userId = $interpreter->getUser()->user_id;
+			$verId = $data->versionId;
+			
+			$queryParams = array('verId' => $verId);
+			$db = Master::getDBConnectionManager();
+			
+			//get shared details
+			$sharedToQuery = getQuery('getArtefactVersionShared',$queryParams);
+			$sharedTo = $db->multiObjectQuery($sharedToQuery);
+			
+			//get version details
+			$commentQuery = getQuery('getArtefactVersionComments',$queryParams);
+			$comments = $db->multiObjectQuery($commentQuery);
+			
+			$resultObj = array(
+				'versionId' => $verId,
+				'comments' => $comments,
+				'sharedTo' => $sharedTo
+			);
+			
+			return $resultObj;
+		} 
 	}
 ?>

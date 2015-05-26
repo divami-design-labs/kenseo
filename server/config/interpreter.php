@@ -93,4 +93,10 @@ $AppGlobal['urlmap']['/getProjectActivity'] = array ('command' => 'getProjectAct
 $AppGlobal['cmdmap']['setMeetingInvitation'] = array ("class" => "Meetings", "method" => "setMeetingInvitaion");
 $AppGlobal['urlmap']['/setMeetingInvitation'] = array ('command' => 'setMeetingInvitation', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['getArtefactDetails'] = array ("class" => "Artefacts", "method" => "getArtefactDetails");
+$AppGlobal['urlmap']['/getArtefactDetails'] = array ('command' => 'getArtefactDetails', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['getVersionDetails'] = array ("class" => "Artefacts", "method" => "getVersionDetails");
+$AppGlobal['urlmap']['/getVersionDetails'] = array ('command' => 'getVersionDetails', 'type' => 'GET');
+
 ?>
