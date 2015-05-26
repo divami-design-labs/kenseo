@@ -14,6 +14,7 @@
 @import "meeting";
 @import "overlays";
 @import "toolbox";
+@import "view";
 
 //variables
 $viewPortWidth: 1346px;
@@ -28,7 +29,10 @@ body{
     //max-width: $viewPortWidth;
     min-width: 1180px;
 }
-
+.page-wrapper{
+	min-height:100%;
+	@include clearFloat();
+}
 .toggle-click{
 	@extend .hand;
 }

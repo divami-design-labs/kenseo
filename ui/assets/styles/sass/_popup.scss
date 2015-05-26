@@ -7,7 +7,6 @@
 	right: 0;
 	bottom: 0;
 	z-index: 100;
-	overflow: auto;
 }
 .popup-click{
 	@extend .hand;
@@ -95,11 +94,6 @@
 	background-color: transparent;
 	@extend .a;
 }
-.projects-dropdown{
-	width: 330px;
-	height: 40px;
-}
-
 
 /* second artefact popup*/
 .meta-heading{
@@ -253,10 +247,10 @@ $popup-content-space: 175px;
 	.share-artefacts-img {
 		height: 34px;
 		width: 34px;
-		  @include border-radius(50%);
+		@extend .circle;
 	}
 	.share-artefacts-img-holder{
-		@include border-radius(50%);
+		@extend .circle;
 		border: 1px solid black;
 		float: left;
 		margin-left: -$x;
@@ -272,7 +266,7 @@ $popup-content-space: 175px;
 			content: "";
 			@include absoluter($v,$v,$v,$v);
 			border: 2px solid $colorU;
-			@include border-radius(50%);
+			@extend .circle;
 			z-index: 1;
 		}
 	}
@@ -286,7 +280,7 @@ $popup-content-space: 175px;
 			content: "";
 			@include absoluter($v,$v,$v,$v);
 			border: 2px solid $colorT;
-			@include border-radius(50%);
+			@extend .circle;
 			background-color: white;
 			z-index: 1;
 		}

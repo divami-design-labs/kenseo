@@ -1,6 +1,16 @@
 <div class="document-wrapper">
-	<div class="dv-section"></div>
-	<div class="dv-toolbox"></div>
+	<div id="pdf-container" class="pdf-container">
+		<div class="document-viewer"></div>
+	</div>
+	<div class="dv-toolbox">
+		<div class="dvt-item document-info-icon"></div>
+		<div class="dvt-item add-comment-icon" data-name="rectangle"></div>
+		<div class="dvt-item toggle-annotations-icon"></div>
+		<div class="dvt-item comment-summary-icon"></div>
+		<div class="dvt-item share-artefact-icon"></div>
+		<div class="dvt-item submit-review-icon"></div>
+		<div class="dvt-item more-menu-icon"></div>
+	</div>
 	<div class="dv-info"></div>
 	<div class="dv-status-bar">
 		<div class="dv-tab-panel-section">
@@ -30,6 +40,19 @@
 				</div>
 				<div class="right-slider"></div>
 			</div>
+		</div>
+		<div class="range-slider-section">
+			<div class="zoom-in"></div>
+			<div class="zoom-out"></div>
+			<div class="slider">
+				<div class="thumb"></div>
+			</div>
+		</div>
+		<div class="pagination-section">
+			<div class="previous-page"></div>
+			<div class="next-page"></div>
+			<input class='range' type='text' data-min=1 data-max=20 value=1></input> 
+			<span> of 20</span>
 		</div>
 	</div>
 </div>

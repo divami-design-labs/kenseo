@@ -88,12 +88,25 @@ var Router = Backbone.Router.extend({
             {
                 'views': ['Header'],
                 'models': ['Header'],
-                'collections': ['People']
+                'collections': ['People'],
+                'files':    [
+                                'libs/pdfjs/pdf.js',
+                                'libs/pdfjs/pdf.worker.js',
+                                'app/config/sandbox.documentview.js',
+                                'app/components/annotator.js'
+                            ]
             },
             function(){
                 $('.header').addClass('fixed-header');
                 new Kenseo.views.Header({'model': new Kenseo.models.Header()});
                 sb.renderTemplate({templateName: "documentview", templateHolder: $(".content")});
+
+                annotation.init({
+                    "fileName": 'compressed.tracemonkey-pldi-09.pdf'
+                });
+                sb.documentview.pagination();
+                sb.documentview.imageSlider();
+                sb.documentview.zoomSlider();
             }
         );
     }

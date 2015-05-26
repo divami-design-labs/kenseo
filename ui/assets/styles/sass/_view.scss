@@ -1,0 +1,188 @@
+.fixed-header.header{
+	background-color: rgba(232, 232, 233, 0.5);
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 1;
+}
+.dv-status-bar{
+	height: 50px;
+	background-color: $colorTwelve;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.pdf-container {
+	position: absolute;
+	top: 0;
+	bottom: 50px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	left: 0;
+	right: 0;
+}
+.dv-tab-panel-section{
+	max-width: 50%;
+	height: 100%;
+	float: left;
+	.tab-item{
+		width: 42px;
+		height: 100%;
+		border-width: 0px 1px 0px 0px;
+		border-style: solid;
+		border-color: $colorB;
+		float: left;
+	}
+}
+.left-slider, .right-slider{
+	position: absolute;
+	top: 15.5px;
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+}
+.left-slider{
+	left: 2px;
+	@include backgroundImage('icon_14.svg');
+	&.active{
+		@include backgroundImage('icon_15.svg');
+	}
+}
+.right-slider{
+	right: 2px;
+	@include backgroundImage('icon_17.svg');
+	&.active{
+		@include backgroundImage('icon_16.svg');
+	}
+}
+.dv-tb-people-section{
+	height: 100%;
+	float: left;
+	position: relative;
+}
+.dv-tb-people-wrapper{
+	@include clearFloat();
+	height: 100%;
+	width: 132px;
+	overflow: hidden;
+	margin: 0 20px;
+	font-size: 0px;
+}
+.dv-tb-people {
+	float: left;
+	text-align: center;
+	white-space: nowrap;
+	height: 100%;
+	position: relative;
+	left: 0;
+	@include transition(left 1s ease-in-out);
+	img{
+		width: 30px;
+		height: 30px;
+		display: inline-block;
+		margin: 0px 5px;
+		margin-top: 7.5px;
+	}
+}
+.dv-toolbox{
+	padding: 10px;
+	@include border-radius(0px 5px 5px 0px);
+	background-color: $colorThirteen;
+	@include verticalMiddle();
+	left: 0;
+}
+.dvt-item{
+	@include square(27px);
+	margin: 15px 0px;
+	cursor: pointer;
+}
+.document-info-icon{
+	@include backgroundImage('document-info.svg');
+}
+.add-comment-icon{
+	@include backgroundImage('add-comment.svg');
+}
+.toggle-annotations-icon{
+	@include backgroundImage('toggle-annotations.svg');
+}
+.comment-summary-icon{
+	@include backgroundImage('comment-summary.svg');
+}
+.share-artefact-icon{
+	@include backgroundImage('share-artefact.svg');
+}
+.submit-review-icon{
+	@include backgroundImage('submit-review.svg');
+}
+.more-menu-icon{
+	@include backgroundImage('more-menu.svg');
+}
+.pagination-section{
+	position: relative;
+	height: 100%;
+	width: 75px;
+	padding: 0 30px;
+	line-height: 50px;
+	float: left;
+	input{
+		width: 28px;
+		text-align: center;
+		border: 1px solid $colorSixteen;
+	}
+	span{
+		color: white;
+	}
+	.previous-page, .next-page{
+		@include square(14px);
+		position: absolute;
+		cursor: pointer;
+	}
+	.previous-page{
+		@include backgroundImage('previous-page-icon.svg');
+		left: 0;
+		@include verticalMiddle();
+	}
+	.next-page{
+		@include backgroundImage('next-page-icon.svg');
+		right: 0;
+		@include verticalMiddle();
+	}
+}
+.range-slider-section{
+	float: left;
+	height: 100%;
+	width: 100px;
+	position: relative;
+	padding: 0 30px;
+	.slider {
+	    width: 100px;
+	    background-color: $colorFourteen;
+	    border-radius: 3px;
+	    height: 4px;
+	    position: relative;
+	    margin-top: 21.5px;
+	}
+	.thumb {
+	    height: 12px;
+	    width: 12px;
+	    cursor: pointer;
+	    border-radius: 6px;
+	    background-color: $colorFifteen;
+	    position: absolute;
+	    margin-top: -4px;
+	}
+	.zoom-in, .zoom-out{
+		position: absolute;
+		top: 14.5px;
+		@include square(18px);
+	}
+	.zoom-in{
+		@include backgroundImage('zoom-in.svg');
+		right: 0;
+	}
+	.zoom-out{
+		@include backgroundImage('zoom-out.svg');
+		left: 0;
+	}
+}

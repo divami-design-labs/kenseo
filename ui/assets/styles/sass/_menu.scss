@@ -1,6 +1,6 @@
 .menu {
     width: 812px;
-    height: 675px;
+    height: 580px;
     background-color: #566277;
     padding-left: 40px;
     position: absolute;
@@ -9,6 +9,8 @@
     z-index: 10;
     cursor: default;
     display: none;
+    // temporary fix for limit 
+    overflow: hidden;
 }
 .active.hamburger .menu{
     display: block;
@@ -36,7 +38,7 @@
     img{
         max-width: 54px;
         max-height: 54px;
-        @include border-radius(50%);
+        @extend .circle;
         background-color: white;
         border: 2px solid $colorEight;
     }
@@ -72,8 +74,7 @@
 }
 
 .menu-settings-img {
-    @include dimensions(24px, 24px);
-    display: block;
+    @include square(20px);
     float: left;
 }
 .menu-dashboard-icon{
@@ -92,8 +93,9 @@
     @include dimensions(80px, auto);
     @include text(13px, $color3);
     @extend .a;
-    line-height: 24px;
     margin-left: 8px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .menu-settings-dshbd-dv {
@@ -102,7 +104,7 @@
 
 .menu-projects-container {
     @include dimensions(inherit, 156px);
-    margin-top: 30px;
+    margin-top: 20px;
     //    background-color: beige;
 }
 
@@ -133,7 +135,8 @@
     width: inherit;
     height: auto;
     @include dimensions(inherit, auto);
-    margin-top: 60px;
+    margin-top: 45px;
+    @include clearFloat();
     //    background-color: darkseagreen;
 }
 
@@ -304,7 +307,7 @@
     text-align: center;
     margin-bottom: 20px;
     img{
-        @include border-radius(50%);
+        @extend .circle;
         background-color: white;
         border: 2px solid $colorEight;
     }

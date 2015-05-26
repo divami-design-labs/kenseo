@@ -183,6 +183,9 @@ $fontSizeOne: 18px;
 	}
 }
 //extends
+.circle{
+	@include border-radius(50%);
+}
 .fullMiddle{
 	@include translate(-50%, -50%);
 	position: absolute;

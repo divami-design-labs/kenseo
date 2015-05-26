@@ -9,12 +9,12 @@
 }
 
 .profile-image-black{
-	@include border-radius(50%);
+	@extend .circle;
     background-color: white;
     border: 2px solid #EBECEE;
 }
 .profile-image-white{
-	@include border-radius(50%);
+	@extend .circle;
 	background-color: white;
 	border: 2px solid white;
 }
