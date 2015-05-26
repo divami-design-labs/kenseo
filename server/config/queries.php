@@ -39,7 +39,7 @@ $AppGlobal['sql']['getMyRecentArtefacts'] = "SELECT projects.project_id, project
 											 FROM " . TABLE_PROJECT_ACTIVITY . "
 											 JOIN " . TABLE_PROJECTS . " ON project_activity.project_id = projects.project_id
 											 JOIN " . TABLE_ARTEFACTS . " ON artefacts.artefact_id = project_activity.performed_on_id
-											 WHERE logged_by = @~~userid~~@ AND performed_on =  'A' AND projects.state = 'A'";
+											 WHERE logged_by = @~~userid~~@ AND performed_on =  'A' AND projects.state = 'A' limit @~~limit~~@";
 
 											 
 $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FROM " . TABLE_ARTEFACTS . " AS arts 
@@ -320,7 +320,7 @@ $AppGlobal['sql']['getArtefactDetails'] = "SELECT arts.artefact_id as artefactId
 											FROM " . TABLE_ARTEFACTS . " AS arts 
 											JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers ON
 											arts.latest_version_id = vers.artefact_ver_id
-											WHERE arts.artefact_id = @~~artefactId~~@";
+											WHERE vers.artefact_ver_id = @~~artefactVerId~~@";
 
 $AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as versionId, vers.version_no as versionNo, vers.document_path as documentPath, vers.MIME_type as type,
 												 vers.version_label as label, vers.created_by as authorId, user.name as authorName, shared,

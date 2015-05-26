@@ -8,7 +8,7 @@ $AppGlobal['log']['mode'] = "ON" ;
 $AppGlobal['log']['modules'] = "ALL" ;
 $AppGlobal['global']['domain'] = "http://kenseo.divami.com/";
 
-$AppGlobal['gloabl']['storeLocation'] = "/var/tmp/";
+$AppGlobal['gloabl']['storeLocation'] = "media/";
 
 $AppGlobal['cache'] = array();
 $AppGlobal['cache']['type'] = "apc";

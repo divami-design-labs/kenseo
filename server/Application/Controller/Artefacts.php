@@ -85,18 +85,20 @@
 			$resultObj = $db->multiObjectQuery($querDetails);
 			return $resultObj;
 		}
+		
 		public function getRecentArtefactActivities($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userid = $interpreter->getUser()->user_id;;
-			$count = $data->count;
+			$limit = $data->limit;
 			
 			$db = Master::getDBConnectionManager();
 			
-			$queryParams = array('userid' => $userid );
+			$queryParams = array('userid' => $userid , '@limit' => $limit);
 			$dbQuery = getQuery('getMyRecentArtefacts',$queryParams);
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
 		}
+
 		public function getArtefactsLink($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId =  $interpreter->getUser()->user_id;
@@ -111,6 +113,7 @@
 			return $resultObj;
 		}		
 		public function addArtefactVersion($interpreter) {
+			global $AppGlobal;
 			$data = $interpreter->getData();
 			if($data->data != null) {
 				$data = $data->data;
@@ -119,7 +122,7 @@
 			$userId = $interpreter->getUser()->user_id;;
 			$previousArtefactid = $data->id;
 			$latestArtefactid = $data -> artefact_id;
-			
+			$projectId = $data -> project_id;
 			$db = Master::getDBConnectionManager();
 			
 			//get the latest version 
@@ -132,19 +135,22 @@
 				//replacing with a new file
 				$uploadFile = $_FILES["file"]["type"];
 				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
-				
+				$date = date("Y-m-d H:i:s");
 				$data->userId = $interpreter->getUser()->user_id;
 				
 				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
-				$targetPath = $AppGlobal['gloabl']['storeLocation'].$_FILES['file']['name']; // Target path where file is to be stored
+				$path = $AppGlobal['gloabl']['storeLocation'] . $projectId . "/" . $previousArtefactid;
+				if(! is_dir($path)) {
+					mkdir($path, 0777, true);
+				}
+				$targetPath = $path . "/" .$_FILES['file']['name']; // Target path where file is to be stored
 				move_uploaded_file($sourcePath,$targetPath) ;
 				
 				//now store the artefact detail in the tables related to artefacts and versions
-				Master::getLogManager()->log(DEBUG, MOD_MAIN);
-				
+				$mimeType = $_FILES['file']->MIMEtype->type;
 				//create a new version
 				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
-				$rowValues = array($previousArtefactid, $_FILES['file']['name'], $latestVer+1, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'c', 1);
+				$rowValues = array($previousArtefactid, $_FILES['file']['name'], $latestVer+1, $userId, $date, $targetPath, $_FILES["file"]["type"], $_FILES['file']['tmp_name']->file_size, 'c', 1);
 				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				
 				//update the artefact table
@@ -152,7 +158,7 @@
 				
 				//now share the new vesion to yourself
 				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
-				$shareRowValues = array($newVer, $previousArtefactid, $userId, 'S', date("Y-m-d H:i:s"), $userId);
+				$shareRowValues = array($newVer, $previousArtefactid, $userId, 'S', $date, $userId);
 				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 				
 				
@@ -218,11 +224,15 @@
 				$data->userId = $interpreter->getUser()->user_id;
 				
 				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
-				$targetPath = $AppGlobal['gloabl']['storeLocation'].$_FILES['file']['name']; // Target path where file is to be stored
+				$path = $AppGlobal['gloabl']['storeLocation'] . $projId . "/" . $artId;
+				if(! is_dir($path)) {
+					mkdir($path, 0777, true);
+				}
+				$targetPath = $path . "/" .$_FILES['file']['name']; // Target path where file is to be stored
 				move_uploaded_file($sourcePath,$targetPath) ;
 				
 				//now store the artefact detail in the tables related to artefacts and versions
-				Master::getLogManager()->log(DEBUG, MOD_MAIN);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $AppGlobal['gloabl']['storeLocation']);
 				//get the latest version 
 				$queryParams = array('artId' => $newArt);
 				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
@@ -230,7 +240,7 @@
 				
 				//create a new version
 				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
-				$rowValues = array($artId, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES['file']['tmp_name']->MIMEtype->type, $_FILES['file']['tmp_name']->file_size, 'c', 0);
+				$rowValues = array($artId, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES["file"]["type"], $_FILES['file']['tmp_name']->file_size, 'c', 0);
 				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				
 				//update the artefact table
@@ -412,22 +422,16 @@
 		}
 		
 		public function addArtefact($interpreter) {
-			
+			global $AppGlobal;
 			if(isset($_FILES["file"]["type"])) {
 
+				$db = Master::getDBConnectionManager();
 				$data = $interpreter->getData();
 				$uploadFile = $_FILES["file"]["type"];
 				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
 				
 				$data->userId = $interpreter->getUser()->user_id;
 				
-				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
-				$targetPath = $AppGlobal['gloabl']['storeLocation'].$_FILES['file']['name']; // Target path where file is to be stored
-				move_uploaded_file($sourcePath,$targetPath) ;
-				
-				//now store the artefact detail in the tables related to artefacts and versions
-				$db = Master::getDBConnectionManager();
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,$data->artefact_id);
 				if(isset($data->artefact_id)) {
 					Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have a selected artefcat");
 					$artId = $data->artefact_id;
@@ -445,11 +449,27 @@
 					
 				}
 				
+				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
+				$path = $AppGlobal['gloabl']['storeLocation'] . $data->project_id . "/" . $artId;
+				if(! is_dir($path)) {
+					mkdir($path, 0777, true);
+				}
+				$targetPath = $path . "/" . $_FILES['file']['name']; // Target path where file is to be stored
+				
+				move_uploaded_file($sourcePath,$targetPath) ;
+				
+				//now store the artefact detail in the tables related to artefacts and versions
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,$data->artefact_id);
+								
 				$ver_no++;
+				
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "mimeType test");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $_FILES["file"]["type"]);
+				
 				
 				//else 
 				$verColumnNames = array("artefact_id", "version_label","created_by","document_path","MIME_type", "file_size", "state", "created_date", "version_no");
-				$verRowValues = array($artId, $_FILES['file']['name'], $data->userId, $targetPath, $data->MIMEtype->type,  $data->size, 'c', date("Y-m-d H:i:s"), $ver_no);
+				$verRowValues = array($artId, $_FILES['file']['name'], $data->userId, $targetPath, $_FILES["file"]["type"],  $data->size, 'c', date("Y-m-d H:i:s"), $ver_no);
 				
 				$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $verColumnNames, $verRowValues);
 				
@@ -531,12 +551,12 @@
 		public function getArtefactDetails($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
-			$artefactId = $data->artefactId;
+			$artefactVerId = $data->artefactVersionId;
 			
 			$db = Master::getDBConnectionManager();
 			
 			//first get the details of the artefact
-			$queryParams = array('artefactId' => $artefactId);
+			$queryParams = array('artefactVerId' => $artefactVerId);
 			
 			$detailsQuery = getQuery('getArtefactDetails',$queryParams);
 			$artefactObj = $db->singleObjectQuery($detailsQuery);
