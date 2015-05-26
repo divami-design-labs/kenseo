@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../../assets/styles/css/normalize.css" type="text/css" />
+		<link rel="stylesheet" href="../../assets/styles/css/main.css" type="text/css" />
+	</head>
+	<body>
+		<div class="page">
+			<div class="page-wrapper">
+				<div class="header fixed-header">
+					<div class="hamburger">
+						<div class="hamburger-icon">
+							<div class="hamburger-notify">4</div>
+						</div>
+					</div>
+					<div class="logo"></div>
+					<div class="create-icon-holder">
+						<div class="create-plus-icon"></div>
+						<div class="create-plus-nav">
+	                        <div class="create-plus-nav-item">Add a project</div>
+	                        <div class="create-plus-nav-item">Add an Artefact</div>
+	                        <div class="create-plus-nav-item">Share an artefact</div>
+	                        <div class="create-plus-nav-item">Create a meeting</div>
+	                    </div>
+					</div>
+					<div class="search-icon"></div>
+					<div class="profile-pic-holder">
+	                    <img src="../../assets/imgs/profilepic.png"/>
+	                </div>
+				</div>
+				<div class="content">
+					<div class="document-wrapper">
+						<div class="dv-section"></div>
+						<div class="dv-toolbox"></div>
+						<div class="dv-info"></div>
+						<div class="dv-status-bar">
+							<div class="dv-tab-panel-section">
+								<div class="tab-item"></div>
+								<div class="tab-item"></div>
+								<div class="tab-item"></div>
+								<div class="tab-item"></div>
+								<div class="tab-item"></div>
+								<div class="tab-item"></div>
+								<div class="tab-item"></div>
+								<div class="tab-item"></div>
+								<div class="tab-item"></div>
+							</div>
+							<div class="dv-tb-people-section">
+								<div class="dv-tb-people-wrapper">
+									<div class="left-slider"></div>
+									<div class="dv-tb-people">
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Anurag.png"/>
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Prakash.png"/>
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Hemanth.png"/>
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Prakash.png"/>
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Hemanth.png"/>
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Anurag.png"/>
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Prakash.png"/>
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Hemanth.png"/>
+										<img class="profile-image-black" src="../../assets/imgs/people/small/Prakash.png"/>
+									</div>
+									<div class="right-slider"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var left = document.querySelector('.left-slider'), 
+				right = document.querySelector('.right-slider'),
+				main = document.querySelector('.dv-tb-people');
+
+			left.onclick = function(){
+				main.style.left = 44 + (parseInt(main.style.left, 10) || 0) + "px";
+			}
+			right.onclick = function(){
+				main.style.left = 0 - 44 + (parseInt(main.style.left, 10) || 0) + "px";
+			}
+		</script>
+	</body>
+</html>

@@ -37,7 +37,7 @@ gulp.task('template-build', function() {
 	.pipe(tap(function(){
 		// Append the above "file name" and "file path" in the templateRunner.js file
 		// gutil.log(stringify(templates));
-		fs.writeFile('app/templates.js', "var templates =  " + stringify(templates).replace(/[\n\r]*/g,""));
+		fs.writeFile('app/common/templates.js', "var templates =  " + stringify(templates).replace(/[\n\r]*/g,""));
 	}));
 
 	// gulp.src('templateRunner.js')

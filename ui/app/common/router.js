@@ -8,7 +8,8 @@ var Router = Backbone.Router.extend({
         // When there is no hash on the url, the home method is called
         "": "index",
         "projectpage/:id": "projectPage",
-        "meetingnotes/:id": "meetingNotes"
+        "meetingnotes/:id": "meetingNotes",
+        "documentview/:id": "documentView"
     },
     index: function() {
         sb.loadFiles(   
@@ -77,8 +78,23 @@ var Router = Backbone.Router.extend({
                 'collections': ['Projects', 'Artefacts', 'People']
             },
             function(){
+                new Kenseo.views.Header({'model': new Kenseo.models.Header()});
                 sb.renderTemplate({templateName: "meetingnotes", templateHolder: $(".content-wrapper")});
             }
         )
+    },
+    documentView: function(id){
+        sb.loadFiles(
+            {
+                'views': ['Header'],
+                'models': ['Header'],
+                'collections': ['People']
+            },
+            function(){
+                $('.header').addClass('fixed-header');
+                new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+                sb.renderTemplate({templateName: "documentview", templateHolder: $(".content")});
+            }
+        );
     }
 });

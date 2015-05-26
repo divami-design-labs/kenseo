@@ -188,7 +188,17 @@ var comboBox = function(elem, suggestions, values) {
 	function focusInputTextBox(){
 		$elem.find('input').focus();
 	}
+	function placeSuggestions($el){
+		var width = $el.innerWidth(),
+			height = $el.outerHeight(),
+			offset = $el.offset();
 
+		$el.find('.suggestionsContainer').css({
+			left: offset.left,
+			top: offset.top + height,
+			width: width - 2
+		});
+	}
 	/**
 	 * Triggers whenever user presses a keyboard key.
 	 * <br><b>Code explanation:</b> Handles keys to navigate the items up or down and 
@@ -414,6 +424,16 @@ var comboBox = function(elem, suggestions, values) {
 					el.appendChild(suggestionsViewer);
 				}
 				textBox.value = values.value || "";
+				placeSuggestions($elem);
+				window.onresize = function(){
+					placeSuggestions($elem);
+				}
+				window.onscroll = function(){
+					placeSuggestions($elem);
+				}
+				$(document).on('scroll', "*", function(){
+					placeSuggestions($elem);
+				});
 			}
 			else{
 				$elem.find(dot + values.suggestionsContainer).html('');

@@ -101,7 +101,7 @@ $(function(){
     	var actionType = sb.getPopupData('actionType');
     	var data = null;
     	var file = sb.getPopupData('file');
-    	var plainData = false;
+    	var plainData = false, contentType = null, processData = null;
 
     	if(file){
 			var data = new FormData();
@@ -119,6 +119,8 @@ $(function(){
 			type = "POST";
 			url = sb.getRelativePath("extUpload.php");
 			plainData = true;
+			contentType = false;
+			processData = false;
 
     	}
     	else{
@@ -132,8 +134,8 @@ $(function(){
 			data: data,
 			type: type,
 			plainData : plainData,
-			contentType: false,
-			processData: false,
+			contentType: contentType,
+			processData: processData,
 			success : function() {
 				popupCloser($self.parents(popupContainer));
 				if(Kenseo.currentModel){
@@ -145,6 +147,14 @@ $(function(){
 					}
 					else if(actionType === "deleteArtefact"){
 						Kenseo.currentModel.collection.remove(Kenseo.currentModel);	
+					}
+					else if(actionType === "addProject"){
+						var collection = new Kenseo.collections.Projects();
+						collection.add({
+							name: data.projectName.value,
+							last_updated_date: new Date().toString(),
+							id: "x3"
+						});
 					}
 				}
 			}

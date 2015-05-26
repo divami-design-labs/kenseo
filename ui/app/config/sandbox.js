@@ -120,6 +120,7 @@ var sb = (function() {
             });
             // var url = payload.url || collection.urlRoot || collection.url;
             var url = sb.getUrl(payload);
+            // If plainData is true, don't add session Id. This assumes the session id has already been added.
             if(payload.plainData){
                 var data = payload.data;
             }
@@ -131,10 +132,23 @@ var sb = (function() {
                     }
                 }
             }
+            // Setting default values to the ajax properties
+            var contentType = payload.contentType,
+                processData = payload.processData;
+            if(contentType === undefined || contentType === null){
+                contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+            }
+            if(processData === undefined || processData === null){
+                processData = true;
+            }
+
+            // Ajax call
             $.ajax({
                 url: url,
                 data: data,
                 type: payload.type || "GET",
+                contentType: contentType,
+                processData: processData,
                 success: function(response) {
                     var response = JSON.parse(response);
                     if (response.status == 'success') {
@@ -449,7 +463,10 @@ var sb = (function() {
             if($fieldSection.length){
                 $fieldSection.each(function(){
                     var $self = $(this);
+                    // "data-ignore" attribute if applied to the field section,
+                    // The fields value will not be saved in POST request
                     if($self.data('ignore') !== 1){
+                        // 'property' variable specifies the 
                         var property = $self.data('name');
                         var $combobox = $self.find('.combobox');
                         var $text = $self.find('input[type="text"]');
