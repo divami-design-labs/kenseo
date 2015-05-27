@@ -47,6 +47,8 @@ $(function(){
         }
     })
     .on('click', '.toggle-click', function(e){
+    	e.stopPropagation();
+    	e.preventDefault();
     	if($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length){
     		return false;
     	}

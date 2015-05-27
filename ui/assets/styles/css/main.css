@@ -1051,11 +1051,36 @@
   float: left; }
 
 .review-request-item {
-  position: relative; }
+  position: relative;
+  display: block;
+  text-decoration: none; }
   .review-request-item::after {
     content: "";
     display: block;
     clear: both; }
+  .review-request-item .requests-dropdown-icon {
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    display: none; }
+  .review-request-item:hover .requests-dropdown-icon {
+    display: block;
+    z-index: 2; }
+  .review-request-item .requests-dropdown {
+    display: block; }
+    .review-request-item .requests-dropdown.active {
+      background-color: #566277;
+      z-index: 1; }
+      .review-request-item .requests-dropdown.active .requests-dropdown-items {
+        display: block; }
+      .review-request-item .requests-dropdown.active .requests-dropdown-icon {
+        display: block;
+        background-image: url("../../imgs/dropdown1.svg");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 16px;
+        height: 16px;
+        z-index: 2; }
 
 .review-request-item + .review-request-item {
   margin-top: 50px; }
@@ -1206,30 +1231,6 @@
   background-size: 100% 100%;
   width: 16px;
   height: 16px; }
-
-.review-request-item .requests-dropdown-icon {
-  left: 10px;
-  position: absolute;
-  top: 10px;
-  display: none; }
-.review-request-item:hover .requests-dropdown-icon {
-  display: block;
-  z-index: 2; }
-.review-request-item .requests-dropdown {
-  display: block; }
-  .review-request-item .requests-dropdown.active {
-    background-color: #566277;
-    z-index: 1; }
-    .review-request-item .requests-dropdown.active .requests-dropdown-items {
-      display: block; }
-    .review-request-item .requests-dropdown.active .requests-dropdown-icon {
-      display: block;
-      background-image: url("../../imgs/dropdown1.svg");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      width: 16px;
-      height: 16px;
-      z-index: 2; }
 
 .requests-dropdown-items {
   display: none;
@@ -3089,11 +3090,17 @@ input[type="text"].xm {
   width: 75px;
   padding: 0 30px;
   line-height: 50px;
-  float: left; }
-  .pagination-section input {
+  float: right; }
+  .pagination-section .range {
     width: 28px;
     text-align: center;
-    border: 1px solid #babcc0; }
+    border: 1px solid #babcc0;
+    height: 24px;
+    float: left;
+    background-color: white;
+    margin-top: 12px;
+    margin-right: 6px;
+    line-height: 24px; }
   .pagination-section span {
     color: white; }
   .pagination-section .previous-page, .pagination-section .next-page {
@@ -3127,7 +3134,7 @@ input[type="text"].xm {
     top: 50%; }
 
 .range-slider-section {
-  float: left;
+  float: right;
   height: 100%;
   width: 100px;
   position: relative;

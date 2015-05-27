@@ -22,7 +22,7 @@ var annotation = (function () {
                     canvas.className = "pdf-page " + page.pageIndex;
                     // append the created canvas to the container
                     var anchor = document.createElement('a');
-                    anchor.href = page.pageIndex;
+                    anchor.href = page.pageIndex + 1;
 
                     container.appendChild(anchor);
                     container.appendChild(canvas);
@@ -38,6 +38,8 @@ var annotation = (function () {
                         viewport: viewport
                     };
                     page.render(renderContext).then(function () {
+                        var currentPageIndex = page.pageIndex + 1;
+                        $('.range').attr('data-max', currentPageIndex).next().html(" of " + currentPageIndex);
                         if (currentPage < globalPdf.numPages) {
                             pages[currentPage] = canvas;
                             currentPage++;
@@ -48,7 +50,7 @@ var annotation = (function () {
                             loadAnnotations(data);
                             systemCallBacks();
                             if(g.afterLoadCallBack){
-                                g.afterLoadCallBack();
+                                g.afterLoadCallBack(globalPdf, page);
                             }
                         }
                     });

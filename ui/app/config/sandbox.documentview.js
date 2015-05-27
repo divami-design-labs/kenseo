@@ -49,31 +49,71 @@ sb.documentview = {
 		}
 	},
 	pagination: function(){
+		function gotoPage(value){
+			$pdf = $('#pdf-container'), $a = $('a[href="' + value + '"]');
+			$pdf.scrollTop($pdf.scrollTop() + $a.offset().top);
+		}
+		$('#pdf-container').scroll(function(){
+            var $self = $(this), 
+                scrollTop = $self.scrollTop(), 
+                height = $('.pdf-page').height();
+
+            $anchors = $self.find('a');
+            selectedAnchor = null;
+            for(var i=0;i<$anchors.length;i++){
+                var a = $anchors[i], top = a.offsetTop;
+                if(top <= scrollTop + window.screen.height/3){
+                    selectedAnchor = a;
+                }
+                else{
+                    break;
+                }
+            }
+            if(selectedAnchor){
+                $('.range').html($(selectedAnchor).attr('href'));
+            }
+        });
 		$(document).on('keypress', '.range', function (e) {
-		    curValue = this.value + String.fromCharCode(e.which || e.keyCode);
-		    if (/^\d+$/.test(curValue)) {
-		        if ($(this).data('min') > curValue || $(this).data('max') < curValue) {
+			var sel = document.getSelection();
+			var keyCode = e.which || e.keyCode, 
+				pressedChar = String.fromCharCode(keyCode),
+
+				start = sel.extentOffset, end = sel.baseOffset,
+				str = this.innerHTML, re = /^\d+$/,
+				curValue = str.substr(0, start) + pressedChar + str.substr(end)
+				min = $(this).data('min'), max = $(this).data('max');
+
+		    if (re.test(curValue)) {
+		        if (min > curValue || max < curValue) {
 		            return false
 		        }
 		        return true
+		    } else if(keyCode == 13){
+		    	if (re.test(this.innerHTML)) {
+		    		gotoPage(this.innerHTML);
+		    	}
 		    } else {
 		        return false;
 		    }
 		});
 
 		$(document).on('click', '.next-page', function (e) {
-		    var curPage = $(".range").val();
+		    var curPage = $(".range").html();
 		    curPage++;
-		    if(curPage <= $(".range").data('max') && curPage > $(".range").data('min')) 
-		        $(".range").val(curPage)
+		    if(curPage <= $(".range").data('max') && curPage > $(".range").data('min')) {
+		        $(".range").html(curPage);
+		        gotoPage(curPage);
+		    }
 		});
 
 
 		$(document).on('click', '.previous-page', function (e) {
-		    var curPage = $(".range").val();
+		    var curPage = $(".range").html();
 		    curPage--;
-		    if(curPage < $(".range").data('max') && curPage >= $(".range").data('min')) 
-		        $(".range").val(curPage)
+		    if(curPage < $(".range").data('max') && curPage >= $(".range").data('min')){
+		        $(".range").html(curPage);
+		        gotoPage(curPage);
+		    }
 		});
 	},
 	zoomSlider: function(){

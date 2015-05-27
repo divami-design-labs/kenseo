@@ -49,6 +49,7 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 
 $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINCT
 											requestor.name as requestedBy, 
+											versions.artefact_ver_id as versionId,
 											versions.version_label as title, 
 											requestor.profile_pic_url as requestorImage, 
 											artefacts.artefact_type as documentType,

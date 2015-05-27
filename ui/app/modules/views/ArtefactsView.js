@@ -24,7 +24,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
 
 Kenseo.views.Artefact = Backbone.View.extend({
     // The DOM Element associated with this view
-    tagName: 'div',
+    tagName: 'a',
     className: 'review-request-item',
     template: _.template(templates['artefact']),
     // View constructor
@@ -48,6 +48,8 @@ Kenseo.views.Artefact = Backbone.View.extend({
                             return 0; 
                         }
                     }() );
+
+        this.$el.attr('href', "#documentview/" + data.versionId);
 
         return this;
     },

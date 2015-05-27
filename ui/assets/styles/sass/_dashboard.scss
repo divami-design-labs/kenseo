@@ -110,10 +110,41 @@
 }
 
 // requests
-
 .review-request-item{
 	@include clearFloat();
 	position: relative;
+	display: block;
+	text-decoration: none;
+	input[type="checkbox"]{
+		@extend .disappear;
+	}
+	.requests-dropdown-icon{
+		left: 10px;
+	    position: absolute;
+	    top: 10px;
+		display: none;
+	}
+	&:hover{
+		.requests-dropdown-icon{
+			display: block;
+			z-index: 2;	
+		}
+	}
+	.requests-dropdown{
+		display: block;
+		&.active{
+			background-color: $colorK;
+			z-index: 1;
+			.requests-dropdown-items{
+				display: block;
+			}
+			.requests-dropdown-icon{
+				display: block;
+				@include elementWithBackground("dropdown1.svg", 16px, 16px);
+				z-index: 2;
+			}
+		}
+	}
 }
 .review-request-item + .review-request-item{
 	margin-top: 50px;
@@ -262,38 +293,7 @@
 .requests-dropdown-icon{
 	@include elementWithBackground("dropdown.svg", 16px, 16px);
 }
-.review-request-item{
-	input[type="checkbox"]{
-		@extend .disappear;
-	}
-	.requests-dropdown-icon{
-		left: 10px;
-	    position: absolute;
-	    top: 10px;
-		display: none;
-	}
-	&:hover{
-		.requests-dropdown-icon{
-			display: block;
-			z-index: 2;	
-		}
-	}
-	.requests-dropdown{
-		display: block;
-		&.active{
-			background-color: $colorK;
-			z-index: 1;
-			.requests-dropdown-items{
-				display: block;
-			}
-			.requests-dropdown-icon{
-				display: block;
-				@include elementWithBackground("dropdown1.svg", 16px, 16px);
-				z-index: 2;
-			}
-		}
-	}
-}
+
 .requests-dropdown-items{
 	display: none;
 	position: absolute;

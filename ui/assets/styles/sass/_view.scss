@@ -12,6 +12,9 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
+	& > div + div{
+		margin: 0px 20px;
+	}
 }
 .pdf-container {
 	position: absolute;
@@ -21,6 +24,16 @@
 	overflow-x: hidden;
 	left: 0;
 	right: 0;
+	a {
+		display: block;
+		height: 5px;
+		&:focus{
+			outline: none;
+		}
+	}
+	a ~ a{
+		background-color: black;
+	}
 }
 .dv-tab-panel-section{
 	max-width: 50%;
@@ -124,11 +137,17 @@
 	width: 75px;
 	padding: 0 30px;
 	line-height: 50px;
-	float: left;
-	input{
+	float: right;
+	.range{
 		width: 28px;
 		text-align: center;
 		border: 1px solid $colorSixteen;
+		height: 24px;
+		float: left;
+		background-color: white;
+		margin-top: 12px;
+		margin-right: 6px;
+		line-height: 24px;
 	}
 	span{
 		color: white;
@@ -150,7 +169,7 @@
 	}
 }
 .range-slider-section{
-	float: left;
+	float: right;
 	height: 100%;
 	width: 100px;
 	position: relative;

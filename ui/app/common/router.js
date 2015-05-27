@@ -111,9 +111,14 @@ var Router = Backbone.Router.extend({
 					type: 'GET',
 					success: function(response) {
 						var versCount = response.data.versionCount
-		                annotation.init({
-		                    "fileName": sb.getRelativePath(response.data.versions[versCount-1].documentPath)
-		                });
+		                 annotation.init({
+                    "fileName": 'compressed.tracemonkey-pldi-09.pdf',
+                    afterLoadCallBack: function(pdf, lastPage){
+                        sb.documentview.pagination();
+                        sb.documentview.imageSlider();
+                        sb.documentview.zoomSlider();
+                    }
+                });
 						
 						sb.renderTemplate({
 							url: sb.getRelativePath('getVersionDetails'),
@@ -126,9 +131,7 @@ var Router = Backbone.Router.extend({
 					}
 				});
                 sb.renderTemplate({templateName: "documentview", templateHolder: $(".content")});
-                sb.documentview.pagination();
-                sb.documentview.imageSlider();
-                sb.documentview.zoomSlider();
+
             }
         );
     }
