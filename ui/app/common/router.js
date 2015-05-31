@@ -19,7 +19,8 @@ var Router = Backbone.Router.extend({
                 'collections': ['Projects', 'Artefacts', 'Notifications']
             },
             function(){
-                sb.renderTemplate({templateName: 'dashboard', 'templateHolder': $('.content-wrapper')});
+                $('.header').removeClass('fixed-header');
+                sb.renderTemplate({templateName: 'dashboard', 'templateHolder': $('.content')});
                 new Kenseo.views.Header({'model': new Kenseo.models.Header()});
                 new Kenseo.views.Projects({colStr: 'Projects', data: {limit: 6, userProjects: true}});
                 new Kenseo.views.Notifications({collection: new Kenseo.collections.Notifications(), data: {limit: 12}});
@@ -43,8 +44,8 @@ var Router = Backbone.Router.extend({
                     success: function(response){
                         // sb.setPopupData(Kenseo.data.projects[id].name, 'project_name');
                         sb.setPageData(Kenseo.data.projects[id], 'project');
-                        
-                        sb.renderTemplate({"templateName": 'project-page', "templateHolder": $(".content-wrapper")});
+                        $('.header').removeClass('fixed-header');
+                        sb.renderTemplate({"templateName": 'project-page', "templateHolder": $(".content")});
                         new Kenseo.views.Header({'model': new Kenseo.models.Header()});
 
                         new Kenseo.views.Artefacts({

@@ -38,14 +38,17 @@ sb.documentview = {
 			}
 		}
 		calculate(0);
-
-		left.onclick = function(){
-			calculate(h, null);
-			calculate(0);
+		if(left){
+			left.onclick = function(){
+				calculate(h, null);
+				calculate(0);
+			}
 		}
-		right.onclick = function(){
-			calculate(null, 0 - h);
-			calculate(0);
+		if(right){
+			right.onclick = function(){
+				calculate(null, 0 - h);
+				calculate(0);
+			}
 		}
 	},
 	pagination: function(){
@@ -56,13 +59,13 @@ sb.documentview = {
 		$('#pdf-container').scroll(function(){
             var $self = $(this), 
                 scrollTop = $self.scrollTop(), 
-                height = $('.pdf-page').height();
+                height = $('.pdf-page').height(), xHeight = $self.height();
 
             $anchors = $self.find('a');
             selectedAnchor = null;
             for(var i=0;i<$anchors.length;i++){
                 var a = $anchors[i], top = a.offsetTop;
-                if(top <= scrollTop + window.screen.height/3){
+                if(top <= scrollTop + xHeight/3){
                     selectedAnchor = a;
                 }
                 else{
