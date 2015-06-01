@@ -104,11 +104,10 @@ var sb = (function() {
             ajaxCall(payload);
         },
         getUrl: function(p) {
-            var relativePath = "../";
             if (p.collection) {
-                return relativePath + p.collection.url;
+                return sb.getRelativePath(p.collection.url);
             } else if (p.model) {
-                return relativePath + p.model.urlRoot;
+                return sb.getRelativePath(p.model.urlRoot);
             } else if (p.url) {
                 return p.url;
             }
@@ -157,7 +156,7 @@ var sb = (function() {
                         }
                         payload.success(response);
                     } else {
-                        window.location.assign("http://kenseo.divami.com");
+                        window.location.assign(DOMAIN_ROOT_URL);
                     }
                 }
             });
@@ -177,7 +176,7 @@ var sb = (function() {
             }
         },
         getRelativePath: function(str) {
-            return '../' + str;
+            return DOMAIN_ROOT_URL + str;
         },
         getStandardData: function(p) {
             p = p || {};

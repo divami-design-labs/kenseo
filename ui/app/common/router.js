@@ -88,31 +88,51 @@ var Router = Backbone.Router.extend({
     	if(!Kenseo.data.artefact){
     		Kenseo.data.artefact = {};
     	} 
-    	Kenseo.data.artefact.id =  id;
+        Kenseo.data.artefact.id =  id;
+        
+        var _this = this;
         sb.loadFiles(
             {
                 'views': ['Header'],
                 'models': ['Header'],
                 'collections': ['People'],
                 'files':    [
-                                'libs/pdfjs/pdf.js',
-                                'libs/pdfjs/pdf.worker.js',
-                                'app/config/sandbox.documentview.js',
-                                'app/components/annotator.js'
+                                'libs/pdfjs/web/l10n.js',
+                                'libs/pdfjs/build/pdf.js',
+                                'libs/pdfjs/build/pdf.worker.js',
+                                'libs/pdfjs/web/viewer.js',
+                //                 'app/config/sandbox.documentview.js',
+                //                 'app/components/annotator.js',
                             ]
             },
             function(){
-                new Kenseo.views.Header({'model': new Kenseo.models.Header()});
-                $('.header').addClass('fixed-header');
-				sb.ajaxCall({
-					url : sb.getRelativePath("getArtefactDetails"),
-					data: {
-						artefactVersionId : Kenseo.data.artefact.id
-					},
-					type: 'GET',
-					success: function(response) {
-						var versCount = response.data.versionCount
-		                 annotation.init({
+                // _this.oldLoader();
+                _this.newLoader();
+                // _this.iframeLoader();
+            }
+        );
+    },
+    newLoader: function(){
+        new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+        $('.header').addClass('fixed-header');
+        $('.content').html(_.template(templates['documentview'])());
+        $('.pdfs-container').append(_.template(templates['pdf-viewer'])());
+        // sb.renderTemplate({templateName: "pdf-viewer", templateHolder: $("body")});
+        webViewerLoad();
+    },
+    oldLoader: function(){
+        new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+        $('.header').addClass('fixed-header');
+        sb.ajaxCall({
+         url : sb.getRelativePath("getArtefactDetails"),
+         data: {
+             artefactVersionId : Kenseo.data.artefact.id
+         },
+         type: 'GET',
+         success: function(response) {
+             var versCount = response.data.versionCount
+                var annotator = new annotation();
+                annotator.init({
                     "fileName": 'compressed.tracemonkey-pldi-09.pdf',
                     afterLoadCallBack: function(pdf, lastPage){
                         sb.documentview.pagination();
@@ -120,20 +140,94 @@ var Router = Backbone.Router.extend({
                         sb.documentview.zoomSlider();
                     }
                 });
-						
-						sb.renderTemplate({
-							url: sb.getRelativePath('getVersionDetails'),
-							data: {
-								versionId: Kenseo.data.artefact.id
-							},
-							templateName: "dv-peoplesection", 
-							templateHolder: $(".dv-tb-people-section"),
-						})
-					}
-				});
-                sb.renderTemplate({templateName: "documentview", templateHolder: $(".content")});
+                
+                $('.zoom-in').on('click', function(e){
+                    var value = $('.document-viewer').data('scale') || 3;
+                    value = value + 1;
+                    annotator.paintPdf({scale: value});
+                    if(value > 5){
+                        $(this).removeClass('active');
+                    }
+                    else{
+                        $(this).addClass('active');
+                        annotator.paintPdf({scale: value});
+                    }
+                });
 
-            }
-        );
+                $('.zoom-out').on('click', function(e){
+                    var value = $('.document-viewer').data('scale') || 3;
+                    value = value - 1;
+                    if(value < 0){
+                        $(this).removeClass('active');
+                    }
+                    else{
+                        $(this).addClass('active');
+                        annotator.paintPdf({scale: value});
+                    }
+                });
+
+             sb.renderTemplate({
+                 url: sb.getRelativePath('getVersionDetails'),
+                 data: {
+                     versionId: Kenseo.data.artefact.id
+                 },
+                 templateName: "dv-peoplesection", 
+                 templateHolder: $(".dv-tb-people-section"),
+             })
+         }
+        });
+        xPdfViewer();
+        pdfHistoryPageShow();
+        webViewerInitialized();
+        PDFViewerApplication.initialize().then(webViewerInitialized);
+        webViewerLoad();
+    },
+    iframeLoader: function(){
+        sb.renderTemplate({templateName: "documentview", templateHolder: $(".content")});
+        PDFJS.workerSrc = 'libs/pdfjs/build/pdf.worker.js';
+        PDFJS.getDocument('compressed.tracemonkey-pldi-09.pdf').then(function (pdf) {
+            // pdf.getPage(currentPage).then(renderPage);
+            // console.dir(pdf);
+            $('.range').next('span').html("of " + pdf.numPages);
+        });
+
+        // Assigning default values.
+        var $viewer = $('.document-viewer.active');
+        var $pageNumber = $viewer.contents().find('#pageNumber');
+        var pageNum = $pageNumber.attr('max');
+
+        $viewer.on('load', function(){
+            var $pageNumber = $(this).contents().find('#pageNumber');
+            $pageNumber.on('change', function(){
+                $('.range').html(this.value);
+            });
+        })
+        // The page number value will be available when the iframe content has already been loaded.
+        if(pageNum){
+            $('.range').next('span').html("of " + pageNum);
+        }
+
+        // Events
+        $('.zoom-in').click(function(){
+            var $viewer = $('.document-viewer.active');
+            $viewer.contents().find('#zoomIn').click();
+        });
+
+        $('.zoom-out').click(function(){
+            var $viewer = $('.document-viewer.active');
+            $viewer.contents().find('#zoomOut').click();
+        });
+
+
+        $('.next-page').click(function(){
+            var $viewer = $('.document-viewer.active');
+            $viewer.contents().find('.toolbarButton.pageDown').click();
+        });
+
+        $('.previous-page').click(function(){
+            var $viewer = $('.document-viewer.active');
+            $viewer.contents().find('.toolbarButton.pageUp').click();
+        });
+
     }
 });
