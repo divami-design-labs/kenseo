@@ -15,6 +15,7 @@
 @import "overlays";
 @import "toolbox";
 @import "view";
+@import "viewer";
 
 //variables
 $viewPortWidth: 1346px;
@@ -22,13 +23,13 @@ $viewPortWidth: 1346px;
 body{
 	font-family: $normalFont;
 }
-.page{
-    @include absoluter(0,0,0,0);
-    overflow: auto;
-    margin: 0 auto;
-    //max-width: $viewPortWidth;
-    min-width: 1180px;
-}
+// .page{
+//     @include absoluter(0,0,0,0);
+//     overflow: auto;
+//     margin: 0 auto;
+//     //max-width: $viewPortWidth;
+//     min-width: 1180px;
+// }
 .page-wrapper{
 	min-height:100%;
 	@include clearFloat();
