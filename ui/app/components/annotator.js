@@ -47,7 +47,9 @@ var annotation = (function () {
                         } else {
                             // other callback functions
                             resetValues();
-                            loadAnnotations(data);
+                            if(data){
+                                loadAnnotations(data);
+                            }
                             systemCallBacks();
                             if(g.afterLoadCallBack){
                                 g.afterLoadCallBack(globalPdf, page);
