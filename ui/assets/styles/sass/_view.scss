@@ -182,6 +182,21 @@
 	    background-color: $colorFifteen;
 	    position: absolute;
 	    margin-top: -4px;
+	    &:after{
+	    }
+	    &:hover:after{
+	    	content: attr(range-value);
+	    	position: absolute;
+	    	bottom: 100%;
+	    	margin-bottom: 5px;
+	    	border: 1px solid #E1E1E1;
+	    	background-color: white;
+	    	left: 50%;
+	    	transform: translateX(-50%);
+	    	@include text(8px, $colorTwo);
+	    	padding: 3px;
+	    	@include border-radius(5px);
+	    }
 	}
 	.zoom-in, .zoom-out{
 		position: absolute;

@@ -27,6 +27,8 @@
 var paintPdf = function(payload) {
     'use strict';
     payload = payload || {};
+    var _this = this;
+    _this.outerContainerInstance = payload.container || document;
 
     var DEFAULT_URL = payload.url || 'compressed.tracemonkey-pldi-09.pdf';
     var DEFAULT_SCALE_DELTA = 1.1;
@@ -359,7 +361,7 @@ var paintPdf = function(payload) {
             this.visible = true;
 
             // Fetch the sub-elements for later.
-            this.div = document.querySelector(id + ' .progress');
+            this.div = _this.outerContainerInstance.querySelector(id + ' .progress');
 
             // Get the loading bar element, so it can be resized to fit the viewer.
             this.bar = this.div.parentNode;
@@ -625,7 +627,7 @@ var paintPdf = function(payload) {
             try {
                 dispatchEvent('beforeprint');
             } finally {
-                canvases = document.querySelectorAll('canvas');
+                canvases = _this.outerContainerInstance.querySelectorAll('canvas');
                 index = -1;
                 next();
             }
@@ -670,7 +672,7 @@ var paintPdf = function(payload) {
         }
 
         function renderProgress() {
-            var progressContainer = document.getElementById('mozPrintCallback-shim');
+            var progressContainer = _this.outerContainerInstance.querySelector('#mozPrintCallback-shim');
             if (canvases) {
                 var progress = Math.round(100 * index / canvases.length);
                 var progressBar = progressContainer.querySelector('progress');
@@ -1891,7 +1893,7 @@ var paintPdf = function(payload) {
         },
 
         openFileClick: function secondaryToolbarOpenFileClick(evt) {
-            document.getElementById('fileInput').click();
+            _this.outerContainerInstance.querySelector('#fileInput').click();
             this.close();
         },
 
@@ -2145,7 +2147,7 @@ var paintPdf = function(payload) {
 
             // Ensure that the thumbnail of the current page is visible
             // when exiting presentation mode.
-            scrollIntoView(document.getElementById('thumbnailContainer' + page));
+            scrollIntoView(_this.outerContainerInstance.querySelector('#thumbnailContainer' + page));
         },
 
         showControls: function presentationModeShowControls() {
@@ -2529,7 +2531,7 @@ var paintPdf = function(payload) {
             callerCloseMethod, canForceClose) {
             return new Promise(function(resolve) {
                 var element, container;
-                if (!name || !(element = document.getElementById(name)) ||
+                if (!name || !(element = _this.outerContainerInstance.querySelector("#"+name)) ||
                     !(container = element.parentNode)) {
                     throw new Error('Not enough parameters.');
                 } else if (this.overlays[name]) {
@@ -3564,7 +3566,7 @@ var paintPdf = function(payload) {
                 CustomStyle.setProp('transform', canvas, cssScale);
                 CustomStyle.setProp('transformOrigin', canvas, '0% 0%');
 
-                var printContainer = document.getElementById('printContainer');
+                var printContainer = _this.outerContainerInstance.querySelector('#printContainer');
                 var canvasWrapper = document.createElement('div');
                 canvasWrapper.style.width = viewport.width + 'pt';
                 canvasWrapper.style.height = viewport.height + 'pt';
@@ -5277,11 +5279,11 @@ var paintPdf = function(payload) {
             },
 
             scrollThumbnailIntoView: function PDFThumbnailViewer_scrollThumbnailIntoView(page) {
-                var selected = document.querySelector('.thumbnail.selected');
+                var selected = _this.outerContainerInstance.querySelector('.thumbnail.selected');
                 if (selected) {
                     selected.classList.remove('selected');
                 }
-                var thumbnail = document.getElementById('thumbnailContainer' + page);
+                var thumbnail = _this.outerContainerInstance.querySelector('#thumbnailContainer' + page);
                 if (thumbnail) {
                     thumbnail.classList.add('selected');
                 }
@@ -5390,7 +5392,7 @@ var paintPdf = function(payload) {
             ensureThumbnailVisible: function PDFThumbnailViewer_ensureThumbnailVisible(page) {
                 // Ensure that the thumbnail of the current page is visible
                 // when switching from another view.
-                scrollIntoView(document.getElementById('thumbnailContainer' + page));
+                scrollIntoView(_this.outerContainerInstance.querySelector('#thumbnailContainer' + page));
             },
 
             forceRendering: function() {
@@ -5597,8 +5599,8 @@ var paintPdf = function(payload) {
             pdfRenderingQueue.onIdle = this.cleanup.bind(this);
             this.pdfRenderingQueue = pdfRenderingQueue;
 
-            var container = document.getElementById('viewerContainer');
-            var viewer = document.getElementById('viewer');
+            var container = _this.outerContainerInstance.querySelector('#viewerContainer');
+            var viewer = _this.outerContainerInstance.querySelector('#viewer');
             this.pdfViewer = new PDFViewer({
                 container: container,
                 viewer: viewer,
@@ -5607,7 +5609,7 @@ var paintPdf = function(payload) {
             });
             pdfRenderingQueue.setViewer(this.pdfViewer);
 
-            var thumbnailContainer = document.getElementById('thumbnailView');
+            var thumbnailContainer = _this.outerContainerInstance.querySelector('#thumbnailView');
             this.pdfThumbnailViewer = new PDFThumbnailViewer({
                 container: thumbnailContainer,
                 renderingQueue: pdfRenderingQueue,
@@ -5624,15 +5626,15 @@ var paintPdf = function(payload) {
             this.pdfViewer.setFindController(this.findController);
 
             this.findBar = new PDFFindBar({
-                bar: document.getElementById('findbar'),
-                toggleButton: document.getElementById('viewFind'),
-                findField: document.getElementById('findInput'),
-                highlightAllCheckbox: document.getElementById('findHighlightAll'),
-                caseSensitiveCheckbox: document.getElementById('findMatchCase'),
-                findMsg: document.getElementById('findMsg'),
-                findStatusIcon: document.getElementById('findStatusIcon'),
-                findPreviousButton: document.getElementById('findPrevious'),
-                findNextButton: document.getElementById('findNext'),
+                bar: _this.outerContainerInstance.querySelector('#findbar'),
+                toggleButton: _this.outerContainerInstance.querySelector('#viewFind'),
+                findField: _this.outerContainerInstance.querySelector('#findInput'),
+                highlightAllCheckbox: _this.outerContainerInstance.querySelector('#findHighlightAll'),
+                caseSensitiveCheckbox: _this.outerContainerInstance.querySelector('#findMatchCase'),
+                findMsg: _this.outerContainerInstance.querySelector('#findMsg'),
+                findStatusIcon: _this.outerContainerInstance.querySelector('#findStatusIcon'),
+                findPreviousButton: _this.outerContainerInstance.querySelector('#findPrevious'),
+                findNextButton: _this.outerContainerInstance.querySelector('#findNext'),
                 findController: this.findController
             });
 
@@ -5640,58 +5642,58 @@ var paintPdf = function(payload) {
 
             HandTool.initialize({
                 container: container,
-                toggleHandTool: document.getElementById('toggleHandTool')
+                toggleHandTool: _this.outerContainerInstance.querySelector('#toggleHandTool')
             });
 
             SecondaryToolbar.initialize({
-                toolbar: document.getElementById('secondaryToolbar'),
+                toolbar: _this.outerContainerInstance.querySelector('#secondaryToolbar'),
                 presentationMode: PresentationMode,
-                toggleButton: document.getElementById('secondaryToolbarToggle'),
-                presentationModeButton: document.getElementById('secondaryPresentationMode'),
-                openFile: document.getElementById('secondaryOpenFile'),
-                print: document.getElementById('secondaryPrint'),
-                download: document.getElementById('secondaryDownload'),
-                viewBookmark: document.getElementById('secondaryViewBookmark'),
-                firstPage: document.getElementById('firstPage'),
-                lastPage: document.getElementById('lastPage'),
-                pageRotateCw: document.getElementById('pageRotateCw'),
-                pageRotateCcw: document.getElementById('pageRotateCcw'),
+                toggleButton: _this.outerContainerInstance.querySelector('#secondaryToolbarToggle'),
+                presentationModeButton: _this.outerContainerInstance.querySelector('#secondaryPresentationMode'),
+                openFile: _this.outerContainerInstance.querySelector('#secondaryOpenFile'),
+                print: _this.outerContainerInstance.querySelector('#secondaryPrint'),
+                download: _this.outerContainerInstance.querySelector('#secondaryDownload'),
+                viewBookmark: _this.outerContainerInstance.querySelector('#secondaryViewBookmark'),
+                firstPage: _this.outerContainerInstance.querySelector('#firstPage'),
+                lastPage: _this.outerContainerInstance.querySelector('#lastPage'),
+                pageRotateCw: _this.outerContainerInstance.querySelector('#pageRotateCw'),
+                pageRotateCcw: _this.outerContainerInstance.querySelector('#pageRotateCcw'),
                 documentProperties: DocumentProperties,
-                documentPropertiesButton: document.getElementById('documentProperties')
+                documentPropertiesButton: _this.outerContainerInstance.querySelector('#documentProperties')
             });
 
             PresentationMode.initialize({
                 container: container,
                 secondaryToolbar: SecondaryToolbar,
-                firstPage: document.getElementById('contextFirstPage'),
-                lastPage: document.getElementById('contextLastPage'),
-                pageRotateCw: document.getElementById('contextPageRotateCw'),
-                pageRotateCcw: document.getElementById('contextPageRotateCcw')
+                firstPage: _this.outerContainerInstance.querySelector('#contextFirstPage'),
+                lastPage: _this.outerContainerInstance.querySelector('#contextLastPage'),
+                pageRotateCw: _this.outerContainerInstance.querySelector('#contextPageRotateCw'),
+                pageRotateCcw: _this.outerContainerInstance.querySelector('#contextPageRotateCcw')
             });
 
             PasswordPrompt.initialize({
                 overlayName: 'passwordOverlay',
-                passwordField: document.getElementById('password'),
-                passwordText: document.getElementById('passwordText'),
-                passwordSubmit: document.getElementById('passwordSubmit'),
-                passwordCancel: document.getElementById('passwordCancel')
+                passwordField: _this.outerContainerInstance.querySelector('#password'),
+                passwordText: _this.outerContainerInstance.querySelector('#passwordText'),
+                passwordSubmit: _this.outerContainerInstance.querySelector('#passwordSubmit'),
+                passwordCancel: _this.outerContainerInstance.querySelector('#passwordCancel')
             });
 
             DocumentProperties.initialize({
                 overlayName: 'documentPropertiesOverlay',
-                closeButton: document.getElementById('documentPropertiesClose'),
-                fileNameField: document.getElementById('fileNameField'),
-                fileSizeField: document.getElementById('fileSizeField'),
-                titleField: document.getElementById('titleField'),
-                authorField: document.getElementById('authorField'),
-                subjectField: document.getElementById('subjectField'),
-                keywordsField: document.getElementById('keywordsField'),
-                creationDateField: document.getElementById('creationDateField'),
-                modificationDateField: document.getElementById('modificationDateField'),
-                creatorField: document.getElementById('creatorField'),
-                producerField: document.getElementById('producerField'),
-                versionField: document.getElementById('versionField'),
-                pageCountField: document.getElementById('pageCountField')
+                closeButton: _this.outerContainerInstance.querySelector('#documentPropertiesClose'),
+                fileNameField: _this.outerContainerInstance.querySelector('#fileNameField'),
+                fileSizeField: _this.outerContainerInstance.querySelector('#fileSizeField'),
+                titleField: _this.outerContainerInstance.querySelector('#titleField'),
+                authorField: _this.outerContainerInstance.querySelector('#authorField'),
+                subjectField: _this.outerContainerInstance.querySelector('#subjectField'),
+                keywordsField: _this.outerContainerInstance.querySelector('#keywordsField'),
+                creationDateField: _this.outerContainerInstance.querySelector('#creationDateField'),
+                modificationDateField: _this.outerContainerInstance.querySelector('#modificationDateField'),
+                creatorField: _this.outerContainerInstance.querySelector('#creatorField'),
+                producerField: _this.outerContainerInstance.querySelector('#producerField'),
+                versionField: _this.outerContainerInstance.querySelector('#versionField'),
+                pageCountField: _this.outerContainerInstance.querySelector('#pageCountField')
             });
 
             var self = this;
@@ -5753,7 +5755,6 @@ var paintPdf = function(payload) {
             } while (--ticks && newScale < MAX_SCALE);
             this.setScale(newScale, true);
         },
-
         zoomOut: function pdfViewZoomOut(ticks) {
             var newScale = this.pdfViewer.currentScale;
             do {
@@ -5763,7 +5764,6 @@ var paintPdf = function(payload) {
             } while (--ticks && newScale > MIN_SCALE);
             this.setScale(newScale, true);
         },
-
         get currentScaleValue() {
             return this.pdfViewer.currentScaleValue;
         },
@@ -5850,7 +5850,7 @@ var paintPdf = function(payload) {
         },
 
         close: function pdfViewClose() {
-            var errorWrapper = document.getElementById('errorWrapper');
+            var errorWrapper = _this.outerContainerInstance.querySelector('#errorWrapper');
             errorWrapper.setAttribute('hidden', 'true');
 
             if (!this.pdfDocument) {
@@ -6034,7 +6034,7 @@ var paintPdf = function(payload) {
             // See PDF reference, table 8.45 - Named action
             switch (action) {
                 case 'GoToPage':
-                    document.getElementById('pageNumber').focus();
+                    _this.outerContainerInstance.querySelector('#pageNumber').focus();
                     break;
 
                 case 'GoBack':
@@ -6154,20 +6154,20 @@ var paintPdf = function(payload) {
                 }
             }
 
-            var errorWrapper = document.getElementById('errorWrapper');
+            var errorWrapper = _this.outerContainerInstance.querySelector('#errorWrapper');
             errorWrapper.removeAttribute('hidden');
 
-            var errorMessage = document.getElementById('errorMessage');
+            var errorMessage = _this.outerContainerInstance.querySelector('#errorMessage');
             errorMessage.textContent = message;
 
-            var closeButton = document.getElementById('errorClose');
+            var closeButton = _this.outerContainerInstance.querySelector('#errorClose');
             closeButton.onclick = function() {
                 errorWrapper.setAttribute('hidden', 'true');
             };
 
-            var errorMoreInfo = document.getElementById('errorMoreInfo');
-            var moreInfoButton = document.getElementById('errorShowMore');
-            var lessInfoButton = document.getElementById('errorShowLess');
+            var errorMoreInfo = _this.outerContainerInstance.querySelector('#errorMoreInfo');
+            var moreInfoButton = _this.outerContainerInstance.querySelector('#errorShowMore');
+            var lessInfoButton = _this.outerContainerInstance.querySelector('#errorShowLess');
             moreInfoButton.onclick = function() {
                 errorMoreInfo.removeAttribute('hidden');
                 moreInfoButton.setAttribute('hidden', 'true');
@@ -6234,11 +6234,11 @@ var paintPdf = function(payload) {
             });
 
             var pagesCount = pdfDocument.numPages;
-            document.getElementById('numPages').textContent =
+            _this.outerContainerInstance.querySelector('#numPages').textContent =
                 mozL10n.get('page_of', {
                     pageCount: pagesCount
                 }, 'of {{pageCount}}');
-            document.getElementById('pageNumber').max = pagesCount;
+            _this.outerContainerInstance.querySelector('#pageNumber').max = pagesCount;
 
             var id = this.documentFingerprint = pdfDocument.fingerprint;
             var store = this.store = new ViewHistory(id);
@@ -6263,7 +6263,7 @@ var paintPdf = function(payload) {
                     window.dispatchEvent(event);
                 });
 
-                self.loadingBar.setWidth(document.getElementById('viewer'));
+                self.loadingBar.setWidth(_this.outerContainerInstance.querySelector('#viewer'));
 
                 if (!PDFJS.disableHistory && !self.isViewerEmbedded) {
                     // The browsing history is only enabled when the viewer is standalone,
@@ -6338,14 +6338,14 @@ var paintPdf = function(payload) {
             var promises = [pagesPromise, this.animationStartedPromise];
             Promise.all(promises).then(function() {
                 pdfDocument.getOutline().then(function(outline) {
-                    var container = document.getElementById('outlineView');
+                    var container = _this.outerContainerInstance.querySelector('#outlineView');
                     self.outline = new PDFOutlineView({
                         container: container,
                         outline: outline,
                         linkService: self
                     });
                     self.outline.render();
-                    document.getElementById('viewOutline').disabled = !outline;
+                    _this.outerContainerInstance.querySelector('#viewOutline').disabled = !outline;
 
                     if (!outline && !container.classList.contains('hidden')) {
                         self.switchSidebarView('thumbs');
@@ -6356,14 +6356,14 @@ var paintPdf = function(payload) {
                     }
                 });
                 pdfDocument.getAttachments().then(function(attachments) {
-                    var container = document.getElementById('attachmentsView');
+                    var container = _this.outerContainerInstance.querySelector('#attachmentsView');
                     self.attachments = new PDFAttachmentView({
                         container: container,
                         attachments: attachments,
                         downloadManager: new DownloadManager()
                     });
                     self.attachments.render();
-                    document.getElementById('viewAttachments').disabled = !attachments;
+                    _this.outerContainerInstance.querySelector('#viewAttachments').disabled = !attachments;
 
                     if (!attachments && !container.classList.contains('hidden')) {
                         self.switchSidebarView('thumbs');
@@ -6425,7 +6425,7 @@ var paintPdf = function(payload) {
             // When opening a new file (when one is already loaded in the viewer):
             // Reset 'currentPageNumber', since otherwise the page's scale will be wrong
             // if 'currentPageNumber' is larger than the number of pages in the file.
-            var txtPageNumber = document.getElementById('pageNumber');
+            var txtPageNumber = _this.outerContainerInstance.querySelector('#pageNumber');
             txtPageNumber.value = this.pdfViewer.currentPageNumber = 1;
             $(txtPageNumber).change();
 
@@ -6539,7 +6539,7 @@ var paintPdf = function(payload) {
                         this.switchSidebarView((params.pagemode === 'bookmarks' ?
                             'outline' : params.pagemode), true);
                     } else if (params.pagemode === 'none' && this.sidebarOpen) {
-                        document.getElementById('sidebarToggle').click();
+                        _this.outerContainerInstance.querySelector('#sidebarToggle').click();
                     }
                 }
             } else if (/^\d+$/.test(hash)) { // page number
@@ -6569,15 +6569,15 @@ var paintPdf = function(payload) {
 
         switchSidebarView: function pdfViewSwitchSidebarView(view, openSidebar) {
             if (openSidebar && !this.sidebarOpen) {
-                document.getElementById('sidebarToggle').click();
+                _this.outerContainerInstance.querySelector('#sidebarToggle').click();
             }
-            var thumbsView = document.getElementById('thumbnailView');
-            var outlineView = document.getElementById('outlineView');
-            var attachmentsView = document.getElementById('attachmentsView');
+            var thumbsView = _this.outerContainerInstance.querySelector('#thumbnailView');
+            var outlineView = _this.outerContainerInstance.querySelector('#outlineView');
+            var attachmentsView = _this.outerContainerInstance.querySelector('#attachmentsView');
 
-            var thumbsButton = document.getElementById('viewThumbnail');
-            var outlineButton = document.getElementById('viewOutline');
-            var attachmentsButton = document.getElementById('viewAttachments');
+            var thumbsButton = _this.outerContainerInstance.querySelector('#viewThumbnail');
+            var outlineButton = _this.outerContainerInstance.querySelector('#viewOutline');
+            var attachmentsButton = _this.outerContainerInstance.querySelector('#viewAttachments');
 
             switch (view) {
                 case 'thumbs':
@@ -6668,7 +6668,7 @@ var paintPdf = function(payload) {
             this.printing = true;
             this.forceRendering();
 
-            var body = document.querySelector('body');
+            var body = _this.outerContainerInstance.querySelector('body');
             body.setAttribute('data-mozPrintCallback', true);
             for (i = 0, ii = this.pagesCount; i < ii; ++i) {
                 this.pdfViewer.getPageView(i).beforePrint();
@@ -6677,7 +6677,7 @@ var paintPdf = function(payload) {
         },
 
         afterPrint: function pdfViewSetupAfterPrint() {
-            var div = document.getElementById('printContainer');
+            var div = _this.outerContainerInstance.querySelector('#printContainer');
             while (div.hasChildNodes()) {
                 div.removeChild(div.lastChild);
             }
@@ -6690,6 +6690,21 @@ var paintPdf = function(payload) {
             this.updateScaleControls = !!resetAutoSettings;
             this.pdfViewer.currentScaleValue = value;
             this.updateScaleControls = true;
+
+            if(value && !isNaN(value)){
+                var $outerContainer = $(_this.outerContainerInstance),
+                    $thumb = $outerContainer.find('.thumb');
+
+                var ScaleValue = Math.abs(MIN_SCALE - value);
+                var Range = MAX_SCALE - MIN_SCALE;
+                var remaining = ((ScaleValue)/Range * 88).toFixed(2);
+                $thumb.css({
+                    // 12% is ignored to keep the thumb always in the slider
+                    // So, 100 - 12 = 88
+                    // Technically, the value will be the percentage of 88 instead of 100.
+                    'left': remaining + "%"
+                }).attr('range-value', (value * 100).toFixed(0) + "%");
+            }
         },
 
         rotatePages: function pdfViewRotatePages(delta) {
@@ -6788,13 +6803,13 @@ var paintPdf = function(payload) {
         fileInput.className = 'fileInput';
         fileInput.setAttribute('type', 'file');
         fileInput.oncontextmenu = noContextMenuHandler;
-        document.body.appendChild(fileInput);
+        _this.outerContainerInstance.appendChild(fileInput);
 
         if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
-            document.getElementById('openFile').setAttribute('hidden', 'true');
-            document.getElementById('secondaryOpenFile').setAttribute('hidden', 'true');
+            _this.outerContainerInstance.querySelector('#openFile').setAttribute('hidden', 'true');
+            _this.outerContainerInstance.querySelector('#secondaryOpenFile').setAttribute('hidden', 'true');
         } else {
-            document.getElementById('fileInput').value = null;
+            _this.outerContainerInstance.querySelector('#fileInput').value = null;
         }
 
         var locale = PDFJS.locale || navigator.language;
@@ -6846,7 +6861,7 @@ var paintPdf = function(payload) {
                     case 'visible':
                     case 'shadow':
                     case 'hover':
-                        var viewer = document.getElementById('viewer');
+                        var viewer = _this.outerContainerInstance.querySelector('#viewer');
                         viewer.classList.add('textLayer-' + hashParams['textlayer']);
                         break;
                 }
@@ -6863,18 +6878,18 @@ var paintPdf = function(payload) {
         mozL10n.setLanguage(locale);
 
         if (!PDFViewerApplication.supportsPrinting) {
-            document.getElementById('print').classList.add('hidden');
-            document.getElementById('secondaryPrint').classList.add('hidden');
+            _this.outerContainerInstance.querySelector('#print').classList.add('hidden');
+            _this.outerContainerInstance.querySelector('#secondaryPrint').classList.add('hidden');
         }
 
         if (!PDFViewerApplication.supportsFullscreen) {
-            document.getElementById('presentationMode').classList.add('hidden');
-            document.getElementById('secondaryPresentationMode').
+            _this.outerContainerInstance.querySelector('#presentationMode').classList.add('hidden');
+            _this.outerContainerInstance.querySelector('#secondaryPresentationMode').
             classList.add('hidden');
         }
 
         if (PDFViewerApplication.supportsIntegratedFind) {
-            document.getElementById('viewFind').classList.add('hidden');
+            _this.outerContainerInstance.querySelector('#viewFind').classList.add('hidden');
         }
 
         // Listen for unsupported features to trigger the fallback UI.
@@ -6882,10 +6897,10 @@ var paintPdf = function(payload) {
             PDFViewerApplication.fallback.bind(PDFViewerApplication));
 
         // Suppress context menus for some controls
-        document.getElementById('scaleSelect').oncontextmenu = noContextMenuHandler;
+        _this.outerContainerInstance.querySelector('#scaleSelect').oncontextmenu = noContextMenuHandler;
 
-        var mainContainer = document.getElementById('mainContainer');
-        var outerContainer = document.querySelector('.outerContainer.active');
+        var mainContainer = _this.outerContainerInstance.querySelector('#mainContainer');
+        var outerContainer = _this.outerContainerInstance.querySelector('.outerContainer.active');
         mainContainer.addEventListener('transitionend', function(e) {
             if (e.target === mainContainer) {
                 var event = document.createEvent('UIEvents');
@@ -6895,7 +6910,7 @@ var paintPdf = function(payload) {
             }
         }, true);
 
-        document.getElementById('sidebarToggle').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#sidebarToggle').addEventListener('click',
             function() {
                 this.classList.toggle('toggled');
                 outerContainer.classList.add('sidebarMoving');
@@ -6908,46 +6923,46 @@ var paintPdf = function(payload) {
                 PDFViewerApplication.forceRendering();
             });
 
-        document.getElementById('viewThumbnail').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#viewThumbnail').addEventListener('click',
             function() {
                 PDFViewerApplication.switchSidebarView('thumbs');
             });
 
-        document.getElementById('viewOutline').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#viewOutline').addEventListener('click',
             function() {
                 PDFViewerApplication.switchSidebarView('outline');
             });
 
-        document.getElementById('viewAttachments').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#viewAttachments').addEventListener('click',
             function() {
                 PDFViewerApplication.switchSidebarView('attachments');
             });
 
-        document.getElementById('previous').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#previous').addEventListener('click',
             function() {
                 PDFViewerApplication.page--;
             });
 
-        document.getElementById('next').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#next').addEventListener('click',
             function() {
                 PDFViewerApplication.page++;
             });
 
-        document.getElementById('zoomIn').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#zoomIn').addEventListener('click',
             function() {
                 PDFViewerApplication.zoomIn();
             });
 
-        document.getElementById('zoomOut').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#zoomOut').addEventListener('click',
             function() {
                 PDFViewerApplication.zoomOut();
             });
 
-        document.getElementById('pageNumber').addEventListener('click', function() {
+        _this.outerContainerInstance.querySelector('#pageNumber').addEventListener('click', function() {
             this.select();
         });
 
-        document.getElementById('pageNumber').addEventListener('change', function() {
+        _this.outerContainerInstance.querySelector('#pageNumber').addEventListener('change', function() {
             // Handle the user inputting a floating point number.
             PDFViewerApplication.page = (this.value | 0);
 
@@ -6956,21 +6971,21 @@ var paintPdf = function(payload) {
             }
         });
 
-        document.getElementById('scaleSelect').addEventListener('change',
+        _this.outerContainerInstance.querySelector('#scaleSelect').addEventListener('change',
             function() {
                 PDFViewerApplication.setScale(this.value, false);
             });
 
-        document.getElementById('presentationMode').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#presentationMode').addEventListener('click',
             SecondaryToolbar.presentationModeClick.bind(SecondaryToolbar));
 
-        document.getElementById('openFile').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#openFile').addEventListener('click',
             SecondaryToolbar.openFileClick.bind(SecondaryToolbar));
 
-        document.getElementById('print').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#print').addEventListener('click',
             SecondaryToolbar.printClick.bind(SecondaryToolbar));
 
-        document.getElementById('download').addEventListener('click',
+        _this.outerContainerInstance.querySelector('#download').addEventListener('click',
             SecondaryToolbar.downloadClick.bind(SecondaryToolbar));
 
 
@@ -7025,7 +7040,7 @@ var paintPdf = function(payload) {
         // If the page is still visible when it has finished rendering,
         // ensure that the page number input loading indicator is hidden.
         if (pageNumber === PDFViewerApplication.page) {
-            var pageNumberInput = document.getElementById('pageNumber');
+            var pageNumberInput = _this.outerContainerInstance.querySelector('#pageNumber');
             pageNumberInput.classList.remove(PAGE_NUMBER_LOADING_INDICATOR);
         }
     }, true);
@@ -7070,14 +7085,14 @@ var paintPdf = function(payload) {
             });
         });
         var href = PDFViewerApplication.getAnchorUrl(location.pdfOpenParams);
-        document.getElementById('viewBookmark').href = href;
-        document.getElementById('secondaryViewBookmark').href = href;
+        _this.outerContainerInstance.querySelector('#viewBookmark').href = href;
+        _this.outerContainerInstance.querySelector('#secondaryViewBookmark').href = href;
 
         // Update the current bookmark in the browsing history.
         PDFHistory.updateCurrentBookmark(location.pdfOpenParams, location.pageNumber);
 
         // Show/hide the loading indicator in the page number input element.
-        var pageNumberInput = document.getElementById('pageNumber');
+        var pageNumberInput = _this.outerContainerInstance.querySelector('#pageNumber');
         var currentPage =
             PDFViewerApplication.pdfViewer.getPageView(PDFViewerApplication.page - 1);
 
@@ -7090,16 +7105,16 @@ var paintPdf = function(payload) {
 
     window.addEventListener('resize', function webViewerResize(evt) {
         if (PDFViewerApplication.initialized &&
-            (document.getElementById('pageWidthOption').selected ||
-                document.getElementById('pageFitOption').selected ||
-                document.getElementById('pageAutoOption').selected)) {
-            var selectedScale = document.getElementById('scaleSelect').value;
+            (_this.outerContainerInstance.querySelector('#pageWidthOption').selected ||
+                _this.outerContainerInstance.querySelector('#pageFitOption').selected ||
+                _this.outerContainerInstance.querySelector('#pageAutoOption').selected)) {
+            var selectedScale = _this.outerContainerInstance.querySelector('#scaleSelect').value;
             PDFViewerApplication.setScale(selectedScale, false);
         }
         updateViewarea();
 
         // Set the 'max-height' CSS property of the secondary toolbar.
-        SecondaryToolbar.setMaxHeight(document.getElementById('viewerContainer'));
+        SecondaryToolbar.setMaxHeight(_this.outerContainerInstance.querySelector('#viewerContainer'));
     });
 
     window.addEventListener('hashchange', function webViewerHashchange(evt) {
@@ -7132,15 +7147,15 @@ var paintPdf = function(payload) {
         PDFViewerApplication.setTitleUsingUrl(file.name);
 
         // URL does not reflect proper document location - hiding some icons.
-        document.getElementById('viewBookmark').setAttribute('hidden', 'true');
-        document.getElementById('secondaryViewBookmark').
+        _this.outerContainerInstance.querySelector('#viewBookmark').setAttribute('hidden', 'true');
+        _this.outerContainerInstance.querySelector('#secondaryViewBookmark').
         setAttribute('hidden', 'true');
-        document.getElementById('download').setAttribute('hidden', 'true');
-        document.getElementById('secondaryDownload').setAttribute('hidden', 'true');
+        _this.outerContainerInstance.querySelector('#download').setAttribute('hidden', 'true');
+        _this.outerContainerInstance.querySelector('#secondaryDownload').setAttribute('hidden', 'true');
     }, true);
 
     function selectScaleOption(value) {
-        var options = document.getElementById('scaleSelect').options;
+        var options = _this.outerContainerInstance.querySelector('#scaleSelect').options;
         var predefinedValueFound = false;
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
@@ -7161,12 +7176,12 @@ var paintPdf = function(payload) {
             // Adjust the width of the zoom box to fit the content.
             // Note: If the window is narrow enough that the zoom box is not visible,
             //       we temporarily show it to be able to adjust its width.
-            var container = document.getElementById('scaleSelectContainer');
+            var container = _this.outerContainerInstance.querySelector('#scaleSelectContainer');
             if (container.clientWidth === 0) {
                 container.setAttribute('style', 'display: inherit;');
             }
             if (container.clientWidth > 0) {
-                var select = document.getElementById('scaleSelect');
+                var select = _this.outerContainerInstance.querySelector('#scaleSelect');
                 select.setAttribute('style', 'min-width: inherit;');
                 var width = select.clientWidth + SCALE_SELECT_CONTAINER_PADDING;
                 select.setAttribute('style', 'min-width: ' +
@@ -7176,21 +7191,21 @@ var paintPdf = function(payload) {
             }
 
             // Set the 'max-height' CSS property of the secondary toolbar.
-            SecondaryToolbar.setMaxHeight(document.getElementById('viewerContainer'));
+            SecondaryToolbar.setMaxHeight(_this.outerContainerInstance.querySelector('#viewerContainer'));
         });
     }, true);
 
     window.addEventListener('scalechange', function scalechange(evt) {
-        document.getElementById('zoomOut').disabled = (evt.scale === MIN_SCALE);
-        document.getElementById('zoomIn').disabled = (evt.scale === MAX_SCALE);
+        _this.outerContainerInstance.querySelector('#zoomOut').disabled = (evt.scale === MIN_SCALE);
+        _this.outerContainerInstance.querySelector('#zoomIn').disabled = (evt.scale === MAX_SCALE);
 
-        var customScaleOption = document.getElementById('customScaleOption');
+        var customScaleOption = _this.outerContainerInstance.querySelector('#customScaleOption');
         customScaleOption.selected = false;
 
         if (!PDFViewerApplication.updateScaleControls &&
-            (document.getElementById('pageWidthOption').selected ||
-                document.getElementById('pageFitOption').selected ||
-                document.getElementById('pageAutoOption').selected)) {
+            (_this.outerContainerInstance.querySelector('#pageWidthOption').selected ||
+                _this.outerContainerInstance.querySelector('#pageFitOption').selected ||
+                _this.outerContainerInstance.querySelector('#pageAutoOption').selected)) {
             updateViewarea();
             return;
         }
@@ -7217,7 +7232,7 @@ var paintPdf = function(payload) {
         var page = evt.pageNumber;
         if (evt.previousPageNumber !== page) {
 
-            var txtPageNumber = document.getElementById('pageNumber');
+            var txtPageNumber = _this.outerContainerInstance.querySelector('#pageNumber');
             txtPageNumber.value = page;
             $(txtPageNumber).change();
 
@@ -7227,11 +7242,11 @@ var paintPdf = function(payload) {
         }
         var numPages = PDFViewerApplication.pagesCount;
 
-        document.getElementById('previous').disabled = (page <= 1);
-        document.getElementById('next').disabled = (page >= numPages);
+        _this.outerContainerInstance.querySelector('#previous').disabled = (page <= 1);
+        _this.outerContainerInstance.querySelector('#next').disabled = (page >= numPages);
 
-        document.getElementById('firstPage').disabled = (page <= 1);
-        document.getElementById('lastPage').disabled = (page >= numPages);
+        _this.outerContainerInstance.querySelector('#firstPage').disabled = (page <= 1);
+        _this.outerContainerInstance.querySelector('#lastPage').disabled = (page >= numPages);
 
         // we need to update stats
         if (PDFJS.pdfBug && Stats.enabled) {
@@ -7367,7 +7382,7 @@ var paintPdf = function(payload) {
                     break;
                 case 71: // g
                     // focuses input#pageNumber field
-                    document.getElementById('pageNumber').select();
+                    _this.outerContainerInstance.querySelector('#pageNumber').select();
                     handled = true;
                     break;
             }
@@ -7380,7 +7395,7 @@ var paintPdf = function(payload) {
 
         // Some shortcuts should not get handled if a control/input element
         // is selected.
-        var curElement = document.activeElement || document.querySelector(':focus');
+        var curElement = document.activeElement || _this.outerContainerInstance.querySelector(':focus');
         var curElementTagName = curElement && curElement.tagName.toUpperCase();
         if (curElementTagName === 'INPUT' ||
             curElementTagName === 'TEXTAREA' ||
@@ -7547,10 +7562,59 @@ var paintPdf = function(payload) {
 
     window.customChanges = function() {
         return {
-            txtValue: document.getElementById('pageNumber')
+            txtValue: _this.outerContainerInstance.querySelector('#pageNumber')
         }
     }
 
     webViewerLoad();
-    return PDFViewer;
+
+
+
+    // Events
+    var $outerContainer = $(_this.outerContainerInstance),
+        $thumb = $outerContainer.find('.thumb'),
+        $slider = $outerContainer.find('.slider');
+
+    var ScaleValue = Math.abs(MIN_SCALE - 1);
+    var Range = MAX_SCALE - MIN_SCALE;
+    $thumb.css({
+        'left': (ScaleValue/Range * 100).toFixed(2) + "%"
+    }).attr('range-value', "100%");
+
+    function moveIt($el, e) {
+
+        var remaining = e.pageX - $el.offset().left,
+            width = $el.width();
+
+        var thumbWidth = $thumb.width()
+        if (remaining < 0) {
+            remaining = 0;
+        } else if (remaining > width - thumbWidth) {
+            remaining = width - thumbWidth
+        }
+        remaining = remaining / width * 100;
+        $thumb.css({
+            'left': remaining.toFixed(2) + "%"
+        });
+    }
+    $thumb.on('mousedown', function () {
+        $(window).on('mousemove', function (e) {
+            moveIt($('.slider'), e);
+        });
+
+        $(window).on('mouseup', function (e) {
+
+            var value = parseInt($thumb.css('left'), 10);
+
+            var Scale = MIN_SCALE + (Range * value/100);
+            PDFViewerApplication.setScale(Scale, false);
+            $(window).off('mousemove');
+            $(window).off('mouseup');
+        });
+    });
+
+
+    $slider.on('click', function (e) {
+        moveIt($(this), e);
+    });
 }

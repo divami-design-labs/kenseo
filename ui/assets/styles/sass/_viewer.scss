@@ -762,7 +762,9 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 }
 
 .toolbarField.pageNumber {
- width: 28px;
+    width: 28px;
+    padding: 0;
+    margin: 0;
     text-align: center;
     border: 1px solid $colorSixteen;
     height: 24px;
@@ -771,6 +773,7 @@ html[dir='rtl'] #findInput[data-status="pending"] {
     margin-top: 12px;
     margin-right: 6px;
     line-height: 24px;
+    outline: none;
 }
 
 .toolbarField.pageNumber.visiblePageIsLoading {
@@ -1490,13 +1493,13 @@ select {
 #previous{
   @include backgroundImage('previous-page-icon.svg');
   @include square(14px);
-  margin-top: 14px;
+  margin-top: 15px;
   margin-right: 8px;
 }
 #next{
   @include backgroundImage('next-page-icon.svg');
   @include square(14px);
-  margin-top: 14px;
+  margin-top: 15px;
   margin-left: 8px;
 }
 #numPages{
@@ -1514,10 +1517,14 @@ select {
   @include square(18px);
   margin-top: 14px;
   margin-left: 8px;
+  margin-right: 20px;
 }
 #toolbarViewerRight{
   float: right;
   *{
     float: left;
   }
+}
+#scaleSelectContainer{
+  display: none;
 }

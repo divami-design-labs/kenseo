@@ -3156,6 +3156,23 @@ input[type="text"].xm {
     background-color: #F0F0F1;
     position: absolute;
     margin-top: -4px; }
+    .range-slider-section .thumb:hover:after {
+      content: attr(range-value);
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 5px;
+      border: 1px solid #E1E1E1;
+      background-color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8px;
+      color: #3e4354;
+      padding: 3px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border-radius: 5px; }
   .range-slider-section .zoom-in, .range-slider-section .zoom-out {
     position: absolute;
     top: 14.5px;
@@ -3839,6 +3856,8 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 
 .toolbarField.pageNumber {
   width: 28px;
+  padding: 0;
+  margin: 0;
   text-align: center;
   border: 1px solid #babcc0;
   height: 24px;
@@ -3846,7 +3865,8 @@ html[dir='rtl'] #findInput[data-status="pending"] {
   background-color: white;
   margin-top: 12px;
   margin-right: 6px;
-  line-height: 24px; }
+  line-height: 24px;
+  outline: none; }
 
 .toolbarField.pageNumber.visiblePageIsLoading {
   background-image: url(images/loading-small.png);
@@ -4444,7 +4464,7 @@ select {
   background-size: 100% 100%;
   width: 14px;
   height: 14px;
-  margin-top: 14px;
+  margin-top: 15px;
   margin-right: 8px; }
 
 #next {
@@ -4453,7 +4473,7 @@ select {
   background-size: 100% 100%;
   width: 14px;
   height: 14px;
-  margin-top: 14px;
+  margin-top: 15px;
   margin-left: 8px; }
 
 #numPages {
@@ -4475,12 +4495,16 @@ select {
   width: 18px;
   height: 18px;
   margin-top: 14px;
-  margin-left: 8px; }
+  margin-left: 8px;
+  margin-right: 20px; }
 
 #toolbarViewerRight {
   float: right; }
   #toolbarViewerRight * {
     float: left; }
+
+#scaleSelectContainer {
+  display: none; }
 
 body {
   font-family: "OpenSansRegular"; }

@@ -126,37 +126,10 @@ var Router = Backbone.Router.extend({
             },
             type: 'GET',
             success: function(response) {
-                var versCount = response.data.versionCount
-                new paintPdf({url: sb.getRelativePath(response.data.versions[versCount - 1].documentPath)});
-
-                function moveIt($el, e) {
-                    var remaining = e.pageX - $el.offset().left,
-                        width = $el.width();
-
-                    var thumbWidth = $('.thumb').width()
-                    if (remaining < 0) {
-                        remaining = 0;
-                    } else if (remaining > width - thumbWidth) {
-                        remaining = width - thumbWidth
-                    }
-                    remaining = remaining / width * 100;
-                    $('.thumb').css({
-                        'left': remaining + "%"
-                    }).attr('range-value', remaining);
-                }
-                $(document).on('mousedown', '.thumb', function () {
-                    $(window).on('mousemove', function (e) {
-                        moveIt($('.slider'), e);
-                    });
-
-                    $(window).on('mouseup', function () {
-                        $(window).off('mousemove');
-                    });
-                });
-
-
-                $(document).on('click', '.slider', function (e) {
-                    moveIt($(this), e);
+                var versCount = response.data.versionCount;
+                new paintPdf({
+                    url: sb.getRelativePath(response.data.versions[versCount - 1].documentPath),
+                    container: $('.pdfs-container').find('.outerContainer.active').get(0)
                 });
             }
         });
