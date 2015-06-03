@@ -1713,42 +1713,43 @@
   right: 0;
   bottom: 0;
   margin: auto;
-  border: 1px solid #8d8f96; }
+  border: 1px solid #8d8f96;
+  background-color: white; }
 
 .popup-meeting {
-  width: 565px;
-  height: 690px; }
+  width: 570px;
+  max-height: 690px; }
   @media (max-height: 690px) {
     .popup-meeting {
-      bottom: auto; } }
+      max-height: auto; } }
 
 .popup-message {
   width: 425px;
-  height: 200px; }
+  max-height: 200px; }
   @media (max-height: 200px) {
     .popup-message {
-      bottom: auto; } }
+      max-height: auto; } }
 
 .popup-small {
   width: 425px;
-  height: 260px; }
+  max-height: 260px; }
   @media (max-height: 260px) {
     .popup-small {
-      bottom: auto; } }
+      max-height: auto; } }
 
 .popup-large {
-  width: 725px;
-  height: 570px; }
+  width: 740px;
+  max-height: 570px; }
   @media (max-height: 570px) {
     .popup-large {
-      bottom: auto; } }
+      max-height: auto; } }
 
 .popup-large-df {
   width: 730px;
-  height: 590px; }
+  max-height: 590px; }
   @media (max-height: 590px) {
     .popup-large-df {
-      bottom: auto; } }
+      max-height: auto; } }
 
 .popup-header {
   height: 55px;
@@ -1789,8 +1790,8 @@
   top: 55px;
   left: 0;
   right: 0;
-  bottom: 0;
-  background-color: white; }
+  bottom: 80px;
+  overflow: auto; }
 
 .popup-body-wrapper {
   padding: 30px;
@@ -1834,10 +1835,6 @@
   padding: 8px;
   background-color: transparent; }
 
-.projects-dropdown {
-  width: 330px;
-  height: 40px; }
-
 /* second artefact popup*/
 .meta-heading {
   font-size: 13px;
@@ -1855,7 +1852,7 @@
   width: 175px;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 55px;
   bottom: 0;
   border-right: 1px dashed #c3c5ca;
   background-color: #f5f5f6; }
@@ -2064,10 +2061,10 @@
 
 .popup-add-people {
   width: 468px;
-  height: 406px; }
+  max-height: 406px; }
   @media (max-height: 406px) {
     .popup-add-people {
-      bottom: auto; } }
+      max-height: auto; } }
 
 .permission-item {
   display: inline-block;
@@ -2780,13 +2777,10 @@
     background-color: white;
     border: 1px solid #aaacb4;
     display: none;
-    left: -1px;
     line-height: 20px;
     max-height: 160px;
     overflow: auto;
-    position: absolute;
-    right: -1px;
-    top: 100%;
+    position: fixed;
     z-index: 3; }
   .combobox-wrapper ul, .combobox-wrapper li {
     padding: 0;
@@ -2951,13 +2945,12 @@ input[type="text"].xm {
   position: absolute;
   top: 0;
   bottom: 50px;
-  overflow-y: auto;
-  overflow-x: hidden;
   left: 0;
-  right: 0; }
+  right: 0;
+  text-align: center;
+  background-color: #E8E8E9; }
 
 .dv-tab-panel-section {
-  max-width: 50%;
   height: 100%;
   float: left; }
   .dv-tab-panel-section .tab-item {
@@ -4515,5 +4508,14 @@ body {
     content: "";
     display: block;
     clear: both; }
+
+.page {
+  position: absolute;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto; }
 
 /*# sourceMappingURL=main.css.map */

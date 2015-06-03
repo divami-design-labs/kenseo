@@ -1,3 +1,3 @@
 Kenseo.models.Header = Backbone.Model.extend({
-	urlRoot: 'getHeader'
+	urlRoot: sb.getRelativePath('getHeader')
 });

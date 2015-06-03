@@ -108,7 +108,8 @@ sb.popup= {
                         elem: container,
                         data: data.data,
                         settings: {
-                            placeholder: "Choose Files"
+                            placeholder: "Choose Files",
+                            disabled: true
                         },
                         onchange: function($input, $selectedEl, bln) {
                             if (bln) {
@@ -131,9 +132,6 @@ sb.popup= {
                             }
                         }
                     });
-
-
-
 
                     var chooseFileCombobox = sb.toolbox.applyComboBox({
                         elem: document.querySelector('.choose-file-combobox'),

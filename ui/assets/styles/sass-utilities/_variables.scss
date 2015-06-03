@@ -17,7 +17,6 @@ $fontSizeOne: 18px;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
-
 @mixin dimensions($width, $height){
 	width: $width;
 	height: $height;
@@ -147,10 +146,12 @@ $fontSizeOne: 18px;
 	}
 }
 @mixin popupDimensions($w, $h){
-	@include dimensions($w, $h);
+	//@include dimensions($w, $h);
+	width: $w;
+	max-height: $h;
 	@media (max-height:#{$h}){
 		&{
-			bottom: auto;
+			max-height: auto;
 		}
 	}
 }

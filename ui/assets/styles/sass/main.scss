@@ -37,3 +37,9 @@ body{
 .toggle-click{
 	@extend .hand;
 }
+
+.page{
+	position: absolute;
+	@include absoluter(0, 0, 0, 0);
+	overflow: auto;
+}

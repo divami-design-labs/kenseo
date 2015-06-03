@@ -15,9 +15,10 @@
 	@include absoluter(0,0,0,0);
 	margin: auto;
 	border: 1px solid $color8;
+	background-color: white;
 }
 .popup-meeting{
-	@include popupDimensions(565px, 690px);
+	@include popupDimensions(570px, 690px);
 }
 .popup-message{
 	@include popupDimensions(425px, 200px);
@@ -26,7 +27,7 @@
 	@include popupDimensions(425px, 260px);
 }
 .popup-large{
-	@include popupDimensions(725px, 570px);
+	@include popupDimensions(740px, 570px);
 }
 .popup-large-df{
 	@include popupDimensions(730px, 590px)
@@ -54,8 +55,8 @@
 	@include dimensions(250px, 38px);
 }
 .popup-body{
-	@include absoluter(55px, 0, 0, 0);
-	background-color: white;
+	@include absoluter(55px, 0, 0, 80px);
+	overflow: auto;
 }
 .popup-body-wrapper{
 	padding: 30px;
@@ -115,7 +116,7 @@ $popup-content-space: 175px;
 	width: $popup-content-space;
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: 55px;
 	bottom: 0;
 	border-right: 1px dashed $colorP;
 	background-color: $colorQ;

@@ -154,11 +154,13 @@ var comboBox = function(elem, suggestions, values) {
 	}
 
 	function toggleSuggestions(e){
-		if($(e.target).hasClass('selectable')){
+		var $el = $(e.currentTarget);
+
+		if($(e.target).hasClass('selectable') || $el.find('input').prop('disabled')){
 			return;
 		}
 		if(e){
-			filterSuggestions($(e.currentTarget).find('input'), true);
+			filterSuggestions($el.find('input'), true);
 		}
 		var $suggestionsContainer = $elem.find(suggestionsContainerClass);
 		if($suggestionsContainer.css('display') !== "none"){
@@ -425,15 +427,12 @@ var comboBox = function(elem, suggestions, values) {
 				}
 				textBox.value = values.value || "";
 				placeSuggestions($elem);
-				window.onresize = function(){
+				window.addEventListener('resize', function(){
 					placeSuggestions($elem);
-				}
-				window.onscroll = function(){
-					placeSuggestions($elem);
-				}
-				$(document).on('scroll', "*", function(){
-					placeSuggestions($elem);
-				});
+				}, true);
+				document.addEventListener('scroll', function () {
+			        placeSuggestions($elem);
+			    }, true);
 			}
 			else{
 				$elem.find(dot + values.suggestionsContainer).html('');

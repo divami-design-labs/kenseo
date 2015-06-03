@@ -105,9 +105,9 @@ var sb = (function() {
         },
         getUrl: function(p) {
             if (p.collection) {
-                return sb.getRelativePath(p.collection.url);
+                return p.collection.url;
             } else if (p.model) {
-                return sb.getRelativePath(p.model.urlRoot);
+                return p.model.urlRoot;
             } else if (p.url) {
                 return p.url;
             }

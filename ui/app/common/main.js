@@ -208,5 +208,5 @@ $(function(){
 				popupCloser($self.parents(popupContainer));
 			}
 		});
-	})
+	});
 });
