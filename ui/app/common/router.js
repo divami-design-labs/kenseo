@@ -20,7 +20,10 @@ var Router = Backbone.Router.extend({
             },
             function(){
                 $('.header').removeClass('fixed-header');
-                sb.renderTemplate({templateName: 'dashboard', 'templateHolder': $('.content')});
+				$('.project-section').hide();
+				$('.documentView').hide();
+                $('.dashboard-section').show();
+                sb.renderTemplate({templateName: 'dashboard', 'templateHolder': $('.dashboard-section')});
                 new Kenseo.views.Header({'model': new Kenseo.models.Header()});
                 new Kenseo.views.Projects({colStr: 'Projects', data: {limit: 6, userProjects: true}});
                 new Kenseo.views.Notifications({collection: new Kenseo.collections.Notifications(), data: {limit: 12}});
@@ -45,7 +48,12 @@ var Router = Backbone.Router.extend({
                         // sb.setPopupData(Kenseo.data.projects[id].name, 'project_name');
                         sb.setPageData(Kenseo.data.projects[id], 'project');
                         $('.header').removeClass('fixed-header');
-                        sb.renderTemplate({"templateName": 'project-page', "templateHolder": $(".content")});
+						
+						$('.documentView').hide();
+			            $('.dashboard-section').hide();
+                        $('.project-section').show();
+                        
+                        sb.renderTemplate({"templateName": 'project-page', "templateHolder": $(".project-section")});
                         new Kenseo.views.Header({'model': new Kenseo.models.Header()});
 
                         new Kenseo.views.Artefacts({
@@ -114,24 +122,67 @@ var Router = Backbone.Router.extend({
         new Kenseo.views.Header({'model': new Kenseo.models.Header()});
         $('.header').addClass('fixed-header');
 
-        $('.content').html(_.template(templates['documentview'])());
-        $('.pdfs-container').append(_.template(templates['pdf-viewer'])());
+        $('.project-section').hide();
+        $('.dashboard-section').hide();
+		$('.documentView').show();
 
         new Kenseo.views.Header({'model': new Kenseo.models.Header()});
         $('.header').addClass('fixed-header');
-        sb.ajaxCall({
-            url : sb.getRelativePath("getArtefactDetails"),
-            data: {
-                artefactVersionId : Kenseo.data.artefact.id
-            },
-            type: 'GET',
-            success: function(response) {
-                var versCount = response.data.versionCount;
-                new paintPdf({
-                    url: sb.getRelativePath(response.data.versions[versCount - 1].documentPath),
-                    container: $('.pdfs-container').find('.outerContainer.active').get(0)
-                });
-            }
-        });
+        
+        //before making the ajax call we need to verify if this document is already existing in the viewer
+        if($('.outerContainer[rel="pdf_' + Kenseo.data.artefact.id + '"]').length > 0) {
+        	// since it already exists we need to bring it into view
+        } else {
+        	//since we don't have it in the viewer we need to get its details and render it
+	        sb.ajaxCall({
+	            url : sb.getRelativePath("getArtefactDetails"),
+	            data: {
+	                artefactVersionId : Kenseo.data.artefact.id
+	            },
+	            type: 'GET',
+	            success: function(response) {
+	                var versCount = response.data.versionCount
+	                
+	                //before painting the new doc lets hide all the existing docs
+	                $('.outerContainer.inView').removeClass('inView');
+	                
+	                //before adding the new tabItem un select the existing ones
+	                $('.tab-item.selectedTab').removeClass('selectedTab')
+	                
+	                //before painting the pdf into the viewer we need to add a tab for it.
+	                if(response.data.versions[versCount - 1].type == 'application/pdf') {
+		                var str = '<div class="tab-item selectedTab" targetRel="' + response.data.versions[versCount - 1].versionId + '"><div class= "fileTab" ></div></div>'; 
+	                } else {
+	                	var str = '<div class="tab-item selectedTab" targetRel="' + response.data.versions[versCount - 1].versionId + '"><div class= " imageTab" ></div></div>';
+	                }
+	                $('.dv-tab-panel-section').prepend(str);
+			        $('.pdfs-container').append(_.template(templates['pdf-viewer'])(response.data.versions[versCount - 1]));
+	                new paintPdf({
+	                	url: sb.getRelativePath(response.data.versions[versCount - 1].documentPath),
+	                	container: $('.outerContainer.active').get(0),
+	                	taargetId: response.data.versions[versCount - 1].versionId
+	            	});
+					//now get the version details of this version and show shared details
+					sb.renderTemplate({
+						url: sb.getRelativePath('getVersionDetails'),
+						data: {
+							versionId: Kenseo.data.artefact.id
+						},
+						templateName: "dv-peoplesection", 
+						templateHolder: $(".dv-tb-people-section"),
+					});
+					
+	                
+	                
+	                $(document).on('click', '.tab-item', function (e) {
+	                    rel = this.getAttribute('targetrel');
+	                    $('.tab-item').removeClass('selectedTab');
+	                    $(this).addClass('selectedTab');
+	                    $('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
+	                    $('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
+	                });
+	            }
+	        });
+        }
     }
 });
