@@ -212,3 +212,28 @@
 		left: 0;
 	}
 }
+
+.current-artefact-info{
+	position: absolute;
+	bottom: 55px;
+	left: 0;
+	border: 2px solid $colorTwo;
+  	z-index: 1;
+  	background-color: rgba(255, 255, 255, 0.6);
+  	@include text(18px, $colorOne);
+  	& > div{
+  		display: table-cell;
+  		padding: 5px;
+  	}
+  	.show-all-versions{
+  		position: relative;
+  		padding: 5px 20px 5px 20px;
+  		.sub-menu-item{
+  			width: 100px;
+  		}
+  		&.active{
+  			background-color: $colorI;
+  			color: #FFF;
+  		}
+  	}
+}

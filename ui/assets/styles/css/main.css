@@ -389,6 +389,9 @@
 .left-nav {
   left: 0px; }
 
+.top-nav {
+  bottom: 100%; }
+
 .sub-menu-item {
   padding: 10px;
   font-size: 14px;
@@ -3183,6 +3186,27 @@ input[type="text"].xm {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     left: 0; }
+
+.current-artefact-info {
+  position: absolute;
+  bottom: 55px;
+  left: 0;
+  border: 2px solid #3e4354;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
+  color: #464c5f; }
+  .current-artefact-info > div {
+    display: table-cell;
+    padding: 5px; }
+  .current-artefact-info .show-all-versions {
+    position: relative;
+    padding: 5px 20px 5px 20px; }
+    .current-artefact-info .show-all-versions .sub-menu-item {
+      width: 100px; }
+    .current-artefact-info .show-all-versions.active {
+      background-color: #566277;
+      color: #FFF; }
 
 /* Copyright 2014 Mozilla Foundation
  *

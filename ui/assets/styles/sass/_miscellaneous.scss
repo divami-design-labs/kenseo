@@ -17,6 +17,9 @@
 .left-nav{
 	left: 0px;
 }
+.top-nav{
+	bottom: 100%;
+}
 .sub-menu-item{
 	padding: 10px;
 	@include text(14px, $color2);

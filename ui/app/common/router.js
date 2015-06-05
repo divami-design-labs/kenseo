@@ -159,7 +159,7 @@ var Router = Backbone.Router.extend({
 			        $('.pdfs-container').append(_.template(templates['pdf-viewer'])(response.data.versions[versCount - 1]));
 	                new paintPdf({
 	                	url: sb.getRelativePath(response.data.versions[versCount - 1].documentPath),
-	                	container: $('.outerContainer.active').get(0),
+	                	container: $('.outerContainer.inView').get(0),
 	                	taargetId: response.data.versions[versCount - 1].versionId
 	            	});
 					//now get the version details of this version and show shared details
