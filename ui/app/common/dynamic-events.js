@@ -15,6 +15,12 @@ $(function(){
 	.on('click', function(e){
 		var $el = $(e.target);
 		var bln = $el.hasClass('.toggle-click') || $el.parents('.toggle-click').length;
+		// var bln = 	$el.hasClass('popup-click') 
+		// 			|| $el.hasClass('page-click')
+		// 			|| $el.hasClass('toggle-click')
+		// 			|| $el.parents('.popup-click').length
+		// 			|| $el.parents('page-click').length
+		// 			|| $el.parents('.toggle-click').length;
 		if(!bln){
 			$('.toggle-click').removeClass('active');
 		}
@@ -47,11 +53,13 @@ $(function(){
         }
     })
     .on('click', '.toggle-click', function(e){
-    	e.stopPropagation();
+    	// e.stopPropagation();
     	e.preventDefault();
-    	if($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length){
-    		return false;
-    	}
+    	if($(e.target).hasClass('active') || $(e.target).parents('.active').length){
+	    	if($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length){
+	    		return false;
+	    	}
+	    }
     	var $this = $(this);
     	$('.active').not($this).removeClass('active');
     	$this.toggleClass('active');

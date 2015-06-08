@@ -190,11 +190,22 @@ var comboBox = function(elem, suggestions, values) {
 	function focusInputTextBox(){
 		$elem.find('input').focus();
 	}
-	function placeSuggestions($el){
+	function placeSuggestions($el, $container){
 		var width = $el.innerWidth(),
 			height = $el.outerHeight(),
 			offset = $el.offset();
+		if($container){
+			var oTop = $container.offset().top;
+			var xTop = offset.top;
 
+			var oHeight = $container.height();
+			var scrollHeight = $container[0].scrollHeight;
+
+			if(oTop > xTop || oTop + oHeight < xTop + height){
+				hideSuggestions(true);
+				return;
+			}
+		}
 		$el.find('.suggestionsContainer').css({
 			left: offset.left,
 			top: offset.top + height,
@@ -430,8 +441,8 @@ var comboBox = function(elem, suggestions, values) {
 				window.addEventListener('resize', function(){
 					placeSuggestions($elem);
 				}, true);
-				document.addEventListener('scroll', function () {
-			        placeSuggestions($elem);
+				document.addEventListener('scroll', function (e) {
+			        placeSuggestions($elem, $(e.target));
 			    }, true);
 			}
 			else{

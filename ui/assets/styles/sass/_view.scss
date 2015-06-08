@@ -235,5 +235,28 @@
   			background-color: $colorI;
   			color: #FFF;
   		}
+  		& > span:after{
+  			content: "";
+  			@include backgroundImage('icon_12.svg');
+  			@include square(16px);
+  			display: inline-block;
+  			margin-left: 10px;
+  		}
   	}
+	.actions{
+		float: right;
+		width: 50px;
+	}
+}
+.v-compare-icon, .v-open-icon{
+	@include square(18px);
+	float: left;
+}
+.v-compare-icon{
+	@include backgroundImage('v_compare.svg');
+}
+
+.v-open-icon{
+	@include backgroundImage('v_open.svg');
+	margin-left: 10px;
 }

@@ -3207,6 +3207,34 @@ input[type="text"].xm {
     .current-artefact-info .show-all-versions.active {
       background-color: #566277;
       color: #FFF; }
+    .current-artefact-info .show-all-versions > span:after {
+      content: "";
+      background-image: url("../../imgs/icon_12.svg");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      margin-left: 10px; }
+  .current-artefact-info .actions {
+    float: right;
+    width: 50px; }
+
+.v-compare-icon, .v-open-icon {
+  width: 18px;
+  height: 18px;
+  float: left; }
+
+.v-compare-icon {
+  background-image: url("../../imgs/v_compare.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%; }
+
+.v-open-icon {
+  background-image: url("../../imgs/v_open.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin-left: 10px; }
 
 /* Copyright 2014 Mozilla Foundation
  *
@@ -4567,20 +4595,21 @@ select {
 body {
   font-family: "OpenSansRegular"; }
 
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  margin: 0 auto;
+  min-width: 1180px; }
+
 .page-wrapper {
   min-height: 100%; }
   .page-wrapper::after {
     content: "";
     display: block;
     clear: both; }
-
-.page {
-  position: absolute;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: auto; }
 
 /*# sourceMappingURL=main.css.map */

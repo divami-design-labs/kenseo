@@ -124,12 +124,9 @@ var sb = (function() {
                 var data = payload.data;
             }
             else{
-                var data = {
-                    "data": payload.data,
-                    'client': {
-                        sid: Kenseo.cookie.sessionid()
-                    }
-                }
+                var data = sb.getStandardData({
+                    "data": payload.data
+                }).data;
             }
             // Setting default values to the ajax properties
             var contentType = payload.contentType,
@@ -186,7 +183,7 @@ var sb = (function() {
                     client: {
                         sid: Kenseo.cookie.sessionid()
                     },
-                    data: data
+                    data: Kenseo.params.getParams(data)
                 }
             }
 
