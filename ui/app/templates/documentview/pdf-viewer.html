@@ -3,32 +3,11 @@
       <div class="current-artefact-info">
           <div>Projects > Conflux > Mapping Editor</div>
           <div class="toggle-click show-all-versions">
-            <span>v5.0</span>
-            <div class="sub-menu-holder left-nav top-nav">    
-              <div class="sub-menu-item"><span>v1.0</span>
-                <div class="actions">
-                  <div class="v-compare-icon"></div>
-                  <div class="v-open-icon"></div>
-                </div>
-              </div>    
-              <div class="sub-menu-item"><span>v2.0</span>
-                <div class="actions">
-                  <div class="v-compare-icon"></div>
-                  <div class="v-open-icon"></div>
-                </div>
-              </div>    
-              <div class="sub-menu-item"><span>v3.0</span>
-                <div class="actions">
-                  <div class="v-compare-icon"></div>
-                  <div class="v-open-icon"></div>
-                </div>
-              </div>
-              <div class="sub-menu-item"><span>v4.0</span>
-                <div class="actions">
-                  <div class="v-compare-icon"></div>
-                  <div class="v-open-icon"></div>
-                </div>
-              </div>
+            <span>v<%= versionNo  %>.0</span>
+            <div class="sub-menu-holder left-nav top-nav">
+            	<% _.each(versions, function(p){ %>
+	            	<div class="sub-menu-item page-click"><a href="#documentview/<%= p.versionId%>">v<%= p.versionNo %>.0</a></div>    
+				<% }); %>    
             </div>
           </div>
       </div>
