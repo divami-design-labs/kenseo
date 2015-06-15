@@ -6,7 +6,8 @@ var comboBox = function(elem, suggestions, values) {
 	var _this = this;
 	var code = {up: 38, down: 40,enter: 13},
 		$elem = $(elem);
-
+		
+		_this.suggestions = suggestions;
 		values = values || {},
 		values.container = values.container || "comboTree",
 		values.suggestionsContainer = values.suggestionsContainer || "suggestionsContainer",
@@ -24,7 +25,7 @@ var comboBox = function(elem, suggestions, values) {
 	_this.$elem = $elem;
 	// var textBox = document.createElement('input');
 	// textBox.setAttribute('type', 'text');
-	renderSuggestions(elem, suggestions);
+	renderSuggestions(elem, _this.suggestions);
 	// if(values.disabled){
 	// 	textBox.setAttribute('disabled', true);
 	// }
@@ -65,13 +66,13 @@ var comboBox = function(elem, suggestions, values) {
 	 */
 	function collapseItems(el){
 		var refId = el.parent().data('id');
-		for(var i = 0; i< suggestions.length; i++){
-			var p = suggestions[i];
+		for(var i = 0; i< _this.suggestions.length; i++){
+			var p = _this.suggestions[i];
 			if(refId === p.id){
 				p.excludeChildren = true;
 			}
 		}
-		renderSuggestions(elem, suggestions);
+		renderSuggestions(elem, _this.suggestions);
 	}
 
 	/**
@@ -81,15 +82,15 @@ var comboBox = function(elem, suggestions, values) {
 	function expandItems(el){
 		var refId = el.parent().data('id');
 		var blnAccess = false;
-		for(var i = 0; i< suggestions.length; i++){
-			var p = suggestions[i];
+		for(var i = 0; i< _this.suggestions.length; i++){
+			var p = _this.suggestions[i];
 			if(refId === p.id){
 				blnAccess = true;
 				p.excludeChildren = false;
 			}
 		}
 		if(blnAccess){
-			renderSuggestions(elem, suggestions);
+			renderSuggestions(elem, _this.suggestions);
 		}
 	}
 
@@ -334,8 +335,8 @@ var comboBox = function(elem, suggestions, values) {
 			showSuggestions();
 		}
 		var query = el.val().toLowerCase();
-		for(var i = 0; i< suggestions.length; i++){
-			var p = suggestions[i];
+		for(var i = 0; i< _this.suggestions.length; i++){
+			var p = _this.suggestions[i];
 			if(p.name.toLowerCase().indexOf(query) < 0){
 				p.excludeParent = true;
 			}
@@ -343,7 +344,7 @@ var comboBox = function(elem, suggestions, values) {
 				p.excludeParent = false;	
 			}
 		}
-		renderSuggestions(elem, suggestions, el.get(0));
+		renderSuggestions(elem, _this.suggestions, el.get(0));
 
 		// Preparing change event call
 		var $selecteds = $elem.find('.selectable').filter(function(){
@@ -367,6 +368,7 @@ var comboBox = function(elem, suggestions, values) {
 		if(!el){
 			return;
 		}
+		
 		var $suggestionsViewer = $elem.find(".suggestions-viewer");
 		var newList = _.cloneDeep(list);
 		if($suggestionsViewer.length){
@@ -495,4 +497,15 @@ var comboBox = function(elem, suggestions, values) {
 	}
 
 	renderSelectedItems();
+	
+	/**
+	 * when we want to change the suggestions or update the suggestion in the combobox
+	 * we can use this method to update them
+	 */
+	 _this.setSuggestions = function(newSuggestions) {
+	 	_this.suggestions = newSuggestions;
+	 	renderSuggestions(elem, _this.suggestions);
+	 } 
+	 
+	 
 }

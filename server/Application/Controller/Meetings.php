@@ -33,10 +33,11 @@
 			$fromTime = $data->date . $data->fromTime->value;
 			$toTime = $data->date . $data->toTime->value;
 			$project = $data->meetingProject[0]->name;
-			$feature = "";
+			$feature = $data->meetingArtefact[0]->{'data-id'};
+			$featureName = $data->meetingArtefact[0]->name;
 			$meetingType = ""; 
 			$description = isset($data->agenda->value) ? $data->agenda->value : "Description";
-			$title = $project ." : " . $feature . " : " . $meetingType;
+			$title = $project ." : " . $featureName . " : " ;
 			
 			$event->setSummary($title);
 			$event->setLocation($location);
@@ -59,11 +60,13 @@
 			$attendees = array($attendee1);
 			
 			for($i = 0; $i < count($data->attendees); $i++) {
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, "appending attendees");
-				$attendee = new Google_Service_Calendar_EventAttendee();
-				$attendee->setResponseStatus("accepted");
-				$attendee->setEmail($data->attendees[$i]->{'data-email'});
-				array_push($attendees ,$attendee);
+				if($data->attendees[$i]->{'data-email'}) {
+					Master::getLogManager()->log(DEBUG, MOD_MAIN, "appending attendees");
+					$attendee = new Google_Service_Calendar_EventAttendee();
+					$attendee->setResponseStatus("accepted");
+					$attendee->setEmail($data->attendees[$i]->{'data-email'});
+					array_push($attendees ,$attendee);
+				}
 			}
 			
 			$event->attendees = $attendees;
@@ -78,24 +81,33 @@
 			$db = Master::getDBConnectionManager();
 			
 			//insert into meetings
-			$columnnames = array("project_id", "meeting_time", "meeting_agenda", "created_by", "google_meeting_ref_id");
-			$rowvals = array($projectId, Date($fromTime), $title, $user->user_id, google_meeting_ref_id);
+			$columnnames = array("project_id", "artefact_id", "meeting_time", "meeting_end_time", "meeting_title", "meeting_agenda", "venue","created_by", "google_meeting_ref_id");
+			$rowvals = array($projectId, $feature, $fromTime, $toTime, $title, $description, $location,$user->user_id, google_meeting_ref_id);
 
 			$meetId = $db->insertSingleRowAndReturnId(TABLE_MEETINGS, $columnnames, $rowvals);
 
 			//insert into meeting participants
 			$partsColumnnames = array("meeting_id", "participent_id", "invitation_date", "invited_by");
 			$notColumnnames = array("user_id", "message","project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
+			
 
+			//notify the user itself
+			$notRowvals = array($user->user_id, $title, $projectId, $user->user_id, date("Y-m-d H:i:s"), 'M', $meetId, 'U');
+
+			$actId = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notColumnnames, $notRowvals);
+			
 			for($i = 0; $i < count($data->attendees); $i++) {
-				$partsRowvals = array($meetId, $data->attendees[$i]->{'data-user_id'}, date("Y-m-d H:i:s"), $user->user_id);
+				if($data->attendees[$i]->{'data-email'}) {
+					$partsRowvals = array($meetId, $data->attendees[$i]->{'data-user_id'}, date("Y-m-d H:i:s"), $user->user_id);
+					$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $partsColumnnames, $partsRowvals);
+					
+					//insert into notifications	
+					$notRowvals = array($data->attendees[$i]->id, $title, $projectId, $user->user_id, date("Y-m-d H:i:s"), 'M', $meetId, 'U');
+	
+					$actId = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notColumnnames, $notRowvals);
+				}
 
-				$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $partsColumnnames, $partsRowvals);
 
-				//insert into notifications
-				$notRowvals = array($data->attendees[$i]->id, $title, $projectId, $user->user_id, date("Y-m-d H:i:s"), 'M', $meetId, 'U');
-
-				$actId = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notColumnnames, $notRowvals);
 			}
 
 			//insert into project activity
@@ -126,8 +138,28 @@
 			$user = $interpreter->getUser();
 			
 			$db = Master::getDBConnectionManager();
+			
 			$queryParams = array(meetingId => $data->meetingId);
+			
+			//first get meeting Details 
+			$dbQuery = getQuery('getMeetingDetails',$queryParams);
+			$meetingObj = $db->singleObjectQuery($dbQuery);
+			
+			
+			//now get participants
+			$dbQuery = getQuery('getMeetingParticipants',$queryParams);
+			$participants = $db->multiObjectQuery($dbQuery);
+			
+			$meetingObj->participants = $participants;
+			
+			//now get notes
 			$dbQuery = getQuery('getMeetingNotes',$queryParams);
+			$notes = $db->multiObjectQuery($dbQuery);
+			
+			$meetingObj->notes = $notes;
+			
+			
+			return $meetingObj;
 		}
 	}
 ?>

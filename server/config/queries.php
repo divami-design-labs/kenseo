@@ -50,7 +50,8 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINCT
 											requestor.name as requestedBy, 
 											versions.artefact_ver_id as versionId,
-											versions.version_label as title, 
+											versions.version_label as title,
+											versions.version_label as name, 
 											requestor.profile_pic_url as requestorImage, 
 											artefacts.artefact_type as documentType,
 											requestor.user_id as requestorId,
@@ -142,7 +143,7 @@ $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots
 										 JOIN " . TABLE_USERS . " as notifier on notifier.user_id = nots.notification_by
 										 WHERE nots.user_id = @~~id~~@ or nots.notification_by = @~~id~~@ ORDER BY nots.notification_date DESC LIMIT @~~limit~~@";
 
-$AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_agenda as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
+$AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_title as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 
 $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
 
@@ -233,7 +234,7 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT pa.logged_time as time,
 											CASE performed_on
 												WHEN 'A' THEN (SELECT vers.version_label FROM artefacts as arts join artefact_versions as vers on vers.artefact_ver_id = arts.latest_version_id WHERE arts.artefact_id = pa.performed_on_id)
 												WHEN 'U' THEN (SELECT name FROM users where user_id = pa.performed_on_id)
-												WHEN 'M' THEN (SELECT meeting_agenda FROM meetings WHERE meeting_id = pa.performed_on_id)
+												WHEN 'M' THEN (SELECT meeting_title FROM meetings WHERE meeting_id = pa.performed_on_id)
 												WHEN 'V' THEN (SELECT vers.version_label FROM artefact_versions as vers WHERE vers.artefact_ver_id = pa.performed_on_id)
 											END as activityName	
 											FROM 
@@ -247,10 +248,28 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT pa.logged_time as time,
 
 $AppGlobal['sql']['getMyRecentActivity'] = "";
 
-$AppGlobal['sql']['getMeetingNotes'] = "SELECT * FROM " . TABLE_MEETING_NOTES . " as notes 
+$AppGlobal['sql']['getMeetingNotes'] = "SELECT users.user_id as userId, notes.participant_notes as notes, notes.is_public as isPublic 
+										FROM " . TABLE_MEETING_NOTES . " as notes 
 										JOIN " . TABLE_USERS . " as users ON 
 										notes.participant_id = users.user_id
 										WHERE meeting_id = @~~meetingId~~@ ";
+										
+$AppGlobal['sql']['getMeetingDetails'] = "SELECT proj.project_name as projectName, arts.artefact_title as artefactName, user.name as createdBy, meets.meeting_time as startTime, meets.meeting_end_time as endTime, meets.venue as venue, meets.meeting_agenda as agenda
+											FROM " . TABLE_MEETINGS . " AS  meets 
+											JOIN " . TABLE_PROJECTS . " AS proj ON
+											proj.project_id = meets.project_id 
+											JOIN " . TABLE_ARTEFACTS . " as arts ON 
+											arts.artefact_id = meets.artefact_id
+											JOIN " . TABLE_USERS . " as user ON
+											user.user_id = meets.created_by
+											WHERE meeting_id = @~~meetingId~~@ ";
+
+											
+$AppGlobal['sql']['getMeetingParticipants'] = "SELECT user.user_id as id, user.name as participentName, user.profile_pic_url 
+												FROM " . TABLE_MEETING_PARTICIPENTS . " AS parts 
+												JOIN " . TABLE_USERS . " AS user ON
+												user.user_id = parts.participent_id	 
+												WHERE parts.meeting_id = @~~meetingId~~@";
 
 $AppGlobal['sql']['getDocumentDetails'] = "SELECT arts.artefact_id as artefactId,
 											arts.artefact_title as title,
@@ -317,10 +336,12 @@ $AppGlobal['sql']['getOtherMembersList'] = "SELECT users.user_id, users.name, us
 											FROM " . TABLE_PROJECT_MEMBERS . " AS members   
 											WHERE members.proj_id = @~~projectId~~@)" ;
 
-$AppGlobal['sql']['getArtefactDetails'] = "SELECT arts.artefact_id as artefactId, arts.description as description,vers.version_no as versionCount 
+$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, arts.artefact_title as artTitle, arts.artefact_id as artefactId, arts.description as description,vers.version_no as versionCount 
 											FROM " . TABLE_ARTEFACTS . " AS arts 
+											JOIN " . TABLE_PROJECTS . " AS proj ON
+											proj.project_id = arts.project_id
 											JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers ON
-											arts.latest_version_id = vers.artefact_ver_id
+											arts.artefact_id = vers.artefact_id
 											WHERE vers.artefact_ver_id = @~~artefactVerId~~@";
 
 $AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as versionId, vers.version_no as versionNo, vers.document_path as documentPath, vers.MIME_type as type,

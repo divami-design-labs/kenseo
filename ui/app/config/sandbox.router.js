@@ -88,15 +88,34 @@ sb.router = {
         )
 	},
 	meetingNotes: function(id){
+		Kenseo.data.meetingId = id;
         sb.loadFiles(
             {
                 'views': ['Header', 'Artefacts', 'People', 'Activities'],
                 'models': ['Projects', 'Header','Artefacts', 'People'],
                 'collections': ['Projects', 'Artefacts', 'People']
-            },
-            function(){
-                new Kenseo.views.Header({'model': new Kenseo.models.Header()});
-                sb.renderTemplate({templateName: "meetingnotes", templateHolder: $(".content-wrapper")});
+            }, function(){
+            	sb.ajaxCall({
+                    collection: new Kenseo.collections.Projects(),
+                    data: {
+                        userProjects: true
+                    },
+                    success: function(response) {
+                    	new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+            			
+            			sb.renderTemplate({
+							url: sb.getRelativePath('getMeetingNotes'),
+							data: {
+								meetingId: Kenseo.data.meetingId
+							},
+							templateName: "meetingnotes",
+							templateHolder: $(".content-wrapper"),
+						});
+            			
+            			//sb.renderTemplate({templateName: "meetingnotes", templateHolder: $(".content-wrapper")});
+                    }
+             	});
+                
             }
         )
     },
@@ -117,12 +136,10 @@ sb.router = {
                                 'libs/pdfjs/build/pdf.js',
                                 'libs/pdfjs/build/pdf.worker.js',
                                 'libs/pdfjs/web/viewer.js',
-                //                 'app/config/sandbox.documentview.js',
-                //                 'app/components/annotator.js',
                             ]
             },
             function(){
-                new Kenseo.views.Header({'model': new Kenseo.models.Header()});
+            	new Kenseo.views.Header({'model': new Kenseo.models.Header()});
 		        $('.header').addClass('fixed-header');
 
 		        $('.project-section').hide();
@@ -135,6 +152,16 @@ sb.router = {
 		        //before making the ajax call we need to verify if this document is already existing in the viewer
 		        if($('.outerContainer[rel="pdf_' + Kenseo.data.artefact.id + '"]').length > 0) {
 		        	// since it already exists we need to bring it into view
+		        	$('.outerContainer.inView').removeClass('inView');
+		        	$('.tab-item.selectedTab').removeClass('selectedTab');
+		        	
+		        	$('.outerContainer[rel="pdf_' + Kenseo.data.artefact.id + '"]').addClass('inView');
+		        	
+		        	var removedElem = $('.dv-tab-panel-section').detach('.tab-item[targetrel=' + Kenseo.data.artefact.id + ']');
+		        	$('.dv-tab-panel-section').prepend(removedElem);
+		        	$('.tab-item[targetrel=' + Kenseo.data.artefact.id + ']').addClass('selectedTab');
+		        	
+		        	
 		        } else {
 		        	//since we don't have it in the viewer we need to get its details and render it
 			        sb.ajaxCall({
@@ -144,8 +171,6 @@ sb.router = {
 			            },
 			            type: 'GET',
 			            success: function(response) {
-			                var versCount = response.data.versionCount
-			                
 			                //before painting the new doc lets hide all the existing docs
 			                $('.outerContainer.inView').removeClass('inView');
 			                
@@ -153,18 +178,20 @@ sb.router = {
 			                $('.tab-item.selectedTab').removeClass('selectedTab')
 			                
 			                //before painting the pdf into the viewer we need to add a tab for it.
-			                if(response.data.versions[versCount - 1].type == 'application/pdf') {
-				                var str = '<div class="tab-item selectedTab" targetRel="' + response.data.versions[versCount - 1].versionId + '"><div class= "fileTab" ></div></div>'; 
+			                if(response.data.type == 'application/pdf') {
+				                var str = '<div class="tab-item selectedTab" targetRel="' + response.data.versionId + '"><div class= "fileTab" ></div></div>'; 
 			                } else {
-			                	var str = '<div class="tab-item selectedTab" targetRel="' + response.data.versions[versCount - 1].versionId + '"><div class= " imageTab" ></div></div>';
+			                	var str = '<div class="tab-item selectedTab" targetRel="' + response.data.versionId + '"><div class= " imageTab" ></div></div>';
 			                }
 			                $('.dv-tab-panel-section').prepend(str);
-					        $('.pdfs-container').append(_.template(templates['pdf-viewer'])(response.data.versions[versCount - 1]));
+					        $('.pdfs-container').append(_.template(templates['pdf-viewer'])(response.data));
+			                
 			                new paintPdf({
-			                	// url: sb.getRelativePath(response.data.versions[versCount - 1].documentPath),
+			                	url: sb.getRelativePath(response.data.documentPath),
 			                	container: $('.outerContainer.inView').get(0),
-			                	taargetId: response.data.versions[versCount - 1].versionId
+			                	targetId: response.data.versionId
 			            	});
+			            	
 							//now get the version details of this version and show shared details
 							sb.renderTemplate({
 								url: sb.getRelativePath('getVersionDetails'),

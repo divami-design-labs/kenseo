@@ -433,8 +433,8 @@ sb.popup= {
     },
     meetingIvite: function() {
         sb.loadFiles({
-            'models': ['Projects', 'People'],
-            'collections': ['Projects', 'People']
+            'models': ['Projects', 'Artefacts','People'],
+            'collections': ['Projects', 'Artefacts', 'People']
         }, function() {
             sb.ajaxCall({
                 'collection': new Kenseo.collections.Projects(),
@@ -490,7 +490,30 @@ sb.popup= {
                                     });
                                 }
                             });
+                            sb.ajaxCall({
+                            	'collection': new Kenseo.collections.Artefacts(),
+                                'data': {
+                                	projects: true,
+                                    project_id: projectId,
+                                    sortBy: 'name',
+                                    $sharePermission: 'true'
+                                },
+                                'success': function(response) {
+                                	artefactComboboxContainer.innerHTML = ""
+		                           	artefactCombobox.setSuggestions(response.data);
+                                }
+                            })
                         }
+                    });
+                    
+                    artefactComboboxContainer = document.querySelector('.artefact-combobox');
+                    artefactCombobox = sb.toolbox.applyComboBox({
+	                    elem: artefactComboboxContainer,
+	                    data: [],
+	                    settings: {
+	                        placeholder: "Choose Artefact",
+	                        value: (Kenseo.page.data.artefact && Kenseo.page.data.artefact.name) || ""
+	                    },
                     });
                 }
             });

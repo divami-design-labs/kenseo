@@ -9,19 +9,19 @@
         <div class="meeting-left-section">
             <div class="meta-item">
                 <div class="meta-heading">Under</div>
-                <div class="meta-text">Conflux</div>
+                <div class="meta-text"><%= data.projectName %></div>
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Artefact</div>
-                <div class="meta-text">Canvas</div>
+                <div class="meta-text"><%= data.artefactName %></div>
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Sender</div>
-                <div class="meta-text">Prakash</div>
+                <div class="meta-text"><%= data.createdBy %></div>
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Agenda</div>
-                <div class="meta-text">Pre review overview</div>
+                <div class="meta-text"><%= data.agenda %></div>
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Scheduled On</div>
@@ -32,11 +32,13 @@
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Venue</div>
-                <div class="meta-text">Meeting room 1</div>
+                <div class="meta-text"><%= data.venue %></div>
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Recipients</div>
-                <div class="meta-text">Syam Pendyala</div>
+                <% _.each(data.participants, function(p){ %>
+                <div class="meta-text"><%= p.participentName %></div>
+				<% }); %>
             </div>
         </div>
         <div class="meeting-right-section">

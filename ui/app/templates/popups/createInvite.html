@@ -6,6 +6,11 @@
 			"class": "xm project-combobox",
 			"dataName": "meetingProject"
 		}),
+		artefactsCombo: sb.toolbox.comboBox({
+			"label": "Artefact",
+			"class": "xm artefact-combobox",
+			"dataName": "meetingArtefact"
+		}),
 		peopleCombo: sb.toolbox.comboBox({
 			"label": "Recipients List",
 			fieldClass: "recipients-field-section",
@@ -36,6 +41,7 @@
 			<form class="meeting-invite-form">
 				
 				<%= fields.projectsCombo %>
+				<%= fields.artefactsCombo %>
 				<%= fields.textarea %>
 
 				<div class="field-section in-line" data-name="date" data-ignore="1">

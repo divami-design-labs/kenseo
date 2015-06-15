@@ -569,8 +569,6 @@
 			
 			//before sending all the date we can simply have the gist of the targeted version directly.
 			//the gist is nothing but the link, id
-			//Master::getLogManager()->log(DEBUG, MOD_MAIN, ">>>>start<<<<<");
-			//Master::getLogManager()->log(DEBUG, MOD_MAIN, $versionSummary);
 			for($i=0; $i<count($versionSummary); $i++) {
 				if($versionSummary[$i]->versionId == $artefactVerId) {
 					$artefactObj->documentPath = $versionSummary[$i]->documentPath;
