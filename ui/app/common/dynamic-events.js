@@ -70,19 +70,6 @@ $(function(){
     .on('click', '.page-click', function(e){
     	sb.navigate('page', this);
     })
-    .on('click', '.sort-item', function(){
-        sb.renderTemplate({
-            "templateName": 'artefacts',
-            "templateHolder": $('.artifacts-section'), 
-            "collection": new Kenseo.collections.Artefacts(), 
-            "data": {
-                projects: true, 
-                project_id: Kenseo.page.data.project_id, 
-                sharePermission: false, 
-                sortBy: $(this).data('stype')
-            }
-        });
-    })
     .on('click', '.share-btn', function() {
     	var container = document.querySelectorAll('.share-artefact-people-item');
     	console.log(container);
@@ -187,12 +174,12 @@ $(function(){
 		sb.callOverlay(index);
 	})
 	.on('click', '.sort-item', function(e){
-		var $self = $(e.currentTarget);
+		var $self = $(e.currentTarget), id = sb.getPageData('project').id;
         new Kenseo.views.Artefacts({
             el: '.artifacts-content',
-            id: sb.getPageData('project').id, 
+            id: id, 
             colStr: 'Artefacts', 
-            data: {projects: true, project_id: sb.getPageData('project').id, sharePermission: false, sortBy: $self.data('stype')}, 
+            data: {projects: true, project_id: id, sharePermission: false, sortBy: $self.data('stype')}, 
             preLoader: function(response){
                 $('.artifacts-section').html(_.template(templates['artefacts'])(response));
             }

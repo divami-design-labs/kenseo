@@ -28,6 +28,11 @@
   .mg-parent .mg-holder.mg-holder:last-child {
     width: 0px; }
 
+.clearFloat::after, .header::after, .menu-profile::after, .menu-projects-section::after, .menu-recent::after, .menu-notifications-cnt::after, .projects-section-content::after, .review-request-item::after, .rr-state .rr-other-versions > div::after, .notification-item::after, .project-section-content::after, .sub-heading::after, .activity-holder::after, .popup-body-wrapper::after, .files-section::after, .your-team-body::after, .share-artefact-people-item::after, .share-artefact-people-item .share-artefact-right-panel::after, .meeting-wrapper::after, .meeting-right-section::after, .summary-section-below-content::after, .dv-tb-people-wrapper::after, .page-wrapper::after {
+  content: "";
+  display: block;
+  clear: both; }
+
 .circle, .profile-image-black, .people-icon, .sp-left img, .profile-image-white, .profile-pic-holder img, .people-img-wrapper img, .hamburger-notify, .menu-profile-img-dv img, .menu-recent-people-cnt img, .share-artefact-people-item .share-artefacts-img, .share-artefact-people-item .share-artefacts-img-holder, .share-artefact-people-item .share-artefacts-img-holder:after, .share-artefact-people-item:hover .share-artefacts-img-holder:after, .secondary-status-rr, .tf-images img {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -228,10 +233,6 @@
 .header {
   position: relative;
   height: 80px; }
-  .header::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .hamburger {
   position: absolute;
@@ -545,7 +546,7 @@
 
 .menu {
   width: 812px;
-  height: 580px;
+  height: 635px;
   background-color: #566277;
   padding-left: 40px;
   position: absolute;
@@ -568,14 +569,10 @@
   background-size: 100% 100%; }
 
 .menu-header {
-  width: inherit;
-  height: 78px;
   margin-top: 15px; }
 
 .menu-profile {
   width: 675px;
-  height: inherit;
-  float: left;
   margin-top: 10px; }
 
 .menu-profile-img-dv {
@@ -606,8 +603,9 @@
 
 .menu-settings {
   width: 137px;
-  height: inherit;
-  float: left; }
+  position: absolute;
+  right: 0;
+  top: 5px; }
 
 .menu-settings-dv {
   width: inherit;
@@ -649,12 +647,8 @@
   vertical-align: top; }
 
 .menu-settings-dshbd-dv {
-  margin-top: 10px; }
-
-.menu-projects-container {
-  width: inherit;
-  height: 156px;
-  margin-top: 20px; }
+  margin-top: 10px;
+  display: block; }
 
 .projects-hd {
   margin-bottom: 20px;
@@ -663,7 +657,6 @@
 
 .projects-img-dv {
   width: 190px;
-  height: 135px;
   float: left;
   margin-right: 30px; }
 
@@ -683,11 +676,7 @@
   height: auto;
   width: inherit;
   height: auto;
-  margin-top: 45px; }
-  .menu-recent::after {
-    content: "";
-    display: block;
-    clear: both; }
+  margin-top: 15px; }
 
 .recent-hd {
   margin-bottom: 25px;
@@ -785,10 +774,6 @@
   width: inherit;
   height: auto;
   margin-bottom: 20px; }
-  .menu-notifications-cnt::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .menu-notifications-img-dv {
   width: 18px;
@@ -922,10 +907,6 @@
 
 .projects-section-content {
   margin-top: 30px; }
-  .projects-section-content::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .project-block {
   float: left;
@@ -1057,10 +1038,6 @@
   position: relative;
   display: block;
   text-decoration: none; }
-  .review-request-item::after {
-    content: "";
-    display: block;
-    clear: both; }
   .review-request-item .requests-dropdown-icon {
     left: 10px;
     position: absolute;
@@ -1168,10 +1145,6 @@
     bottom: 100%;
     left: 50%;
     margin-left: -1px; }
-.rr-state .rr-other-versions > div::after {
-  content: "";
-  display: block;
-  clear: both; }
 .rr-state .rr-other-versions > div:nth-child(2n+1) > span {
   float: left; }
   .rr-state .rr-other-versions > div:nth-child(2n+1) > span:not(:first-child):after {
@@ -1351,10 +1324,6 @@
   margin-top: 20px;
   display: block;
   text-decoration: none; }
-  .notification-item::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .notification-item.M-type::before {
   content: "";
@@ -1408,11 +1377,6 @@
 .meeting-notify-section {
   margin-top: 5px; }
 
-.project-section-content::after {
-  content: "";
-  display: block;
-  clear: both; }
-
 .sub-section {
   width: 255px;
   float: left; }
@@ -1427,10 +1391,6 @@
   margin-top: 30px;
   height: 30px;
   position: relative; }
-  .sub-heading::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .sub-heading-label, .sub-heading-add-wrapper, .sub-heading-more-options {
   display: inline-block;
@@ -1525,11 +1485,6 @@
 
 .activity-time, .activity-sender {
   display: inline; }
-
-.activity-holder::after {
-  content: "";
-  display: block;
-  clear: both; }
 
 .activity-holder + .activity-holder {
   margin-top: 30px; }
@@ -1799,10 +1754,6 @@
 .popup-body-wrapper {
   padding: 30px;
   padding-left: 50px; }
-  .popup-body-wrapper::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .buttons-section > button {
   border: none;
@@ -1878,10 +1829,6 @@
 
 .files-section {
   margin-bottom: 10px; }
-  .files-section::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .upload-file-section {
   border-right: 1px solid #c3c5ca;
@@ -1946,10 +1893,6 @@
 
 .your-team-body {
   padding-top: 25px; }
-  .your-team-body::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .your-team-section .input-text {
   width: 460px; }
@@ -1973,10 +1916,6 @@
   margin-top: 2px;
   margin-left: 25px;
   width: 178px; }
-  .share-artefact-people-item::after {
-    content: "";
-    display: block;
-    clear: both; }
   .share-artefact-people-item + .share-artefact-people-item {
     margin-top: 25px; }
   .share-artefact-people-item .share-artefacts-text {
@@ -1986,10 +1925,6 @@
     color: #3e4354; }
   .share-artefact-people-item .share-artefact-right-panel {
     margin-left: 20px; }
-    .share-artefact-people-item .share-artefact-right-panel::after {
-      content: "";
-      display: block;
-      clear: both; }
   .share-artefact-people-item .sarp-text {
     font-size: 14px;
     color: #3e4354;
@@ -2218,10 +2153,6 @@
   position: relative;
   margin-top: 20px;
   padding-bottom: 35px; }
-  .meeting-wrapper::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .meeting-people-section {
   padding-top: 20px;
@@ -2237,10 +2168,6 @@
 
 .meeting-right-section {
   margin-left: 220px; }
-  .meeting-right-section::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .people-img-wrapper {
   padding: 5px;
@@ -2666,10 +2593,6 @@
 .summary-section-overlay.view .summary-section-below-content {
   display: block; }
 
-.summary-section-below-content::after {
-  content: "";
-  display: block;
-  clear: both; }
 .summary-section-below-content > div {
   float: left;
   width: calc(25% - 60px);
@@ -3004,10 +2927,6 @@ input[type="text"].xm {
   overflow: hidden;
   margin: 0 20px;
   font-size: 0px; }
-  .dv-tb-people-wrapper::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 .dv-tb-people {
   float: left;
@@ -4607,9 +4526,5 @@ body {
 
 .page-wrapper {
   min-height: 100%; }
-  .page-wrapper::after {
-    content: "";
-    display: block;
-    clear: both; }
 
 /*# sourceMappingURL=main.css.map */

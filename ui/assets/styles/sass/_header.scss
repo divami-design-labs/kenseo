@@ -2,7 +2,7 @@
 $headerHeight: 64px;
 .header{
 	position: relative;
-	@include clearFloat();
+	@extend .clearFloat;
 	height: 80px;
 }
 .hamburger{

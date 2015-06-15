@@ -1,6 +1,6 @@
 .menu {
     width: 812px;
-    height: 580px;
+    height: 635px;
     background-color: #566277;
     padding-left: 40px;
     position: absolute;
@@ -22,15 +22,12 @@
     @include backgroundImage('hamburger1.svg');
 }
 .menu-header {
-    width: inherit;
-    height: 78px;
     margin-top: 15px;
 }
 .menu-profile {
     width: 675px;
-    height: inherit;
-    float: left;
     margin-top: 10px;
+    @extend .clearFloat;
 }
 .menu-profile-img-dv {
     float: left;
@@ -62,8 +59,10 @@
 }
 
 .menu-settings {
-    @include dimensions(137px, inherit);
-    float: left;
+    width: 137px;
+    position: absolute;
+    right: 0;
+    top: 5px;
     //    background-color: lightcyan;
 }
 
@@ -100,21 +99,18 @@
 
 .menu-settings-dshbd-dv {
     margin-top: 10px;
+    display: block;
 }
-
-.menu-projects-container {
-    @include dimensions(inherit, 156px);
-    margin-top: 20px;
-    //    background-color: beige;
+.menu-projects-section{
+    @extend .clearFloat;
 }
-
 .projects-hd {
     margin-bottom: 20px;
     @include text(18px, $color2);
 }
 
 .projects-img-dv {
-    @include dimensions(190px, 135px);
+    width: 190px;
     //    background-color: darkseagreen;
     float: left;
     margin-right: 30px;
@@ -135,8 +131,8 @@
     width: inherit;
     height: auto;
     @include dimensions(inherit, auto);
-    margin-top: 45px;
-    @include clearFloat();
+    margin-top: 15px;
+    @extend .clearFloat;
     //    background-color: darkseagreen;
 }
 
@@ -242,7 +238,7 @@
 }
 
 .menu-notifications-cnt {
-    @include clearFloat();
+    @extend .clearFloat;
     @include dimensions(inherit, auto);
     margin-bottom: 20px;
 }

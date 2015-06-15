@@ -111,7 +111,7 @@
 
 // requests
 .review-request-item{
-	@include clearFloat();
+	@extend .clearFloat;
 	position: relative;
 	display: block;
 	text-decoration: none;
@@ -230,7 +230,7 @@
 			}
 		}
 		& > div{
-			@include clearFloat();
+			@extend .clearFloat;
 		}
 		& > div:nth-child(2n+1){
 			& > span{
@@ -371,7 +371,7 @@
 	padding-left: 25px;
 	position: relative;
 	margin-top: 20px;
-	@include clearFloat();
+	@extend .clearFloat;
 	display: block;
 	text-decoration: none;
 }

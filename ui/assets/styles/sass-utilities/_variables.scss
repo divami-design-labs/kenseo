@@ -4,6 +4,17 @@ $imgPath: "../../imgs/";
 $fontSizeOne: 18px;
 
 //mixins
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
 @mixin border-radius($radius){
 	-webkit-border-radius: $radius;
    	-moz-border-radius: $radius;
@@ -98,13 +109,6 @@ $fontSizeOne: 18px;
 		left:$l;
 	}	
 }
-@mixin clearFloat(){
-	&::after{
-		content: "";
-		display: block;
-		clear: both;
-	}
-}
 @mixin absoluter($t, $l, $r, $b){
 	position: absolute;
 	top: $t;
@@ -184,6 +188,13 @@ $fontSizeOne: 18px;
 	}
 }
 //extends
+.clearFloat{
+	&::after{
+		content: "";
+		display: block;
+		clear: both;
+	}
+}
 .circle{
 	@include border-radius(50%);
 }

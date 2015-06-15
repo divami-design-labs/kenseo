@@ -11,8 +11,8 @@ sb.router = {
                 sb.renderTemplate({"templateName": 'menu-header', "templateHolder": $('.menu-header'), "model": new Kenseo.models.Header()});
                 sb.renderTemplate({"templateName": 'menu-projects-container',"templateHolder": $('.menu-projects-section'), "collection": new Kenseo.collections.Projects(), "data": 'menu-projects'});
                 sb.renderTemplate({"templateName": 'menu-recent-activity', "templateHolder": $('.menu-recent-activity-section'), "collection": new Kenseo.collections.Artefacts(), "data": 'menu-activities'});
-                // new Kenseo.views.Artefacts({colStr: 'Artefacts', data: 'menu-artefacts'});
-                sb.renderTemplate({"templateName": 'artefacts', "templateHolder": $('.menu-recent-requests-section'), "collection": new Kenseo.collections.Artefacts(), "data": 'menu-artefacts'});
+                new Kenseo.views.Artefacts({el: '.menu-recent-requests-section', colStr: 'Artefacts', data: 'menu-artefacts'});
+                // sb.renderTemplate({"templateName": 'artefact', "templateHolder": $('.menu-recent-requests-section'), "collection": new Kenseo.collections.Artefacts(), "data": 'menu-artefacts'});
                 sb.renderTemplate({"templateName": 'menu-recent-notifications', "templateHolder": $('.menu-recent-notifications-section'), "collection": new Kenseo.collections.Notifications(),"data": 'menu-notifications'});
                 sb.renderTemplate({"templateName": 'menu-recent-people', "templateHolder": $('.menu-recent-people-section'), "collection": new Kenseo.collections.People(), "data": 'menu-people'});
             }

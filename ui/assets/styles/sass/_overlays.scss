@@ -267,7 +267,7 @@
 	}
 }
 .summary-section-below-content{
-	@include clearFloat();
+	@extend .clearFloat;
 	& > div{
 		float: left;
 		width: calc(25% - 60px);

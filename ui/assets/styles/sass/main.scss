@@ -32,7 +32,7 @@ body{
 }
 .page-wrapper{
 	min-height:100%;
-	@include clearFloat();
+	@extend .clearFloat;
 }
 .toggle-click{
 	@extend .hand;

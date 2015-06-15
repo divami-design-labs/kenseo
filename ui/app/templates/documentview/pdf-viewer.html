@@ -6,8 +6,14 @@
             <span>v<%= versionNo  %>.0</span>
             <div class="sub-menu-holder left-nav top-nav">
             	<% _.each(versions, function(p){ %>
-	            	<div class="sub-menu-item page-click"><a href="#documentview/<%= p.versionId%>">v<%= p.versionNo %>.0</a></div>    
-				<% }); %>    
+                <div class="sub-menu-item">
+                    <span>v<%= p.versionNo %>.0</span>
+                    <div class="actions">
+                         <a href="#compare/<%= p.versionId%>" class="v-compare-icon"></a>
+                         <a href="#documentview/<%= p.versionId%>" class="v-open-icon"></a>
+                    </div>
+                </div>   
+				      <% }); %>    
             </div>
           </div>
       </div>

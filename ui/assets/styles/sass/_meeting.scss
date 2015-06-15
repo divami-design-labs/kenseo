@@ -78,7 +78,7 @@
 .meeting-wrapper{
 	position: relative;
 	margin-top: 20px;
-	@include clearFloat();
+	@extend .clearFloat;
 	padding-bottom: 35px;
 }
 .meeting-people-section{
@@ -95,7 +95,7 @@
 }
 .meeting-right-section{
 	margin-left: 220px;
-	@include clearFloat();
+	@extend .clearFloat;
 }
 .people-img-wrapper{
 	img{

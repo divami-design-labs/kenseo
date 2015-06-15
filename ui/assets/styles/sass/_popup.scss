@@ -61,7 +61,7 @@
 .popup-body-wrapper{
 	padding: 30px;
 	padding-left: 50px;
-	@include clearFloat();
+	@extend .clearFloat;
 }
 .buttons-section > button{
 	border: none;
@@ -135,7 +135,7 @@ $popup-content-space: 175px;
 	font-family: $boldFont;
 }
 .files-section{
-	@include clearFloat();
+	@extend .clearFloat;
 	margin-bottom: 10px;
 }
 .upload-file-section{
@@ -200,7 +200,7 @@ $popup-content-space: 175px;
 }
 .your-team-body{
 	padding-top: 25px;
-	@include clearFloat();
+	@extend .clearFloat;
 }
 .your-team-section .input-text{
 	width: 460px;
@@ -221,7 +221,7 @@ $popup-content-space: 175px;
     overflow-y: auto;
 }
 .share-artefact-people-item{
-	@include clearFloat();
+	@extend .clearFloat;
 	$w: 200px;
 	$x: 22px;
 	& + &{
@@ -238,7 +238,7 @@ $popup-content-space: 175px;
 	}
 	.share-artefact-right-panel{
 		margin-left: 20px;
-		@include clearFloat();
+		@extend .clearFloat;
 	}
 	.sarp-text{
 		@include text(14px, $colorTwo);

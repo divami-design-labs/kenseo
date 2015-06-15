@@ -1,5 +1,5 @@
 .project-section-content{
-	@include clearFloat();
+	@extend .clearFloat;
 }
 .sub-section{
 	width: 255px;
@@ -12,7 +12,7 @@
 	border-bottom: 1px solid $colorB;
 }
 .sub-heading{
-	@include clearFloat();
+	@extend .clearFloat;
 	margin-top: 30px;
     height: 30px;
 	position: relative;
@@ -112,7 +112,7 @@
 	display: inline;
 }
 .activity-holder{
-	@include clearFloat();
+	@extend .clearFloat;
 }
 .activity-holder + .activity-holder{
 	margin-top: 30px;
