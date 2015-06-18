@@ -3,12 +3,12 @@
 	position: absolute;
 	left: 0;
 	right: 0;
-	z-index: 1;
+	z-index: 11;
 }
 .dv-status-bar{
 	height: 55px;
 	background-color: $colorTwelve;
-	position: absolute;
+	position: fixed;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -162,17 +162,17 @@
 		@include verticalMiddle();
 	}
 }
-.range-slider-section{
-	height: 100%;
-	position: relative;
-	padding: 0 30px;
+#toolbarViewerRight{
+	// height: 100%;
+	// position: relative;
+	// padding: 0 30px;
 	.slider {
 	    width: 100px;
 	    background-color: $colorFourteen;
 	    border-radius: 3px;
 	    height: 4px;
 	    position: relative;
-	    margin-top: 21.5px;
+	    // margin-top: 21.5px;
 	}
 	.thumb {
 	    height: 12px;
@@ -245,11 +245,12 @@
   	}
 	.actions{
 		float: right;
-		width: 50px;
+		/* width: 50px; */
+		margin-top: 2px;
 	}
 }
 .v-compare-icon, .v-open-icon{
-	@include square(18px);
+	@include square(15px);
 	float: left;
 }
 .v-compare-icon{

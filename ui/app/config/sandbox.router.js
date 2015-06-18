@@ -132,14 +132,12 @@ sb.router = {
                 'models': ['Header'],
                 'collections': ['People'],
                 'files':    [
-                                'libs/pdfjs/web/l10n.js',
                                 'libs/pdfjs/build/pdf.js',
                                 'libs/pdfjs/build/pdf.worker.js',
                                 'libs/pdfjs/web/viewer.js',
                             ]
             },
             function(){
-            	new Kenseo.views.Header({'model': new Kenseo.models.Header()});
 		        $('.header').addClass('fixed-header');
 
 		        $('.project-section').hide();

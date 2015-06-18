@@ -375,7 +375,6 @@
   position: absolute;
   background-color: #566277;
   color: white;
-  padding: 5px 10px;
   display: none; }
 
 .active .sub-menu-holder {
@@ -394,10 +393,16 @@
   bottom: 100%; }
 
 .sub-menu-item {
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 14px;
   color: #efeff0;
   white-space: nowrap; }
+  .sub-menu-item:hover {
+    background-color: #293447; }
+  .sub-menu-item:first-child {
+    padding-top: 15px; }
+  .sub-menu-item:last-child {
+    padding-bottom: 15px; }
 
 .separator {
   border-bottom: 1px solid #9699a6;
@@ -2853,12 +2858,12 @@ input[type="text"].xm {
   position: absolute;
   left: 0;
   right: 0;
-  z-index: 1; }
+  z-index: 11; }
 
 .dv-status-bar {
   height: 55px;
   background-color: #637097;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
@@ -3054,57 +3059,52 @@ input[type="text"].xm {
     position: absolute;
     top: 50%; }
 
-.range-slider-section {
-  height: 100%;
-  position: relative;
-  padding: 0 30px; }
-  .range-slider-section .slider {
-    width: 100px;
-    background-color: #222F38;
-    border-radius: 3px;
-    height: 4px;
-    position: relative;
-    margin-top: 21.5px; }
-  .range-slider-section .thumb {
-    height: 12px;
-    width: 12px;
-    cursor: pointer;
-    border-radius: 6px;
-    background-color: #F0F0F1;
+#toolbarViewerRight .slider {
+  width: 100px;
+  background-color: #222F38;
+  border-radius: 3px;
+  height: 4px;
+  position: relative; }
+#toolbarViewerRight .thumb {
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  background-color: #F0F0F1;
+  position: absolute;
+  margin-top: -4px; }
+  #toolbarViewerRight .thumb:hover:after {
+    content: attr(range-value);
     position: absolute;
-    margin-top: -4px; }
-    .range-slider-section .thumb:hover:after {
-      content: attr(range-value);
-      position: absolute;
-      bottom: 100%;
-      margin-bottom: 5px;
-      border: 1px solid #E1E1E1;
-      background-color: white;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 8px;
-      color: #3e4354;
-      padding: 3px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -ms-border-radius: 5px;
-      -o-border-radius: 5px;
-      border-radius: 5px; }
-  .range-slider-section .zoom-in, .range-slider-section .zoom-out {
-    position: absolute;
-    top: 14.5px;
-    width: 18px;
-    height: 18px; }
-  .range-slider-section .zoom-in {
-    background-image: url("../../imgs/zoom-in.svg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    right: 0; }
-  .range-slider-section .zoom-out {
-    background-image: url("../../imgs/zoom-out.svg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    left: 0; }
+    bottom: 100%;
+    margin-bottom: 5px;
+    border: 1px solid #E1E1E1;
+    background-color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8px;
+    color: #3e4354;
+    padding: 3px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px; }
+#toolbarViewerRight .zoom-in, #toolbarViewerRight .zoom-out {
+  position: absolute;
+  top: 14.5px;
+  width: 18px;
+  height: 18px; }
+#toolbarViewerRight .zoom-in {
+  background-image: url("../../imgs/zoom-in.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  right: 0; }
+#toolbarViewerRight .zoom-out {
+  background-image: url("../../imgs/zoom-out.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  left: 0; }
 
 .current-artefact-info {
   position: absolute;
@@ -3137,11 +3137,12 @@ input[type="text"].xm {
       margin-left: 10px; }
   .current-artefact-info .actions {
     float: right;
-    width: 50px; }
+    /* width: 50px; */
+    margin-top: 2px; }
 
 .v-compare-icon, .v-open-icon {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   float: left; }
 
 .v-compare-icon {
@@ -3176,7 +3177,8 @@ input[type="text"].xm {
   right: 0;
   bottom: 0;
   overflow: hidden;
-  opacity: 0.2; }
+  opacity: 0.2;
+  margin: 0 auto; }
 
 .textLayer > div {
   color: transparent;
@@ -3214,7 +3216,8 @@ input[type="text"].xm {
   background: blue; }
 
 .pdfViewer .canvasWrapper {
-  overflow: hidden; }
+  overflow: hidden;
+  margin: 0 auto; }
 
 .pdfViewer .page {
   direction: ltr;
@@ -3224,22 +3227,11 @@ input[type="text"].xm {
   position: relative;
   overflow: visible;
   border: 9px solid transparent;
-  background-clip: content-box;
-  border-image: url(images/shadow.png) 9 9 repeat;
   background-color: white; }
 
 .pdfViewer .page canvas {
   margin: 0;
   display: block; }
-
-.pdfViewer .page .loadingIcon {
-  position: absolute;
-  display: block;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: url("images/loading-icon.gif") center no-repeat; }
 
 .pdfViewer .page .annotLink > a:hover {
   opacity: 0.2;
@@ -3433,15 +3425,15 @@ input[type="text"].xm {
 #viewerContainer {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  position: absolute;
+  position: fixed;
   top: 0px;
   right: 0;
-  bottom: 50px;
+  bottom: 55px;
   left: 0;
   outline: none; }
 
 .toolbar {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
@@ -3451,19 +3443,14 @@ input[type="text"].xm {
 #toolbarContainer {
   width: 100%; }
 
-#toolbarSidebar {
-  width: 200px;
-  height: 32px;
-  background-color: #424242;
-  /* fallback */
-  background-image: url(images/texture.png), linear-gradient(rgba(77, 77, 77, 0.99), rgba(64, 64, 64, 0.95)); }
-
 #toolbarContainer, .findbar, .secondaryToolbar {
   position: relative;
   background-color: #637097; }
 
 #toolbarViewer {
-  height: 55px; }
+  height: 55px;
+  display: table;
+  width: 100%; }
 
 #loadingBar {
   position: absolute;
@@ -3532,11 +3519,6 @@ input[type="text"].xm {
 .findbar label {
   -webkit-user-select: none;
   -moz-user-select: none; }
-
-#findInput[data-status="pending"] {
-  background-image: url(images/loading-small.png);
-  background-repeat: no-repeat;
-  background-position: right; }
 
 html[dir='rtl'] #findInput[data-status="pending"] {
   background-position: left; }
@@ -3684,6 +3666,7 @@ html[dir='rtl'] #findInput[data-status="pending"] {
   max-width: 120px;
   padding: 3px 2px 2px;
   overflow: hidden;
+  display: none !important;
   background: url(images/toolbarButton-menuArrows.png) no-repeat; }
 
 .dropdownToolbarButton > select {
@@ -3724,11 +3707,8 @@ html[dir='rtl'] #findInput[data-status="pending"] {
   top: 4px;
   left: 7px; }
 
-#sidebarToggle, #presentationMode, #openFile, #print, #download, #viewBookmark {
-  display: none; }
-
-.toolbarButton.zoomOut::before {
-  content: url(images/toolbarButton-zoomOut.png); }
+#sidebarToggle, #presentationMode, #openFile, #print, #download, #viewBookmark, #secondaryToolbarToggle {
+  display: none !important; }
 
 .toolbarButton.presentationMode::before,
 .secondaryToolbarButton.presentationMode::before {
@@ -3765,12 +3745,6 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 .toolbarButton.bookmark::before,
 .secondaryToolbarButton.bookmark::before {
   content: url(images/toolbarButton-bookmark.png); }
-
-#viewThumbnail.toolbarButton::before {
-  content: url(images/toolbarButton-viewThumbnail.png); }
-
-#viewAttachments.toolbarButton::before {
-  content: url(images/toolbarButton-viewAttachments.png); }
 
 #viewFind.toolbarButton::before {
   content: url(images/toolbarButton-search.png); }
@@ -3827,33 +3801,25 @@ html[dir='rtl'] #findInput[data-status="pending"] {
   margin: 8px 0px; }
 
 .toolbarField.pageNumber {
-  width: 28px;
+  width: 48px;
   padding: 0;
   margin: 0;
   text-align: center;
   border: 1px solid #babcc0;
-  height: 24px;
-  float: left;
+  height: 28px;
   background-color: white;
-  margin-top: 12px;
   margin-right: 6px;
   line-height: 24px;
-  outline: none; }
-
-.toolbarField.pageNumber.visiblePageIsLoading {
-  background-image: url(images/loading-small.png);
-  background-repeat: no-repeat;
-  background-position: 1px; }
+  outline: none;
+  font-size: 14px;
+  color: #3e4354; }
 
 .toolbarLabel {
   min-width: 16px;
-  padding: 3px 6px 3px 2px;
-  margin: 4px 2px 4px 0;
   border: 1px solid transparent;
   border-radius: 2px;
   color: #d9d9d9;
   font-size: 12px;
-  line-height: 14px;
   text-align: left;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -4033,21 +3999,6 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   display: table-cell;
   vertical-align: middle;
   text-align: center; }
-
-#overlayContainer > .container > .dialog {
-  display: inline-block;
-  padding: 15px;
-  border-spacing: 4px;
-  color: #d9d9d9;
-  font-size: 12px;
-  line-height: 14px;
-  background-color: #474747;
-  /* fallback */
-  background-image: url(images/texture.png), linear-gradient(rgba(82, 82, 82, 0.99), rgba(69, 69, 69, 0.95));
-  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.08), inset 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(255, 255, 255, 0.05), 0 1px 0 rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
 
 .dialog > .row {
   display: table-row; }
@@ -4436,7 +4387,6 @@ select {
   background-size: 100% 100%;
   width: 14px;
   height: 14px;
-  margin-top: 15px;
   margin-right: 8px; }
 
 #next {
@@ -4445,11 +4395,12 @@ select {
   background-size: 100% 100%;
   width: 14px;
   height: 14px;
-  margin-top: 15px;
   margin-left: 8px; }
 
-#numPages {
-  margin-top: 13px; }
+.inputHand, #previous, #next, #zoomOut, .toolbarButton.zoomIn {
+  cursor: pointer; }
+  .inputHand:disabled, #previous:disabled, #next:disabled, #zoomOut:disabled, .toolbarButton.zoomIn:disabled {
+    cursor: default; }
 
 #zoomOut {
   background-image: url("../../imgs/zoom-out.svg");
@@ -4457,7 +4408,6 @@ select {
   background-size: 100% 100%;
   width: 18px;
   height: 18px;
-  margin-top: 14px;
   margin-right: 8px; }
 
 .toolbarButton.zoomIn {
@@ -4466,14 +4416,22 @@ select {
   background-size: 100% 100%;
   width: 18px;
   height: 18px;
-  margin-top: 14px;
   margin-left: 8px;
   margin-right: 20px; }
 
+#toolbarViewerLeft {
+  width: 50%;
+  display: table-cell; }
+
 #toolbarViewerRight {
-  float: right; }
-  #toolbarViewerRight * {
-    float: left; }
+  display: table-cell;
+  vertical-align: middle;
+  width: 50%;
+  text-align: right;
+  padding-right: 10px; }
+  #toolbarViewerRight > * {
+    display: inline-block !important;
+    vertical-align: middle !important; }
 
 #scaleSelectContainer {
   display: none; }

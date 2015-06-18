@@ -20,6 +20,7 @@
   bottom: 0;
   overflow: hidden;
   opacity: 0.2;
+  margin: 0 auto;
 }
 
 .textLayer > div {
@@ -63,6 +64,7 @@
 
 .pdfViewer .canvasWrapper {
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .pdfViewer .page {
@@ -73,8 +75,8 @@
   position: relative;
   overflow: visible;
   border: 9px solid transparent;
-  background-clip: content-box;
-  border-image: url(images/shadow.png) 9 9 repeat;
+  // background-clip: content-box;
+  // border-image: url(images/shadow.png) 9 9 repeat;
   background-color: white;
 }
 
@@ -83,15 +85,15 @@
   display: block;
 }
 
-.pdfViewer .page .loadingIcon {
-  position: absolute;
-  display: block;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: url('images/loading-icon.gif') center no-repeat;
-}
+// .pdfViewer .page .loadingIcon {
+//   position: absolute;
+//   display: block;
+//   left: 0;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   background: url('images/loading-icon.gif') center no-repeat;
+// }
 
 .pdfViewer .page .annotLink > a:hover {
   opacity: 0.2;
@@ -321,15 +323,15 @@
 #viewerContainer {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  position: absolute;
+  position: fixed;
   top: 0px;
   right: 0;
-  bottom: 50px;
+  bottom: 55px;
   left: 0;
   outline: none;
 }
 .toolbar {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
@@ -341,13 +343,13 @@
   width: 100%;
 }
 
-#toolbarSidebar {
-  width: 200px;
-  height: 32px;
-  background-color: #424242; /* fallback */
-  background-image: url(images/texture.png),
-                    linear-gradient(hsla(0,0%,30%,.99), hsla(0,0%,25%,.95));
-}
+// #toolbarSidebar {
+//   width: 200px;
+//   height: 32px;
+//   background-color: #424242; /* fallback */
+//   background-image: url(images/texture.png),
+//                     linear-gradient(hsla(0,0%,30%,.99), hsla(0,0%,25%,.95));
+// }
 #toolbarContainer, .findbar, .secondaryToolbar {
   position: relative;
   background-color: #637097;
@@ -355,6 +357,8 @@
 
 #toolbarViewer {
   height: 55px;
+  display: table;
+  width: 100%;
 }
 
 #loadingBar {
@@ -432,11 +436,11 @@
   -moz-user-select: none;
 }
 
-#findInput[data-status="pending"] {
-  background-image: url(images/loading-small.png);
-  background-repeat: no-repeat;
-  background-position: right;
-}
+// #findInput[data-status="pending"] {
+//   background-image: url(images/loading-small.png);
+//   background-repeat: no-repeat;
+//   background-position: right;
+// }
 html[dir='rtl'] #findInput[data-status="pending"] {
   background-position: left;
 }
@@ -602,6 +606,7 @@ html[dir='rtl'] #findInput[data-status="pending"] {
   max-width: 120px;
   padding: 3px 2px 2px;
   overflow: hidden;
+  display: none !important;
   background: url(images/toolbarButton-menuArrows.png) no-repeat;
 }
 
@@ -649,12 +654,12 @@ html[dir='rtl'] #findInput[data-status="pending"] {
   top: 4px;
   left: 7px;
 }
-#sidebarToggle, #presentationMode, #openFile, #print, #download, #viewBookmark{
-  display: none;
+#sidebarToggle, #presentationMode, #openFile, #print, #download, #viewBookmark, #secondaryToolbarToggle{
+  display: none !important;
 }
-.toolbarButton.zoomOut::before {
-  content: url(images/toolbarButton-zoomOut.png);
-}
+// .toolbarButton.zoomOut::before {
+//   content: url(images/toolbarButton-zoomOut.png);
+// }
 .toolbarButton.presentationMode::before,
 .secondaryToolbarButton.presentationMode::before {
   content: url(images/toolbarButton-presentationMode.png);
@@ -698,13 +703,13 @@ html[dir='rtl'] #findInput[data-status="pending"] {
   content: url(images/toolbarButton-bookmark.png);
 }
 
-#viewThumbnail.toolbarButton::before {
-  content: url(images/toolbarButton-viewThumbnail.png);
-}
+// #viewThumbnail.toolbarButton::before {
+//   content: url(images/toolbarButton-viewThumbnail.png);
+// }
 
-#viewAttachments.toolbarButton::before {
-  content: url(images/toolbarButton-viewAttachments.png);
-}
+// #viewAttachments.toolbarButton::before {
+//   content: url(images/toolbarButton-viewAttachments.png);
+// }
 
 #viewFind.toolbarButton::before {
   content: url(images/toolbarButton-search.png);
@@ -770,25 +775,26 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 }
 
 .toolbarField.pageNumber {
-    width: 28px;
+    width: 48px;
     padding: 0;
     margin: 0;
     text-align: center;
     border: 1px solid $colorSixteen;
-    height: 24px;
-    float: left;
+    height: 28px;
+    // float: left;
     background-color: white;
-    margin-top: 12px;
+    // margin-top: 12px;
     margin-right: 6px;
     line-height: 24px;
     outline: none;
+    @include text(14px, $colorTwo);
 }
 
-.toolbarField.pageNumber.visiblePageIsLoading {
-  background-image: url(images/loading-small.png);
-  background-repeat: no-repeat;
-  background-position: 1px;
-}
+// .toolbarField.pageNumber.visiblePageIsLoading {
+//   background-image: url(images/loading-small.png);
+//   background-repeat: no-repeat;
+//   background-position: 1px;
+// }
 
 .toolbarField.pageNumber::-webkit-inner-spin-button,
 .toolbarField.pageNumber::-webkit-outer-spin-button {
@@ -798,13 +804,13 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 
 .toolbarLabel {
   min-width: 16px;
-  padding: 3px 6px 3px 2px;
-  margin: 4px 2px 4px 0;
+  // padding: 3px 6px 3px 2px;
+  // margin: 4px 2px 4px 0;
   border: 1px solid transparent;
   border-radius: 2px;
   color: hsl(0,0%,85%);
   font-size: 12px;
-  line-height: 14px;
+  // line-height: 14px;
   text-align: left;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1016,25 +1022,25 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   text-align: center;
 }
 
-#overlayContainer > .container > .dialog {
-  display: inline-block;
-  padding: 15px;
-  border-spacing: 4px;
-  color: hsl(0,0%,85%);
-  font-size: 12px;
-  line-height: 14px;
-  background-color: #474747; /* fallback */
-  background-image: url(images/texture.png),
-                    linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
-  box-shadow: inset 1px 0 0 hsla(0,0%,100%,.08),
-              inset 0 1px 1px hsla(0,0%,0%,.15),
-              inset 0 -1px 0 hsla(0,0%,100%,.05),
-              0 1px 0 hsla(0,0%,0%,.15),
-              0 1px 1px hsla(0,0%,0%,.1);
-  border: 1px solid hsla(0,0%,0%,.5);
-  border-radius: 4px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-}
+// #overlayContainer > .container > .dialog {
+//   display: inline-block;
+//   padding: 15px;
+//   border-spacing: 4px;
+//   color: hsl(0,0%,85%);
+//   font-size: 12px;
+//   line-height: 14px;
+//   background-color: #474747; /* fallback */
+//   background-image: url(images/texture.png),
+//                     linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
+//   box-shadow: inset 1px 0 0 hsla(0,0%,100%,.08),
+//               inset 0 1px 1px hsla(0,0%,0%,.15),
+//               inset 0 -1px 0 hsla(0,0%,100%,.05),
+//               0 1px 0 hsla(0,0%,0%,.15),
+//               0 1px 1px hsla(0,0%,0%,.1);
+//   border: 1px solid hsla(0,0%,0%,.5);
+//   border-radius: 4px;
+//   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+// }
 
 .dialog > .row {
   display: table-row;
@@ -1501,36 +1507,57 @@ select {
 #previous{
   @include backgroundImage('previous-page-icon.svg');
   @include square(14px);
-  margin-top: 15px;
+  // margin-top: 15px;
   margin-right: 8px;
+  @extend .inputHand;
 }
 #next{
   @include backgroundImage('next-page-icon.svg');
   @include square(14px);
-  margin-top: 15px;
+  // margin-top: 15px;
   margin-left: 8px;
+  @extend .inputHand;
 }
 #numPages{
-  margin-top: 13px;
+  // margin-top: 13px;
+}
+.inputHand{
+  cursor: pointer;
+  &:disabled{
+    cursor: default;
+  }
 }
 #zoomOut{
   @include backgroundImage('zoom-out.svg');
   @include square(18px);
-    margin-top: 14px;
+    // margin-top: 14px;
   margin-right: 8px;
+  @extend .inputHand;
 }
 .toolbarButton.zoomIn {
   // content: url(images/toolbarButton-zoomIn.png);
   @include backgroundImage('zoom-in.svg');
   @include square(18px);
-  margin-top: 14px;
+  // margin-top: 14px;
   margin-left: 8px;
   margin-right: 20px;
+  @extend .inputHand;
+}
+#toolbarViewerLeft{
+  width: 50%;
+  display: table-cell;
 }
 #toolbarViewerRight{
-  float: right;
-  *{
-    float: left;
+  // float: right;
+  display: table-cell;
+  vertical-align: middle;
+  width: 50%;
+  text-align: right;
+  padding-right: 10px;
+  & > *{
+    // float: left;
+    display: inline-block !important;
+    vertical-align: middle !important;
   }
 }
 #scaleSelectContainer{

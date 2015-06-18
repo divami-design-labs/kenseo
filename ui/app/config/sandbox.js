@@ -16,13 +16,6 @@ var sb = (function() {
         log: function(msg) {
             console.log(msg);
         },
-        getDump: function(p) {
-            var n = {};
-            for (var k in p) {
-                n[k] = p[k].split(" ").join("\r");
-            }
-            return JSON.stringify(n);
-        },
         loadFiles: function(payload, fn) {
             var files = [];
             var types = ['files', 'views', 'models', 'collections'];
@@ -45,7 +38,7 @@ var sb = (function() {
             }
             // files.push(fn);
 
-            var head = document.head || document.getElementsByTagName('head');
+            var head = document.head || document.getElementsByTagName('head')[0];
             function loadFile(index){
                 if(files.length > index){
                     var fileref = document.createElement('script');

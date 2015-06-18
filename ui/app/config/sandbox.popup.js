@@ -89,7 +89,8 @@ sb.popup= {
             sb.setPopupData(null, 'size');
             sb.setPopupData(null, 'description');
             
-            $('.existing-files-chk').attr('disabled', true);
+            $('.existing-files-chk').attr('disabled', true).prop('checked', false);
+            $('.existing-files-combobox').find('.suggestionsContainer').hide();
         });
         sb.loadFiles({
             'collections': ['Artefacts'],
@@ -124,6 +125,7 @@ sb.popup= {
                     $('.existing-files-chk').change(function() {
                         var $elem = existingCombobox.$elem;
                         var $input = $elem.find('input');
+                        $elem.find('.suggestionsContainer').hide();
                         var $selectables = $elem.find('.selectable');
                         if ($selectables.length) {
                             $input.prop('disabled', !this.checked);

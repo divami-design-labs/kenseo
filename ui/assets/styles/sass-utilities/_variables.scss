@@ -11,6 +11,9 @@ $fontSizeOne: 18px;
 	@-moz-keyframes #{$animation-name} {
 		@content;
 	}
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
 	@keyframes #{$animation-name} {
 		@content;
 	}

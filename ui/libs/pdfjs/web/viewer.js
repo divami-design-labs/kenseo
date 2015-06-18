@@ -1993,35 +1993,35 @@ var paintPdf = function(payload) {
             y: null
         },
 
-        initialize: function presentationModeInitialize(options) {
-            this.container = options.container;
-            this.secondaryToolbar = options.secondaryToolbar;
+        // initialize: function presentationModeInitialize(options) {
+        //     this.container = options.container;
+        //     this.secondaryToolbar = options.secondaryToolbar;
 
-            this.viewer = this.container.firstElementChild;
+        //     this.viewer = this.container.firstElementChild;
 
-            this.firstPage = options.firstPage;
-            this.lastPage = options.lastPage;
-            this.pageRotateCw = options.pageRotateCw;
-            this.pageRotateCcw = options.pageRotateCcw;
+        //     this.firstPage = options.firstPage;
+        //     this.lastPage = options.lastPage;
+        //     this.pageRotateCw = options.pageRotateCw;
+        //     this.pageRotateCcw = options.pageRotateCcw;
 
-            this.firstPage.addEventListener('click', function() {
-                this.contextMenuOpen = false;
-                this.secondaryToolbar.firstPageClick();
-            }.bind(this));
-            this.lastPage.addEventListener('click', function() {
-                this.contextMenuOpen = false;
-                this.secondaryToolbar.lastPageClick();
-            }.bind(this));
+        //     this.firstPage.addEventListener('click', function() {
+        //         this.contextMenuOpen = false;
+        //         this.secondaryToolbar.firstPageClick();
+        //     }.bind(this));
+        //     this.lastPage.addEventListener('click', function() {
+        //         this.contextMenuOpen = false;
+        //         this.secondaryToolbar.lastPageClick();
+        //     }.bind(this));
 
-            this.pageRotateCw.addEventListener('click', function() {
-                this.contextMenuOpen = false;
-                this.secondaryToolbar.pageRotateCwClick();
-            }.bind(this));
-            this.pageRotateCcw.addEventListener('click', function() {
-                this.contextMenuOpen = false;
-                this.secondaryToolbar.pageRotateCcwClick();
-            }.bind(this));
-        },
+        //     this.pageRotateCw.addEventListener('click', function() {
+        //         this.contextMenuOpen = false;
+        //         this.secondaryToolbar.pageRotateCwClick();
+        //     }.bind(this));
+        //     this.pageRotateCcw.addEventListener('click', function() {
+        //         this.contextMenuOpen = false;
+        //         this.secondaryToolbar.pageRotateCcwClick();
+        //     }.bind(this));
+        // },
 
         get isFullscreen() {
             return (document.fullscreenElement ||
@@ -2657,49 +2657,49 @@ var paintPdf = function(payload) {
             this.passwordCancel = options.passwordCancel;
 
             // Attach the event listeners.
-            this.passwordSubmit.addEventListener('click',
-                this.verifyPassword.bind(this));
+            // this.passwordSubmit.addEventListener('click',
+            //     this.verifyPassword.bind(this));
 
-            this.passwordCancel.addEventListener('click', this.close.bind(this));
+            // this.passwordCancel.addEventListener('click', this.close.bind(this));
 
-            this.passwordField.addEventListener('keydown', function(e) {
-                if (e.keyCode === 13) { // Enter key
-                    this.verifyPassword();
-                }
-            }.bind(this));
+            // this.passwordField.addEventListener('keydown', function(e) {
+            //     if (e.keyCode === 13) { // Enter key
+            //         this.verifyPassword();
+            //     }
+            // }.bind(this));
 
-            OverlayManager.register(this.overlayName, this.close.bind(this), true);
+            // OverlayManager.register(this.overlayName, this.close.bind(this), true);
         },
 
-        open: function passwordPromptOpen() {
-            OverlayManager.open(this.overlayName).then(function() {
-                this.passwordField.focus();
+        // open: function passwordPromptOpen() {
+        //     OverlayManager.open(this.overlayName).then(function() {
+        //         this.passwordField.focus();
 
-                var promptString = mozL10n.get('password_label', null,
-                    'Enter the password to open this PDF file.');
+        //         var promptString = mozL10n.get('password_label', null,
+        //             'Enter the password to open this PDF file.');
 
-                if (this.reason === PDFJS.PasswordResponses.INCORRECT_PASSWORD) {
-                    promptString = mozL10n.get('password_invalid', null,
-                        'Invalid password. Please try again.');
-                }
+        //         if (this.reason === PDFJS.PasswordResponses.INCORRECT_PASSWORD) {
+        //             promptString = mozL10n.get('password_invalid', null,
+        //                 'Invalid password. Please try again.');
+        //         }
 
-                this.passwordText.textContent = promptString;
-            }.bind(this));
-        },
+        //         this.passwordText.textContent = promptString;
+        //     }.bind(this));
+        // },
 
-        close: function passwordPromptClose() {
-            OverlayManager.close(this.overlayName).then(function() {
-                this.passwordField.value = '';
-            }.bind(this));
-        },
+        // close: function passwordPromptClose() {
+        //     OverlayManager.close(this.overlayName).then(function() {
+        //         this.passwordField.value = '';
+        //     }.bind(this));
+        // },
 
-        verifyPassword: function passwordPromptVerifyPassword() {
-            var password = this.passwordField.value;
-            if (password && password.length > 0) {
-                this.close();
-                return this.updatePassword(password);
-            }
-        }
+        // verifyPassword: function passwordPromptVerifyPassword() {
+        //     var password = this.passwordField.value;
+        //     if (password && password.length > 0) {
+        //         this.close();
+        //         return this.updatePassword(password);
+        //     }
+        // }
     };
 
 
@@ -2749,7 +2749,7 @@ var paintPdf = function(payload) {
                 this.resolveDataAvailable = resolve;
             }.bind(this));
 
-            OverlayManager.register(this.overlayName, this.close.bind(this));
+            // OverlayManager.register(this.overlayName, this.close.bind(this));
         },
 
         getProperties: function documentPropertiesGetProperties() {
@@ -5003,9 +5003,9 @@ var paintPdf = function(payload) {
 
             var anchor = document.createElement('a');
             anchor.href = linkService.getAnchorUrl('#page=' + id);
-            anchor.title = mozL10n.get('thumb_page_title', {
-                page: id
-            }, 'Page {{page}}');
+            // anchor.title = mozL10n.get('thumb_page_title', {
+            //     page: id
+            // }, 'Page {{page}}');
             anchor.onclick = function stopNavigation() {
                 linkService.page = id;
                 return false;
@@ -5648,7 +5648,7 @@ var paintPdf = function(payload) {
             SecondaryToolbar.initialize({
                 toolbar: _this.outerContainerInstance.querySelector('#secondaryToolbar'),
                 presentationMode: PresentationMode,
-                toggleButton: _this.outerContainerInstance.querySelector('#secondaryToolbarToggle'),
+                // toggleButton: _this.outerContainerInstance.querySelector('#secondaryToolbarToggle'),
                 presentationModeButton: _this.outerContainerInstance.querySelector('#secondaryPresentationMode'),
                 openFile: _this.outerContainerInstance.querySelector('#secondaryOpenFile'),
                 print: _this.outerContainerInstance.querySelector('#secondaryPrint'),
@@ -5662,22 +5662,22 @@ var paintPdf = function(payload) {
                 documentPropertiesButton: _this.outerContainerInstance.querySelector('#documentProperties')
             });
 
-            PresentationMode.initialize({
-                container: container,
-                secondaryToolbar: SecondaryToolbar,
-                firstPage: _this.outerContainerInstance.querySelector('#contextFirstPage'),
-                lastPage: _this.outerContainerInstance.querySelector('#contextLastPage'),
-                pageRotateCw: _this.outerContainerInstance.querySelector('#contextPageRotateCw'),
-                pageRotateCcw: _this.outerContainerInstance.querySelector('#contextPageRotateCcw')
-            });
+            // PresentationMode.initialize({
+            //     container: container,
+            //     secondaryToolbar: SecondaryToolbar,
+            //     firstPage: _this.outerContainerInstance.querySelector('#contextFirstPage'),
+            //     lastPage: _this.outerContainerInstance.querySelector('#contextLastPage'),
+            //     pageRotateCw: _this.outerContainerInstance.querySelector('#contextPageRotateCw'),
+            //     pageRotateCcw: _this.outerContainerInstance.querySelector('#contextPageRotateCcw')
+            // });
 
-            PasswordPrompt.initialize({
-                overlayName: 'passwordOverlay',
-                passwordField: _this.outerContainerInstance.querySelector('#password'),
-                passwordText: _this.outerContainerInstance.querySelector('#passwordText'),
-                passwordSubmit: _this.outerContainerInstance.querySelector('#passwordSubmit'),
-                passwordCancel: _this.outerContainerInstance.querySelector('#passwordCancel')
-            });
+            // PasswordPrompt.initialize({
+            //     overlayName: 'passwordOverlay',
+            //     passwordField: _this.outerContainerInstance.querySelector('#password'),
+            //     passwordText: _this.outerContainerInstance.querySelector('#passwordText'),
+            //     passwordSubmit: _this.outerContainerInstance.querySelector('#passwordSubmit'),
+            //     passwordCancel: _this.outerContainerInstance.querySelector('#passwordCancel')
+            // });
 
             DocumentProperties.initialize({
                 overlayName: 'documentPropertiesOverlay',
@@ -6234,10 +6234,11 @@ var paintPdf = function(payload) {
             });
 
             var pagesCount = pdfDocument.numPages;
-            _this.outerContainerInstance.querySelector('#numPages').textContent =
-                mozL10n.get('page_of', {
-                    pageCount: pagesCount
-                }, 'of {{pageCount}}');
+            _this.outerContainerInstance.querySelector('#numPages').textContent = "of " + pagesCount;
+            // _this.outerContainerInstance.querySelector('#numPages').textContent =
+            //     mozL10n.get('page_of', {
+            //         pageCount: pagesCount
+            //     }, 'of {{pageCount}}');
             _this.outerContainerInstance.querySelector('#pageNumber').max = pagesCount;
 
             var id = this.documentFingerprint = pdfDocument.fingerprint;
@@ -6539,7 +6540,7 @@ var paintPdf = function(payload) {
                         this.switchSidebarView((params.pagemode === 'bookmarks' ?
                             'outline' : params.pagemode), true);
                     } else if (params.pagemode === 'none' && this.sidebarOpen) {
-                        _this.outerContainerInstance.querySelector('#sidebarToggle').click();
+                        // _this.outerContainerInstance.querySelector('#sidebarToggle').click();
                     }
                 }
             } else if (/^\d+$/.test(hash)) { // page number
@@ -6569,7 +6570,7 @@ var paintPdf = function(payload) {
 
         switchSidebarView: function pdfViewSwitchSidebarView(view, openSidebar) {
             if (openSidebar && !this.sidebarOpen) {
-                _this.outerContainerInstance.querySelector('#sidebarToggle').click();
+                // _this.outerContainerInstance.querySelector('#sidebarToggle').click();
             }
             var thumbsView = _this.outerContainerInstance.querySelector('#thumbnailView');
             var outlineView = _this.outerContainerInstance.querySelector('#outlineView');
@@ -6806,7 +6807,7 @@ var paintPdf = function(payload) {
         _this.outerContainerInstance.appendChild(fileInput);
 
         if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
-            _this.outerContainerInstance.querySelector('#openFile').setAttribute('hidden', 'true');
+            // _this.outerContainerInstance.querySelector('#openFile').setAttribute('hidden', 'true');
             _this.outerContainerInstance.querySelector('#secondaryOpenFile').setAttribute('hidden', 'true');
         } else {
             _this.outerContainerInstance.querySelector('#fileInput').value = null;
@@ -6875,15 +6876,15 @@ var paintPdf = function(payload) {
             }
         }
 
-        mozL10n.setLanguage(locale);
+        // mozL10n.setLanguage(locale);
 
         if (!PDFViewerApplication.supportsPrinting) {
-            _this.outerContainerInstance.querySelector('#print').classList.add('hidden');
+            // _this.outerContainerInstance.querySelector('#print').classList.add('hidden');
             _this.outerContainerInstance.querySelector('#secondaryPrint').classList.add('hidden');
         }
 
         if (!PDFViewerApplication.supportsFullscreen) {
-            _this.outerContainerInstance.querySelector('#presentationMode').classList.add('hidden');
+            // _this.outerContainerInstance.querySelector('#presentationMode').classList.add('hidden');
             _this.outerContainerInstance.querySelector('#secondaryPresentationMode').
             classList.add('hidden');
         }
@@ -6897,7 +6898,7 @@ var paintPdf = function(payload) {
             PDFViewerApplication.fallback.bind(PDFViewerApplication));
 
         // Suppress context menus for some controls
-        _this.outerContainerInstance.querySelector('#scaleSelect').oncontextmenu = noContextMenuHandler;
+        // _this.outerContainerInstance.querySelector('#scaleSelect').oncontextmenu = noContextMenuHandler;
 
         var mainContainer = _this.outerContainerInstance.querySelector('#mainContainer');
         var outerContainer = _this.outerContainerInstance.querySelector('.outerContainer.active');
@@ -6910,18 +6911,18 @@ var paintPdf = function(payload) {
             }
         }, true);
 
-        _this.outerContainerInstance.querySelector('#sidebarToggle').addEventListener('click',
-            function() {
-                this.classList.toggle('toggled');
-                outerContainer.classList.add('sidebarMoving');
-                outerContainer.classList.toggle('sidebarOpen');
-                PDFViewerApplication.sidebarOpen =
-                    outerContainer.classList.contains('sidebarOpen');
-                if (PDFViewerApplication.sidebarOpen) {
-                    PDFViewerApplication.refreshThumbnailViewer();
-                }
-                PDFViewerApplication.forceRendering();
-            });
+        // _this.outerContainerInstance.querySelector('#sidebarToggle').addEventListener('click',
+        //     function() {
+        //         this.classList.toggle('toggled');
+        //         outerContainer.classList.add('sidebarMoving');
+        //         outerContainer.classList.toggle('sidebarOpen');
+        //         PDFViewerApplication.sidebarOpen =
+        //             outerContainer.classList.contains('sidebarOpen');
+        //         if (PDFViewerApplication.sidebarOpen) {
+        //             PDFViewerApplication.refreshThumbnailViewer();
+        //         }
+        //         PDFViewerApplication.forceRendering();
+        //     });
 
         _this.outerContainerInstance.querySelector('#viewThumbnail').addEventListener('click',
             function() {
@@ -6971,22 +6972,22 @@ var paintPdf = function(payload) {
             }
         });
 
-        _this.outerContainerInstance.querySelector('#scaleSelect').addEventListener('change',
-            function() {
-                PDFViewerApplication.setScale(this.value, false);
-            });
+        // _this.outerContainerInstance.querySelector('#scaleSelect').addEventListener('change',
+        //     function() {
+        //         PDFViewerApplication.setScale(this.value, false);
+        //     });
 
-        _this.outerContainerInstance.querySelector('#presentationMode').addEventListener('click',
-            SecondaryToolbar.presentationModeClick.bind(SecondaryToolbar));
+        // _this.outerContainerInstance.querySelector('#presentationMode').addEventListener('click',
+        //     SecondaryToolbar.presentationModeClick.bind(SecondaryToolbar));
 
-        _this.outerContainerInstance.querySelector('#openFile').addEventListener('click',
-            SecondaryToolbar.openFileClick.bind(SecondaryToolbar));
+        // _this.outerContainerInstance.querySelector('#openFile').addEventListener('click',
+        //     SecondaryToolbar.openFileClick.bind(SecondaryToolbar));
 
-        _this.outerContainerInstance.querySelector('#print').addEventListener('click',
-            SecondaryToolbar.printClick.bind(SecondaryToolbar));
+        // _this.outerContainerInstance.querySelector('#print').addEventListener('click',
+        //     SecondaryToolbar.printClick.bind(SecondaryToolbar));
 
-        _this.outerContainerInstance.querySelector('#download').addEventListener('click',
-            SecondaryToolbar.downloadClick.bind(SecondaryToolbar));
+        // _this.outerContainerInstance.querySelector('#download').addEventListener('click',
+        //     SecondaryToolbar.downloadClick.bind(SecondaryToolbar));
 
 
         if (file && file.lastIndexOf('file:', 0) === 0) {
@@ -7085,7 +7086,7 @@ var paintPdf = function(payload) {
             });
         });
         var href = PDFViewerApplication.getAnchorUrl(location.pdfOpenParams);
-        _this.outerContainerInstance.querySelector('#viewBookmark').href = href;
+        // _this.outerContainerInstance.querySelector('#viewBookmark').href = href;
         _this.outerContainerInstance.querySelector('#secondaryViewBookmark').href = href;
 
         // Update the current bookmark in the browsing history.
@@ -7104,13 +7105,12 @@ var paintPdf = function(payload) {
     }, true);
 
     window.addEventListener('resize', function webViewerResize(evt) {
-        if (PDFViewerApplication.initialized &&
-            (_this.outerContainerInstance.querySelector('#pageWidthOption').selected ||
-                _this.outerContainerInstance.querySelector('#pageFitOption').selected ||
-                _this.outerContainerInstance.querySelector('#pageAutoOption').selected)) {
-            var selectedScale = _this.outerContainerInstance.querySelector('#scaleSelect').value;
-            PDFViewerApplication.setScale(selectedScale, false);
-        }
+        // if (PDFViewerApplication.initialized &&
+        //     (_this.outerContainerInstance.querySelector('#pageFitOption').selected ||
+        //         _this.outerContainerInstance.querySelector('#pageAutoOption').selected)) {
+        //     var selectedScale = _this.outerContainerInstance.querySelector('#scaleSelect').value;
+        //     PDFViewerApplication.setScale(selectedScale, false);
+        // }
         updateViewarea();
 
         // Set the 'max-height' CSS property of the secondary toolbar.
@@ -7147,27 +7147,27 @@ var paintPdf = function(payload) {
         PDFViewerApplication.setTitleUsingUrl(file.name);
 
         // URL does not reflect proper document location - hiding some icons.
-        _this.outerContainerInstance.querySelector('#viewBookmark').setAttribute('hidden', 'true');
+        // _this.outerContainerInstance.querySelector('#viewBookmark').setAttribute('hidden', 'true');
         _this.outerContainerInstance.querySelector('#secondaryViewBookmark').
         setAttribute('hidden', 'true');
-        _this.outerContainerInstance.querySelector('#download').setAttribute('hidden', 'true');
+        // _this.outerContainerInstance.querySelector('#download').setAttribute('hidden', 'true');
         _this.outerContainerInstance.querySelector('#secondaryDownload').setAttribute('hidden', 'true');
     }, true);
 
-    function selectScaleOption(value) {
-        var options = _this.outerContainerInstance.querySelector('#scaleSelect').options;
-        var predefinedValueFound = false;
-        for (var i = 0; i < options.length; i++) {
-            var option = options[i];
-            if (option.value !== value) {
-                option.selected = false;
-                continue;
-            }
-            option.selected = true;
-            predefinedValueFound = true;
-        }
-        return predefinedValueFound;
-    }
+    // function selectScaleOption(value) {
+    //     var options = _this.outerContainerInstance.querySelector('#scaleSelect').options;
+    //     var predefinedValueFound = false;
+    //     for (var i = 0; i < options.length; i++) {
+    //         var option = options[i];
+    //         if (option.value !== value) {
+    //             option.selected = false;
+    //             continue;
+    //         }
+    //         option.selected = true;
+    //         predefinedValueFound = true;
+    //     }
+    //     return predefinedValueFound;
+    // }
 
     window.addEventListener('localized', function localized(evt) {
         document.getElementsByTagName('html')[0].dir = mozL10n.getDirection();
@@ -7176,19 +7176,19 @@ var paintPdf = function(payload) {
             // Adjust the width of the zoom box to fit the content.
             // Note: If the window is narrow enough that the zoom box is not visible,
             //       we temporarily show it to be able to adjust its width.
-            var container = _this.outerContainerInstance.querySelector('#scaleSelectContainer');
-            if (container.clientWidth === 0) {
-                container.setAttribute('style', 'display: inherit;');
-            }
-            if (container.clientWidth > 0) {
-                var select = _this.outerContainerInstance.querySelector('#scaleSelect');
-                select.setAttribute('style', 'min-width: inherit;');
-                var width = select.clientWidth + SCALE_SELECT_CONTAINER_PADDING;
-                select.setAttribute('style', 'min-width: ' +
-                    (width + SCALE_SELECT_PADDING) + 'px;');
-                container.setAttribute('style', 'min-width: ' + width + 'px; ' +
-                    'max-width: ' + width + 'px;');
-            }
+            // var container = _this.outerContainerInstance.querySelector('#scaleSelectContainer');
+            // if (container.clientWidth === 0) {
+            //     container.setAttribute('style', 'display: inherit;');
+            // }
+            // if (container.clientWidth > 0) {
+            //     var select = _this.outerContainerInstance.querySelector('#scaleSelect');
+            //     select.setAttribute('style', 'min-width: inherit;');
+            //     var width = select.clientWidth + SCALE_SELECT_CONTAINER_PADDING;
+            //     select.setAttribute('style', 'min-width: ' +
+            //         (width + SCALE_SELECT_PADDING) + 'px;');
+            //     container.setAttribute('style', 'min-width: ' + width + 'px; ' +
+            //         'max-width: ' + width + 'px;');
+            // }
 
             // Set the 'max-height' CSS property of the secondary toolbar.
             SecondaryToolbar.setMaxHeight(_this.outerContainerInstance.querySelector('#viewerContainer'));
@@ -7199,8 +7199,8 @@ var paintPdf = function(payload) {
         _this.outerContainerInstance.querySelector('#zoomOut').disabled = (evt.scale === MIN_SCALE);
         _this.outerContainerInstance.querySelector('#zoomIn').disabled = (evt.scale === MAX_SCALE);
 
-        var customScaleOption = _this.outerContainerInstance.querySelector('#customScaleOption');
-        customScaleOption.selected = false;
+        // var customScaleOption = _this.outerContainerInstance.querySelector('#customScaleOption');
+        // customScaleOption.selected = false;
 
         if (!PDFViewerApplication.updateScaleControls &&
             (_this.outerContainerInstance.querySelector('#pageWidthOption').selected ||
@@ -7211,20 +7211,20 @@ var paintPdf = function(payload) {
         }
 
         if (evt.presetValue) {
-            selectScaleOption(evt.presetValue);
+            // selectScaleOption(evt.presetValue);
             updateViewarea();
             return;
         }
 
-        var predefinedValueFound = selectScaleOption('' + evt.scale);
-        if (!predefinedValueFound) {
-            var customScale = Math.round(evt.scale * 10000) / 100;
-            customScaleOption.textContent =
-                mozL10n.get('page_scale_percent', {
-                    scale: customScale
-                }, '{{scale}}%');
-            customScaleOption.selected = true;
-        }
+        // var predefinedValueFound = selectScaleOption('' + evt.scale);
+        // if (!predefinedValueFound) {
+        //     var customScale = Math.round(evt.scale * 10000) / 100;
+            // customScaleOption.textContent =
+            //     mozL10n.get('page_scale_percent', {
+            //         scale: customScale
+            //     }, '{{scale}}%');
+            // customScaleOption.selected = true;
+        // }
         updateViewarea();
     }, true);
 
