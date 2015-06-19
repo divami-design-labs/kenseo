@@ -20,14 +20,14 @@
 					<div class="activity-icon"></div>
 				</div>
 				<div class="activity-right">
-					<div class="activity-title ellipsis"><%= Kenseo.page.data.project_name %>: 
+					<div class="activity-title ellipsis" title="<%= a.activityName %>"><%= Kenseo.page.data.project_name %>: 
 						<% if(a.activityType.toLowerCase() === "removed" && a.activityName.toLowerCase() === "user"){ %>
 							<%= a.activityType %> <%= a.activityName %>	
 						<% } else { %>
 							<%= a.activityName %>
 						<% } %>
 					</div>
-					<div class="activity-details ellipsis">
+					<div class="activity-details ellipsis" title="<%= a.doneBy %>">
 						<div class="activity-time"><%= sb.timeFormat(a.time) %></div>
 						<div class="activity-sender"> by <%= a.doneBy %></div>
 					</div>

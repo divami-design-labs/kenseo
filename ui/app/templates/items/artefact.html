@@ -3,8 +3,8 @@
 	<img class="rr-owner-image" src="<%= data.requestorImage %>"/>
 </div>
 <div class="rr-right">
-	<div class="rr-title ellipsis"><%= data.title %></div>
-	<div class="rr-details ellipsis"><%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %></div>
+	<div class="rr-title ellipsis" title="<%= data.title %>"><%= data.title %></div>
+	<div class="rr-details ellipsis" title="<%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %>"><%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %></div>
 	<div class="rr-state-details">
 		<div class="rr-state">
 			<span>v<%= data.version %></span>

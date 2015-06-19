@@ -50,8 +50,8 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINCT
 											requestor.name as requestedBy, 
 											versions.artefact_ver_id as versionId,
-											versions.version_label as title,
-											versions.version_label as name, 
+											artefacts.artefacts_title as title,
+											artefacts.artefacts_title as name, 
 											requestor.profile_pic_url as requestorImage, 
 											artefacts.artefact_type as documentType,
 											requestor.user_id as requestorId,
@@ -86,7 +86,7 @@ $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINC
 											artefacts.replace_ref_id = 0
 											ORDER BY @~~sortBy~~@";
 
-$AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requestedBy,versions.version_label AS title, 
+$AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requestedBy,artefacts.artefact_title AS title, 
 										requestor.profile_pic_url AS requestorImage, artefacts.artefact_type AS documentType,
 										requestor.user_id AS requestorId, members.shared_date AS requestTime,
 										versions.state AS status, artefacts.artefact_id as id, artefacts.latest_version_id as versionId,
@@ -147,7 +147,7 @@ $AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as tim
 
 $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
 
-$AppGlobal['sql']['matchArtefacts'] = "SELECT versions.version_label, artefacts.artefact_title AS matchedString, artefacts.artefact_id AS id 
+$AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_title, artefacts.artefact_title AS matchedString, artefacts.artefact_id AS id 
 										FROM " . TABLE_ARTEFACTS . " AS artefacts
 										INNER JOIN " . TABLE_ARTEFACTS_VERSIONS . " AS versions ON
 										artefacts.latest_version_id = versions.artefact_ver_id
@@ -367,4 +367,20 @@ $AppGlobal['sql']['getArtefactVersionComments'] = "SELECT comment.comment_id as 
 												  JOIN " . TABLE_COMMENT_THREADS . " as thread on
 												  thread.comment_id = comment.comment_id
 												  WHERE artefact_ver_id = @~~verId~~@";
+											
+//document summary view related queries
+$AppGlobal['sql']['getLinkedArtefactList'] = "SELECT DISTINCT * FROM " . TABLE_ARTEFACTS . " WHERE linked_id!=0 and linked_id = 
+											(SELECT linked_id from " . TABLE_ARTEFACTS . " where artefact_id = 
+											(SELECT artefact_id from " . TABLE_ARTEFACT_VERSIONS . " where artefact_ver_id = @~~versionId~~@))";
+
+$AppGlobal['sql']['getReferenceArtefactList'] = "SELECT DISTINCT * FROM " . TABLE_ARTEFACT_REFS . " WHERE artefact_ver_id in 
+											(SELECT artefact_ver_id from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_id = 
+											(SELECT artefact_id from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@))";
+
+$AppGlobal['sql']['getArtefactVersionsList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_id = 
+											(SELECT artefact_id from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@) and artefact_ver_id!= @~~versionId~~@";
+
+$AppGlobal['sql']['getArtefactSharedMemebersList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " WHERE artefact_id = 
+													(SELECT artefact_id from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@)";
+
 ?>

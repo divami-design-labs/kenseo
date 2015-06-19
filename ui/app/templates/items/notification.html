@@ -3,7 +3,7 @@
 	<div class="notifications-holder">
 		<% _.each(newData[key], function(n){ %>
 		<div class="notification-item <%= n.type %>-type">
-			<div class="notification-title">
+			<div class="notification-title ellipsis" title="<%= n.title %>">
 				<%= n.title %>
 			</div>
 			<div class="notification-time">

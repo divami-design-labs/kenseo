@@ -47,7 +47,7 @@
 			
 			switch ($sortBy) {
 			    case "name":
-			        $sortBy = "versions.version_label";
+			        $sortBy = "artefacts.artefact_title";
 			        break;
 			    case "date":
 			        $sortBy = "members.shared_date";
@@ -143,14 +143,15 @@
 				if(! is_dir($path)) {
 					mkdir($path, 0777, true);
 				}
-				$targetPath = $path . "/" .$_FILES['file']['name']; // Target path where file is to be stored
+				$newVersion = $latestVer+1;
+				$targetPath = $path . "/" .$previousArtefactid."_".$newVersion; // Target path where file is to be stored
 				move_uploaded_file($sourcePath,$targetPath) ;
 				
 				//now store the artefact detail in the tables related to artefacts and versions
 				$mimeType = $_FILES['file']->MIMEtype->type;
 				//create a new version
-				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
-				$rowValues = array($previousArtefactid, $_FILES['file']['name'], $latestVer+1, $userId, $date, $targetPath, $_FILES["file"]["type"], $_FILES['file']['tmp_name']->file_size, 'c', 1);
+				$columnNames = array('artefact_id', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
+				$rowValues = array($previousArtefactid, $latestVer+1, $userId, $date, $targetPath, $_FILES["file"]["type"], $_FILES['file']['tmp_name']->file_size, 'c', 1);
 				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				
 				//update the artefact table
@@ -222,25 +223,26 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
 				
 				$data->userId = $interpreter->getUser()->user_id;
+				//get the latest version 
+				$queryParams = array('artId' => $newArt);
+				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
+				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
+				
 				
 				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
 				$path = $AppGlobal['gloabl']['storeLocation'] . $projId . "/" . $artId;
 				if(! is_dir($path)) {
 					mkdir($path, 0777, true);
 				}
-				$targetPath = $path . "/" .$_FILES['file']['name']; // Target path where file is to be stored
+				$newVersion = $latestVer+1;
+				$targetPath = $path . "/" .$artId."_".$newVersion; // Target path where file is to be stored
 				move_uploaded_file($sourcePath,$targetPath) ;
 				
 				//now store the artefact detail in the tables related to artefacts and versions
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $AppGlobal['gloabl']['storeLocation']);
-				//get the latest version 
-				$queryParams = array('artId' => $newArt);
-				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
-				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
-				
 				//create a new version
-				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
-				$rowValues = array($artId, $_FILES['file']['name'], $latestVer, $userId, $date, $targetPath, $_FILES["file"]["type"], $_FILES['file']['tmp_name']->file_size, 'c', 0);
+				$columnNames = array('artefact_id', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
+				$rowValues = array($artId, $latestVer, $userId, $date, $targetPath, $_FILES["file"]["type"], $_FILES['file']['tmp_name']->file_size, 'c', 0);
 				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 				
 				//update the artefact table
@@ -267,15 +269,12 @@
 				
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $latestVer);
 
-				//now add the versions of newArt to artId
-				$columnNames = array('artefact_id', 'version_label', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
+				//update artefact version Numbers
+				singleResultQuery("UPDATE artefact_versions set version_no = version_no+$latestVer where artefact_id=$newArt");
+				//now change the artefact id
+				$db->updateTable(TABLE_ARTEFACTS_VERSIONS, array("artefact_id"), array($newVer), "artefact_id = " . $artId);
 				
-				for($i = 0 ; $i < count($newArtVers); $i++) {
-					$latestVer++;
-					$rowValues = array($artId, $newArtVers[$i]->version_label,$latestVer, $userId, $date, $newArtVers[$i]->document_path, $newArtVers[$i]->MIME_type, $newArtVers[$i]->file_size, $newArtVers[$i]->state, 0);
-					$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
-				}
-
+				//update the latest version
 				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
 				//update the new artefact that it is replaced.
 				$db->updateTable(TABLE_ARTEFACTS, array("replace_ref_id"), array($artId), "artefact_id = " . $newArt);
@@ -284,11 +283,6 @@
 				$columnNames = array('project_id', 'logged_by', 'logged_time', 'performed_on', 'activity_type', 'performed_on_id');
 				$rowValues = array($projId, $userId, $date, 'A', 'R', $artId);
 				$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $columnNames, $rowValues);
-				
-				//share the arrtefact to Owner
-				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
-				$shareRowValues = array($newVer, $artId, $userId, 'S', date("Y-m-d H:i:s"), $userId);
-				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 				
 				return true;
 				
@@ -319,29 +313,11 @@
 			$artefactProjId = $db->singleObjectQuery($dbQuery);
 			$project_id = $artefactProjId -> project_id;
 			
-			$db->deleteTable(TABLE_ARTEFACTS, "artefact_id = " . $artId);
-			
-			//now delete all versions of this artefact
-			$db->deleteTable(TABLE_ARTEFACTS_VERSIONS, "artefact_id = " . $artId);
-			
-			//delete from artefact comments
-			$db->deleteTable(TABLE_COMMENTS, "artefact_id = " . $artId);
-			
-			// delete from artefact links and delink
-			$db->deleteTable(TABLE_ARTEFACT_LINKS, "linked_to_id = " . $artId . " OR linked_from_id = " . $artId);
-			
-			//remove ref docs
-			$db->deleteTable(TABLE_ARTEFACT_REFS, "artefact_id = " . $artId);
-			
-			// now delete all project activity of this artefact
-			$db->deleteTable(TABLE_PROJECT_ACTIVITY, "performed_on_id = " . $artId . " AND performed_on = 'A'");
-			
-			//now delete project shared members
-			$db->deleteTable(TABLE_ARTEFACTS_SHARED_MEMBERS, "artefact_id = " . $artId);
-			
+			$db->updateTable(TABLE_ARTEFACTS, array('state'), array('D') ,"artefact_id = " . $artId);
+						
 			//Add project activity that this artefact is deleted
 			$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
-			$activityRowValues = array($project_id, $userId, date("Y-m-d H:i:s"), 'A', 'D',$artId);
+			$activityRowValues = array($project_id, $userId, date("Y-m-d H:i:s"), 'A', 'D', $artId);
 			$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 			
 			return true;
@@ -454,7 +430,12 @@
 				if(! is_dir($path)) {
 					mkdir($path, 0777, true);
 				}
-				$targetPath = $path . "/" . $_FILES['file']['name']; // Target path where file is to be stored
+				$newVersion = $ver_no+1;
+				$targetPath = $path . "/" . $artId."_".$newVersion; // Target path where file is to be stored
+				
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "targetPath");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $targetPath);
+				
 				
 				move_uploaded_file($sourcePath,$targetPath) ;
 				
@@ -468,8 +449,8 @@
 				
 				
 				//else 
-				$verColumnNames = array("artefact_id", "version_label","created_by","document_path","MIME_type", "file_size", "state", "created_date", "version_no");
-				$verRowValues = array($artId, $_FILES['file']['name'], $data->userId, $targetPath, $_FILES["file"]["type"],  $data->size, 'c', date("Y-m-d H:i:s"), $ver_no);
+				$verColumnNames = array("artefact_id", "created_by","document_path","MIME_type", "file_size", "state", "created_date", "version_no");
+				$verRowValues = array($artId, $data->userId, $targetPath, $_FILES["file"]["type"],  $data->size, 'c', date("Y-m-d H:i:s"), $ver_no);
 				
 				$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $verColumnNames, $verRowValues);
 				
@@ -482,7 +463,7 @@
 				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 				
 				//add the tags to the artefacts
-				$tagsList = $data->tagsIds;
+				$tagsList = json_decode($data->tagsIds);
 				for($i = 0 ; $i<count($tagsList); $i++) {
 					$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
 					$tagRowValues = array($artId, $tagsList[$i], date("Y-m-d H:i:s"), $data->userId );
@@ -490,10 +471,10 @@
 				}
 				
 				//now add artefact references
-				$refDocs = $data->referencesIds;
+				$refDocs = json_decode($data->referencesIds);
 				for($i = 0 ; $i< count($refDocs); $i++) {
 					$refColumnNames = array("artefact_ver_id", "artefact_id", "created_date", "created_by");
-					$refRowValues = array($artVerId, $refDocs, date("Y-m-d H:i:s"), $data->userId );
+					$refRowValues = array($artVerId, $refDocs[$i], date("Y-m-d H:i:s"), $data->userId );
 					$db->insertSingleRow(TABLE_ARTEFACT_REFS, $refColumnNames, $refRowValues);
 				}
 				
@@ -605,6 +586,44 @@
 			);
 			
 			return $resultObj;
-		} 
+		}
+		
+		public function getDocumentSummary($interpreter) {
+			$data = $interpreter->getData()->data;
+			$userId = $interpreter->getUser()->user_id;
+			$verId = $data->versionId;
+			
+			$db = Master::getDBConnectionManager();
+			
+			//get the basic details of the artefact based on the artefact version.
+			$queryParams = array('versionId' => $verId);
+			
+			//get linked artefacts.
+			$linkedArtefactQuery = getQuery('getArtefactVersionShared', $queryParams);
+			$linkedArtefacts = $db->multiObjectQuery($linkedArtefactQuery);
+			
+			//get reference artefacts.
+			$refArtefactQuery = getQuery('getReferenceArtefactList', $queryParams);
+			$referenceArtefacts = $db->multiObjectQuery($refArtefactQuery);
+			
+			//get versions of the artefact.
+			$artefactVersionQuery = getQuery('getArtefactVersionsList', $queryParams);
+			$artefactVersions = $db->multiObjectQuery($artefactVersionQuery);
+			
+			//get shared members of the document.
+			$artefactSharedQuery = getQuery('getArtefactSharedMemebersList', $queryParams);
+			$artefactSharedMemebers = $db->multiObjectQuery($artefactSharedQuery);
+			
+			//get time lines.
+			
+			$resultObj = array(
+				links => $linkedArtefacts,
+				references => $referenceArtefacts,
+				versions => $artefactVersions,
+				sharedTo => $artefactSharedMemebers
+			);
+			
+			return $resultObj;
+		}  
 	}
 ?>

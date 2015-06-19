@@ -8,7 +8,7 @@
 	<div class="notifications-holder">
 		<% _.each(newData[key], function(n){ %>
 		<a href="<% if(n.type == "M"){ %>#meetingnotes/<%= n.refId %><% } else { %>#documentview/<%= n.refId %> <% } %>" class="notification-item <%= n.type %>-type page-click" data-url="meeting-notes">
-			<div class="notification-title">
+			<div class="notification-title ellipses" title="<%= n.title %>">
 				<%= n.title %>
 			</div>
 			<div class="notification-time">
