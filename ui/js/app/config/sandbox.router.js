@@ -122,7 +122,7 @@ sb.router = {
             'views': ['Header'],
             'models': ['Header'],
             'collections': ['People'],
-            'files': ['js/libs/pdfjs/build/pdf.js', 'js/libs/pdfjs/build/pdf.worker.js', 'js/libs/pdfjs/web/viewer.js']
+            'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js', 'js/libs/pdfjs/viewer.js']
         }, function () {
             $('.header').addClass('fixed-header');
 

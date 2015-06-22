@@ -58,7 +58,7 @@ $(function () {
 	}).on('click', '.popup-click', function () {
 		sb.navigate('popup', this);
 	}).on('click', '.overlay-click', function () {
-		sb.navigate('popup', this);
+		sb.navigate('overlay', this);
 	}).on('click', '.page-click', function (e) {
 		sb.navigate('page', this);
 		$(this).parents('.toggle-click').removeClass('active');
@@ -143,20 +143,6 @@ $(function () {
 				}
 			}
 		});
-	}).on('click', '.overlay-click', function () {
-		$('.popup-container').show();
-		var $self = $(this);
-		var index = $(this).data('key') || 0;
-		var dump = $self.data('dump');
-		if (dump) {
-			if (typeof dump === 'string') {
-				dump = JSON.parse(dump);
-			}
-			Kenseo.overlays.data = dump;
-		}
-		// Important: this should be called after dump object is stored in the Kenseo.popup.data
-		Kenseo.overlays.info = sb.getOverlaysInfo($self.data('url'));
-		sb.callOverlay(index);
 	}).on('click', '.sort-item', function (e) {
 		var $self = $(e.currentTarget),
 		    id = sb.getPageData('project').id;

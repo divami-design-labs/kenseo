@@ -11,7 +11,7 @@
 .popup-click{
 	@extend .hand;
 }
-.popup{
+.popup, .overlay{
 	@include absoluter(0,0,0,0);
 	margin: auto;
 	border: 1px solid $color8;

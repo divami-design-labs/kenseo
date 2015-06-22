@@ -334,6 +334,9 @@ var sb = (function () {
         getPopupsInfo: function getPopupsInfo(info) {
             return Kenseo.popups.getPopupsInfo(info);
         },
+        getOverlaysInfo: function getOverlaysInfo(info) {
+            return Kenseo.overlays.getOverlaysInfo(info);
+        },
         getDynamicData: function getDynamicData(str, id) {
             var key = Kenseo.data[str];
             if (key) {
@@ -383,6 +386,17 @@ var sb = (function () {
                 $('.popup-container').show();
                 // Important: this should be called after dump object is stored in the Kenseo.popup.data
                 Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
+                if (index > 0) {
+                    Kenseo.popup.info = Kenseo.popup.info.slice(index);
+                    index = 0;
+                }
+                sb.callPopup(index);
+            }
+            else if (str == 'overlay') {
+                var index = $self.data('index') || 0;
+                $('.popup-container').show();
+                // Important: this should be called after dump object is stored in the Kenseo.popup.data
+                Kenseo.popup.info = sb.getOverlaysInfo($self.data('url'));
                 if (index > 0) {
                     Kenseo.popup.info = Kenseo.popup.info.slice(index);
                     index = 0;
