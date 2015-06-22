@@ -99,10 +99,14 @@ sb.router = {
                             meetingId: Kenseo.data.meetingId
                         },
                         templateName: 'meetingnotes',
-                        templateHolder: $('.content-wrapper')
+                        templateHolder: $('.content-wrapper'),
+                        callbackfunc: function() {
+		                    //since we have the Html ready now we can have the editor in place.
+		                    var textEditorObj = new textEditor();
+                        }
                     });
 
-                    //sb.renderTemplate({templateName: "meetingnotes", templateHolder: $(".content-wrapper")});
+                    
                 }
             });
         });
