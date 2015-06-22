@@ -1,0 +1,87 @@
+<% var dataObj = Kenseo.popup.info[index] %>
+<% var dump = sb.getPopupData() %>
+<div class="popup popup-large">
+	<div class="popup-header">
+		<div class="popup-title"><%= dataObj.title %></div>
+		<div class="popup-close-icon"></div>
+	</div>
+	<div class="popup-left-section">
+		<div class="meta-item">
+			<div class="meta-heading">Under</div>
+			<div class="meta-text"><% if(dump.project_name){ %> <%= dump.project_name %><% } else if(dump.name){ %><%= dump.name %><% } else{ %><%= Kenseo.page.data.project.name %><% } %></div>
+		</div>
+		<div class="meta-item">
+			<div class="meta-heading">File</div>
+			<div class="meta-text"><%= dump.fileName %></div>
+		</div>
+		<div class="meta-item">
+			<div class="meta-heading">Type</div>
+			<% if(dump.docType){ %>
+				<% _.each(dump.docType, function(r){ %>
+					<div class="meta-text"><%= r.name %></div>
+				<% }); %>
+			<% } %>
+		</div>
+		<div class="meta-item">
+			<div class="meta-heading">References</div>
+			<% if(dump.references){ %>
+				<% _.each(dump.references, function(r){ %>
+					<div class="meta-text"><%= r.name %></div>
+				<% }); %>
+			<% } %>
+		</div>
+		<div class="meta-item">
+			<div class="meta-heading">Tags</div>
+			<div class="meta-text">
+				<% if(dump.tags){ %>
+					<% 
+						var arrVal = [];
+						for(var i=0; i<dump.tags.length; i++){
+							var t = dump.tags[i];
+							arrVal.push(t.name);
+						}
+					%>
+					<%= arrVal.join(", ") %>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<div class="popup-body">
+		<div class="popup-body-wrapper popup-right-section">
+			<div class="your-team-section">
+				<div class="your-team-heading">Your Team</div>
+				<form class="your-team-body">
+					<%= 
+						_.template(templates['checkbox'])({
+							data:{
+								text: "Temporarily hide file from this group"
+							}
+						}) 
+					%>
+					<div class="field-section your-team-field" data-name="new-people">
+						<form>
+							<%
+							var fields = {
+								shareCombo: sb.toolbox.comboBox({
+									"label": "Add People",
+									"class": "xm people-combobox",
+									"dataName": "otherMembers"
+								})
+							}
+							%>
+							<%= fields.shareCombo %>
+						</form>
+					</div>
+					<div class="share-artefact-people">
+						<div class="share-artefact-people-wrapper">
+							
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="buttons-section">
+		<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
+	</div>
+</div>

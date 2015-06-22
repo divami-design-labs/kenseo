@@ -1,0 +1,39 @@
+<%
+	var newData = sb.getDayWiseData(data)
+%>
+<% if(newData){ %>
+<% for(var key in newData){ %>
+<div class="day-notifications">
+	<div class="day-notifications-label"><%= key %></div>
+	<div class="notifications-holder">
+		<% _.each(newData[key], function(n){ %>
+		<a href="<% if(n.type == "M"){ %>#meetingnotes/<%= n.refId %><% } else { %>#documentview/<%= n.refId %> <% } %>" class="notification-item <%= n.type %>-type page-click" data-url="meeting-notes">
+			<div class="notification-title" title="<%= n.title %>">
+				<%= n.title %>
+			</div>
+			<div class="notification-time">
+				<%= sb.timeFormat(n.time) %> by <%= n.notifier %>
+			</div>
+			<% if(n.meetingDetails){ %>
+			<div class="meeting-notify-section">
+				<div class="mn-left">
+					<div>Meeting @ Conference 2</div>
+					<div class="mn-left-title"><%= n.meetingDetails.title %></div>
+					<div class="meeting-notify-icon"></div>
+				</div>
+				<div class="mn-right">
+					<div><%= sb.timeFormat(n.meetingDetails.time) %></div>
+					<div><%= sb.getTime(n.meetingDetails.time) %></div>
+				</div>
+			</div>
+			<% } %>
+		</a>
+		<% }); %>
+	</div>
+</div>
+<% } %>
+<% } else{ %>
+<div class="no-items">
+	No notifications yet
+</div>
+<% } %>

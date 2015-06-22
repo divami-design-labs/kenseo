@@ -3068,6 +3068,7 @@ input[type="text"].xm {
 #toolbarViewerRight .thumb {
   height: 12px;
   width: 12px;
+  margin-left: -6px;
   cursor: pointer;
   border-radius: 6px;
   background-color: #F0F0F1;
