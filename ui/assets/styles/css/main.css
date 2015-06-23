@@ -28,7 +28,7 @@
   .mg-parent .mg-holder.mg-holder:last-child {
     width: 0px; }
 
-.clearFloat::after, .header::after, .menu-profile::after, .menu-projects-section::after, .menu-recent::after, .menu-notifications-cnt::after, .projects-section-content::after, .review-request-item::after, .rr-state .rr-other-versions > div::after, .notification-item::after, .project-section-content::after, .sub-heading::after, .activity-holder::after, .popup-body-wrapper::after, .files-section::after, .your-team-body::after, .share-artefact-people-item::after, .share-artefact-people-item .share-artefact-right-panel::after, .meeting-wrapper::after, .meeting-right-section::after, .summary-section-below-content::after, .dv-tb-people-wrapper::after, .page-wrapper::after {
+.clearFloat::after, .header::after, .menu-profile::after, .menu-projects-section::after, .menu-recent::after, .menu-notifications-cnt::after, .projects-section-content::after, .review-request-item::after, .rr-state .rr-other-versions > div::after, .notification-item::after, .project-section-content::after, .sub-heading::after, .activity-holder::after, .summary-version-item .checkbox::after, .popup-body-wrapper::after, .files-section::after, .your-team-body::after, .share-artefact-people-item::after, .share-artefact-people-item .share-artefact-right-panel::after, .meeting-wrapper::after, .meeting-right-section::after, .summary-section-below-content::after, .dv-tb-people-wrapper::after, .page-wrapper::after {
   content: "";
   display: block;
   clear: both; }
@@ -66,7 +66,7 @@
   top: 0;
   bottom: 0; }
 
-.ellipsis, .menu-notifications-txt-tm, .rr-details, .notification-title, .notification-time, .mn-left-title, .meta-text, .meta-text div, .combobox-wrapper .selectable {
+.ellipsis, .menu-notifications-txt-tm, .rr-details, .notification-title, .notification-time, .mn-left-title, .summary-version-item .checkbox .doc-type, .meta-text, .meta-text div, .combobox-wrapper .selectable {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }
@@ -1660,6 +1660,22 @@
   width: 34px;
   height: 38px; }
 
+.current-type {
+  background-image: url("../../imgs/currentdate.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 20px;
+  height: 20px; }
+
+.summary-version-item .checkbox {
+  display: block; }
+  .summary-version-item .checkbox + span {
+    display: block; }
+  .summary-version-item .checkbox .version-type {
+    float: left; }
+  .summary-version-item .checkbox .doc-type {
+    margin-left: 35px; }
+
 .popup-container {
   background-color: rgba(82, 85, 104, 0.48);
   position: fixed;
@@ -2614,13 +2630,18 @@
 
 .sp-left {
   float: left;
-  margin-top: 7px; }
+  margin-top: 10px; }
   .sp-left img {
     width: 28px;
     height: 28px; }
 
 .sp-right {
   margin-left: 40px; }
+
+.sp-name {
+  font-size: 14px;
+  color: #464c5f;
+  margin-bottom: 6px; }
 
 .version-type {
   width: 20px;

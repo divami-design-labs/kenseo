@@ -251,3 +251,21 @@
         }
     }
 }
+
+.current-type{
+    @include elementWithBackground("currentdate.svg", 20px, 20px);
+}
+.summary-version-item .checkbox{
+    & + span{
+        display: block;
+    }
+    display: block;
+    @extend .clearFloat;
+    .version-type{
+        float: left;
+    }
+    .doc-type{
+        @extend .ellipsis;
+        margin-left: 35px;
+    }
+}

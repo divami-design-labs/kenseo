@@ -128,59 +128,21 @@
                 </div>
             </div>
             <div class="time-frame-selector mg-parent">
+                <% _.each(data.versions, function(v){ %>
                 <div class="time-frame-holder mg-holder">
                     <div class="time-selector-item mg-item">
                         <div class="time-frame">
-                            <div class="file-type top-viewer"></div>
-                            <div class="time-frame-date">8 Feb</div>
+                            <div class="version-type top-viewer">v<%= v.version_no %></div>
+                            <div class="time-frame-date"><%= sb.timeFormat(v.created_date, true)%></div>
                         </div>
                     </div>
                 </div>
+                <% }); %>
                 <div class="time-frame-holder mg-holder">
                     <div class="time-selector-item mg-item">
                         <div class="time-frame">
-                            <div class="file-type top-viewer"></div>
-                            <div class="time-frame-date">16 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-selector-item mg-item">
-                        <div class="time-frame">
-                            <div class="file-type top-viewer"></div>
-                            <div class="time-frame-date">24 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-selector-item mg-item">
-                        <div class="time-frame">
-                            <div class="file-type top-viewer"></div>
-                            <div class="time-frame-date">4 Mar</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-selector-item mg-item">
-                        <div class="time-frame">
-                            <div class="file-type top-viewer"></div>
-                            <div class="time-frame-date">12 Mar</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-selector-item mg-item">
-                        <div class="time-frame">
-                            <div class="file-type top-viewer"></div>
-                            <div class="time-frame-date">20 Mar</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-selector-item mg-item">
-                        <div class="time-frame">
-                            <div class="file-type top-viewer"></div>
-                            <div class="time-frame-date">26 Mar</div>
+                            <div class="current-type top-viewer"></div>
+                            <div class="time-frame-date"><%= sb.timeFormat(new Date(), true, true)%></div>
                         </div>
                     </div>
                 </div>
@@ -238,17 +200,18 @@
                 <a class="summary-compare-btn" href="">Compare selected</a>
                 
                 <% _.each(data.versions, function(d){ %>
+                    <% if(d.artefact_ver_id !== data.basicDetails.versionId){ %>
 	                <div class="summary-version-item">
 	                    <label class="checkbox">
 	                        <input type="checkbox"></input>
 	                        <span>
 	                            <span class="version-type">v<%=d.version_no %></span>
-	                            <span class="doc-type"><%= data.basicDetails.title %></span>
+	                            <div class="doc-type" title="<%= data.basicDetails.title %>"><%= data.basicDetails.title %></div>
 	                        </span>
 	                    </label>
 	                    <div class="summary-version-date"><%= sb.timeFormat(d.created_date, true)%></div>
 	                </div>
-	               <br/>
+                    <% } %>
          		<% }); %>
             </div>
         </div>

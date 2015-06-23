@@ -599,7 +599,9 @@
 			$queryParams = array('versionId' => $verId, userId=>$userId);
 
 			$basicDetailsQuery = getQuery('artefactBasicDetails', $queryParams);
-			$basicDetails = $db->multiObjectQuery($basicDetailsQuery);
+			$basicDetails = $db->singleObjectQuery($basicDetailsQuery);
+
+			$basicDetails->versionId = $verId;
 			
 			//get linked artefacts.
 			$linkedArtefactQuery = getQuery('getLinkedArtefactList', $queryParams);
@@ -620,7 +622,7 @@
 			//get time lines.
 			
 			$resultObj = array(
-				basicDetails => $basicDetails[0],
+				basicDetails => $basicDetails,
 				links => $linkedArtefacts,
 				references => $referenceArtefacts,
 				versions => $artefactVersions,

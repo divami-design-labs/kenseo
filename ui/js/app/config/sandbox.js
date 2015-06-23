@@ -256,8 +256,13 @@ var sb = (function () {
         },
         getDate: function getDate(time) {
             if (time) {
-                var t = time.split(/[- :]/);
-                return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
+                if(time.toString() === "Invalid Date"){
+                    var t = time.split(/[- :]/);
+                    return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
+                }
+                else{
+                    return new Date(time);
+                }
             } else {
                 return new Date();
             }
