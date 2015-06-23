@@ -44,7 +44,7 @@
             //  must be a jQuery element
             //
             //  default is $('body')
-            container: $('body'),
+            container: $(element).parents('.input-wrapper'),
 
             //  days of the week; Sunday to Saturday
             days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],

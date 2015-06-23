@@ -190,7 +190,7 @@
 				
 				//now delete the latest artefact from the table
 				//$db->deleteTable(TABLE_ARTEFACTS,"artefact_id = ". $latestArtefactid);
-				//$db->deleteTable(TABLE_ARTEFACT_VERSIONS,"artefact_id = ". $latestArtefactid);
+				//$db->deleteTable(TABLE_ARTEFACTS_VERSIONS,"artefact_id = ". $latestArtefactid);
 				
 				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
 				$shareRowValues = array($newVer, $previousArtefactid, $userId, 'S', date("Y-m-d H:i:s"), $userId);

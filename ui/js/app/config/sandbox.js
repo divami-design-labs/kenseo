@@ -218,11 +218,8 @@ var sb = (function () {
             }
         },
         noItemsTemplate: function noItemsTemplate(p) {
-            if (!p.noData) {
-                p.noData = {};
-            }
             return _.template(templates['no-items'])({
-                data: p.noData
+                data: p.noData || {}
             });
         },
         renderTemplate: function renderTemplate(p) {

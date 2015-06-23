@@ -85,7 +85,7 @@
 .a, .menu-settings-txt, .main-btn, .lnk-btn, .or-btn, .summary-compare-btn {
   text-decoration: none; }
 
-.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .share-artefact-people-item, .suggestion-item, .choose-existing-file-holder .close-icon, .text-actions-section > div, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .sv-item .sv-close, .toggle-click {
+.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .share-artefact-people-item, .suggestion-item, .choose-existing-file-holder .close-icon, .text-actions-section > button, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .sv-item .sv-close, .toggle-click {
   cursor: pointer; }
 
 .wrap, .input-wrapper {
@@ -2208,27 +2208,33 @@
   margin-bottom: 10px;
   overflow: hidden; }
 
+[name="text-b"], [name="text-i"], [name="text-u"] {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0; }
+
 .text-actions-section {
   background-color: #f5f5f6;
   padding: 10px;
   height: 30px; }
-  .text-actions-section > div {
+  .text-actions-section > button {
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
     font-size: 14px;
     color: #3e4354; }
-  .text-actions-section > div + div {
+  .text-actions-section > button + button {
     padding-left: 10px;
     border-left: 1px solid #3e4354; }
 
-.text-action-bold {
+[name="text-b"].active {
   font-family: "OpenSansBold"; }
 
-.text-action-italic {
+[name="text-i"].active {
   font-family: "OpenSansItalic"; }
 
-.text-action-underline {
+[name="text-u"].active {
   text-decoration: underline; }
 
 .text-editor {
@@ -4486,5 +4492,9 @@ body {
 
 .page-wrapper {
   min-height: 100%; }
+
+.Zebra_DatePicker.dp_visible {
+  left: 0 !important;
+  top: 100% !important; }
 
 /*# sourceMappingURL=main.css.map */

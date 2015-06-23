@@ -1,25 +1,11 @@
-var textEditor = function() {
-	var textDiv = $('.text-editor')[0];
-	
+var textEditor = function(textDivSection) {
 	var buttons = {
-		boldBtn: document.getElementsByClassName('text-action-bold')[0],
-		italicBtn: document.getElementsByClassName('text-action-italic')[0],
-		underlineBtn: document.getElementsByClassName('text-action-underline')[0]
-	}
+		boldBtn: textDivSection.querySelector('[name="text-b"]'),
+		italicBtn: textDivSection.querySelector('[name="text-i"]'),
+		underlineBtn: textDivSection.querySelector('[name="text-u"]')
+	},
+	textDiv = textDivSection.querySelector('.text-editor');
 	
-	function createElement(type, attrObj, html){
-		var d = document.createElement(type);
-		if(attrObj && typeof attrObj === "object"){
-			var keys = Object.keys(attrObj);
-			for(attr in attrObj){
-				d.setAttribute(attr, attrObj[attr]);
-			}
-			if(html){
-				d.innerHTML = html;
-			}
-		}
-		return d;
-	}
 	function doWithButtons(property, value) {
 	    for(var btn in buttons){
 	    	buttons[btn][property] = value;
@@ -45,8 +31,9 @@ var textEditor = function() {
 	    var el = e.currentTarget;
 	    document.execCommand(el.getAttribute('text-name'));
 	    el.className = (el.className === "active")? "":"active";
+	    textDiv.focus();
 	}
-	textDiv.onfocus = selectButtons;
+	// textDiv.onfocus = selectButtons;
 	textDiv.onblur  = selectButtons;
 	textDiv.onkeyup = selectButtons;
 	textDiv.onclick = selectButtons;

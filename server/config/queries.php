@@ -371,16 +371,16 @@ $AppGlobal['sql']['getArtefactVersionComments'] = "SELECT comment.comment_id as 
 //document summary view related queries
 $AppGlobal['sql']['getLinkedArtefactList'] = "SELECT DISTINCT * FROM " . TABLE_ARTEFACTS . " WHERE linked_id!=0 and linked_id = 
 											(SELECT linked_id from " . TABLE_ARTEFACTS . " where artefact_id = 
-											(SELECT artefact_id from " . TABLE_ARTEFACT_VERSIONS . " where artefact_ver_id = @~~versionId~~@))";
+											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " where artefact_ver_id = @~~versionId~~@))";
 
 $AppGlobal['sql']['getReferenceArtefactList'] = "SELECT DISTINCT * FROM " . TABLE_ARTEFACT_REFS . " WHERE artefact_ver_id in 
-											(SELECT artefact_ver_id from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_id = 
-											(SELECT artefact_id from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@))";
+											(SELECT artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = 
+											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@))";
 
-$AppGlobal['sql']['getArtefactVersionsList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_id = 
-											(SELECT artefact_id from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@) and artefact_ver_id!= @~~versionId~~@";
+$AppGlobal['sql']['getArtefactVersionsList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = 
+											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@) and artefact_ver_id!= @~~versionId~~@";
 
 $AppGlobal['sql']['getArtefactSharedMemebersList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " WHERE artefact_id = 
-													(SELECT artefact_id from " . TABLE_ARTEFACT_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@)";
+													(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@)";
 
 ?>

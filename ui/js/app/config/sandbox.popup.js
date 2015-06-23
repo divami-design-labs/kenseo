@@ -538,6 +538,21 @@ sb.popup = {
                 }
             });
         });
+
+
+        //onchange event to fromtime dropdown
+        $('.projects-dropdown.fromTime').on('change', function(x, y, z){
+            var options = this.options;
+            var index = options.selectedIndex;
+
+            // resetting html of toTime field
+            var toTimeField = document.querySelector('.projects-dropdown.toTime');
+            toTimeField.innerHTML = "";
+
+            for(var i = index + 1; i < options.length; i++){
+                toTimeField.innerHTML = toTimeField.innerHTML + options[i].outerHTML;
+            }
+        });
     }
 };
 

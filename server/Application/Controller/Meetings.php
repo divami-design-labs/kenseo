@@ -74,7 +74,7 @@
 			//this option if set true will send the mail notifications to attendees
 			$optionaArguments = array("sendNotifications"=>true);
 			
-			$createdEvent = $service->events->insert('vamsi.kollipara@divami.com', $event, $optionaArguments);
+			$createdEvent = $service->events->insert($user->email, $event, $optionaArguments);
 			$meetingId = $createdEvent->getId();
 			
 			//now we need to store these in DB			

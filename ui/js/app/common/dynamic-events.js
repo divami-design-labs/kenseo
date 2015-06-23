@@ -60,6 +60,7 @@ $(function () {
 	}).on('click', '.overlay-click', function () {
 		sb.navigate('overlay', this);
 	}).on('click', '.page-click', function (e) {
+		e.stopPropagation();
 		sb.navigate('page', this);
 		$(this).parents('.toggle-click').removeClass('active');
 	}).on('click', '.share-btn', function () {

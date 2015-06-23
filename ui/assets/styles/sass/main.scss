@@ -37,3 +37,8 @@ body{
 .toggle-click{
 	@extend .hand;
 }
+
+.Zebra_DatePicker.dp_visible{
+	left: 0 !important;
+	top: 100% !important;
+}

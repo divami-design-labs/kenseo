@@ -83,7 +83,8 @@ sb.router = {
         sb.loadFiles({
             'views': ['Header', 'Artefacts', 'People', 'Activities'],
             'models': ['Projects', 'Header', 'Artefacts', 'People'],
-            'collections': ['Projects', 'Artefacts', 'People']
+            'collections': ['Projects', 'Artefacts', 'People'],
+            'files': ['js/app/components/textEditor.js']
         }, function () {
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
@@ -102,7 +103,7 @@ sb.router = {
                         templateHolder: $('.content-wrapper'),
                         callbackfunc: function() {
 		                    //since we have the Html ready now we can have the editor in place.
-		                    var textEditorObj = new textEditor();
+		                    var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
                         }
                     });
 

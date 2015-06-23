@@ -129,29 +129,35 @@
 	margin-bottom: 10px;
 	overflow: hidden;
 }
+[name="text-b"], [name="text-i"], [name="text-u"]{
+	border: none;
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+}
 .text-actions-section{
 	background-color: $colorQ;
 	padding: 10px;
 	height: 30px;
-	& > div{
+	& > button{
 		display: inline-block;
 		vertical-align: middle;
 		margin-right: 10px;
 		@include text(14px, $colorTwo);
 		@extend .hand;
 	}
-	& > div + div{
+	& > button + button{
 		padding-left: 10px;
 		border-left: 1px solid $colorTwo;
 	}
 }
-.text-action-bold{
+[name="text-b"].active{
 	font-family: $boldFont;
 }
-.text-action-italic{
+[name="text-i"].active{
 	font-family: $italicFont;
 }
-.text-action-underline{
+[name="text-u"].active{
 	text-decoration: underline;
 }
 .text-editor{
