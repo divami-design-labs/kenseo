@@ -170,7 +170,7 @@ sb.router = {
                         $('.pdfs-container').append(_.template(templates['pdf-viewer'])(response.data));
 
                         new paintPdf({
-                            //url: sb.getRelativePath(response.data.documentPath),
+                            url: sb.getRelativePath(response.data.documentPath),
                             container: $('.outerContainer.inView').get(0),
                             targetId: response.data.versionId
                         });

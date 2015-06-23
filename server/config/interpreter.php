@@ -105,5 +105,7 @@ $AppGlobal['urlmap']['/getMeetingNotes'] = array ('command' => 'getMeetingNotes'
 $AppGlobal['cmdmap']['writeMeetingNotes'] = array ("class" => "Meetings", "method" => "writeMeetingNotes");
 $AppGlobal['urlmap']['/writeMeetingNotes'] = array ('command' => 'writeMeetingNotes', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['getDocumentSummary'] = array ("class" => "Artefacts", "method" => "getDocumentSummary");
+$AppGlobal['urlmap']['/getDocumentSummary'] = array ('command' => 'getDocumentSummary', 'type' => 'GET');
 
 ?>

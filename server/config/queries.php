@@ -373,14 +373,35 @@ $AppGlobal['sql']['getLinkedArtefactList'] = "SELECT DISTINCT * FROM " . TABLE_A
 											(SELECT linked_id from " . TABLE_ARTEFACTS . " where artefact_id = 
 											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " where artefact_ver_id = @~~versionId~~@))";
 
-$AppGlobal['sql']['getReferenceArtefactList'] = "SELECT DISTINCT * FROM " . TABLE_ARTEFACT_REFS . " WHERE artefact_ver_id in 
+$AppGlobal['sql']['getReferenceArtefactList'] = "SELECT DISTINCT arts.artefact_title as title FROM " . TABLE_ARTEFACT_REFS . " as refs
+											JOIN " . TABLE_ARTEFACTS . " as arts on
+											refs.artefact_id = arts.artefact_id
+											WHERE refs.artefact_ver_id in 
 											(SELECT artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = 
 											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@))";
 
 $AppGlobal['sql']['getArtefactVersionsList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = 
 											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@) and artefact_ver_id!= @~~versionId~~@";
 
-$AppGlobal['sql']['getArtefactSharedMemebersList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " WHERE artefact_id = 
-													(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@)";
+$AppGlobal['sql']['getArtefactSharedMemebersList'] = "SELECT DISTINCT user.user_id as userId, user.name as name, user.email as email, user.profile_pic_url as userImage,
+													(select count(comment_id) from ". TABLE_COMMENTS ." as comments
+													WHERE 
+													comments.artefact_ver_id = @~~versionId~~@ and comments.comment_by = user.user_id) as commentCount
+													from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as membs
+													JOIN " . TABLE_USERS . " as user on
+													membs.user_id = user.user_id
+													WHERE membs.artefact_id = 
+													(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@) and user.user_id!=@~~userId~~@";
+													
+$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title, vers.version_no as versionNo, user.name as authorName, user.profile_pic_url as authorImage, 
+											(select count(comment_id) from ". TABLE_COMMENTS ." as comments
+											WHERE 
+											comments.artefact_ver_id = @~~versionId~~@) as commentCount, arts.state as status
+											FROM " . TABLE_ARTEFACTS . " as arts 
+											JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers on
+											vers.artefact_ver_id = @~~versionId~~@
+											JOIN " . TABLE_USERS . " as user on
+											user.user_id = vers.created_by
+											WHERE arts.artefact_id = (SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@)"
 
 ?>

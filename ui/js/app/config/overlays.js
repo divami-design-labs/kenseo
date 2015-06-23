@@ -4,8 +4,8 @@
 Kenseo.overlays = (function () {
   var overlays = {
     "summary": [{
-      "page_name": "summary",
-      //"callbackfunc": sb.overlay.summaryOverlay,
+      "page_name": "",
+      "callbackfunc": sb.overlay.summaryOverlay,
       "url": "app/packages/summary.json"
     }]
   };

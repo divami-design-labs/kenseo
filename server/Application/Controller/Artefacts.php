@@ -332,7 +332,7 @@
 		}	
 		
 		public function linkArts ($artefactId, $linkArtefacts) {
-			
+			$linkArtefacts = json_decode($linkArtefacts);
 			$date = date("Y-m-d H:i:s");
 			
 			$db = Master::getDBConnectionManager();
@@ -479,8 +479,8 @@
 				}
 				
 				//now link the artefacts
-				if($data->linksIds) {
-					$links = $this->linkArts ($artId, $data->linksIds);
+				if($data->docTypeIds) {
+					$links = $this->linkArts($artId, $data->docTypeIds);
 				}
 				
 				//now add this into project activity
@@ -513,7 +513,7 @@
 			for($i = 0; $i < count($team); $i++) {
 				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
 				
-				$shareRowValues = array($artVerId, $artId, $team[$i]->userId, $team[$i]->permission , date("Y-m-d H:i:s"), $sharedBy);
+				$shareRowValues = array($artVerId, $artId, $team[$i]->userid, $team[$i]->permission , date("Y-m-d H:i:s"), $sharedBy);
 				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 			}
 			
@@ -596,10 +596,13 @@
 			$db = Master::getDBConnectionManager();
 			
 			//get the basic details of the artefact based on the artefact version.
-			$queryParams = array('versionId' => $verId);
+			$queryParams = array('versionId' => $verId, userId=>$userId);
+
+			$basicDetailsQuery = getQuery('artefactBasicDetails', $queryParams);
+			$basicDetails = $db->multiObjectQuery($basicDetailsQuery);
 			
 			//get linked artefacts.
-			$linkedArtefactQuery = getQuery('getArtefactVersionShared', $queryParams);
+			$linkedArtefactQuery = getQuery('getLinkedArtefactList', $queryParams);
 			$linkedArtefacts = $db->multiObjectQuery($linkedArtefactQuery);
 			
 			//get reference artefacts.
@@ -617,6 +620,7 @@
 			//get time lines.
 			
 			$resultObj = array(
+				basicDetails => $basicDetails[0],
 				links => $linkedArtefacts,
 				references => $referenceArtefacts,
 				versions => $artefactVersions,

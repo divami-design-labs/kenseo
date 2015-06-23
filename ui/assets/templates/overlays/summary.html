@@ -4,14 +4,14 @@
             <div class="review-request-item" >
                 <div class="rr-left">
                     <div class="rr-status status-c">IXD</div>
-                    <img class="rr-owner-image" src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"/>
+                    <img class="rr-owner-image" title="<%=data.basicDetails.authorName %>" src="<%= data.basicDetails.authorImage %>"/>
                 </div>
                 <div class="rr-right">
-                    <div class="rr-title ellipsis" title="">title here</div>
-                    <div class="rr-details ellipsis" title="Version 5.0">Version 5.0</div>
+                    <div class="rr-title ellipsis" title="<%= data.basicDetails.title %>"><%= data.basicDetails.title %></div>
+                    <div class="rr-details ellipsis" title="Version <%=data.basicDetails.versionNo%>.0">Version <%=data.basicDetails.versionNo%>.0</div>
                     <div class="rr-state-details">
                         <div class="rr-state-x">
-                            <div class="rr-comment">22</div>
+                            <div class="rr-comment"><%=data.basicDetails.commentCount%></div>
                             <div class="status-c secondary-status-rr"></div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                 <div class="time-frame-holder mg-holder">
                     <div class="time-frame-item mg-item">
                         <div class="time-frame">
-                            <div class="file-type top-viewer"></div>
+                            <div class="file-type top-viewer"><span class="version-type">v5</span></div>
                             <div class="time-frame-date">11 Feb</div>
                         </div>
                     </div>
@@ -209,18 +209,20 @@
                 </div>
             </div>
             <div class="sub-section-content">
-                <div class="summary-people-item">
-                    <div class="sp-left">
-                        <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" />
-                    </div>
-                    <div class="sp-right">
-                        <div class="sp-name">Anurag</div>
-                        <div class="sp-below-section">
-                            <div class="rr-comment">22</div>
-                            <div class="status-c secondary-status-rr"></div>
-                        </div>
-                    </div>
-                </div>
+                 <% _.each(data.sharedTo, function(d){ %>
+	                 <div class="summary-people-item">
+	                    <div class="sp-left">
+	                        <img title"<%= d.name%>" src="<%= d.userImage%>" />
+	                    </div>
+	                    <div class="sp-right">
+	                        <div class="sp-name" title"<%= d.name%>"><%= d.name%></div>
+	                        <div class="sp-below-section">
+	                            <div class="rr-comment"><%= d.commentCount%></div>
+	                            <div class="status-c secondary-status-rr"></div>
+	                        </div>
+	                    </div>
+	                </div>
+                <% }); %>
             </div>
         </div>
         <div class="summary-versions-section">
@@ -234,16 +236,20 @@
             </div>
             <div class="sub-section-content">
                 <a class="summary-compare-btn" href="">Compare selected</a>
-                <div class="summary-version-item">
-                    <label class="checkbox">
-                        <input type="checkbox"></input>
-                        <span>
-                            <span class="version-type">v8</span>
-                            <span class="doc-type">Mapping Editor Doc</span>
-                        </span>
-                    </label>
-                    <div class="summary-version-date">12 Mar</div>
-                </div>
+                
+                <% _.each(data.versions, function(d){ %>
+	                <div class="summary-version-item">
+	                    <label class="checkbox">
+	                        <input type="checkbox"></input>
+	                        <span>
+	                            <span class="version-type">v<%=d.version_no %></span>
+	                            <span class="doc-type"><%= data.basicDetails.title %></span>
+	                        </span>
+	                    </label>
+	                    <div class="summary-version-date"><%= sb.timeFormat(d.created_date, true)%></div>
+	                </div>
+	               <br/>
+         		<% }); %>
             </div>
         </div>
         <div class="summary-references-section">
@@ -256,9 +262,11 @@
                 </div>
             </div>
             <div class="sub-section-content">
-                <div class="summary-reference-item">
-                    Lorem ipsum doler sit consetetur adepes
-                </div>
+            	<% _.each(data.references, function(d){ %>
+	                <div class="summary-reference-item ellipsis" title=" <%= d.title %>">
+	                    <%= d.title %>
+	                </div>
+                <% }); %>
             </div>
         </div>
         <div class="summary-linked-artefacts-section">
@@ -268,6 +276,13 @@
                     <div class="sub-heading-add-wrapper">
                         <div class="sub-heading-add-icon"></div>
                     </div>
+                    <div class="sub-section-content">
+                        <% _.each(data.links, function(d){ %>
+			                <div class="summary-reference-item ellipsis" title=" <%= d.title %>">
+			                    <%= d.artefact_title %>
+			                </div>
+		                <% }); %>
+	                </div>
                 </div>
             </div>
         </div>
