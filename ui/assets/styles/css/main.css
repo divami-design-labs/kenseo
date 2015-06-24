@@ -2402,10 +2402,6 @@
   border: 1px solid black;
   margin-left: -6px;
   background-color: white; }
-  .time-frame-item .version-type {
-    width: 23px;
-    height: 23px;
-    line-height: 20px; }
   .time-frame-item .meeting-type {
     background-image: url("../../imgs/calendar1.svg");
     background-repeat: no-repeat;
