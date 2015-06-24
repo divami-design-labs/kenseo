@@ -30,102 +30,42 @@
         <div class="close-icon"></div>
         <div class="time-frame-section">
             <div class="time-frame-extended mg-parent">
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="version-type top-viewer">v1</div>
-                            <div class="time-frame-date">8 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="meeting-type top-viewer"></div>
-                            <div class="time-frame-date">9 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="version-type top-viewer">v1
-                                <div class="meeting-type top-viewer">
-                                    <div class="version-type-viewer top-hover-viewer">
-                                        <div class="meeting-type-content">Conflux Mapping editor @ 9 Feb 10 am</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="time-frame-date">10 Feb</div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="file-type top-viewer"><span class="version-type top-viewer">v5</span></div>
-                            <div class="time-frame-date">11 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="meeting-type top-viewer"></div>
-                            <div class="time-frame-date">12 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="time-frame-date">13 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="comment-type top-viewer">
-                                <div class="comment-type-viewer top-hover-viewer">
-                                    <div class="comment-type-content">
-                                        <div class="tf-images">
-                                            <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" />
-                                            <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" />
-                                        </div>
-                                        <div class="tf-more-people">+ 2 More</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="time-frame-date">14 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="time-frame-date">15 Feb</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time-frame-holder mg-holder">
-                    <div class="time-frame-item mg-item">
-                        <div class="time-frame">
-                            <div class="user-type top-viewer">
-                                <div class="user-type-viewer top-hover-viewer">
-                                    <div class="user-type-content">
-                                        <div class="tf-images">
-                                            <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" />
-                                        </div>
-                                        <div class="tf-more-people">16 Feb @6pm</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="time-frame-date">16 Feb</div>
-                        </div>
-                    </div>
-                </div>
+            	<% for(var v in data.timeline){ %>
+	                <div class="time-frame-holder mg-holder">
+	                    <div class="time-frame-item mg-item">
+	                        <div class="time-frame">
+	                            <%_.each(data.timeline[v], function(item) {%>
+                            		
+                            			<% if(item.type === "links") {%>
+                        					 <div class="file-type top-viewer">
+                        				<% } else if(item.type === "shared") {%>
+                        					<div class="user-type top-viewer">
+                        					<div class="user-type-viewer top-hover-viewer">
+			                                    <div class="user-type-content">
+			                                        <div class="tf-images">
+			                                            <img src=<%= item.profPic %> />
+			                                        </div>
+			                                        <div class="tf-more-people"><%= sb.timeFormat(item.shared_date,true,true)%> @<%= sb.getTime(item.shared_date) %></div>
+			                                    </div>
+		                                    </div>
+                        				<% } else if(item.type === "versions") {%>
+                        					<div class="version-type top-viewer">v <%= item.version_no %>
+                        				<% } else if(item.type === "meetings") {%>
+                        					<div class="meeting-type top-viewer">
+                        				<% } else if(item.type === "references") {%>
+                        					 <div class="file-type top-viewer">
+                					 	<% } else if(item.type === "comments") {%>
+                        				<div class="comment-type top-viewer">
+                        				<% }%>
+                            		<% }) %></%>
+                            	<%_.each(data.timeline[v], function(item) {%>
+                            		</div>
+                            	<% }) %></%>
+	                            <div class="time-frame-date"><%= sb.timeFormat(v+" 00:00:00", true, true)%></div>
+	                        </div>
+	                    </div>
+	                </div>
+                <% } %>
             </div>
             <div class="time-frame-selector mg-parent">
                 <% _.each(data.versions, function(v){ %>

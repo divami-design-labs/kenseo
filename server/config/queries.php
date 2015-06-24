@@ -172,7 +172,8 @@ $AppGlobal['sql']['getTagsList'] = "SELECT tags.tag_id as id, tags.tag_name as n
 
 $AppGlobal['sql']['getLatestVerionOfArtefact'] = "SELECT latest_version_id AS verId FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
 
-$AppGlobal['sql']['getVerionDetailsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@ and artefact_ver_id in (SELECT latest_version_id FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@) ";
+$AppGlobal['sql']['getVerionDetailsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@ and artefact_ver_id in 
+													(SELECT latest_version_id FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@) ";
 
 $AppGlobal['sql']['getArtefactLinkId'] = "SELECT artefacts.linked_id FROM " . TABLE_ARTEFACTS . " AS artefacts where artefacts.artefact_id = @~~artefactid~~@";
 
@@ -254,7 +255,8 @@ $AppGlobal['sql']['getMeetingNotes'] = "SELECT users.user_id as userId, notes.pa
 										notes.participant_id = users.user_id
 										WHERE meeting_id = @~~meetingId~~@ ";
 										
-$AppGlobal['sql']['getMeetingDetails'] = "SELECT proj.project_name as projectName, arts.artefact_title as artefactName, user.name as createdBy, meets.meeting_time as startTime, meets.meeting_end_time as endTime, meets.venue as venue, meets.meeting_agenda as agenda
+$AppGlobal['sql']['getMeetingDetails'] = "SELECT proj.project_name as projectName, arts.artefact_title as artefactName, user.name as createdBy, 
+											meets.meeting_time as startTime, meets.meeting_end_time as endTime, meets.venue as venue, meets.meeting_agenda as agenda
 											FROM " . TABLE_MEETINGS . " AS  meets 
 											JOIN " . TABLE_PROJECTS . " AS proj ON
 											proj.project_id = meets.project_id 
@@ -305,7 +307,8 @@ $AppGlobal['sql']['getDocumentSharedDetails'] = "SELECT user.user_id as id,
 												user.email as email,
 												user.profile_pic_url as profilePic,
 												members.access_type as permission,
-												(SELECT COUNT(comment_id) from " . TABLE_COMMENTS . " as comments WHERE arts.latest_version_id = comments.artefact_ver_id and comments.comment_by = user.user_id) as commentcount
+												(SELECT COUNT(comment_id) from " . TABLE_COMMENTS . " as comments WHERE 
+												arts.latest_version_id = comments.artefact_ver_id and comments.comment_by = user.user_id) as commentcount
 												FROM " . TABLE_ARTEFACTS . " as arts
 												JOIN " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as members on
 												members.artefact_ver_id = arts.latest_version_id
@@ -322,7 +325,8 @@ $AppGlobal['sql']['getDocumentReferences'] = "SELECT refs.artefact_id as id,
 											docs.artefact_id = refs.artefact_id
 											where arts.artefact_id = @~~artId~~@";
 
-$AppGlobal['sql']['getDocumentLinks'] = "SELECT * FROM " . TABLE_ARTEFACT_LINKS . " where linked_id = (select DISTINCT (linked_id) from " . TABLE_ARTEFACT_LINKS . " WHERE linked_from_id = @~~artId~~@ or linked_to_id = @~~artId~~@)";
+$AppGlobal['sql']['getDocumentLinks'] = "SELECT * FROM " . TABLE_ARTEFACT_LINKS . " where linked_id = 
+										(select DISTINCT (linked_id) from " . TABLE_ARTEFACT_LINKS . " WHERE linked_from_id = @~~artId~~@ or linked_to_id = @~~artId~~@)";
 
 $AppGlobal['sql']['getAllVersionsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@";
 
@@ -402,6 +406,23 @@ $AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title
 											vers.artefact_ver_id = @~~versionId~~@
 											JOIN " . TABLE_USERS . " as user on
 											user.user_id = vers.created_by
-											WHERE arts.artefact_id = (SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@)"
+											WHERE arts.artefact_id = (SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@)";
+
+//summary timeline related queries
+$AppGlobal['sql']['getTimeLineMeetings'] = "SELECT * FROM " . TABLE_MEETINGS . " WHERE artefact_id =
+											(SELECT artefact_id FROM " . TABLE_ARTEFACTS_VERSIONS . " where artefact_ver_id = @~~versionId~~@) ORDER BY meeting_id";
+
+$AppGlobal['sql']['getTimeLineReferences'] = "SELECT * FROM " . TABLE_ARTEFACT_REFS ." WHERE artefact_id = 
+											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@) and while_creation = 0 ORDER BY created_date";
+
+$AppGlobal['sql']['getTimeLineLinks'] = "SELECT * FROM " . TABLE_ARTEFACT_LINKS .  " where linked_from_id = 
+										(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@) and while_creation = 0 ORDER BY linked_date";
+
+$AppGlobal['sql']['getTimeLineUsers'] = "SELECT memb.*, user.profile_pic_url as profPic FROM " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as memb 
+										JOIN " . TABLE_USERS . " as user on
+										user.user_id = memb.user_id
+										WHERE memb.artefact_id = 
+										(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~versionId~~@) and while_creation = 0 ORDER BY shared_date";
+
 
 ?>

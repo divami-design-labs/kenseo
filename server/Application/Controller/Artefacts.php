@@ -619,14 +619,95 @@
 			$artefactSharedQuery = getQuery('getArtefactSharedMemebersList', $queryParams);
 			$artefactSharedMemebers = $db->multiObjectQuery($artefactSharedQuery);
 			
-			//get time lines.
+			//get time data.
+			//we need references, 
+			$timelineReferencesQuery = getQuery('getTimeLineReferences', $queryParams);
+			$timelineReferences = $db->multiObjectQuery($timelineReferencesQuery);
+			
+			// we need links
+			$timelineLinksQuery = getQuery('getTimeLineLinks', $queryParams);
+			$timelineLinks = $db->multiObjectQuery($timelineLinksQuery);
+			
+			//we need meetings
+			$timelineMeetingsQuery = getQuery('getTimeLineMeetings', $queryParams);
+			$timelineMeetings = $db->multiObjectQuery($timelineMeetingsQuery);
+			
+			// we need sharing details
+			$timelineSharedQuery = getQuery('getTimeLineUsers', $queryParams);
+			$timelineShared = $db->multiObjectQuery($timelineSharedQuery);
+			
+			// we need comment details
+			$timelineCommentQuery = getQuery('getTimeLineReferences', $queryParams);
+			$timelineComment = $db->multiObjectQuery($timelineCommentQuery);
+			
+			//massage the ordered data into groups based on date
+			$timeline = array();
+			
+			for($i=0; $i<count($timelineLinks); $i++) {
+				$date = date_create($timelineLinks[$i]->linked_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+				
+				$data = $timelineLinks[$i];
+				$data->type = 'links';
+
+				$timeline[$formattedDate][] = $data;
+			}
+			
+			for($i=0; $i<count($timelineMeetings); $i++) {
+				$date = date_create($timelineMeetings[$i]->meeting_time);
+				$formattedDate = date_format($date, 'Y-m-d');
+				
+				$data = $timelineMeetings[$i];
+				$data->type = 'meetings';
+
+				$timeline[$formattedDate][] = $data;
+			}
+			
+			for($i=0; $i<count($timelineShared); $i++) {
+				$date = date_create($timelineShared[$i]->shared_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+				
+				$data = $timelineShared[$i];
+				$data->type = 'shared';
+
+				$timeline[$formattedDate][] = $data;
+			}
+			/*for($i=0; $i<count($timelineComment); $i++) {
+				$date = date_create($timelineComment[$i]->linked_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+				
+				$data = $timelineComment[$i];
+				$data->type = 'links';
+
+				$timeline[$formattedDate][] = $data;
+			}*/
+			for($i=0; $i<count($artefactVersions); $i++) {
+				$date = date_create($artefactVersions[$i]->created_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+				
+				$data = $artefactVersions[$i];
+				$data->type = 'versions';
+
+				$timeline[$formattedDate][] = $data;
+			}
+			
+			for($i=0; $i<count($timelineReferences); $i++) {
+				$date = date_create($artefactVersions[$i]->created_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+				
+				$data = $timelineReferences[$i];
+				$data->type = 'references';
+
+				$timeline[$formattedDate][] = $data;
+			}
 			
 			$resultObj = array(
 				basicDetails => $basicDetails,
 				links => $linkedArtefacts,
 				references => $referenceArtefacts,
 				versions => $artefactVersions,
-				sharedTo => $artefactSharedMemebers
+				sharedTo => $artefactSharedMemebers,
+				timeline => $timeline
 			);
 			
 			return $resultObj;
