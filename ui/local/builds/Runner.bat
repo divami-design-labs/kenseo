@@ -9,7 +9,7 @@ cd "C:\Program Files (x86)\Mozilla Firefox"
 start chrome.exe http://localhost/kenseo/ui https://mail.google.com/mail/u/1 https://mail.google.com/mail/u/0 stackoverflow.com
 cd c:\xampp\htdocs\kenseo\ui\assets\styles
 start sass --watch sass:css
-:: start babel --blacklist strict "js/babel-app" --watch --out-dir js/app
+start babel --blacklist strict "js/babel-app" --watch --out-dir js/app
 cd c:\xampp\htdocs\kenseo\ui
 start gulp watch
 start c:\xampp\htdocs\kenseo
