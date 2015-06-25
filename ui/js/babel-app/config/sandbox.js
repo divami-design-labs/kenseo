@@ -188,7 +188,7 @@ var sb = (function () {
             var data = _this.data;
             if (colStr) {
                 var collection = new Kenseo.collections[colStr]();
-                sb.fetch(collection, data, function (response) {
+                sb.fetch(collection, data, function (collection, response, options) {
                     // _.each(x.data, _this.renderArtefact);
                     if (!payload.excludeDump) {
                         sb.setDump(response);
@@ -448,8 +448,9 @@ var sb = (function () {
         overlay: {},
         fetch: function fetch(collection, data, func) {
             collection.fetch(sb.getStandardData({
-                data: data
-            })).then(func);
+                data: data,
+                success: func
+            }));
         },
         registerData: function registerData() {
             var $fieldSection = $('.popup').find('.field-section');

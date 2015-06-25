@@ -1,4 +1,4 @@
 Kenseo.collections.Search = Backbone.Collection.extend({
 	model: Kenseo.models.Search,
-	url: 'search'
+	url: sb.getRelativePath('search')
 });

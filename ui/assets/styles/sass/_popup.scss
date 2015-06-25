@@ -7,15 +7,30 @@
 	right: 0;
 	bottom: 0;
 	z-index: 100;
+	text-align:center;
+	&::after{
+		content: "";
+		display: inline-block;
+		vertical-align: middle;
+		height: 100%;
+		width: 0px;
+	}
+	& > *{
+		text-align: left;
+	}
 }
 .popup-click{
 	@extend .hand;
 }
 .popup, .overlay{
-	@include absoluter(0,0,0,0);
-	margin: auto;
+	// @include absoluter(0,0,0,0);
+	position: relative;
+	// margin: auto;
+	display: inline-block;
+	vertical-align: middle;
 	border: 1px solid $color8;
 	background-color: white;
+	height: 100%;
 }
 .popup-meeting{
 	@include popupDimensions(570px, 690px);
@@ -362,4 +377,11 @@ $popup-content-space: 175px;
 	.notification-title{
 		margin-right: 15px;
 	}
+}
+
+.popup-message .popup-body-wrapper {
+  padding-bottom: 0px;
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-right: 10px;
 }

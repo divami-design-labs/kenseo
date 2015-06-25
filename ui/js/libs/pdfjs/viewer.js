@@ -7112,36 +7112,36 @@ var paintPdf = function(payload) {
         }
     });
 
-    window.addEventListener('change', function webViewerChange(evt) {
-        var files = evt.target.files;
-        if (!files || files.length === 0) {
-            return;
-        }
-        var file = files[0];
+    // window.addEventListener('change', function webViewerChange(evt) {
+    //     var files = evt.target.files;
+    //     if (!files || files.length === 0) {
+    //         return;
+    //     }
+    //     var file = files[0];
 
-        if (!PDFJS.disableCreateObjectURL &&
-            typeof URL !== 'undefined' && URL.createObjectURL) {
-            PDFViewerApplication.open(URL.createObjectURL(file), 0);
-        } else {
-            // Read the local file into a Uint8Array.
-            var fileReader = new FileReader();
-            fileReader.onload = function webViewerChangeFileReaderOnload(evt) {
-                var buffer = evt.target.result;
-                var uint8Array = new Uint8Array(buffer);
-                PDFViewerApplication.open(uint8Array, 0);
-            };
-            fileReader.readAsArrayBuffer(file);
-        }
+    //     if (!PDFJS.disableCreateObjectURL &&
+    //         typeof URL !== 'undefined' && URL.createObjectURL) {
+    //         PDFViewerApplication.open(URL.createObjectURL(file), 0);
+    //     } else {
+    //         // Read the local file into a Uint8Array.
+    //         var fileReader = new FileReader();
+    //         fileReader.onload = function webViewerChangeFileReaderOnload(evt) {
+    //             var buffer = evt.target.result;
+    //             var uint8Array = new Uint8Array(buffer);
+    //             PDFViewerApplication.open(uint8Array, 0);
+    //         };
+    //         fileReader.readAsArrayBuffer(file);
+    //     }
 
-        PDFViewerApplication.setTitleUsingUrl(file.name);
+    //     PDFViewerApplication.setTitleUsingUrl(file.name);
 
-        // URL does not reflect proper document location - hiding some icons.
-        // _this.outerContainerInstance.querySelector('#viewBookmark').setAttribute('hidden', 'true');
-        _this.outerContainerInstance.querySelector('#secondaryViewBookmark').
-        setAttribute('hidden', 'true');
-        // _this.outerContainerInstance.querySelector('#download').setAttribute('hidden', 'true');
-        _this.outerContainerInstance.querySelector('#secondaryDownload').setAttribute('hidden', 'true');
-    }, true);
+    //     // URL does not reflect proper document location - hiding some icons.
+    //     // _this.outerContainerInstance.querySelector('#viewBookmark').setAttribute('hidden', 'true');
+    //     _this.outerContainerInstance.querySelector('#secondaryViewBookmark').
+    //     setAttribute('hidden', 'true');
+    //     // _this.outerContainerInstance.querySelector('#download').setAttribute('hidden', 'true');
+    //     _this.outerContainerInstance.querySelector('#secondaryDownload').setAttribute('hidden', 'true');
+    // }, true);
 
     // function selectScaleOption(value) {
     //     var options = _this.outerContainerInstance.querySelector('#scaleSelect').options;
