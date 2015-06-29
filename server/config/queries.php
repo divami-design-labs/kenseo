@@ -249,22 +249,27 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT pa.logged_time as time,
 
 $AppGlobal['sql']['getMyRecentActivity'] = "";
 
-$AppGlobal['sql']['getMeetingNotes'] = "SELECT users.user_id as userId, notes.participant_notes as notes, notes.is_public as isPublic 
+$AppGlobal['sql']['getMeetingNotes'] = "SELECT users.user_id as userId, notes.participant_notes as notes, notes.is_public as isPublic, users.profile_pic_url as profilePic, users.name as userName 
 										FROM " . TABLE_MEETING_NOTES . " as notes 
 										JOIN " . TABLE_USERS . " as users ON 
 										notes.participant_id = users.user_id
-										WHERE meeting_id = @~~meetingId~~@ ";
+										WHERE meeting_id = @~~meetingId~~@ and users.user_id != @~~userId~~@";
 										
 $AppGlobal['sql']['getMeetingDetails'] = "SELECT proj.project_name as projectName, arts.artefact_title as artefactName, user.name as createdBy, 
-											meets.meeting_time as startTime, meets.meeting_end_time as endTime, meets.venue as venue, meets.meeting_agenda as agenda
+											meets.meeting_time as startTime, meets.meeting_end_time as endTime, meets.venue as venue, meets.meeting_agenda as agenda,
+											notes.participant_notes as userNotes, participant.user_id as participantId, participant.name as participantName, participant.profile_pic_url as participantPic
 											FROM " . TABLE_MEETINGS . " AS  meets 
+											JOIN " . TABLE_MEETING_NOTES . " as notes on
+											notes.meeting_id = @~~meetingId~~@ and participant_id = @~~userId~~@
 											JOIN " . TABLE_PROJECTS . " AS proj ON
 											proj.project_id = meets.project_id 
 											JOIN " . TABLE_ARTEFACTS . " as arts ON 
 											arts.artefact_id = meets.artefact_id
 											JOIN " . TABLE_USERS . " as user ON
 											user.user_id = meets.created_by
-											WHERE meeting_id = @~~meetingId~~@ ";
+											JOIN " . TABLE_USERS . " as participant ON
+											participant.user_id = @~~userId~~@
+											WHERE meets.meeting_id = @~~meetingId~~@ ";
 
 											
 $AppGlobal['sql']['getMeetingParticipants'] = "SELECT user.user_id as id, user.name as participentName, user.profile_pic_url 

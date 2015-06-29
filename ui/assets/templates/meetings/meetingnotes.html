@@ -44,24 +44,36 @@
         <div class="meeting-right-section">
             <div class="meeting-people-section">
                 <div class="meeting-people-active">
-                    <div class="people-img-wrapper">
-                        <img src="https://lh6.googleusercontent.com/-4KVMvFaXHy0/AAAAAAAAAAI/AAAAAAAAAGs/zKQltuN13t4/photo.jpg" />
-                    </div>
-                    <span class="meeting-people-name">
-                        Anurag
-                    </span>
-                </div>
+                	<div class='currentPersonNotes acitiveNotesPartcipant' data-user=1>
+	                    <div class="people-img-wrapper">
+	                        <img src=<%=data.participantPic%> />
+	                    </div>
+	                    <span class="meeting-people-name">
+	                        <%=data.participantName%>
+	                    </span>
+                	</div>
+	                <% _.each(data.notes, function(p){ %>
+	            		<div class='currentPersonNotes' data-user=2>
+		            		<div class="meeting-people-active">
+			                    <div class="people-img-wrapper">
+			                        <img src=<%=p.profilePic%> />
+			                    </div>
+			                    <span class="meeting-people-name">
+			                        <%=p.userName%>
+			                    </span>
+			                </div>
+	            	<% }); %>
+               </div>
                 <div class="meeting-people-other">
-                    <div class="people-img-wrapper">
-                        <img src="https://lh6.googleusercontent.com/-4KVMvFaXHy0/AAAAAAAAAAI/AAAAAAAAAGs/zKQltuN13t4/photo.jpg" />
+                    <div class="people-img-wrapper particiapant active" data-user=<%=data.participantId%>>
+                        <img src="<%=data.participantPic%>" />
                     </div>
                     <div class="v-separator"></div>
-                    <div class="people-img-wrapper active">
-                        <img src="https://lh6.googleusercontent.com/-4KVMvFaXHy0/AAAAAAAAAAI/AAAAAAAAAGs/zKQltuN13t4/photo.jpg" />
+                    <% _.each(data.notes, function(p){ %>
+                    <div class="people-img-wrapper particiapant" data-user=<%=p.userId%>>
+                        <img src="<%=p.profilePic%>" />
                     </div>
-                    <div class="people-img-wrapper">
-                        <img src="https://lh6.googleusercontent.com/-4KVMvFaXHy0/AAAAAAAAAAI/AAAAAAAAAGs/zKQltuN13t4/photo.jpg" />
-                    </div>
+                    <% }); %>
                 </div>
             </div>
             <div class="text-editor-section">
@@ -70,8 +82,15 @@
                     <button name="text-i" text-name="italic">Italic</button>
                     <button name="text-u" text-name="underline">Underline</button>
                 </div>
-                <div class="text-editor" contenteditable=true>
+                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user=1>
+                	<%=data.userNotes%>
                 </div>
+                <% _.each(data.notes, function(p){ %>
+            		<div class="view-notes" data-user=2 >
+            			<%= p.notes%>
+        			</div>
+            	<% }); %>
+               
             </div>
             <label class="checkbox">
                 <input class="existing-files-chk" type="checkbox">

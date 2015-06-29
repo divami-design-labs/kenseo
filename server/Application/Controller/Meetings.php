@@ -139,7 +139,7 @@
 			
 			$db = Master::getDBConnectionManager();
 			
-			$queryParams = array(meetingId => $data->meetingId);
+			$queryParams = array(meetingId => $data->meetingId, userId=> $user->user_id);
 			
 			//first get meeting Details 
 			$dbQuery = getQuery('getMeetingDetails',$queryParams);

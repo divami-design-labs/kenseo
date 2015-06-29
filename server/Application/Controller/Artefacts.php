@@ -642,7 +642,15 @@
 			
 			//massage the ordered data into groups based on date
 			$timeline = array();
-			
+			for($i=0; $i<count($artefactVersions); $i++) {
+				$date = date_create($artefactVersions[$i]->created_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+				
+				$data = $artefactVersions[$i];
+				$data->type = 'versions';
+
+				$timeline[$formattedDate][] = $data;
+			}
 			for($i=0; $i<count($timelineLinks); $i++) {
 				$date = date_create($timelineLinks[$i]->linked_date);
 				$formattedDate = date_format($date, 'Y-m-d');
@@ -681,15 +689,7 @@
 
 				$timeline[$formattedDate][] = $data;
 			}*/
-			for($i=0; $i<count($artefactVersions); $i++) {
-				$date = date_create($artefactVersions[$i]->created_date);
-				$formattedDate = date_format($date, 'Y-m-d');
-				
-				$data = $artefactVersions[$i];
-				$data->type = 'versions';
-
-				$timeline[$formattedDate][] = $data;
-			}
+			
 			
 			for($i=0; $i<count($timelineReferences); $i++) {
 				$date = date_create($artefactVersions[$i]->created_date);

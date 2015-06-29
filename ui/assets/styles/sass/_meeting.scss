@@ -160,11 +160,26 @@
 [name="text-u"].active{
 	text-decoration: underline;
 }
-.text-editor{
+
+.view-notes {
 	padding: 10px 20px;
 	@include text(13px, $colorTwo);
 	min-height: 260px;
+	display: none;
 }
+
+.selectedNotes {
+	display: block;
+}
+
+.currentPersonNotes {
+	display: none;
+}
+
+.acitiveNotesPartcipant {
+	display: block;
+}
+
 .people-img-wrapper.active{
 	background-color: $colorEleven;
 }

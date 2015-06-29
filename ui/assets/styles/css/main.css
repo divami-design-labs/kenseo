@@ -2266,11 +2266,21 @@
 [name="text-u"].active {
   text-decoration: underline; }
 
-.text-editor {
+.view-notes {
   padding: 10px 20px;
   font-size: 13px;
   color: #3e4354;
-  min-height: 260px; }
+  min-height: 260px;
+  display: none; }
+
+.selectedNotes {
+  display: block; }
+
+.currentPersonNotes {
+  display: none; }
+
+.acitiveNotesPartcipant {
+  display: block; }
 
 .people-img-wrapper.active {
   background-color: #d7d7d9; }

@@ -104,6 +104,7 @@ sb.router = {
                         callbackfunc: function() {
 		                    //since we have the Html ready now we can have the editor in place.
 		                    var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
+		                    sb.meeting.notes();
                         }
                     });
 
