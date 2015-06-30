@@ -3,7 +3,7 @@
         <div class="projects-heading-icon"></div>       
         <span class="heading-text-project">Projects &gt; </span>
         <span class="heading-text-project-name"><%= data.projectName %></span>  
-        <span class="heading-date">(12 Mar 2015)</span>
+        <span class="heading-date">(<%= sb.timeFormat(data.startTime, true, true) %>)</span>
     </div>
     <div class="meeting-wrapper">
         <div class="meeting-left-section">
@@ -44,19 +44,19 @@
         <div class="meeting-right-section">
             <div class="meeting-people-section">
                 <div class="meeting-people-active">
-                	<div class='currentPersonNotes acitiveNotesPartcipant' data-user=1>
+                	<div class='currentPersonNotes acitiveNotesPartcipant' data-user="<%= data.participantId %>">
 	                    <div class="people-img-wrapper">
-	                        <img src=<%=data.participantPic%> />
+	                        <img src="<%=data.participantPic%>" />
 	                    </div>
 	                    <span class="meeting-people-name">
 	                        <%=data.participantName%>
 	                    </span>
                 	</div>
 	                <% _.each(data.notes, function(p){ %>
-	            		<div class='currentPersonNotes' data-user=2>
+	            		<div class='currentPersonNotes' data-user="<%= p.userId %>">
 		            		<div class="meeting-people-active">
 			                    <div class="people-img-wrapper">
-			                        <img src=<%=p.profilePic%> />
+			                        <img src="<%=p.profilePic%>" />
 			                    </div>
 			                    <span class="meeting-people-name">
 			                        <%=p.userName%>
@@ -65,12 +65,12 @@
 	            	<% }); %>
                </div>
                 <div class="meeting-people-other">
-                    <div class="people-img-wrapper particiapant active" data-user=<%=data.participantId%>>
+                    <div class="people-img-wrapper participant active" data-user=<%=data.participantId%>>
                         <img src="<%=data.participantPic%>" />
                     </div>
                     <div class="v-separator"></div>
                     <% _.each(data.notes, function(p){ %>
-                    <div class="people-img-wrapper particiapant" data-user=<%=p.userId%>>
+                    <div class="people-img-wrapper participant" data-user=<%=p.userId%>>
                         <img src="<%=p.profilePic%>" />
                     </div>
                     <% }); %>
@@ -82,11 +82,11 @@
                     <button name="text-i" text-name="italic">Italic</button>
                     <button name="text-u" text-name="underline">Underline</button>
                 </div>
-                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user=1>
+                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="<%= data.participantId %>">
                 	<%=data.userNotes%>
                 </div>
                 <% _.each(data.notes, function(p){ %>
-            		<div class="view-notes" data-user=2 >
+            		<div class="view-notes" data-user="<%= p.userId %>" >
             			<%= p.notes%>
         			</div>
             	<% }); %>

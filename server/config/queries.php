@@ -141,7 +141,7 @@ $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots
 										 nots.notification_date as time, notifier.name as notifier, nots.notification_by as notifierId  
 										 FROM " . TABLE_NOTIFICATIONS . " as nots
 										 JOIN " . TABLE_USERS . " as notifier on notifier.user_id = nots.notification_by
-										 WHERE nots.user_id = @~~id~~@ or nots.notification_by = @~~id~~@ ORDER BY nots.notification_date DESC LIMIT @~~limit~~@";
+										 WHERE nots.user_id = @~~id~~@ ORDER BY nots.notification_date DESC LIMIT @~~limit~~@";
 
 $AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_title as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 

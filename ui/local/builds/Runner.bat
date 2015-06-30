@@ -10,7 +10,7 @@ start chrome.exe http://localhost/kenseo/ui https://mail.google.com/mail/u/1 htt
 cd c:\xampp\htdocs\kenseo\ui\assets\styles
 start sass --watch sass:css
 cd c:\xampp\htdocs\kenseo\ui
-start babel --blacklist strict "js/babel-app" --watch --out-dir js/app
+start babel --blacklist strict "js/babel-app" --watch --out-dir js/app --source-maps inline
 start gulp watch
 start c:\xampp\htdocs\kenseo
 exit

@@ -25,14 +25,16 @@ Kenseo.views.Project = Backbone.View.extend({
     template: _.template(templates['project-section']),
     // View constructor
     initialize: function initialize() {
-        this.listenTo(this.model, 'remove', this.remove);
-        this.listenTo(this.model, 'add', this.render);
+        if(this.model){
+            this.listenTo(this.model, 'remove', this.remove);
+        }
+        // this.listenTo(this.model.collection, 'add', this.render);
     },
     events: {
         'click .popup-click': 'openPopup'
     },
-    render: function render() {
-        var data = this.model.toJSON();
+    render: function render(data) {
+        var data = data || this.model.toJSON();
         var html = this.template({ data: data });
         this.$el.append(html);
         return this;

@@ -96,15 +96,20 @@
 
 			$actId = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notColumnnames, $notRowvals);
 			
+			$notesColumnValues = array("meeting_id","participant_id", "participant_notes", "created_date", "is_public");
+			$notesRowValues = array($meetId,  $user->user_id, "",date("Y-m-d H:i:s"), 0);
+			$db->insertSingleRow(TABLE_MEETING_NOTES, $notesColumnValues, $notesRowValues);
 			for($i = 0; $i < count($data->attendees); $i++) {
 				if($data->attendees[$i]->{'data-email'}) {
 					$partsRowvals = array($meetId, $data->attendees[$i]->{'data-user_id'}, date("Y-m-d H:i:s"), $user->user_id);
 					$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $partsColumnnames, $partsRowvals);
 					
 					//insert into notifications	
-					$notRowvals = array($data->attendees[$i]->id, $title, $projectId, $user->user_id, date("Y-m-d H:i:s"), 'M', $meetId, 'U');
+					$notRowvals = array($data->attendees[$i]->{'data-user_id'}, $title, $projectId, $user->user_id, date("Y-m-d H:i:s"), 'M', $meetId, 'U');
 	
 					$actId = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notColumnnames, $notRowvals);
+					$notesRowValues = array($meetId, $data->attendees[$i]->{'data-user_id'}, "",date("Y-m-d H:i:s"), 0);
+					$db->insertSingleRow(TABLE_MEETING_NOTES, $notesColumnValues, $notesRowValues);
 				}
 
 

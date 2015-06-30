@@ -84,7 +84,10 @@ sb.router = {
             'views': ['Header', 'Artefacts', 'People', 'Activities'],
             'models': ['Projects', 'Header', 'Artefacts', 'People'],
             'collections': ['Projects', 'Artefacts', 'People'],
-            'files': ['js/app/components/textEditor.js']
+            'files': [
+                'js/app/components/textEditor.js',
+                'js/app/config/sandbox.meeting.js'
+            ]
         }, function () {
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
