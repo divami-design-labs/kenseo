@@ -173,9 +173,9 @@ Kenseo.popups = (function(){
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"
 	            }],
-	            "callbackfunc": function() {
-	            	sb.setPopupData('archiveProject', 'actionType');
-	            }
+	            // "callbackfunc": function() {
+	            // 	sb.setPopupData('archiveProject', 'actionType');
+	            // }
 	            
         	}
         ],
@@ -195,7 +195,7 @@ Kenseo.popups = (function(){
 	            	"disabled": true
 	            }],
 	            "callbackfunc": function() {
-	            	sb.setPopupData('replaceArtefact', 'actionType');
+	            	// sb.setPopupData('replaceArtefact', 'actionType');
 	            	sb.popup.createFilePopup();	
 	            }
         	}
@@ -228,7 +228,7 @@ Kenseo.popups = (function(){
 				"disabled": false
 			}],
 			"callbackfunc": function() {
-            	sb.setPopupData('setMeetingInvitation', 'actionType');
+            	// sb.setPopupData('setMeetingInvitation', 'actionType');
             	sb.popup.meetingIvite();	
             }
     	}],
@@ -248,28 +248,28 @@ Kenseo.popups = (function(){
 	            	"disabled": true
 	            }],
 	            "callbackfunc": function() {
-	            	sb.setPopupData('addArtefactVersion', 'actionType');
+	            	// sb.setPopupData('addArtefactVersion', 'actionType');
 	            	sb.popup.createFilePopup();	
 	            }
         	}
         ],
-        "share" : [{
-        	"page_name": "artefact-four",
-        	"title": "Share an Artefact",
-        	"buttons": [{
-            	"label": "Cancel",
-            	"cls": "cancel-btn lnk-btn"
-            },
-            {
-            	"label": "Done",
-            	"cls": "main-btn share-btn done-btn",
-            	"disabled": false
-            }],
-            "callbackfunc": function() {
-            	sb.setPopupData('shareArtefact', 'actionType');
-            	sb.popup.shareWithPeoplePopup()	
-            }
-        }],
+        // "share" : [{
+        // 	"page_name": "artefact-four",
+        // 	"title": "Share an Artefact",
+        // 	"buttons": [{
+        //     	"label": "Cancel",
+        //     	"cls": "cancel-btn lnk-btn"
+        //     },
+        //     {
+        //     	"label": "Done",
+        //     	"cls": "main-btn share-btn done-btn",
+        //     	"disabled": false
+        //     }],
+        //     "callbackfunc": function() {
+        //     	sb.setPopupData('shareArtefact', 'actionType');
+        //     	sb.popup.shareWithPeoplePopup()	
+        //     }
+        // }],
         "add-project": [{
         	"page_name": "add-project",
         	title: "Add a Project",
@@ -283,7 +283,7 @@ Kenseo.popups = (function(){
             	"disabled": false
             }],
             "callbackfunc": function() {
-            	sb.setPopupData('addProject', 'actionType');
+            	// sb.setPopupData('addProject', 'actionType');
             }
         }]
 	};

@@ -112,7 +112,7 @@
 			
 			return $resultObj;
 		}		
-		public function addArtefactVersion($interpreter) {
+		public function addVersion($interpreter) {
 			global $AppGlobal;
 			$data = $interpreter->getData();
 			if($data->data != null) {

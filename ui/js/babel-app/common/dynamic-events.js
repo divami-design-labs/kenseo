@@ -134,12 +134,14 @@ $(function () {
 					} else if (actionType === 'deleteArtefact') {
 						Kenseo.currentModel.collection.remove(Kenseo.currentModel);
 					} else if (actionType === 'addProject') {
-						var collection = new Kenseo.collections.Projects();
-						collection.add({
-							name: data.projectName.value,
-							last_updated_date: new Date().toString(),
-							id: 'x3'
-						});
+						var projectView = new Kenseo.views.Project();
+						$('.projects-section-content').append(projectView.render(
+							{ 
+								name: data.projectName.value,
+								last_updated_date: new Date().toString(),
+								id: 'x3'
+							}
+						).$el);
 					}
 				}
 			}

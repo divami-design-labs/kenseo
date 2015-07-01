@@ -301,16 +301,8 @@
 	padding-top: 10px;
 	background-color: $colorK;
 }
-.requests-dropdown-items > div{
-	white-space: nowrap;
-	padding-left: 35px;
-	padding-bottom: 10px;
-	padding-right: 10px;
-	position: relative;
-	@include text(12px, $colorL);
-}
 @mixin requestHoverListType($image){
-	@include listTypeWithGap($image, 17px, 17px, 0px, 10px);
+	@include listImage($image, 17px, 17px);
 }
 .requests-archive-item{
 	@include requestHoverListType("archive1.svg");

@@ -51,8 +51,8 @@ $AppGlobal['urlmap']['/getTeamMembersList'] = array ('command' => 'getTeamMember
 $AppGlobal['cmdmap']['getTagsList'] = array ("class" => "Common", "method" => "getTagsList");
 $AppGlobal['urlmap']['/getTagsList'] = array ('command' => 'getTagsList', 'type' => 'GET');
 
-$AppGlobal['cmdmap']['addArtefactVersion'] = array ("class" => "Artefacts", "method" => "addArtefactVersion");
-$AppGlobal['urlmap']['/addArtefactVersion'] = array ('command' => 'addArtefactVersion', 'type' => 'GET');
+$AppGlobal['cmdmap']['addVersion'] = array ("class" => "Artefacts", "method" => "addVersion");
+$AppGlobal['urlmap']['/addVersion'] = array ('command' => 'addVersion', 'type' => 'GET');
 
 $AppGlobal['cmdmap']['replaceArtefact'] = array ("class" => "Artefacts", "method" => "replaceArtefact");
 $AppGlobal['urlmap']['/replaceArtefact'] = array ('command' => 'replaceArtefact', 'type' => 'GET');
@@ -90,8 +90,8 @@ $AppGlobal['urlmap']['/removePeople'] = array ('command' => 'removePeople', 'typ
 $AppGlobal['cmdmap']['getProjectActivity'] = array ("class" => "Projects", "method" => "getProjectActivity");
 $AppGlobal['urlmap']['/getProjectActivity'] = array ('command' => 'getProjectActivity', 'type' => 'GET');
 
-$AppGlobal['cmdmap']['setMeetingInvitation'] = array ("class" => "Meetings", "method" => "setMeetingInvitaion");
-$AppGlobal['urlmap']['/setMeetingInvitation'] = array ('command' => 'setMeetingInvitation', 'type' => 'GET');
+$AppGlobal['cmdmap']['createMeeting'] = array ("class" => "Meetings", "method" => "setMeetingInvitaion");
+$AppGlobal['urlmap']['/createMeeting'] = array ('command' => 'createMeeting', 'type' => 'GET');
 
 $AppGlobal['cmdmap']['getArtefactDetails'] = array ("class" => "Artefacts", "method" => "getArtefactDetails");
 $AppGlobal['urlmap']['/getArtefactDetails'] = array ('command' => 'getArtefactDetails', 'type' => 'GET');

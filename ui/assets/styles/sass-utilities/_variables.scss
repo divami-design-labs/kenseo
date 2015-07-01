@@ -100,7 +100,7 @@ $fontSizeOne: 18px;
 		position: absolute;
 		top: 50%;
 		@include transform(translate(0, -50%));
-		left: 0;
+		left: 10px;
 	}
 }
 @mixin listTypeWithGap($image, $w, $h, $t, $l){

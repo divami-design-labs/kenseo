@@ -138,14 +138,23 @@ var sb = (function () {
                 contentType: contentType,
                 processData: processData,
                 success: function success(response) {
-                    var response = JSON.parse(response);
-                    if (response.status == 'success') {
-                        if (!payload.excludeDump) {
-                            sb.setDump(response);
+                    try {
+                        var response = JSON.parse(response);
+                        if (response.status == 'success') {
+                            if (!payload.excludeDump) {
+                                sb.setDump(response);
+                            }
+                            payload.success(response);
+                        } else {
+                            window.location.assign(DOMAIN_ROOT_URL);
                         }
-                        payload.success(response);
-                    } else {
-                        window.location.assign(DOMAIN_ROOT_URL);
+                    }
+                    catch(ex){
+                        // Catching the exception
+                        sb.log("Below error is in ajax request");
+                        console.error(ex);
+                        // Redirecting to the Dashboard
+
                     }
                 }
             });
@@ -233,12 +242,6 @@ var sb = (function () {
                     'url': url,
                     'data': p.data,
                     'success': function success(obj) {
-                        // if (response) {
-                        //     var obj = JSON.parse(response);
-                        // } else {
-                        //     var obj = {};
-                        // }
-                        // console.dir(obj);
                         if (p.templateHolder) {
                             p.templateHolder.html(compiler(obj));
                         }
@@ -255,16 +258,18 @@ var sb = (function () {
             }
         },
         getDate: function getDate(time) {
-            if (time) {
-                if(time.toString() === "Invalid Date"){
-                    var t = time.split(/[- :]/);
-                    return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
-                }
-                else{
-                    return new Date(time);
-                }
-            } else {
-                return new Date();
+            // Refer: http://stackoverflow.com/a/10589791/1577396
+            // Refer: http://stackoverflow.com/a/1353711/1577396
+            var dateTime = new Date(time || null);
+            // Valid date
+            if(Object.prototype.toString.call(dateTime) === "[object Date]" && !isNaN(dateTime.getTime())){
+                return dateTime;
+            }
+            // Invalid date
+            else{
+                // Refer: http://stackoverflow.com/a/3075893/1577396
+                var t = time.split(/[- :]/);
+                return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
             }
         },
         timeFormat: function timeFormat(time, OnlyTime, OnlyDays) {
@@ -386,8 +391,10 @@ var sb = (function () {
             if (str == 'popup') {
                 var index = $self.data('index') || 0;
                 $('.popup-container').show();
+                var actionType = $self.data('url');
                 // Important: this should be called after dump object is stored in the Kenseo.popup.data
-                Kenseo.popup.info = sb.getPopupsInfo($self.data('url'));
+                Kenseo.popup.info = sb.getPopupsInfo(actionType);
+                sb.setPopupData(_.camelCase(actionType), 'actionType');
                 if (index > 0) {
                     Kenseo.popup.info = Kenseo.popup.info.slice(index);
                     index = 0;
@@ -397,8 +404,10 @@ var sb = (function () {
             else if (str == 'overlay') {
                 var index = $self.data('index') || 0;
                 $('.popup-container').show();
+                var actionType = $self.data('url');
                 // Important: this should be called after dump object is stored in the Kenseo.popup.data
-                Kenseo.popup.info = sb.getOverlaysInfo($self.data('url'));
+                Kenseo.popup.info = sb.getOverlaysInfo(actionType);
+                sb.setPopupData(_.camelCase(actionType), 'actionType');
                 if (index > 0) {
                     Kenseo.popup.info = Kenseo.popup.info.slice(index);
                     index = 0;
