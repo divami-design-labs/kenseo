@@ -15,14 +15,23 @@ sb.overlay = {
 	            templateName: 'summary',
 	            templateHolder: $('.popup-container'),
 	            callbackfunc: function(){
-	            	//attach events 
-
+	            	// Initializing slider component
 					new slider();
 
-			        var x = document.querySelector('.summary-section-body');
-			        x.onclick = function(){
-			            x.parentElement.classList.toggle('view');
-			        }
+					// Attaching events
+			        var $summarSectionBody = $('.summary-section-body'),
+			        	$close = $summarSectionBody.find('.close-icon');
+			        $summarSectionBody.click(function(e){
+			        	var $overlay = $(this).parent();
+			        	if($overlay.hasClass('view')){
+				            $overlay.removeClass('view');
+				        }
+			        });
+			        // Close icon
+			        $close.click(function(e) {
+			        	e.stopPropagation();
+			        	$(this).parents('.overlay').addClass('view');
+			        });
 	            }
 	        });
 			

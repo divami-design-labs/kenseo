@@ -149,7 +149,10 @@
 	                            <div class="doc-type" title="<%= data.basicDetails.title %>"><%= data.basicDetails.title %></div>
 	                        </span>
 	                    </label>
-	                    <div class="summary-version-date"><%= sb.timeFormat(d.created_date, true)%></div>
+	                    <div class="summary-version-date">
+                            <span><%= sb.timeFormat(d.created_date, true)%></span>
+                            <a class="page-click" href="#documentview/<%= d.artefact_ver_id %>">Open</a>
+                        </div>
 	                </div>
                     <% } %>
          		<% }); %>
@@ -166,7 +169,7 @@
             </div>
             <div class="sub-section-content">
             	<% _.each(data.references, function(d){ %>
-	                <div class="summary-reference-item ellipsis" title=" <%= d.title %>">
+	                <div class="summary-reference-item ellipsis" title="<%= d.title %>">
 	                    <%= d.title %>
 	                </div>
                 <% }); %>
@@ -181,7 +184,7 @@
                     </div>
                     <div class="sub-section-content">
                         <% _.each(data.links, function(d){ %>
-			                <div class="summary-reference-item ellipsis" title=" <%= d.title %>">
+			                <div class="linked-item" title="<%= d.artefact_title %>">
 			                    <%= d.artefact_title %>
 			                </div>
 		                <% }); %>

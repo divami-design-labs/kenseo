@@ -1,12 +1,19 @@
 <div class="popup popup-small">
+	<% 
+		var fields = {
+			comboBoxOne: sb.toolbox.comboBox({
+				"fieldClass": "flt-none",
+				"class": "projects-dropdown",
+			})
+		}
+	%>
 	<div class="popup-header">
 		<div class="popup-title"><%= data.title %></div>
 		<div class="popup-close-icon"></div>
 	</div>
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
-			<div class="projects-dropdown combobox">
-			</div>
+			<%= fields.comboBoxOne %>
 		</div>
 	</div>
 	<div class="buttons-section">

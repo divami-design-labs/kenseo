@@ -1,9 +1,13 @@
+<% Kenseo.populate.meeting = data %>
 <div class="meeting-section">
     <div class="project-heading">       
         <div class="projects-heading-icon"></div>       
         <span class="heading-text-project">Projects &gt; </span>
         <span class="heading-text-project-name"><%= data.projectName %></span>  
         <span class="heading-date">(<%= sb.timeFormat(data.startTime, true, true) %>)</span>
+        <div class="meeting-update-btn-holder">
+            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>
+        </div>
     </div>
     <div class="meeting-wrapper">
         <div class="meeting-left-section">

@@ -166,9 +166,9 @@ sb.router = {
 
                         //before painting the pdf into the viewer we need to add a tab for it.
                         if (response.data.type == 'application/pdf') {
-                            var str = '<div class="tab-item selectedTab" targetRel="' + response.data.versionId + '"><div class= "fileTab" ></div></div>';
+                            var str = '<a href="#documentview/' + response.data.versionId + '" class="tab-item selectedTab" targetRel="' + response.data.versionId + '"><div class= "fileTab" ></div></a>';
                         } else {
-                            var str = '<div class="tab-item selectedTab" targetRel="' + response.data.versionId + '"><div class= " imageTab" ></div></div>';
+                            var str = '<a href="#documentview/' + response.data.versionId + '" class="tab-item selectedTab" targetRel="' + response.data.versionId + '"><div class= " imageTab" ></div></a>';
                         }
                         $('.dv-tab-panel-section').prepend(str);
                         $('.pdfs-container').append(_.template(templates['pdf-viewer'])(response.data));

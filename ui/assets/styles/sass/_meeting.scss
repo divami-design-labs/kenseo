@@ -199,4 +199,17 @@
 	float: left;
 	margin-right: 10px;
 } 
-
+.meeting-section .project-heading{
+	@extend .clearFloat;
+	line-height: 40px;
+}
+.meeting-update-btn-holder{
+	float: right;
+}
+.meeting-update-button{
+	background-color: $colorN;
+	display: inline-block;
+	padding: 0px 20px;
+	@include border-radius(3px);
+	@include text(16px, white);
+}

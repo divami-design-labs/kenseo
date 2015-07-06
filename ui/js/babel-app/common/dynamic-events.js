@@ -60,9 +60,24 @@ $(function () {
 	}).on('click', '.overlay-click', function () {
 		sb.navigate('overlay', this);
 	}).on('click', '.page-click', function (e) {
+		// To avoid default behaviour of the anchor element
+		e.preventDefault();
+		// Don't call other functions attached to the same event.
 		e.stopPropagation();
+		// Default application operations
 		sb.navigate('page', this);
+
+		// if the link is in a sub menu section, hide that section
 		$(this).parents('.toggle-click').removeClass('active');
+
+		// if the link is in a popup, close that popup
+		popupCloser($(popupContainer));
+
+		// if the link is an anchor element, redirect it.
+		// Refer: http://stackoverflow.com/a/31177540/1577396
+		if(this.tagName.toLowerCase() === "a"){
+			window.location.href = DOMAIN_UI_URL + $(this).attr('href');
+		}
 	}).on('click', '.share-btn', function () {
 		var container = document.querySelectorAll('.share-artefact-people-item');
 		console.log(container);
@@ -134,14 +149,18 @@ $(function () {
 					} else if (actionType === 'deleteArtefact') {
 						Kenseo.currentModel.collection.remove(Kenseo.currentModel);
 					} else if (actionType === 'addProject') {
-						var projectView = new Kenseo.views.Project();
-						$('.projects-section-content').append(projectView.render(
-							{ 
-								name: data.projectName.value,
-								last_updated_date: new Date().toString(),
-								id: 'x3'
-							}
-						).$el);
+						// Add the project to the Dashboard section
+						var $projectSectionContent = $('.projects-section-content');
+						if($projectSectionContent.length){
+							var projectView = new Kenseo.views.Project();
+							$projectSectionContent.append(projectView.render(
+								{ 
+									name: data.projectName.value,
+									last_updated_date: new Date().toString(),
+									id: 'x3'
+								}
+							).$el);
+						}
 					}
 				}
 			}

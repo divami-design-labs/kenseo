@@ -27,7 +27,9 @@
 	@extend .inlineBlockMid;
 }
 .projects-heading-icon, .review-requests-icon, .notifications-heading-icon{
-	float: left;
+	// float: left;
+	display: inline-block;
+	vertical-align: middle;
 }
 .projects-heading-icon{
 	@include elementWithBackground("projects.svg", 24px, 24px);

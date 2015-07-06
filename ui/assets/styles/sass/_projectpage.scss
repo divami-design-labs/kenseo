@@ -206,11 +206,11 @@
 }
 .people-remove-icon{
     @include listImage('delete.svg', 15px, 15px);
-    padding-left: 40px;
+    // padding-left: 40px;
 }
 .people-manage-icon{
     @include listImage('lock1.svg', 15px, 15px);
-    padding-left: 40px;
+    // padding-left: 40px;
 }
 .no-items{
     @include text(14px, $colorOne);

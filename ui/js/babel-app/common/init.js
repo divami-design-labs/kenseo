@@ -6,6 +6,7 @@ var Kenseo = {
     dropdown: {},
     data: {},
     popup: { "info": {}, "data": {}, "replace": {} },
+    populate: {},
     overlays: { "info": {}, "data": {} },
     page: { "info": {}, "data": {} },
     cookie: {

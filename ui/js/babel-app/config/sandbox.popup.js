@@ -483,7 +483,7 @@ sb.popup = {
                                     $sharePermission: "true"
                                 },
                                 "success": function success(response) {
-                                    artefactComboboxContainer.innerHTML = "";
+                                    // artefactComboboxContainer.innerHTML = "";
                                     artefactCombobox.setSuggestions(response.data);
                                 }
                             });
@@ -553,6 +553,17 @@ sb.popup = {
                 toTimeField.innerHTML = toTimeField.innerHTML + options[i].outerHTML;
             }
         });
+
+        // pre-populate data
+        var data = Kenseo.populate.meeting;
+        // console.log(data);
+        $('.project-combobox input[type="text"]').val(data.projectName);
+        $('.field-section[data-name="meetingArtefact"] input[type="text"]').val(data.artefactName);
+        $('.field-section[data-name="agenda"] textarea').val(data.agenda);
+        $('.field-section[data-name="date"] .input-meeting-date').val(sb.timeFormat(data.startTime,true));
+        $('.field-section[data-name="toTime"] select').val(sb.getHours(data.endTime));
+        $('.field-section[data-name="fromTime"] select').val(sb.getHours(data.startTime));
+        $('.field-section[data-name="location"] input[type="text"].meeting-location').val(data.venue);
     }
 };
 

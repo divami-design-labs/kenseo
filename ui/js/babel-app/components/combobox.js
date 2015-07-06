@@ -157,6 +157,8 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		} else {
 			$(".combobox").not($elem).find(suggestionsContainerClass).hide();
 			$suggestionsContainer.show();
+
+			placeSuggestions($elem);
 		}
 	}
 	/**
@@ -178,7 +180,8 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	function focusInputTextBox() {
 		$elem.find("input").focus();
 	}
-	function placeSuggestions($el, $container) {
+	function placeSuggestions($combobox, $container) {
+		var $el = $combobox.find('.combobox-wrapper');
 		var width = $el.innerWidth(),
 		    height = $el.outerHeight(),
 		    offset = $el.offset();
@@ -195,9 +198,9 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			}
 		}
 		$el.find(".suggestionsContainer").css({
-			left: offset.left,
+			left: offset.left - window.scrollX,
 			top: offset.top + height,
-			width: width - 2
+			width: width
 		});
 	}
 	/**
@@ -324,7 +327,8 @@ var comboBox = function comboBox(elem, suggestions, values) {
 				p.excludeParent = false;
 			}
 		}
-		renderSuggestions(elem, _this.suggestions, el.get(0));
+		// renderSuggestions(elem, _this.suggestions, el.get(0));
+		renderSuggestions(elem, _this.suggestions);
 
 		// Preparing change event call
 		var $selecteds = $elem.find(".selectable").filter(function () {
@@ -344,7 +348,10 @@ var comboBox = function comboBox(elem, suggestions, values) {
   * @constructor
   * @param {object} el - represents the element in which the suggestions are to be rendered.
   */
-	function renderSuggestions(el, list, textBox) {
+	function renderSuggestions(el, list) {
+		var textBox = el.querySelector('input[type="text"]');
+		var comboboxWrapper = el.querySelector('.combobox-wrapper');
+
 		if (!el) {
 			return;
 		}
@@ -392,15 +399,16 @@ var comboBox = function comboBox(elem, suggestions, values) {
 					ul.appendChild(li);
 				}
 			}
-			if (!textBox) {
+			// if (!textBox) {
+			if (!$suggestionsViewer.length) {
 				var suggestionsViewer = document.createElement("div");
-				var comboboxWrapper = document.createElement("div");
+				// var comboboxWrapper = document.createElement("div");
 				var suggestionsContainer = document.createElement("div");
 				suggestionsViewer.className = "suggestions-viewer";
 				suggestionsContainer.className = values.suggestionsContainer;
-				comboboxWrapper.className = "combobox-wrapper";
-				textBox = document.createElement("input");
-				textBox.setAttribute("type", "text");
+				// comboboxWrapper.className = "combobox-wrapper";
+				// textBox = document.createElement("input");
+				// textBox.setAttribute("type", "text");
 				if (values.disabled) {
 					textBox.setAttribute("disabled", true);
 				}
@@ -408,16 +416,17 @@ var comboBox = function comboBox(elem, suggestions, values) {
 				comboboxWrapper.onclick = toggleSuggestions;
 				textBox.onkeyup = keyOperations;
 				suggestionsContainer.appendChild(ul);
-				comboboxWrapper.appendChild(textBox);
+				// comboboxWrapper.appendChild(textBox);
 				comboboxWrapper.appendChild(suggestionsContainer);
 				if (values.suggestionsViewerAlign && values.suggestionsViewerAlign == "top") {
-					el.appendChild(suggestionsViewer);
-					el.appendChild(comboboxWrapper);
+					// el.appendChild(suggestionsViewer);
+					el.insertBefore(suggestionsViewer, comboboxWrapper);
+					// el.appendChild(comboboxWrapper);
 				} else {
-					el.appendChild(comboboxWrapper);
+					// el.appendChild(comboboxWrapper);
 					el.appendChild(suggestionsViewer);
 				}
-				textBox.value = values.value || "";
+				textBox.value = textBox.value || values.value || "";
 				placeSuggestions($elem);
 				window.addEventListener("resize", function () {
 					placeSuggestions($elem);
@@ -437,7 +446,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			if (!newList.length) {
 				textBox.placeholder = values.noplaceholder || "No items to choose";
 			} else {
-				textBox.placeholder = values.placeholder;
+				textBox.placeholder = textBox.placeholder || values.placeholder;
 			}
 			// textBox.focus();
 		}

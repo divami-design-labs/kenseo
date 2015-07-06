@@ -90,7 +90,7 @@ $fontSizeOne: 18px;
 	}
 }
 @mixin listImage($image, $w, $h){
-	padding-left: $w + 10;
+	padding-left: $w + 22;
 	position: relative;
 	&::before{
 		content: "";
@@ -276,10 +276,9 @@ $fontSizeOne: 18px;
     @include transform(translate(0%, -50%));
 }
 .checkbox:after {
-    width: 20px;
-    height: 20px;
-    border: 1px solid black;
-    @include border-radius(3px);
+    @include square(18px);
+    border: 1px solid #acacac;
+    @include border-radius(2px);
 }
 .checkbox > input[type="checkbox"] {
     position: absolute;
@@ -289,10 +288,10 @@ $fontSizeOne: 18px;
 :checked + span:after {
     width: 10px;
     height: 5px;
-    left: 5px;
+    left: 4px;
     @include transform(translate(0, -50%) rotate(-45deg));
-    border-left: 2px solid red;
-    border-bottom: 2px solid red;
+    border-left: 2px solid #777;
+    border-bottom: 2px solid #777;
     margin-top: -2px;
 }
 //Toggle

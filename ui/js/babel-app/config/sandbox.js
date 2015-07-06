@@ -302,6 +302,18 @@ var sb = (function () {
             }
             return resultDateFormat;
         },
+        getHours: function(time){
+            var hh = ("0" + sb.getTime(time).replace(": ", ":")).slice(-8);
+            var hhValue = hh.slice(0, -3);
+            var value = +hhValue.split(":")[0];
+            if(/pm/i.test(hh)){
+                value = value + 11;
+            }
+            else{
+                value = value - 1;
+            }
+            return hhValue.replace(/^\d\d/, ("0" + value).slice(-2));
+        },
         getTime: function getTime(time) {
             var fullDate = sb.getDate(time);
             var hours = fullDate.getHours();

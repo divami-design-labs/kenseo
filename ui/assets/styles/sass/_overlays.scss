@@ -39,12 +39,15 @@
 
 .submit-action-icon{
 	@include listImage($iconSubmit, 20px, 20px);
+	// padding-left: 40px;
 }
 .archive-action-icon{
 	@include listImage($iconArchive, 20px, 20px);
+	// padding-left: 40px;
 }
 .delete-action-icon{
 	@include listImage($iconDelete, 20px, 20px);
+	// padding-left: 40px;
 }
 
 .summary-section-body{
@@ -301,6 +304,16 @@
 }
 .summary-version-date{
 	margin-left: 28px;
+	@include text(14px, $colorTwo);
+	text-align: left;
+	clear: both;
+	margin-left: 30px;
+	margin-top: 5px;
+	span + a{
+		margin-left: 40px;
+		@extend .a;
+		@include text(14px, $colorTwo);
+	}
 }
 .summary-compare-btn{
 	@extend .a;
@@ -311,4 +324,18 @@
 }
 .summary-reference-item{
 	@include listImage("one.svg", 15px, 17px);
+	@include text(14px, $colorTwo);
+	margin-bottom: 10px;
+	line-height: 20px;
+	max-height: 40px;
+	overflow: hidden;
+}
+
+.linked-item{
+	@include listImage("linkIcon.svg", 18px, 18px);
+	@include text(14px, $colorTwo);
+	margin-bottom: 10px;
+	line-height: 20px;
+	max-height: 40px;
+	overflow: hidden;
 }
