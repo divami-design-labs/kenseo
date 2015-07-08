@@ -1,10 +1,7 @@
 <% var dataObj = Kenseo.popup.info[index] %>
 <% var dump = sb.getPopupData() %>
 <div class="popup popup-large">
-	<div class="popup-header">
-		<div class="popup-title"><%= dataObj.title %></div>
-		<div class="popup-close-icon"></div>
-	</div>
+	<%= sb.setTemplate('popup-header', { title: dataObj.title, close: true }) %>
 	<div class="popup-left-section">
 		<div class="meta-item">
 			<div class="meta-heading">Under</div>
@@ -52,10 +49,8 @@
 				<div class="your-team-heading">Your Team</div>
 				<form class="your-team-body">
 					<%= 
-						_.template(templates['checkbox'])({
-							data:{
-								text: "Temporarily hide file from this group"
-							}
+						sb.toolbox.checkbox({
+							text: "Temporarily hide file from this group"
 						}) 
 					%>
 					<div class="field-section your-team-field" data-name="new-people">
@@ -82,6 +77,6 @@
 		</div>
 	</div>
 	<div class="buttons-section">
-		<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
+		<%= sb.toolbox.buttons({"data": data, "index": index}) %>
 	</div>
 </div>

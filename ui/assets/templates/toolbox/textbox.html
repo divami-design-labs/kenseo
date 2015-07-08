@@ -6,25 +6,13 @@
 			type="text" 
 			class="input-text <% if(data.inputClass) { %><%= data.inputClass %> <% } %>" 
 			<% if(data.placeholder){ %>placeholder="<%= data.placeholder %>" <% } %> 
-			<% if(data.attr && typeof data.attr == "object"){ 
-
-				var attributes = data.attr;
-				for(var key in attributes){ %>
-					<%= key %> = "<%= attributes[key] %>" 
-			<%	}
-			 } %>
+			<%= sb.setTemplate('attributes', {data: data}) %>
 
 		></input>
 		<% } else { %>
 		<textarea  class="<% if(data.inputClass) { %><%= data.inputClass %> <% } %>" 
 		<% if(data.placeholder){ %>placeholder="<%= data.placeholder %>" <% } %> 
-		<% if(data.attr && typeof data.attr == "object"){ 
-
-			var attributes = data.attr;
-			for(var key in attributes){ %>
-				<%= key %> = "<%= attributes[key] %>" 
-		<%	}
-		 } %>
+		<%= sb.setTemplate('attributes', {data: data}) %>
 		 ></textarea>
 		<% } %>
 	</div>

@@ -1,0 +1,6 @@
+<% if(data.attr && typeof data.attr == "object"){ 
+	var attributes = data.attr;
+	for(var key in attributes){ %>
+		<%= key %> = "<%= attributes[key] %>" 
+<%	}
+ } %>

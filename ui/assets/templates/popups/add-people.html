@@ -1,23 +1,18 @@
 <% var dataObj = Kenseo.popup.info[index] %>
-<%
- var fields = {
-	textBox: sb.toolbox.textBox({
-		placeholder: "Name or mail ID. Use comma to add multiple people.",
-		inputClass: "xm"
-	})
-}
-%>
 <div class="popup popup-add-people">
-	<div class="popup-header">
-		<div class="popup-title"><%= dataObj.title %></div>
-		<div class="popup-close-icon"></div>
-	</div>
+	<%= sb.setTemplate('popup-header', { title: dataObj.title, close: true }) %>
+	
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
 			<div class="add-people-text-project">
 				Add People under <%= Kenseo.popup.data.project_name %> Project
 			</div>
-			<%= fields.textBox %>
+			<%= 
+				sb.toolbox.textBox({
+					placeholder: "Name or mail ID. Use comma to add multiple people.",
+					inputClass: "xm"
+				})
+			%>
 			<div class="people-permissions-section">
 				<div class="permissions-header">This Person(s) can</div>
 				<div class="permissions-wrapper">
@@ -42,6 +37,6 @@
 		</div>
 	</div>
 	<div class="buttons-section">
-		<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
+		<%= sb.toolbox.buttons({"data": data, "index": index}) %>
 	</div>
 </div>

@@ -257,6 +257,10 @@ var sb = (function () {
                 }
             }
         },
+        setTemplate: function(str, data){
+            data = data || {};
+            return _.template(templates[str])(data);
+        },
         getDate: function getDate(time) {
             // Refer: http://stackoverflow.com/a/10589791/1577396
             // Refer: http://stackoverflow.com/a/1353711/1577396
@@ -447,11 +451,11 @@ var sb = (function () {
                     data: data
                 });
             },
-            buttons: function buttons(data, index) {
-                return _.template(templates['buttons'])({
-                    'data': data,
-                    'index': index
-                });
+            buttons: function buttons(data) {
+                return _.template(templates['buttons'])(data);
+            },
+            button: function button(data){
+                return _.template(templates['button'])(data);
             },
             comboBox: function comboBox(data) {
                 return _.template(templates['combobox'])({
@@ -463,6 +467,9 @@ var sb = (function () {
                 combobox.onchange = data.onchange;
                 combobox.insertAfter = data.insertAfter;
                 return combobox;
+            },
+            checkbox: function checkbox(data){
+                return _.template(templates['checkbox'])({data: data || {}});
             }
         },
         page: {},

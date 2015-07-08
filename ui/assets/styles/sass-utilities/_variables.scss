@@ -191,6 +191,15 @@ $fontSizeOne: 18px;
 	}
 }
 //extends
+.beforeMiddle{
+	&::before {
+		content: "";
+		height: 100%;
+		width: 0;
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
 .clearFloat{
 	&::after{
 		content: "";

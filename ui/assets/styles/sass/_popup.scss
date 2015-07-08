@@ -8,13 +8,7 @@
 	bottom: 0;
 	z-index: 100;
 	text-align:center;
-	&::after{
-		content: "";
-		display: inline-block;
-		vertical-align: middle;
-		height: 100%;
-		width: 0px;
-	}
+	@extend .beforeMiddle;
 	& > *{
 		text-align: left;
 	}
@@ -51,11 +45,16 @@
 	height: 55px;
 	position: relative;
 	background-color: $color6;
-}
-.popup-title{
 	@include text(18px, $color7);
 	padding-left: 30px;
-	@include verticalMiddle();
+	vertical-align: middle;
+	&::before{
+		content: "";
+		display: inline-block;
+		vertical-align: middle;
+		width: 0;
+		height: 100%;
+	}
 }
 .files-section ~ .dropdown{
 	margin-left: 30px;

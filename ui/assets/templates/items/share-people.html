@@ -8,16 +8,14 @@
 		<div class="share-artefact-right-panel">
 			<div class="sarp-text">Can Add comments</div>
 			<%= 
-				_.template(templates['checkbox'])({
-					data:{
-						class: "add-comments-chk",
-						toggle: true,
-						dataName: "sharedTo",
-						"data-array": "1",
-						attribs: {
-							userId: data.user_id,
-							permission: "c"
-						}
+				sb.toolbox.checkbox({
+					class: "add-comments-chk",
+					toggle: true,
+					dataName: "sharedTo",
+					"data-array": "1",
+					attribs: {
+						userId: data.user_id,
+						permission: "c"
 					}
 				}) 
 			%>
@@ -25,28 +23,24 @@
 		<div class="share-artefact-right-panel">
 			<div class="sarp-text">Share with others</div>
 			<%= 
-				_.template(templates['checkbox'])({
-					data:{
-						class: "others-chk",
-						toggle: true,
-						dataName: "sharedTo",
-						"data-array": "1",
-						attribs: {
-							userId: data.user_id,
-							permission: "s"
-						}
+				sb.toolbox.checkbox({
+					class: "others-chk",
+					toggle: true,
+					dataName: "sharedTo",
+					"data-array": "1",
+					attribs: {
+						userId: data.user_id,
+						permission: "s"
 					}
 				}) 
 			%>
 		</div>
 		<div class="sarp-checkbox-holder">
 			<%= 
-				_.template(templates['checkbox'])({
-					data:{
-						class: "apply-to-all",
-						text: "Apply to all users in this group",
-						ignore: 1
-					}
+				sb.toolbox.checkbox({
+					class: "apply-to-all",
+					text: "Apply to all users in this group",
+					ignore: 1
 				}) 
 			%>
 		</div>

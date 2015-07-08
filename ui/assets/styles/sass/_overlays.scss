@@ -339,3 +339,14 @@
 	max-height: 40px;
 	overflow: hidden;
 }
+
+.filter-checkboxes{
+	display: table-cell;
+	padding: 15px;
+	.filter-checkboxes-heading{
+		margin-bottom: 10px;
+	}
+	.field-section + .field-section{
+		margin-top: 10px;
+	}
+}

@@ -1,33 +1,5 @@
 <% var buttons = data.buttons %>
 <% for(var i=buttons.length-1; i>= 0; i--){ %>
 	<% var b = buttons[i]; %>
-	<% if(b.label === "Proceed"){ %> 
-		<button  type="button"
-		<% if(b.disabled){ %> 
-			disabled="true" autocomplete="off" 
-		<% } %> 
-			class="<%= b.cls %> nav-btn"
-			data-index="<%= index+1 %>">
-		<%= b.label %>
-		</button>
-	<% } else if(b.label === "Back"){ %>
-		<%  if(index > 0){ %>
-			<button  type="button"
-			<% if(b.disabled){ %> 
-				disabled="true" autocomplete="off" 
-			<% } %> 
-				class="<%= b.cls %> nav-btn"
-				data-index="<%= index-1 %>">
-				<%= b.label %>
-			</button>
-		<% } %>
-	<% } else { %>
-		<button  type="button"
-		<% if(b.disabled){ %> 
-			disabled="true" autocomplete="off" 
-		<% } %> 
-		class="<%= b.cls %>">
-			<%= b.label %>
-		</button>
-	<% } %>
+	<%= sb.toolbox.button({data: b, index: index}) %>
 <% }; %>

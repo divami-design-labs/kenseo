@@ -308,8 +308,12 @@
   -webkit-transition-timing-function: ease;
   transition-duration: 200ms;
   transition-timing-function: ease;
+  background-color: $colorThirteen;
 }
-
+.comments-viewer-header{
+  @extend .popup-header;
+  @extend .beforeMiddle;
+}
 #sidebarContent {
   top: 32px;
   bottom: 0;
@@ -319,7 +323,28 @@
   width: 200px;
   background-color: hsla(0,0%,0%,.1);
 }
-
+.comments-view-holder{
+  background-color: $colorNineteen;
+  // width: 0px;
+  /*display: none;*/
+  visibility: hidden;
+  @include transition(visibility 1s ease-in-out);
+  width: 440px;
+  min-height: 450px;
+  /*transition: width 1s ease-in-out;*/
+  top: 80px;
+  position: fixed;
+  bottom: 95px;
+  left: 80px;
+  border: 1px solid $colorEighteen;
+  &.active{
+    /*display: block;*/
+    visibility: visible;
+  }
+  &.active + #viewerContainer{
+    left: 550px;
+  }
+}
 #viewerContainer {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -329,6 +354,7 @@
   bottom: 55px;
   left: 0;
   outline: none;
+  @include transition(left 1s ease-in-out);
 }
 .toolbar {
   position: fixed;

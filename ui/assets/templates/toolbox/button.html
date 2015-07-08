@@ -1,0 +1,12 @@
+<button  type="button"
+	<% if(data.disabled){ %> 
+		disabled="true" autocomplete="off" 
+	<% } %> 
+		class="<%= data.cls %> <% if(data.label === "Proceed" || data.label === "Back"){ %>nav-btn<% } %>"
+		<% if(data.label === "Proceed"){ %>
+			data-index="<%= index+1 %>"
+		<% } else if(data.label === "Back"){ %>
+			data-index="<%= index-1 %>"
+		<% } %>
+	><%= data.label %>
+</button>

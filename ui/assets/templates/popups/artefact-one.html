@@ -1,22 +1,16 @@
 <div class="popup popup-small">
-	<% 
-		var fields = {
-			comboBoxOne: sb.toolbox.comboBox({
-				"fieldClass": "flt-none",
-				"class": "projects-dropdown",
-			})
-		}
-	%>
-	<div class="popup-header">
-		<div class="popup-title"><%= data.title %></div>
-		<div class="popup-close-icon"></div>
-	</div>
+	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
-			<%= fields.comboBoxOne %>
+			<%= 
+				sb.toolbox.comboBox({
+					"fieldClass": "flt-none",
+					"class": "projects-dropdown",
+				})
+			%>
 		</div>
 	</div>
 	<div class="buttons-section">
-		<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
+		<%= sb.toolbox.buttons({"data": data, "index": index}) %>
 	</div>
 </div>

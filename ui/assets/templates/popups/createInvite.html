@@ -1,47 +1,33 @@
 <% var dataObj = Kenseo.popup.info[index] %>
-<%
-	var fields = {
-		projectsCombo: sb.toolbox.comboBox({
-			"label": "Project",
-			"class": "xm project-combobox",
-			"dataName": "meetingProject"
-		}),
-		artefactsCombo: sb.toolbox.comboBox({
-			"label": "Artefact",
-			"class": "xm artefact-combobox",
-			"dataName": "meetingArtefact"
-		}),
-		peopleCombo: sb.toolbox.comboBox({
-			"label": "Recipients List",
-			fieldClass: "recipients-field-section",
-			"class": "xm people-name tags-combobox",
-			"dataName": "attendees"
-		}),
-		textarea: sb.toolbox.textBox({
-			"label": "Agenda",
-			textArea: true,
-			dataName: "agenda",
-			"inputClass": "input-meeting-textarea meeting-agenda"
-		}),
-		location: sb.toolbox.textBox({
-			"label": "Venue",
-			inputClass: "meeting-location",
-			dataName: "location"
-		})
-	}
-%>
+<% var toolbox = sb.toolbox %>
 <div class="popup popup-meeting">
-	<div class="popup-header">
-		<div class="popup-title">Create meeting invitation</div>
-		<div class="popup-close-icon"></div>
-	</div>
+	<%= sb.setTemplate('popup-header', { title: dataObj.title, close: true }) %>
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
 			<form class="meeting-invite-form">
 				
-				<%= fields.projectsCombo %>
-				<%= fields.artefactsCombo %>
-				<%= fields.textarea %>
+				<%= 
+					toolbox.comboBox({
+						"label": "Project",
+						"class": "xm project-combobox",
+						"dataName": "meetingProject"
+					}) 
+				%>
+				<%= 
+					toolbox.comboBox({
+						"label": "Artefact",
+						"class": "xm artefact-combobox",
+						"dataName": "meetingArtefact"
+					})
+				%>
+				<%= 
+					toolbox.textBox({
+						"label": "Agenda",
+						textArea: true,
+						dataName: "agenda",
+						"inputClass": "input-meeting-textarea meeting-agenda"
+					})
+				%>
 
 				<div class="field-section in-line" data-name="date" data-ignore="1">
 					<div class="input-label">Scheduled on</div>
@@ -114,12 +100,25 @@
 						</select>
 					</div>	
 				</div>
-				<%= fields.location %>
-				<%= fields.peopleCombo %>
+				<%= 
+					toolbox.textBox({
+						"label": "Venue",
+						inputClass: "meeting-location",
+						dataName: "location"
+					})
+				%>
+				<%= 
+					toolbox.comboBox({
+						"label": "Recipients List",
+						fieldClass: "recipients-field-section",
+						"class": "xm people-name tags-combobox",
+						"dataName": "attendees"
+					})
+				%>
 			</form>
 		</div>
 	</div>
 	<div class="buttons-section">
-		<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
+		<%= sb.toolbox.buttons({"data": data, "index": index}) %>
 	</div>
 </div>

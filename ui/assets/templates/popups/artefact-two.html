@@ -1,26 +1,7 @@
 <% var dataObj = Kenseo.popup.info[index] %>
 <% var dump = sb.getPopupData() %>
-<%
-
-var fields = {
-	chooseCombobox: sb.toolbox.comboBox({
-		"class": "xm choose-file-combobox",
-		"dataName": "choose-existing-file"
-	}),
-	existingCombobox: sb.toolbox.comboBox({
-		"class": "xm existing-files-combobox",
-		"dataName": "choose-file"
-	})
-}
-
-%>
-
-
 <div class="popup popup-large">
-	<div class="popup-header">
-		<div class="popup-title"><%= dataObj.title %></div>
-		<div class="popup-close-icon"></div>
-	</div>
+	<%= sb.setTemplate('popup-header', { title: dataObj.title, close: true }) %>
 	<div class="popup-left-section">
 		<div class="meta-item">
 			<div class="meta-heading">Under</div>
@@ -45,7 +26,12 @@ var fields = {
 						<div class="file-heading">
 							Choose an existing file
 						</div>
-						<%= fields.chooseCombobox %>
+						<%=
+							sb.toolbox.comboBox({
+								"class": "xm choose-file-combobox",
+								"dataName": "choose-existing-file"
+							})
+						%>
 					<% } else{ %>
 						<div class="file-heading">
 							Create file
@@ -76,11 +62,16 @@ var fields = {
 					<input type="checkbox" disabled="true" class="existing-files-chk"></input>
 					<span>This is a new version of an existing file</span>
 				</label>
-				<%= fields.existingCombobox %>
+				<%= 
+					sb.toolbox.comboBox({
+						"class": "xm existing-files-combobox",
+						"dataName": "choose-file"
+					})
+				%>
 			<% } %>
 		</div>
 	</div>
 	<div class="buttons-section">
-		<%= _.template(templates['buttons'])({"data": data, "index": index}) %>
+		<%= sb.toolbox.buttons({"data": data, "index": index}) %>
 	</div>
 </div>

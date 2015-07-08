@@ -1,7 +1,7 @@
 <% if(data.length){ %> 
 <% _.each(data, function(p){ %>
 <div class="project-block">
-	<%= _.template(templates['project-section'])({data: p}) %>
+	<%= sb.setTemplate('project-section', {data: p}) %>
 </div>
 <% }); %>
 <% } else{ %>

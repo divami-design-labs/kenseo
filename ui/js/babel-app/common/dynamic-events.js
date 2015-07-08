@@ -195,5 +195,7 @@ $(function () {
 				popupCloser($self.parents(popupContainer));
 			}
 		});
+	}).on('click', '.dvt-item.comment-summary-icon', function(e){
+		$('.comments-view-holder').toggleClass('active');
 	});
 });
