@@ -20,6 +20,21 @@
 	background-color: white;
 	border: 2px solid white;
 }
+.profile-image-red{
+	@extend .circle;
+	background-color: #F7535F;
+	border: 2px solid #F7535F;
+}
+.profile-image-blue{
+	@extend .circle;
+	background-color: #26B7FB;
+	border: 2px solid #26B7FB;	
+}
+.profile-image-grey{
+	@extend .circle;
+	background-color: grey;
+	border: 2px solid grey;	
+}
 
 // Version related styles
 .version-num{

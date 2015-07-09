@@ -199,3 +199,14 @@ $(function () {
 		$('.comments-view-holder').toggleClass('active');
 	});
 });
+
+
+var stickToBottom = function (parent) {
+    var bar = parent.querySelector('.bar');
+    var top = bar.offsetTop;
+    parent.addEventListener('scroll', function (e) {
+        var el = e.currentTarget;
+        bar.style.bottom = -el.scrollTop + "px";
+        bar.style.left = el.scrollLeft + "px";
+    });
+}

@@ -196,6 +196,9 @@ sb.router = {
                             $('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
                             $('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
                         });
+
+                        var parent = document.querySelector('#viewerContainer.parent');
+                        stickToBottom(parent);
                     }
                 });
             }

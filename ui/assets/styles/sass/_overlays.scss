@@ -347,6 +347,68 @@
 		margin-bottom: 10px;
 	}
 	.field-section + .field-section{
-		margin-top: 10px;
+		margin-top: 5px;
+	}
+}
+.filter-checkboxes-heading{
+	@include text(16px, $color7);
+	font-family: $semiBoldFont;
+}
+.comments-view-filter-section{
+	position: relative;
+	padding-bottom: 70px;
+}
+.cv-comments-section{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 345px;
+	overflow: auto;
+}
+.cv-person-right-top > *{
+	display: inline-block;
+	vertical-align: middle;
+}
+.cv-person-time, .cv-person-meta{
+	@include textSix();
+}
+.cv-person-meta {
+	float: right;
+	margin-right: 50px;
+	& > span + span{
+		border-left: 1px solid #ACACAC;
+		padding-left: 10px;
+	}
+	& > span:first-child{
+		padding-right: 10px;
+	}
+}
+.cv-person-name{
+	@include text(16px, $color7);
+	font-family: $semiBoldFont;
+}
+.cv-comment-detail{
+	@include text(14px, $colorTwo);
+}
+.cv-more-replys > a{
+	@include text(15px, $colorN);
+}
+.cv-person-left{
+	float: left;
+	width: 75px;
+	text-align: center;
+	& > img{
+		@include square(37px);
+	}
+}
+.cv-person-right{
+	margin-left: 75px;
+}
+.cv-comments-item{
+	border-bottom: 1px solid #E1E1E1;
+	padding-bottom: 15px;
+	& + &{
+		padding-top: 10px;
 	}
 }

@@ -8,7 +8,7 @@ start cmd /k c:\xampp\mysql_start.bat
 cd "C:\Program Files (x86)\Mozilla Firefox" 
 start chrome.exe https://mail.google.com/mail/u/0 https://mail.google.com/mail/u/1 http://localhost/kenseo/ui https://docs.google.com/spreadsheets/d/19900K8Nd8rQAWZ_RAaHJq3DUHYTjcVKvCC66XcBe5u0/edit#gid=668558537 stackoverflow.com
 cd c:\xampp\htdocs\kenseo\ui\assets\styles
-start sass --watch sass:css
+start sass --watch sass:css --style compressed
 cd c:\xampp\htdocs\kenseo\ui
 start babel --blacklist strict "js/babel-app" --watch --out-dir js/app --source-maps inline
 start gulp watch
