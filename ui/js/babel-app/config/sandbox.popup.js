@@ -43,13 +43,13 @@ sb.popup = {
         });
     },
     createFilePopup: function createFilePopup() {
-        if (sb.getPopupData("fileName")) {
-            $(".create-file-item .notification-title").html(sb.getPopupData("fileName"));
-            $(".create-file-item").css({
-                "visibility": "visible"
-            });
-            $(".main-btn").prop("disabled", false);
-        }
+        // if (sb.getPopupData("fileName")) {
+        //     $(".create-file-item .notification-title").html(sb.getPopupData("fileName"));
+        //     $(".create-file-item").css({
+        //         "visibility": "visible"
+        //     });
+        //     $(".main-btn").prop("disabled", false);
+        // }
         $(".upload-files-input").change(function () {
             $(".create-file-item").css({
                 "visibility": "visible"
@@ -556,7 +556,6 @@ sb.popup = {
 
         // pre-populate data
         var data = Kenseo.populate.meeting;
-        // console.log(data);
         $('.project-combobox input[type="text"]').val(data.projectName);
         $('.field-section[data-name="meetingArtefact"] input[type="text"]').val(data.artefactName);
         $('.field-section[data-name="agenda"] textarea').val(data.agenda);

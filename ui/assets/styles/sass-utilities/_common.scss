@@ -113,3 +113,45 @@
 .flt-none.flt-none.flt-none{
 	float: none;
 }
+
+// Button stylings
+.buttons-section button{
+	border: none;
+    // float: right;
+    height: 35px;
+    margin-left: 25px;
+    &:last-child{
+    	margin-right: 0;
+    }
+}
+.buttons-section{
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+	left: 30px;
+	text-align: right;
+}
+.buttons-left-section, .buttons-right-section{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: left;
+}
+.buttons-left-section{
+	width: 100%;
+}
+.buttons-right-section{
+	white-space: nowrap;
+	@extend .clearFloat;
+}
+.main-btn{
+	@include text(16px, white);
+	background-color: $colorN;
+	padding: 5px 25px;
+	@extend .a;
+}
+.lnk-btn{
+	@include text(14px, $colorTwo);
+	padding: 8px;
+	background-color: transparent;
+	@extend .a;
+}

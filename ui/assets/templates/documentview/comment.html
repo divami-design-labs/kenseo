@@ -1,0 +1,37 @@
+<div class="comment-section">
+	<div class="comment-section-header">
+		<% if(data.replies){ %>
+			<span class="comment-category-header">
+				Category
+			</span>
+			<span class="comment-category-value">Open</span>
+			<span class="comment-status-header">Status</span>
+			<span class="comment-status-value">Open</span>
+		<% } else { %>
+			<div class="severity-section">
+				<div class="red-severity selected"></div>
+				<div class="blue-severity"></div>
+			</div>
+			<select name="category" class="category"></select>
+			<select name="resolution" class="resolution"></select>
+		<% } %>
+	</div>
+	<div class="comment-section-body">
+		<% if(data.replies){ %>
+		<div class="replies-section">
+			<%= sb.setTemplate('comment-item') %>
+		</div>
+		<% } %>
+		<div class="write-comment-section">
+			<textarea class="write-comment" placeholder="Type your comment here"></textarea>
+		</div>
+		<div class="buttons-section">
+			<div class="buttons-left-section">
+				<%= sb.toolbox.checkbox({'text': "Private message"}) %>
+			</div>
+			<div class="buttons-right-section">
+				<%= sb.toolbox.buttons({"data":{"buttons":[{"label":"Cancel","cls":"lnk-btn cancel-btn"},{"label":"Post","cls":"main-btn","disabled": true}]}}) %>
+			</div>
+		</div>
+	</div>
+</div>

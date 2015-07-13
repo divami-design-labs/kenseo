@@ -126,7 +126,9 @@
     </div>
     <%= sb.setTemplate('comments-viewer') %>
     <div id="viewerContainer" class="parent" tabindex="0">
-        <div id="viewer" class="pdfViewer"></div>
+        <div class="annotate-wrapper">
+            <div id="viewer" class="pdfViewer"></div>
+        </div>
         <div class="current-artefact-info bar">
             <div>Projects > <%= projName  %> >  <%= artTitle  %> </div>
             <div class="toggle-click show-all-versions">

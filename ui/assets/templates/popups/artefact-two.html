@@ -1,7 +1,6 @@
-<% var dataObj = Kenseo.popup.info[index] %>
 <% var dump = sb.getPopupData() %>
 <div class="popup popup-large">
-	<%= sb.setTemplate('popup-header', { title: dataObj.title, close: true }) %>
+	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-left-section">
 		<div class="meta-item">
 			<div class="meta-heading">Under</div>
@@ -22,7 +21,7 @@
 				</label>
 				<a href="" class="or-btn">Or</a>
 				<div class="create-file-section">
-					<% if(dataObj.chooseExistingFile){ %>
+					<% if(data.chooseExistingFile){ %>
 						<div class="file-heading">
 							Choose an existing file
 						</div>
@@ -37,7 +36,7 @@
 							Create file
 						</div>
 					<% } %>
-					<% if(dataObj.show_coming_soon){ %>
+					<% if(data.show_coming_soon){ %>
 						<div class="coming-soon-text">Coming soon!</div>
 					<% } %>
 					<div class="choose-existing-file-holder">
@@ -57,7 +56,7 @@
 					<div class="create-file-close-icon"></div>
 				</div>
 			</div>
-			<% if(dataObj.allow_artefact_selection){ %>
+			<% if(data.allow_artefact_selection){ %>
 				<label class="checkbox">
 					<input type="checkbox" disabled="true" class="existing-files-chk"></input>
 					<span>This is a new version of an existing file</span>
@@ -72,6 +71,6 @@
 		</div>
 	</div>
 	<div class="buttons-section">
-		<%= sb.toolbox.buttons({"data": data, "index": index}) %>
+		<%= sb.toolbox.buttons({"data": data}) %>
 	</div>
 </div>

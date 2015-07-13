@@ -127,7 +127,8 @@ sb.router = {
             'views': ['Header'],
             'models': ['Header'],
             'collections': ['People'],
-            'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js', 'js/libs/pdfjs/viewer.js']
+            'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js', 
+                    'js/libs/pdfjs/viewer.js', 'js/app/components/annotator.js']
         }, function () {
             $('.header').addClass('fixed-header');
 
@@ -174,7 +175,7 @@ sb.router = {
                         $('.pdfs-container').append(_.template(templates['pdf-viewer'])(response.data));
 
                         new paintPdf({
-                            //url: sb.getRelativePath(response.data.documentPath),
+                            url: sb.getRelativePath(response.data.documentPath),
                             container: $('.outerContainer.inView').get(0),
                             targetId: response.data.versionId
                         });
@@ -199,6 +200,8 @@ sb.router = {
 
                         var parent = document.querySelector('#viewerContainer.parent');
                         stickToBottom(parent);
+
+                        annotator();
                     }
                 });
             }

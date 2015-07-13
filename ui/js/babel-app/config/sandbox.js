@@ -243,7 +243,12 @@ var sb = (function () {
                     'data': p.data,
                     'success': function success(obj) {
                         if (p.templateHolder) {
-                            p.templateHolder.html(compiler(obj));
+                            if(p.append){
+                                p.templateHolder.append(compiler(obj));
+                            }
+                            else{
+                                p.templateHolder.html(compiler(obj));
+                            }
                         }
                         if (p.callbackfunc) {
                             p.callbackfunc();
@@ -251,7 +256,12 @@ var sb = (function () {
                     }
                 });
             } else {
-                p.templateHolder.html(compiler(p.data));
+                if(p.append){
+                    p.templateHolder.append(compiler(p.data));
+                }
+                else{
+                    p.templateHolder.html(compiler(p.data));
+                }
                 if (p.callbackfunc) {
                     p.callbackfunc();
                 }
@@ -432,17 +442,26 @@ var sb = (function () {
             }
         },
         callPopup: function callPopup(index) {
-            var info = Kenseo.popup.info[index];
-            sb.renderTemplate({
-                'templateName': info.page_name,
-                'templateHolder': $('.popup-container'),
-                'data': {
-                    'data': info,
-                    'index': index
+            var $popup = $('.popup').eq(index);
+            if($popup.length){
+                $('.popup').addClass('hide');
+                $popup.removeClass('hide');
+            }
+            else{
+                $('.popup').addClass('hide');
+                var info = Kenseo.popup.info[index];
+                _.extend(info, {'index': index});
+                sb.renderTemplate({
+                    'templateName': info.page_name,
+                    'templateHolder': $('.popup-container'),
+                    'append': true,
+                    'data': {
+                        'data': info
+                    }
+                });
+                if (info.callbackfunc) {
+                    info.callbackfunc();
                 }
-            });
-            if (info.callbackfunc) {
-                info.callbackfunc();
             }
         },
         toolbox: {

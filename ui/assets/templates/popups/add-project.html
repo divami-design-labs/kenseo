@@ -1,6 +1,5 @@
-<% var dataObj = Kenseo.popup.info[index] %>
 <div class="popup popup-small">
-	<%= sb.setTemplate('popup-header', { title: dataObj.title, close: true }) %>
+	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
 			<%= 
@@ -13,6 +12,6 @@
 		</div>
 	</div>
 	<div class="buttons-section">
-		<%= sb.toolbox.buttons({"data": dataObj, "index": index}) %>
+		<%= sb.toolbox.buttons({"data": data}) %>
 	</div>
 </div>
