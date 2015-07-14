@@ -37,7 +37,7 @@ sb.refresh = (function(){
             	// return sb.renderTemplate({ templateName: 'db-notifications', templateHolder: $('.') collection: new Kenseo.collections.Notifications(), data: 'db-notifications'})
             },
             'db-artefacts': function(){
-            	$('.review-requests-content').html();
+            	$('.review-requests-content').html("");
             	return new Kenseo.views.Artefacts({ colStr: 'Artefacts', data: 'db-artefacts' });
             	// return sb.renderTemplate({ templateName: 'db-artefacts', templateHolder: $('.review-requests-section'), collection: new Kenseo.collections.Artefacts(), data: 'db-artefacts'})
             }
