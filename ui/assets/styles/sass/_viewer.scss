@@ -312,7 +312,6 @@
 }
 .comments-viewer-header{
   @extend .popup-header;
-  @extend .beforeMiddle;
 }
 #sidebarContent {
   top: 32px;
@@ -353,6 +352,7 @@
   right: 0;
   bottom: 55px;
   left: 0;
+  text-align: center;
   outline: none;
   @include transition(left 1s ease-in-out);
 }
@@ -1525,9 +1525,15 @@ button,
 select {
   outline: none;
 }
-
+.annotate-wrapper{
+  display: inline-block;
+  position: relative;
+  text-align: left;
+}
 #viewer{
   background-color: rgb(232, 232, 233);
+  display: inline-block;
+  text-align: left;
 }
 
 #previous{

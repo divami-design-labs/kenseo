@@ -25,6 +25,9 @@
 	border: 1px solid $color8;
 	background-color: white;
 	height: 100%;
+	&.hide{
+		display: none;
+	}
 }
 .popup-meeting{
 	@include popupDimensions(570px, 690px);
@@ -48,13 +51,7 @@
 	@include text(18px, $color7);
 	padding-left: 30px;
 	vertical-align: middle;
-	&::before{
-		content: "";
-		display: inline-block;
-		vertical-align: middle;
-		width: 0;
-		height: 100%;
-	}
+	@extend .beforeMiddle;
 }
 .files-section ~ .dropdown{
 	margin-left: 30px;
@@ -77,37 +74,10 @@
 	padding-left: 50px;
 	@extend .clearFloat;
 }
-.buttons-section > button{
-	border: none;
-    float: right;
-    height: 35px;
-    margin-left: 25px;
-    &:last-child{
-    	margin-left: 0;
-    }
-}
-.buttons-section{
-	position: absolute;
-	bottom: 30px;
-	right: 30px;
-}
-
 .popup-message .buttons-section{
 	left: 50%;
 	@include transform(translate(-50%,0));
 	right: auto;
-}
-.main-btn{
-	@include text(16px, white);
-	background-color: $colorN;
-	padding: 5px 25px;
-	@extend .a;
-}
-.lnk-btn{
-	@include text(14px, $colorTwo);
-	padding: 8px;
-	background-color: transparent;
-	@extend .a;
 }
 
 /* second artefact popup*/
@@ -383,4 +353,8 @@ $popup-content-space: 175px;
   padding-left: 50px;
   padding-top: 10px;
   padding-right: 10px;
+}
+
+.combobox.xm.artefact-combobox.comboTree{
+	width: 383px;
 }

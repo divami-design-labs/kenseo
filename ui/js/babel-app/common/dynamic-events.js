@@ -56,6 +56,13 @@ $(function () {
 		$('.active').not($this).removeClass('active');
 		$this.toggleClass('active');
 	}).on('click', '.popup-click', function () {
+		var key = $(this).data('key');
+		var id = $(this).data('id');
+		if(key && id){
+			Kenseo.popup.data = Kenseo.data[key][id];
+		}
+
+
 		sb.navigate('popup', this);
 	}).on('click', '.overlay-click', function () {
 		sb.navigate('overlay', this);
@@ -141,28 +148,36 @@ $(function () {
 			processData: processData,
 			success: function success() {
 				popupCloser($self.parents(popupContainer));
-				if (Kenseo.currentModel) {
+				// if (Kenseo.currentModel) {
 					if (actionType === 'archiveProject') {
-						Kenseo.currentModel.collection.remove(Kenseo.currentModel);
+						// console.dir(Kenseo.currentModel);
+						// console.dir(Kenseo.currentModel.collection);
+						// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
+						sb.refresh.section('dashboard', 'db-projects');
 					} else if (actionType === 'archiveArtefact') {
 						Kenseo.currentModel.collection.remove(Kenseo.currentModel);
 					} else if (actionType === 'deleteArtefact') {
 						Kenseo.currentModel.collection.remove(Kenseo.currentModel);
 					} else if (actionType === 'addProject') {
 						// Add the project to the Dashboard section
-						var $projectSectionContent = $('.projects-section-content');
-						if($projectSectionContent.length){
-							var projectView = new Kenseo.views.Project();
-							$projectSectionContent.append(projectView.render(
-								{ 
-									name: data.projectName.value,
-									last_updated_date: new Date().toString(),
-									id: 'x3'
-								}
-							).$el);
-						}
+						// var $projectSectionContent = $('.projects-section-content');
+						// $projectSectionContent.find('.no-items').hide();
+						// if($projectSectionContent.length){
+						// 	var projectView = new Kenseo.views.Project();
+						// 	$projectSectionContent.append(projectView.render(
+						// 		{ 
+						// 			name: data.projectName.value,
+						// 			last_updated_date: new Date().toString(),
+						// 			id: 'x3'
+						// 		}
+						// 	).$el);
+						// }
+						sb.refresh.section('dashboard', 'db-projects');
 					}
-				}
+					else if(actionType === 'addArtefact'){
+						sb.refresh.section('dashboard', 'db-artefacts');
+					}
+				// }
 			}
 		});
 	}).on('click', '.sort-item', function (e) {

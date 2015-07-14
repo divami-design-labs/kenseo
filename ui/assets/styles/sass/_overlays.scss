@@ -365,6 +365,7 @@
 	bottom: 0;
 	top: 345px;
 	overflow: auto;
+	padding-left: 20px;
 }
 .cv-person-right-top > *{
 	display: inline-block;
@@ -375,7 +376,7 @@
 }
 .cv-person-meta {
 	float: right;
-	margin-right: 50px;
+	margin-right: 15px;
 	& > span + span{
 		border-left: 1px solid #ACACAC;
 		padding-left: 10px;
@@ -397,7 +398,7 @@
 .cv-person-left{
 	float: left;
 	width: 75px;
-	text-align: center;
+	text-align: left;
 	& > img{
 		@include square(37px);
 	}
@@ -406,9 +407,9 @@
 	margin-left: 75px;
 }
 .cv-comments-item{
-	border-bottom: 1px solid #E1E1E1;
 	padding-bottom: 15px;
 	& + &{
 		padding-top: 10px;
+		border-top: 1px solid #E1E1E1;
 	}
 }

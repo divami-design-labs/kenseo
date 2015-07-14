@@ -5,14 +5,7 @@ sb.router = {
             'collections': ['Projects', 'Artefacts', 'People', 'Notifications'],
             'views': ['Projects', 'Artefacts', 'People', 'Notifications']
         }, function () {
-            sb.renderTemplate({ 'templateName': 'nav-menu', 'templateHolder': $('.menu') });
-            sb.renderTemplate({ 'templateName': 'menu-header', 'templateHolder': $('.menu-header'), 'model': new Kenseo.models.Header() });
-            sb.renderTemplate({ 'templateName': 'menu-projects-container', 'templateHolder': $('.menu-projects-section'), 'collection': new Kenseo.collections.Projects(), 'data': 'menu-projects' });
-            sb.renderTemplate({ 'templateName': 'menu-recent-activity', 'templateHolder': $('.menu-recent-activity-section'), 'collection': new Kenseo.collections.Artefacts(), 'data': 'menu-activities' });
-            new Kenseo.views.Artefacts({ el: '.menu-recent-requests-section', colStr: 'Artefacts', data: 'menu-artefacts' });
-            // sb.renderTemplate({"templateName": 'artefact', "templateHolder": $('.menu-recent-requests-section'), "collection": new Kenseo.collections.Artefacts(), "data": 'menu-artefacts'});
-            sb.renderTemplate({ 'templateName': 'menu-recent-notifications', 'templateHolder': $('.menu-recent-notifications-section'), 'collection': new Kenseo.collections.Notifications(), 'data': 'menu-notifications' });
-            sb.renderTemplate({ 'templateName': 'menu-recent-people', 'templateHolder': $('.menu-recent-people-section'), 'collection': new Kenseo.collections.People(), 'data': 'menu-people' });
+            sb.refresh.section('menu');
         });
     },
     dashboard: function dashboard() {
@@ -25,12 +18,8 @@ sb.router = {
             $('.project-section').hide();
             $('.documentView').hide();
             $('.dashboard-section').show();
-
-            sb.renderTemplate({ templateName: 'dashboard', 'templateHolder': $('.dashboard-section') });
-            new Kenseo.views.Header({ 'model': new Kenseo.models.Header() });
-            new Kenseo.views.Projects({ colStr: 'Projects', data: 'db-projects' });
-            new Kenseo.views.Notifications({ collection: new Kenseo.collections.Notifications(), data: 'db-notifications' });
-            new Kenseo.views.Artefacts({ colStr: 'Artefacts', data: 'db-artefacts' });
+            sb.refresh.section('header');
+            sb.refresh.section('dashboard');
         });
     },
     projectPage: function projectPage(id) {
@@ -39,6 +28,7 @@ sb.router = {
             'models': ['Projects', 'Header', 'Artefacts', 'People'],
             'collections': ['Projects', 'Artefacts', 'People']
         }, function () {
+            Kenseo.page.id = id;
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
                 data: {
@@ -53,27 +43,8 @@ sb.router = {
                     $('.dashboard-section').hide();
                     $('.project-section').show();
 
-                    sb.renderTemplate({ 'templateName': 'project-page', 'templateHolder': $('.project-section') });
-                    new Kenseo.views.Header({ 'model': new Kenseo.models.Header() });
-
-                    new Kenseo.views.Artefacts({
-                        el: '.artifacts-content',
-                        id: id,
-                        colStr: 'Artefacts',
-                        data: { projects: true, project_id: id, sharePermission: false, sortBy: 'default' },
-                        preLoader: function preLoader(response) {
-                            $('.artifacts-section').html(_.template(templates['artefacts'])(response));
-                        }
-                    });
-                    new Kenseo.views.Activities({ collection: new Kenseo.collections.Artefacts(), data: { projectActivities: true, project_id: id } });
-                    new Kenseo.views.People({
-                        el: '.people-section-content',
-                        colStr: 'People',
-                        data: { projectId: id },
-                        preLoader: function preLoader(response) {
-                            $('.people-section').html(_.template(templates['people'])());
-                        }
-                    });
+                    sb.refresh.section('header');
+                    sb.refresh.section('project-page');
                 }
             });
         });
@@ -95,23 +66,23 @@ sb.router = {
                     userProjects: true
                 },
                 success: function success(response) {
-                    new Kenseo.views.Header({ 'model': new Kenseo.models.Header() });
+                    // new Kenseo.views.Header({ 'model': new Kenseo.models.Header() });
 
-                    sb.renderTemplate({
-                        url: sb.getRelativePath('getMeetingNotes'),
-                        data: {
-                            meetingId: Kenseo.data.meetingId
-                        },
-                        templateName: 'meetingnotes',
-                        templateHolder: $('.content-wrapper'),
-                        callbackfunc: function() {
-		                    //since we have the Html ready now we can have the editor in place.
-		                    var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
-		                    sb.meeting.notes();
-                        }
-                    });
-
-                    
+                    // sb.renderTemplate({
+                    //     url: sb.getRelativePath('getMeetingNotes'),
+                    //     data: {
+                    //         meetingId: Kenseo.data.meetingId
+                    //     },
+                    //     templateName: 'meetingnotes',
+                    //     templateHolder: $('.content-wrapper'),
+                    //     callbackfunc: function() {
+		                  //   //since we have the Html ready now we can have the editor in place.
+		                  //   var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
+		                  //   sb.meeting.notes();
+                    //     }
+                    // });
+                    sb.refresh.section('header');
+                    sb.refresh.section('meeting-notes');
                 }
             });
         });
