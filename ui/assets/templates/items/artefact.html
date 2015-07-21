@@ -1,25 +1,36 @@
-<div class="rr-left">
-	<div class="rr-status status-<%= data.status %>"><%= function(){ if(data.documentType == "U"){ return "UID"; }else if(data.documentType === "I"){ return "IXD"; }}() %></div>
-	<img class="rr-owner-image" src="<%= data.requestorImage %>"/>
-</div>
-<div class="rr-right">
-	<div class="rr-title ellipsis" title="<%= data.title %>"><%= data.title %></div>
-	<div class="rr-details ellipsis" title="<%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %>"><%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %></div>
-	<div class="rr-state-details">
-		<div class="rr-state">
-			<span>v<%= data.version %></span>
-			<div class="rr-other-versions"></div>
-			<div class="rr-comment"><%= data.commentCount %></div>
+<% var dataComparer = -1; %>
+<a href="#documentview/<%= data.versionId %>" class="review-request-item data-holder" data-pass="<% (function () {
+            if (dataComparer == data.linkedId) {
+                dataComparer = data.linkedId;
+                return 1;
+            } else {
+                dataComparer = data.linkedId;
+                return 0;
+            }
+        })() %>" data-id="<%= data.id %>" data-key="artefacts">
+	<div class="rr-left">
+		<div class="rr-status status-<%= data.status %>"><%= function(){ if(data.documentType == "U"){ return "UID"; }else if(data.documentType === "I"){ return "IXD"; }}() %></div>
+		<img class="rr-owner-image" src="<%= data.requestorImage %>"/>
+	</div>
+	<div class="rr-right">
+		<div class="rr-title ellipsis" title="<%= data.title %>"><%= data.title %></div>
+		<div class="rr-details ellipsis" title="<%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %>"><%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %></div>
+		<div class="rr-state-details">
+			<div class="rr-state">
+				<span class="artefact-cur-version">v<%= data.version %></span>
+				<div class="rr-other-versions"></div>
+				<div class="rr-comment"><%= data.commentCount %></div>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="requests-dropdown toggle-click">
-	<div class="requests-dropdown-icon"></div>
-	<div class="requests-dropdown-items sub-menu-holder small">
-		<div class="requests-archive-item popup-click sub-menu-item" data-id="<%= data.id %>" data-url="archive-artefact">Archive</div>
-		<div class="requests-replace-item popup-click sub-menu-item" data-id="<%= data.id %>" data-url="replace-artefact">Replace</div>
-		<div class="requests-add-version-item popup-click sub-menu-item" data-id="<%= data.id %>" data-url="add-version">Add Version</div>
-		<div class="requests-share-item popup-click sub-menu-item" data-id="<%= data.id %>" data-url="share-artefact" data-index="3">Share</div>
-		<div class="requests-delete-item popup-click sub-menu-item" data-id="<%= data.id %>" data-url="delete-artefact">Delete </div>
+	<div class="requests-dropdown toggle-click">
+		<div class="requests-dropdown-icon"></div>
+		<div class="requests-dropdown-items sub-menu-holder small">
+			<div class="requests-archive-item popup-click sub-menu-item" data-url="archive-artefact">Archive</div>
+			<div class="requests-replace-item popup-click sub-menu-item" data-url="replace-artefact">Replace</div>
+			<div class="requests-add-version-item popup-click sub-menu-item" data-url="add-version">Add Version</div>
+			<div class="requests-share-item popup-click sub-menu-item" data-url="share-artefact" data-index="3">Share</div>
+			<div class="requests-delete-item popup-click sub-menu-item" data-url="delete-artefact">Delete </div>
+		</div>
 	</div>
-</div>
+</a>

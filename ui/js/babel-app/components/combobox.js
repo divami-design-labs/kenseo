@@ -349,12 +349,12 @@ var comboBox = function comboBox(elem, suggestions, values) {
   * @param {object} el - represents the element in which the suggestions are to be rendered.
   */
 	function renderSuggestions(el, list) {
-		var textBox = el.querySelector('input[type="text"]');
-		var comboboxWrapper = el.querySelector('.combobox-wrapper');
-
 		if (!el) {
 			return;
 		}
+		var textBox = el.querySelector('input[type="text"]');
+		var comboboxWrapper = el.querySelector('.combobox-wrapper');
+
 
 		var $suggestionsViewer = $elem.find(".suggestions-viewer");
 		var newList = _.cloneDeep(list);

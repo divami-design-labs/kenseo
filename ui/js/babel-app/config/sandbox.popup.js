@@ -563,6 +563,39 @@ sb.popup = {
         $('.field-section[data-name="toTime"] select').val(sb.getHours(data.endTime));
         $('.field-section[data-name="fromTime"] select').val(sb.getHours(data.startTime));
         $('.field-section[data-name="location"] input[type="text"].meeting-location').val(data.venue);
+    },
+    coverImage: function(){
+        sb.loadFiles({
+            'files': ['js/app/components/custom-panning.js']
+        }, function(){
+            var $coverImageInput = $('.image-cover-section .upload-files-input');
+            if($coverImageInput.length){
+                $coverImageInput.on('change', function(){
+                    console.dir(this);
+                    // Link: http://stackoverflow.com/a/3814285/1577396
+                    var files = this.files;
+
+                    // FileReader support
+                    if (FileReader && files && files.length) {
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            // document.getElementById(outImage).src = fr.result;
+                            $('.cover-image-viewer .img-content').attr("src", fr.result);
+                            $('.cover-image-viewer').show();
+                            $('.image-cover-section').hide();
+                            setPanningDimensions();
+                        }
+                        fr.readAsDataURL(files[0]);
+                    }
+
+                    // Not supported
+                    else {
+                        // fallback -- perhaps submit the input to an iframe and temporarily store
+                        // them on the server until the user's session ends.
+                    }
+                });
+            }
+        })
     }
 };
 

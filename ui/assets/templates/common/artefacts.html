@@ -20,8 +20,18 @@
 </div>
 <div class="artifacts-content sub-section-content <% if(params.sortBy && params.sortBy === 'default'){ %> linked-artefacts <% } %>">
 	<div class="sort-view">Sort By <% if(params && params.sortBy){ %> <%= _.capitalize(params.sortBy) %> <% } else { %>Default <% } %></div>
+<% } else{ %>
+	<div class="review-requests-heading">            
+		<div class="review-requests-icon"></div>
+		<div class="heading-text">Shared Artefacts</div>
+	</div>
+	<div class="review-requests-content">
 <% } %>
-	
+		<% _.each(data, function(d){ %>
+			<%= sb.setTemplate('artefact', {data: d}) %>
+		<% }) %>
 <% if(params.projects && params.sortBy){ %>
 </div>
+<% } else{ %>
+	</div>
 <% } %>

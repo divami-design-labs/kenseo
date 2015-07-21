@@ -233,7 +233,7 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT pa.logged_time as time,
 												WHEN 'V' THEN 'Version'
 											END as activityOn,
 											CASE performed_on
-												WHEN 'A' THEN (SELECT vers.version_label FROM artefacts as arts join artefact_versions as vers on vers.artefact_ver_id = arts.latest_version_id WHERE arts.artefact_id = pa.performed_on_id)
+												WHEN 'A' THEN (SELECT arts.artefact_title FROM artefacts AS  arts WHERE arts.artefact_id = pa.performed_on_id)
 												WHEN 'U' THEN (SELECT name FROM users where user_id = pa.performed_on_id)
 												WHEN 'M' THEN (SELECT meeting_title FROM meetings WHERE meeting_id = pa.performed_on_id)
 												WHEN 'V' THEN (SELECT vers.version_label FROM artefact_versions as vers WHERE vers.artefact_ver_id = pa.performed_on_id)

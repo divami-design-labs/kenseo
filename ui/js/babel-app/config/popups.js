@@ -285,7 +285,40 @@ Kenseo.popups = (function(){
             "callbackfunc": function() {
             	// sb.setPopupData('addProject', 'actionType');
             }
-        }]
+        }],
+        "delete-project": [
+        	{
+        		"page_name": "message",
+        		"title": "Delete an Artefact",
+        		"message": function(){
+        			return "Do you want to Delete " + sb.getPopupData('name') + " project?";
+        		},
+	        	"buttons": [{
+	            	"label": "Yes",
+	            	"cls": "main-btn done-btn",
+	            },{
+	            	"label": "No",
+	            	"cls": "main-btn cancel-btn"
+	            }],
+	            "callbackfunc": function() {
+	            	sb.setPopupData('deleteArtefact', 'actionType');
+	            }
+        	}
+        ],
+        "cover-image": [
+        	{
+        		"page_name": "cover-image",
+        		"title": "Add Cover Image to this Project",
+        		"buttons": [{
+	            	"label": "Cancel",
+	            	"cls": "lnk-btn cancel-btn"
+	            },{
+	            	"label": "Add",
+	            	"cls": "main-btn done-btn",
+	            }],
+	            "callbackfunc": sb.popup.coverImage
+        	}
+        ]
 	};
 
 	return {

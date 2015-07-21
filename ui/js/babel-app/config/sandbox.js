@@ -406,6 +406,16 @@ var sb = (function () {
                 Kenseo.popup.data = value;
             }
         },
+        insertPopupData: function($elem){
+            var key = $elem.data('key');
+            var id = $elem.data('id');
+            if(key && id){
+                Kenseo.popup.data = Kenseo.data[key][id];
+            }
+            else{
+                sb.log("data-holder class is provided but not its dependent attributes: data-key and data-id");
+            }
+        },
         navigate: function navigate(str, el) {
             var $self = $(el);
             // var key = $self.data("key");

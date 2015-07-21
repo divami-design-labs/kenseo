@@ -56,11 +56,23 @@ $(function () {
 		$('.active').not($this).removeClass('active');
 		$this.toggleClass('active');
 	}).on('click', '.popup-click', function () {
-		var key = $(this).data('key');
-		var id = $(this).data('id');
-		if(key && id){
-			Kenseo.popup.data = Kenseo.data[key][id];
+		var $self = $(this);
+		var $dataHolder = $self.parents('.data-holder');
+		if($dataHolder.length){
+			sb.insertPopupData($dataHolder);
 		}
+		else if($self.hasClass('data-holder')){
+			sb.insertPopupData($self);
+		}
+		else{
+			sb.log("Didn't provide data-holder class to the element or its parent");
+		}
+
+		// var key = $(this).data('key');
+		// var id = $(this).data('id');
+		// if(key && id){
+		// 	Kenseo.popup.data = Kenseo.data[key][id];
+		// }
 
 
 		sb.navigate('popup', this);
@@ -87,7 +99,6 @@ $(function () {
 		}
 	}).on('click', '.share-btn', function () {
 		var container = document.querySelectorAll('.share-artefact-people-item');
-		console.log(container);
 		var sharedDetails = [];
 		for (var i = 0; i < container.length; i++) {
 			var $elem = $(container[i]);

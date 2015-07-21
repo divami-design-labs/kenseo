@@ -1,4 +1,4 @@
-<div class="project-heading">
+<div class="project-heading data-holder" data-key="projects" data-id="<%= Kenseo.page.id %>">
 	<div class="projects-heading-icon"></div>
 	<span class="heading-text-project">Projects > </span>
 	<span class="heading-text-project-name"><%= Kenseo.page.data.project.name %></span>
@@ -9,12 +9,13 @@
 			<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>
 			<div class="sub-menu-item popup-click" data-url="create-meeting">Create a Meeting</div>
 			<div class="sub-menu-item">Share a Project</div>
-			<div class="sub-menu-item">Archive a Project</div>
-			<div class="sub-menu-item">Delete a Project</div>
+			<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>
+			<div class="sub-menu-item popup-click" data-url="delete-project">Delete a Project</div>
+			<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>
 		</div>
 	</div>
 </div>
-<div class="project-section-content">
+<div class="project-section-content data-holder" data-key="projects" data-id="<%= Kenseo.page.id %>">
 	<div class="artifacts-section review-requests-content sub-section">
 		
 	</div>

@@ -51,9 +51,9 @@ var slider = (function(){
 						var sliderStartPoint = $self.offset().left;
 						var sliderEndPoint = sliderStartPoint + sliderComponentWidth;
 
-						console.log("=================");
-						console.log(sliderStartPoint, parentStartPoint);
-						console.log(sliderEndPoint, parentEndPoint);
+						// console.log("=================");
+						// console.log(sliderStartPoint, parentStartPoint);
+						// console.log(sliderEndPoint, parentEndPoint);
 
 						if(sliderStartPoint >= parentStartPoint && sliderEndPoint <= parentEndPoint){
 							$self.css({
