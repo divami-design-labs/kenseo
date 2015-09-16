@@ -1,0 +1,27 @@
+<div class="popup popup-large">
+	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
+	<div class="popup-body">
+		<div class="popup-body-wrapper">
+			<div class="image-cover-section">
+				<label class="upload-file-section">
+					<input type="file" class="upload-files-input" accept="image/*"></input>
+					<div class="file-heading">
+						Upload a new Cover
+					</div>
+					<div class="uploader-section">
+						<div class="uploader-section-img"></div>
+					</div>
+				</label>
+			</div>
+			<div class="cover-image-viewer">
+			    <div class="img-wrapper">
+				    <img class="img-content" src="" />
+				    <img class="pan-img" src="assets/imgs/blank.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="buttons-section">
+		<%= sb.toolbox.buttons({"data": data}) %>
+	</div>
+</div>

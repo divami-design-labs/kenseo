@@ -56,7 +56,7 @@ sb.router = {
             'models': ['Projects', 'Header', 'Artefacts', 'People'],
             'collections': ['Projects', 'Artefacts', 'People'],
             'files': [
-                'js/app/components/textEditor.js',
+                'js/app/components/texteditor.js',
                 'js/app/config/sandbox.meeting.js'
             ]
         }, function () {

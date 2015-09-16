@@ -223,6 +223,25 @@ $(function () {
 		});
 	}).on('click', '.dvt-item.comment-summary-icon', function(e){
 		$('.comments-view-holder').toggleClass('active');
+	})
+	.on('change', '.filter-checkboxes input[data-all="true"]', function(e){
+		var $self = $(this);
+		$self.parents('.filter-checkboxes-content').find('input[type="checkbox"]').not($self).prop('checked', $self.prop('checked'));
+	})
+	.on('change', '.filter-checkboxes input[type="checkbox"]:not([data-all="true"])', function(e){
+		var $self = $(this);
+		var $allchkBox = $self.parents('.filter-checkboxes-content').find('input[type="checkbox"][data-all="true"]');
+		if(!$self.prop('checked')){
+			$allchkBox.prop('checked', false);
+		}
+		else{
+			var $uncheckedBoxes = $self.parents('.filter-checkboxes-content').find('input[type="checkbox"]:not([data-all="true"])').filter(function(){
+				return !$(this).prop('checked');
+			});
+			if(!$uncheckedBoxes.length){
+				$allchkBox.prop('checked', true);
+			}
+		}
 	});
 });
 

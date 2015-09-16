@@ -121,7 +121,8 @@ sb.popup = {
                         }
                     });
 
-                    $(".existing-files-chk").change(function () {
+                    $(".existing-files-chk").change(function (e) {
+                        // e.stopPropagation();
                         var $elem = existingCombobox.$elem;
                         var $input = $elem.find("input");
                         $elem.find(".suggestionsContainer").hide();

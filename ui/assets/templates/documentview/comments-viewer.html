@@ -4,23 +4,33 @@
 		<div class="filter-icon"></div>
 	</div>
 	<div class="comments-view-section">
-		<div class="comments-view-filter-section">
+		<form class="comments-view-filter-section">
 			<div class="filter-checkboxes">
 				<div class="filter-checkboxes-heading">Severities</div>
 				<div class="filter-checkboxes-content">
 					<%= 
 						sb.toolbox.checkbox({
-							text: "All Severities"
+							text: "All Severities",
+							attr: {
+								'name': 'severities',
+								'data-all': true
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "Red"
+							text: "Red",
+							attr: {
+								'name': 'severities[0]'
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "Green"
+							text: "Green",
+							attr: {
+								'name': 'severities[1]'
+							}
 						}) 
 					%>
 				</div>
@@ -30,32 +40,51 @@
 				<div class="filter-checkboxes-content">
 					<%= 
 						sb.toolbox.checkbox({
-							text: "All Categories"
+							text: "All Categories",
+							attr: {
+								'name': 'categories',
+								'data-all': true
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "Typo"
+							text: "Typo",
+							attr: {
+								'name': 'categories[0]'
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "IXD"
+							text: "IXD",
+							attr: {
+								'name': 'categories[1]'
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "UID"
+							text: "UID",
+							attr: {
+								'name': 'categories[2]'
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "IA"
+							text: "IA",
+							attr: {
+								'name': 'categories[3]'
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "Persona"
+							text: "Persona",
+							attr: {
+								'name': 'categories[4]'
+							}
 						}) 
 					%>
 				</div>
@@ -65,35 +94,56 @@
 				<div class="filter-checkboxes-content">
 					<%= 
 						sb.toolbox.checkbox({
-							text: "All Severities"
+							text: "All Statuses",
+							attr: {
+								'name': 'status',
+								'data-all': true
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "Addressed"
+							text: "Addressed",
+							attr: {
+								'name': 'status[0]'
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "Open"
+							text: "Open",
+							attr: {
+								'name': 'status[1]'
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "Reopened"
+							text: "Reopened",
+							attr: {
+								'name': 'status[2]'
+							}
 						}) 
 					%>
 					<%= 
 						sb.toolbox.checkbox({
-							text: "Closed"
+							text: "Closed",
+							attr: {
+								'name': 'status[3]'
+							}
 						}) 
 					%>
 				</div>
 			</div>
 			<div class="buttons-section">
-				<%= sb.toolbox.button({data: { cls: "main-btn", "label": "Apply Filters"}}) %>
+				<%= sb.toolbox.button({
+					data: { 
+						cls: "main-btn", 
+						"label": "Apply Filters"
+					}
+				}) %>
 			</div>
-		</div>
+		</form>
 		<div class="cv-comments-section">
 			
 			<%= sb.setTemplate('comment-item') %>

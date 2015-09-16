@@ -8,5 +8,7 @@
 		<% } else if(data.label === "Back"){ %>
 			data-index="<%= +data.index-1 %>"
 		<% } %>
+
+		<%= sb.setTemplate('attributes', {data: data}) %>
 	><%= data.label %>
 </button>
