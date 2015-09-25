@@ -17,10 +17,15 @@
         
         <link rel="resource" type="application/l10n" href="locale/locale.properties"/>
 		<link href="assets/styles/css/zebra-default.css" type="text/css" rel="stylesheet"/>
+       <link href="node_modules/toastr/build/toastr.css" rel="stylesheet"/>
         <script>
-            var DOMAIN_ROOT_URL = "http://kenseo.divami.com/";
-            var DOMAIN_UI_URL   = "http://kenseo.divami.com/ui/";
+           /* var DOMAIN_ROOT_URL = "http://kenseo.divami.com/";
+            var DOMAIN_UI_URL   = "http://kenseo.divami.com/ui/"; */
+            var DOMAIN_ROOT_URL = "http://localhost/kenseo/server/";
+            var DOMAIN_UI_URL   = "http://localhost/kenseo/ui/";
         </script>
+        
+        <!--<script src="http://localhost:1337/vorlon.js"></script> -->
         <!--Detect if the browser is a mobile browser or a desktop browser and conditionally include your JavaScript --> 
         <script src="js/libs/jquery.js" type="text/javascript"></script>
         <script src="js/libs/lodash.js" type="text/javascript"></script>
@@ -48,6 +53,8 @@
         <script src="js/app/config/overlays.js" type="text/javascript"></script>
 
         <script src="js/app/components/combobox.js" type="text/javascript"></script>
+        
+        <script src="node_modules/toastr/toastr.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="popup-container" style="display: none;"></div>
@@ -63,7 +70,7 @@
                     <span class="logo" data-url="summary">
                         <div class="timer-overlay hide"></div>
                     </span>
-                    <div class="create-icon-holder toggle-click sub-menu-nav">
+                    <div class="create-icon-holder toggle-click toggle-hover sub-menu-nav">
                         <div class="create-plus-icon"></div>
                         <div class="sub-menu-holder bottom-nav right-nav">
                             <div class="sub-menu-item popup-click" data-url="add-project">Add a Project</div>
@@ -73,7 +80,7 @@
                         </div>
                     </div>
                     <div class="search-icon"></div>
-                    <div class="profile-pic-holder toggle-click sub-menu-nav">
+                    <div id="user-profile-id" class="profile-pic-holder toggle-click sub-menu-nav">
                         
                     </div>
                 </div>

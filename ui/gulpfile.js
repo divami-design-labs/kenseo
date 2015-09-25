@@ -3,6 +3,8 @@ var fs = require('fs');
 var tap = require('gulp-tap');
 var path = require('path');
 var stringify = require('stringify-object');
+var notify = require('gulp-notify');
+var uglify = require('gulp-uglify');
 
 // var babel = require("gulp-babel");
 
@@ -24,11 +26,11 @@ gulp.task('template-build', function () {
         var fileNameWithExt = path.basename(filePath);
         var fileName = fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf("."));
         templates[fileName] = fs.readFileSync('assets/templates/' + filePath, 'utf8');
-    }))
+    })).on('error', function(err){ notify(err.message); })
         .pipe(tap(function () {
         // Append the above "file name" and "file path"
-        fs.writeFile('templates.js', "var templates =  " + stringify(templates).replace(/[\n\r]*/g, ""));
-    }));
+        fs.writeFile('templates.js', "var templates =  " + stringify(templates).replace(/[\n\r]*\s\s+/g, ""));
+    })).on('error', function(err){ notify(err.message); });
 });
 
 // this runs the `bundle-templates` task before starting the watch (initial bundle)
@@ -39,3 +41,6 @@ gulp.task('watch', ['template-build'], function () {
     // Alert: Better use Sass engine instead of this
     // gulp.watch(['assets/styles/sass/*.scss', 'assets/styles/sass-utilities/*.scss'], ['sass']);
 });
+
+
+gulp.task('default', ['template-build'], function () {});
