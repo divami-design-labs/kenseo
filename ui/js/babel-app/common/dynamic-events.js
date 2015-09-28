@@ -137,6 +137,11 @@ $(function () {
 		}
 		// sb.setPopupData(JSON.stringify(sharedDetails), 'sharedTo')
 		console.log('parsing is completed');
+	}).on('click', 'a.review-request-item', function (e) {
+        e.stopPropagation();
+        $( ".hamburger.toggle-click" ).trigger( "click" );
+       // toastr.success('item clicked...');
+
 	}).on('click', '.done-btn', function () {
 		sb.registerData();
 		var $self = $(this);
@@ -175,11 +180,12 @@ class: "input-text project-input "
 placeholder: "Project name"
 type: "text"
 value: "test1"*/
-        if(!data.projectName.value){
+        
+        if(data && data.projectName && !data.projectName.value){
             toastr.warning('Please input project name.');
             return false;
         }else{
-            toastr.success('New project added.');
+            //toastr.success('New project added.');
         }
 
 		sb.ajaxCall({

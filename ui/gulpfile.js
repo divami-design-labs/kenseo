@@ -29,7 +29,7 @@ gulp.task('template-build', function () {
     })).on('error', function(err){ notify(err.message); })
         .pipe(tap(function () {
         // Append the above "file name" and "file path"
-        fs.writeFile('templates.js', "var templates =  " + stringify(templates).replace(/[\n\r]*\s\s+/g, ""));
+        fs.writeFile('templates.js', "var templates =  " + stringify(templates).replace(/[\n\r]*\s\s+/g, " "));
     })).on('error', function(err){ notify(err.message); });
 });
 
