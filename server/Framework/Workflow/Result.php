@@ -93,7 +93,7 @@ class Result
 	{
 		$str = '{"status":"' . $this->status . '", "command":"' . $this->command . '", '
 				. '"client":' . json_encode($this->client) . ', '
-				. '"params":' . json_encode($this->params) . ', '
+				. '"params":' . json_encode($this->getParams()) . ', '
 				. '"data":' . json_encode($this->data)
 				. '}';
 		return $str;

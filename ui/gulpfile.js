@@ -13,8 +13,10 @@ var notify = require('gulp-notify');
 var babel = require("gulp-babel");
 
 function babelChange(){
-    return gulp.src("js/babel-app/**")
-        .pipe(babel())
+    return gulp.src("js/babel-app/**.js")
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(gulp.dest("js/app/"));
 }
 

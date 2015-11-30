@@ -1,8 +1,7 @@
-References/*
+References/
 ui/css
 
 /server/media/
-/ui/js/app/
 /server/config/googleauth.php
 /server/config/config.php
 /server/.htaccess
