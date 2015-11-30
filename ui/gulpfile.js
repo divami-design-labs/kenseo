@@ -13,10 +13,8 @@ var notify = require('gulp-notify');
 var babel = require("gulp-babel");
 
 function babelChange(){
-    return gulp.src("js/babel-app/**.js")
-        .pipe(babel({
-            presets: ['es2015']
-        }))
+    return gulp.src("js/babel-app/**/*.js")
+        .pipe(babel())
         .pipe(gulp.dest("js/app/"));
 }
 
@@ -24,7 +22,7 @@ function babelChange(){
 function templateChange() {
     var templates = {};  
 
-    gulp.src('assets/templates/*/*.html')
+    gulp.src('assets/templates/**/*.html')
     // Run a loop through all files in 'app/templates/*/*.html'
     .pipe(tap(function (file, t) {
         // For each file in the loop get "file name" and "file path"
@@ -48,7 +46,7 @@ function templateChange() {
 }
 
 function sassChange(){
-  gulp.src('assets/styles/sass/**.scss')
+  gulp.src('assets/styles/sass/**/*.scss')
     .pipe(sourcemaps.init())
     // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
     .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
@@ -60,7 +58,7 @@ function watchChanges(){
     templateChange();
     sassChange();
     babelChange();
-    gulp.watch(['assets/templates/**.html','assets/styles/sass/**/*.scss', "js/babel-app/**.js"], ['template', 'sass', 'babel']);
+    gulp.watch(['assets/templates/**/*.html','assets/styles/sass/**/*.scss', "js/babel-app/**/*.js"], ['template', 'sass', 'babel']);
 }
 
 // Tasks

@@ -123,14 +123,16 @@
 .input-wrapper{
 	@extend .wrap;
 }
-.field-section + .field-section{
-	margin-top: 20px;
+.field-section ~ .field-section{
+	padding-top: 20px;
 }
 .field-section{
 	.input-text, textarea{
-		@include placeHolder($colorTwo, 14px, $italicFont);
 		border: 1px solid $colorB;
 		padding: 10px;
+	}
+	input[type="text"], textarea{
+		@include placeHolder(#9599a3, 14px, $italicFont);
 		&:focus{
 			outline: none;
 		}

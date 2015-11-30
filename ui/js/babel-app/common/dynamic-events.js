@@ -54,36 +54,8 @@ $(function () {
 		}
 		var $this = $(this);
 		$('.active').not($this).removeClass('active');
-        console.info(e.type);
-        switch(e.type){
-            case "mouseover":
-                $this.addClass('active');
-                break;
-            case "mouseout":
-                $this.removeClass('active');
-                break;
-            case "click":
-                $this.toggleClass('active');
-                break;
-        }		
-	}).on('mouseover mouseout', '#user-profile-id', function(e){
-        e.preventDefault();
-		if ($(e.target).hasClass('active') || $(e.target).parents('.active').length) {
-			if ($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length) {
-				return false;
-			}
-		}
-		var $this = $(this);
-		$('.active').not($this).removeClass('active');
-        switch(e.type){
-            case "mouseover":
-                $this.removeClass('active').addClass('active');
-                break;
-            case "mouseout":
-                $this.removeClass('active');
-                break;
-        }	
-    }).on('click', '.popup-click', function () {
+		$this.toggleClass('active');
+	}).on('click', '.popup-click', function () {
 		var $self = $(this);
 		var $dataHolder = $self.parents('.data-holder');
 		if($dataHolder.length){
@@ -95,6 +67,14 @@ $(function () {
 		else{
 			sb.log("Didn't provide data-holder class to the element or its parent");
 		}
+
+		// var key = $(this).data('key');
+		// var id = $(this).data('id');
+		// if(key && id){
+		// 	Kenseo.popup.data = Kenseo.data[key][id];
+		// }
+
+
 		sb.navigate('popup', this);
 	}).on('click', '.overlay-click', function () {
 		sb.navigate('overlay', this);
@@ -137,11 +117,6 @@ $(function () {
 		}
 		// sb.setPopupData(JSON.stringify(sharedDetails), 'sharedTo')
 		console.log('parsing is completed');
-	}).on('click', 'a.review-request-item', function (e) {
-        e.stopPropagation();
-        $( ".hamburger.toggle-click" ).trigger( "click" );
-       // toastr.success('item clicked...');
-
 	}).on('click', '.done-btn', function () {
 		sb.registerData();
 		var $self = $(this);
@@ -152,10 +127,14 @@ $(function () {
 		    contentType = null,
 		    processData = null;
 
+	    var type = '';
+
+	    var url = "";
+
 		if (file) {
 			var data = new FormData();
 
-			for (x in Kenseo.popup.data) {
+			for (var x in Kenseo.popup.data) {
 				var dump = sb.getPopupData(x);
 				if (typeof dump === 'object' && x !== 'file') {
 					dump = JSON.stringify(dump);
@@ -171,22 +150,10 @@ $(function () {
 			contentType = false;
 			processData = false;
 		} else {
-			data = sb.getPopupData(), url = sb.getRelativePath(actionType);
+			data = sb.getPopupData();
+			url = sb.getRelativePath(actionType);
 			type = 'GET';
 		}
-        /*actionType: "addProject"
-projectName: Object
-class: "input-text project-input "
-placeholder: "Project name"
-type: "text"
-value: "test1"*/
-        
-        if(data && data.projectName && !data.projectName.value){
-            toastr.warning('Please input project name.');
-            return false;
-        }else{
-            //toastr.success('New project added.');
-        }
 
 		sb.ajaxCall({
 			url: url,
