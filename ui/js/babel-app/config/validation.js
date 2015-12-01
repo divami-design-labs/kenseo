@@ -9,31 +9,29 @@ var validation = (function(){
 	var validatingCounter = 0;
 	var $validationSection = null;
 	var allErrorMessages = [];
-	var checkField = function(validatingType, value){
-		var allValidations = {
-			'empty': {
-				'msg': 'Field is empty',
-				'check': function(){
-					return !!$.trim(value).length;
-				}
-			},
-			'email': {
-				'msg': 'Email is invalid',
-				'check': function(){
-					var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-					return filter.test(value);
-				}
+	var allValidations = {
+		'empty': {
+			'msg': 'Field is empty',
+			'check': function(value){
+				return !!$.trim(value).length;
+			}
+		},
+		'email': {
+			'msg': 'Email is invalid',
+			'check': function(value){
+				var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+				return filter.test(value);
 			}
 		}
-		return function(){
-			var validate = allValidations[validatingType];
-			if(!validate.check()){
-				allErrorMessages.push(validate.msg);
-				return true;
-			}
-			else{
-				return false;
-			}
+	}
+	var checkField = function(validatingType, value){
+		var validate = allValidations[validatingType];
+		if(!validate.check(value)){
+			allErrorMessages.push(validate.msg);
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
 	var addErrorSkinning = function($field){
@@ -45,7 +43,7 @@ var validation = (function(){
 	var validateThisField = function($field, validatingTokens){
 		var value = $field.val();
 		for(var i = 0; i < validatingTokens.length; i++){
-			if(checkField(validatingTokens[i], value)()){
+			if(checkField(validatingTokens[i], value)){
 				validatingCounter++;
 				// Add skinning
 				addErrorSkinning($field);
@@ -125,11 +123,11 @@ var validation = (function(){
 			// $(div).addClass('show-errors').delay(2000).removeClass('show-errors');
 			setTimeout(function(){
 				this.addClass('show-errors');
-			}.bind($(div)), 300);
+			}.bind($(div)), 10);
 
 			setTimeout(function(){
 				this.removeClass('show-errors');
-			}.bind($(div)), 3300);
+			}.bind($(div)), 3010);
 
 			// return false to acknowledge
 			return false;
