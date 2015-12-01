@@ -50,7 +50,7 @@ function sassChange(){
     .pipe(sourcemaps.init())
     // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
     .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('maps/'))
     .pipe(gulp.dest('assets/styles/css'));
 }
 

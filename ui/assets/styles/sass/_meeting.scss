@@ -17,10 +17,12 @@
 
 .mini-dropdown {
 	@include dimensions(105px, 38px);
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .mini-datepicker {
-	width: 155px;
+	width: 160px;
 }
 
 .input-meeting-date {
@@ -46,6 +48,8 @@
 .time-label {
 	line-height: 38px;
 	margin: 0px 10px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .no-margin {

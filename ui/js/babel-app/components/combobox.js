@@ -8,7 +8,17 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	    $elem = $(elem);
 
 	_this.suggestions = suggestions;
-	values = values || {}, values.container = values.container || "comboTree", values.suggestionsContainer = values.suggestionsContainer || "suggestionsContainer", values.hoveredElement = values.hoveredElement || "active", values.collapseArrow = values.collapseArrow || "collapseArrow", values.expandArrow = values.expandArrow || "expandArrow", values.listClass = values.listClass || "selectable", values.noChild = "noChild", values.placeholder = values.placeholder || "", dot = ".", suggestionsContainerClass = dot + values.suggestionsContainer;
+	var values = values || {};
+		values.container = values.container || "comboTree";
+		values.suggestionsContainer = values.suggestionsContainer || "suggestionsContainer";
+		values.hoveredElement = values.hoveredElement || "active";
+		values.collapseArrow = values.collapseArrow || "collapseArrow";
+		values.expandArrow = values.expandArrow || "expandArrow";
+		values.listClass = values.listClass || "selectable";
+		values.noChild = "noChild";
+		values.placeholder = values.placeholder || "";
+	var dot = ".";
+	var suggestionsContainerClass = dot + values.suggestionsContainer;
 
 	$elem.addClass(values.container);
 

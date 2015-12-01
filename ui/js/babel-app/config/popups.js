@@ -280,7 +280,10 @@ Kenseo.popups = (function(){
             {
             	"label": "Done",
             	"cls": "main-btn share-btn done-btn",
-            	"disabled": false
+            	"disabled": false,
+            	"attr": {
+            		"data-target-validating-section": ".popup-body"
+            	}
             }],
             "callbackfunc": function() {
             	// sb.setPopupData('addProject', 'actionType');

@@ -126,11 +126,14 @@ $(function () {
 		var plainData = false,
 		    contentType = null,
 		    processData = null;
-
 	    var type = '';
-
-	    var url = "";
-
+	    var url = '';
+	    // Validate the information
+	    if(!validation.doValidate($(this))){
+	    	// stop further processing
+	    	return false;
+	    }
+	    // Submit the information
 		if (file) {
 			var data = new FormData();
 

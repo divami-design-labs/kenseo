@@ -54,11 +54,14 @@ sb.popup = {
             $(".create-file-item").css({
                 "visibility": "visible"
             });
-            $(".create-file-item .notification-title").html(this.value);
+
+            // removing fakepath from string (Chrome)
+            var value = this.value.replace("C:\\fakepath\\", "");
+            $(".create-file-item .notification-title").html(value);
 
             sb.setPopupData(this.files[0], "file");
-            sb.setPopupData(this.value, "fileName");
-            sb.setPopupData(this.value, "description");
+            sb.setPopupData(value, "fileName");
+            sb.setPopupData(value, "description");
             sb.setPopupData(this.files[0], "MIMEtype");
             sb.setPopupData(this.files[0].size, "size");
             //if this is an add artefact in the next popup call back it will be set taccordingly

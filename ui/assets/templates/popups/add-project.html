@@ -5,8 +5,11 @@
 			<%= 
 				sb.toolbox.textBox({
 					placeholder: "Project name",
-					inputClass: "project-input",
-					dataName : "projectName"
+					inputClass: "project-input required",
+					dataName : "projectName",
+					attr: {
+						'data-validate-this': 'empty'
+					}
 				})
 			%>
 		</div>
