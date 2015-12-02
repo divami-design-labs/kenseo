@@ -48,22 +48,23 @@
         <script src="js/app/config/overlays.js" type="text/javascript"></script>
 
         <script src="js/app/components/combobox.js" type="text/javascript"></script>
+        <script src="js/app/components/html.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="popup-container" style="display: none;"></div>
         <div class="page">
             <div class="page-wrapper">
                 <div class="header">
-                    <div class="hamburger toggle-click">
+                    <div class="hamburger html-click hamburger-menu" data-html-class="active" data-html-target=".hamburger-menu">
                         <div class="hamburger-icon">
                             <div class="hamburger-notify">4</div>
                         </div>                  
-                        <div class="menu"></div>
                     </div>
+                    <div class="menu hamburger-menu"></div>
                     <span class="logo" data-url="summary">
                         <div class="timer-overlay hide"></div>
                     </span>
-                    <div class="create-icon-holder toggle-click toggle-hover sub-menu-nav">
+                    <div class="create-icon-holder html-click sub-menu-nav" data-html-class="active">
                         <div class="create-plus-icon"></div>
                         <div class="sub-menu-holder bottom-nav right-nav">
                             <div class="sub-menu-item popup-click" data-url="add-project">Add a Project</div>
@@ -73,7 +74,7 @@
                         </div>
                     </div>
                     <div class="search-icon"></div>
-                    <div id="user-profile-id" class="profile-pic-holder toggle-click sub-menu-nav">
+                    <div id="user-profile-id" class="profile-pic-holder html-click sub-menu-nav" data-html-class="active">
                         
                     </div>
                 </div>

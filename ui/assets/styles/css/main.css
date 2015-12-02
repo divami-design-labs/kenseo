@@ -118,7 +118,7 @@
   text-decoration: none;
 }
 
-.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .share-artefact-people-item, .suggestion-item, .choose-existing-file-holder .close-icon, .text-actions-section > button, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .sv-item .sv-close, .toggle-click {
+.hand, .search-icon, .create-icon-holder, .notification-close-icon, .search-row, .rr-state span, .popup-click, .popup-close-icon, .upload-file-section, .create-file-close-icon, .share-artefact-people-item, .suggestion-item, .choose-existing-file-holder .close-icon, .text-actions-section > button, .close-icon, .slider-component .slider-left, .slider-component .slider-right, .sv-item .sv-close, .html-click {
   cursor: pointer;
 }
 
@@ -756,7 +756,7 @@
   overflow: hidden;
 }
 
-.active.hamburger .menu {
+.active.menu {
   display: block;
 }
 
@@ -1289,6 +1289,7 @@
 
 .project-block-overlay-wrapper {
   display: inline-block;
+  width: 100%;
 }
 
 .btn-project-open {
@@ -1314,6 +1315,11 @@
 .project-block-title {
   font-size: 17px;
   color: #3e4354;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0px 10px;
 }
 
 .project-block-details {
@@ -1322,6 +1328,7 @@
   margin-top: 5px;
   line-height: 16px;
   text-indent: 5px;
+  display: inline-block;
 }
 
 .fixed-content {

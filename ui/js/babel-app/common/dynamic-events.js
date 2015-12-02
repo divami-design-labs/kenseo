@@ -10,19 +10,27 @@ $(function () {
 
 	// Events
 
-	$(document).on('click', function (e) {
-		var $el = $(e.target);
-		var bln = $el.hasClass('.toggle-click') || $el.parents('.toggle-click').length;
+	$(document)
+	// .on('click', function (e) {
+	// 	var $el = $(e.target);
+	// 	var bln = $el.hasClass('.toggle-click') || $el.parents('.toggle-click').length;
 		// var bln = 	$el.hasClass('popup-click')
 		// 			|| $el.hasClass('page-click')
 		// 			|| $el.hasClass('toggle-click')
 		// 			|| $el.parents('.popup-click').length
 		// 			|| $el.parents('page-click').length
 		// 			|| $el.parents('.toggle-click').length;
-		if (!bln) {
-			$('.toggle-click').removeClass('active');
-		}
-	}).on('click', closePopupIcon, function () {
+		// if (!bln) {
+		// 	$('.toggle-click').removeClass('active');
+		// }
+	// })
+	.on('click', '.prevent-default', function(e){
+		e.preventDefault();
+	})
+	.on('click', '.stop-propagate', function(e){
+		e.stopPropagation();
+	})
+	.on('click', closePopupIcon, function () {
 		popupCloser($(this).parents(popupContainer));
 	}).on('keyup', function (e) {
 		var keycode = e.which || e.keyCode;
@@ -44,18 +52,20 @@ $(function () {
 		if ($dataUrl >= 0) {
 			sb.callPopup($dataUrl);
 		}
-	}).on('click', '.toggle-click', function (e) {
-		// e.stopPropagation();
-		e.preventDefault();
-		if ($(e.target).hasClass('active') || $(e.target).parents('.active').length) {
-			if ($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length) {
-				return false;
-			}
-		}
-		var $this = $(this);
-		$('.active').not($this).removeClass('active');
-		$this.toggleClass('active');
-	}).on('click', '.popup-click', function () {
+	})
+	// .on('click', '.toggle-click', function (e) {
+	// 	// e.stopPropagation();
+	// 	e.preventDefault();
+	// 	if ($(e.target).hasClass('active') || $(e.target).parents('.active').length) {
+	// 		if ($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length) {
+	// 			return false;
+	// 		}
+	// 	}
+	// 	var $this = $(this);
+	// 	$('.active').not($this).removeClass('active');
+	// 	$this.toggleClass('active');
+	// })
+	.on('click', '.popup-click', function () {
 		var $self = $(this);
 		var $dataHolder = $self.parents('.data-holder');
 		if($dataHolder.length){
@@ -87,7 +97,7 @@ $(function () {
 		sb.navigate('page', this);
 
 		// if the link is in a sub menu section, hide that section
-		$(this).parents('.toggle-click').removeClass('active');
+		// $(this).parents('.toggle-click').removeClass('active');
 
 		// if the link is in a popup, close that popup
 		popupCloser($(popupContainer));

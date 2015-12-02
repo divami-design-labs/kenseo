@@ -76,6 +76,7 @@
 }
 .project-block-overlay-wrapper{
 	display: inline-block;
+	width: 100%;
 }
 .btn-project-open{
 	background-color: #e7e7e7;
@@ -92,12 +93,18 @@
 }
 .project-block-title{
 	@include textTwo();
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 0px 10px;
 }
 .project-block-details{
 	@include textThree();
 	margin-top: 5px;
 	line-height: 16px;
 	text-indent: 5px;
+	display: inline-block;
 }
 .fixed-content{
 	float: right;

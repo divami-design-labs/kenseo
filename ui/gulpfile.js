@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var fs = require('fs');
 var tap = require('gulp-tap');
+var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 // var template = require('gulp-lodash-template');
 var sass = require('gulp-sass');
@@ -14,8 +15,14 @@ var babel = require("gulp-babel");
 
 function babelChange(){
     return gulp.src("js/babel-app/**/*.js")
+        .pipe(sourcemaps.init())
+        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
         .pipe(babel())
-        .pipe(gulp.dest("js/app/"));
+        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
+        .pipe(sourcemaps.write('.'))
+        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
+        .pipe(gulp.dest("js/app/"))
+        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
 }
 
 // task without watch
@@ -30,11 +37,11 @@ function templateChange() {
         var fileNameWithExt = path.basename(filePath);
         var fileName = fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf("."));
         templates[fileName] = fs.readFileSync('assets/templates/' + filePath, 'utf8');
-    })).on('error', function(err){ notify(err.message); })
+    })).on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
         .pipe(tap(function () {
         // Append the above "file name" and "file path"
         fs.writeFile('templates.js', "var templates =  " + stringify(templates).replace(/[\n\r]*\s\s+/g, " "));
-    })).on('error', function(err){ notify(err.message); });
+    })).on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
 
     // return gulp.src('assets/templates/**.html')
     //     .pipe(template({
@@ -49,9 +56,12 @@ function sassChange(){
   gulp.src('assets/styles/sass/**/*.scss')
     .pipe(sourcemaps.init())
     // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
-    .pipe(sass({outputStyle: 'expanded', sourceComments: false}).on('error', sass.logError))
+    .pipe(sass({outputStyle: 'expanded', sourceComments: false})
+    .on('error', sass.logError))
     .pipe(sourcemaps.write('maps/'))
-    .pipe(gulp.dest('assets/styles/css'));
+    .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
+    .pipe(gulp.dest('assets/styles/css'))
+    .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
 }
 
 function watchChanges(){
