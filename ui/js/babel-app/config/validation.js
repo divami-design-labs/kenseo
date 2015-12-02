@@ -74,7 +74,7 @@ var validation = (function(){
 				removeErrorSkinning($field);
 			});
 			// Do validation
-			for(var j = 0; j < $fieldSections.length; j++){
+			for(var j = 0, jLen = $fieldSections.length; j < jLen; j++){
 				var $field = getValidatingField($fieldSections[j]);
 				var $fieldSection = $($fieldSections[j]);
 				if($field.hasClass('required')){

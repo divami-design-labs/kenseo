@@ -177,7 +177,36 @@ $(function () {
 			processData: processData,
 			success: function success() {
 				popupCloser($self.parents(popupContainer));
-				sb.refresh.type(actionType);
+				// if (Kenseo.currentModel) {
+					if (actionType === 'archiveProject') {
+						// console.dir(Kenseo.currentModel);
+						// console.dir(Kenseo.currentModel.collection);
+						// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
+						sb.refresh.section('dashboard', 'db-projects');
+					} else if (actionType === 'archiveArtefact') {
+						Kenseo.currentModel.collection.remove(Kenseo.currentModel);
+					} else if (actionType === 'deleteArtefact') {
+						Kenseo.currentModel.collection.remove(Kenseo.currentModel);
+					} else if (actionType === 'addProject') {
+						// Add the project to the Dashboard section
+						// var $projectSectionContent = $('.projects-section-content');
+						// $projectSectionContent.find('.no-items').hide();
+						// if($projectSectionContent.length){
+						// 	var projectView = new Kenseo.views.Project();
+						// 	$projectSectionContent.append(projectView.render(
+						// 		{ 
+						// 			name: data.projectName.value,
+						// 			last_updated_date: new Date().toString(),
+						// 			id: 'x3'
+						// 		}
+						// 	).$el);
+						// }
+						sb.refresh.section('dashboard', 'db-projects');
+					}
+					else if(actionType === 'addArtefact'){
+						sb.refresh.section('dashboard', 'db-artefacts');
+					}
+				// }
 			}
 		});
 	}).on('click', '.sort-item', function (e) {

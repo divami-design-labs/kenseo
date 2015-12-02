@@ -180,3 +180,7 @@ input[type="text"].xm{
 .project-input{
 	width: 323px;
 }
+
+.nav-btn:disabled, .main-btn:disabled, .share-btn:disabled, .done-btn:disabled {
+	background-color: #B3BDD8;
+}

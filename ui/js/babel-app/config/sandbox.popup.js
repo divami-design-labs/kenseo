@@ -51,19 +51,28 @@ sb.popup = {
         //     $(".main-btn").prop("disabled", false);
         // }
         $(".upload-files-input").change(function () {
-            $(".create-file-item").css({
+            var file = this.files[0];
+
+            // If user clicks cancel.
+            if(!file) {
+                // Clear selected file path from input box
+                $(".create-file-close-icon").click();
+                return;
+            }
+
+            Kenseo.current.popup.find(".create-file-item").css({
                 "visibility": "visible"
             });
 
             // removing fakepath from string (Chrome)
             var value = this.value.replace("C:\\fakepath\\", "");
-            $(".create-file-item .notification-title").html(value);
+            Kenseo.current.popup.find(".create-file-item .notification-title").html(value).attr('title', value);
 
-            sb.setPopupData(this.files[0], "file");
+            sb.setPopupData(file, "file");
             sb.setPopupData(value, "fileName");
             sb.setPopupData(value, "description");
-            sb.setPopupData(this.files[0], "MIMEtype");
-            sb.setPopupData(this.files[0].size, "size");
+            sb.setPopupData(file, "MIMEtype");
+            sb.setPopupData(file.size, "size");
             //if this is an add artefact in the next popup call back it will be set taccordingly
             //for replace this is the only place we can decide wheteher it is a replace call or not
             if (sb.getPopupData("actionType") == "replaceArtefact") {
@@ -74,25 +83,28 @@ sb.popup = {
                 sb.setPopupData("addArtefactVersionFile", "actionType");
             }
 
-            $(".main-btn").prop("disabled", false);
+            Kenseo.current.popup.find(".main-btn").prop("disabled", false);
 
-            $(".choose-file-combobox input").attr("disabled", true);
-            $(".existing-files-chk").attr("disabled", false);
+            Kenseo.current.popup.find(".choose-file-combobox input").attr("disabled", true);
+            Kenseo.current.popup.find(".existing-files-chk").attr("disabled", false);
         });
         $(".create-file-close-icon").click(function () {
-            $(".create-file-item").css({
+            Kenseo.current.popup.find(".create-file-item").css({
                 "visibility": "hidden"
             });
-            $(".choose-file-combobox input").attr("disabled", false);
-            $(".main-btn").prop("disabled", true);
+            Kenseo.current.popup.find(".choose-file-combobox input").attr("disabled", false);
+            Kenseo.current.popup.find(".main-btn").prop("disabled", true);
             sb.setPopupData(null, "fileName");
             sb.setPopupData(null, "file");
             sb.setPopupData(null, "MIMEType");
             sb.setPopupData(null, "size");
             sb.setPopupData(null, "description");
 
-            $(".existing-files-chk").attr("disabled", true).prop("checked", false);
-            $(".existing-files-combobox").find(".suggestionsContainer").hide();
+            Kenseo.current.popup.find(".existing-files-chk").attr("disabled", true).prop("checked", false);
+            Kenseo.current.popup.find(".existing-files-combobox").find(".suggestionsContainer").hide();
+
+            // Clear selected file path from input box
+            Kenseo.current.popup.find(".upload-files-input").val('');
         });
         sb.loadFiles({
             "collections": ["Artefacts"],
@@ -449,8 +461,8 @@ sb.popup = {
                         insertAfter: function insertAfter($input, $selectedEl, bln) {
                             console.log("project name changed");
 
-                            var projectId = $selectedEl.attr("data-id");
-                            var projectName = $selectedEl.html();
+                            projectId = $selectedEl.attr("data-id");
+                            projectName = $selectedEl.html();
 
                             sb.setPopupData(projectId, "projectId");
                             sb.setPopupData(this.innerText, "projectName");
@@ -487,14 +499,15 @@ sb.popup = {
                                     $sharePermission: "true"
                                 },
                                 "success": function success(response) {
+                                    // artefactComboboxContainer.innerHTML = "";
                                     artefactCombobox.setSuggestions(response.data);
                                 }
                             });
                         }
                     });
 
-                    var artefactComboboxContainer = document.querySelector(".artefact-combobox");
-                    var artefactCombobox = sb.toolbox.applyComboBox({
+                    artefactComboboxContainer = document.querySelector(".artefact-combobox");
+                    artefactCombobox = sb.toolbox.applyComboBox({
                         elem: artefactComboboxContainer,
                         data: [],
                         settings: {
@@ -556,18 +569,16 @@ sb.popup = {
                 toTimeField.innerHTML = toTimeField.innerHTML + options[i].outerHTML;
             }
         });
-        // pre-populate the data if the user is in project page
-        if(Kenseo.current.page == "project-page"){
-            // var data = Kenseo.populate.meeting;
-            var currentProjectPageName = Kenseo.data.projects[Kenseo.page.id].name;
-            $('.project-combobox input[type="text"]').val(currentProjectPageName);
-            // $('.field-section[data-name="meetingArtefact"] input[type="text"]').val(data.artefactName);
-            // $('.field-section[data-name="agenda"] textarea').val(data.agenda);
-            // $('.field-section[data-name="date"] .input-meeting-date').val(sb.timeFormat(data.startTime,true));
-            // $('.field-section[data-name="toTime"] select').val(sb.getHours(data.endTime));
-            // $('.field-section[data-name="fromTime"] select').val(sb.getHours(data.startTime));
-            // $('.field-section[data-name="location"] input[type="text"].meeting-location').val(data.venue);
-        }
+
+        // pre-populate data
+        var data = Kenseo.populate.meeting;
+        $('.project-combobox input[type="text"]').val(data.projectName);
+        $('.field-section[data-name="meetingArtefact"] input[type="text"]').val(data.artefactName);
+        $('.field-section[data-name="agenda"] textarea').val(data.agenda);
+        $('.field-section[data-name="date"] .input-meeting-date').val(sb.timeFormat(data.startTime,true));
+        $('.field-section[data-name="toTime"] select').val(sb.getHours(data.endTime));
+        $('.field-section[data-name="fromTime"] select').val(sb.getHours(data.startTime));
+        $('.field-section[data-name="location"] input[type="text"].meeting-location').val(data.venue);
     },
     coverImage: function(){
         sb.loadFiles({

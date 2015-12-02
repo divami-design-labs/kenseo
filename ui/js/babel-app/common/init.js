@@ -11,6 +11,7 @@ var Kenseo = {
     page: { "info": {}, "data": {} },
     current: {
         page: "",
+        popup: ""
     },
     cookie: {
         sessionid: function sessionid() {

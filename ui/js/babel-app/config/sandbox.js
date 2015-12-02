@@ -452,23 +452,34 @@ var sb = (function () {
             }
         },
         callPopup: function callPopup(index) {
-            var $popup = $('.popup').eq(index);
+            var allPopups = $('.popup');
+            var $popup = allPopups.eq(index);
             if($popup.length){
-                $('.popup').addClass('hide');
+                allPopups.addClass('hide');
                 $popup.removeClass('hide');
+
+                // Storing current popup root element
+                Kenseo.current.popup = $popup; 
             }
             else{
                 $('.popup').addClass('hide');
                 var info = Kenseo.popup.info[index];
                 _.extend(info, {'index': index});
+
+                var $templateHolder = $('.popup-container');
+
                 sb.renderTemplate({
                     'templateName': info.page_name,
-                    'templateHolder': $('.popup-container'),
+                    'templateHolder': $templateHolder,
                     'append': true,
                     'data': {
                         'data': info
                     }
                 });
+
+                // Storing current popup root element
+                Kenseo.current.popup = $templateHolder.find('.popup').last();
+
                 if (info.callbackfunc) {
                     info.callbackfunc();
                 }
