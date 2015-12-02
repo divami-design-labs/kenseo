@@ -331,6 +331,7 @@ $fontSizeOne: 18px;
         }
         &:checked + span {
             left: $h;
+            background-color: green;
         }
     }
 }

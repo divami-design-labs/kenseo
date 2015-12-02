@@ -95,16 +95,45 @@ sb.refresh = (function(){
 		}
 	}
 
+	var actionType = {
+		archiveProject : function(){
+			refreshSection('dashboard', 'db-projects');
+		},
+		archiveArtefact: function(){
+			// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
+			refreshSection('dashboard', 'db-artefacts');
+		},
+		deleteArtefact: function(){
+			// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
+			refreshSection('dashboard', 'db-artefacts');
+		},
+		addProject: function(){
+			refreshSection('dashboard', 'db-projects');
+		},
+		addArtefact: function(){
+			refreshSection('dashboard', 'db-artefacts');
+			refreshSection('dashboard', 'db-notifications');
+		}
+	}
+	function refreshSection(sectionName, subSection){
+		var specificSection = sections[sectionName];
+		if(!subSection){
+			for(var s in specificSection){
+				specificSection[s]();
+			}
+		}
+		else{
+			specificSection[subSection]();
+		}
+	}
 	return {
-		section: function(sectionName, subSection){
-			var specificSection = sections[sectionName];
-			if(!subSection){
-				for(var s in specificSection){
-					specificSection[s]();
-				}
+		section: refreshSection,
+		type: function(actionTypeProp){
+			if(actionType[actionTypeProp]){
+				actionType[actionTypeProp]();
 			}
 			else{
-				specificSection[subSection]();
+				sb.log("undefined actionType");
 			}
 		}
 	}

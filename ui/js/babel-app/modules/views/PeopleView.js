@@ -1,6 +1,6 @@
 Kenseo.views.People = Backbone.View.extend({
     // The DOM Element associated with this view
-    el: this.el || '.people-section',
+    el: '.people-section',
     itemView: function itemView(x) {
         return new Kenseo.views.Person(x);
     },

@@ -9,7 +9,11 @@
 			<%= 
 				sb.toolbox.textBox({
 					placeholder: "Name or mail ID. Use comma to add multiple people.",
-					inputClass: "xm"
+					inputClass: "xm required",
+					dataName: 'people',
+					attr: {
+						'data-validate-this': 'empty'
+					}
 				})
 			%>
 			<div class="people-permissions-section">

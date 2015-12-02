@@ -14,6 +14,8 @@ sb.router = {
             'models': ['Header', 'Notifications', 'Projects', 'Artefacts'],
             'collections': ['Projects', 'Artefacts', 'Notifications']
         }, function () {
+            Kenseo.current.page = "dashboard";
+
             $('.header').removeClass('fixed-header');
             $('.hamburger-menu').removeClass('active');
             $('.project-section').hide();
@@ -29,6 +31,7 @@ sb.router = {
             'models': ['Projects', 'Header', 'Artefacts', 'People'],
             'collections': ['Projects', 'Artefacts', 'People']
         }, function () {
+            Kenseo.current.page = "project-page";
             Kenseo.page.id = id;
             $('.hamburger-menu').removeClass('active');
             sb.ajaxCall({
@@ -62,6 +65,7 @@ sb.router = {
                 'js/app/config/sandbox.meeting.js'
             ]
         }, function () {
+            Kenseo.current.page = "meeting-notes";
             $('.hamburger-menu').removeClass('active');
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
@@ -104,6 +108,8 @@ sb.router = {
             'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js', 
                     'js/libs/pdfjs/viewer.js', 'js/app/components/annotator.js']
         }, function () {
+            Kenseo.current.page = "document-view";
+
             $('.header').addClass('fixed-header');
             $('.hamburger-menu').removeClass('active');
             $('.project-section').hide();

@@ -9,6 +9,9 @@ var Kenseo = {
     populate: {},
     overlays: { "info": {}, "data": {} },
     page: { "info": {}, "data": {} },
+    current: {
+        page: "",
+    },
     cookie: {
         sessionid: function sessionid() {
             return Cookie.getCookie("DivamiKenseoSID");

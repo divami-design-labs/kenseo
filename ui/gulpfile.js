@@ -53,7 +53,7 @@ function templateChange() {
 }
 
 function sassChange(){
-  gulp.src('assets/styles/sass/**/*.scss')
+  gulp.src(['assets/styles/sass/**/*.scss', 'assets/styles/sass-utilities/**/*.scss'])
     .pipe(sourcemaps.init())
     // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
     .pipe(sass({outputStyle: 'expanded', sourceComments: false})
@@ -67,8 +67,13 @@ function sassChange(){
 function watchChanges(){
     templateChange();
     sassChange();
-    babelChange();
-    gulp.watch(['assets/templates/**/*.html','assets/styles/sass/**/*.scss', "js/babel-app/**/*.js"], ['template', 'sass', 'babel']);
+    babelChange(/*{ blacklist: ["strict"] }*/);
+    gulp.watch([
+        'assets/templates/**/*.html',
+        'assets/styles/sass/**/*.scss', 
+        'assets/styles/sass-utilities/**/*.scss', 
+        "js/babel-app/**/*.js"
+    ], ['template', 'sass', 'babel']);
 }
 
 // Tasks

@@ -449,8 +449,8 @@ sb.popup = {
                         insertAfter: function insertAfter($input, $selectedEl, bln) {
                             console.log("project name changed");
 
-                            projectId = $selectedEl.attr("data-id");
-                            projectName = $selectedEl.html();
+                            var projectId = $selectedEl.attr("data-id");
+                            var projectName = $selectedEl.html();
 
                             sb.setPopupData(projectId, "projectId");
                             sb.setPopupData(this.innerText, "projectName");
@@ -487,15 +487,14 @@ sb.popup = {
                                     $sharePermission: "true"
                                 },
                                 "success": function success(response) {
-                                    // artefactComboboxContainer.innerHTML = "";
                                     artefactCombobox.setSuggestions(response.data);
                                 }
                             });
                         }
                     });
 
-                    artefactComboboxContainer = document.querySelector(".artefact-combobox");
-                    artefactCombobox = sb.toolbox.applyComboBox({
+                    var artefactComboboxContainer = document.querySelector(".artefact-combobox");
+                    var artefactCombobox = sb.toolbox.applyComboBox({
                         elem: artefactComboboxContainer,
                         data: [],
                         settings: {
@@ -557,16 +556,18 @@ sb.popup = {
                 toTimeField.innerHTML = toTimeField.innerHTML + options[i].outerHTML;
             }
         });
-
-        // pre-populate data
-        var data = Kenseo.populate.meeting;
-        $('.project-combobox input[type="text"]').val(data.projectName);
-        $('.field-section[data-name="meetingArtefact"] input[type="text"]').val(data.artefactName);
-        $('.field-section[data-name="agenda"] textarea').val(data.agenda);
-        $('.field-section[data-name="date"] .input-meeting-date').val(sb.timeFormat(data.startTime,true));
-        $('.field-section[data-name="toTime"] select').val(sb.getHours(data.endTime));
-        $('.field-section[data-name="fromTime"] select').val(sb.getHours(data.startTime));
-        $('.field-section[data-name="location"] input[type="text"].meeting-location').val(data.venue);
+        // pre-populate the data if the user is in project page
+        if(Kenseo.current.page == "project-page"){
+            // var data = Kenseo.populate.meeting;
+            var currentProjectPageName = Kenseo.data.projects[Kenseo.page.id].name;
+            $('.project-combobox input[type="text"]').val(currentProjectPageName);
+            // $('.field-section[data-name="meetingArtefact"] input[type="text"]').val(data.artefactName);
+            // $('.field-section[data-name="agenda"] textarea').val(data.agenda);
+            // $('.field-section[data-name="date"] .input-meeting-date').val(sb.timeFormat(data.startTime,true));
+            // $('.field-section[data-name="toTime"] select').val(sb.getHours(data.endTime));
+            // $('.field-section[data-name="fromTime"] select').val(sb.getHours(data.startTime));
+            // $('.field-section[data-name="location"] input[type="text"].meeting-location').val(data.venue);
+        }
     },
     coverImage: function(){
         sb.loadFiles({

@@ -1,6 +1,4 @@
 References/
-ui/css
-
 /server/media/
 /server/config/googleauth.php
 /server/config/config.php
@@ -8,4 +6,3 @@ ui/css
 /ui/node_modules/
 /ui/assets/styles/.sass-cache/
 /ui/local/builds/
-ui/local/builds/

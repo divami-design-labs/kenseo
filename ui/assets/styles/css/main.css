@@ -233,6 +233,7 @@
 
 .toggle-checkbox input[type="checkbox"]:checked + span {
   left: 26px;
+  background-color: green;
 }
 
 .unfocus:focus, .dropdown:focus, input[type=text]:focus {
