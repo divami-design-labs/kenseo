@@ -15,6 +15,7 @@ sb.router = {
             'collections': ['Projects', 'Artefacts', 'Notifications']
         }, function () {
             Kenseo.current.page = "dashboard";
+            sb.setTitle('Dashboard');
 
             $('.header').removeClass('fixed-header');
             $('.hamburger-menu').removeClass('active');
@@ -32,6 +33,7 @@ sb.router = {
             'collections': ['Projects', 'Artefacts', 'People']
         }, function () {
             Kenseo.current.page = "project-page";
+
             Kenseo.page.id = id;
             $('.hamburger-menu').removeClass('active');
             sb.ajaxCall({
@@ -40,8 +42,10 @@ sb.router = {
                     userProjects: true
                 },
                 success: function success(response) {
-                    // sb.setPopupData(Kenseo.data.projects[id].name, 'project_name');
-                    sb.setPageData(Kenseo.data.projects[id], 'project');
+                    var currentProjectInfo = Kenseo.data.projects[id];
+                    sb.setTitle(currentProjectInfo['name']);
+                    // sb.setPopupData(currentProjectInfo.name, 'project_name');
+                    sb.setPageData(currentProjectInfo, 'project');
                     $('.header').removeClass('fixed-header');
 
                     $('.documentView').hide();
@@ -56,6 +60,9 @@ sb.router = {
     },
     meetingNotes: function meetingNotes(id) {
         Kenseo.data.meetingId = id;
+        // Write meeting notes title here
+
+        //
         sb.loadFiles({
             'views': ['Header', 'Artefacts', 'People', 'Activities'],
             'models': ['Projects', 'Header', 'Artefacts', 'People'],
@@ -73,21 +80,6 @@ sb.router = {
                     userProjects: true
                 },
                 success: function success(response) {
-                    // new Kenseo.views.Header({ 'model': new Kenseo.models.Header() });
-
-                    // sb.renderTemplate({
-                    //     url: sb.getRelativePath('getMeetingNotes'),
-                    //     data: {
-                    //         meetingId: Kenseo.data.meetingId
-                    //     },
-                    //     templateName: 'meetingnotes',
-                    //     templateHolder: $('.content-wrapper'),
-                    //     callbackfunc: function() {
-		                  //   //since we have the Html ready now we can have the editor in place.
-		                  //   var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
-		                  //   sb.meeting.notes();
-                    //     }
-                    // });
                     sb.refresh.section('header');
                     sb.refresh.section('meeting-notes');
                 }

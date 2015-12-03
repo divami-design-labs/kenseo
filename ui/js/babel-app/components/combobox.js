@@ -35,7 +35,8 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	// This section is to make sure that when the user clicks on outside of the suggestions box
 	// The suggestion box will hide.
 	document.onclick = function () {
-		hideSuggestions(true);
+		// hideSuggestions(true);
+		var $combobElem = (($elem.length && $elem) || $('.combobox')).find(suggestionsContainerClass).hide();
 	};
 	$elem.click(function (e) {
 		e.stopPropagation();

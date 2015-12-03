@@ -378,6 +378,10 @@ var sb = (function () {
                 sb.log('provide valid key id pair');
             }
         },
+        setTitle: function(str){
+            var $title = $('title');
+            $title.html('Kenseo - ' + str);
+        },
         setPageData: function setPageData(value, key) {
             if (key) {
                 Kenseo.page.data[key] = value;

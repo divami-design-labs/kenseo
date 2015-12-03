@@ -105,7 +105,12 @@ sb.refresh = (function(){
 		},
 		deleteArtefact: function(){
 			// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
-			refreshSection('dashboard', 'db-artefacts');
+			if(Kenseo.current.page == "dashboard"){
+				refreshSection('dashboard', 'db-artefacts');
+			}
+			else if(Kenseo.current.page == "project-page"){
+				refreshSection('project-page', 'pp-artefacts');
+			}
 		},
 		addProject: function(){
 			refreshSection('dashboard', 'db-projects');

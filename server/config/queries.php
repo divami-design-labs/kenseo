@@ -161,7 +161,7 @@ $AppGlobal['sql']['matchProjects'] = "SELECT project_name AS matchedString, proj
 $AppGlobal['sql']['getTeamMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url as picture
 											FROM " . TABLE_PROJECT_MEMBERS . " AS members 
 											INNER JOIN " . TABLE_USERS . " AS users ON members.user_id = users.user_id  
-											WHERE members.proj_id = @~~projectId~~@ AND members.user_id != @~~userId~~@";
+											WHERE members.proj_id = @~~projectId~~@";// AND members.user_id != @~~userId~~@";
 
 $AppGlobal['sql']['getTagsList'] = "SELECT tags.tag_id as id, tags.tag_name as name from " . TABLE_USERS . " AS users
 											INNER JOIN " . TABLE_ORGANIZATIONS . " AS organizations ON

@@ -16,7 +16,7 @@ var slider = (function(){
 			$sliderComponent().width(width);
 
 			$('.slider-component').on('mousedown', function(e){
-				$self = $(this);
+				var $self = $(this);
 				var $parentContainer = $self.parents('.time-frame-section');
 				var parentStartPoint = $parentContainer.offset().left;
 				var parentWidth = $parentContainer.width();
@@ -33,6 +33,7 @@ var slider = (function(){
 					var bitMovement = moveStartPoint - e.pageX;
 					// Movement relative to the slider
 					var relativeMovement = movement - remaining;
+					// if(relativeMovement < 0) relativeMovement = 0;
 					// Movement relative to the slider
 					var relativeBitMovement = sliderComponentWidth + bitMovement;
 
@@ -55,22 +56,28 @@ var slider = (function(){
 						// console.log(sliderStartPoint, parentStartPoint);
 						// console.log(sliderEndPoint, parentEndPoint);
 
-						if(sliderStartPoint >= parentStartPoint && sliderEndPoint <= parentEndPoint){
+						if(sliderStartPoint > parentStartPoint && sliderEndPoint < parentEndPoint){
+							// console.log(relativeMovement,  parentStartPoint - sliderStartPoint, parentEndPoint - sliderEndPoint);
+							// if(parentEndPoint - sliderEndPoint < 3){
+							// 	relativeMovement = relativeMovement - 1;
+							// }
 							$self.css({
 								'left': relativeMovement + 'px'
 							});
+							// console.log("if", sliderStartPoint > parentStartPoint && sliderEndPoint < parentEndPoint);
 						}
 						else{
-							var left = parseInt($self.css('left'));
-							if(sliderStartPoint <= parentStartPoint){
-								var left = left + 1;
-							}
-							else if(sliderEndPoint >= parentEndPoint){
-								var left = left - 1;
-							}
-							$self.css({
-								'left': left + "px"
-							});	
+							// console.log("else", relativeMovement,  parentStartPoint - sliderStartPoint, parentEndPoint - sliderEndPoint);
+							// var left = parseInt($self.css('left'));
+							// if(sliderStartPoint <= parentStartPoint){
+							// 	var left = 0;
+							// }
+							// else if(sliderEndPoint >= parentEndPoint){
+							// 	var left = $parentContainer.width() - $self.width() - 1;
+							// }
+							// $self.css({
+							// 	'left': left + "px"
+							// });	
 						}
 					}
 					// storing the new start point
@@ -82,7 +89,7 @@ var slider = (function(){
 				})
 			});
 
-			window.onresize = init;
+			window.addEventListener('resize', init);
 		};
 
 	init();

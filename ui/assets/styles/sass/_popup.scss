@@ -30,7 +30,7 @@
 	}
 }
 .popup-meeting{
-	@include popupDimensions(570px, 690px);
+	@include popupDimensions(585px, 690px);
 }
 .popup-message{
 	@include popupDimensions(425px, 200px);

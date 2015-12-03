@@ -126,7 +126,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive an Artefact",
         		"message": function(){
-        			return "Do you want to archive " + sb.getPopupData('title') + " artefact?";
+        			return 'Do you want to archive "' + sb.getPopupData('title') + '" artefact?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -145,7 +145,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Delete an Artefact",
         		"message": function(){
-        			return "Do you want to Delete " + sb.getPopupData('title') + " artefact?";
+        			return 'Do you want to Delete "' + sb.getPopupData('title') + '" artefact?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -164,7 +164,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive a Project",
         		"message": function(){
-        			return "Do you want to archive " + sb.getPopupData('name') + " project ?";
+        			return 'Do you want to archive "' + sb.getPopupData('name') + '" project ?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -238,7 +238,7 @@ Kenseo.popups = (function(){
         "add-version":[
         	{
         		"page_name": "artefact-two",
-        		"title": "Replace an Artefact",
+        		"title": "Add version",
         		allow_artefact_selection: false,
 	            chooseExistingFile: true,
         		"buttons": [{
@@ -297,7 +297,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Delete an Artefact",
         		"message": function(){
-        			return "Do you want to Delete " + sb.getPopupData('name') + " project?";
+        			return 'Do you want to Delete "' + sb.getPopupData('name') + '" project?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
