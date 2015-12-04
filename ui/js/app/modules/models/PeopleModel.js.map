@@ -1,0 +1,1 @@
+{"version":3,"sources":["modules/models/PeopleModel.js"],"names":[],"mappings":";;AAAA,MAAM,CAAC,MAAM,CAAC,MAAM,GAAG,QAAQ,CAAC,KAAK,CAAC,MAAM,CAAC,EAAE,CAAC,CAAC","file":"modules/models/PeopleModel.js","sourcesContent":["Kenseo.models.People = Backbone.Model.extend({});\n\n// urlRoot: 'app/packages/people.json'"],"sourceRoot":"/source/"}
