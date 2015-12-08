@@ -173,7 +173,7 @@ sb.router = {
                         var parent = document.querySelector('#viewerContainer.parent');
                         stickToBottom(parent);
 
-                        annotator();
+                        annotator.init();
                     }
                 });
             }

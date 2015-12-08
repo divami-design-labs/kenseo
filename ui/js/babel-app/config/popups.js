@@ -295,7 +295,7 @@ Kenseo.popups = (function(){
         "delete-project": [
         	{
         		"page_name": "message",
-        		"title": "Delete an Artefact",
+        		"title": "Delete a Project",
         		"message": function(){
         			return 'Do you want to Delete "' + sb.getPopupData('name') + '" project?';
         		},
@@ -307,7 +307,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn cancel-btn"
 	            }],
 	            "callbackfunc": function() {
-	            	sb.setPopupData('deleteArtefact', 'actionType');
+	            	sb.setPopupData('deleteProject', 'actionType');
 	            }
         	}
         ],

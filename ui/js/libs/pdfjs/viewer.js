@@ -3414,11 +3414,19 @@ var paintPdf = function(payload) {
                     textLayerDiv.className = 'textLayer';
                     textLayerDiv.style.width = canvas.style.width;
                     textLayerDiv.style.height = canvas.style.height;
+                    // Custom code - Venkateshwar
+                    // Added a wrapper to textLayer div
+                    var newDiv = document.createElement('div');
+                    newDiv.className = "new-textlayer";
+                    newDiv.appendChild(textLayerDiv);
+                    newDiv.style.width = textLayerDiv.style.width;
+                    // -- End of custom code
+                    //
                     if (this.annotationLayer) {
                         // annotationLayer needs to stay on top
-                        div.insertBefore(textLayerDiv, this.annotationLayer.div);
+                        div.insertBefore(newDiv, this.annotationLayer.div);
                     } else {
-                        div.appendChild(textLayerDiv);
+                        div.appendChild(newDiv);
                     }
 
                     textLayer = this.textLayerFactory.createTextLayerBuilder(textLayerDiv,
@@ -3518,6 +3526,9 @@ var paintPdf = function(payload) {
                 var renderTask = this.renderTask = this.pdfPage.render(renderContext);
 
                 this.renderTask.promise.then(
+                    function paintExistingAnnotations(){
+                        annotator.paintExistingAnnotations();
+                    },
                     function pdfPageRenderCallback() {
                         pageViewDrawCallback(null);
                         if (textLayer) {
