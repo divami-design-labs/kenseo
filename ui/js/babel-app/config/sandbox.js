@@ -121,14 +121,14 @@ var sb = (function () {
                 }).data;
             }
             // Setting default values to the ajax properties
-            var contentType = payload.contentType,
-                processData = payload.processData;
-            if (contentType === undefined || contentType === null) {
-                contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-            }
-            if (processData === undefined || processData === null) {
-                processData = true;
-            }
+            var contentType = payload.contentType || 'application/x-www-form-urlencoded; charset=UTF-8';
+            var processData = payload.processData || true;
+            // if (contentType === undefined || contentType === null) {
+            //     contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+            // }
+            // if (processData === undefined || processData === null) {
+            //     processData = true;
+            // }
 
             // Ajax call
             $.ajax({
@@ -530,6 +530,12 @@ var sb = (function () {
             checkbox: function checkbox(data){
                 return _.template(templates['checkbox'])({data: data || {}});
             }
+        },
+        getCurrentDocumentData: function(id){
+            return Kenseo.document[id];
+        },
+        setCurrentDocumentData: function(id, data){
+            Kenseo.document[id] = data;
         },
         page: {},
         overlay: {},

@@ -19,34 +19,107 @@ var annotator = (function(){
         $commentContainer.append(sb.setTemplate('comment', {data: data || {}}));
         if(payload.isNewComment){
         	var e = payload.e;
+        	var posx = ($el.scrollLeft() + e.pageX - $el.offset().left)/($el.outerWidth())  * 100;
+        	var posy = ($el.scrollTop()  + e.pageY - $el.offset().top )/($el.outerHeight()) * 100;
         	$commentContainer.css({
-				left: ($el.scrollLeft() + e.pageX - $el.offset().left)/($el.outerWidth())  * 100 + "%",
-				top:  ($el.scrollTop()  + e.pageY - $el.offset().top )/($el.outerHeight()) * 100 + "%"
+				left: posx + "%",
+				top:  posy + "%"
 			});
 			// Bring the new comment to front
 			bringCommentToFront($commentContainer);
 			// Adding a dummy comment id to newly added comment for further manipulations
-			$commentContainer.attr('data-comment-id', "x");
+			$commentContainer.attr('data-thread-id', "x");
+
+			// get current page number
+			var $currentPage = $el.parents('.page');
+			var currentPageIndex = $currentPage.index() + 1;
+			// Add this new comments data inside the stored data
+			var currentVersionId = getCurrentVersionId($el);
+			var data = sb.getCurrentDocumentData(currentVersionId);
+			data['x'] = {
+				posx: posx,
+				posy: posy,
+				page_no: currentPageIndex,
+				// making flag dontHide as true. So that when page is rendered, the comment section should not hide surprisingly
+				dontHide: true
+			};
+			// sb.setCurrentDocumentData(currentVersionId, data);
+			// Kenseo.document[]
         }
         else{
         	// Existing comment manipulations
-        	$commentContainer.attr('data-comment-id', data['comment_id']);
+        	$commentContainer.attr('data-thread-id', payload['thread_id']);
 	        $commentContainer.css({
-	            left: data.posX + "%",
-	            top:  data.posY + "%",
-	        })
-            // Keeping the comment section hidden by default
-            .children('.shape').addClass('hide-comment-section');
+	            left: data.posx + "%",
+	            top:  data.posy + "%",
+	        });
+            	// Keeping the comment section hidden if the flag "dontHide" is false
+            	if(!data.dontHide){
+	            $commentContainer.children('.shape').addClass('hide-comment-section');
+	        }
 
 	        // Add "isSaved" class as a flag to the comment section
 	        // This flag will be used to identify whether the comment section is saved or not
 	        $commentContainer.addClass('isSaved');
+
+	        // Flags
+	        // set the flag as true for further manipulations (change this flag to false when changes are detected)
+	        data.noChangesDetected = true;
+	        // the "dontHide" flag is used to know whether the comment section should be hidden or not
+	        // Default value "false" suggest to hide the comment section
+	        data.dontHide = false;
+
+	        // Kenseo.document[]
 	    }
         // $commentContainer.append($shape);
         $el.append($commentContainer);
 
         // After inserting the comment on the document, the current comment section will become previous comment section
         $previousCommentSection = $commentContainer;
+    }
+    var insertCommentWrapper = function(currentArtefactId, data){
+	 	var elemString = "[rel='pdf_" + currentArtefactId + "']";
+        var $pdfDocContainer = $(elemString);
+        if(!$pdfDocContainer.length){
+        	sb.log("pdfDocContainer is missing");
+        	return;
+        }
+        var $textLayers = $pdfDocContainer.find('.page');
+        if(!$textLayers.length){
+        	sb.log("textLayers are missing");
+        	return;
+    	}
+    	if(!data){
+    		// Artefact has no data
+    		sb.log("artefact has no data");
+    		return;
+    	}
+        // for(var i = 0, len = data.length; i < len; i++){
+        //     var d = data[i];
+        //     var $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
+        //     if($el.length){
+        //         insertComment({
+        //         	"$el": $el, 
+        //         	"data": d
+        //         });
+        //     }
+        // }
+        for(var key in data){
+        	var d = data[key];
+        	var $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
+            if($el.length){
+                insertComment({
+                	"$el": $el, 
+                	"data": d,
+                	"thread_id": key
+                });
+            }
+        }
+    }
+    var getCurrentVersionId = function($el){
+		var rel = $el.parents('.outerContainer').attr('rel');
+		// removing prefix "pdf_" from found rel attribute
+		return rel.substr(4);
     }
     var bringCommentToFront = function($currentCommentContainer){
     	$('.comment-container').css({'z-index': ''});
@@ -59,10 +132,11 @@ var annotator = (function(){
 				var $self = $(this);
 				var $selectedText = $self.parents('.drpdwn').find('.drpdwn-selected-text');
 				if($selectedText.length){
+					// normal dropdown functionality
 					$selectedText.html($self.text());
 				}
 				else{
-					// severity check
+					// severity check dropdown functionality
 					var colorCode = $self.data('value');
 					var $shape = $self.parents('.comment-container').find('.shape');
 					$shape.attr('data-color', colorCode);
@@ -77,6 +151,8 @@ var annotator = (function(){
 				else{
 					// Remove the comment container completely if the comment is not yet saved
 					$commentContainer.remove();
+					// Remove also from local object
+
 				}
 			});
 		},
@@ -98,86 +174,31 @@ var annotator = (function(){
 			// Removing all the already painted comment sections
 			$('.comment-container.isSaved').remove();
 			// Get the current container
+			// -- For now, assume the current container as "158"
+			var currentContainerVersionID = 158;
+			var currentVersionIdData = sb.getCurrentDocumentData(currentContainerVersionID);
+			if(currentVersionIdData && currentVersionIdData.noChangesDetected){
+				// if data is present and not changed, don't call for ajax.. use the existing data
+				insertCommentWrapper(currentContainerVersionID, currentVersionIdData);
+			}
+			else{
+		        // get the calling url from paintPdf function
+				sb.ajaxCall({
+					url: "local/packages/comments.json",
+					// flag to say not to store the response data in Kenseo.data global variable
+					excludeDump: true,
+					success: function(existingAnnotations){
+				        // var currentArtefactId = Kenseo.data.artefact.id;
+				        var currentArtefactId = Object.keys(existingAnnotations)[0];
+				        var data = existingAnnotations[currentArtefactId];
+				        // Store the gathered server data in local's object
+				        sb.setCurrentDocumentData(currentArtefactId, data);
 
-	        // get the calling url from paintPdf function
-
-	        // Dummy JSON test
-	        var existingAnnotations = {
-	            "158": [{
-	                "comment_id": "1",
-	                "posX": "33.3",
-	                "posY": "20",
-	                "severity": "1",
-	                "category": "2",
-	                "is_private": "1",
-	                "status": "2",
-	                "page_no": "1",
-	                "threads": [{
-	                    "id": "1",
-	                    "user": "venkateshwar@divami.com",
-	                    "time": "2015-05-21 23:41:54",
-	                    "description": "Hello"
-	                },
-	                {
-	                    "id": "2",
-	                    "user": "sivakumar@divami.com",
-	                    "time": "2015-05-12 23:41:54"
-	                }]
-	            },
-	            {
-	                "comment_id": "2",
-	                "posX": "33.3",
-	                "posY": "20",
-	                "severity": "1",
-	                "category": "2",
-	                "is_private": "1",
-	                "status": "1",
-	                "page_no": "10",
-	                "threads": [{
-	                    "id": "1",
-	                    "user": "venkateshwar@divami.com",
-	                    "time": "2015-05-12 23:41:54",
-	                    "description": "Hello"
-	                },
-	                {
-	                    "id": "2",
-	                    "user": "sivakumar@divami.com",
-	                    "time": "2015-05-10 23:41:54"
-	                }]
-	            }]
-	        };
-
-	        var currentArtefactId = Kenseo.data.artefact.id;
-	        var data = existingAnnotations[currentArtefactId];
-	        var elemString = "[rel='pdf_" + currentArtefactId + "'";
-	        var $pdfDocContainer = $(elemString);
-	        if(!$pdfDocContainer.length){
-	        	return;
-	        }
-            var $textLayers = $pdfDocContainer.find('.page');
-            if(!$textLayers.length){
-            	return;
-        	}
-        	if(!data){
-        		// Artefact has no data
-        		sb.log("artefact has no data");
-        		return;
-        	}
-            for(var i = 0, len = data.length; i < len; i++){
-                var d = data[i];
-                var $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
-                if($el.length){
-                    insertComment({
-                    	"$el": $el, 
-                    	"data": d
-                    });
-                }
-            }
+						insertCommentWrapper(currentArtefactId, data);
+					}
+				});
+				// -- end of ajax call
+			}
 		}
 	}
 })();
-
-$(document).on('click', '.red-severity, .blue-severity', function(e){
-	$(this).toggleClass('selected');
-	$(this).parent().find('div').not($(this)).toggleClass('selected');
-})
