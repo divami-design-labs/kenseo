@@ -269,17 +269,17 @@
 }
 
 .profile-image-red {
-  background-color: whitesmoke;
+  background-color: #F7535F;
   border: 2px solid #F7535F;
 }
 
 .profile-image-blue {
-  background-color: whitesmoke;
+  background-color: #26B7FB;
   border: 2px solid #26B7FB;
 }
 
 .profile-image-grey {
-  background-color: whitesmoke;
+  background-color: grey;
   border: 2px solid grey;
 }
 

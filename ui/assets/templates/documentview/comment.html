@@ -1,22 +1,23 @@
 <%
 	var severities = {
-		"0": "red",
-		"1": "blue",
-		"2": "green"
+		"R": "red",
+		"G": "green",
+		"B": "blue"
 	};
 
 	var categories = {
-		"0": "IxD",
-		"1": "Typo",
-		"2": "UID",
-		"3": "Persona"
+		"I": "IxD",
+		"T": "Typo",
+		"U": "UID",
+		"P": "Persona"
 	};
 
-	var statuses = {
-		"0": "Open",
-		"1": "Close",
-		"2": "Reopen",
-		"3": "Deferred"
+	var states = {
+		"O": "Open",
+		"C": "Close",
+		"R": "Resolved",
+		"X": "Reopen",
+		"D": "Deferred"
 	};
 %>
 <div class="shape html-click" data-color='<%= severities[data.severity] || "red"%>' data-html-class="hide-comment-section" data-html-outside-click="false">
@@ -49,7 +50,7 @@
 			</div>
 		</div>
 		<div class="drpdwn drpdwn--status html-click" data-html-class="show" data-html-target="this > .drpdwn-items">
-			<div class="drpdwn-selected-text"><%= statuses[data.status] || "Open" %></div>
+			<div class="drpdwn-selected-text"><%= states[data.state] || "Open" %></div>
 			<div class="drpdwn-items">
 				<div class="drpdwn-item">Open</div>
 				<div class="drpdwn-item">Close</div>
@@ -58,9 +59,9 @@
 		</div>
 	</div>
 	<div class="comment-section-body">
-		<% _.each(data.threads, function(d){ %>
-		<%= sb.setTemplate('comment-item', d) %>
-		<% }) %>
+		<% for(var key in data.comments){ %>
+		<%= sb.setTemplate('comment-item', data.comments[key]) %>
+		<% } %>
 		<div class="write-comment-section">
 			<textarea class="write-comment" placeholder="Type your comment here"></textarea>
 		</div>
