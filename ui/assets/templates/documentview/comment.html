@@ -1,27 +1,66 @@
+<%
+	var severities = {
+		"0": "red",
+		"1": "blue",
+		"2": "green"
+	};
+
+	var categories = {
+		"0": "IxD",
+		"1": "Typo",
+		"2": "UID",
+		"3": "Persona"
+	};
+
+	var statuses = {
+		"0": "Open",
+		"1": "Close",
+		"2": "Reopen",
+		"3": "Deferred"
+	};
+%>
+<div class="shape html-click" data-color='<%= severities[data.severity] || "red"%>' data-html-class="hide-comment-section" data-html-outside-click="false">
+</div>
+<div class="drpdwn drpdwn--severity html-click" data-html-target="this > .drpdwn-items" data-html-class="show">
+	<div class="drpdwn-items">
+		<div class="drpdwn-item" <% if(data.severity){ %> <% if(data.severity == "0"){ %>data-selected="true" <% } } else { %>data-selected="true" <% } %> data-value="red">
+			<div class="drpdwn-item-icon drpdwn-item-icon__red"></div>
+			<div class="drpdwn-item-text">Severity 1</div>
+		</div>
+		<div class="drpdwn-item" <% if(data.severity && data.severity == "1"){ %>data-selected="true" <% } %> data-value="blue">
+			<div class="drpdwn-item-icon drpdwn-item-icon__blue"></div>
+			<div class="drpdwn-item-text">Severity 2</div>
+		</div>
+		<div class="drpdwn-item" <% if(data.severity && data.severity == "2"){ %>data-selected="true" <% } %> data-value="green">
+			<div class="drpdwn-item-icon drpdwn-item-icon__green"></div>
+			<div class="drpdwn-item-text">Severity 3</div>
+		</div>
+	</div>
+</div>
 <div class="comment-section">
 	<div class="comment-section-header">
-		<% if(data.replies){ %>
-			<span class="comment-category-header">
-				Category
-			</span>
-			<span class="comment-category-value">Open</span>
-			<span class="comment-status-header">Status</span>
-			<span class="comment-status-value">Open</span>
-		<% } else { %>
-			<div class="severity-section">
-				<div class="red-severity selected"></div>
-				<div class="blue-severity"></div>
+		<div class="drpdwn drpdwn--category html-click" data-html-class="show" data-html-target="this > .drpdwn-items">
+			<div class="drpdwn-selected-text"><%= categories[data.category] || "Typo" %></div>
+			<div class="drpdwn-items">
+				<div class="drpdwn-item">IxD</div>
+				<div class="drpdwn-item">Typo</div>
+				<div class="drpdwn-item">UID</div>
+				<div class="drpdwn-item">Persona</div>
 			</div>
-			<select name="category" class="category"></select>
-			<select name="resolution" class="resolution"></select>
-		<% } %>
+		</div>
+		<div class="drpdwn drpdwn--status html-click" data-html-class="show" data-html-target="this > .drpdwn-items">
+			<div class="drpdwn-selected-text"><%= statuses[data.status] || "Open" %></div>
+			<div class="drpdwn-items">
+				<div class="drpdwn-item">Open</div>
+				<div class="drpdwn-item">Close</div>
+				<div class="drpdwn-item">Defer</div>
+			</div>
+		</div>
 	</div>
 	<div class="comment-section-body">
-		<% if(data.replies){ %>
-		<div class="replies-section">
-			<%= sb.setTemplate('comment-item') %>
-		</div>
-		<% } %>
+		<% _.each(data.threads, function(d){ %>
+		<%= sb.setTemplate('comment-item', d) %>
+		<% }) %>
 		<div class="write-comment-section">
 			<textarea class="write-comment" placeholder="Type your comment here"></textarea>
 		</div>
@@ -30,7 +69,7 @@
 				<%= sb.toolbox.checkbox({'text': "Private message"}) %>
 			</div>
 			<div class="buttons-right-section">
-				<%= sb.toolbox.buttons({"data":{"buttons":[{"label":"Cancel","cls":"lnk-btn cancel-btn"},{"label":"Post","cls":"main-btn","disabled": true}]}}) %>
+				<%= sb.toolbox.buttons({"data":{"buttons":[{"label":"Cancel","cls":"lnk-btn cancel-btn"},{"label":"Post","cls":"main-btn"}]}}) %>
 			</div>
 		</div>
 	</div>

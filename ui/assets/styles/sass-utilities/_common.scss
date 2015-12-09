@@ -36,6 +36,11 @@
 	border: 2px solid grey;	
 }
 
+.profile-image-comment{
+	@extend .circle;
+	background-color: whitesmoke;
+	border: 2px solid $colorEight;
+}
 // Version related styles
 .version-num{
 	@include border-radius(20px);

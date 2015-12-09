@@ -1,19 +1,35 @@
 .shape {
     $w: 27px;
-    $c: tomato;
     width: $w;
     height: $w;
-    background-color: $c;
     border-radius: 50%;
     position: relative;
     margin-left: -3px;
     margin-top: -3px;
+    z-index: 1;
+    &[data-color="red"]{
+        background-color: tomato;
+        &::after{
+            border-color: transparent transparent transparent tomato;
+        }
+    }
+    &[data-color="blue"]{
+        background-color: $colorTwenty;
+        &::after{
+            border-color: transparent transparent transparent $colorTwenty;
+        }
+    }
+    &[data-color="green"]{
+        background-color: green;
+        &::after{
+            border-color: transparent transparent transparent green;
+        }
+    }
     &::after {
         content: "";
         border-width: $w/3;
         width: 0;
         height: 0;
-        border-color: transparent transparent transparent $c;
         border-style: solid;
         position: absolute;
         right: -4.5px;
@@ -37,13 +53,19 @@
     @extend .popup-header;
 }
 .comment-section-body{
-    padding: 15px 30px;
+    padding: 20px;
     padding-bottom: 70px;
+    .buttons-section{
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+    }
 }
 .replies-section{
 }
 .write-comment-section{
     padding: 5px;
+    border: 1px solid #aaacb4;
     textarea.write-comment{
         width: 100%;
         border: none;
@@ -51,7 +73,7 @@
         height: 75px;
         padding: 0px;
         margin: 0;
-        @include placeHolder(tomato, 14px, $italicFont);
+        @include placeHolder($colorTwo, 14px, $italicFont);
         &:focus{
             outline: none;
         }
@@ -70,12 +92,6 @@
         border: 1px solid black;
     }
 }
-.red-severity{
-    background-color: $colorTwentyOne;
-}
-.blue-severity{
-    background-color: $colorTwenty;
-}
 
 .new-textlayer{
     position: absolute;
@@ -84,4 +100,37 @@
     right: 0;
     bottom: 0;
     margin: 0 auto;
+}
+.hide-comment-section{
+    & ~ div{
+        display: none;
+    }
+}
+.drpdwn-selected-text{
+    white-space: nowrap;
+    margin-right: 20px;
+    &::after{
+        content: "";
+        @include backgroundImage('dropdown-icn.svg');
+        display: inline-block;
+        vertical-align: middle;
+        width: 16px;
+        height: 16px;
+        margin-left: 8px;
+    }
+}
+.drpdwn--category{
+    .drpdwn-selected-text{
+        color: #e18502;
+        font-size: 14px;
+    }
+}
+.drpdwn--status{
+    .drpdwn-selected-text{
+        color: #3e4354;
+        font-size: 14px;
+    }
+}
+.cv-main-person{
+    @extend .clearFloat;
 }

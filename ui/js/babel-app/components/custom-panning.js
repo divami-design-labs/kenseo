@@ -27,7 +27,7 @@ function startPanning(e) {
 
     $panArea.css({
         'left': left,
-            'top': top
+        'top': top
     });
     return false;
 }

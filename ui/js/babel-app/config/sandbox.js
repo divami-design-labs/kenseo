@@ -176,6 +176,21 @@ var sb = (function () {
         getRelativePath: function getRelativePath(str) {
             return DOMAIN_ROOT_URL + str;
         },
+        hasInheritClass: function($target, classes){
+            for(var i = 0, len = classes.length; i < len; i++){
+                var currentClass = classes[i];
+                if($target.hasClass(currentClass)){
+                    // A match is found
+                    return true;
+                }
+                if($target.parents('.' + currentClass).length){
+                    // A match is found
+                    return true;
+                }
+            }
+            // No match found
+            return false;
+        },
         getStandardData: function getStandardData(p) {
             p = p || {};
             var data = _.cloneDeep(p.data);

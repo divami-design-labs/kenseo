@@ -29,6 +29,9 @@
 		display: none;
 	}
 }
+.hide{
+	display: none;
+}
 .popup-meeting{
 	@include popupDimensions(585px, 690px);
 }
