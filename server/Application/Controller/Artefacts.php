@@ -446,7 +446,7 @@
 				}
 				$newVersion = $ver_no+1;
 
-				$masked_artefact_version = getRandomString(12);
+				$masked_artefact_version = getRandomString(12) . $artId . $newVersion;
 
 				// Target path where file is to be stored
 				$targetPath = $path . "/" . $masked_artefact_version .".". $fileExt[1];
