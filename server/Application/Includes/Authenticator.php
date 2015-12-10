@@ -161,9 +161,16 @@ class Authenticator
 		if (!$userId) {
 			// This user has not been setup in our DB yet. Redirect to a page that informs them of this and allows them to logout of Google.
 			// @TODO - For now, redirect to google.com
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "User %s not found: %s", $userName, $userId);
+			/*Master::getLogManager()->log(DEBUG, MOD_MAIN, "User %s not found: %s", $userName, $userId);
 			$this->invalidateSession();
-			return FALSE;
+			return FALSE;*/
+
+			// Auto inserting user entry in DB when it is not there.
+			$userInfo = $this->userInfo;
+			$userColumnNames = array("name", "screen_name","email", "designation", "profile_pic_url", "org_id", "login_type");
+			$userColumnValues = array($userInfo['name'], $userInfo['givenName'], $userInfo['email'], 'Staff', $userInfo['picture'], '1', 'G');
+			
+			$userId = $db->insertSingleRowAndReturnId(TABLE_USERS, $userColumnNames, $userColumnValues);
 		}
 		
 		return $userId;

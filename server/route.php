@@ -4,17 +4,29 @@ require_once("main.php");
 
 	global $AppGlobal;
 	$uriGetParam = isset( $_GET['uri']) ? '/' . $_GET['uri'] : '/' ;
+
 	try {
 		$routeObj = $AppGlobal['urlmap'][$uriGetParam];
+
 		if (!$routeObj)
 			throw new CustomException('EXC_URL_RESPONDER_NOT_FOUND', $uriGetParam);
-		$callType = $routeObj['type'] ;
-		$request['command'] = $routeObj['command'] ;
+		//$callType = $routeObj['type'];
+		$callType = $_SERVER['REQUEST_METHOD'];
+		$request['command'] = $routeObj['command'];
 		
-		if ( $callType == "GET" ){
+		if ( $callType == "GET" ) {
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "GET Call..");
 			$request['data'] = $_GET ;
 		} elseif ( $callType == "POST" ) {
-			$request['data'] = $_POST ;
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "POST Call..");
+			if($_POST) {
+				$postParams = $_POST;
+			} else {
+				$postParams = json_decode($HTTP_RAW_POST_DATA);
+			}
+			
+			$request['data'] = new stdClass();
+			$request['data']->data = $postParams;
 		}
 	} catch (CustomException $exception) {
 		Master::getLogManager()->logException($exception, MOD_CMDINT);

@@ -18,9 +18,9 @@
 	define("TABLE_ARTEFACT_REFS", "artefact_ref_docs");
 	define("TABLE_ARTEFACTS_TAGS", "artefact_tags");	
 
+	define("TABLE_COMMENT_THREADS", "artefact_comment_threads");
 	define("TABLE_COMMENTS", "artefact_comments");
 	define("TABLE_COMMENT_HISTORY", "comment_history");
-	define("TABLE_COMMENT_THREADS", "comment_threads");
 
 	define("TABLE_MEETINGS", "meetings");
 	define("TABLE_MEETING_PARTICIPENTS", "meeting_participents");

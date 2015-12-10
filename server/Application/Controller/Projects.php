@@ -9,7 +9,7 @@
 		}
 		public function getMyProjectsList($interpreter) {
 			$data = $interpreter->getData()->data;
-			$userid = $interpreter->getUser()->user_id;;
+			$userid = $interpreter->getUser()->user_id;
 			$count = $data->limit;
 			
 			$db = Master::getDBConnectionManager();
@@ -52,13 +52,19 @@
 			$projectName = $data->projectName->value;
 			$userId = $interpreter->getUser()->user_id;
 			$date = date("Y-m-d H:i:s");
-			
-			//add project
+
 			$db = Master::getDBConnectionManager();
-			$projId = $db->insertSingleRowAndReturnId (TABLE_PROJECTS,array("project_name","state","last_updated_date"),array("$projectName","A","$date"));
+
+			// Get org_id id from user_id and save org_id in projects table.
+			$queryParams = array('user_id' => $userId);
+			$dbQuery = getQuery('getUserOrganizationId',$queryParams);
+			$org_id = $db->singleObjectQuery($dbQuery)->org_id;
 			
-			//now add user to the project members
-			$db->insertSingleRow (TABLE_PROJECT_MEMBERS,array("proj_id","user_id","access_type","group_type"),array($projId,$userId,"S","I"));
+			// Add project
+			$projId = $db->insertSingleRowAndReturnId (TABLE_PROJECTS, array("project_name","state","org_id","last_updated_date"), array("$projectName", "A", $org_id, "$date"));
+			
+			// Add user as default project member and give full permissions as 'X'
+			$db->insertSingleRow (TABLE_PROJECT_MEMBERS,array("proj_id","user_id","access_type","group_type"),array($projId,$userId,"X","I"));
 			
 			return true;		
 		}

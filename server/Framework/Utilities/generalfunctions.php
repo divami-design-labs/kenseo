@@ -454,5 +454,18 @@ function util_redirectToURL($url) {
 	die();
 }
 
+// Generate random string
+function getRandomString($count) {
+	// Seed base string with timestamp
+    $base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-." . strtotime("now");
+    $result = '';
+    $strlen = strlen($base);
+    for ($i = 0; $i < $count; ++$i) {
+        $result .= $base[((int) rand(0, $strlen - 1))];
+    }
+
+    return $result;
+}
+
 
 ?>

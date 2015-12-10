@@ -401,37 +401,52 @@
 			global $AppGlobal;
 			if(isset($_FILES["file"]["type"])) {
 
+				// Get DB Connection and start new transaction
 				$db = Master::getDBConnectionManager();
+				$db->beginTransaction();
+
 				$data = $interpreter->getData();
 				$uploadFile = $_FILES["file"]["type"];
 				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
 				
 				$data->userId = $interpreter->getUser()->user_id;
 				
+				// If artefact_id is there, then user is creating new version to the existing document.
 				if(isset($data->artefact_id)) {
 					Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have a selected artefcat");
 					$artId = $data->artefact_id;
 
-					$queryParams = array('artId' => $previousArtefactid);
+					$queryParams = array('artId' => $artId);
 					$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
 					$ver_no = $db->singleObjectQuery($dbQuery)->vers;
 				} else {
-					//if it is a new artefact
+					// If it is a new artefact
 					$columnnames = array('project_id','artefact_title', 'description', 'artefact_type', );
 					$rowvals = array($data->project_id, $_FILES['file']['name'], $data->description, $data->type);
 					$artId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS, $columnnames, $rowvals);
 					
 					$ver_no = 0;
-					
 				}
 				
-				$sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
-				$path = $AppGlobal['gloabl']['storeLocation'] . $data->project_id . "/" . $artId;
+				// Storing source path of the file in a variable
+				$sourcePath = $_FILES['file']['tmp_name'];
+
+				// Get org_id from project_id to store documents in organization wise.
+				$queryParams = array('project_id' => $data->project_id);
+				$dbQuery = getQuery('getProjectOrganizationId', $queryParams);
+				$org_id = $db->singleObjectQuery($dbQuery)->org_id;
+
+				$fileExt = explode('.', $_FILES['file']['name']);
+				$path = $AppGlobal['gloabl']['storeLocation'] . $org_id ."/". $data->project_id . "/" . $artId;
 				if(! is_dir($path)) {
 					mkdir($path, 0777, true);
 				}
 				$newVersion = $ver_no+1;
-				$targetPath = $path . "/" . $artId."_".$newVersion; // Target path where file is to be stored
+
+				$masked_artefact_version = getRandomString(12);
+
+				// Target path where file is to be stored
+				$targetPath = $path . "/" . $masked_artefact_version .".". $fileExt[1];
 				
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "targetPath");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $targetPath);
@@ -449,8 +464,8 @@
 				
 				
 				//else 
-				$verColumnNames = array("artefact_id", "created_by","document_path","MIME_type", "file_size", "state", "created_date", "version_no");
-				$verRowValues = array($artId, $data->userId, $targetPath, $_FILES["file"]["type"],  $data->size, 'c', date("Y-m-d H:i:s"), $ver_no);
+				$verColumnNames = array("artefact_id", "masked_artefact_version_id", "created_by","document_path","MIME_type", "file_size", "state", "created_date", "version_no");
+				$verRowValues = array($artId, $masked_artefact_version, $data->userId, $targetPath, $_FILES["file"]["type"], $data->size, 'C', date("Y-m-d H:i:s"), $ver_no);
 				
 				$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $verColumnNames, $verRowValues);
 				
@@ -493,11 +508,15 @@
 				$notificationRowValues = array($data->userId, $_FILES['file']['name'], $data->project_id, $data->userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
 				$db->insertSingleRow(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
 				
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->share);
 				//if it is  share share it with others as well
 				if($data->share == 'true') {
+					Master::getLogManager()->log(DEBUG, MOD_MAIN, "Sharing Artefact.....");
 					//now send the data to be shared for those people
 					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
 				}
+
+				$db->commitTransaction(); 
 				
 				return $targetPath;
 			} else {
@@ -536,21 +555,22 @@
 			
 			$db = Master::getDBConnectionManager();
 			
-			//first get the details of the artefact
+			// Get current artefact version details
 			$queryParams = array('artefactVerId' => $artefactVerId);
-			
-			$detailsQuery = getQuery('getArtefactDetails',$queryParams);
+			$detailsQuery = getQuery('getArtefactDetails', $queryParams);
 			$artefactObj = $db->singleObjectQuery($detailsQuery);
 
-			//now get the versions of artefact
-			$versionQuery = getQuery('getArtefactVersionSummary',$queryParams);
+			// Get all versions of an artefact
+			$versionQuery = getQuery('getArtefactVersionSummary', $queryParams);
 			$versionSummary = $db->multiObjectQuery($versionQuery);
+			if($data->withVersions) {
+				$artefactObj->versions = $versionSummary;
+			}
 			
-			$artefactObj->versions = $versionSummary;
-			
-			//before sending all the date we can simply have the gist of the targeted version directly.
-			//the gist is nothing but the link, id
-			for($i=0; $i<count($versionSummary); $i++) {
+			// Before sending all the date we can simply have the gist of the targeted version directly.
+			// The gist is nothing but the documentPath, versionNo, versionId etc.
+			$versionCount = count($versionSummary);
+			for($i=0; $i<$versionCount; $i++) {
 				if($versionSummary[$i]->versionId == $artefactVerId) {
 					$artefactObj->documentPath = $versionSummary[$i]->documentPath;
 					$artefactObj->versionNo = $versionSummary[$i]->versionNo;
@@ -558,6 +578,12 @@
 					$artefactObj->type = $versionSummary[$i]->type;
 				}
 			}
+
+			// Get comments of current artefact version Id
+			/*if($data->withComments) {
+				$commentsQuery = getQuery('getArtefactComments', $queryParams);
+				$comments = $db->multiObjectQuery($detailsQuery);
+			}*/
 			
 			return $artefactObj;
 			
