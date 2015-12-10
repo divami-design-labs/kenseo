@@ -121,14 +121,14 @@ var sb = (function () {
                 }).data;
             }
             // Setting default values to the ajax properties
-            var contentType = payload.contentType || 'application/x-www-form-urlencoded; charset=UTF-8';
-            var processData = payload.processData || true;
-            // if (contentType === undefined || contentType === null) {
-            //     contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-            // }
-            // if (processData === undefined || processData === null) {
-            //     processData = true;
-            // }
+            var contentType = payload.contentType;// || 'application/x-www-form-urlencoded; charset=UTF-8';
+            var processData = payload.processData;
+            if (contentType === undefined || contentType === null) {
+                contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+            }
+            if (processData === undefined || processData === null) {
+                processData = true;
+            }
 
             // Ajax call
             $.ajax({
@@ -245,6 +245,25 @@ var sb = (function () {
             return _.template(templates['no-items'])({
                 data: p.noData || {}
             });
+        },
+        getCommentThreadDumpObject: function($el){
+            var els = $el.find('*');
+            els.push($el.get(0));
+            var obj = {};
+            for (var i = 0; i < els.length; i++) {
+                var el = els[i];
+                var attributes = el.attributes;
+                for (var k = 0; k < attributes.length; k++) {
+                    var attr = attributes[k];
+                    var nodeName = attr.nodeName;
+                    if(nodeName.indexOf("data-k-") > -1){
+                        obj[attr.nodeName.substr(7)] = attr.nodeValue;
+                    }
+                }
+            }
+            var $text = $el.find('.write-comment');
+            obj.description = $text.val();
+            return obj;
         },
         renderTemplate: function renderTemplate(p) {
             var template = templates[p.templateName];
@@ -536,6 +555,12 @@ var sb = (function () {
         },
         setCurrentDocumentData: function(id, data){
             Kenseo.document[id] = data;
+        },
+        getCurrentThreadData: function(versionId, threadId){
+            return Kenseo.document[versionId][threadId];
+        },
+        setCurrentThreadData: function(versionId, threadId, data){
+            Kenseo.document[versionId][threadId] = data;
         },
         page: {},
         overlay: {},

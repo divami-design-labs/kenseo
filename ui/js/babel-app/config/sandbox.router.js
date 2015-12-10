@@ -127,10 +127,13 @@ sb.router = {
                 sb.ajaxCall({
                     url: sb.getRelativePath('getArtefactDetails'),
                     data: {
-                        artefactVersionId: Kenseo.data.artefact.id
+                        artefactVersionId: Kenseo.data.artefact.id,
+                        withVersions: true,
+                        withComments: true
                     },
                     type: 'GET',
                     success: function success(response) {
+                        var data = response.data;
                         //before painting the new doc lets hide all the existing docs
                         $('.outerContainer.inView').removeClass('inView');
 
@@ -138,18 +141,18 @@ sb.router = {
                         $('.tab-item.selectedTab').removeClass('selectedTab');
 
                         //before painting the pdf into the viewer we need to add a tab for it.
-                        if (response.data.type == 'application/pdf') {
-                            var str = '<a href="#documentview/' + response.data.versionId + '" class="tab-item selectedTab" targetRel="' + response.data.versionId + '"><div class= "fileTab" ></div></a>';
+                        if (data.type == 'application/pdf') {
+                            var str = '<a href="#documentview/' + data.versionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
                         } else {
-                            var str = '<a href="#documentview/' + response.data.versionId + '" class="tab-item selectedTab" targetRel="' + response.data.versionId + '"><div class= " imageTab" ></div></a>';
+                            var str = '<a href="#documentview/' + data.versionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
                         }
                         $('.dv-tab-panel-section').prepend(str);
-                        $('.pdfs-container').append(_.template(templates['pdf-viewer'])(response.data));
+                        $('.pdfs-container').append(_.template(templates['pdf-viewer'])(data));
 
                         new paintPdf({
                             url: sb.getRelativePath(response.data.documentPath),
                             container: $('.outerContainer.inView').get(0),
-                            targetId: response.data.versionId
+                            targetId: data.versionId
                         });
 
                         //now get the version details of this version and show shared details
@@ -173,6 +176,11 @@ sb.router = {
                         var parent = document.querySelector('#viewerContainer.parent');
                         stickToBottom(parent);
 
+                        // Store the current artefact version related data in a global variable
+                        var threads = data.threads;
+                        // flag
+                        threads.noChangesDetected = true;
+                        sb.setCurrentDocumentData(data.artefactId, threads);
                         annotator.init();
                     }
                 });

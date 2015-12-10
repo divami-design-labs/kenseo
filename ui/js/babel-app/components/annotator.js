@@ -1,23 +1,23 @@
+// Things to consider:
+// - PDFJS renders the pdf page wise. It doesn't render whole pdf at once. It renders only the pages which are nearer to view.
 var annotator = (function(){
 	var $previousCommentSection = null;
 	var insertComment = function(payload){
-
-		// Deleting the previous comment section which wasn't saved
-		if($previousCommentSection){
-			// If the previous comment section isn't saved then remove it
-			if(!$previousCommentSection.hasClass('isSaved')){
-				$previousCommentSection.remove();
-			}
-		}
-
 		// Sometimes the current wrapper's jquery element is provided or we need to extract from passed event variable 'e'
 		var $el = payload.$el || $(payload.e.currentTarget);
 		var data = payload.data;
         var $commentContainer = $(document.createElement('div'));
         $commentContainer.addClass('comment-container');
         // Adding the comment section template (should be done before applying styles to move the section)
-        $commentContainer.append(sb.setTemplate('comment', {data: data || {}}));
+        $commentContainer.append(sb.setTemplate('comment', {data: data || {'newComment': true}}));
         if(payload.isNewComment){
+			// Deleting the previous comment section which wasn't saved
+			if($previousCommentSection){
+				// If the previous comment section isn't saved then remove it
+				if(!$previousCommentSection.hasClass('isSaved')){
+					$previousCommentSection.remove();
+				}
+			}
         	var e = payload.e;
         	var posx = ($el.scrollLeft() + e.pageX - $el.offset().left)/($el.outerWidth())  * 100;
         	var posy = ($el.scrollTop()  + e.pageY - $el.offset().top )/($el.outerHeight()) * 100;
@@ -28,27 +28,32 @@ var annotator = (function(){
 			// Bring the new comment to front
 			bringCommentToFront($commentContainer);
 			// Adding a dummy comment id to newly added comment for further manipulations
-			$commentContainer.attr('data-thread-id', "x");
+			$commentContainer.attr('data-k-comment_thread_id', "-1");
 
 			// get current page number
 			var $currentPage = $el.parents('.page');
 			var currentPageIndex = $currentPage.index() + 1;
+			console.log(currentPageIndex);
 			// Add this new comments data inside the stored data
 			var currentVersionId = getCurrentVersionId($el);
 			var data = sb.getCurrentDocumentData(currentVersionId);
-			data['x'] = {
+			sb.setCurrentThreadData(currentVersionId, '-1',  {
 				posx: posx,
 				posy: posy,
 				page_no: currentPageIndex,
 				// making flag dontHide as true. So that when page is rendered, the comment section should not hide surprisingly
 				dontHide: true
-			};
-			// sb.setCurrentDocumentData(currentVersionId, data);
+			});
 			// Kenseo.document[]
+		    
+		    // attach page_no
+		    $commentContainer.attr('data-k-page_no', currentPageIndex);
+		    $commentContainer.attr('data-k-posx', posx);
+		    $commentContainer.attr('data-k-posy', posy);
         }
         else{
         	// Existing comment manipulations
-        	$commentContainer.attr('data-thread-id', payload['thread_id']);
+        	$commentContainer.attr('data-k-comment_thread_id', payload['thread_id']);
 	        $commentContainer.css({
 	            left: data.posx + "%",
 	            top:  data.posy + "%",
@@ -62,15 +67,17 @@ var annotator = (function(){
 	        // This flag will be used to identify whether the comment section is saved or not
 	        $commentContainer.addClass('isSaved');
 
-	        // Flags
-	        // set the flag as true for further manipulations (change this flag to false when changes are detected)
-	        data.noChangesDetected = true;
-	        // the "dontHide" flag is used to know whether the comment section should be hidden or not
-	        // Default value "false" suggest to hide the comment section
-	        data.dontHide = false;
-
 	        // Kenseo.document[]
+
+	        // attach page_no
+		    $commentContainer.attr('data-k-page_no', data.page_no);
+		    $commentContainer.attr('data-k-posx', data.posx);
+		    $commentContainer.attr('data-k-posy', data.posy);
 	    }
+	    // attach version id
+	    $commentContainer.attr('data-k-artefact_ver_id', payload['version_id']);
+	    // set flag to say that the content of this comment
+	    $commentContainer.addClass('isStoredLocally');
         // $commentContainer.append($shape);
         $el.append($commentContainer);
 
@@ -78,8 +85,7 @@ var annotator = (function(){
         $previousCommentSection = $commentContainer;
     }
     var insertCommentWrapper = function(currentArtefactId, data){
-	 	var elemString = "[rel='pdf_" + currentArtefactId + "']";
-        var $pdfDocContainer = $(elemString);
+        var $pdfDocContainer = getDocContainer(currentArtefactId);
         if(!$pdfDocContainer.length){
         	sb.log("pdfDocContainer is missing");
         	return;
@@ -94,16 +100,6 @@ var annotator = (function(){
     		sb.log("artefact has no data");
     		return;
     	}
-        // for(var i = 0, len = data.length; i < len; i++){
-        //     var d = data[i];
-        //     var $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
-        //     if($el.length){
-        //         insertComment({
-        //         	"$el": $el, 
-        //         	"data": d
-        //         });
-        //     }
-        // }
         for(var key in data){
         	var d = data[key];
         	var $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
@@ -111,10 +107,15 @@ var annotator = (function(){
                 insertComment({
                 	"$el": $el, 
                 	"data": d,
-                	"thread_id": key
+                	"thread_id": key,
+                	"version_id": currentArtefactId
                 });
             }
         }
+    }
+    var getDocContainer = function(id){
+    	var elemString = "[rel='pdf_" + id + "']";
+        return $(elemString);
     }
     var getCurrentVersionId = function($el){
 		var rel = $el.parents('.outerContainer').attr('rel');
@@ -125,22 +126,56 @@ var annotator = (function(){
     	$('.comment-container').css({'z-index': ''});
 		$currentCommentContainer.css({'z-index': '2'});
     }
+    var commentValidations = function($el){
+    	var $commentSection = $el.parents('.comment-container');
+    	var $postBtn = $commentSection.find('.main-btn');
+    	var $textBox = $commentSection.find('.write-comment');
+
+    	var artefactVersionId = $commentSection.attr('data-k-artefact_ver_id');
+    	var threadId = $commentSection.attr('data-k-comment_thread_id');
+
+    	var originalData = Kenseo.document[artefactVersionId][threadId];
+    	var gatheredData = sb.getCommentThreadDumbObject($commentSection);
+
+    	if(commentSectionIsChanged(originalData, gatheredData) || $.trim($textBox.val()).length){
+    		$postBtn.removeAttr('disabled');
+    	}
+    	else{
+    		$postBtn.attr('disabled', 'true');	
+    	}
+    }
+    var commentSectionIsChanged = function(originalData, gatheredData){
+    	var checkers = ['severity', 'category', 'state'];
+    	for(var i = 0, len = checkers.length; i < len; i++){
+    		if(originalData[checkers[i]] !== gatheredData[checkers[i]]){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 	return {
 		init: function(){
 			$(document).on('click', '.new-textlayer', this.annotate);
 			$(document).on('click', '.drpdwn-item', function(){
 				var $self = $(this);
 				var $selectedText = $self.parents('.drpdwn').find('.drpdwn-selected-text');
+				var value = $self.attr('data-value');
 				if($selectedText.length){
 					// normal dropdown functionality
 					$selectedText.html($self.text());
+
+					var $dropdown = $self.parents('.drpdwn');
 				}
 				else{
 					// severity check dropdown functionality
 					var colorCode = $self.data('value');
-					var $shape = $self.parents('.comment-container').find('.shape');
-					$shape.attr('data-color', colorCode);
+					// var $shape = $self.parents('.comment-container').find('.shape');
+					// $shape.attr('data-k-color', colorCode);
+					var $dropdown = $self.parents('.drpdwn').prev();
 				}
+				var dataType = $dropdown.attr('data-type');
+				$dropdown.attr('data-k-' + dataType, value);
+				commentValidations($self);
 			});
 			$(document).on('click', '.comment-section .cancel-btn', function(){
 				var $commentContainer = $(this).parents('.comment-container');
@@ -149,11 +184,61 @@ var annotator = (function(){
 					$commentContainer.children('.shape').addClass('hide-comment-section');
 				}
 				else{
+					var versionId = $commentContainer.attr('data-k-version');;
+					var threadId = $commentContainer.attr('data-k-thread');
 					// Remove the comment container completely if the comment is not yet saved
 					$commentContainer.remove();
 					// Remove also from local object
-
+					sb.setCurrentThreadData(versionId, threadId, null);
 				}
+			});
+			$(document).on('click', '.shape', function(e){
+				var $self = $(this);
+				var $commentContainer = $self.parents('.comment-container');
+				var versionId = $commentContainer.attr('data-k-artefact_ver_id');
+				var threadId = $commentContainer.attr('data-k-comment_thread_id');
+				var threadData = Kenseo.document[versionId][threadId];
+				threadData.dontHide = $self.hasClass('hide-comment-section');
+				$self.toggleClass('hide-comment-section');
+			});
+
+			$(document).on('change', '.private-chk', function(e){
+				if(this.checked){
+					$(this).attr('data-k-is_private','1');
+				}
+				else{
+					$(this).attr('data-k-is_private','0');	
+				}
+			});
+
+			$(document).on('click', '.comment-container .main-btn', function(e){
+				var $self = $(this);
+				var $commentSection = $self.parents('.comment-container');
+				var versionId = $commentSection.attr('data-k-artefact_ver_id');
+				var threadId = $commentSection.attr('data-k-comment_thread_id');
+
+				sb.ajaxCall({
+					url: sb.getRelativePath('createComment'),
+					data: sb.getCommentThreadDumpObject($commentSection),
+					type: 'POST',
+					plainData: true,
+					//contentType: 'application/json',
+					//dataType: 'json',
+					success: function(response){
+						var data = response.data;
+						var params = response.params;
+						sb.setCurrentThreadData(params.artefact_ver_id, params.comment_thread_id, data[params.comment_thread_id]);
+
+						// re-render the thread section
+						var $pdfDocContainer = getDocContainer(params.artefact_ver_id);
+						var $commentSection = $('[data-k-comment_thread_id="' + params.comment_thread_id + '"].comment-container');
+						$commentSection.remove();
+
+						// Dont hide flag
+						data[params.comment_thread_id].dontHide = true;
+						insertCommentWrapper(params.artefact_ver_id, data);
+					}
+				})
 			});
 		},
 		annotate: function(e){
@@ -167,15 +252,16 @@ var annotator = (function(){
 			var $el = $(e.currentTarget);
 			insertComment({
 				"e": e,
-				"isNewComment": true
+				"isNewComment": true,
+				"version_id": getCurrentVersionId($el)
 			});
 		},
 		paintExistingAnnotations: function(){
 			// Removing all the already painted comment sections
-			$('.comment-container.isSaved').remove();
+			$('.comment-container.isStoredLocally').remove();
 			// Get the current container
 			// -- For now, assume the current container as "158"
-			var currentContainerVersionID = 158;
+			var currentContainerVersionID = 3;
 			var currentVersionIdData = sb.getCurrentDocumentData(currentContainerVersionID);
 			if(currentVersionIdData && currentVersionIdData.noChangesDetected){
 				// if data is present and not changed, don't call for ajax.. use the existing data
@@ -184,15 +270,31 @@ var annotator = (function(){
 			else{
 		        // get the calling url from paintPdf function
 				sb.ajaxCall({
-					url: "local/packages/comments.json",
+					url: sb.getRelativePath('getArtefactDetails'),
 					// flag to say not to store the response data in Kenseo.data global variable
 					excludeDump: true,
-					success: function(existingAnnotations){
-				        // var currentArtefactId = Kenseo.data.artefact.id;
-				        var currentArtefactId = Object.keys(existingAnnotations)[0];
-				        var data = existingAnnotations[currentArtefactId];
-				        // Store the gathered server data in local's object
-				        sb.setCurrentDocumentData(currentArtefactId, data);
+					data: {
+                        artefactVersionId: Kenseo.data.artefact.id,
+                        withVersions: true,
+                        withComments: true
+                    },
+					success: function(response){
+						var data = response.data;
+						// Store the current artefact version related data in a global variable
+                        var threads = data.threads;
+                        // flag
+                        threads.noChangesDetected = true;
+                        sb.setCurrentDocumentData(data.artefactId, threads);
+
+
+						// var existingAnnotations = response.data;
+						// // var currentArtefactId = Kenseo.data.artefact.id;
+						// var currentArtefactId = Object.keys(existingAnnotations)[0];
+						// var data = existingAnnotations[currentArtefactId];
+						// // Store the gathered server data in local's object
+						// // set the flag as true for further manipulations (change this flag to false when changes are detected)
+						// data.noChangesDetected = true;
+						// sb.setCurrentDocumentData(currentArtefactId, data);
 
 						insertCommentWrapper(currentArtefactId, data);
 					}
