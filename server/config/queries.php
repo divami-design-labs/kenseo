@@ -451,4 +451,7 @@ $AppGlobal['sql']['getArtefactCommentThread'] = "SELECT comment_thread_id, posx,
 													" WHERE comment_thread_id = @~~commentThreadId~~@";
 
 
+$AppGlobal['sql']['getCommentThread'] = "SELECT * FROM " . TABLE_COMMENT_THREADS . " t inner join " . TABLE_ARTEFACTS_VERSIONS . 
+											" v on t.artefact_ver_id = v.artefact_ver_id where t.artefact_ver_id = @~~artefactVerId~~@ AND t.comment_thread_id = @~~commentThreadId~~@";
+
 ?>

@@ -20,13 +20,25 @@
 			if(!$data->state) {
 				$data->state = 'O';
 			}
+			if(!$data->artefact_ver_id) {
+				return;
+			}
 
 			// Create new comment thread
 			if(!$data->comment_thread_id) {
-				$columnnames = array('artefact_id','artefact_ver_id', 'comment_thread_by', 'page_no', 'posx', 'posy', 'category', 'severity', 'is_private', 'state', 'comment_type');
-				$rowvals = array($data->artefact_id, $data->artefact_ver_id, $userId, $data->page_no, $data->posx, $data->posy, $data->category, $data->severity, $data->is_private, $data->state, 'I');
+				$columnnames = array('artefact_ver_id', 'comment_thread_by', 'page_no', 'posx', 'posy', 'category', 'severity', 'is_private', 'state', 'comment_type');
+				$rowvals = array($data->artefact_ver_id, $userId, $data->page_no, $data->posx, $data->posy, $data->category, $data->severity, $data->is_private, $data->state, 'I');
 				$data->comment_thread_id = $db->insertSingleRowAndReturnId(TABLE_COMMENT_THREADS, $columnnames, $rowvals);
 			} else {
+				// Check whether artefact_ver_id and comment_thread_id are original
+				$params = array('artefactVerId' => $data->artefact_ver_id, 'commentThreadId' => $data->comment_thread_id);
+				$query = getQuery('getCommentThread', $params);
+				$result = $db->multiObjectQuery($query);
+
+				if(!count($result)) {
+					return;
+				}
+
 				$db->updateTable(TABLE_COMMENT_THREADS,
 					array('category', 'severity', 'is_private', 'state'), 
 					array($data->category, $data->severity, $data->is_private, $data->state), 

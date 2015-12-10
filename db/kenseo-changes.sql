@@ -1,2 +1,2 @@
 INSERT INTO  `kenseo`.`organizations` (`org_name` , `description`)
-VALUES ('Apervi', NULL);
+VALUES ('Divami', NULL);
