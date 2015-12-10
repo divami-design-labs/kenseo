@@ -152,7 +152,8 @@ sb.router = {
                         new paintPdf({
                             url: sb.getRelativePath(response.data.documentPath),
                             container: $('.outerContainer.inView').get(0),
-                            targetId: data.versionId
+                            targetId: data.versionId,
+                            versionId: data.artefactId
                         });
 
                         //now get the version details of this version and show shared details

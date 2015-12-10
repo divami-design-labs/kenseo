@@ -256,12 +256,12 @@ var annotator = (function(){
 				"version_id": getCurrentVersionId($el)
 			});
 		},
-		paintExistingAnnotations: function(){
+		paintExistingAnnotations: function(currentContainerVersionID){
 			// Removing all the already painted comment sections
 			$('.comment-container.isStoredLocally').remove();
 			// Get the current container
 			// -- For now, assume the current container as "158"
-			var currentContainerVersionID = 3;
+			// var currentContainerVersionID = 3;
 			var currentVersionIdData = sb.getCurrentDocumentData(currentContainerVersionID);
 			if(currentVersionIdData && currentVersionIdData.noChangesDetected){
 				// if data is present and not changed, don't call for ajax.. use the existing data

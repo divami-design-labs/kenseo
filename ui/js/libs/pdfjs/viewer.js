@@ -3527,7 +3527,7 @@ var paintPdf = function(payload) {
 
                 this.renderTask.promise.then(
                     function paintExistingAnnotations(){
-                        annotator.paintExistingAnnotations();
+                        annotator.paintExistingAnnotations(payload.versionId);
                     },
                     function pdfPageRenderCallback() {
                         pageViewDrawCallback(null);
