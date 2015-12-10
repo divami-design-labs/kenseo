@@ -16,7 +16,7 @@ var sb = (function () {
     }
     return {
         log: function log(msg) {
-            console.error(msg);
+            console.log(msg);
         },
         loadFiles: function loadFiles(payload, fn) {
             var files = [];
@@ -123,14 +123,14 @@ var sb = (function () {
                 }).data;
             }
             // Setting default values to the ajax properties
-            var contentType = payload.contentType,
-                processData = payload.processData;
-            if (contentType === undefined || contentType === null) {
-                contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-            }
-            if (processData === undefined || processData === null) {
-                processData = true;
-            }
+            var contentType = payload.contentType || 'application/x-www-form-urlencoded; charset=UTF-8';
+            var processData = payload.processData || true;
+            // if (contentType === undefined || contentType === null) {
+            //     contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+            // }
+            // if (processData === undefined || processData === null) {
+            //     processData = true;
+            // }
 
             // Ajax call
             $.ajax({
@@ -140,25 +140,22 @@ var sb = (function () {
                 contentType: contentType,
                 processData: processData,
                 success: function success(response) {
-                    // try {
-                    var response = JSON.parse(response);
-                    if (response.status == 'success') {
-                        if (!payload.excludeDump) {
-                            sb.setDump(response);
+                    try {
+                        var response = JSON.parse(response);
+                        if (response.status == 'success') {
+                            if (!payload.excludeDump) {
+                                sb.setDump(response);
+                            }
+                            payload.success(response);
+                        } else {
+                            window.location.assign(DOMAIN_ROOT_URL);
                         }
-                        payload.success(response);
-                    } else {}
-                    // window.location.assign(DOMAIN_ROOT_URL);
-
-                    // }
-                    // catch(ex){
-                    // Catching the exception
-                    // sb.log("Below error is in ajax response");
-                    // console.error(ex);
-                    // console.log(response);
-                    // Redirecting to the Dashboard
-
-                    // }
+                    } catch (ex) {
+                        // Catching the exception
+                        sb.log("Below error is in ajax request");
+                        console.error(ex);
+                        // Redirecting to the Dashboard
+                    }
                 }
             });
         },
@@ -178,6 +175,21 @@ var sb = (function () {
         },
         getRelativePath: function getRelativePath(str) {
             return DOMAIN_ROOT_URL + str;
+        },
+        hasInheritClass: function hasInheritClass($target, classes) {
+            for (var i = 0, len = classes.length; i < len; i++) {
+                var currentClass = classes[i];
+                if ($target.hasClass(currentClass)) {
+                    // A match is found
+                    return true;
+                }
+                if ($target.parents('.' + currentClass).length) {
+                    // A match is found
+                    return true;
+                }
+            }
+            // No match found
+            return false;
         },
         getStandardData: function getStandardData(p) {
             p = p || {};
@@ -512,6 +524,12 @@ var sb = (function () {
             checkbox: function checkbox(data) {
                 return _.template(templates['checkbox'])({ data: data || {} });
             }
+        },
+        getCurrentDocumentData: function getCurrentDocumentData(id) {
+            return Kenseo.document[id];
+        },
+        setCurrentDocumentData: function setCurrentDocumentData(id, data) {
+            Kenseo.document[id] = data;
         },
         page: {},
         overlay: {},

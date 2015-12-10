@@ -15,6 +15,7 @@ var Kenseo = {
         page: "",
         popup: ""
     },
+    document: {},
     cookie: {
         sessionid: function sessionid() {
             return Cookie.getCookie("DivamiKenseoSID");

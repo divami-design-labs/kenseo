@@ -580,13 +580,45 @@
 			}
 
 			// Get comments of current artefact version Id
-			/*if($data->withComments) {
-				$commentsQuery = getQuery('getArtefactComments', $queryParams);
-				$comments = $db->multiObjectQuery($detailsQuery);
-			}*/
+			if($data->withComments) {
+				$commentThreadsData = new stdClass();
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $commentThreadsData);
+				$artefactObj->threads = $commentThreadsData;
+
+
+				$commentThreadQuery = getQuery('getArtefactCommentThreads', $queryParams);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $commentThreadQuery);
+				$commentThreads = $db->multiObjectQuery($commentThreadQuery);
+
+				$threadCount = count($commentThreads);
+				$commentThreadIds = array();
+				for($i=0; $i<$threadCount; $i++) {
+					$threadId = $commentThreads[$i]->comment_thread_id;
+					$commentThreadsData->$threadId = $commentThreads[$i];
+
+					$commentThreadIds[] = "'" . $threadId . "'";
+				}
+
+				$queryParams = array('@commentThreadIds' => join(",",$commentThreadIds));
+				$commentsQuery = getQuery('getComments', $queryParams);
+				$comments = $db->multiObjectQuery($commentsQuery);
+
+				$commentsCount = count($comments);
+				for($i=0; $i<$commentsCount; $i++) {
+					$comment = $comments[$i];
+					$commentId = $comment->comment_id;
+					$threadId = $comment->comment_thread_id;
+
+					if(!$commentThreadsData->$threadId->comments) {
+						$commentThreadsData->$threadId->comments = new stdClass();
+					}
+					unset($comment->comment_thread_id);
+					$commentThreadsData->$threadId->comments->$commentId = $comment;
+				}
+			}
 			
 			return $artefactObj;
-			
 		} 
 		
 		public function getVersionDetails($interpreter) {

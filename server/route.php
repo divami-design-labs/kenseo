@@ -3,7 +3,7 @@
 require_once("main.php");
 
 	global $AppGlobal;
-	$uriGetParam = isset( $_GET['uri']) ? '/' . $_GET['uri'] : '/' ;
+	$uriGetParam = isset( $_GET['uri']) ? '/' . $_GET['uri'] : '/';
 
 	try {
 		$routeObj = $AppGlobal['urlmap'][$uriGetParam];

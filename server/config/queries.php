@@ -438,4 +438,14 @@ $AppGlobal['sql']['getUserOrganizationId'] = "SELECT org_id FROM " . TABLE_USERS
 // Get Organization id from projects table
 $AppGlobal['sql']['getProjectOrganizationId'] = "SELECT org_id FROM " . TABLE_PROJECTS . " WHERE project_id = @~~project_id~~@";
 
+// Get comment threads from artefact version
+$AppGlobal['sql']['getArtefactCommentThreads'] = "SELECT comment_thread_id, posx, posy, page_no, severity, category, is_private, state FROM " . TABLE_COMMENT_THREADS . 
+													" WHERE artefact_ver_id = @~~artefactVerId~~@";
+
+// Get comments from comment thread ids
+$AppGlobal['sql']['getComments'] = "SELECT comment_id, comment_thread_id, u.name as user, created_at as time, description FROM ". TABLE_COMMENTS .
+													" c INNER JOIN " . TABLE_USERS . " u ON u.user_id = c.comment_by WHERE comment_thread_id in (@~~commentThreadIds~~@)";
+
+
+
 ?>
