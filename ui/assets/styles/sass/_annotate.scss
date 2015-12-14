@@ -7,19 +7,20 @@
     margin-left: -3px;
     margin-top: -3px;
     z-index: 1;
-    &[data-color="red"]{
+    cursor: pointer;
+    &[data-k-severity="R"]{
         background-color: tomato;
         &::after{
             border-color: transparent transparent transparent tomato;
         }
     }
-    &[data-color="blue"]{
+    &[data-k-severity="B"]{
         background-color: $colorTwenty;
         &::after{
             border-color: transparent transparent transparent $colorTwenty;
         }
     }
-    &[data-color="green"]{
+    &[data-k-severity="G"]{
         background-color: green;
         &::after{
             border-color: transparent transparent transparent green;

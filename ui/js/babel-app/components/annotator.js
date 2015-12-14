@@ -135,7 +135,7 @@ var annotator = (function(){
     	var threadId = $commentSection.attr('data-k-comment_thread_id');
 
     	var originalData = Kenseo.document[artefactVersionId][threadId];
-    	var gatheredData = sb.getCommentThreadDumbObject($commentSection);
+    	var gatheredData = sb.getCommentThreadDumpObject($commentSection);
 
     	if(commentSectionIsChanged(originalData, gatheredData) || $.trim($textBox.val()).length){
     		$postBtn.removeAttr('disabled');
@@ -145,7 +145,7 @@ var annotator = (function(){
     	}
     }
     var commentSectionIsChanged = function(originalData, gatheredData){
-    	var checkers = ['severity', 'category', 'state'];
+    	var checkers = ['severity', 'category', 'state', 'is_private'];
     	for(var i = 0, len = checkers.length; i < len; i++){
     		if(originalData[checkers[i]] !== gatheredData[checkers[i]]){
     			return true;
@@ -202,13 +202,17 @@ var annotator = (function(){
 				$self.toggleClass('hide-comment-section');
 			});
 
+			// private message checkbox event
 			$(document).on('change', '.private-chk', function(e){
+				var $self = $(this);
 				if(this.checked){
-					$(this).attr('data-k-is_private','1');
+					$self.attr('data-k-is_private','1');
 				}
 				else{
-					$(this).attr('data-k-is_private','0');	
+					$self.attr('data-k-is_private','0');	
 				}
+				// Do validations
+				commentValidations($self);
 			});
 
 			$(document).on('click', '.comment-container .main-btn', function(e){
@@ -240,6 +244,25 @@ var annotator = (function(){
 					}
 				})
 			});
+
+			// write comment event attachment
+			// - Temporary fix: The main aim of this function is to run validation on whether to enable the post button or not
+			// - Currently, there is already a function which does this i.e commentValidations
+			// - In future, the below code must be removed and somehow must use commentValidations function when edit and delete implementation is added.
+			$(document).on('keyup', '.write-comment', function(){
+				var $self = $(this);
+				var value = this.value;
+				var $currentCommentSection = $self.parents('.comment-container');
+ 				var $postBtn = $currentCommentSection.find('.main-btn');
+				
+				if($.trim(value).length){
+					$postBtn.removeAttr('disabled');
+				}
+				else{
+					commentValidations($self);
+				}
+			});
+	
 		},
 		annotate: function(e){
 			var $target = $(e.target);

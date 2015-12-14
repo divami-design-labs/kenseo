@@ -219,8 +219,13 @@ $popup-content-space: 175px;
 	width: $w - $x;
 	@extend .hand;
 	.share-artefacts-text{
-		line-height: 40px;
-  		margin-left: 10px;
+	    line-height: 40px;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    display: inline-block;
+	    vertical-align: middle;
+	    @include withSuffix(width, calc(100% - 50px));
+	    text-overflow: ellipsis;
   		@include text(14px, $colorTwo);
 	}
 	.share-artefact-right-panel{
@@ -239,11 +244,11 @@ $popup-content-space: 175px;
 	}
 	.share-artefacts-img-holder{
 		@extend .circle;
-		border: 1px solid black;
-		float: left;
-		margin-left: -$x;
-		border: 5px solid transparent;
-		position: relative;
+	    margin-left: -22px;
+	    border: 5px solid transparent;
+	    position: relative;
+	    display: inline-block;
+	    vertical-align: middle;
 		img{
 			display: block;
 			position: relative;

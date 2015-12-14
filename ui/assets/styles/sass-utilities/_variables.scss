@@ -25,7 +25,13 @@ $fontSizeOne: 18px;
     -o-border-radius: $radius;
     border-radius: $radius;
 }
-
+@mixin withSuffix($property, $value){
+	#{$property}: -webkit-#{$value};
+   	   #{$property}: -moz-#{$value};
+        #{$property}: -ms-#{$value};
+         #{$property}: -o-#{$value};
+    	    #{$property}: #{$value};
+}
 @mixin backgroundImage($icon){
 	background-image: url($imgPath + $icon);
 	background-repeat: no-repeat;
