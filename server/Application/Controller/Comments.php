@@ -8,30 +8,36 @@
 			$db = Master::getDBConnectionManager();
 			$db->beginTransaction();
 
-			if(!$data->category) {
-				$data->category = 'I';
+			$category = $data->category;
+			$severity = $data->severity;
+			$is_private = $data->is_private;
+			$state = $data->state;
+			$comment_thread_id = $data->comment_thread_id;
+
+			if(!$category) {
+				$category = 'I';
 			}
-			if(!$data->severity) {
-				$data->severity = 'R';
+			if(!$severity) {
+				$severity = 'R';
 			}
-			if(!$data->is_private || !in_array($data->is_private, array(0, 1))) {
-				$data->is_private = 0;
+			if(!$is_private || !in_array($is_private, array(0, 1))) {
+				$is_private = 0;
 			}
-			if(!$data->state) {
-				$data->state = 'O';
+			if(!$state) {
+				$state = 'O';
 			}
 			if(!$data->artefact_ver_id) {
 				return;
 			}
 
 			// Create new comment thread
-			if(!$data->comment_thread_id) {
+			if(!$comment_thread_id || $comment_thread_id == -1) {
 				$columnnames = array('artefact_ver_id', 'comment_thread_by', 'page_no', 'posx', 'posy', 'category', 'severity', 'is_private', 'state', 'comment_type');
-				$rowvals = array($data->artefact_ver_id, $userId, $data->page_no, $data->posx, $data->posy, $data->category, $data->severity, $data->is_private, $data->state, 'I');
-				$data->comment_thread_id = $db->insertSingleRowAndReturnId(TABLE_COMMENT_THREADS, $columnnames, $rowvals);
+				$rowvals = array($data->artefact_ver_id, $userId, $data->page_no, $data->posx, $data->posy, $category, $severity, $is_private, $state, 'I');
+				$comment_thread_id = $db->insertSingleRowAndReturnId(TABLE_COMMENT_THREADS, $columnnames, $rowvals);
 			} else {
 				// Check whether artefact_ver_id and comment_thread_id are original
-				$params = array('artefactVerId' => $data->artefact_ver_id, 'commentThreadId' => $data->comment_thread_id);
+				$params = array('artefactVerId' => $data->artefact_ver_id, 'commentThreadId' => $comment_thread_id);
 				$query = getQuery('getCommentThread', $params);
 				$result = $db->multiObjectQuery($query);
 
@@ -41,15 +47,15 @@
 
 				$db->updateTable(TABLE_COMMENT_THREADS,
 					array('category', 'severity', 'is_private', 'state'), 
-					array($data->category, $data->severity, $data->is_private, $data->state), 
-					"comment_thread_id = " . $data->comment_thread_id);
+					array($category, $severity, $is_private, $state), 
+					"comment_thread_id = " . $comment_thread_id);
 			}
 
 			// Create new comment if description is there
 			if($data->description) {
 				if(!$data->comment_id) {
 					$columnnames = array('comment_thread_id','comment_by', 'description');
-					$rowvals = array($data->comment_thread_id, $userId, $data->description);
+					$rowvals = array($comment_thread_id, $userId, $data->description);
 					$data->comment_id = $db->insertSingleRowAndReturnId(TABLE_COMMENTS, $columnnames, $rowvals);
 				} else {
 					//@TODO: Edit comment in future
@@ -58,7 +64,7 @@
 
 			$db->commitTransaction();
 
-			$queryParams = array('commentThreadId' => $data->comment_thread_id);
+			$queryParams = array('commentThreadId' => $comment_thread_id);
 			$query = getQuery('getArtefactCommentThread', $queryParams);
 			$commentThreads = $db->multiObjectQuery($query);
 
