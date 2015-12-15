@@ -16,8 +16,10 @@ var sb = (function () {
     }
     return {
         log: function log(msg) {
-            console.log(msg);
+            console.error(msg);
         },
+        // Function to load files in sequence (useful to consider dependency).
+        // TO DO: Sometimes, this function is loading files not in dependency sequence
         loadFiles: function loadFiles(payload, fn) {
             var files = [];
             var types = ['files', 'views', 'models', 'collections'];
@@ -140,22 +142,25 @@ var sb = (function () {
                 contentType: contentType,
                 processData: processData,
                 success: function success(response) {
-                    try {
-                        var response = JSON.parse(response);
-                        if (response.status == 'success') {
-                            if (!payload.excludeDump) {
-                                sb.setDump(response);
-                            }
-                            payload.success(response);
-                        } else {
-                            window.location.assign(DOMAIN_ROOT_URL);
+                    // try {
+                    var response = JSON.parse(response);
+                    if (response.status == 'success') {
+                        if (!payload.excludeDump) {
+                            sb.setDump(response);
                         }
-                    } catch (ex) {
-                        // Catching the exception
-                        sb.log("Below error is in ajax request");
-                        console.error(ex);
-                        // Redirecting to the Dashboard
-                    }
+                        payload.success(response);
+                    } else {}
+                    // window.location.assign(DOMAIN_ROOT_URL);
+
+                    // }
+                    // catch(ex){
+                    // Catching the exception
+                    // sb.log("Below error is in ajax response");
+                    // console.error(ex);
+                    // console.log(response);
+                    // Redirecting to the Dashboard
+
+                    // }
                 }
             });
         },
@@ -440,6 +445,18 @@ var sb = (function () {
             } else {
                 Kenseo.popup.data = value;
             }
+        },
+        getVersionIdFromMaskedId: function getVersionIdFromMaskedId(maskedId) {
+            if (!Kenseo.data.ma) {
+                Kenseo.data.ma = {};
+            }
+            return Kenseo.data.ma[maskedId];
+        },
+        setVersionIdForMaskedId: function setVersionIdForMaskedId(maskedId, versionId) {
+            if (!Kenseo.data.ma) {
+                Kenseo.data.ma = {};
+            }
+            Kenseo.data.ma[maskedId] = versionId;
         },
         insertPopupData: function insertPopupData($elem) {
             var key = $elem.data('key');

@@ -221,22 +221,27 @@ var annotator = (function () {
 				sb.ajaxCall({
 					url: sb.getRelativePath('createComment'),
 					data: sb.getCommentThreadDumpObject($commentSection),
+					excludeDump: true,
 					type: 'POST',
 					plainData: true,
 					//contentType: 'application/json',
 					//dataType: 'json',
 					success: function success(response) {
-						var data = response.data;
+						var data = response.data || {};
 						var params = response.params;
-						sb.setCurrentThreadData(params.artefact_ver_id, params.comment_thread_id, data[params.comment_thread_id]);
+						// new comment thread id and old comment thread id will differ when the comment is being saved for the first time
+						var newCommentThreadId = Object.keys(data)[0];
+						var oldCommentThreadId = params.comment_thread_id;
+						sb.setCurrentThreadData(params.artefact_ver_id, newCommentThreadId, data[newCommentThreadId]);
 
 						// re-render the thread section
+						// Deleting the old comment thread id section
 						var $pdfDocContainer = getDocContainer(params.artefact_ver_id);
-						var $commentSection = $('[data-k-comment_thread_id="' + params.comment_thread_id + '"].comment-container');
+						var $commentSection = $('[data-k-comment_thread_id="' + oldCommentThreadId + '"].comment-container');
 						$commentSection.remove();
 
 						// Dont hide flag
-						data[params.comment_thread_id].dontHide = true;
+						data[newCommentThreadId].dontHide = true;
 						insertCommentWrapper(params.artefact_ver_id, data);
 					}
 				});
@@ -245,7 +250,7 @@ var annotator = (function () {
 			// write comment event attachment
 			// - Temporary fix: The main aim of this function is to run validation on whether to enable the post button or not
 			// - Currently, there is already a function which does this i.e commentValidations
-			// - In future, the below code must be removed and somehow must use commentValidations function when edit and delete implementation is added.
+			// - In future, when edit and delete functionality is included, improve this function or try to make it similar to other change events.
 			$(document).on('keyup', '.write-comment', function () {
 				var $self = $(this);
 				var value = this.value;
@@ -302,15 +307,6 @@ var annotator = (function () {
 						// flag
 						threads.noChangesDetected = true;
 						sb.setCurrentDocumentData(data.artefactId, threads);
-
-						// var existingAnnotations = response.data;
-						// // var currentArtefactId = Kenseo.data.artefact.id;
-						// var currentArtefactId = Object.keys(existingAnnotations)[0];
-						// var data = existingAnnotations[currentArtefactId];
-						// // Store the gathered server data in local's object
-						// // set the flag as true for further manipulations (change this flag to false when changes are detected)
-						// data.noChangesDetected = true;
-						// sb.setCurrentDocumentData(currentArtefactId, data);
 
 						insertCommentWrapper(currentArtefactId, data);
 					}

@@ -346,22 +346,22 @@ $AppGlobal['sql']['getOtherMembersList'] = "SELECT users.user_id, users.name, us
 											FROM " . TABLE_PROJECT_MEMBERS . " AS members   
 											WHERE members.proj_id = @~~projectId~~@)" ;
 
-$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, arts.artefact_title as artTitle, arts.artefact_id as artefactId, arts.description as description,vers.version_no as versionCount 
+$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, arts.artefact_title as artTitle, vers.artefact_ver_id, arts.artefact_id as artefactId, arts.description as description,vers.version_no as versionCount 
 											FROM " . TABLE_ARTEFACTS . " AS arts 
 											JOIN " . TABLE_PROJECTS . " AS proj ON
 											proj.project_id = arts.project_id
 											JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers ON
 											arts.artefact_id = vers.artefact_id
-											WHERE vers.artefact_ver_id = @~~artefactVerId~~@";
+											WHERE vers.masked_artefact_version_id = @~~maskedArtefactVersionId~~@";
 
-$AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as versionId, vers.version_no as versionNo, vers.document_path as documentPath, vers.MIME_type as type,
+$AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as versionId, vers.masked_artefact_version_id, vers.version_no as versionNo, vers.document_path as documentPath, vers.MIME_type as type,
 												 vers.version_label as label, vers.created_by as authorId, user.name as authorName, shared,
 												(SELECT COUNT(comment_thread_id) FROM " . TABLE_COMMENT_THREADS . " as thread where 
 												vers.artefact_ver_id = thread.artefact_ver_id) as commentCount 
 												FROM " . TABLE_ARTEFACTS_VERSIONS . " AS vers 
 												JOIN " . TABLE_USERS . " AS user on
-												user.user_id = vers. created_by
-												WHERE artefact_id = (SELECT artefact_id from artefact_versions where artefact_ver_id = @~~artefactVerId~~@)";
+												user.user_id = vers.created_by
+												WHERE artefact_id = (SELECT artefact_id from artefact_versions where masked_artefact_version_id = @~~maskedArtefactVersionId~~@)";
 												
 $AppGlobal['sql']['getArtefactVersionShared'] = "SELECT user.user_id as id, user.name as name, user.profile_pic_url as profilePic, membs.access_type as permission
 												FROM " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as membs 

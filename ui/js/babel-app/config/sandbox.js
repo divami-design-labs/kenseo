@@ -16,6 +16,8 @@ var sb = (function () {
         log: function log(msg) {
             console.log(msg);
         },
+        // Function to load files in sequence (useful to consider dependency).
+        // TO DO: Sometimes, this function is loading files not in dependency sequence
         loadFiles: function loadFiles(payload, fn) {
             var files = [];
             var types = ['files', 'views', 'models', 'collections'];
@@ -443,6 +445,18 @@ var sb = (function () {
             } else {
                 Kenseo.popup.data = value;
             }
+        },
+        getVersionIdFromMaskedId: function(maskedId){
+            if(!Kenseo.data.ma){
+                Kenseo.data.ma = {};
+            }
+            return Kenseo.data.ma[maskedId];
+        },
+        setVersionIdForMaskedId: function(maskedId, versionId){
+            if(!Kenseo.data.ma){
+                Kenseo.data.ma = {};
+            }
+            Kenseo.data.ma[maskedId] = versionId;
         },
         insertPopupData: function($elem){
             var key = $elem.data('key');

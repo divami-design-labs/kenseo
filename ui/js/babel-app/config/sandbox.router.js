@@ -87,10 +87,11 @@ sb.router = {
         });
     },
     documentView: function documentView(id) {
-        if (!Kenseo.data.artefact) {
-            Kenseo.data.artefact = {};
-        }
-        Kenseo.data.artefact.id = id;
+        // if (!Kenseo.data.artefact) {
+        //     Kenseo.data.artefact = {};
+        // }
+        // Kenseo.data.artefact.id = id;
+        var maskedId = id;
 
         var _this = this;
         sb.loadFiles({
@@ -111,28 +112,31 @@ sb.router = {
             new Kenseo.views.Header({ 'model': new Kenseo.models.Header() });
             $('.header').addClass('fixed-header');
 
+            var artefactId = sb.getVersionIdFromMaskedId(this);
             //before making the ajax call we need to verify if this document is already existing in the viewer
-            if ($('.outerContainer[rel="pdf_' + Kenseo.data.artefact.id + '"]').length > 0) {
+            if ($('.outerContainer[rel="pdf_' + artefactId + '"]').length > 0) {
                 // since it already exists we need to bring it into view
                 $('.outerContainer.inView').removeClass('inView');
                 $('.tab-item.selectedTab').removeClass('selectedTab');
 
-                $('.outerContainer[rel="pdf_' + Kenseo.data.artefact.id + '"]').addClass('inView');
+                $('.outerContainer[rel="pdf_' + artefactId + '"]').addClass('inView');
 
-                var removedElem = $('.dv-tab-panel-section').detach('.tab-item[targetrel=' + Kenseo.data.artefact.id + ']');
+                var removedElem = $('.dv-tab-panel-section').detach('.tab-item[targetrel=' + artefactId + ']');
                 $('.dv-tab-panel-section').prepend(removedElem);
-                $('.tab-item[targetrel=' + Kenseo.data.artefact.id + ']').addClass('selectedTab');
+                $('.tab-item[targetrel=' + artefactId + ']').addClass('selectedTab');
             } else {
                 //since we don't have it in the viewer we need to get its details and render it
                 sb.ajaxCall({
                     url: sb.getRelativePath('getArtefactDetails'),
                     data: {
-                        artefactVersionId: Kenseo.data.artefact.id,
+                        // artefactVersionId: Kenseo.data.artefact.id,
+                        maskedArtefactVersionId: this,
                         withVersions: true,
                         withComments: true
                     },
                     type: 'GET',
                     success: function success(response) {
+                        // console.log(this);
                         var data = response.data;
                         //before painting the new doc lets hide all the existing docs
                         $('.outerContainer.inView').removeClass('inView');
@@ -150,17 +154,20 @@ sb.router = {
                         $('.pdfs-container').append(_.template(templates['pdf-viewer'])(data));
 
                         new paintPdf({
-                            url: sb.getRelativePath(response.data.documentPath),
+                            // url: sb.getRelativePath(data.documentPath),
                             container: $('.outerContainer.inView').get(0),
                             targetId: data.versionId,
-                            versionId: data.artefactId
+                            versionId: data.artefactId,
+
                         });
+                        sb.setVersionIdForMaskedId(this, data.versionId);
 
                         //now get the version details of this version and show shared details
                         sb.renderTemplate({
                             url: sb.getRelativePath('getVersionDetails'),
                             data: {
-                                versionId: Kenseo.data.artefact.id
+                                // versionId: Kenseo.data.artefact.id
+                                versionId: data.versionId
                             },
                             templateName: 'dv-peoplesection',
                             templateHolder: $('.dv-tb-people-section')
@@ -183,9 +190,9 @@ sb.router = {
                         threads.noChangesDetected = true;
                         sb.setCurrentDocumentData(data.artefactId, threads);
                         annotator.init();
-                    }
+                    }.bind(this)
                 });
             }
-        });
+        }.bind(maskedId));
     }
 };

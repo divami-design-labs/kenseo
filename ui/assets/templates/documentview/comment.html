@@ -37,7 +37,7 @@
 <div class="comment-section">
 	<div class="comment-section-header">
 		<div class="drpdwn drpdwn--category html-click" data-type="category" data-k-category="<%= data.category %>" data-html-class="show" data-html-target="this > .drpdwn-items">
-			<div class="drpdwn-selected-text"><%= categories[data.category] || categories["I"] %></div>
+			<div class="drpdwn-hdg-txt">Category:&nbsp;</div><div class="drpdwn-selected-text"><%= categories[data.category] || categories["I"] %></div>
 			<div class="drpdwn-items">
 				<% for(var key in categories){ %>
 				<div class="drpdwn-item" data-value="<%= key %>"><%= categories[key] %></div>
@@ -45,7 +45,7 @@
 			</div>
 		</div>
 		<div class="drpdwn drpdwn--status html-click" data-type="state" data-k-state="<%= data.state %>" data-html-class="show" data-html-target="this > .drpdwn-items">
-			<div class="drpdwn-selected-text"><%= states[data.state] || states["O"] %></div>
+			<div class="drpdwn-hdg-txt">Status:&nbsp;</div><div class="drpdwn-selected-text"><%= states[data.state] || states["O"] %></div>
 			<div class="drpdwn-items">
 				<% for(var key in states){ %>
 				<div data-value="<%= key %>" class="drpdwn-item"><%= states[key] %></div>

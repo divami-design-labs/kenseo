@@ -554,14 +554,15 @@
 		public function getArtefactDetails($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
-			$artefactVerId = $data->artefactVersionId;
+			$maskedArtefactVersionId = $data->maskedArtefactVersionId;
 			
 			$db = Master::getDBConnectionManager();
 			
 			// Get current artefact version details
-			$queryParams = array('artefactVerId' => $artefactVerId);
+			$queryParams = array('maskedArtefactVersionId' => $maskedArtefactVersionId);
 			$detailsQuery = getQuery('getArtefactDetails', $queryParams);
 			$artefactObj = $db->singleObjectQuery($detailsQuery);
+			$artefactVerId = $artefactObj->artefact_ver_id;
 
 			// Get all versions of an artefact
 			$versionQuery = getQuery('getArtefactVersionSummary', $queryParams);
@@ -574,7 +575,7 @@
 			// The gist is nothing but the documentPath, versionNo, versionId etc.
 			$versionCount = count($versionSummary);
 			for($i=0; $i<$versionCount; $i++) {
-				if($versionSummary[$i]->versionId == $artefactVerId) {
+				if($versionSummary[$i]->masked_artefact_version_id == $maskedArtefactVersionId) {
 					$artefactObj->documentPath = $versionSummary[$i]->documentPath;
 					$artefactObj->versionNo = $versionSummary[$i]->versionNo;
 					$artefactObj->versionId = $versionSummary[$i]->versionId;

@@ -18,7 +18,7 @@ sb.popup = {
                     userProjects: true
                 },
                 success: function success(data) {
-                    var container = Kenseo.current.popup.find(".combobox")[0];
+                    var container = document.querySelector(".combobox");
                     sb.toolbox.applyComboBox({
                         elem: container,
                         data: data.data,
@@ -52,31 +52,6 @@ sb.popup = {
         //     });
         //     $(".main-btn").prop("disabled", false);
         // }
-        var $currentPopup = Kenseo.current.popup;
-
-        var toggleStateMainBtn = function toggleStateMainBtn(state) {
-            return $currentPopup.find(".main-btn").prop("disabled", state);
-        };
-
-        var toggleStateChooseFileCombo = function toggleStateChooseFileCombo(state) {
-            return $currentPopup.find(".choose-file-combobox input").prop("disabled", state);
-        };
-
-        var toggleStateExistingFileCheck = function toggleStateExistingFileCheck(state) {
-            return $currentPopup.find(".existing-files-chk").prop("disabled", state);
-        };
-
-        var toggleStateUploadNewFile = function toggleStateUploadNewFile(state) {
-            return $currentPopup.find(".upload-files-input").prop("disabled", state);
-        };
-
-        var clearExistingFilesCombo = function clearExistingFilesCombo() {
-            var $existingFilesCombobox = $currentPopup.find(".existing-files-combobox");
-
-            $existingFilesCombobox.find(".suggestionsContainer").hide();
-            $existingFilesCombobox.find('input').val('').prop("disabled", true);
-        };
-
         $(".upload-files-input").change(function () {
             var file = this.files[0];
 
@@ -111,27 +86,26 @@ sb.popup = {
                 sb.setPopupData("addArtefactVersionFile", "actionType");
             }
 
-            toggleStateMainBtn(false);
+            $currentPopup.find(".main-btn").prop("disabled", false);
 
-            toggleStateChooseFileCombo(true);
-            toggleStateExistingFileCheck(false);
+            $currentPopup.find(".choose-file-combobox input").attr("disabled", true);
+            $currentPopup.find(".existing-files-chk").attr("disabled", false);
         });
         $(".create-file-close-icon").click(function () {
             var $currentPopup = Kenseo.current.popup;
             $currentPopup.find(".create-file-item").css({
                 "visibility": "hidden"
             });
-            toggleStateChooseFileCombo(false);
-            toggleStateMainBtn(true);
+            $currentPopup.find(".choose-file-combobox input").attr("disabled", false);
+            $currentPopup.find(".main-btn").prop("disabled", true);
             sb.setPopupData(null, "fileName");
             sb.setPopupData(null, "file");
             sb.setPopupData(null, "MIMEType");
             sb.setPopupData(null, "size");
             sb.setPopupData(null, "description");
 
-            toggleStateExistingFileCheck(true).prop("checked", false);
-
-            clearExistingFilesCombo();
+            $currentPopup.find(".existing-files-chk").attr("disabled", true).prop("checked", false);
+            $currentPopup.find(".existing-files-combobox").find(".suggestionsContainer").hide();
 
             // Clear selected file path from input box
             $currentPopup.find(".upload-files-input").val('');
@@ -148,9 +122,7 @@ sb.popup = {
                     ignore: 0
                 },
                 success: function success(data) {
-                    var $currentPopup = Kenseo.current.popup;
-
-                    var container = $currentPopup.find(".existing-files-combobox")[0];
+                    var container = document.querySelector(".existing-files-combobox");
                     var existingCombobox = sb.toolbox.applyComboBox({
                         elem: container,
                         data: data.data,
@@ -160,28 +132,20 @@ sb.popup = {
                         },
                         onchange: function onchange($input, $selectedEl, bln) {
                             if (bln) {
-                                toggleStateMainBtn(false);
+                                $(".main-btn").prop("disabled", false);
                                 sb.setPopupData($selectedEl.data("id"), "artefact_id");
                             } else {
-                                toggleStateMainBtn(true);
+                                $(".main-btn").prop("disabled", true);
                             }
                         }
                     });
 
-                    $currentPopup.find(".existing-files-chk").change(function (e) {
+                    $(".existing-files-chk").change(function (e) {
                         // e.stopPropagation();
                         var $elem = existingCombobox.$elem;
                         var $input = $elem.find("input");
                         $elem.find(".suggestionsContainer").hide();
                         var $selectables = $elem.find(".selectable");
-
-                        // Disable (or) Enable Proceed button when this checkbix is checked.
-                        if (this.checked) {
-                            toggleStateMainBtn(true);
-                        } else {
-                            toggleStateMainBtn(false);
-                        }
-
                         if ($selectables.length) {
                             $input.prop("disabled", !this.checked);
                             if (!this.checked) {
@@ -191,7 +155,7 @@ sb.popup = {
                     });
 
                     var chooseFileCombobox = sb.toolbox.applyComboBox({
-                        elem: $currentPopup.find(".choose-file-combobox")[0],
+                        elem: document.querySelector(".choose-file-combobox"),
                         data: data.data,
                         settings: {
                             placeholder: "Choose Files"
@@ -210,34 +174,41 @@ sb.popup = {
                                 }
                                 obj.name = $selectedEl.html();
 
-                                $currentPopup.find(".choose-existing-file-holder").html(_.template(templates["new-file"])({
+                                $(".choose-existing-file-holder").html(_.template(templates["new-file"])({
                                     data: obj
                                 }));
 
-                                $currentPopup.find(".choose-existing-file-holder .close-icon").click(function () {
-                                    $currentPopup.find(".choose-existing-file-holder").html("");
+                                $(".choose-existing-file-holder .close-icon").click(function () {
+                                    $(".choose-existing-file-holder").html("");
                                     //
-                                    toggleStateUploadNewFile(false);
-                                    toggleStateExistingFileCheck(true);
-                                    toggleStateMainBtn(true);
-                                    toggleStateExistingFileCheck(true).prop("checked", false);
-                                    clearExistingFilesCombo();
-
-                                    $currentPopup.find('.upload-file-section').css('cursor', 'pointer');
+                                    $(".upload-files-input").attr("disabled", false);
+                                    $(".existing-files-chk").attr("disabled", true);
+                                    $(".main-btn").prop("disabled", true);
                                 });
                                 $input.val("");
 
-                                // Disable upload new file section
-                                toggleStateUploadNewFile(true);
-                                toggleStateExistingFileCheck(false);
-                                toggleStateMainBtn(false);
-                                $currentPopup.find('.upload-file-section').css('cursor', 'default');
+                                //
+                                $(".upload-files-input").attr("disabled", true);
+                                $(".existing-files-chk").attr("disabled", false);
+                                $(".main-btn").prop("disabled", false);
                             } else {
-                                toggleStateMainBtn(true);
+                                $(".main-btn").prop("disabled", true);
                             }
                         },
                         insertAfter: function insertAfter($input, $selectedEl, bln) {
                             $input.val("");
+                        }
+                    });
+
+                    $(".existing-files-chk").change(function () {
+                        var $elem = chooseFileCombobox.$elem;
+                        var $input = $elem.find("input");
+                        var $selectables = $elem.find(".selectable");
+                        if ($selectables.length) {
+                            $input.prop("disabled", !this.checked);
+                            if (!this.checked) {
+                                $input.val("");
+                            }
                         }
                     });
                 }
