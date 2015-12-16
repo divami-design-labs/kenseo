@@ -142,3 +142,8 @@
 .cv-main-person{
     @extend .clearFloat;
 }
+.comment-sec-wrapper{
+    max-height: 260px;
+    overflow: auto;
+    margin-bottom: 10px;
+}

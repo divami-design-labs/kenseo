@@ -6205,6 +6205,12 @@ select {
   font-size: 14px;
 }
 
+.comment-sec-wrapper {
+  max-height: 260px;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
 .error-messages-wrapper {
   text-align: center;
   position: absolute;

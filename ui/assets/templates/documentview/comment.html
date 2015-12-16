@@ -1,8 +1,8 @@
 <%
 	var severities = {
-		"R": "Severity 1",
-		"G": "Severity 2",
-		"B": "Severity 3"
+		"R": "High",
+		"B": "Medium",
+		"G": "Low"
 	};
 
 	var categories = {
@@ -54,9 +54,11 @@
 		</div>
 	</div>
 	<div class="comment-section-body">
-		<% for(var key in data.comments){ %>
-		<%= sb.setTemplate('comment-item', data.comments[key]) %>
-		<% } %>
+		<div class="comment-sec-wrapper">
+			<% for(var key in data.comments){ %>
+			<%= sb.setTemplate('comment-item', data.comments[key]) %>
+			<% } %>
+		</div>
 		<div class="write-comment-section">
 			<textarea class="write-comment" placeholder="Type your comment here"></textarea>
 		</div>
