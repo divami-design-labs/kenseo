@@ -83,7 +83,7 @@ $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINC
 											in 
 											(select versions.artefact_ver_id from ". TABLE_ARTEFACTS_SHARED_MEMBERS ." as members 
 											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
-											artefacts.replace_ref_id = 0
+											artefacts.replace_ref_id is null
 											ORDER BY @~~sortBy~~@";
 
 $AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requestedBy,artefacts.artefact_title AS title, 
@@ -113,7 +113,7 @@ $AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requ
 										in 
 										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members 
 										WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
-										artefacts.replace_ref_id = 0 AND
+										artefacts.replace_ref_id is null AND
 										artefacts.state != 'A' AND artefacts.state != 'D' AND
 										project.state = 'A'
 										ORDER BY members.shared_date DESC
@@ -183,7 +183,7 @@ $AppGlobal['sql']['getMaxLinkId'] = "SELECT MAX(artefacts.linked_id) as linked_i
 $AppGlobal['sql']['getArtefactsLink'] = "SELECT DISTINCT artefacts.artefact_id,artefacts.linked_id FROM " . TABLE_ARTEFACTS . " AS artefacts 
 										JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." AS members ON
 										members.artefact_id = artefacts.artefact_id
-										WHERE artefacts.project_id = @~~projectid~~@ AND artefacts.replace_ref_id = 0
+										WHERE artefacts.project_id = @~~projectid~~@ AND artefacts.replace_ref_id is null
 										AND (members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)
 										ORDER BY artefacts.linked_id";
 										
@@ -369,14 +369,14 @@ $AppGlobal['sql']['getArtefactVersionShared'] = "SELECT user.user_id as id, user
 												user.user_id = membs.user_id
 												WHERE artefact_ver_id = @~~verId~~@";
 
-$AppGlobal['sql']['getArtefactVersionComments'] = "SELECT thread.comment_id as commentId, user.name, 
-												  thread.comment_thread_by as commentorId, thread.description
+$AppGlobal['sql']['getArtefactVersionComments'] = "SELECT thread.comment_thread_id as commentId, user.name, 
+												  thread.comment_thread_by as commentorId, comment.description
 												  FROM " . TABLE_COMMENT_THREADS . " as thread 
 												  JOIN " . TABLE_USERS . " as user on
 												  thread.comment_thread_by = user.user_id  
 												  JOIN " . TABLE_COMMENTS . " as comment on
-												  comment.comment_id = thread.comment_id
-												  WHERE artefact_ver_id = @~~verId~~@";
+												  comment.comment_thread_id = thread.comment_thread_id
+												  WHERE thread.artefact_ver_id = @~~verId~~@";
 											
 //document summary view related queries
 $AppGlobal['sql']['getLinkedArtefactList'] = "SELECT DISTINCT * FROM " . TABLE_ARTEFACTS . " WHERE linked_id!=0 and linked_id = 

@@ -66,13 +66,16 @@
 			}
 			
 			$db = Master::getDBConnectionManager();
-			$queryParams = array('userid' => $userid, 'projectid' => $projectid, '@sortBy' => $sortBy );
+			$queryParams = array('userid' => $userid, 'projectid' => $projectid, '@sortBy' => $sortBy);
 			if($sharePermission == "true") {
 				$dbQuery = getQuery('getProjectArtefactsWithSharePermission',$queryParams);
 			} else {
 				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);
 			}
 			
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Siva......");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $dbQuery);
+
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
 		}

@@ -117,37 +117,15 @@ var validation = (function () {
 			ul.className = 'error-messages';
 			// set focus on first error-field
 			$validationSection.find('.error-field').first().focus();
-			var $div = $(div);
-			var height = $div.height();
-			$div.css({
-				'margin-top': -height + "px"
-			});
 			// Hide above added error messages by removing the above added class after some time
 			// $(div).addClass('show-errors').delay(2000).removeClass('show-errors');
-			setTimeout((function (height) {
-				this.css({
-					'margin-top': "0px",
-					'transition': "margin 0.5s"
-				});
-				var $popup = this.parents('.popup');
-				var popupHeight = $popup.outerHeight();
-				var newHeight = popupHeight + height + "px";
-				$popup.css({
-					'height': newHeight,
-					'max-height': newHeight
-				});
-			}).bind($div, height), 10);
+			setTimeout((function () {
+				this.addClass('show-errors');
+			}).bind($(div)), 10);
 
-			setTimeout((function (height) {
-				this.css({
-					'margin-top': -height + "px"
-				});
-				var $popup = this.parents('.popup');
-				$popup.css({
-					'height': '',
-					'max-height': ''
-				});
-			}).bind($div, height), 3010);
+			setTimeout((function () {
+				this.removeClass('show-errors');
+			}).bind($(div)), 3010);
 
 			// return false to acknowledge
 			return false;
