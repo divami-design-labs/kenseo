@@ -50,16 +50,42 @@
 
 		public function addPeople($interpreter) {
 			$data = $interpreter->getData()->data;
-			$projectId = $data->projectId;
-			$peopleId = $data->peopleId;
-			$accessType = $data->accessType;
-			$groupType = $data->groupType;
+
+			$projectId = $data->project_id;
+			$accessType = $data->access_type;
+			$groupType = $data->groupType ? $data->group_type : 'I';
 			
-			//enter DB
+			$users = $data->users;
+			$count = count($users);
+			for($i=0; $i<$count; $i++) {
+				$users[$i] = "'" . $users[$i] . "'";
+			}
+
+			// Get DB Connection and start new transaction
 			$db = Master::getDBConnectionManager();
-			$db->insertSingleRow (TABLE_PROJECT_MEMBERS,array("proj_id","user_id","role","access_type","group_type"),array("$projectId","$peopleId","","$accessType","$groupType"));
-			
-			return true;		
+			$db->beginTransaction();
+
+			//@TODO: Get user ids from email ids. Remove this section once UI implement suggestions list
+			$queryParams = array('@emailIds' => join(",", $users));
+			$query = getQuery('getUserIdsFromEmails', $queryParams);
+			$users = $db->multiObjectQuery($query);
+			$actualCount = count($users);
+
+			if($count != $actualCount) {
+				return "Some of the users are not exists in DB.";
+			} else {
+				$column_names = array("proj_id","user_id","access_type","group_type");
+				$row_values = array();
+				for($i=0; $i<$actualCount; $i++) {
+					$row_values[] = array($projectId, $users[$i]->user_id, $accessType, $groupType);
+				}
+
+				// Add all users to the project.
+				$db->replaceMultipleRow(TABLE_PROJECT_MEMBERS, $column_names, $row_values);
+				$db->commitTransaction();
+
+				return "People added successfully.";
+			}
 		}
 		
 		public function removePeople($interpreter) {

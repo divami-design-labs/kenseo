@@ -410,6 +410,28 @@ class DBConnection
 		
 		return count($rowvals) ;
 	}
+
+	/**
+	 * Replace multiple row into the database. The SQL string is built up based on the parameters.
+	 * This will work only with the tables not having primary key as auto-increment column.
+	 * Can implicitly commit (autocommit) based on the flags.
+	 *
+	 * @param string $table			name of the table
+	 * @param array $columnnames	a simple array of column names
+	 * @param array $rowvals		a simple array of column values (the order must match the column names array). Please note that datetime values are passed in as an associative array.
+	 * @param array $types			a simple array of column types (in the same order). "string"/"datetime"/"int" are currently supported.
+	 * @return mixed				FALSE if failure, number of rows (1) inserted if success.
+	 */
+	public function replaceMultipleRow($table, $columnnames, $rowvals)
+	{	
+		$insertSQL = $this->buildMultipleReplaceSQL($table, $columnnames, $rowvals);
+		
+		$this->checkTranStatus();
+		
+		$result = $this->queryDB($insertSQL);
+		
+		return count($rowvals);
+	}
 	
 	/**
 	 * method to insert single row into database. Sql query string is built up based 
@@ -647,6 +669,35 @@ class DBConnection
 		}		
 		
 		return $querystr = "insert into " . $table . " " .  
+								$colnameslist . " values " . substr($inserValues,0,-2);		
+		
+	}
+
+	/**
+	 * Builds the SQL string for an multiple row replace based on the parameters.
+	 *
+	 * @param string $table				passing table name.
+	 * @param arary $columnnames		passing a simple array column names.
+	 * @param unknown_type $rowvals		passing complex array value lists.
+	 * @return string $query			returns query string to insert into DB.			
+	 */
+	public function buildMultipleReplaceSQL($table, $columnnames, $rowvals)
+	{			
+		
+		$colnameslist	=	"(" . implode(",",$columnnames) . ")";
+		$inserValues = "";
+				
+		for( $i = 0 ; $i < count($rowvals); $i++)
+		{
+			$inserValues	.=	"( ";
+			for( $k = 0; $k < count($rowvals[$i]); $k++ )
+			{
+				$inserValues	.=	$this->formatValue($rowvals[$i][$k]) . ",";
+			}
+			$inserValues	=	substr($inserValues,0,-1) . ") , ";
+		}		
+		
+		return $querystr = "replace into " . $table . " " .  
 								$colnameslist . " values " . substr($inserValues,0,-2);		
 		
 	}

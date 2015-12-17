@@ -50,6 +50,7 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINCT
 											requestor.name as requestedBy, 
 											versions.artefact_ver_id as versionId,
+											versions.masked_artefact_version_id as masked_artefact_version_id,
 											artefacts.artefact_title as title,
 											artefacts.artefact_title as name, 
 											requestor.profile_pic_url as requestorImage, 
@@ -453,5 +454,10 @@ $AppGlobal['sql']['getArtefactCommentThread'] = "SELECT comment_thread_id, posx,
 
 $AppGlobal['sql']['getCommentThread'] = "SELECT * FROM " . TABLE_COMMENT_THREADS . " t inner join " . TABLE_ARTEFACTS_VERSIONS . 
 											" v on t.artefact_ver_id = v.artefact_ver_id where t.artefact_ver_id = @~~artefactVerId~~@ AND t.comment_thread_id = @~~commentThreadId~~@";
+
+
+// Get users from emails
+$AppGlobal['sql']['getUserIdsFromEmails'] = "SELECT user_id FROM " . TABLE_USERS . " WHERE email in (@~~emailIds~~@)";
+
 
 ?>
