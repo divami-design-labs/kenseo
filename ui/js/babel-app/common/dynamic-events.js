@@ -163,7 +163,8 @@ $(function () {
 			contentType = false;
 			processData = false;
 		} else {
-			data = sb.getPopupData();
+			// data = sb.getPopupData();
+			data = _.extend(sb.getPopupData(), sb.postcall.getPostObj($self));
 			url = sb.getRelativePath(actionType);
 			type = 'GET';
 		}

@@ -4,15 +4,15 @@
 sb.postcall = (function(){
 	var accessType = {
 		"00": "R",
-		"01": "E",
-		"10": "S",
+		"01": "S",
+		"10": "E",
 		"11": "X"
 	}
 	var fieldTypes = {
 		'text-with-comma': function($el){
 			return $el.val().split(',');
 		},
-		'access-type': function($el){
+		'access_type': function($el){
 			var $checkboxes = $el.find('input[type="checkbox"]');
 			var str = "";
 			for(var i = 0, len = $checkboxes.length; i < len; i++){
@@ -21,6 +21,9 @@ sb.postcall = (function(){
 				str += checkbox.checked * 1;
 			}
 			return accessType[str];
+		},
+		'text': function($el){
+			return $el.val();
 		}
 	}
 	return {

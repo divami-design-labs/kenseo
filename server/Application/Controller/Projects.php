@@ -49,7 +49,8 @@
 														
 		public function addProject($interpreter) {
 			$data = $interpreter->getData()->data;
-			$projectName = $data->projectName->value;
+			// $projectName = $data->projectName->value;
+			$projectName = $data->projectName;
 			$userId = $interpreter->getUser()->user_id;
 			$date = date("Y-m-d H:i:s");
 
