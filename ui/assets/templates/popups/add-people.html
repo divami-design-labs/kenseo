@@ -1,6 +1,6 @@
 <div class="popup popup-add-people k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
-	<div class="popup-body k-field" data-k-projectId="<%= Kenseo.popup.data.id %>">
+	<div class="popup-body k-field" data-k-project_id="<%= Kenseo.popup.data.id %>">
 		<div class="popup-body-wrapper">
 			<div class="add-people-text-project">
 				Add People under <%= Kenseo.popup.data.project_name %> Project
@@ -19,7 +19,7 @@
 			%>
 			<div class="people-permissions-section">
 				<div class="permissions-header">This Person(s) can</div>
-				<div class="permissions-wrapper k-field" data-xtype="access-type">
+				<div class="permissions-wrapper k-field" data-xtype="access_type">
 					<div class="permission-item">
 						<div class="permission-item-text">Add comments</div>
 						<div class="checkbox-holder">

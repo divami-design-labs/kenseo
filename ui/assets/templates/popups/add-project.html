@@ -1,14 +1,16 @@
-<div class="popup popup-small">
+<div class="popup popup-small k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
 			<%= 
 				sb.toolbox.textBox({
 					placeholder: "Project name",
-					inputClass: "project-input required",
+					inputClass: "project-input required k-field",
 					dataName : "projectName",
 					attr: {
-						'data-validate-this': 'empty'
+						'data-validate-this': 'empty',
+						'data-xtype': 'text',
+						'data-xtype-key': 'projectName'
 					}
 				})
 			%>
