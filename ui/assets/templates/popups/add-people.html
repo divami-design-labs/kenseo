@@ -1,29 +1,30 @@
-<div class="popup popup-add-people">
+<div class="popup popup-add-people k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
-	
-	<div class="popup-body">
+	<div class="popup-body k-field" data-k-projectId="<%= Kenseo.popup.data.id %>">
 		<div class="popup-body-wrapper">
 			<div class="add-people-text-project">
 				Add People under <%= Kenseo.popup.data.project_name %> Project
 			</div>
 			<%= 
 				sb.toolbox.textBox({
-					placeholder: "Name or mail ID. Use comma to add multiple people.",
-					inputClass: "xm required",
+					placeholder: "Enter mail ID. Use comma to add multiple people.",
+					inputClass: "xm required k-field",
 					dataName: 'people',
 					attr: {
-						'data-validate-this': 'empty'
+						'data-validate-this': 'empty',
+						'data-xtype': 'text-with-comma',
+						'data-xtype-key': 'users'
 					}
 				})
 			%>
 			<div class="people-permissions-section">
 				<div class="permissions-header">This Person(s) can</div>
-				<div class="permissions-wrapper">
+				<div class="permissions-wrapper k-field" data-xtype="access-type">
 					<div class="permission-item">
 						<div class="permission-item-text">Add comments</div>
 						<div class="checkbox-holder">
 							<label class="toggle-checkbox">
-								<input type="checkbox"></input><span></span>
+								<input type="checkbox" data-subtype="comments"></input><span></span>
 							</label>
 						</div>
 					</div>
@@ -31,7 +32,7 @@
 						<div class="permission-item-text">Share with others</div>
 						<div class="checkbox-holder">
 							<label class="toggle-checkbox">
-								<input type="checkbox"></input><span></span>
+								<input type="checkbox" data-subtype="share"></input><span></span>
 							</label>
 						</div>
 					</div>

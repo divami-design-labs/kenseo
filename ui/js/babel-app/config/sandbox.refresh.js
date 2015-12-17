@@ -37,7 +37,7 @@ sb.refresh = (function(){
             	// return sb.renderTemplate({ templateName: 'db-notifications', templateHolder: $('.') collection: new Kenseo.collections.Notifications(), data: 'db-notifications'})
             },
             'db-artefacts': function(){
-            	$('.review-requests-content').html("");
+            	$('.dashboard-section .review-requests-content').html("");
             	// return new Kenseo.views.Artefacts({ colStr: 'Artefacts', data: 'db-artefacts' });
             	return sb.renderTemplate({ templateName: 'artefacts', templateHolder: $('.dashboard-section .review-requests-section'), collection: new Kenseo.collections.Artefacts(), data: 'db-artefacts'})
             }
@@ -57,6 +57,7 @@ sb.refresh = (function(){
 	                id: Kenseo.page.id,
 	                colStr: 'Artefacts',
 	                data: { projects: true, project_id: Kenseo.page.id, sharePermission: false, sortBy: 'default' },
+	                stopRenderX: true,
 	                preLoader: function preLoader(response) {
 	                    $('.artifacts-section').html(_.template(templates['artefacts'])(response));
 	                }

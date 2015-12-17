@@ -222,6 +222,9 @@ var sb = (function () {
                     if (_this.preLoader) {
                         _this.preLoader(response);
                     }
+                    if(_this.stopRenderX){
+                        return;
+                    }
 
                     var data = response.data;
                     var el = $(_this.el);

@@ -241,10 +241,10 @@ var annotator = (function(){
 						// Deleting the old comment thread id section
 						var $pdfDocContainer = getDocContainer(params.artefact_ver_id);
 						var $commentSection = $('[data-k-comment_thread_id="' + oldCommentThreadId + '"].comment-container');
-						$commentSection.remove();
+						$commentSection.hide();
 
 						// Dont hide flag
-						data[newCommentThreadId].dontHide = true;
+						data[newCommentThreadId].dontHide = false;
 						insertCommentWrapper(params.artefact_ver_id, data);
 					}
 				})

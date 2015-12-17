@@ -186,13 +186,13 @@
 .rr-state{
 	position: relative;
 }
-.status-c{ /* critical */
+.status-C{ /* critical */
 	background-color: $colorCritical;
 }
-.status-n{ /* normal */
+.status-N{ /* normal */
 	background-color: $colorNormal;
 }
-.status-a{ /* approved */
+.status-A{ /* approved */
 	background-color: $colorApproved;
 }
 .rr-state{

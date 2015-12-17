@@ -331,6 +331,7 @@ $popup-content-space: 175px;
 }
 .permission-item-text{
 	@include text(14px, $colorOne);
+	margin-bottom: 5px;
 }
 .people-permissions-section{
 	margin-top: 40px;

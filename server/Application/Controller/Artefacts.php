@@ -73,9 +73,6 @@
 				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);
 			}
 			
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Siva......");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $dbQuery);
-
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
 		}

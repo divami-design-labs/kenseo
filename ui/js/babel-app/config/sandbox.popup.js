@@ -149,9 +149,10 @@ sb.popup = {
                     var $currentPopup = Kenseo.current.popup;
 
                     var container = $currentPopup.find(".existing-files-combobox")[0];
+                    Kenseo.globalArtefacts = data.data;
                     var existingCombobox = sb.toolbox.applyComboBox({
                         elem: container,
-                        data: data.data,
+                        data: Kenseo.globalArtefacts,
                         settings: {
                             placeholder: "Choose Files",
                             disabled: true
@@ -251,18 +252,19 @@ sb.popup = {
             "models": ["Artefacts"]
         }, function () {
             // Tags listing
-            sb.ajaxCall({
-                "collection": new Kenseo.collections.Artefacts(),
-                "data": {
-                    references: true,
-                    ignore: 0,
-                    projectid: sb.getPopupData("project_id")
-                },
-                success: function success(data) {
+            // sb.ajaxCall({
+            //     "collection": new Kenseo.collections.Artefacts(),
+            //     "data": {
+            //         references: true,
+            //         ignore: 0,
+            //         projectid: sb.getPopupData("project_id")
+            //     },
+            //     success: function success(data) {
                     var container = document.querySelector(".reference-combobox");
                     var combobox = sb.toolbox.applyComboBox({
                         elem: container,
-                        data: data.data,
+                        // data: data.data,
+                        data: Kenseo.globalArtefacts,
                         settings: {
                             multiSelect: true
                         }
@@ -271,13 +273,14 @@ sb.popup = {
                     var links = document.querySelector(".links-combobox");
                     var linksCombobox = new sb.toolbox.applyComboBox({
                         elem: links,
-                        data: data.data,
+                        // data: data.data,
+                        data: Kenseo.globalArtefacts,
                         settings: {
                             multiSelect: true
                         }
                     });
-                }
-            });
+            //     }
+            // });
 
             sb.ajaxCall({
                 "collection": new Kenseo.collections.Tags(),

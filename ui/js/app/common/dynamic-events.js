@@ -128,6 +128,9 @@ $(function () {
 		sb.registerData();
 		var $self = $(this);
 		var actionType = sb.getPopupData('actionType');
+		//
+		// console.dir(sb.postcall.getPostObj($self));
+		//
 		var data = null;
 		var file = sb.getPopupData('file');
 		var plainData = false,
@@ -140,6 +143,7 @@ $(function () {
 			// stop further processing
 			return false;
 		}
+
 		// Submit the information
 		if (file) {
 			var data = new FormData();
@@ -160,7 +164,8 @@ $(function () {
 			contentType = false;
 			processData = false;
 		} else {
-			data = sb.getPopupData();
+			// data = sb.getPopupData();
+			data = sb.postcall.getPostObj($self);
 			url = sb.getRelativePath(actionType);
 			type = 'GET';
 		}
@@ -185,6 +190,7 @@ $(function () {
 			id: id,
 			colStr: 'Artefacts',
 			data: { projects: true, project_id: id, sharePermission: false, sortBy: $self.data('stype') },
+			stopRenderX: true,
 			preLoader: function preLoader(response) {
 				$('.artifacts-section').html(_.template(templates['artefacts'])(response));
 			}

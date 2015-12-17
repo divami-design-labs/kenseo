@@ -188,6 +188,7 @@ $(function () {
 			id: id,
 			colStr: 'Artefacts',
 			data: { projects: true, project_id: id, sharePermission: false, sortBy: $self.data('stype') },
+			stopRenderX: true,
 			preLoader: function preLoader(response) {
 				$('.artifacts-section').html(_.template(templates['artefacts'])(response));
 			}

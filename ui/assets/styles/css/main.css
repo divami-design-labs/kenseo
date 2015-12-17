@@ -1437,17 +1437,17 @@
   position: relative;
 }
 
-.status-c {
+.status-C {
   /* critical */
   background-color: #ed554b;
 }
 
-.status-n {
+.status-N {
   /* normal */
   background-color: #37bcd3;
 }
 
-.status-a {
+.status-A {
   /* approved */
   background-color: #46a133;
 }
@@ -2633,6 +2633,7 @@
 .permission-item-text {
   font-size: 14px;
   color: #464c5f;
+  margin-bottom: 5px;
 }
 
 .people-permissions-section {

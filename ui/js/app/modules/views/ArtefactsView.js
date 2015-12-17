@@ -14,6 +14,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
         this.$el.html(this.template);
         this.preLoader = payload.preLoader;
         this.id = payload.id;
+        this.stopRenderX = payload.stopRenderX;
         // this.payload = payload;
         this.render();
     },
