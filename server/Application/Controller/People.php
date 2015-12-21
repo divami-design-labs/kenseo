@@ -50,6 +50,7 @@
 
 		public function addPeople($interpreter) {
 			$data = $interpreter->getData()->data;
+			$userId = $interpreter->getUser()->user_id;
 
 			$projectId = $data->project_id;
 			$accessType = $data->access_type;
@@ -71,20 +72,61 @@
 			$users = $db->multiObjectQuery($query);
 			$actualCount = count($users);
 
+			$result = new stdClass();
 			if($count != $actualCount) {
-				return "Some of the users are not exists in DB.";
+				$result->message = "Some of the users are not exists in DB.";
+				return $result;
 			} else {
-				$column_names = array("proj_id","user_id","access_type","group_type");
-				$row_values = array();
-				for($i=0; $i<$actualCount; $i++) {
-					$row_values[] = array($projectId, $users[$i]->user_id, $accessType, $groupType);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Venky.......");
+
+				// Get project artefacts with versions
+				$params = array('projectId' => $projectId);
+				$query = getQuery('getAllArtefactsOfProject', $params);
+				$projectArtefacts = $db->multiObjectQuery($query);
+
+				// Prepare artefact with latest versions
+				$artefactVersions = new stdClass();
+				for($j=0, $jLen=count($projectArtefacts); $j<$jLen; $j++) {
+					$artf = $projectArtefacts[$j];
+					$artfId = $artf->artefact_id;
+
+					if(!$artefactVersions->$artfId) {
+						$artefactVersions->$artfId = $artf;
+					} else {
+						$artefactVersions->$artfId->artefact_ver_id = $artf->artefact_ver_id;
+					}
 				}
 
-				// Add all users to the project.
-				$db->replaceMultipleRow(TABLE_PROJECT_MEMBERS, $column_names, $row_values);
+				$pr_members_columns = array("proj_id","user_id","access_type","group_type");
+				$pr_members_values = array();
+
+				$artf_members_columns = array("artefact_ver_id","artefact_id","user_id", "access_type", "shared_date", "shared_by", "while_creation");
+				$artf_members_values = array();
+
+				for($i=0; $i<$actualCount; $i++) {
+					// Prepare rows for project_members
+					$pr_members_values[] = array($projectId, $users[$i]->user_id, $accessType, date("Y-m-d H:i:s"));
+
+					// Prepare rows for artefact shared members
+					foreach($artefactVersions as $key => $value) {
+						$artf_members_values[] = array($value->artefact_ver_id, $value->artefact_id, $users[$i]->user_id, $accessType, date("Y-m-d H:i:s"), $userId, 0);
+					}
+				}
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $pr_members_values);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $artf_members_values);
+
+				// Share all artefacts in a project to the users
+				$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $artf_members_columns, $artf_members_values);
+
+				// Add users to the project.
+				$db->replaceMultipleRow(TABLE_PROJECT_MEMBERS, $pr_members_columns, $pr_members_values);
 				$db->commitTransaction();
 
-				return "People added successfully.";
+				// Add 
+
+				$result->message = "People added successfully.";
+				return $result;
 			}
 		}
 		

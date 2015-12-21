@@ -72,6 +72,9 @@
 			} else {
 				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);
 			}
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "sudeep......");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $dbQuery);				
 			
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
@@ -81,9 +84,8 @@
 			$userid = $interpreter->getUser()->user_id;
 			$limit = $data->limit;
 			
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $userid);
-			
 			$db = Master::getDBConnectionManager();
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Get Artefacts Query......");
 			$querDetails = getQuery('getReviewRequests',array('userid'=>$userid, '@limit' => $limit ));
 			$resultObj = $db->multiObjectQuery($querDetails);
 			return $resultObj;
@@ -472,13 +474,23 @@
 				
 				$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $verColumnNames, $verRowValues);
 				
-				//update the latest art version id
+				// Update the latest art version id
 				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($artVerId), "artefact_id = " . $artId );
 				
-				//now share the artversion to the owner
-				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
-				$shareRowValues = array($artVerId, $artId, $data->userId, 'S', date("Y-m-d H:i:s"), $data->userId);
-				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+				/***** Now share the artversion *****/
+				// Get members of the project.
+				$params = array('project_id' => $data->project_id);
+				$query = getQuery('getProjectMembers', $params);
+				$result = $db->multiObjectQuery($query);
+
+				// Share this artefact to all project members based on their permissions
+				$columnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				$rowValues = array();
+				for($i=0, $iLen=count($result); $i<$iLen; $i++) {
+					$rowValues[] = array($artVerId, $artId, $result[$i]->user_id, $result[$i]->access_type, date("Y-m-d H:i:s"), $data->userId);
+				}
+				$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $columnNames, $rowValues);
+
 				
 				//add the tags to the artefacts
 				$tagsList = json_decode($data->tagsIds);
