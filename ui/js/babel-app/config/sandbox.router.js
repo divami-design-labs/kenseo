@@ -20,6 +20,7 @@ sb.router = {
             $('.header').removeClass('fixed-header');
             $('.hamburger-menu').removeClass('active');
             $('.project-section').hide();
+            $('.projects-page').hide();
             $('.documentView').hide();
             $('.dashboard-section').show();
             sb.refresh.section('header');
@@ -51,7 +52,7 @@ sb.router = {
                     $('.documentView').hide();
                     $('.dashboard-section').hide();
                     $('.project-section').show();
-
+                    $('.projects-page').hide();
                     sb.refresh.section('header');
                     sb.refresh.section('project-page');
                 }
@@ -74,6 +75,7 @@ sb.router = {
         }, function () {
             Kenseo.current.page = "meeting-notes";
             $('.hamburger-menu').removeClass('active');
+            $('.projects-page').hide();
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
                 data: {
@@ -107,6 +109,7 @@ sb.router = {
             $('.hamburger-menu').removeClass('active');
             $('.project-section').hide();
             $('.dashboard-section').hide();
+            $('.projects-page').hide();
             $('.documentView').show();
 
             new Kenseo.views.Header({ 'model': new Kenseo.models.Header() });
@@ -194,5 +197,24 @@ sb.router = {
                 });
             }
         }.bind(maskedId));
+    },
+    projects: function(){
+        sb.loadFiles({
+            'views': ['Header', 'Projects'],
+            'models': ['Header', 'Projects'],
+            'collections': ['Projects']
+        }, function () {
+            Kenseo.current.page = "projects-page";
+            sb.setTitle('All Projects');
+
+            $('.header').removeClass('fixed-header');
+            $('.hamburger-menu').removeClass('active');
+            $('.project-section').hide();
+            $('.documentView').hide();
+            $('.dashboard-section').hide();
+            $('.projects-page').show();
+            sb.refresh.section('header');
+            sb.refresh.section('projects-page');
+        });
     }
 };

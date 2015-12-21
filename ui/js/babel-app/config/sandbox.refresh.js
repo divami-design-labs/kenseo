@@ -93,6 +93,11 @@ sb.refresh = (function(){
 	                }
 	            });
 			}
+		},
+		'projects-page': {
+			'projects-page': function(){
+				return sb.renderTemplate({ collection: new Kenseo.collections.Projects(),data: { includeArchives: true,userProjects: true }, templateName: 'db-projects-section', 'templateHolder': $('.projects-page') });
+			}
 		}
 	}
 
@@ -119,6 +124,7 @@ sb.refresh = (function(){
 		addArtefact: function(){
 			refreshSection('dashboard', 'db-artefacts');
 			refreshSection('dashboard', 'db-notifications');
+			refreshSection('project-page', 'pp-artefacts');
 		}
 	}
 	function refreshSection(sectionName, subSection){

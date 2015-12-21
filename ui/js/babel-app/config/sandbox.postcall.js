@@ -49,21 +49,11 @@ sb.postcall = (function(){
 				}
 
 				// Checking for "data-k-" prefix attributes in k-field element
-				var JSField = $field.get(0);
-				var fieldAttributes = JSField.attributes;
-				for(var j = 0, alen = fieldAttributes.length; j < alen; j++){
-					var fieldAttribute = fieldAttributes[j];
-					var attributeKey = fieldAttribute.name;
-					var attributeValue = fieldAttribute.value;
-					if(attributeKey.indexOf('data-k-') > -1){ // if "data-k-" prefix is present
-						// remove prefix
-						var newKey = attributeKey.substr(7);
-						// Store in the data variable
-						data[newKey] = attributeValue;
-					}
-				}
+				sb.loopAttributes($field.get(0), 'data-k-', function(key, value){
+					// Store in the data variable
+					data[key.substr(7)] = value;
+				});
 			}
-
 
 
 			// return the filled data

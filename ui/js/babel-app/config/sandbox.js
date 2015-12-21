@@ -161,6 +161,18 @@ var sb = (function () {
                 }
             });
         },
+        loopAttributes: function(el, filter, callback){
+            var attributes = el.attributes;
+            if(!filter) filter = "";
+            for(var j = 0, jlen = attributes.length; j < jlen; j++){
+                var attribute = attributes[j];
+                var attributeKey = attribute.name;
+                var attributeValue = attribute.value;
+                if(attributeKey.indexOf(filter) > -1){
+                    callback(attributeKey, attributeValue);
+                }
+            }
+        },
         setDump: function setDump(obj) {
             var key = obj.command.slice(3).toLowerCase(); // removing "get" prefix
             var dump = Kenseo.data[key];
