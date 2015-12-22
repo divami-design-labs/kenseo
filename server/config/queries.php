@@ -66,6 +66,7 @@ $AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINC
 											members.shared_date AS requestTime,
 											versions.state AS status, 
 											artefacts.artefact_id as id,
+											versions.MIME_type,
 											artefacts.linked_id as linkedId, 
 											versions.version_no as version,
 											project.project_name as project_name,

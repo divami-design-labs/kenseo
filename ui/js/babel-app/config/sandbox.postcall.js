@@ -45,13 +45,15 @@ sb.postcall = (function(){
 				var typeKey = $field.attr('data-xtype-key') || type; // Applying provided xtype as key when no key is provided
 				var func = fieldTypes[type];
 				if(func){ // if k-xtype field's functionality is present in fieldTypes variable above
-					data[typeKey] = func($field);
+					// data[typeKey] = func($field);
+					Kenseo.popup.data[typeKey] = func($field); // temporary fix
 				}
 
 				// Checking for "data-k-" prefix attributes in k-field element
 				sb.loopAttributes($field.get(0), 'data-k-', function(key, value){
 					// Store in the data variable
-					data[key.substr(7)] = value;
+					// data[key.substr(7)] = value;
+					Kenseo.popup.data[key.substr(7)] = value; // temporary fix
 				});
 			}
 

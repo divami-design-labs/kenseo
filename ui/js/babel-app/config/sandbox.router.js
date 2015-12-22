@@ -40,7 +40,8 @@ sb.router = {
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
                 data: {
-                    userProjects: true
+                    userProjects: true,
+                    includeArchives: true
                 },
                 success: function success(response) {
                     var currentProjectInfo = Kenseo.data.projects[id];
