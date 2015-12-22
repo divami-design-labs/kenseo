@@ -1,5 +1,6 @@
 <% var dataComparer = -1; %>
-<a href="#documentview/<%= data.maskedId %>" class="review-request-item data-holder" data-pass="<% (function () {
+<% var isSupportedFile = data.MIME_type.indexOf('pdf') > -1 %>
+<a <% if(isSupportedFile){ %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %> class="review-request-item data-holder" data-pass="<% (function () {
             if (dataComparer == data.linkedId) {
                 dataComparer = data.linkedId;
                 return 1;
@@ -13,7 +14,7 @@
 		<img class="rr-owner-image" src="<%= data.requestorImage %>"/>
 	</div>
 	<div class="rr-right">
-		<div class="rr-title ellipsis" title="<%= data.title %>"><%= data['project_name'] %>: <%= data.title %></div>
+		<div class="rr-title ellipsis" title="<%= data.title %><% if(!isSupportedFile){ %> - Unsupported format<% } %>"><%= data['project_name'] %>: <%= data.title %></div>
 		<div class="rr-details ellipsis" title="<%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %>"><%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %></div>
 		<div class="rr-state-details">
 			<div class="rr-state">
