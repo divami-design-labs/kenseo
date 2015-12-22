@@ -44,3 +44,7 @@ body{
 	left: 0 !important;
 	top: 100% !important;
 }
+.projects-page{
+	padding: 0px 40px;
+	@extend .clearFloat;
+}
