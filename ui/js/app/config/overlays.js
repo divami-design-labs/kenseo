@@ -6,7 +6,7 @@
 Kenseo.overlays = (function () {
     var overlays = {
         "summary": [{
-            "page_name": "summary",
+            "page_name": "",
             "callbackfunc": sb.overlay.summaryOverlay,
             "url": "app/packages/summary.json"
         }]

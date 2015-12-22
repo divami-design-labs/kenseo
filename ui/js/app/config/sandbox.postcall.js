@@ -4,17 +4,17 @@
 "use strict";
 
 sb.postcall = (function () {
-	var _accessType = {
+	var accessType = {
 		"00": "R",
-		"01": "E",
-		"10": "S",
+		"01": "S",
+		"10": "E",
 		"11": "X"
 	};
 	var fieldTypes = {
 		'text-with-comma': function textWithComma($el) {
 			return $el.val().split(',');
 		},
-		'access-type': function accessType($el) {
+		'access_type': function access_type($el) {
 			var $checkboxes = $el.find('input[type="checkbox"]');
 			var str = "";
 			for (var i = 0, len = $checkboxes.length; i < len; i++) {
@@ -22,7 +22,10 @@ sb.postcall = (function () {
 				// Converting boolean to 0 and 1
 				str += checkbox.checked * 1;
 			}
-			return _accessType[str];
+			return accessType[str];
+		},
+		'text': function text($el) {
+			return $el.val();
 		}
 	};
 	return {
@@ -49,20 +52,10 @@ sb.postcall = (function () {
 				}
 
 				// Checking for "data-k-" prefix attributes in k-field element
-				var JSField = $field.get(0);
-				var fieldAttributes = JSField.attributes;
-				for (var j = 0, alen = fieldAttributes.length; j < alen; j++) {
-					var fieldAttribute = fieldAttributes[j];
-					var attributeKey = fieldAttribute.name;
-					var attributeValue = fieldAttribute.value;
-					if (attributeKey.indexOf('data-k-') > -1) {
-						// if "data-k-" prefix is present
-						// remove prefix
-						var newKey = attributeKey.substr(7);
-						// Store in the data variable
-						data[newKey] = attributeValue;
-					}
-				}
+				sb.loopAttributes($field.get(0), 'data-k-', function (key, value) {
+					// Store in the data variable
+					data[key.substr(7)] = value;
+				});
 			}
 
 			// return the filled data

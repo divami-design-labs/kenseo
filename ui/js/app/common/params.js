@@ -2,7 +2,7 @@
 
 Kenseo.params = (function () {
 	var params = {
-		'db-projects': { limit: 6, userProjects: true },
+		'db-projects': { /* limit: 6, */userProjects: true },
 		'db-artefacts': { limit: 8, shared: true },
 		'db-notifications': { limit: 12 },
 

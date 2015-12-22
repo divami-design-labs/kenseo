@@ -51,7 +51,7 @@ body{
 	padding: 0px 40px;
 	@extend .clearFloat;
 	text-align: left;
-	display: inline-block;
+	/*display: inline-block;*/
 	& > div{
 		max-width: 25%;
 	}

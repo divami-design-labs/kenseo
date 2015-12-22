@@ -16,7 +16,7 @@ var sb = (function () {
     }
     return {
         log: function log(msg) {
-            console.error(msg);
+            console.log(msg);
         },
         // Function to load files in sequence (useful to consider dependency).
         // TO DO: Sometimes, this function is loading files not in dependency sequence
@@ -142,27 +142,36 @@ var sb = (function () {
                 contentType: contentType,
                 processData: processData,
                 success: function success(response) {
-                    // try {
-                    var response = JSON.parse(response);
-                    if (response.status == 'success') {
-                        if (!payload.excludeDump) {
-                            sb.setDump(response);
+                    try {
+                        var response = JSON.parse(response);
+                        if (response.status == 'success') {
+                            if (!payload.excludeDump) {
+                                sb.setDump(response);
+                            }
+                            payload.success(response);
+                        } else {
+                            window.location.assign(DOMAIN_ROOT_URL);
                         }
-                        payload.success(response);
-                    } else {}
-                    // window.location.assign(DOMAIN_ROOT_URL);
-
-                    // }
-                    // catch(ex){
-                    // Catching the exception
-                    // sb.log("Below error is in ajax response");
-                    // console.error(ex);
-                    // console.log(response);
-                    // Redirecting to the Dashboard
-
-                    // }
+                    } catch (ex) {
+                        // Catching the exception
+                        sb.log("Below error is in ajax request");
+                        console.error(ex);
+                        // Redirecting to the Dashboard
+                    }
                 }
             });
+        },
+        loopAttributes: function loopAttributes(el, filter, callback) {
+            var attributes = el.attributes;
+            if (!filter) filter = "";
+            for (var j = 0, jlen = attributes.length; j < jlen; j++) {
+                var attribute = attributes[j];
+                var attributeKey = attribute.name;
+                var attributeValue = attribute.value;
+                if (attributeKey.indexOf(filter) > -1) {
+                    callback(attributeKey, attributeValue);
+                }
+            }
         },
         setDump: function setDump(obj) {
             var key = obj.command.slice(3).toLowerCase(); // removing "get" prefix
