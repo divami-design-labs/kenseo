@@ -179,6 +179,26 @@ Kenseo.popups = (function(){
 	            
         	}
         ],
+        "unarchive-project": [
+        	{
+        		"page_name": "message",
+        		"title": "Unarchive a Project",
+        		"message": function(){
+        			return 'Do you want to unarchive "' + sb.getPopupData('name') + '" project ?';
+        		},
+	        	"buttons": [{
+	            	"label": "Yes",
+	            	"cls": "main-btn done-btn",
+	            },{
+	            	"label": "No",
+	            	"cls": "main-btn cancel-btn"
+	            }],
+	            // "callbackfunc": function() {
+	            // 	sb.setPopupData('archiveProject', 'actionType');
+	            // }
+	            
+        	}
+        ],
         "replace-artefact": [
         	{
         		"page_name": "artefact-two",

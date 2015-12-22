@@ -44,7 +44,16 @@ body{
 	left: 0 !important;
 	top: 100% !important;
 }
+.projects-page-section{
+	text-align: center;
+}
 .projects-page{
 	padding: 0px 40px;
 	@extend .clearFloat;
+	text-align: left;
+	display: inline-block;
+	& > div{
+		max-width: 25%;
+	}
+
 }

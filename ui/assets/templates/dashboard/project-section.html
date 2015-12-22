@@ -20,10 +20,17 @@
 			<div class="project-action-icon add-user-icon"></div>
 			<div class="project-action-label">Add User</div>
 		</div>
+		<% if(data['is_archive'] == "0"){ %>
 		<div class="project-action popup-click" data-url="archive-project" data-index="0">
 			<div class="project-action-icon archive-icon"></div>
 			<div class="project-action-label">Archive</div>
 		</div>
+		<% } else { %>
+		<div class="project-action popup-click" data-url="unarchive-project" data-index="0">
+			<div class="project-action-icon archive-icon"></div>
+			<div class="project-action-label">Unarchive</div>
+		</div>
+		<% } %>
 	</div>
 	<a href="#projectpage/<%= data.id %>" class="btn-project-open page-click">Open Project</a>
 </div>

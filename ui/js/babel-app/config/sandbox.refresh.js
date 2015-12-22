@@ -125,6 +125,9 @@ sb.refresh = (function(){
 			refreshSection('dashboard', 'db-artefacts');
 			refreshSection('dashboard', 'db-notifications');
 			refreshSection('project-page', 'pp-artefacts');
+		},
+		unarchiveProject: function(){
+			refreshSection('projects-page', 'projects-page');
 		}
 	}
 	function refreshSection(sectionName, subSection){
