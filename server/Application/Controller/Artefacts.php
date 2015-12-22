@@ -71,10 +71,7 @@
 				$dbQuery = getQuery('getProjectArtefactsWithSharePermission',$queryParams);
 			} else {
 				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);
-			}
-
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "sudeep......");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $dbQuery);				
+			}				
 			
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
@@ -85,7 +82,6 @@
 			$limit = $data->limit;
 			
 			$db = Master::getDBConnectionManager();
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Get Artefacts Query......");
 			$querDetails = getQuery('getReviewRequests',array('userid'=>$userid, '@limit' => $limit ));
 			$resultObj = $db->multiObjectQuery($querDetails);
 			return $resultObj;
@@ -526,7 +522,6 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->share);
 				//if it is  share share it with others as well
 				if($data->share == 'true') {
-					Master::getLogManager()->log(DEBUG, MOD_MAIN, "Sharing Artefact.....");
 					//now send the data to be shared for those people
 					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
 				}

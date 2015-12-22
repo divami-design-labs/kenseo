@@ -54,7 +54,7 @@
 
 			$projectId = $data->project_id;
 			$accessType = $data->access_type;
-			$groupType = $data->groupType ? $data->group_type : 'I';
+			$groupType = $data->group_type ? $data->group_type : 'I';
 			
 			$users = $data->users;
 			$count = count($users);
@@ -77,16 +77,15 @@
 				$result->message = "Some of the users are not exists in DB.";
 				return $result;
 			} else {
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Venky.......");
-
 				// Get project artefacts with versions
 				$params = array('projectId' => $projectId);
 				$query = getQuery('getAllArtefactsOfProject', $params);
 				$projectArtefacts = $db->multiObjectQuery($query);
+				$projectArtefactsCount = count($projectArtefacts);
 
 				// Prepare artefact with latest versions
 				$artefactVersions = new stdClass();
-				for($j=0, $jLen=count($projectArtefacts); $j<$jLen; $j++) {
+				for($j=0; $j<$projectArtefactsCount; $j++) {
 					$artf = $projectArtefacts[$j];
 					$artfId = $artf->artefact_id;
 
@@ -105,7 +104,7 @@
 
 				for($i=0; $i<$actualCount; $i++) {
 					// Prepare rows for project_members
-					$pr_members_values[] = array($projectId, $users[$i]->user_id, $accessType, date("Y-m-d H:i:s"));
+					$pr_members_values[] = array($projectId, $users[$i]->user_id, $accessType, $groupType);
 
 					// Prepare rows for artefact shared members
 					foreach($artefactVersions as $key => $value) {
@@ -113,11 +112,10 @@
 					}
 				}
 
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, $pr_members_values);
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, $artf_members_values);
-
 				// Share all artefacts in a project to the users
-				$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $artf_members_columns, $artf_members_values);
+				if($projectArtefactsCount) {
+					$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $artf_members_columns, $artf_members_values);
+				}
 
 				// Add users to the project.
 				$db->replaceMultipleRow(TABLE_PROJECT_MEMBERS, $pr_members_columns, $pr_members_values);

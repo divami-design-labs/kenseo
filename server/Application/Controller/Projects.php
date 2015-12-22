@@ -1,12 +1,13 @@
 <?php 
 	class Projects {
-		public function getProjects($interpreter){
+		public function getProjects($interpreter) {
 			$data = $interpreter->getData()->data;
 
 			if($data->userProjects == "true"){
 				return $this->getMyProjectsList($interpreter);
 			}
 		}
+		
 		public function getMyProjectsList($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userid = $interpreter->getUser()->user_id;
@@ -17,6 +18,7 @@
 			
 			$queryParams = array('userid' => $userid, '@limit'=>$limit);
 			if($includeArchives) {
+				// Get all projects along with archived projects
 				$dbQuery = getQuery('getMyProjectsWithArchive', $queryParams);
 			} else if($limit) {
 				$dbQuery = getQuery('getMyProjectsList', $queryParams);
@@ -44,9 +46,20 @@
 			
 			//Archive project
 			$db = Master::getDBConnectionManager();
-			$db->updateTable(TABLE_PROJECTS,array("state"),array('Z'), "project_id = " . $projectId);
+			$db->updateTable(TABLE_PROJECTS, array("state"), array('Z'), "project_id = " . $projectId);
 			
-			return true;		
+			return true;
+		}
+
+		public function unArchiveProject($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->id;
+			
+			//Un archive project
+			$db = Master::getDBConnectionManager();
+			$db->updateTable(TABLE_PROJECTS, array("state"), array('A'), "project_id = " . $projectId);
+			
+			return true;
 		}
 														
 		public function addProject($interpreter) {
