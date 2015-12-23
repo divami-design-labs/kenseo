@@ -34,4 +34,46 @@ $AppGlobal['sql']['getReviewRequests'] = "SELECT DISTINCT requestor.name AS requ
 										LIMIT @~~limit~~@";
 
 
+$AppGlobal['sql']['getProjectArtefactsWithoutSharePermission'] = "SELECT DISTINCT
+											requestor.name as requestedBy, 
+											versions.artefact_ver_id as versionId,
+											versions.masked_artefact_version_id as masked_artefact_version_id,
+											artefacts.artefact_title as title,
+											artefacts.artefact_title as name, 
+											requestor.profile_pic_url as requestorImage, 
+											artefacts.artefact_type as documentType,
+											requestor.user_id as requestorId,
+											members.shared_date AS requestTime,
+											versions.state AS status, 
+											versions.MIME_type,
+											artefacts.artefact_id as id,
+											artefacts.linked_id as linkedId, 
+											versions.version_no as version,
+											project.project_name as project_name,
+											artefacts.project_id as project_id, 
+											(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
+											WHERE 
+											artefacts.latest_version_id = thread.artefact_ver_id) as commentCount 
+											FROM " . TABLE_ARTEFACTS . " as artefacts
+											JOIN " . TABLE_PROJECTS . " as project on
+											artefacts.project_id = project.project_id
+											JOIN ". TABLE_ARTEFACTS_VERSIONS ." as versions 
+											on 
+											artefacts.latest_version_id = versions.artefact_ver_id 
+											JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." as members on 
+											artefacts.latest_version_id = members.artefact_ver_id
+											JOIN " . TABLE_USERS . " as requestor on 
+											members.shared_by = requestor.user_id or versions.created_by = requestor.user_id
+											WHERE artefacts.project_id = @~~projectid~~@ and
+											artefacts.artefact_id 
+											in 
+											(select versions.artefact_id from ". TABLE_ARTEFACTS_VERSIONS ." as versions 
+											WHERE versions.artefact_ver_id 
+											in 
+											(select versions.artefact_ver_id from ". TABLE_ARTEFACTS_SHARED_MEMBERS ." as members 
+											WHERE members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)) AND
+											artefacts.replace_ref_id is null
+											ORDER BY @~~sortBy~~@";
+
+
 ?>

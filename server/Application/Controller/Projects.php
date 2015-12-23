@@ -78,8 +78,11 @@
 			$org_id = $db->singleObjectQuery($dbQuery)->org_id;
 			
 			// Add project
-			$projId = $db->insertSingleRowAndReturnId (TABLE_PROJECTS, array("project_name","state","org_id","last_updated_date"), array("$projectName", "A", $org_id, "$date"));
-			
+			$projId = $db->insertSingleRowAndReturnId(TABLE_PROJECTS,
+				array("project_name", "state", "org_id", "last_updated_date"), 
+				array("$projectName", "A", $org_id, "$date")
+			);
+
 			// Add user as default project member and give full permissions as 'X'
 			$db->insertSingleRow(TABLE_PROJECT_MEMBERS,array("proj_id","user_id","access_type","group_type"),array($projId,$userId,"X","I"));
 

@@ -50,27 +50,27 @@
 			
 			switch ($sortBy) {
 			    case "name":
-			        $sortBy = "artefacts.artefact_title";
+			        $sortBy = "a.artefact_title";
 			        break;
 			    case "date":
-			        $sortBy = "members.shared_date";
+			        $sortBy = "m.shared_date";
 			        break;
 			    case "owner":
-			        $sortBy = "requestor.name";
+			        $sortBy = "u.name";
 			        break;
 				case "default":
-			        $sortBy = "artefacts.linked_id";
+			        $sortBy = "a.linked_id";
 			        break;
 			    default:
-			        $sortBy = "artefacts.linked_id";
+			        $sortBy = "a.linked_id";
 			}
 			
 			$db = Master::getDBConnectionManager();
 			$queryParams = array('userid' => $userid, 'projectid' => $projectid, '@sortBy' => $sortBy);
 			if($sharePermission == "true") {
-				$dbQuery = getQuery('getProjectArtefactsWithSharePermission',$queryParams);
+				$dbQuery = getQuery('getProjectArtefactsWithSharePermission', $queryParams);
 			} else {
-				$dbQuery = getQuery('getProjectArtefactsWithoutSharePermission',$queryParams);
+				$dbQuery = getQuery('getProjectArtefacts', $queryParams);
 			}				
 			
 			$resultObj = $db->multiObjectQuery($dbQuery);
