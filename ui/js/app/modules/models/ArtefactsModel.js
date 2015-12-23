@@ -9,3 +9,4 @@ Kenseo.models.Artefacts = Backbone.Model.extend({
 		documentType: null
 	}
 });
+//# sourceMappingURL=ArtefactsModel.js.map

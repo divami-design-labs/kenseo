@@ -5,3 +5,4 @@ Kenseo.collections.Tags = Backbone.Collection.extend({
 	// url: 'app/packages/activities.json'
 	url: sb.getRelativePath('getTagsList')
 });
+//# sourceMappingURL=TagsCollection.js.map

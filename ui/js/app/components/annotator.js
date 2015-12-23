@@ -316,3 +316,4 @@ var annotator = (function () {
 		}
 	};
 })();
+//# sourceMappingURL=annotator.js.map

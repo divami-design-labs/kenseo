@@ -42,3 +42,4 @@ var textEditor = function textEditor(textDivSection) {
 
 	doWithButtons("onclick", action);
 };
+//# sourceMappingURL=texteditor.js.map

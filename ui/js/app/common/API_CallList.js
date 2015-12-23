@@ -25,3 +25,4 @@ APIList["addPeople"] = ["addPeople", "POST", 10000];
 APIList["removePeople"] = ["removePeople", "GET", 10000];
 APIList["getArtefactDetails"] = ["getArtefactDetails", "GET", 10000];
 APIList["getVersionDetails"] = ["getVersionDetails", "GET", 10000];
+//# sourceMappingURL=API_CallList.js.map

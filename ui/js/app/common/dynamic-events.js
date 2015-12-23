@@ -240,3 +240,4 @@ var stickToBottom = function stickToBottom(parent) {
 		bar.style.left = el.scrollLeft + "px";
 	});
 };
+//# sourceMappingURL=dynamic-events.js.map

@@ -72,3 +72,4 @@ Kenseo.views.Artefact = Backbone.View.extend({
         }
     }
 });
+//# sourceMappingURL=ArtefactsView.js.map

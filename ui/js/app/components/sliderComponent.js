@@ -95,3 +95,4 @@ var slider = function slider() {
 
 	init();
 };
+//# sourceMappingURL=sliderComponent.js.map

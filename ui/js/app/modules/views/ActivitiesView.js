@@ -19,3 +19,4 @@ Kenseo.views.Activities = Backbone.View.extend({
         return this;
     }
 });
+//# sourceMappingURL=ActivitiesView.js.map

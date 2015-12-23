@@ -36,3 +36,4 @@ Kenseo.views.Person = Backbone.View.extend({
         return this;
     }
 });
+//# sourceMappingURL=PeopleView.js.map
