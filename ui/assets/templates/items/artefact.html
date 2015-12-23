@@ -10,12 +10,12 @@
             }
         })() %>" data-id="<%= data.id %>" data-key="artefacts">
 	<div class="rr-left">
-		<div class="rr-status status-<%= data.status %>"><%= function(){ if(data.documentType == "U"){ return "UID"; }else if(data.documentType === "I"){ return "IXD"; }}() %></div>
-		<img class="rr-owner-image" src="<%= data.requestorImage %>"/>
+		<div class="rr-status status-<%= data.status %>"><%= function(){ if(data['document_type'] == "U"){ return "UID"; }else if(data['document_type'] === "I"){ return "IXD"; }}() %></div>
+		<img class="rr-owner-image" src="<%= data.image %>"/>
 	</div>
 	<div class="rr-right">
 		<div class="rr-title ellipsis" title="<%= data.title %><% if(!isSupportedFile){ %> - Unsupported format<% } %>"><%= data['project_name'] %>: <%= data.title %></div>
-		<div class="rr-details ellipsis" title="<%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %>"><%= sb.timeFormat(data.requestTime) %> by <%= data.requestedBy %></div>
+		<div class="rr-details ellipsis" title="<%= sb.timeFormat(data['artefact_time']) %> by <%= data.requestedBy %>"><%= sb.timeFormat(data['artefact_time']) %> by <%= data['person_name'] %></div>
 		<div class="rr-state-details">
 			<div class="rr-state">
 				<span class="artefact-cur-version">v<%= data.version %></span>

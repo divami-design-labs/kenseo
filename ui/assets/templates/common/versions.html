@@ -1,0 +1,10 @@
+<% for(var i=0; i< data.length, i++{ %>
+	<% if(i === 0 || i%4 === 0){ %>
+	<div>
+	<% } %>
+	<% var v = data[i]; %>
+	<span data-date="<%= v.date %>"><%= v.num %></span>
+	<% if(i === data.length-1 || (i+1)%4 === 0){ %>		
+	</div>
+	<% } %>
+<% } %>

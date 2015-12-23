@@ -17,6 +17,11 @@
 					}
 				})
 			%>
+			<div class="existing-users-section">
+				<% _.each(data.existingUsers, function(u){ %>
+					,&nbsp;<%= u.mailId %>
+				<% }) %>
+			</div>
 			<div class="people-permissions-section">
 				<div class="permissions-header">This Person(s) can</div>
 				<div class="permissions-wrapper k-field" data-xtype="access_type">
