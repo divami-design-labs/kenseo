@@ -20,7 +20,7 @@
 					<div class="activity-icon"></div>
 				</div>
 				<div class="activity-right">
-					<div class="activity-title ellipsis" title="<%= a.activityName %>"><%= Kenseo.page.data.project_name %>: 
+					<div class="activity-title ellipsis" title="<%= a.activityName %>"><%= a.project_name %>: 
 						<% if(a.activityType.toLowerCase() === "removed" && a.activityName.toLowerCase() === "user"){ %>
 							<%= a.activityType %> <%= a.activityName %>	
 						<% } else { %>
