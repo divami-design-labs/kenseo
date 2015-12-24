@@ -446,8 +446,11 @@
 
 				$masked_artefact_version = getRandomString(12) . $artId . $newVersion;
 
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Samba...");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $fileExt);
+
 				// Target path where file is to be stored
-				$targetPath = $path . "/" . $masked_artefact_version .".". $fileExt[1];
+				$targetPath = $path . "/" . $masked_artefact_version .".". $fileExt[count($fileExt)-1];
 				
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "targetPath");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $targetPath);

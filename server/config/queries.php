@@ -140,7 +140,7 @@ $AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_title, artefact
 
 $AppGlobal['sql']['matchProjects'] = "SELECT project_name AS matchedString, project_id AS id FROM " . TABLE_PROJECTS . " WHERE project_name LIKE @~~string~~@";
 
-$AppGlobal['sql']['getTeamMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url as picture
+$AppGlobal['sql']['getTeamMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url as picture, members.access_type
 											FROM " . TABLE_PROJECT_MEMBERS . " AS members 
 											INNER JOIN " . TABLE_USERS . " AS users ON members.user_id = users.user_id  
 											WHERE members.proj_id = @~~projectId~~@";// AND members.user_id != @~~userId~~@";
@@ -322,7 +322,7 @@ $AppGlobal['sql']['getHighestVersionOfArtefact'] = "SELECT count(version_no) as 
 
 $AppGlobal['sql']['getProjectOfArtefact'] = "SELECT project_id FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
 
-$AppGlobal['sql']['getOtherMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url as picture 
+$AppGlobal['sql']['getOtherMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url as picture
 											FROM " . TABLE_USERS . " AS users WHERE users.user_id NOT IN 
 											(SELECT members.user_id
 											FROM " . TABLE_PROJECT_MEMBERS . " AS members   
