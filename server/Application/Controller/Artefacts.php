@@ -82,7 +82,7 @@
 			$limit = $data->limit;
 			
 			$db = Master::getDBConnectionManager();
-			$querDetails = getQuery('getReviewRequests',array('userid'=>$userid, '@limit' => $limit ));
+			$querDetails = getQuery('getSharedArtefacts',array('userid'=>$userid, '@limit' => $limit ));
 			$resultObj = $db->multiObjectQuery($querDetails);
 			return $resultObj;
 		}
@@ -463,8 +463,6 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "mimeType test");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $_FILES["file"]["type"]);
 				
-				
-				//else 
 				$verColumnNames = array("artefact_id", "masked_artefact_version_id", "created_by","document_path","MIME_type", "file_size", "state", "created_date", "version_no");
 				$verRowValues = array($artId, $masked_artefact_version, $data->userId, $targetPath, $_FILES["file"]["type"], $data->size, 'C', date("Y-m-d H:i:s"), $ver_no);
 				
@@ -488,42 +486,40 @@
 				$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $columnNames, $rowValues);
 
 				
-				//add the tags to the artefacts
-				$tagsList = json_decode($data->tagsIds);
+				// Add tags to the artefacts
+				/*$tagsList = json_decode($data->tags);
 				for($i = 0 ; $i<count($tagsList); $i++) {
 					$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
 					$tagRowValues = array($artId, $tagsList[$i], date("Y-m-d H:i:s"), $data->userId );
 					$db->insertSingleRow(TABLE_ARTEFACTS_TAGS, $tagColumnNames, $tagRowValues);
 				}
 				
-				//now add artefact references
-				$refDocs = json_decode($data->referencesIds);
+				// Add references to the artefact
+				$refDocs = json_decode($data->reference_ids);
 				for($i = 0 ; $i< count($refDocs); $i++) {
 					$refColumnNames = array("artefact_ver_id", "artefact_id", "created_date", "created_by");
 					$refRowValues = array($artVerId, $refDocs[$i], date("Y-m-d H:i:s"), $data->userId );
 					$db->insertSingleRow(TABLE_ARTEFACT_REFS, $refColumnNames, $refRowValues);
 				}
 				
-				//now link the artefacts
+				// Add Links to the artefacts
 				if($data->docTypeIds) {
-					$links = $this->linkArts($artId, $data->docTypeIds);
-				}
+					$links = $this->linkArts($artId, $data->linked_artefact_ids);
+				}*/
 				
-				//now add this into project activity
+				// Add this as project activity
 				$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
 				$activityRowValues = array($data->project_id, $data->userId, date("Y-m-d H:i:s"), 'A', 'N',$artId);
 				$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 
-				//now add this notification
+				// Add this as notification
 				$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
 				$notificationRowValues = array($data->userId, $_FILES['file']['name'], $data->project_id, $data->userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
 				$db->insertSingleRow(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
 				
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->share);
-				//if it is  share share it with others as well
-				if($data->share == 'true') {
-					//now send the data to be shared for those people
-					$this->shareForTeam($artId, $artVerId, $data->sharedTo, $data->userId);
+				// Share to members
+				if(count($data->shared_members)) {
+					$this->shareForTeam($artId, $artVerId, $data->shared_members, $data->userId);
 				}
 
 				$db->commitTransaction();
@@ -533,21 +529,21 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $interpreter->getData()->data->type);
 				return false;
 			}
-			
 		}
 		
 		public function shareForTeam($artId, $artVerId, $team, $sharedBy) {
 			$db = Master::getDBConnectionManager();
 			$team = json_decode($team);
-			for($i = 0; $i < count($team); $i++) {
-				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
-				
-				$shareRowValues = array($artVerId, $artId, $team[$i]->userid, $team[$i]->permission , date("Y-m-d H:i:s"), $sharedBy);
-				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+
+			$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+			$shareRowValues = array();
+			for($i=0, $iLen=count($team); $i<$iLen; $i++) {
+				$shareRowValues[] = array($artVerId, $artId, $team[$i]->user_id, $team[$i]->access_type , date("Y-m-d H:i:s"), $sharedBy);
 			}
+
+			$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 			
-			$db->updateTable(TABLE_ARTEFACTS_VERSIONS,array('shared'),array(1), "artefact_ver_id = $artVerId");
-			
+			$db->updateTable(TABLE_ARTEFACTS_VERSIONS, array('shared'), array(1), "artefact_ver_id = $artVerId");
 		}
 		
 		public function shareArtefact($interpreter) {
