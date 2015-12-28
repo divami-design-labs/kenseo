@@ -1,6 +1,9 @@
 <div class="field-section" <% if(data['dataName']) { %>data-name=<%= data.dataName %><% } %> <% if(data['data-array']){ %> data-array="<%= data['data-array'] %>" <% } %>>
 	<label class="<% if(data.toggle){ %>toggle-checkbox<% } else {%>checkbox<% } %> <%= data.class %>">
 		<input type="checkbox" 
+			<% if(data.checked == true){ %>
+				checked
+			<% } %>
 			<%= sb.setTemplate('attributes', {data: data}) %>
 		></input>
 		<span><%= data.text %></span>

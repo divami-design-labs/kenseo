@@ -279,23 +279,30 @@ sb.popup = {
                             multiSelect: true
                         }
                     });
+
+                    var documentType = document.querySelector(".doctype-combobox");
+                    var typeCombobox = new sb.toolbox.applyComboBox({
+                        elem: documentType,
+                        // data: data.data,
+                        data: Kenseo.settings.doctype
+                    });
             //     }
             // });
 
-            sb.ajaxCall({
-                "collection": new Kenseo.collections.Tags(),
-                "data": {},
-                success: function success(data) {
-                    var container = document.querySelector(".tags-combobox");
-                    var combobox = sb.toolbox.applyComboBox({
-                        elem: container,
-                        data: data.data,
-                        settings: {
-                            multiSelect: true
-                        }
-                    });
-                }
-            });
+            // sb.ajaxCall({
+            //     "collection": new Kenseo.collections.Tags(),
+            //     "data": {},
+            //     success: function success(data) {
+            //         var container = document.querySelector(".tags-combobox");
+            //         var combobox = sb.toolbox.applyComboBox({
+            //             elem: container,
+            //             data: data.data,
+            //             settings: {
+            //                 multiSelect: true
+            //             }
+            //         });
+            //     }
+            // });
         });
     },
     shareWithPeoplePopup: function shareWithPeoplePopup() {

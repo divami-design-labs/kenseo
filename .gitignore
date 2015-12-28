@@ -6,3 +6,5 @@ References/
 /ui/node_modules/
 /ui/assets/styles/.sass-cache/
 /ui/local/builds/
+/ui/js/app/config/domain_urls.js
+/ui/js/babel-app/config/domain_urls.js

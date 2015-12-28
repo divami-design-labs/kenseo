@@ -13,6 +13,7 @@ var Kenseo = {
         page: "",
         popup: ""
     },
+    settings: {},
     document: {},
     cookie: {
         sessionid: function sessionid() {
@@ -20,9 +21,16 @@ var Kenseo = {
         }
     },
     init: function init() {
-        sb.viewPortSwitch(function () {
-            var router = new Router();
-        });
+        sb.ajaxCall({
+            'url': 'settings.json',
+            excludeDump: true,
+            'success': function(response){
+                Kenseo.settings = response.settings;
+                sb.viewPortSwitch(function () {
+                    var router = new Router();
+                });                
+            }
+        })
     }
 };
 

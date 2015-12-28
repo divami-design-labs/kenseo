@@ -22,17 +22,23 @@
 						"dataName": "references",
 						"placeholder": "References"
 					}),
-					comboBoxTwo: sb.toolbox.comboBox({
+					textBoxTwo: sb.toolbox.textBox({
 						"label": "Tags",
-						"class": "xm tags-combobox",
+						"inputClass": "tags-input-txt",
 						"dataName": "tags",
 						"placeholder": "Tags"
 					}),
 					comboBoxThree: sb.toolbox.comboBox({
 						"label": "Links",
 						"class": "xm links-combobox",
-						"dataName": "docType",
+						"dataName": "links",
 						"placeholder": "Links"
+					}),
+					comboBoxFour: sb.toolbox.comboBox({
+						"label": "Document Type",
+						"class": "xm doctype-combobox",
+						"dataName": "doctype",
+						"placeholder": "Document Type"
 					})
 				}
 
@@ -41,8 +47,9 @@
 				
 
 				<%= fields.comboBoxOne %>
-				<%= fields.comboBoxTwo %>
+				<%= fields.textBoxTwo %>
 				<%= fields.comboBoxThree %>
+				<%= fields.comboBoxFour %>
 				
 				
 				

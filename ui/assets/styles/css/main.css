@@ -2745,6 +2745,10 @@
   transition: 0.2s all ease-in-out;
 }
 
+.tags-input-txt {
+  width: 300px;
+}
+
 .input-meeting-text {
   width: 366px;
   height: 18px;
@@ -6283,5 +6287,3 @@ body {
 .projects-page > div {
   max-width: 25%;
 }
-
-/*# sourceMappingURL=maps/main.css.map */

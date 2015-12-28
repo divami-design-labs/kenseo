@@ -1,24 +1,9 @@
 <%
-	var severities = {
-		"R": "High",
-		"B": "Medium",
-		"G": "Low"
-	};
+	var severities = Kenseo.settings.severities;
 
-	var categories = {
-		"I": "IxD",
-		"T": "Typo",
-		"U": "UID",
-		"P": "Persona"
-	};
+	var categories = Kenseo.settings.categories;
 
-	var states = {
-		"O": "Open",
-		"C": "Close",
-		"R": "Resolved",
-		"X": "Reopen",
-		"D": "Deferred"
-	};
+	var states = Kenseo.settings.states;
 %>
 <div class="shape" data-type="severity" data-k-severity='<%= data.severity || "R" %>'>
 </div>

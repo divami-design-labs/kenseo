@@ -380,30 +380,47 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		}
 		if (newList) {
 			var ul = document.createElement("ul");
+			if(Array.isArray(newList)){
+				for (var i = 0; i < newList.length; i++) {
+					var project = newList[i];
+					if (!project.excludeParent) {
+						var projectHeadingWrapper = document.createElement("div");
 
-			for (var i = 0; i < newList.length; i++) {
-				var project = newList[i];
-				if (!project.excludeParent) {
+						projectHeadingWrapper.className = values.listClass;
+						projectHeadingWrapper.onmouseover = makeActive;
+
+						projectHeadingWrapper.innerHTML = project.name;
+
+						for (var key in project) {
+							if (key !== "name") {
+								if (key === "date") {
+									project[key] = sb.timeFormat(project[key]);
+								}
+								projectHeadingWrapper.setAttribute("data-" + key, project[key]);
+							}
+						}
+						// projectHeadingWrapper.setAttribute('data-id', project.id);
+
+						projectHeadingWrapper.onclick = insertData;
+						projectHeadingWrapper.name = project.id;
+
+						var li = document.createElement("li");
+						li.appendChild(projectHeadingWrapper);
+
+						ul.appendChild(li);
+					}
+				}
+			}
+			else if(typeof newList == "object"){
+				for(var key in newList){
 					var projectHeadingWrapper = document.createElement("div");
 
 					projectHeadingWrapper.className = values.listClass;
 					projectHeadingWrapper.onmouseover = makeActive;
 
-					projectHeadingWrapper.innerHTML = project.name;
-
-					for (var key in project) {
-						if (key !== "name") {
-							if (key === "date") {
-								project[key] = sb.timeFormat(project[key]);
-							}
-							projectHeadingWrapper.setAttribute("data-" + key, project[key]);
-						}
-					}
-					// projectHeadingWrapper.setAttribute('data-id', project.id);
-
+					projectHeadingWrapper.innerHTML = newList[key];
 					projectHeadingWrapper.onclick = insertData;
-					projectHeadingWrapper.name = project.id;
-
+					projectHeadingWrapper.name = key;
 					var li = document.createElement("li");
 					li.appendChild(projectHeadingWrapper);
 
@@ -454,7 +471,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 				$elem.find(dot + values.suggestionsContainer).get(0).appendChild(ul);
 			}
 			// textBox.value = txtValue;
-			if (!newList.length) {
+			if (!Array.isArray(newList) && typeof newList !== "object") {
 				textBox.placeholder = values.noplaceholder || "No items to choose";
 			} else {
 				textBox.placeholder = textBox.placeholder || values.placeholder;
