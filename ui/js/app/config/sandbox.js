@@ -87,7 +87,9 @@ var sb = (function () {
             else {
                     // Desktop CSS and JavaScript files to load
                     filesToLoad = {
-                        'js': []
+                        'js': {
+                            'files': ['js/app/config/sandbox.postcall.js']
+                        }
                     };
                 }
             sb.loadFiles(filesToLoad.js, callBackFunc);
@@ -469,6 +471,15 @@ var sb = (function () {
                 Kenseo.data.ma = {};
             }
             Kenseo.data.ma[maskedId] = versionId;
+        },
+        getAccessType: function getAccessType(value) {
+            var accessType = Kenseo.settings.accesstype;
+            for (var key in accessType) {
+                if (accessType[key] == value) {
+                    return key;
+                }
+            }
+            return false;
         },
         insertPopupData: function insertPopupData($elem) {
             var key = $elem.data('key');

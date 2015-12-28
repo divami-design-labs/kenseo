@@ -62,6 +62,30 @@
 				}
 			}
 
+			// Update state of an artefact_version_id based on type of comments in that artefact.
+			// If atleast 1 RED comment is there, then state will be 'C' (Critical)
+			// If no RED, and atleast 1 BLUE comment is there, then state will be 'N' (Normal)
+			// If no RED and BLUE comments, then state will be 'A' (Approved)
+			$params = array('artefact_ver_id'=>$data->artefact_ver_id);
+			$query = getQuery('getArtefactCommentSeverities', $params);
+			$rows = $db->multiObjectQuery($query);
+
+			$attValues = Comments::getSpecificAttrValues($rows, "artefact_ver_id", $data->artefact_ver_id, "severity");
+			if(in_array("R", $attValues)) {
+				$artefact_ver_state = 'C';
+			} else if(in_array("B", $attValues)) {
+				$artefact_ver_state = 'N';
+			} else {
+				$artefact_ver_state = 'A';
+			}
+
+			// Update state in artefact versions table
+			$db->updateTable(TABLE_ARTEFACTS_VERSIONS,
+					array('state'), 
+					array($artefact_ver_state),
+					"artefact_ver_id = " . $data->artefact_ver_id);
+
+
 			$db->commitTransaction();
 
 			$queryParams = array('commentThreadId' => $comment_thread_id);
@@ -69,6 +93,59 @@
 			$commentThreads = $db->multiObjectQuery($query);
 
 			return $this->getThreadComments($db, null, $commentThreads);
+		}
+
+
+		/**
+		 * @TODO: Move this generic function to utilities. This is not using as of now.
+		 * Get column values as ARRAY based on selector value
+		 * @param {Array} $arr
+		 * @param {String} $attr_name		// Attribute name to search
+		 * @param {String} $attr_val		// Attribute value to match
+		 * @param {String} $final_attr		// This attributes will include in result array
+		 * @return Array
+		 */
+		public function getSpecificAttrValues($arr, $attr_name, $attr_val, $final_attr) {
+			$result = array();
+
+			for($j=0, $jLen=count($arr); $j<$jLen; $j++) {
+				$row = $arr[$j];
+				if($row->$attr_name == $attr_val) {
+					$result[] = $row->$final_attr;
+				}
+			}
+
+			return $result;
+		}
+
+
+		/**
+		 * Get Artefact comments severity. This severity is the highest severity irrespective of count.
+		 * @param {Array} $artefacts
+		 * @param {Number} $project_id
+		 * @param {Number} $user_id
+		 * @return Updated $artefacts
+		 */
+		public static function getArtefactCommentSeverity($artefacts, $project_id, $user_id) {
+			$db = Master::getDBConnectionManager();
+
+			$params = array('project_id' => $project_id, 'user_id'=>$user_id);
+			$query = getQuery('getArtefactCommentSeverity', $params);
+			$rows = $db->multiObjectQuery($query);
+
+			for($i=0, $iLen=count($artefacts); $i<$iLen; $i++) {
+				$attValues = Comments::getSpecificAttrValues($rows, "artefact_ver_id", $artefacts[$i]->artefact_ver_id, "severity");
+
+				if(in_array("R", $attValues)) {
+					$artefacts[$i]->doc_color = 'R';
+				} else if(in_array("B", $attValues)) {
+					$artefacts[$i]->doc_color = 'B';
+				} else {
+					$artefacts[$i]->doc_color = 'G';
+				}
+			}
+
+			return $artefacts;
 		}
 
 		public static function getThreadComments($db, $artefactVerId, $commentThreads) {

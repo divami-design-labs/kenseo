@@ -190,7 +190,7 @@ sb.router = {
                         var threads = data.threads;
                         // flag
                         threads.noChangesDetected = true;
-                        sb.setCurrentDocumentData(data.artefactId, threads);
+                        sb.setCurrentDocumentData(data.versionId, threads);
                         annotator.init();
                     }).bind(this)
                 });

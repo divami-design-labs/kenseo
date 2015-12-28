@@ -66,15 +66,16 @@
 			}
 			
 			$db = Master::getDBConnectionManager();
+
 			$queryParams = array('userid' => $userid, 'projectid' => $projectid, '@sortBy' => $sortBy);
 			if($sharePermission == "true") {
 				$dbQuery = getQuery('getProjectArtefactsWithSharePermission', $queryParams);
 			} else {
 				$dbQuery = getQuery('getProjectArtefacts', $queryParams);
-			}				
+			}
 			
 			$resultObj = $db->multiObjectQuery($dbQuery);
-			return $resultObj;
+			return Comments::getArtefactCommentSeverity($resultObj, $projectid, $userid);
 		}
 		function getSharedArtefacts($interpreter) {
 			$data = $interpreter->getData()->data;
@@ -120,7 +121,7 @@
 				$data = $data->data;
 			}
 			
-			$userId = $interpreter->getUser()->user_id;;
+			$userId = $interpreter->getUser()->user_id;
 			$previousArtefactid = $data->id;
 			$latestArtefactid = $data -> artefact_id;
 			$projectId = $data -> project_id;
@@ -422,8 +423,9 @@
 					$ver_no = $db->singleObjectQuery($dbQuery)->vers;
 				} else {
 					// If it is a new artefact
-					$columnnames = array('project_id','artefact_title', 'description', 'artefact_type', );
-					$rowvals = array($data->project_id, $_FILES['file']['name'], $data->description, $data->type);
+					$docType = $data->doctype[0]->value ? $data->doctype[0]->value : 'I';
+					$columnnames = array('project_id','artefact_title', 'description', 'artefact_type');
+					$rowvals = array($data->project_id, $_FILES['file']['name'], $data->description, $docType);
 					$artId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS, $columnnames, $rowvals);
 					
 					$ver_no = 0;
@@ -495,7 +497,7 @@
 				}
 				
 				// Add references to the artefact
-				$refDocs = json_decode($data->reference_ids);
+				$refDocs = json_decode($data->referencesIds);
 				for($i = 0 ; $i< count($refDocs); $i++) {
 					$refColumnNames = array("artefact_ver_id", "artefact_id", "created_date", "created_by");
 					$refRowValues = array($artVerId, $refDocs[$i], date("Y-m-d H:i:s"), $data->userId );
@@ -503,13 +505,13 @@
 				}
 				
 				// Add Links to the artefacts
-				if($data->docTypeIds) {
-					$links = $this->linkArts($artId, $data->linked_artefact_ids);
+				if($data->linksIds) {
+					$links = $this->linkArts($artId, $data->linksIds);
 				}*/
 				
 				// Add this as project activity
 				$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
-				$activityRowValues = array($data->project_id, $data->userId, date("Y-m-d H:i:s"), 'A', 'N',$artId);
+				$activityRowValues = array($data->project_id, $data->userId, date("Y-m-d H:i:s"), 'A', 'N', $artId);
 				$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 
 				// Add this as notification

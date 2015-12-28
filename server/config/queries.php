@@ -61,7 +61,7 @@ $AppGlobal['sql']['getProjectArtefacts'] = "SELECT a.artefact_id as id, v.artefa
 											u.name as person_name, u.profile_pic_url as image, u.user_id as owner_id, 
 											(select count(t.comment_thread_id) from ". TABLE_COMMENT_THREADS ." as 
 												t WHERE a.latest_version_id = t.artefact_ver_id
-											) as commentCount 
+											) as comment_count 
 											from artefacts a 
 											inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.latest_version_id = v.artefact_ver_id
 											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
@@ -264,7 +264,7 @@ $AppGlobal['sql']['getMeetingParticipants'] = "SELECT user.user_id as id, user.n
 $AppGlobal['sql']['getDocumentDetails'] = "SELECT arts.artefact_id as artefactId,
 											arts.artefact_title as title,
 											(SELECT COUNT(artefact_ver_id) FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@) as version,
-											(SELECT COUNT(comment_thread_id) FROM " . TABLE_COMMENT_THREADS . " as thread WHERE arts.latest_version_id = thread.artefact_ver_id) as commentCount,
+											(SELECT COUNT(comment_thread_id) FROM " . TABLE_COMMENT_THREADS . " as thread WHERE arts.latest_version_id = thread.artefact_ver_id) as comment_count,
 											vers.state as status,
 											user.name as createdBy,
 											user.user_id as creatorId,
@@ -296,7 +296,7 @@ $AppGlobal['sql']['getDocumentSharedDetails'] = "SELECT user.user_id as id,
 												user.profile_pic_url as profilePic,
 												members.access_type as permission,
 												(SELECT COUNT(comment_thread_id) from " . TABLE_COMMENT_THREADS . " as thread WHERE 
-												arts.latest_version_id = thread.artefact_ver_id and thread.comment_thread_by = user.user_id) as commentcount
+												arts.latest_version_id = thread.artefact_ver_id and thread.comment_thread_by = user.user_id) as comment_count
 												FROM " . TABLE_ARTEFACTS . " as arts
 												JOIN " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as members on
 												members.artefact_ver_id = arts.latest_version_id
@@ -339,7 +339,7 @@ $AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName,
 $AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as versionId, vers.masked_artefact_version_id, vers.version_no as versionNo, vers.document_path as documentPath, vers.MIME_type as type,
 												 vers.version_label as label, vers.created_by as authorId, user.name as authorName, shared,
 												(SELECT COUNT(comment_thread_id) FROM " . TABLE_COMMENT_THREADS . " as thread where 
-												vers.artefact_ver_id = thread.artefact_ver_id) as commentCount 
+												vers.artefact_ver_id = thread.artefact_ver_id) as comment_count 
 												FROM " . TABLE_ARTEFACTS_VERSIONS . " AS vers 
 												JOIN " . TABLE_USERS . " AS user on
 												user.user_id = vers.created_by
@@ -378,7 +378,7 @@ $AppGlobal['sql']['getArtefactVersionsList'] = "SELECT DISTINCT * from " . TABLE
 $AppGlobal['sql']['getArtefactSharedMemebersList'] = "SELECT DISTINCT user.user_id as userId, user.name as name, user.email as email, user.profile_pic_url as userImage,
 													(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
 													WHERE 
-													thread.artefact_ver_id = @~~versionId~~@ and thread.comment_thread_by = user.user_id) as commentCount
+													thread.artefact_ver_id = @~~versionId~~@ and thread.comment_thread_by = user.user_id) as comment_count
 													from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as membs
 													JOIN " . TABLE_USERS . " as user on
 													membs.user_id = user.user_id
@@ -388,7 +388,7 @@ $AppGlobal['sql']['getArtefactSharedMemebersList'] = "SELECT DISTINCT user.user_
 $AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title, vers.version_no as versionNo, user.name as authorName, user.profile_pic_url as authorImage, 
 											(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
 											WHERE 
-											thread.artefact_ver_id = @~~versionId~~@) as commentCount, arts.state as status
+											thread.artefact_ver_id = @~~versionId~~@) as comment_count, arts.state as status
 											FROM " . TABLE_ARTEFACTS . " as arts 
 											JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers on
 											vers.artefact_ver_id = @~~versionId~~@
@@ -447,5 +447,19 @@ $AppGlobal['sql']['getProjectMembers'] = "SELECT * FROM " . TABLE_PROJECT_MEMBER
 // Get artefacts & versions of a project
 $AppGlobal['sql']['getAllArtefactsOfProject'] = "SELECT a.artefact_id, v.artefact_ver_id FROM " . TABLE_ARTEFACTS . " a JOIN " . 
 											TABLE_ARTEFACTS_VERSIONS . " v ON a.artefact_id = v.artefact_id WHERE a.project_id = @~~projectId~~@";
+
+// Get comments severities in an artefact version Id
+$AppGlobal['sql']['getArtefactCommentSeverities'] = "SELECT t.severity, COUNT(severity) count FROM " . TABLE_COMMENT_THREADS ." t WHERE 
+														artefact_ver_id = @~~artefact_ver_id~~@ group by t.severity";
+
+// Get comments severities in an artefact
+$AppGlobal['sql']['getArtefactCommentSeverity'] = "SELECT v.artefact_ver_id, t.severity, COUNT(severity) count FROM " . TABLE_COMMENT_THREADS ." t 
+													JOIN " . TABLE_ARTEFACTS_VERSIONS . " v on v.artefact_ver_id = t.artefact_ver_id
+													JOIN " . TABLE_ARTEFACTS . " a on a.artefact_id = v.artefact_id
+													JOIN " . TABLE_PROJECTS . " p on p.project_id = a.project_id 
+													JOIN " . TABLE_PROJECT_MEMBERS . " m on m.proj_id = p.project_id
+													where p.project_id = @~~project_id~~@ and m.user_id = @~~user_id~~@
+													GROUP BY t.artefact_ver_id,t.severity ORDER BY count DESC";
+
 
 ?>

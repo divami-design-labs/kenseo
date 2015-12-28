@@ -1,6 +1,6 @@
 {
 	"settings": {
-		"severities" : {
+		"severities": {
 			"R": "High",
 			"B": "Medium",
 			"G": "Low"
@@ -23,7 +23,7 @@
 			"U": "UID",
 			"P": "Persona",
 			"IA": "Information Architecture",
-			"US": "User stories" 
+			"US": "User stories"
 		},
 		"accesstype": {
 			"00": "R",

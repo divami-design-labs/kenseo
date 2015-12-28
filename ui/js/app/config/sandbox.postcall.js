@@ -1,15 +1,10 @@
 /*
  * Main aim of this library is to send all the necessary data to server
  */
-"use strict";
+'use strict';
 
 sb.postcall = (function () {
-	var accessType = {
-		"00": "R",
-		"01": "S",
-		"10": "E",
-		"11": "X"
-	};
+	var accessType = Kenseo.settings.accessType;
 	var fieldTypes = {
 		'text-with-comma': function textWithComma($el) {
 			return $el.val().split(',');
