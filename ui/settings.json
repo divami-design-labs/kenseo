@@ -1,0 +1,36 @@
+{
+	"settings": {
+		"severities" : {
+			"R": "High",
+			"B": "Medium",
+			"G": "Low"
+		},
+		"categories": {
+			"I": "IxD",
+			"T": "Typo",
+			"U": "UID",
+			"P": "Persona"
+		},
+		"states": {
+			"O": "Open",
+			"C": "Close",
+			"R": "Resolved",
+			"X": "Reopen",
+			"D": "Deferred"
+		},
+		"doctype": {
+			"I": "IXD",
+			"U": "UID",
+			"P": "Persona",
+			"IA": "Information Architecture",
+			"US": "User stories" 
+		},
+		"accesstype": {
+			"00": "R",
+			"01": "S",
+			"10": "E",
+			"11": "X"
+		}
+	},
+	"status": "success"
+}
