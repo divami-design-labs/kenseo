@@ -6,7 +6,7 @@ $AppGlobal['log'] = array();
 $AppGlobal['log']['path'] = "/var/tmp/kenseo.log" ;
 $AppGlobal['log']['mode'] = "ON" ;
 $AppGlobal['log']['modules'] = "ALL" ;
-$AppGlobal['global']['domain'] = "http://kenseo.divami.com/";
+$AppGlobal['global']['domain'] = "https://kenseo.divami.com/";
 
 $AppGlobal['gloabl']['storeLocation'] = "media/";
 
