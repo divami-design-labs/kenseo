@@ -420,7 +420,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 					projectHeadingWrapper.innerHTML = newList[key];
 					projectHeadingWrapper.onclick = insertData;
-					projectHeadingWrapper.name = key;
+					projectHeadingWrapper.setAttribute('data-name', key);
 					var li = document.createElement("li");
 					li.appendChild(projectHeadingWrapper);
 

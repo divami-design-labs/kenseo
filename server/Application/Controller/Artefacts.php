@@ -75,7 +75,7 @@
 			}
 			
 			$resultObj = $db->multiObjectQuery($dbQuery);
-			return Comments::getArtefactCommentSeverity($resultObj, $projectid, $userid);
+			return $resultObj;
 		}
 		function getSharedArtefacts($interpreter) {
 			$data = $interpreter->getData()->data;

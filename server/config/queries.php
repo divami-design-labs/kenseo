@@ -449,17 +449,8 @@ $AppGlobal['sql']['getAllArtefactsOfProject'] = "SELECT a.artefact_id, v.artefac
 											TABLE_ARTEFACTS_VERSIONS . " v ON a.artefact_id = v.artefact_id WHERE a.project_id = @~~projectId~~@";
 
 // Get comments severities in an artefact version Id
-$AppGlobal['sql']['getArtefactCommentSeverities'] = "SELECT t.severity, COUNT(severity) count FROM " . TABLE_COMMENT_THREADS ." t WHERE 
+$AppGlobal['sql']['getArtefactCommentSeverities'] = "SELECT t.artefact_ver_id, t.severity FROM " . TABLE_COMMENT_THREADS ." t WHERE 
 														artefact_ver_id = @~~artefact_ver_id~~@ group by t.severity";
-
-// Get comments severities in an artefact
-$AppGlobal['sql']['getArtefactCommentSeverity'] = "SELECT v.artefact_ver_id, t.severity, COUNT(severity) count FROM " . TABLE_COMMENT_THREADS ." t 
-													JOIN " . TABLE_ARTEFACTS_VERSIONS . " v on v.artefact_ver_id = t.artefact_ver_id
-													JOIN " . TABLE_ARTEFACTS . " a on a.artefact_id = v.artefact_id
-													JOIN " . TABLE_PROJECTS . " p on p.project_id = a.project_id 
-													JOIN " . TABLE_PROJECT_MEMBERS . " m on m.proj_id = p.project_id
-													where p.project_id = @~~project_id~~@ and m.user_id = @~~user_id~~@
-													GROUP BY t.artefact_ver_id,t.severity ORDER BY count DESC";
 
 
 ?>

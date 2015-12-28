@@ -118,36 +118,6 @@
 			return $result;
 		}
 
-
-		/**
-		 * Get Artefact comments severity. This severity is the highest severity irrespective of count.
-		 * @param {Array} $artefacts
-		 * @param {Number} $project_id
-		 * @param {Number} $user_id
-		 * @return Updated $artefacts
-		 */
-		public static function getArtefactCommentSeverity($artefacts, $project_id, $user_id) {
-			$db = Master::getDBConnectionManager();
-
-			$params = array('project_id' => $project_id, 'user_id'=>$user_id);
-			$query = getQuery('getArtefactCommentSeverity', $params);
-			$rows = $db->multiObjectQuery($query);
-
-			for($i=0, $iLen=count($artefacts); $i<$iLen; $i++) {
-				$attValues = Comments::getSpecificAttrValues($rows, "artefact_ver_id", $artefacts[$i]->artefact_ver_id, "severity");
-
-				if(in_array("R", $attValues)) {
-					$artefacts[$i]->doc_color = 'R';
-				} else if(in_array("B", $attValues)) {
-					$artefacts[$i]->doc_color = 'B';
-				} else {
-					$artefacts[$i]->doc_color = 'G';
-				}
-			}
-
-			return $artefacts;
-		}
-
 		public static function getThreadComments($db, $artefactVerId, $commentThreads) {
 			// Create threads object
 			$commentThreadsData = new stdClass();
@@ -157,7 +127,6 @@
 
 				// Get all comment threads of artefact version id
 				$commentThreadQuery = getQuery('getArtefactCommentThreads', $queryParams);
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, $commentThreadQuery);
 				$commentThreads = $db->multiObjectQuery($commentThreadQuery);
 			}
 
