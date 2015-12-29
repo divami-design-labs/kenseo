@@ -79,8 +79,8 @@
 			
 			// Add project
 			$projId = $db->insertSingleRowAndReturnId(TABLE_PROJECTS,
-				array("project_name", "state", "org_id", "last_updated_date"), 
-				array("$projectName", "A", $org_id, "$date")
+				array("project_name", "state", "org_id", "created_by", "last_updated_date"), 
+				array("$projectName", "A", $org_id, $userId, "$date")	
 			);
 
 			// Add user as default project member and give full permissions as 'X'

@@ -20,21 +20,21 @@ $AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, desig
 
 // Get Projects
 $AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url, 
-											IF(created_by=1, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
+											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
 											WHERE user_id = @~~userid~~@) AND state = 'A' LIMIT @~~limit~~@";	
 
 $AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url,
-											IF(created_by=1, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
+											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
 											WHERE user_id = @~~userid~~@) AND state = 'A'";
 
 $AppGlobal['sql']['getMyProjectsWithArchive'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url,
-											IF(created_by=1, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
+											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . " 
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . " 
@@ -140,10 +140,13 @@ $AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_title, artefact
 
 $AppGlobal['sql']['matchProjects'] = "SELECT project_name AS matchedString, project_id AS id FROM " . TABLE_PROJECTS . " WHERE project_name LIKE @~~string~~@";
 
-$AppGlobal['sql']['getTeamMembersList'] = "SELECT users.user_id, users.name, users.email, users.profile_pic_url as picture, members.access_type
-											FROM " . TABLE_PROJECT_MEMBERS . " AS members 
-											INNER JOIN " . TABLE_USERS . " AS users ON members.user_id = users.user_id  
-											WHERE members.proj_id = @~~projectId~~@";// AND members.user_id != @~~userId~~@";
+
+$AppGlobal['sql']['getTeamMembersList'] = "SELECT u.user_id, u.name, u.email, u.profile_pic_url as picture, m.access_type, 
+											IF(p.created_by=u.user_id, 1, 0) as is_owner FROM " . TABLE_PROJECT_MEMBERS . " m
+											INNER JOIN " . TABLE_USERS . " u ON m.user_id = u.user_id 
+											INNER JOIN " . TABLE_PROJECTS . " p ON p.project_id = m.proj_id
+											WHERE m.proj_id = @~~projectId~~@";
+
 
 $AppGlobal['sql']['getTagsList'] = "SELECT tags.tag_id as id, tags.tag_name as name from " . TABLE_USERS . " AS users
 											INNER JOIN " . TABLE_ORGANIZATIONS . " AS organizations ON
