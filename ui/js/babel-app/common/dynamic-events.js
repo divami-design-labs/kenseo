@@ -165,10 +165,10 @@ $(function () {
 		} else {
 			data = sb.getPopupData();
 			// data = _.extend(sb.getPopupData(), sb.postcall.getPostObj($self));
-			sb.postcall.getPostObj($self); // temporary fix
 			url = sb.getRelativePath(actionType);
 			type = 'GET';
 		}
+		sb.postcall.getPostObj($self); // temporary fix
 
 		sb.ajaxCall({
 			url: url,

@@ -2,7 +2,7 @@
  * Main aim of this library is to send all the necessary data to server
  */
 sb.postcall = (function(){
-	var accessType = Kenseo.settings.accessType;
+	var accessType = Kenseo.settings.accesstype;
 	var fieldTypes = {
 		'text-with-comma': function($el){
 			return $el.val().split(',');
@@ -19,6 +19,24 @@ sb.postcall = (function(){
 		},
 		'text': function($el){
 			return $el.val();
+		},
+		'share-permissions': function($el){
+			var $items = $el.find('.share-artefact-people-item');
+			var obj = {}; // taking an empty object
+			for(var i = 0, len = $items.length; i < len; i++){
+				var $item = $($items.get(i));
+				var $commentChk = $item.find('.add-comments-chk input');
+				var $shareChk = $item.find('.others-chk input');
+				if($commentChk.length && $shareChk.length){
+					var str = $commentChk.get(0).checked * 1 + "" + $shareChk.get(0).checked * 1;
+					console.log(str);
+				}
+				else{
+					var str = $item.attr('data-access_type');
+				}
+				obj[$item.attr('data-k-user_id')] =  accessType[str];
+			}
+			return obj;
 		}
 	}
 	return {

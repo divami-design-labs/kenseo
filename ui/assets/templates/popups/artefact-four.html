@@ -1,5 +1,5 @@
 <% var dump = sb.getPopupData() %>
-<div class="popup popup-large">
+<div class="popup popup-large k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-left-section">
 		<div class="meta-item">
@@ -47,11 +47,6 @@
 			<div class="your-team-section">
 				<div class="your-team-heading">Your Team</div>
 				<form class="your-team-body">
-					<%= 
-						sb.toolbox.checkbox({
-							text: "Temporarily hide file from this group"
-						}) 
-					%>
 					<div class="field-section your-team-field" data-name="new-people">
 						<form>
 							<%
@@ -68,7 +63,7 @@
 						</form>
 					</div>
 					<div class="share-artefact-people">
-						<div class="share-artefact-people-wrapper">
+						<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="users">
 							
 						</div>
 					</div>
