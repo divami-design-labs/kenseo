@@ -30,11 +30,12 @@ sb.postcall = (function(){
 				if($commentChk.length && $shareChk.length){
 					var str = $commentChk.get(0).checked * 1 + "" + $shareChk.get(0).checked * 1;
 					console.log(str);
+					obj[$item.attr('data-k-user_id')] =  accessType[str];
 				}
 				else{
 					var str = $item.attr('data-access_type');
+					obj[$item.attr('data-k-user_id')] =  str;
 				}
-				obj[$item.attr('data-k-user_id')] =  accessType[str];
 			}
 			return obj;
 		}

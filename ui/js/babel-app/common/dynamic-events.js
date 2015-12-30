@@ -143,6 +143,7 @@ $(function () {
 	    	// stop further processing
 	    	return false;
 	    }
+		sb.postcall.getPostObj($self); // temporary fix
 	    // Submit the information
 		if (file) {
 			var data = new FormData();
@@ -168,7 +169,6 @@ $(function () {
 			url = sb.getRelativePath(actionType);
 			type = 'GET';
 		}
-		sb.postcall.getPostObj($self); // temporary fix
 
 		sb.ajaxCall({
 			url: url,
