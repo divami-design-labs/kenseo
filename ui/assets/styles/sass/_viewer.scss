@@ -379,6 +379,7 @@
 #toolbarContainer, .findbar, .secondaryToolbar {
   position: relative;
   background-color: #637097;
+  z-index: 1;
 }
 
 #toolbarViewer {

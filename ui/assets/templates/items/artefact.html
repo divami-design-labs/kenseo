@@ -1,5 +1,5 @@
 <% var dataComparer = -1; %>
-<% var isSupportedFile = data.MIME_type.indexOf('pdf') > -1 %>
+<% var isSupportedFile = data.MIME_type.indexOf('pdf') > -1 || data.MIME_type.indexOf('image') > -1 %>
 <a <% if(isSupportedFile){ %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %> class="review-request-item data-holder" data-pass="<% (function () {
             if (dataComparer == data.linkedId) {
                 dataComparer = data.linkedId;

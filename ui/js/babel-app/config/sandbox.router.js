@@ -148,52 +148,57 @@ sb.router = {
                         //before adding the new tabItem un select the existing ones
                         $('.tab-item.selectedTab').removeClass('selectedTab');
 
-                        //before painting the pdf into the viewer we need to add a tab for it.
-                        if (data.type == 'application/pdf') {
-                            var str = '<a href="#documentview/' + data.versionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
-                        } else {
-                            var str = '<a href="#documentview/' + data.versionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
-                        }
-                        $('.dv-tab-panel-section').prepend(str);
-                        $('.pdfs-container').append(_.template(templates['pdf-viewer'])(data));
-
-                        new paintPdf({
-                            // url: sb.getRelativePath(data.documentPath),
-                            container: $('.outerContainer.inView').get(0),
-                            targetId: data.versionId,
-                            versionId: data.artefactId,
-
-                        });
-                        sb.setVersionIdForMaskedId(this, data.versionId);
-
-                        //now get the version details of this version and show shared details
-                        sb.renderTemplate({
-                            url: sb.getRelativePath('getVersionDetails'),
-                            data: {
-                                // versionId: Kenseo.data.artefact.id
-                                versionId: data.versionId
-                            },
-                            templateName: 'dv-peoplesection',
-                            templateHolder: $('.dv-tb-people-section')
-                        });
-
                         $(document).on('click', '.tab-item', function (e) {
-                            rel = this.getAttribute('targetrel');
+                            var rel = this.getAttribute('targetrel');
                             $('.tab-item').removeClass('selectedTab');
                             $(this).addClass('selectedTab');
                             $('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
                             $('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
                         });
+                        //before painting the pdf into the viewer we need to add a tab for it.
+                        // pdf viewer
+                        if (data.type == 'application/pdf') {
+                            var str = '<a href="#documentview/' + data.versionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
+                            $('.dv-tab-panel-section').prepend(str);
+                            $('.pdfs-container').append(_.template(templates['pdf-viewer'])({data: data}));
 
+                            new paintPdf({
+                                url: sb.getRelativePath(data.documentPath),
+                                container: $('.outerContainer.inView').get(0),
+                                targetId: data.versionId,
+                                versionId: data.artefactId,
+
+                            });
+                            sb.setVersionIdForMaskedId(this, data.versionId);
+
+                            //now get the version details of this version and show shared details
+                            sb.renderTemplate({
+                                url: sb.getRelativePath('getVersionDetails'),
+                                data: {
+                                    // versionId: Kenseo.data.artefact.id
+                                    versionId: data.versionId
+                                },
+                                templateName: 'dv-peoplesection',
+                                templateHolder: $('.dv-tb-people-section')
+                            });
+
+
+
+                            // Store the current artefact version related data in a global variable
+                            var threads = data.threads;
+                            // flag
+                            threads.noChangesDetected = true;
+                            sb.setCurrentDocumentData(data.versionId, threads);
+                            annotator.init();
+                        }
+                        // Image viewer 
+                        else if(data.type.indexOf('image') > -1){
+                            var str = '<a href="#documentview/' + data.versionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
+                            $('.pdfs-container').append(_.template(templates['image-viewer'])({data: data}));
+                            // $('.pdfs-container').append('')
+                        }
                         var parent = document.querySelector('#viewerContainer.parent');
                         stickToBottom(parent);
-
-                        // Store the current artefact version related data in a global variable
-                        var threads = data.threads;
-                        // flag
-                        threads.noChangesDetected = true;
-                        sb.setCurrentDocumentData(data.versionId, threads);
-                        annotator.init();
                     }.bind(this)
                 });
             }
