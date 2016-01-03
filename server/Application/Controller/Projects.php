@@ -28,7 +28,7 @@
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
 		}
-				
+
 		public function deleteProject($interpreter) {
 			$data = $interpreter->getData()->data;
 			$projectId = $data->projectId;
@@ -74,17 +74,36 @@
 
 			// Get org_id id from user_id and save org_id in projects table.
 			$queryParams = array('user_id' => $userId);
-			$dbQuery = getQuery('getUserOrganizationId',$queryParams);
+			$dbQuery = getQuery('getUserOrganizationId', $queryParams);
 			$org_id = $db->singleObjectQuery($dbQuery)->org_id;
 			
 			// Add project
 			$projId = $db->insertSingleRowAndReturnId(TABLE_PROJECTS,
 				array("project_name", "state", "org_id", "created_by", "last_updated_date"), 
-				array("$projectName", "A", $org_id, $userId, "$date")	
+				array("$projectName", "A", $org_id, $userId, "$date")
 			);
 
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $projId);
+
 			// Add user as default project member and give full permissions as 'X'
-			$db->insertSingleRow(TABLE_PROJECT_MEMBERS,array("proj_id","user_id","access_type","group_type"),array($projId,$userId,"X","I"));
+			$columns = array("proj_id", "user_id", "access_type", "group_type");
+			$rows = array();
+			$rows[] = array($projId, $userId, "X", "I");
+			
+			//@TODO: Remove this code when UI for "Adding management users to the project" is implemented.
+			// Add management users also to this project.
+			$management_users = array("naveen@divami.com", "vasu@divami.com");
+			$queryParams = array('@emailIds' => "'" . join("','", $management_users) . "'");
+
+			$query = getQuery('getUserIdsFromEmails', $queryParams);
+			$users = $db->multiObjectQuery($query);
+
+			for($i=0, $iLen=count($users); $i<$iLen; $i++) {
+				$rows[] = array($projId, $users[$i]->user_id, "X", "I");
+			}
+
+			// Insert above users as project members
+			$db->insertMultipleRow(TABLE_PROJECT_MEMBERS, $columns, $rows);
 
 			$db->commitTransaction();
 			

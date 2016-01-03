@@ -7,10 +7,14 @@
 		<div class="people-request-holder html-click sub-menu-nav inlineBlockTop">
 			<div class="requests-dropdown-icon"></div>
 			<div class="sub-menu-holder left-nav bottom-nav">
+				<% if(data['is_owner'] != "1") {%>
 				<div class="sub-menu-item people-remove-icon" data-id="<%= data.user_id %>" >Remove</div>
+				<%}%>
 				<div class="sub-menu-item people-manage-icon">Manage Permissions</div>
 			</div>
 		</div>
 	</div>
-	<div class="people-access-text">Can Edit</div>
+	<div class="people-access-text"><% if(data['access_type']=="X"){%>
+	Can Edit & Share <%} else if(data['access_type']=='S'){%>
+	Can Share <%} else {%> Can Edit<%}%></div>
 </div>

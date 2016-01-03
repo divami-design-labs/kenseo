@@ -16,7 +16,7 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 											FROM ". TABLE_USERS ." 
 											WHERE email = @~~email~~@";
 
-$AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
+$AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, screen_name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
 
 // Get Projects
 $AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url, 

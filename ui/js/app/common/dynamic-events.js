@@ -140,7 +140,10 @@ $(function () {
 			// stop further processing
 			return false;
 		}
+		sb.postcall.getPostObj($self); // temporary fix
 		// Submit the information
+		sb.postcall.getPostObj($self); // temporary fix
+
 		if (file) {
 			var data = new FormData();
 
@@ -162,7 +165,6 @@ $(function () {
 		} else {
 			data = sb.getPopupData();
 			// data = _.extend(sb.getPopupData(), sb.postcall.getPostObj($self));
-			sb.postcall.getPostObj($self); // temporary fix
 			url = sb.getRelativePath(actionType);
 			type = 'GET';
 		}

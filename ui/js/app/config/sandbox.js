@@ -187,6 +187,8 @@ var sb = (function () {
                     dump[data.id] = data;
                 }
                 Kenseo.data[key] = dump;
+            } else if (obj.data) {
+                Kenseo.data[key] = obj.data;
             }
         },
         getRelativePath: function getRelativePath(str) {

@@ -145,6 +145,8 @@ $(function () {
 	    }
 		sb.postcall.getPostObj($self); // temporary fix
 	    // Submit the information
+		sb.postcall.getPostObj($self); // temporary fix
+		
 		if (file) {
 			var data = new FormData();
 

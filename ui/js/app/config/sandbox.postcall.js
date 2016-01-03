@@ -4,7 +4,7 @@
 'use strict';
 
 sb.postcall = (function () {
-	var accessType = Kenseo.settings.accessType;
+	var accessType = Kenseo.settings.accesstype;
 	var fieldTypes = {
 		'text-with-comma': function textWithComma($el) {
 			return $el.val().split(',');
@@ -21,6 +21,28 @@ sb.postcall = (function () {
 		},
 		'text': function text($el) {
 			return $el.val();
+		},
+		'share-permissions': function sharePermissions($el) {
+			var $items = $el.find('.share-artefact-people-item');
+			var shared_members = []; // taking an empty object
+			for (var i = 0, len = $items.length; i < len; i++) {
+				var $item = $($items.get(i));
+				var $commentChk = $item.find('.add-comments-chk input');
+				var $shareChk = $item.find('.others-chk input');
+				if ($commentChk.length && $shareChk.length) {
+					var str = $commentChk.get(0).checked * 1 + "" + $shareChk.get(0).checked * 1;
+					shared_members.push({
+						'user_id': $item.attr('data-k-user_id'),
+						'access_type': accessType[str]
+					});
+				} else {
+					shared_members.push({
+						'user_id': $item.attr('data-k-user_id'),
+						'access_type': $item.attr('data-access_type')
+					});
+				}
+			}
+			return shared_members;
 		}
 	};
 	return {

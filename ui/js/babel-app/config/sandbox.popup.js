@@ -93,6 +93,8 @@ sb.popup = {
             // removing fakepath from string (Chrome)
             var value = this.value.replace("C:\\fakepath\\", "");
             $currentPopup.find(".create-file-item .notification-title").html(value).attr('title', value);
+            var info = "@ " + getTimeFormat() + " by " + Kenseo.data.header.screen_name;
+            $currentPopup.find(".create-file-item .notification-time").html(info);
 
             sb.setPopupData(file, "file");
             sb.setPopupData(value, "fileName");
