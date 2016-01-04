@@ -142,23 +142,18 @@ sb.router = {
                     success: function success(response) {
                         // console.log(this);
                         var data = response.data;
+                        var params = response.params;
+                        var maskedVersionId = params.maskedArtefactVersionId;
                         //before painting the new doc lets hide all the existing docs
                         $('.outerContainer.inView').removeClass('inView');
 
                         //before adding the new tabItem un select the existing ones
                         $('.tab-item.selectedTab').removeClass('selectedTab');
 
-                        $(document).on('click', '.tab-item', function (e) {
-                            var rel = this.getAttribute('targetrel');
-                            $('.tab-item').removeClass('selectedTab');
-                            $(this).addClass('selectedTab');
-                            $('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
-                            $('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
-                        });
                         //before painting the pdf into the viewer we need to add a tab for it.
                         // pdf viewer
                         if (data.type == 'application/pdf') {
-                            var str = '<a href="#documentview/' + data.versionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
+                            var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
                             $('.dv-tab-panel-section').prepend(str);
                             $('.pdfs-container').append(_.template(templates['pdf-viewer'])({data: data}));
 
@@ -169,7 +164,6 @@ sb.router = {
                                 versionId: data.artefactId,
 
                             });
-                            sb.setVersionIdForMaskedId(this, data.versionId);
 
                             //now get the version details of this version and show shared details
                             sb.renderTemplate({
@@ -193,12 +187,14 @@ sb.router = {
                         }
                         // Image viewer 
                         else if(data.type.indexOf('image') > -1){
-                            var str = '<a href="#documentview/' + data.versionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
+                            var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
+                            $('.dv-tab-panel-section').prepend(str);
                             $('.pdfs-container').append(_.template(templates['image-viewer'])({data: data}));
                             // $('.pdfs-container').append('')
                         }
-                        var parent = document.querySelector('#viewerContainer.parent');
-                        stickToBottom(parent);
+                        sb.setVersionIdForMaskedId(this, data.versionId);
+                        var parent = document.querySelector('.outerContainer.inView .viewerContainer.parent');
+                        stickToBottom(parent); 
                     }.bind(this)
                 });
             }

@@ -145,8 +145,6 @@ $(function () {
 	    }
 		sb.postcall.getPostObj($self); // temporary fix
 	    // Submit the information
-		sb.postcall.getPostObj($self); // temporary fix
-		
 		if (file) {
 			var data = new FormData();
 
@@ -239,6 +237,22 @@ $(function () {
 	});
 });
 
+// $(document).on('scroll', '.viewerContainer', function(e){
+// 	var $self = $(this);
+// 	var $bar = $self.find('.bar');
+// 	$bar.css({
+// 		'bottom': -this.scrollTop + "px",
+// 		'left': this.scrollLeft + "px"
+// 	});
+// })
+
+$(document).on('click', '.tab-item', function (e) {
+    var rel = this.getAttribute('targetrel');
+    $('.tab-item').removeClass('selectedTab');
+    $(this).addClass('selectedTab');
+    $('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
+    $('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
+});
 
 var stickToBottom = function (parent) {
     var bar = parent.querySelector('.bar');
