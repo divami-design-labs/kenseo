@@ -67,7 +67,7 @@ $(function () {
 	// })
 	.on('click', '.popup-click', function () {
 		var $self = $(this);
-		var $dataHolder = $self.parents('.data-holder');
+		var $dataHolder = $self.closest('.data-holder');
 		if($dataHolder.length){
 			sb.insertPopupData($dataHolder);
 		}
@@ -195,7 +195,9 @@ $(function () {
 				$('.artifacts-section').html(_.template(templates['artefacts'])(response));
 			}
 		});
-	}).on('click', '.people-remove-icon', function (e) {
+	})
+	/* This is not required because people removing is handling in confirmation popup.
+	.on('click', '.people-remove-icon', function (e) {
 		var $self = $(e.currentTarget);
 		var userId = $self.attr('data-id');
 		var projectId = Kenseo.page.data.project.id;
@@ -213,7 +215,8 @@ $(function () {
 				popupCloser($self.parents(popupContainer));
 			}
 		});
-	}).on('click', '.dvt-item.comment-summary-icon', function(e){
+	})*/
+	.on('click', '.dvt-item.comment-summary-icon', function(e){
 		$('.comments-view-holder').toggleClass('active');
 	})
 	.on('change', '.filter-checkboxes input[data-all="true"]', function(e){

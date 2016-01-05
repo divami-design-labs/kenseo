@@ -2,13 +2,13 @@
 	<img class="people-icon" src="<%= data.picture %>" />
 </div>
 <div class="people-item-right">
-	<div class="people-name-section">
+	<div class="people-name-section data-holder" data-k-project_id="1" data-key="people" data-id="<%= data.id %>">
 		<div class="people-name inlineBlockTop"><%= data.name %></div>
 		<div class="people-request-holder html-click sub-menu-nav inlineBlockTop">
 			<div class="requests-dropdown-icon"></div>
 			<div class="sub-menu-holder left-nav bottom-nav">
 				<% if(data['is_owner'] != "1") {%>
-				<div class="sub-menu-item people-remove-icon" data-id="<%= data.user_id %>" >Remove</div>
+				<div class="sub-menu-item people-remove-icon popup-click" data-url="removePeople" data-id="<%= data.id %>" >Remove</div>
 				<%}%>
 				<div class="sub-menu-item people-manage-icon">Manage Permissions</div>
 			</div>

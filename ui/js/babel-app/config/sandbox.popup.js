@@ -25,8 +25,8 @@ sb.popup = {
                         },
                         onchange: function onchange($input, $selectedEl, bln) {
                             if (bln) {
-                                sb.setPopupData($selectedEl.html(), "project_name");
-                                sb.setPopupData($selectedEl.data("id"), "project_id");
+                                sb.setPopupData($selectedEl.html(), "name");
+                                sb.setPopupData($selectedEl.data("id"), "id");
                                 $(".main-btn").prop("disabled", false);
                             } else {
                                 $(".main-btn").prop("disabled", true);
@@ -143,7 +143,7 @@ sb.popup = {
             sb.ajaxCall({
                 collection: new Kenseo.collections.Artefacts(),
                 data: {
-                    projectid: sb.getPopupData("project_id"),
+                    projectid: sb.getPopupData("id"),
                     references: true,
                     ignore: 0
                 },
@@ -656,6 +656,9 @@ sb.popup = {
                 });
             }
         })
+    },
+    removePeople: function() {
+        
     }
 };
 

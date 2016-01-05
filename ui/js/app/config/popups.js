@@ -307,6 +307,21 @@ Kenseo.popups = (function () {
 																												"cls": "main-btn done-btn"
 																					}],
 																					"callbackfunc": sb.popup.coverImage
+														}],
+														"removePeople": [{
+																					"page_name": "message",
+																					"title": "Confirmation",
+																					"message": function message() {
+																												return "Do you want to remove this person?";
+																					},
+																					"buttons": [{
+																												"label": "Yes",
+																												"cls": "main-btn done-btn"
+																					}, {
+																												"label": "No",
+																												"cls": "main-btn cancel-btn"
+																					}],
+																					"callbackfunc": sb.popup.removePeople
 														}]
 							};
 

@@ -70,7 +70,7 @@ sb.postcall = (function(){
 				sb.loopAttributes($field.get(0), 'data-k-', function(key, value){
 					// Store in the data variable
 					// data[key.substr(7)] = value;
-					Kenseo.popup.data[key.substr(7)] = value; // temporary fix
+					Kenseo.popup.data[key] = value; // temporary fix
 				});
 			}
 

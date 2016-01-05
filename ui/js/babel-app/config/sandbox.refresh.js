@@ -128,6 +128,12 @@ sb.refresh = (function(){
 		},
 		unarchiveProject: function(){
 			refreshSection('projects-page', 'projects-page');
+		},
+		addPeople: function(){
+			refreshSection('project-page', 'pp-people');
+		},
+		removePeople: function(){
+			refreshSection('project-page', 'pp-people');
 		}
 	}
 	function refreshSection(sectionName, subSection){

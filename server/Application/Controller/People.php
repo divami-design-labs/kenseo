@@ -130,12 +130,10 @@
 		
 		public function removePeople($interpreter) {
 			$data = $interpreter->getData()->data;
-			$projectId = $data->projectId;
-			$peopleId = $data->peopleId;
+			$projectId = $data->project_id;
+			$peopleId = $data->id;	// This is people id
 			
 			//remove people
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "peopleId");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $peopleId);
 			$db = Master::getDBConnectionManager();
 			$db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId . " and user_id =" . $peopleId);
 			

@@ -129,6 +129,12 @@ sb.refresh = (function () {
 		},
 		unarchiveProject: function unarchiveProject() {
 			refreshSection('projects-page', 'projects-page');
+		},
+		addPeople: function addPeople() {
+			refreshSection('project-page', 'pp-people');
+		},
+		removePeople: function removePeople() {
+			refreshSection('project-page', 'pp-people');
 		}
 	};
 	function refreshSection(sectionName, subSection) {

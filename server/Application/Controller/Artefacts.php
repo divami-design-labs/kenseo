@@ -414,6 +414,9 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
 				
 				$data->userId = $interpreter->getUser()->user_id;
+
+				//@TODO: Remove this line when UI sends only project_id
+				$data->project_id = $data->project_id ? $data->project_id : $data->id;
 				
 				// If artefact_id is there, then user is creating new version to the existing document.
 				if(isset($data->artefact_id)) {
@@ -461,7 +464,7 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $targetPath);
 				
 				
-				move_uploaded_file($sourcePath,$targetPath) ;
+				move_uploaded_file($sourcePath,$targetPath);
 				
 				//now store the artefact detail in the tables related to artefacts and versions
 				Master::getLogManager()->log(DEBUG, MOD_MAIN,$data->artefact_id);
@@ -633,12 +636,12 @@
 		public function getDocumentSummary($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
-			$verId = $data->versionId;
+			$maskedVerId = $data->maskedVerId;
 			
 			$db = Master::getDBConnectionManager();
 			
 			//get the basic details of the artefact based on the artefact version.
-			$queryParams = array('versionId' => $verId, userId=>$userId);
+			$queryParams = array('maskedVerId' => $maskedVerId, userId=>$userId);
 
 			$basicDetailsQuery = getQuery('artefactBasicDetails', $queryParams);
 			$basicDetails = $db->singleObjectQuery($basicDetailsQuery);

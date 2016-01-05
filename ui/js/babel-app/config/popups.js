@@ -344,7 +344,22 @@ Kenseo.popups = (function(){
 	            }],
 	            "callbackfunc": sb.popup.coverImage
         	}
-        ]
+        ],
+        "removePeople": [{
+        	"page_name": "message",
+    		"title": "Confirmation",
+    		"message": function() {
+    			return "Do you want to remove this person?";
+    		},
+        	"buttons": [{
+            	"label": "Yes",
+            	"cls": "main-btn done-btn",
+            },{
+            	"label": "No",
+            	"cls": "main-btn cancel-btn"
+            }],
+            "callbackfunc": sb.popup.removePeople
+        }]
 	};
 
 	return {

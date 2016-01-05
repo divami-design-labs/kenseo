@@ -171,7 +171,7 @@ var sb = (function () {
                 var attributeKey = attribute.name;
                 var attributeValue = attribute.value;
                 if(attributeKey.indexOf(filter) > -1){
-                    callback(attributeKey, attributeValue);
+                    callback(attributeKey.substr(filter.length), attributeValue);
                 }
             }
         },
@@ -486,15 +486,20 @@ var sb = (function () {
             }
             return false;
         },
-        insertPopupData: function($elem){
+        insertPopupData: function($elem) {
             var key = $elem.data('key');
             var id = $elem.data('id');
+            // If id is undefined, Get other data attributes which are ending with "id"
+
             if(key && id){
-                Kenseo.popup.data = Kenseo.data[key][id];
-            }
-            else{
+                Kenseo.popup.data = _.cloneDeep(Kenseo.data[key][id]);
+            } else{
                 sb.log("data-holder class is provided but not its dependent attributes: data-key and data-id");
             }
+
+            sb.loopAttributes($elem.get(0), "data-k-", function(a, b) {
+                Kenseo.popup.data[a] = b;
+            })
         },
         navigate: function navigate(str, el) {
             var $self = $(el);
