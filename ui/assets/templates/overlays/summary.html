@@ -3,7 +3,7 @@
         <div class="summary-header-left">
             <div class="review-request-item" >
                 <div class="rr-left">
-                    <div class="rr-status status-c">IXD</div>
+                    <div class="rr-status status-<%= data.basicDetails.status %>">IXD</div>
                     <img class="rr-owner-image" title="<%=data.basicDetails.authorName %>" src="<%= data.basicDetails.authorImage %>"/>
                 </div>
                 <div class="rr-right">
@@ -11,7 +11,7 @@
                     <div class="rr-details ellipsis" title="Version <%=data.basicDetails.versionNo%>.0">Version <%=data.basicDetails.versionNo%>.0</div>
                     <div class="rr-state-details">
                         <div class="rr-state-x">
-                            <div class="rr-comment"><%=data.basicDetails.commentCount%></div>
+                            <div class="rr-comment"><%= data.basicDetails['comment_count'] %></div>
                             <div class="status-c secondary-status-rr"></div>
                         </div>
                     </div>
@@ -117,9 +117,9 @@
 	                        <img title"<%= d.name%>" src="<%= d.userImage%>" />
 	                    </div>
 	                    <div class="sp-right">
-	                        <div class="sp-name" title"<%= d.name%>"><%= d.name%></div>
+	                        <div class="sp-name ellipsis" title"<%= d.name%>"><%= d.name%></div>
 	                        <div class="sp-below-section">
-	                            <div class="rr-comment"><%= d.commentCount%></div>
+	                            <div class="rr-comment"><%= d['comment_count'] %></div>
 	                            <div class="status-c secondary-status-rr"></div>
 	                        </div>
 	                    </div>
@@ -151,7 +151,7 @@
 	                    </label>
 	                    <div class="summary-version-date">
                             <span><%= sb.timeFormat(d.created_date, true)%></span>
-                            <a class="page-click" href="#documentview/<%= d.artefact_ver_id %>">Open</a>
+                            <a class="page-click" href="#documentview/<%= d['masked_artefact_version_id'] %>">Open</a>
                         </div>
 	                </div>
                     <% } %>

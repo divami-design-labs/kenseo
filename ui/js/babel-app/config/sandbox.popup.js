@@ -656,9 +656,6 @@ sb.popup = {
                 });
             }
         })
-    },
-    removePeople: function() {
-        
     }
 };
 

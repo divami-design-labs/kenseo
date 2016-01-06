@@ -15,12 +15,12 @@ var babel = require("gulp-babel");
 
 function babelChange(){
     return gulp.src("js/babel-app/**/*.js")
-        .pipe(sourcemaps.init())
-        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
+        // .pipe(sourcemaps.init())
+        // .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
         .pipe(babel())
         .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
-        .pipe(sourcemaps.write('.'))
-        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
+        // .pipe(sourcemaps.write('.'))
+        // .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
         .pipe(gulp.dest("js/app/"))
         .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
 }
@@ -54,12 +54,12 @@ function templateChange() {
 
 function sassChange(){
   gulp.src(['assets/styles/sass/**/*.scss', 'assets/styles/sass-utilities/**/*.scss'])
-    .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())
     // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
     .pipe(sass({outputStyle: 'expanded', sourceComments: false})
     .on('error', sass.logError))
-    .pipe(sourcemaps.write('maps/'))
-    .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
+    // .pipe(sourcemaps.write('maps/'))
+    // .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
     .pipe(gulp.dest('assets/styles/css'))
     .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
 }

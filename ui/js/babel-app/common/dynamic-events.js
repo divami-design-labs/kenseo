@@ -196,26 +196,26 @@ $(function () {
 			}
 		});
 	})
-	/* This is not required because people removing is handling in confirmation popup.
-	.on('click', '.people-remove-icon', function (e) {
-		var $self = $(e.currentTarget);
-		var userId = $self.attr('data-id');
-		var projectId = Kenseo.page.data.project.id;
+	// This is not required because people removing is handling in confirmation popup.
+	// .on('click', '.people-remove-icon', function (e) {
+	// 	var $self = $(e.currentTarget);
+	// 	var userId = $self.attr('data-id');
+	// 	var projectId = Kenseo.page.data.project.id;
 
-		sb.renderTemplate({
-			url: sb.getRelativePath('removePeople'),
-			data: {
-				projectId: projectId,
-				peopleId: userId
-			},
-			type: 'GET',
-			contentType: false,
-			processData: false,
-			'callbackfunc': function callbackfunc() {
-				popupCloser($self.parents(popupContainer));
-			}
-		});
-	})*/
+	// 	sb.renderTemplate({
+	// 		url: sb.getRelativePath('removePeople'),
+	// 		data: {
+	// 			projectId: projectId,
+	// 			peopleId: userId
+	// 		},
+	// 		type: 'GET',
+	// 		contentType: false,
+	// 		processData: false,
+	// 		'callbackfunc': function callbackfunc() {
+	// 			popupCloser($self.parents(popupContainer));
+	// 		}
+	// 	});
+	// })
 	.on('click', '.dvt-item.comment-summary-icon', function(e){
 		$('.comments-view-holder').toggleClass('active');
 	})

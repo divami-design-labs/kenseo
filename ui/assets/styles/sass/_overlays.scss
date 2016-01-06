@@ -249,7 +249,7 @@
 		background-color: $color6;
 	}
 	.summary-section-body{
-		padding: 30px 30px 55px 30px;
+		padding: 30px 30px 55px 35px;
 		.close-icon{
 			display: none;
 		}
@@ -283,15 +283,18 @@
 	
 }
 .sp-left{
-	float: left;
-	margin-top: 10px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
 	img{
 		@extend .profile-image-black;
 		@include square(28px);
 	}
 }
 .sp-right{
-	margin-left: 40px;
+	display: inline-block;
+	@include withSuffix(max-width, calc(100% - 48px));
+	vertical-align: middle;
 }
 .sp-name{
 	@include text(14px, $color7);
