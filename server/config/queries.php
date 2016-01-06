@@ -392,7 +392,7 @@ $AppGlobal['sql']['getArtefactSharedMemebersList'] = "SELECT DISTINCT user.user_
 $AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title, vers.version_no as versionNo, user.name as authorName, user.profile_pic_url as authorImage, 
 											(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
 											WHERE 
-											thread.artefact_ver_id IN (select artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = @~~maskedVerId~~@)) as comment_count, arts.state as status
+											thread.artefact_ver_id IN (select artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = @~~maskedVerId~~@)) as comment_count, vers.state as status
 											FROM " . TABLE_ARTEFACTS . " as arts 
 											JOIN " . TABLE_ARTEFACTS_VERSIONS . " as vers on
 											vers.masked_artefact_version_id = @~~maskedVerId~~@

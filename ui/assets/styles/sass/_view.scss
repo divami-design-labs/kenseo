@@ -98,6 +98,7 @@
 	background-color: $colorThirteen;
 	@include verticalMiddle();
 	left: 0;
+	z-index: 1;
 }
 .dvt-item{
 	@include square(27px);
