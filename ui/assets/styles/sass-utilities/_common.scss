@@ -68,7 +68,7 @@
 }
 .sub-menu-holder.small .sub-menu-item{
 	white-space: nowrap;
-	padding-left: 35px;
+	/*padding-left: 35px;*/
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-right: 10px;
@@ -159,4 +159,9 @@
 	padding: 8px;
 	background-color: transparent;
 	@extend .a;
+}
+svg{
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: top;
 }

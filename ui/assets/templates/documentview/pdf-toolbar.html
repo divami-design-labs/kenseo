@@ -71,21 +71,25 @@
                     <% if(data.isPdf) { %>
                     <div id="toolbarViewerRight">
                         <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="21" data-l10n-id="zoom_out">
-                        <span data-l10n-id="zoom_out_label">Zoom Out</span>
+                            <svg><use xlink:href="#zoom-out"></use></svg>
+                            <span data-l10n-id="zoom_out_label">Zoom Out</span>
                         </button>
                         <div class="slider">
                             <div class="thumb"></div>
                         </div>
                         <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="22" data-l10n-id="zoom_in">
-                        <span data-l10n-id="zoom_in_label">Zoom In</span>
+                            <svg><use xlink:href="#zoom-in"></use></svg>
+                            <span data-l10n-id="zoom_in_label">Zoom In</span>
                         </button>
                         <button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="13" data-l10n-id="previous">
-                        <span data-l10n-id="previous_label">Previous</span>
+                            <svg><use xlink:href="#previous-page-icon"></use></svg>
+                            <span data-l10n-id="previous_label">Previous</span>
                         </button>
                         <input type="text" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="15">
                         <span id="numPages" class="toolbarLabel"></span>
                         <button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="14" data-l10n-id="next">
-                        <span data-l10n-id="next_label">Next</span>
+                            <svg><use xlink:href="#next-page-icon"></use></svg>
+                            <span data-l10n-id="next_label">Next</span>
                         </button>
                     </div>
                     <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">
@@ -114,14 +118,23 @@
         <div class="current-artefact-info bar">
             <div>Projects > <%= data.projName  %> >  <%= data.artTitle  %> </div>
             <div class="html-click show-all-versions">
-                <span>v<%= data.versionNo  %>.0</span>
+                <div>
+                    <span>v<%= data.versionNo  %>.0</span>
+                    <div class="info-bar-dropdown-version-no-icon">
+                        <svg><use xlink:href="#up-drpdwn"></use></svg>
+                    </div>
+                </div>
                 <div class="sub-menu-holder left-nav top-nav">
                     <% _.each(data.versions, function(p){ %>
                     <div class="sub-menu-item">
                         <span>v<%= p.versionNo %>.0</span>
                         <div class="actions">
-                            <a href="#compare/<%= p.versionId%>" class="v-compare-icon page-click"></a>
-                            <a href="#documentview/<%= p.versionId%>" class="v-open-icon page-click"></a>
+                            <a href="#compare/<%= p.versionId%>" class="v-compare-icon page-click">
+                                <svg><use xlink:href="#v_compare"></use></svg>
+                            </a>
+                            <a href="#documentview/<%= p.versionId%>" class="v-open-icon page-click">
+                                <svg><use xlink:href="#v_open"></use></svg>
+                            </a>
                         </div>
                     </div>
                     <% }); %>    
@@ -148,11 +161,25 @@
         <textarea id="errorMoreInfo" hidden='true' readonly="readonly"></textarea>
     </div>
     <div class="dv-toolbox">
-        <div class="dvt-item document-info-icon overlay-click" data-url="summary" title="Document summary"></div>
-        <div class="dvt-item add-comment-icon <% if(!data.isPdf){ %> hide <% } %>" data-value="rectangle" title="Add comment"></div>
-        <div class="dvt-item toggle-annotations-icon <% if(!data.isPdf){ %> hide <% } %>" title="Toggle Comment view"></div>
-        <div class="dvt-item comment-summary-icon<% if(!data.isPdf){ %> hide <% } %>" title="Comment summary"></div>
-        <div class="dvt-item share-artefact-icon popup-click" data-url="share-artefact" data-index="3" title="Share this artefact"></div>
-        <div class="dvt-item submit-review-icon<% if(!data.isPdf){ %> hide <% } %>" title="Submit this document for review"></div>
-        <div class="dvt-item more-menu-icon" title="more options"></div>
+        <div class="dvt-item document-info-icon overlay-click" data-url="summary" title="Document summary">
+            <svg><use xlink:href="#document-info"></use></svg>
+        </div>
+        <div class="dvt-item add-comment-icon <% if(!data.isPdf){ %> hide <% } %>" data-value="rectangle" title="Add comment">
+            <svg><use xlink:href="#add-comment"></use></svg>
+        </div>
+        <div class="dvt-item toggle-annotations-icon <% if(!data.isPdf){ %> hide <% } %>" title="Toggle Comment view">
+            <svg><use xlink:href="#toggle-annotations"></use></svg>
+        </div>
+        <div class="dvt-item comment-summary-icon<% if(!data.isPdf){ %> hide <% } %>" title="Comment summary">
+            <svg><use xlink:href="#comment-summary"></use></svg>
+        </div>
+        <div class="dvt-item share-artefact-icon popup-click" data-url="share-artefact" data-index="3" title="Share this artefact">
+            <svg><use xlink:href="#share-artefact"></use></svg>
+        </div>
+        <div class="dvt-item submit-review-icon<% if(!data.isPdf){ %> hide <% } %>" title="Submit this document for review">
+            <svg><use xlink:href="#submit-review"></use></svg>
+        </div>
+        <div class="dvt-item more-menu-icon" title="more options">
+            <svg><use xlink:href="#more-menu"></use></svg>
+        </div>
     </div>

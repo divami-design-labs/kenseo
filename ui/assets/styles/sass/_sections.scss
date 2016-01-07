@@ -32,15 +32,15 @@
 	vertical-align: middle;
 }
 .projects-heading-icon{
-	@include elementWithBackground("projects.svg", 24px, 24px);
+	@include square(24px);
 }
 
 .review-requests-icon{
-	@include elementWithBackground("reviewrequest.svg", 24px, 24px);
+	@include square(24px);
 }
 
 .notifications-heading-icon{
-	@include elementWithBackground("notify.svg", 24px, 24px);	
+	@include square(24px);	
 }
 
 .review-requests-section, .notifications-section{

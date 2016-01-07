@@ -1,7 +1,8 @@
 <% if(data && data.length){ %>
 <% _.each(data, function(a){ %>
 <div class="menu-recent-cnt">
-    <div class="menu-recent-img-dv"><img src="assets/imgs/addfile.svg" class="menu-recent-img" />
+    <div class="menu-recent-img-dv">
+    	<svg><use xlink:href="#addfile"></use></svg>
     </div>
     <div class="menu-recent-cnt-txt">
     	<div class="menu-activity-name"><%= a.project_name %></div>

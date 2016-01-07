@@ -25,6 +25,13 @@ $fontSizeOne: 18px;
     -o-border-radius: $radius;
     border-radius: $radius;
 }
+@mixin withPrefix($property, $value){
+	-webkit-#{$property}: $value;
+   	   -moz-#{$property}: $value;
+        -ms-#{$property}: $value;
+         -o-#{$property}: $value;
+    	    #{$property}: $value;
+}
 @mixin withSuffix($property, $value){
 	#{$property}: -webkit-#{$value};
    	   #{$property}: -moz-#{$value};
@@ -170,7 +177,8 @@ $fontSizeOne: 18px;
 }
 //Close-icon
 @mixin closeIcon($x){
-	@include elementWithBackground('close.svg', $x, $x);
+	/*@include elementWithBackground('close.svg', $x, $x);*/
+	@include square($x);
 	@extend .hand;
 }
 .mg-parent{

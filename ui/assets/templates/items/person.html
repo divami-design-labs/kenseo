@@ -5,12 +5,24 @@
 	<div class="people-name-section data-holder" data-k-project_id="1" data-key="people" data-id="<%= data.id %>">
 		<div class="people-name inlineBlockTop"><%= data.name %></div>
 		<div class="people-request-holder html-click sub-menu-nav inlineBlockTop">
-			<div class="requests-dropdown-icon"></div>
+			<div class="requests-dropdown-icon">
+				<svg><use xlink:href="#dropdown"></use></svg>
+			</div>
 			<div class="sub-menu-holder left-nav bottom-nav">
 				<% if(data['is_owner'] != "1") {%>
-				<div class="sub-menu-item people-remove-icon popup-click" data-url="removePeople" data-id="<%= data.id %>" >Remove</div>
+				<div class="sub-menu-item popup-click" data-url="removePeople" data-id="<%= data.id %>" >
+					<div class="people-remove-icon">
+						<svg><use xlink:href="#delete"></use></svg>
+					</div>
+					<div class="sub-menu-item-text">Remove</div>
+				</div>
 				<%}%>
-				<div class="sub-menu-item people-manage-icon">Manage Permissions</div>
+				<div class="sub-menu-item">
+					<div class="people-manage-icon">
+						<svg><use xlink:href="#lock1"></use></svg>
+					</div>
+					<div class="sub-menu-item-text">Manage Permissions</div>
+				</div>
 			</div>
 		</div>
 	</div>

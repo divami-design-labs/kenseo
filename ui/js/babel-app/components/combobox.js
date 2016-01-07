@@ -491,6 +491,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			}
 			var svClose = document.createElement("div");
 			svClose.className = "sv-close";
+			svClose.innerHTML = "<svg><use xlink:href='#close'></use></svg>";
 			svClose.onclick = function (e) {
 				var el = e.currentTarget;
 				$(el.parentElement).remove();

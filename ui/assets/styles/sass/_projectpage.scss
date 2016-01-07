@@ -25,7 +25,10 @@
 	@include textOne();
 }
 .sub-heading-add-icon{
-	@include elementWithBackground("add.svg", 20px, 20px);
+	/*@include elementWithBackground("add.svg", 20px, 20px);*/
+    width: 20px;
+    height: 20px;
+    fill: #454C62;
 }
 .add-icon.big{
     @include elementWithBackground("add.svg", 28px, 28px);   
@@ -148,7 +151,8 @@
     }
     & + .review-request-item .rr-status:before{
         content: "";
-        @include elementWithBackground("link.svg", 8px, 21px);
+        /*@include elementWithBackground("link.svg", 8px, 21px);*/
+        @include dimensions(8px, 21px);
         background-color: white;
         position: absolute;
         bottom: 100%;
@@ -185,10 +189,14 @@
     display: inline-block;
 }
 .sub-heading-more-icon{
-    @include elementWithBackground("more1.svg", 20px, 20px);
+    /*@include elementWithBackground("more1.svg", 20px, 20px);*/
+    fill: #454C62;
+    width: 20px;
+    height: 20px;
 }
 .active .sub-heading-more-icon{
-    @include backgroundImage("more.svg");
+    /*@include backgroundImage("more.svg");*/
+    fill: white;
 }
 
 .people-name-section{
@@ -205,12 +213,24 @@
     position: relative;
 }
 .people-remove-icon{
-    @include listImage('delete.svg', 15px, 15px);
+    /*@include listImage('delete.svg', 15px, 15px);*/
+    width: 15px;
+    height: 15px;
     // padding-left: 40px;
+    display: inline-block;
+    vertical-align: middle;
 }
 .people-manage-icon{
-    @include listImage('lock1.svg', 15px, 15px);
+    /*@include listImage('lock1.svg', 15px, 15px);*/
+    width: 15px;
+    height: 15px;
     // padding-left: 40px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.sub-menu-item-text{
+    display: inline-block;
+    vertical-align: middle;
 }
 .no-items{
     @include text(14px, $colorOne);
@@ -229,7 +249,8 @@
     }
     .artefact-added-activity-type{
         .activity-icon{
-            @include elementWithBackground("addfile.svg", 34px, 38px);
+            /*@include elementWithBackground("addfile.svg", 34px, 38px);*/
+            @include dimensions(34px, 38px);
         }
     }
     .artefact-comment-activity-type{
@@ -255,7 +276,8 @@
 }
 
 .current-type{
-    @include elementWithBackground("currentdate.svg", 20px, 20px);
+    /*@include elementWithBackground("currentdate.svg", 20px, 20px);*/
+    @include dimensions(20px, 20px);
 }
 .summary-version-item .checkbox{
     & + span{

@@ -18,8 +18,11 @@
 .active.hamburger{
     background-color: #566277;
 }
+.hamburger-icon{
+    color: #304075;
+}
 .active.hamburger .hamburger-icon{
-    @include backgroundImage('hamburger1.svg');
+    color: white;
 }
 .menu-header {
     margin-top: 15px;
@@ -77,16 +80,16 @@
     float: left;
 }
 .menu-dashboard-icon{
-    @include backgroundImage("dashboard.svg");
+    /*@include backgroundImage("dashboard.svg");*/
 }
 .menu-analytics-icon{
-    @include backgroundImage("analytics.svg");
+    /*@include backgroundImage("analytics.svg");*/
 }
 .menu-archive-icon{
-    @include backgroundImage("archive3.svg");
+    /*@include backgroundImage("archive3.svg");*/
 }
 .menu-settings-icon{
-    @include backgroundImage("settings.svg");
+    /*@include backgroundImage("settings.svg");*/
 }
 .menu-settings-txt {
     @include dimensions(80px, auto);
@@ -250,6 +253,7 @@
 
 .menu-notifications-img {
     @include dimensions(18px, 18px);
+    fill: #00AEEF;
 }
 
 .menu-notifications-txt {

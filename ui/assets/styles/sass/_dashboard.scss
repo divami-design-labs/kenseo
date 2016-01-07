@@ -52,13 +52,13 @@
 	display: inline-block;
 }
 .add-artefact-icon{
-	@include backgroundImage('artifacts.svg');
+	/*@include backgroundImage('artifacts.svg');*/
 }
 .add-user-icon{
-	@include backgroundImage('adduser.svg');
+	/*@include backgroundImage('adduser.svg');*/
 }
 .archive-icon{
-	@include backgroundImage('archive.svg');
+	/*@include backgroundImage('archive.svg');*/
 }
 .project-action-label{
 	@include text(13px, white);
@@ -103,17 +103,22 @@
 	@include textThree();
 	margin-top: 5px;
 	line-height: 16px;
-	text-indent: 5px;
+	/*text-indent: 5px;*/
 	display: inline-block;
 }
 .fixed-content{
 	float: right;
 	width: 700px;
 }
-.project-block-details::before{
-	content: "";
-	@include elementWithBackground("one1.svg", 15px, 15px);
+.project-block-details-icon{
+	fill: #9599A7;
+	width: 15px;
+	height: 15px;
 	float: left;
+	margin-right: 5px;
+}
+.project-block-details-text{
+	white-space: nowrap;
 }
 
 // requests
@@ -147,8 +152,8 @@
 			}
 			.requests-dropdown-icon{
 				display: block;
-				@include elementWithBackground("dropdown1.svg", 16px, 16px);
 				z-index: 2;
+				fill: #ECECEC;
 			}
 		}
 	}
@@ -266,15 +271,25 @@
 	}
 }
 .rr-comment{
-	@include elementWithBackground("baloon.svg", 40px, 26px);
+	/*@include elementWithBackground("baloon.svg", 40px, 26px);*/
+	width: 40px;
+	height: 26px;
 	@include textEight();
 	text-align: center;
 	line-height: 21px;
+	position: relative;
+}
+.rr-comment-count{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 .rr-state .rr-comment{
 	position: absolute;
 	left: 40px;
-  	top: 3px;
+  	top: 2px;
 }
 .rr-state .rr-comment{
 	float: left;
@@ -298,7 +313,8 @@
 	z-index: 0;
 }
 .requests-dropdown-icon{
-	@include elementWithBackground("dropdown.svg", 16px, 16px);
+	@include dimensions(16px, 16px);
+	fill: #B9BBC4;
 }
 
 .requests-dropdown-items{
@@ -311,7 +327,18 @@
 @mixin requestHoverListType($image){
 	@include listImage($image, 17px, 17px);
 }
-.requests-archive-item{
+.requests-dropdown-items{
+	.item-icon{
+		width: 17px;
+		height: 17px;
+		margin-right: 5px;
+	}
+	.item-icon, .sub-menu-item-text{
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+/*.requests-archive-item{
 	@include requestHoverListType("archive1.svg");
 }
 .requests-replace-item{
@@ -325,7 +352,7 @@
 }
 .requests-delete-item{
 	@include requestHoverListType("delete.svg");
-}
+}*/
 //Notifications
 .notifications-content{
 	margin-top: 30px;
@@ -374,18 +401,22 @@
 	display: block;
 	text-decoration: none;
 }
-.notification-item.M-type{
-	@include listTypeImage("one.svg");
+.notification-item{
+	.notification-meeting-icon, .notification-comment-icon, .notification-file-icon{
+		/*@include listTypeImage("one.svg");*/
+		width: 15px;
+		height: 15px;
+	}
+
 }
 .notification-item.C-type{
-	@include listTypeImage("baloon1.svg");
+	/*@include listTypeImage("baloon1.svg");*/
 }
 .notification-item.S-type{
-	@include listTypeImage("file.svg");
+	/*@include listTypeImage("file.svg");*/
 }
-.notification-item.M-type .mn-left::after{
-	content: "";
-	@include elementWithBackground("clock.svg", 16px, 16px);
+.clock-icon{
+	/*@include elementWithBackground("clock.svg", 16px, 16px);*/
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -393,4 +424,11 @@
 }
 .meeting-notify-section{
 	margin-top: 5px;
+}
+.notification-file-icon{
+	width: 15px;
+	height: 15px;
+	position: absolute;
+    left: 0;
+    top: 2px;
 }

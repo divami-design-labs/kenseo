@@ -7,9 +7,31 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 // var prettify = require('gulp-prettify');
 var path = require('path');
+var svgstore = require('gulp-svgstore');
+var svgmin = require('gulp-svgmin');
 var stringify = require('stringify-object');
 var notify = require('gulp-notify');
 // var uglify = require('gulp-uglify');
+
+function spriteChanges() {
+    return gulp
+        // looks for each folder inside "bundle-svgs" folder
+        .src('bundle-svgs/kenseo-sprt/*.svg')
+        .pipe(svgmin(function (file) {
+            var prefix = path.basename(file.relative, path.extname(file.relative));
+            return {
+                plugins: [{
+                    cleanupIDs: {
+                        prefix: prefix + '-',
+                        minify: true
+                    }
+                }]
+            }
+        }))
+        .pipe(svgstore())
+        .pipe(gulp.dest('assets/imgs/'));
+}    
+
 
 var babel = require("gulp-babel");
 
@@ -72,8 +94,9 @@ function watchChanges(){
         'assets/templates/**/*.html',
         'assets/styles/sass/**/*.scss', 
         'assets/styles/sass-utilities/**/*.scss', 
-        "js/babel-app/**/*.js"
-    ], ['template', 'sass', 'babel']);
+        'js/babel-app/**/*.js',
+        'bundle-svgs/**/*.svg'
+    ], ['template', 'sass', 'babel','kenseo-sprt']);
 }
 
 // Tasks
@@ -81,3 +104,4 @@ gulp.task('sass', sassChange);
 gulp.task('template', templateChange);
 gulp.task('babel', babelChange);
 gulp.task('watch', watchChanges);
+gulp.task('kenseo-sprt', spriteChanges);

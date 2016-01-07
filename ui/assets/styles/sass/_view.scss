@@ -51,17 +51,25 @@
 }
 .left-slider{
 	left: 2px;
-	@include backgroundImage('icon_14.svg');
+	fill: #464F6B;
+	&.active{
+		fill: #222F38;
+	}
+	/*@include backgroundImage('icon_14.svg');
 	&.active{
 		@include backgroundImage('icon_15.svg');
-	}
+	}*/
 }
 .right-slider{
 	right: 2px;
-	@include backgroundImage('icon_17.svg');
+	fill: #464F6B;
+	&.active{
+		fill: #222F38;
+	}
+	/*@include backgroundImage('icon_17.svg');
 	&.active{
 		@include backgroundImage('icon_16.svg');
-	}
+	}*/
 }
 .dv-tb-people-section{
 	height: 100%;
@@ -105,7 +113,7 @@
 	margin: 15px 0px;
 	cursor: pointer;
 }
-.document-info-icon{
+/*.document-info-icon{
 	@include backgroundImage('document-info.svg');
 }
 .add-comment-icon{
@@ -125,7 +133,7 @@
 }
 .more-menu-icon{
 	@include backgroundImage('more-menu.svg');
-}
+}*/
 .pagination-section{
 	position: relative;
 	height: 100%;
@@ -153,12 +161,12 @@
 		cursor: pointer;
 	}
 	.previous-page{
-		@include backgroundImage('previous-page-icon.svg');
+		/*@include backgroundImage('previous-page-icon.svg');*/
 		left: 0;
 		@include verticalMiddle();
 	}
 	.next-page{
-		@include backgroundImage('next-page-icon.svg');
+		/*@include backgroundImage('next-page-icon.svg');*/
 		right: 0;
 		@include verticalMiddle();
 	}
@@ -206,11 +214,11 @@
 		@include square(18px);
 	}
 	.zoom-in{
-		@include backgroundImage('zoom-in.svg');
+		/*@include backgroundImage('zoom-in.svg');*/
 		right: 0;
 	}
 	.zoom-out{
-		@include backgroundImage('zoom-out.svg');
+		/*@include backgroundImage('zoom-out.svg');*/
 		left: 0;
 	}
 }
@@ -240,10 +248,13 @@
   		}
   		& > span:after{
   			content: "";
-  			@include backgroundImage('icon_12.svg');
+  			/*@include backgroundImage('icon_12.svg');*/
   			@include square(16px);
   			display: inline-block;
   			margin-left: 10px;
+  		}
+  		.sub-menu-item{
+  			text-align: left;
   		}
   	}
 	.actions{
@@ -252,15 +263,25 @@
 		margin-top: 2px;
 	}
 }
+.info-bar-dropdown-version-no-icon{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: middle;
+	fill: #68749B;
+}
+.active .info-bar-dropdown-version-no-icon{
+	fill: white;
+}
 .v-compare-icon, .v-open-icon{
 	@include square(15px);
 	float: left;
 }
 .v-compare-icon{
-	@include backgroundImage('v_compare.svg');
+	/*@include backgroundImage('v_compare.svg');*/
 }
 
 .v-open-icon{
-	@include backgroundImage('v_open.svg');
+	/*@include backgroundImage('v_open.svg');*/
 	margin-left: 10px;
 }

@@ -11,7 +11,10 @@
                     <div class="rr-details ellipsis" title="Version <%=data.basicDetails.versionNo%>.0">Version <%=data.basicDetails.versionNo%>.0</div>
                     <div class="rr-state-details">
                         <div class="rr-state-x">
-                            <div class="rr-comment"><%= data.basicDetails['comment_count'] %></div>
+                            <div class="rr-comment">
+                                <svg><use xlink:href="#baloon"></use></svg>
+                                <div class="rr-comment-count"><%= data.basicDetails['comment_count'] %></div>
+                            </div>
                             <div class="status-c secondary-status-rr"></div>
                         </div>
                     </div>
@@ -20,14 +23,23 @@
         </div>
         <div class="summary-header-right">
             <div class="summary-header-actions">
-                <div class="summary-header-action-item submit-action-icon">Submit</div>
-                <div class="summary-header-action-item archive-action-icon">Archive</div>
-                <div class="summary-header-action-item delete-action-icon">Delete</div>
+                <div class="summary-header-action-item submit-action-icon">
+                    <svg class="summary-header-icon"><use xlink:href="#submit"></use></svg>
+                    Submit
+                </div>
+                <div class="summary-header-action-item archive-action-icon">
+                    <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>
+                    Archive
+                </div>
+                <div class="summary-header-action-item delete-action-icon">
+                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#delete"></use></svg>
+                    Delete
+                </div>
             </div>
         </div>
     </div>
     <div class="summary-section-body unselectable">
-        <div class="close-icon"></div>
+        <div class="close-icon"><svg><use xlink:href="#close"></use></svg></div>
         <div class="time-frame-section">
             <div class="time-frame-extended mg-parent">
             	<% for(var v in data.timeline){ %>
@@ -81,7 +93,9 @@
                 <div class="time-frame-holder mg-holder">
                     <div class="time-selector-item mg-item">
                         <div class="time-frame">
-                            <div class="current-type top-viewer"></div>
+                            <div class="current-type top-viewer">
+                                <svg><use xlink:href="#currentdate"></use></svg>
+                            </div>
                             <div class="time-frame-date"><%= sb.timeFormat(new Date(), true, true)%></div>
                         </div>
                     </div>
@@ -106,7 +120,9 @@
                 <div class="artifacts-heading sub-heading">
                     <div class="sub-heading-label">Shared with</div>
                     <div class="sub-heading-add-wrapper">
-                        <div class="sub-heading-add-icon"></div>
+                        <div class="sub-heading-add-icon">
+                            <svg><use xlink:href="#add"></use></svg>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,7 +135,10 @@
 	                    <div class="sp-right">
 	                        <div class="sp-name ellipsis" title"<%= d.name%>"><%= d.name%></div>
 	                        <div class="sp-below-section">
-	                            <div class="rr-comment"><%= d['comment_count'] %></div>
+	                            <div class="rr-comment">
+                                    <svg><use xlink:href="#baloon"></use></svg>
+                                    <div class="rr-comment-count"><%= d['comment_count'] %></div>
+                                </div>
 	                            <div class="status-c secondary-status-rr"></div>
 	                        </div>
 	                    </div>
@@ -132,7 +151,9 @@
                 <div class="sub-heading">
                     <div class="sub-heading-label">Versions</div>
                     <div class="sub-heading-add-wrapper">
-                        <div class="sub-heading-add-icon"></div>
+                        <div class="sub-heading-add-icon">
+                            <svg><use xlink:href="#add"></use></svg>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -163,7 +184,9 @@
                 <div class="sub-heading">
                     <div class="sub-heading-label">References</div>
                     <div class="sub-heading-add-wrapper">
-                        <div class="sub-heading-add-icon"></div>
+                        <div class="sub-heading-add-icon">
+                            <svg><use xlink:href="#add"></use></svg>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -180,11 +203,14 @@
                 <div class="sub-heading">
                     <div class="sub-heading-label">Linked Artefacts</div>
                     <div class="sub-heading-add-wrapper">
-                        <div class="sub-heading-add-icon"></div>
+                        <div class="sub-heading-add-icon">
+                            <svg><use xlink:href="#add"></use></svg>
+                        </div>
                     </div>
                     <div class="sub-section-content">
                         <% _.each(data.links, function(d){ %>
 			                <div class="linked-item" title="<%= d.artefact_title %>">
+                                <svg class="linked-item-icon"><use xlink:href="#linkIcon"></use></svg>
 			                    <%= d.artefact_title %>
 			                </div>
 		                <% }); %>

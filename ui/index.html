@@ -50,21 +50,47 @@
         <script src="js/app/components/html.js" type="text/javascript"></script>
     </head>
     <body>
+    <script>    
+        (function (doc) { 
+            var scripts = doc.getElementsByTagName('script')    
+            var script = scripts[scripts.length - 1]        
+            var xhr = new XMLHttpRequest()      
+            xhr.onload = function (response) {      
+                // If success
+                // srcElement is for chrome and IE
+                // originalTarget is for Firefox
+                var target = response.srcElement || response.originalTarget;
+                var statusText = target.statusText.toLowerCase();
+                // If success
+                // statusText will not be "ok" but empty string in ios safari.
+                if(statusText == "ok" || statusText == "" ){    
+                    var div = doc.createElement('div')      
+                    div.innerHTML = this.responseText       
+                    div.style.display = 'none'      
+                    script.parentNode.insertBefore(div, script)     
+                }       
+            }       
+            xhr.open('get', 'assets/imgs/kenseo-sprt.svg', true)        
+            xhr.send()        
+        })(document)        
+    </script>
         <div class="popup-container" style="display: none;"></div>
         <div class="page">
             <div class="page-wrapper">
                 <div class="header">
                     <div class="hamburger html-click hamburger-menu" data-html-class="active" data-html-target=".hamburger-menu">
                         <div class="hamburger-icon">
+                            <svg><use xlink:href="#hamburger"></use></svg>
                             <div class="hamburger-notify">4</div>
                         </div>                  
                     </div>
                     <div class="menu hamburger-menu"></div>
                     <span class="logo" data-url="summary">
+                        <svg><use xlink:href="#logo"></use></svg>
                         <div class="timer-overlay hide"></div>
                     </span>
                     <div class="create-icon-holder html-click sub-menu-nav" data-html-class="active">
-                        <div class="create-plus-icon"></div>
+                        <div class="create-plus-icon"><svg><use xlink:href="#add"></use></svg></div>
                         <div class="sub-menu-holder bottom-nav right-nav">
                             <div class="sub-menu-item popup-click" data-url="add-project">Add a Project</div>
                             <div class="popup-click sub-menu-item" data-url="add-artefact">Add an Artefact</div>
@@ -72,7 +98,7 @@
                             <div class="popup-click sub-menu-item" data-url="create-meeting">Create a Meeting</div>
                         </div>
                     </div>
-                    <div class="search-icon"></div>
+                    <div class="search-icon"><svg><use xlink:href="#search"></use></svg></div>
                     <div id="user-profile-id" class="profile-pic-holder html-click sub-menu-nav" data-html-class="active">
                         
                     </div>

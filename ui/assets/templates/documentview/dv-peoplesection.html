@@ -1,6 +1,8 @@
 <div class="dv-tb-people-wrapper">
 	<% if(data && data.sharedTo.length > 3){ %>
-		<div class="left-slider"></div>
+		<div class="left-slider">
+			<svg><use xlink:href="#left-slider"></use></svg>
+		</div>
 	<% } %>
 	<div class="dv-tb-people">
 		<% _.each(data.sharedTo, function(p){ %>
@@ -8,6 +10,8 @@
 		<% }); %>
 	</div>
 	<% if(data && data.sharedTo.length > 3){ %>
-		<div class="right-slider"></div>
+		<div class="right-slider">
+			<svg><use xlink:href="#right-slider"></use></svg>
+		</div>
 	<% } %>
 </div>

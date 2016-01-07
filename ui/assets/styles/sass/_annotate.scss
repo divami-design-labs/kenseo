@@ -117,7 +117,7 @@
     margin-right: 20px;
     display: inline-block;
     vertical-align: middle;
-    &::after{
+    /*&::after{
         content: "";
         @include backgroundImage('dropdown-icn.svg');
         display: inline-block;
@@ -125,7 +125,14 @@
         width: 16px;
         height: 16px;
         margin-left: 8px;
-    }
+    }*/
+}
+.drpdwn-selected-text-icn{
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
 }
 .drpdwn--category{
     .drpdwn-selected-text{

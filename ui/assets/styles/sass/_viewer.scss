@@ -1538,18 +1538,20 @@ select {
 }
 
 #previous{
-  @include backgroundImage('previous-page-icon.svg');
+  /*@include backgroundImage('previous-page-icon.svg');*/
   @include square(14px);
   // margin-top: 15px;
   margin-right: 8px;
   @extend .inputHand;
+  padding: 0;
 }
 #next{
-  @include backgroundImage('next-page-icon.svg');
+  /*@include backgroundImage('next-page-icon.svg');*/
   @include square(14px);
   // margin-top: 15px;
   margin-left: 8px;
   @extend .inputHand;
+  padding: 0;
 }
 #numPages{
   // margin-top: 13px;
@@ -1561,20 +1563,22 @@ select {
   }
 }
 #zoomOut{
-  @include backgroundImage('zoom-out.svg');
+  /*@include backgroundImage('zoom-out.svg');*/
   @include square(18px);
     // margin-top: 14px;
   margin-right: 8px;
   @extend .inputHand;
+  padding: 0;
 }
 .toolbarButton.zoomIn {
   // content: url(images/toolbarButton-zoomIn.png);
-  @include backgroundImage('zoom-in.svg');
+  /*@include backgroundImage('zoom-in.svg');*/
   @include square(18px);
   // margin-top: 14px;
   margin-left: 8px;
   margin-right: 20px;
   @extend .inputHand;
+  padding: 0;
 }
 #toolbarViewerLeft{
   width: 50%;
@@ -1598,23 +1602,27 @@ select {
 }
 
 .tab-item > .imageTab {
-	@include backgroundImage('imageTabInactive.svg');
+	/*@include backgroundImage('imageTabInactive.svg');*/
 	@include dimensions(24px, 24px);
+  fill: #E8E8E9;
 	margin: 13px 13px;
 }
 
 .tab-item.selectedTab > .imageTab {
-	@include backgroundImage('imageTabActive.svg');
+	/*@include backgroundImage('imageTabActive.svg');*/
+  fill: #425182;
 	@include dimensions(24px, 24px);
 }
 
 .tab-item > .fileTab {
-	@include backgroundImage('fileTabInactive.svg');
+	/*@include backgroundImage('fileTabInactive.svg');*/
 	@include dimensions(24px, 24px);
 	margin: 13px 13px;
+  fill: #E8E8E9;
 }
 .tab-item.selectedTab > .fileTab {
-	@include backgroundImage('fileTabActive.svg');
+	/*@include backgroundImage('fileTabActive.svg');*/
+  fill: #425182;
 	@include dimensions(24px, 24px);
 }
 .tab-item.selectedTab {

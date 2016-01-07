@@ -3,6 +3,11 @@
 	<div class="notifications-holder">
 		<% _.each(newData[key], function(n){ %>
 		<div class="notification-item <%= n.type %>-type">
+			<% if(n.type == "S"){ %>
+				<svg class="notification-s-type-icon"><use xlink:href="#file"></use></svg>
+			<% } else if(n.type == "M"){ %>
+
+			<% } %>
 			<div class="notification-title ellipsis" title="<%= n.title %>">
 				<%= n.title %>
 			</div>
@@ -15,6 +20,7 @@
 					<div>Meeting @ Conference 2</div>
 					<div class="mn-left-title"><%= n.meetingDetails.title %></div>
 					<div class="meeting-notify-icon"></div>
+					<div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>
 				</div>
 				<div class="mn-right">
 					<div><%= sb.timeFormat(n.meetingDetails.time) %></div>

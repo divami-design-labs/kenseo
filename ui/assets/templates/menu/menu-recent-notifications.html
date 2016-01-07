@@ -3,14 +3,15 @@
 <div class="menu-notifications-cnt">
 
     <div class="menu-notifications-img-dv">
-        <img src="assets/imgs/one.svg" class="menu-notifications-img" />
+    <svg class="menu-notifications-img"><use xlink:href="#calendar"></use></svg>
     </div>
     <div class="menu-notifications-txt">
         <span class="menu-notifications-txt-nm">Conflux:Designer</span>
         <span class="menu-notifications-txt-tm"><%= sb.timeFormat(d.time) %> by <%= d.notifier %></span>
         <% if(d.meetingDetails){ %>
         <div class="menu-notifications-txt-dttme">
-            <img src="assets/imgs/clock.svg" class="menu-notifications-txt-dttme-img" /><%= sb.timeFormat(d.meetingDetails.time, true) %>, <%= sb.getTime(d.meetingDetails.time) %>
+            <svg class="menu-notifications-txt-dttme-img"><use xlink:href="#clock"></use></svg>
+            <%= sb.timeFormat(d.meetingDetails.time, true) %>, <%= sb.getTime(d.meetingDetails.time) %>
         </div>
         <% } %>
     </div>

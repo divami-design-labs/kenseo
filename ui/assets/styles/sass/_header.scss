@@ -25,7 +25,7 @@ $headerHeight: 64px;
 	font-family: $boldFont;
 }
 .hamburger-icon{
-	@include backgroundImage("hamburger.svg");
+	/*@include backgroundImage("hamburger.svg");*/
 	@include dimensions(20px, 15px);
 	left: 50%;
     margin-left: -10px;
@@ -34,19 +34,23 @@ $headerHeight: 64px;
     top: 50%;
 }
 .logo{
-	@include elementWithBackground("logo.svg", 138px, 32px);
+	/*@include elementWithBackground("logo.svg", 138px, 32px);*/
+	@include dimensions(138px, 32px);
 	left: 42px;
 	@include verticalMiddle();
 	display: block;
 }
 
 .create-plus-icon{
-	@include elementWithBackground("add.svg", 24px, 24px);
+	fill: #454C62;
 	@include fullMiddle();
+	width: 24px;
+	height: 24px;
 }
 
 .search-icon{
-	@include elementWithBackground("search.svg", 24px, 24px);
+	/*@include elementWithBackground("search.svg", 24px, 24px);*/
+	@include square(24px);
 	right: 86px;
 	@extend .hand;
 }
@@ -77,7 +81,7 @@ $headerHeight: 64px;
 	@extend .unselectable;
 	&.active{
 		.create-plus-icon{
-			@include backgroundImage("add1.svg");
+			fill: white;
 		}
 		.create-plus-nav{
 			display: block;

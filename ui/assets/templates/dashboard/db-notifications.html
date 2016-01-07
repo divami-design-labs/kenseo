@@ -5,7 +5,20 @@
 	<div class="day-notifications-label"><%= key %></div>
 	<div class="notifications-holder">
 		<% _.each(newData[key], function(n){ %>
-		<a href="<% if(n.type == "M"){ %>#meetingnotes/<%= n.refId %><% } else { %>#documentview/<%= n.masked_artefact_version_id %> <% } %>" class="notification-item <%= n.type %>-type page-click" data-url="meeting-notes">
+		<a href="<% if(n.type == "M"){ %>#meetingnotes/<%= n.refId %><% } else { %>#documentview/<%= n.masked_artefact_version_id %> <% } %>" class="notification-item page-click" data-url="meeting-notes">
+			<% if(n.type == "M"){ %>
+				<div class="notification-meeting-icon">
+					<svg><use xlink:href="#calendar"></use></svg>
+				</div>
+			<% } else if(n.type == "C") { %>
+				<div class="notification-comment-icon">
+					<svg><use xlink:href="#baloon1"></use></svg>
+				</div>
+			<% } else if(n.type == "S"){ %>
+				<div class="notification-file-icon">
+					<svg><use xlink:href="#file"></use></svg>
+				</div>
+			<% } %>
 			<div class="notification-title" title="<%= n.title %>">
 				<%= n.title %>
 			</div>
@@ -18,6 +31,7 @@
 					<div>Meeting @ Conference 2</div>
 					<div class="mn-left-title"><%= n.meetingDetails.title %></div>
 					<div class="meeting-notify-icon"></div>
+					<div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>
 				</div>
 				<div class="mn-right">
 					<div><%= sb.timeFormat(n.meetingDetails.time) %></div>

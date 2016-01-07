@@ -153,7 +153,11 @@ sb.router = {
                         //before painting the pdf into the viewer we need to add a tab for it.
                         // pdf viewer
                         if (data.type == 'application/pdf') {
-                            var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
+                            var str = _.template(templates['tab-file'])({
+                                maskedVersionId: maskedVersionId,
+                                versionId: data.versionId
+                            });
+                            // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
                             $('.dv-tab-panel-section').prepend(str);
                             $('.pdfs-container').append(_.template(templates['pdf-viewer'])({data: data}));
 
@@ -187,7 +191,11 @@ sb.router = {
                         }
                         // Image viewer 
                         else if(data.type.indexOf('image') > -1){
-                            var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
+                            var str = _.template(templates['tab-img'])({
+                                maskedVersionId: maskedVersionId,
+                                versionId: data.versionId
+                            });
+                            // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
                             $('.dv-tab-panel-section').prepend(str);
                             $('.pdfs-container').append(_.template(templates['image-viewer'])({data: data}));
                             // $('.pdfs-container').append('')

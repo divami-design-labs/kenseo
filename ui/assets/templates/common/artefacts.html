@@ -3,11 +3,13 @@
 	<div class="artifacts-heading sub-heading">
 		<div class="sub-heading-label">Artefacts</div>
 		<div class="sub-heading-add-wrapper">
-			<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1"></div>
+			<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">
+				<svg><use xlink:href="#add"></use></svg>
+			</div>
 		</div>
 		<% if(data.length){ %>
 		<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">
-			<div class="sub-heading-more-icon"></div>
+			<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>
 			<div class="sub-menu-holder left-nav bottom-nav">
 				<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>
 				<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>
@@ -22,7 +24,9 @@
 	<div class="sort-view">Sort By <% if(params && params.sortBy){ %> <%= _.capitalize(params.sortBy) %> <% } else { %>Default <% } %></div>
 <% } else{ %>
 	<div class="review-requests-heading">            
-		<div class="review-requests-icon"></div>
+		<div class="review-requests-icon">
+			<svg><use xlink:href="#reviewrequest"></use></svg>
+		</div>
 		<div class="heading-text">Shared Artefacts</div>
 	</div>
 	<div class="review-requests-content">

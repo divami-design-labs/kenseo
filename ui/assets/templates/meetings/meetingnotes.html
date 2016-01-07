@@ -1,7 +1,9 @@
 <% Kenseo.populate.meeting = data %>
 <div class="meeting-section">
     <div class="project-heading">       
-        <div class="projects-heading-icon"></div>       
+        <div class="projects-heading-icon">
+            <svg><use xlink:href="#projects"></use></svg>
+        </div>       
         <span class="heading-text-project">Projects &gt; </span>
         <span class="heading-text-project-name"><%= data.projectName %></span>  
         <span class="heading-date">(<%= sb.timeFormat(data.startTime, true, true) %>)</span>
