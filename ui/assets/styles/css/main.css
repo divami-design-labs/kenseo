@@ -5788,8 +5788,8 @@ select {
 }
 
 .shape {
-  width: 27px;
-  height: 27px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   position: relative;
   margin-left: -3px;
@@ -5829,8 +5829,13 @@ select {
   height: 0;
   border-style: solid;
   position: absolute;
-  right: -4.5px;
-  bottom: -5px;
+  right: -2px;
+  bottom: -8px;
+  transform: rotate(17deg);
+  -webkit-transform: rotate(17deg);
+  -moz-transform: rotate(17deg);
+  -ms-transform: rotate(17deg);
+  -o-transform: rotate(17deg);
 }
 
 .comment-container {

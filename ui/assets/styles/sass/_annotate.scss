@@ -1,5 +1,5 @@
 .shape {
-    $w: 27px;
+    $w: 26px;
     width: $w;
     height: $w;
     border-radius: 50%;
@@ -28,13 +28,14 @@
     }
     &::after {
         content: "";
-        border-width: $w/3;
+        border-width: ceil($w/3);
         width: 0;
         height: 0;
         border-style: solid;
         position: absolute;
-        right: -4.5px;
-        bottom: -5px;
+        right: -2px;
+        bottom: -8px;
+        @include transform(rotate(17deg));
     }
 }
 .comment-container{

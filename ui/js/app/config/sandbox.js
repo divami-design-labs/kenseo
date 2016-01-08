@@ -152,7 +152,7 @@ var sb = (function () {
                             }
                             payload.success(response);
                         } else {
-                            // window.location.assign(DOMAIN_ROOT_URL);
+                            window.location.assign(DOMAIN_ROOT_URL);
                         }
                     } catch (ex) {
                         // Catching the exception
@@ -559,39 +559,6 @@ var sb = (function () {
 
                 // Storing current popup root element
                 Kenseo.current.popup = $templateHolder.find('.popup').last();
-
-                if (info.callbackfunc) {
-                    info.callbackfunc();
-                }
-            }
-        },
-        callOverlay: function callPopup(index) {
-            var allPopups = $('.overlay');
-            var $popup = allPopups.eq(index);
-            if ($popup.length) {
-                allPopups.addClass('hide');
-                $popup.removeClass('hide');
-
-                // Storing current popup root element
-                Kenseo.current.popup = $popup;
-            } else {
-                $('.overlay').addClass('hide');
-                var info = Kenseo.popup.info[index];
-                _.extend(info, { 'index': index });
-
-                var $templateHolder = $('.popup-container');
-
-                sb.renderTemplate({
-                    'templateName': info.page_name,
-                    'templateHolder': $templateHolder,
-                    'append': true,
-                    'data': {
-                        'data': info
-                    }
-                });
-
-                // Storing current popup root element
-                Kenseo.current.popup = $templateHolder.find('.overlay').last();
 
                 if (info.callbackfunc) {
                     info.callbackfunc();
