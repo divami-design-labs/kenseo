@@ -8,4 +8,3 @@ Kenseo.models.Projects = Backbone.Model.extend({
         'lastUpdated': null
     }
 });
-//# sourceMappingURL=ProjectsModel.js.map

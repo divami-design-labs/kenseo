@@ -8,36 +8,26 @@
 		</div>
 		<div class="meta-item">
 			<div class="meta-heading">File</div>
-			<div class="meta-text"><%= dump.fileName %></div>
+			<div class="meta-text" title="<%= dump.fileName %>"><%= dump.fileName %></div>
 		</div>
 		<div class="meta-item">
 			<div class="meta-heading">Type</div>
-			<% if(dump.docType){ %>
-				<% _.each(dump.docType, function(r){ %>
-					<div class="meta-text"><%= r.name %></div>
-				<% }); %>
+			<% if(dump.doctype){ %>
+					<div class="meta-text"><%= Kenseo.settings.doctype[dump.doctype[0]['data-name']] %></div>
 			<% } %>
 		</div>
 		<div class="meta-item">
 			<div class="meta-heading">References</div>
 			<% if(dump.references){ %>
-				<% _.each(dump.references, function(r){ %>
-					<div class="meta-text"><%= r.name %></div>
-				<% }); %>
+				<% var references = dump.references.map(function(e){return e.name}).join(", ") %>
+				<div class="meta-text" title="<%= references %>"><%= references %></div>
 			<% } %>
 		</div>
 		<div class="meta-item">
 			<div class="meta-heading">Tags</div>
 			<div class="meta-text">
 				<% if(dump.tags){ %>
-					<% 
-						var arrVal = [];
-						for(var i=0; i<dump.tags.length; i++){
-							var t = dump.tags[i];
-							arrVal.push(t.name);
-						}
-					%>
-					<%= arrVal.join(", ") %>
+					<%= dump.tags.value %>
 				<% } %>
 			</div>
 		</div>

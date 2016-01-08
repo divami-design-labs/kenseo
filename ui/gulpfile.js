@@ -90,6 +90,7 @@ function watchChanges(){
     templateChange();
     sassChange();
     babelChange(/*{ blacklist: ["strict"] }*/);
+    spriteChanges();
     gulp.watch([
         'assets/templates/**/*.html',
         'assets/styles/sass/**/*.scss', 

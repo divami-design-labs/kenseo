@@ -112,6 +112,10 @@
 	@include square(27px);
 	margin: 15px 0px;
 	cursor: pointer;
+	fill: #7E878E;
+	&.active{
+		fill: #304075;
+	}
 }
 /*.document-info-icon{
 	@include backgroundImage('document-info.svg');

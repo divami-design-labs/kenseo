@@ -657,8 +657,7 @@ sb.popup = {
                 });
             }
         });
-    },
-    removePeople: function removePeople() {}
+    }
 };
 
 // selectedUser = $selectedEl.html()
@@ -667,4 +666,3 @@ sb.popup = {
 //     email: $selectedEl.attr('data-email')
 // })
 // $('.names-holder').append(" <div class='tag'>" + selectedUser + "<div class='tag-close'></div</div>");
-//# sourceMappingURL=sandbox.popup.js.map

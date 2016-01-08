@@ -18,4 +18,3 @@ var i18n = {
 
 // to extend this object later in other files use _.extend(Kenseo["i18n"],{/*object to extend*/});
 // Please do check this link to know which method to be used exactly: http://stackoverflow.com/q/19965844/1577396
-//# sourceMappingURL=i18n.js.map

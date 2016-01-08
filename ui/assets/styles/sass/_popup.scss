@@ -114,7 +114,8 @@ $popup-content-space: 175px;
 .uploader-section{
 }
 .uploader-section-img{
-	@include elementWithBackground("pdfnpng.svg", 125px, 200px);
+	/*@include elementWithBackground("pdfnpng.svg", 125px, 200px);*/
+	@include dimensions(125px, 200px);
 	margin-top: 45px;
 }
 .file-heading{

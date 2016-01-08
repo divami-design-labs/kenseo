@@ -61,4 +61,3 @@ Kenseo.views.Header = Backbone.View.extend({
 });
 
 // e.stopPropagation();
-//# sourceMappingURL=HeaderView.js.map

@@ -101,4 +101,3 @@ function setPanningDimensions() {
 }
 // setPanningDimensions();
 window.addEventListener('resize', setPanningDimensions, true);
-//# sourceMappingURL=custom-panning.js.map

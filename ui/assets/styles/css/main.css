@@ -2184,9 +2184,7 @@ svg {
 }
 
 .uploader-section-img {
-  background-image: url("../../imgs/pdfnpng.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  /*@include elementWithBackground("pdfnpng.svg", 125px, 200px);*/
   width: 125px;
   height: 200px;
   margin-top: 45px;
@@ -3992,6 +3990,11 @@ input[type="text"].xm {
   height: 27px;
   margin: 15px 0px;
   cursor: pointer;
+  fill: #7E878E;
+}
+
+.dvt-item.active {
+  fill: #304075;
 }
 
 /*.document-info-icon{

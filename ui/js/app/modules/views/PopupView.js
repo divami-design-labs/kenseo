@@ -17,4 +17,3 @@ Kenseo.views.Popup = Backbone.View.extend({
     },
     attachEvents: function attachEvents() {}
 });
-//# sourceMappingURL=PopupView.js.map

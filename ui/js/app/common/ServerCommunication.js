@@ -72,4 +72,3 @@ function ServerConnection() {
 		return call;
 	};
 }
-//# sourceMappingURL=ServerCommunication.js.map

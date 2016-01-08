@@ -17,4 +17,3 @@ Kenseo.overlays = (function () {
         }
     };
 })();
-//# sourceMappingURL=overlays.js.map

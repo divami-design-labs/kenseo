@@ -45,4 +45,3 @@ Kenseo.views.Notifications = Backbone.View.extend({
 //         Kenseo.data = model.toJSON();
 //     }
 // });
-//# sourceMappingURL=NotificationsView.js.map

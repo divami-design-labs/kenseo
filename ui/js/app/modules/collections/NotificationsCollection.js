@@ -5,4 +5,3 @@ Kenseo.collections.Notifications = Backbone.Collection.extend({
     url: sb.getRelativePath("getNotifications"),
     model: Kenseo.models.Notifications
 });
-//# sourceMappingURL=NotificationsCollection.js.map

@@ -14,4 +14,3 @@ function getTimeFormat() {
 				var time = hh + ":" + min + " " + ampm;
 				return time;
 }
-//# sourceMappingURL=utils.js.map

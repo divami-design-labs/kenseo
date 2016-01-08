@@ -49,4 +49,3 @@ Kenseo.views.Project = Backbone.View.extend({
         // Kenseo.currentModel = model;
     }
 });
-//# sourceMappingURL=ProjectsView.js.map

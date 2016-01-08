@@ -155,7 +155,15 @@ var annotator = (function(){
     }
 	return {
 		init: function(){
-			$(document).on('click', '.new-textlayer', this.annotate);
+			$(document).on('click', '.new-textlayer', function(e){
+				var $self = $(e.currentTarget);
+				var $outerContainer = $self.parents('.outerContainer');
+				var $annotateIcon = $outerContainer.find('.dvt-item.add-comment-icon');
+				// Do annotate if the annotate icon is active
+				if($annotateIcon.hasClass('active')){
+					this.annotate(e);
+				}
+			}.bind(this));
 			$(document).on('click', '.drpdwn-item', function(){
 				var $self = $(this);
 				var $selectedText = $self.parents('.drpdwn').find('.drpdwn-selected-text');
@@ -323,3 +331,21 @@ var annotator = (function(){
 		}
 	}
 })();
+
+$(document).on('click', '.dvt-item', function(){
+	var $self = $(this);
+	var $broItems = $self.parent().find('.dvt-item');
+	$broItems.not($self).removeClass('active');
+	$self.toggleClass('active');
+});
+
+$(document).on('click', '.dvt-item.toggle-annotations-icon', function(){
+	var $self = $(this);
+	var $outerContainer = $self.parents('.outerContainer');
+	if($self.hasClass('active')){
+		$outerContainer.find('.shape').addClass('hide-comment-section');
+	}
+	else{
+		$outerContainer.find('.shape').removeClass('hide-comment-section');	
+	}
+});

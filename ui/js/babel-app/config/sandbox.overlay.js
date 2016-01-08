@@ -21,12 +21,15 @@ sb.overlay = {
 					// Attaching events
 			        var $summarSectionBody = $('.summary-section-body'),
 			        	$close = $summarSectionBody.find('.close-icon');
-			        $summarSectionBody.click(function(e){
-			        	var $overlay = $(this).parent();
-			        	if($overlay.hasClass('view')){
-				            $overlay.removeClass('view');
-				        }
-			        });
+		        	/******************************/
+		        	// The below lines are temprorarily commented
+			        // $summarSectionBody.click(function(e){
+			        // 	var $overlay = $(this).parent();
+			        // 	if($overlay.hasClass('view')){
+				       //      $overlay.removeClass('view');
+				       //  }
+			        // });
+					/******************************/
 			        // Close icon
 			        $close.click(function(e) {
 			        	e.stopPropagation();

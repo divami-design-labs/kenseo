@@ -11,4 +11,3 @@ Kenseo.models.Notifications = Backbone.Model.extend({
         notifierId: null
     }
 });
-//# sourceMappingURL=NotificationsModel.js.map

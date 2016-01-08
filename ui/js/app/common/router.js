@@ -20,4 +20,3 @@ var Router = Backbone.Router.extend({
     documentView: sb.router.documentView,
     projects: sb.router.projects
 });
-//# sourceMappingURL=router.js.map
