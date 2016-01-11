@@ -62,13 +62,14 @@ $AppGlobal['sql']['getProjectArtefacts'] = "SELECT a.artefact_id as id, v.artefa
 											(select count(t.comment_thread_id) from ". TABLE_COMMENT_THREADS ." as 
 												t WHERE a.latest_version_id = t.artefact_ver_id
 											) as comment_count 
-											from artefacts a 
+											from " . TABLE_ARTEFACTS . " a 
 											inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.latest_version_id = v.artefact_ver_id
 											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
 											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
 											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id
 											where m.user_id = @~~userid~~@ AND p.project_id = @~~projectid~~@ AND
-											a.replace_ref_id is null ORDER BY @~~sortBy~~@";
+											a.replace_ref_id is null 
+											AND a.state != 'A' AND a.state != 'D' ORDER BY @~~sortBy~~@";
 
 $AppGlobal['sql']['getSharedArtefacts'] = "SELECT a.artefact_id as id, a.latest_version_id as artefact_ver_id, 
 											a.artefact_title AS title, a.artefact_type AS document_type,
@@ -135,7 +136,6 @@ $AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_title, artefact
 										artefacts.latest_version_id = versions.artefact_ver_id
 										AND
 										artefacts.artefact_id = versions.artefact_id
-										
 										WHERE artefact_title LIKE @~~string~~@";
 
 $AppGlobal['sql']['matchProjects'] = "SELECT project_name AS matchedString, project_id AS id FROM " . TABLE_PROJECTS . " WHERE project_name LIKE @~~string~~@";
@@ -378,7 +378,7 @@ $AppGlobal['sql']['getReferenceArtefactList'] = "SELECT DISTINCT arts.artefact_t
 $AppGlobal['sql']['getArtefactVersionsList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = 
 											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@)";
 
-$AppGlobal['sql']['getArtefactSharedMemebersList'] = "SELECT DISTINCT user.user_id as userId, user.name as name, user.email as email, user.profile_pic_url as userImage,
+$AppGlobal['sql']['getArtefactSharedMembersList'] = "SELECT DISTINCT user.user_id as userId, user.name as name, user.email as email, user.profile_pic_url as userImage,
 													(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
 													WHERE 
 													thread.artefact_ver_id IN (select artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = @~~maskedVerId~~@) 
@@ -455,6 +455,19 @@ $AppGlobal['sql']['getAllArtefactsOfProject'] = "SELECT a.artefact_id, v.artefac
 // Get comments severities in an artefact version Id
 $AppGlobal['sql']['getArtefactCommentSeverities'] = "SELECT t.artefact_ver_id, t.severity FROM " . TABLE_COMMENT_THREADS ." t WHERE 
 														artefact_ver_id = @~~artefact_ver_id~~@ group by t.severity";
+
+
+// Get latest artefact shared value
+$AppGlobal['sql']['getLatestArtefactSharedValue'] = "SELECT shared FROM " . TABLE_ARTEFACTS_VERSIONS . " v join " . TABLE_ARTEFACTS . 
+														" a on a.latest_version_id = v.artefact_ver_id WHERE a.artefact_id = @~~artId~~@";
+
+
+$AppGlobal['sql']['getArtefactSharedMembers'] = "SELECT u.user_id AS id, u.name, u.email, u.profile_pic_url AS picture, asm.access_type, 
+													IF( p.created_by = u.user_id, 1, 0 ) AS is_owner FROM " . TABLE_ARTEFACTS_SHARED_MEMBERS ." asm
+													INNER JOIN " . TABLE_USERS . " u ON asm.user_id = u.user_id
+													INNER JOIN " . TABLE_ARTEFACTS . " a ON a.artefact_id = asm.artefact_id
+													INNER JOIN " . TABLE_PROJECTS . " p ON p.project_id = a.project_id
+													WHERE asm.artefact_id =@~~artId~~@";
 
 
 ?>

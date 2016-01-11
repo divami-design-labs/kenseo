@@ -111,6 +111,9 @@ sb.popup = {
             } else if (sb.getPopupData("actionType") == "addArtefactVersion") {
                 sb.setPopupData("addArtefactVersion", "command");
                 sb.setPopupData("addArtefactVersionFile", "actionType");
+            } else if (sb.getPopupData("actionType") == "addVersion") {
+                sb.setPopupData("addVersion", "command");
+                sb.setPopupData("addVersion", "actionType");
             }
 
             toggleStateMainBtn(false);
@@ -142,10 +145,16 @@ sb.popup = {
             "collections": ["Artefacts"],
             "models": ["Artefacts"]
         }, function () {
+            var projectId;
+            if (Kenseo.popup.data.actionType == "addVersion") {
+                projectId = sb.getPopupData("project_id");
+            } else {
+                projectId = sb.getPopupData("id");
+            }
             sb.ajaxCall({
                 collection: new Kenseo.collections.Artefacts(),
                 data: {
-                    projectid: sb.getPopupData("id"),
+                    projectid: projectId,
                     references: true,
                     ignore: 0
                 },
@@ -384,7 +393,7 @@ sb.popup = {
                 collection: new Kenseo.collections.People(),
                 data: {
                     "all": true,
-                    "projectId": sb.getPopupData("project_id")
+                    "projectId": sb.getPopupData("id")
                 },
                 success: function success(resp) {
                     //reder all the others in a COMBO

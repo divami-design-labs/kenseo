@@ -114,4 +114,9 @@ $AppGlobal['urlmap']['/getDocumentSummary'] = array ('command' => 'getDocumentSu
 // Document Comments Section
 $AppGlobal['cmdmap']['createComment'] = array ("class" => "Comments", "method" => "createComment");
 $AppGlobal['urlmap']['/createComment'] = array ('command' => 'createComment', 'type' => 'POST');
+
+// Get Artefact Details like Links, Tags, References, People
+$AppGlobal['cmdmap']['getArtefactMetaInfo'] = array ("class" => "Artefacts", "method" => "getArtefactMetaInfo");
+$AppGlobal['urlmap']['/getArtefactMetaInfo'] = array ('command' => 'getArtefactMetaInfo', 'type' => 'GET');
+
 ?>
