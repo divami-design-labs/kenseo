@@ -1,5 +1,9 @@
 <div class="people-item-left">
-	<img class="people-icon" src="<%= data.picture %>" />
+	<% if(data.picture !== "assets/imgs/avatar.svg"){ %>
+		<img class="people-icon" src="<%= data.picture %>" />
+	<% } else { %>
+		<svg class="people-icon"><use xlink:href="#avatar"></use></svg>
+	<% } %>
 </div>
 <div class="people-item-right">
 	<div class="people-name-section data-holder" data-k-project_id="1" data-key="people" data-id="<%= data.id %>">

@@ -81,6 +81,10 @@
 	left: 50%;
 	@include transform(translate(-50%,0));
 	right: auto;
+	white-space: nowrap;
+	button:first-child{
+		margin-left: 0px;
+	}
 }
 
 /* second artefact popup*/

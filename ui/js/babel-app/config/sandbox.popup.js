@@ -271,6 +271,7 @@ sb.popup = {
             //         projectid: sb.getPopupData("project_id")
             //     },
             //     success: function success(data) {
+                    var $currentPopup = Kenseo.current.popup;
                     var container = document.querySelector(".reference-combobox");
                     var combobox = sb.toolbox.applyComboBox({
                         elem: container,
@@ -295,8 +296,20 @@ sb.popup = {
                     var typeCombobox = new sb.toolbox.applyComboBox({
                         elem: documentType,
                         // data: data.data,
-                        data: Kenseo.settings.doctype
+                        data: Kenseo.settings.doctype,
+                        onchange: function($elem, value, bln){
+                            if(bln){
+                                $currentPopup.find('.main-btn').removeAttr('disabled');
+                            }
+                            else{
+                                $currentPopup.find('.main-btn').attr('disabled', 'true');
+                            }
+                        }
                     });
+
+                    // Keep the .main-btn class button disabled by default
+                    // (Enable this button when user selects the document type)
+                    $currentPopup.find('.main-btn').attr('disabled', 'true');
             //     }
             // });
 
@@ -394,7 +407,7 @@ sb.popup = {
                     "projectId": sb.getPopupData("id")
                 },
                 success: function success(resp) {
-                    //reder all the others in a COMBO
+                    //render all the others in a COMBO
                     var data = resp.data.otherMembers;
                     var container = document.querySelector(".people-combobox");
                     sb.toolbox.applyComboBox({

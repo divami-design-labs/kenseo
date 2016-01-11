@@ -1,4 +1,8 @@
-<img width="50" height="50" src="<%= data.picture %>"/>
+<% if(data.picture !== "assets/imgs/avatar.svg"){ %>
+	<img width="50" height="50" src="<%= data.picture %>"/>
+<% } else { %>
+	<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>
+<% } %>
 <div class="sub-menu-holder right-nav bottom-nav">
     <div class="sub-menu-item">Profile</div>
     <div class="sub-menu-item">Settings</div>

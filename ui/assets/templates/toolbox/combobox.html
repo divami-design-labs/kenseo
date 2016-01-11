@@ -1,5 +1,5 @@
 <div class="field-section <% if(data.fieldClass){ %><%= data.fieldClass %><% } %>" <% if(data.dataName){ %> data-name="<%= data.dataName %>" <% } %>>
-	<% if(data.label){ %><div class="input-label"><%= data.label %></div><% } %>
+	<% if(data.label){ %><div class="input-label <% if(data.labelClass) {%><%= data.labelClass %><% } %>"><%= data.label %></div><% } %>
 	<div class="combobox <% if(data.class){ %><%= data.class %><% } %>" data-xtype="<%= data['data-xtype'] %>" <% if(data['data-xtype-key']){ %>data-xtype-key="<%=  data['data-xtype-key'] %>"<% } %>>
 		<div class="combobox-wrapper">
 			<input type="text" placeholder="<%= data.placeholder %>">

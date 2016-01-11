@@ -1,6 +1,10 @@
 <div class="menu-profile">
     <div class="menu-profile-img-dv">
-        <img src="<%= data.picture %>" class="menu-profile-img" />
+        <% if(data.picture !== "assets/imgs/avatar.svg"){ %>
+            <img class="menu-profile-img" src="<%= data.picture %>" />
+        <% } else { %>
+            <svg class="menu-profile-img"><use xlink:href="#avatar"></use></svg>
+        <% } %>
     </div>
     <div class="menu-profile-text">
         <div class="menu-profile-txt-nm"><%= data.name %></div>
@@ -14,7 +18,7 @@
         </div>
         <span class="menu-settings-txt">Dashboard</span>
     </a>
-    <a href="#projects" class="menu-settings-dshbd-dv page-click">
+    <a href="#projects" class="menu-settings-dshbd-dv page-click hide">
         <div class="menu-settings-img menu-archive-icon">
             <svg fill="#BEC0CF"><use xlink:href="#archive-icn"></use></svg>
         </div>

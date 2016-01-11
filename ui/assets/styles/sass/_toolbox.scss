@@ -244,3 +244,10 @@ input[type="text"].xm{
 	display: inline-block;
 	vertical-align: middle;
 }
+.required{
+	&::after{
+		content: "*";
+		color: tomato;
+		margin-left: 2px;
+	}
+}

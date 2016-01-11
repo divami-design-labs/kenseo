@@ -1,6 +1,17 @@
 <%
 	var newData = sb.getDayWiseData(data)
 %>
+<% 
+	var svgicons = {
+		"user-added": "#icon11",
+		"artefact-share": "#icon11",
+		"artefact-approved": "#file12",
+		"artefact-added": "#addfile",
+		"artefact-comment": "#icon15",
+		"meeting-added": "#icon4",
+		"user-removed": "#icon2"
+	}
+%>
 <div class="sub-heading-section">
 	<div class="sub-heading">
 		<div class="sub-heading-label">Activity</div>
@@ -15,9 +26,13 @@
 		</div>
 		<div class="day-activity-section">
 			<% _.each(newData[key], function(a){ %>
-			<div class="activity-holder <%= a.activityOn.toLowerCase() %>-<%= a.activityType.toLowerCase() %>-activity-type">
+				<% var activityTypeX = a.activityOn.toLowerCase() + "-" + a.activityType.toLowerCase() %>
+				<% console.log(activityTypeX) %>
+			<div class="activity-holder">
 				<div class="activity-left">
-					<div class="activity-icon"></div>
+					<div class="activity-icon">
+						<svg><use xlink:href="<%= svgicons[activityTypeX] %>"></use></svg>
+					</div>
 				</div>
 				<div class="activity-right">
 					<div class="activity-title ellipsis" title="<%= a.activityName %>"><%= a.project_name %>: 

@@ -35,6 +35,24 @@ Kenseo.popups = (function(){
 	            "callbackfunc": sb.popup.createFilePopup
 	        },
 	        {
+	        	'page_name': 'message',
+	        	'title': 'General artefact sharing',
+	        	'message': function(){
+	        		return 'This artefact will be shared with your project team members automatically';
+	        	},
+	        	'buttons': [{
+	            	'label': 'Back',
+	            	'cls': 'lnk-btn'
+	            },{
+	            	'label': 'Cancel',
+	            	'cls': 'cancel-btn lnk-btn'
+	            },
+	            {
+	            	'label': 'Proceed',
+	            	'cls': 'main-btn'
+	            }],
+	        },
+	        {
 	            "page_name": "artefact-three",
 	            "title": "Add an Artefact",
 	            "buttons": [{

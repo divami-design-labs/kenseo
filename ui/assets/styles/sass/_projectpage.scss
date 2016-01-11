@@ -237,7 +237,7 @@
 }
 
 .activity-section-content{
-    .user-added-activity-type{
+    /*.user-added-activity-type{
         .activity-icon{
             @include elementWithBackground("icon11.svg", 34px, 38px);
         }
@@ -249,8 +249,7 @@
     }
     .artefact-added-activity-type{
         .activity-icon{
-            /*@include elementWithBackground("addfile.svg", 34px, 38px);*/
-            @include dimensions(34px, 38px);
+            @include elementWithBackground("addfile.svg", 34px, 38px);
         }
     }
     .artefact-comment-activity-type{
@@ -272,6 +271,9 @@
         .activity-icon{
             @include elementWithBackground("icon2.svg", 34px, 38px);
         }
+    }*/
+    .activity-icon{
+        @include dimensions(34px, 38px);
     }
 }
 

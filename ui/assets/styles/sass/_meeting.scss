@@ -29,7 +29,8 @@
 	@include dimensions(115px, 30px);
 }
 .datepicker-icon {
-	@include backgroundImage('calendar.svg');
+	/*@include backgroundImage('calendar.svg');*/
+	fill: #435383;
 	@include dimensions(17px, 17px);
 	margin: 8px 8px;
 }

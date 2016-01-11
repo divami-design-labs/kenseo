@@ -1,7 +1,11 @@
 <% if(data && data.length){ %>
 <% _.each(data, function(p){ %>
 <div class="menu-recent-people-cnt">
-    <img src="<%= p.picture %>" class="menu-people-img" />
+	<% if(p.picture == "assets/imgs/avatar.svg"){ %>
+		<svg><use xlink:href="#avatar" class="menu-people-img"></use></svg>
+    <% } else { %>
+    	<img src="<%= p.picture %>" class="menu-people-img" />
+    <% } %>
 </div>
 <% }); %>
 <% } else{ %>

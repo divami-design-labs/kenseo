@@ -1,9 +1,9 @@
 <% if(data && data.length){ %>
 <% _.each(data, function(p){ %>
-<div class="projects-img-dv">
+<a href="#projectpage/<%= p.id %>" class="projects-img-dv">
     <img src='http://lorempixel.com/sports/280/200' class="menu-project-img" />
     <span class="projects-img-dv-txt"><%= p.name %></span>
-</div>
+</a>
 <% }); %>
 <% } else{ %>
 <div class="no-items">

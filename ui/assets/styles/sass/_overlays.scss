@@ -4,6 +4,7 @@
 .summary-section-overlay{
 	width: 85%;
 	height: 614px;
+	min-width: 1000px;
 	background-color: white;
 	.rr-comment{
 		@extend .inlineBlockTop;

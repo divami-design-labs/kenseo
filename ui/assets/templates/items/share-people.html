@@ -16,11 +16,7 @@ var accessType = sb.getAccessType(data['access_type'])
 						toggle: true,
 						dataName: "sharedTo",
 						checked: !!+accessType[0],
-						"data-array": "1",
-						attribs: {
-							userId: data.user_id,
-							permission: "c"
-						}
+						"data-array": "1"
 					})
 				%>
 			</div>
@@ -32,11 +28,7 @@ var accessType = sb.getAccessType(data['access_type'])
 						toggle: true,
 						dataName: "sharedTo",
 						checked: !!+accessType[1],
-						"data-array": "1",
-						attribs: {
-							userId: data.user_id,
-							permission: "s"
-						}
+						"data-array": "1"
 					})
 				%>
 			</div>
