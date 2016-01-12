@@ -36,7 +36,8 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	// The suggestion box will hide.
 	document.onclick = function () {
 		// hideSuggestions(true);
-		var $combobElem = (($elem.length && $elem) || $('.combobox')).find(suggestionsContainerClass).hide();
+		// var $combobElem = (($elem.length && $elem) || $('.combobox')).find(suggestionsContainerClass).hide();
+		$('.combobox').find(suggestionsContainerClass).hide();
 	};
 	$elem.click(function (e) {
 		e.stopPropagation();

@@ -573,6 +573,15 @@ svg {
   top: 50%;
 }
 
+.search-svg-icon {
+  position: absolute;
+  height: 25px;
+  left: 12px;
+  top: 16px;
+  width: 25px;
+  z-index: 1;
+}
+
 .timer-overlay {
   position: absolute;
   width: 250px;
@@ -872,6 +881,8 @@ svg {
   width: 190px;
   float: left;
   margin-right: 30px;
+  text-decoration: none;
+  color: unset;
 }
 
 .menu-project-img {
@@ -1938,56 +1949,45 @@ svg {
   color: #464c5f;
 }
 
-.activity-section-content .user-added-activity-type .activity-icon {
-  background-image: url("../../imgs/icon11.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 34px;
-  height: 38px;
+.activity-section-content {
+  /*.user-added-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon11.svg", 34px, 38px);
+        }
+    }
+    .artefact-approved-activity-type{
+        .activity-icon{
+            @include elementWithBackground("file12.svg", 34px, 38px);
+        }
+    }
+    .artefact-added-activity-type{
+        .activity-icon{
+            @include elementWithBackground("addfile.svg", 34px, 38px);
+        }
+    }
+    .artefact-comment-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon15.svg", 34px, 38px);
+        }
+    }
+    .artefact-share-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon11.svg", 34px, 38px);
+        }
+    }
+    .meeting-added-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon4.svg", 34px, 38px);
+        }
+    }   
+    .user-removed-activity-type{
+        .activity-icon{
+            @include elementWithBackground("icon2.svg", 34px, 38px);
+        }
+    }*/
 }
 
-.activity-section-content .artefact-approved-activity-type .activity-icon {
-  background-image: url("../../imgs/file12.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 34px;
-  height: 38px;
-}
-
-.activity-section-content .artefact-added-activity-type .activity-icon {
-  /*@include elementWithBackground("addfile.svg", 34px, 38px);*/
-  width: 34px;
-  height: 38px;
-}
-
-.activity-section-content .artefact-comment-activity-type .activity-icon {
-  background-image: url("../../imgs/icon15.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 34px;
-  height: 38px;
-}
-
-.activity-section-content .artefact-share-activity-type .activity-icon {
-  background-image: url("../../imgs/icon11.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 34px;
-  height: 38px;
-}
-
-.activity-section-content .meeting-added-activity-type .activity-icon {
-  background-image: url("../../imgs/icon4.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 34px;
-  height: 38px;
-}
-
-.activity-section-content .user-removed-activity-type .activity-icon {
-  background-image: url("../../imgs/icon2.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+.activity-section-content .activity-icon {
   width: 34px;
   height: 38px;
 }
@@ -2151,6 +2151,11 @@ svg {
   -ms-transform: translate(-50%, 0);
   -o-transform: translate(-50%, 0);
   right: auto;
+  white-space: nowrap;
+}
+
+.popup-message .buttons-section button:first-child {
+  margin-left: 0px;
 }
 
 /* second artefact popup*/
@@ -2636,9 +2641,8 @@ svg {
 }
 
 .datepicker-icon {
-  background-image: url("../../imgs/calendar.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  /*@include backgroundImage('calendar.svg');*/
+  fill: #435383;
   width: 17px;
   height: 17px;
   margin: 8px 8px;
@@ -2888,6 +2892,7 @@ svg {
 .summary-section-overlay {
   width: 85%;
   height: 614px;
+  min-width: 1000px;
   background-color: white;
 }
 
@@ -3843,6 +3848,12 @@ input[type="text"].xm {
 .drpdwn-item-text {
   display: inline-block;
   vertical-align: middle;
+}
+
+.required::after {
+  content: "*";
+  color: tomato;
+  margin-left: 2px;
 }
 
 .fixed-header.header {

@@ -1,18 +1,21 @@
 <div class="field-section" <% if(data.dataName){ %> data-name="<%= data.dataName %>" <% } %>>
-	<% if(data.label){ %><div class="input-label"><%= data.label %></div><% } %>
+	<% if(data.label){ %><div class="input-label <% if(data.labelClass){ %><%= data.labelClass %><% } %> <% if(data.required){ %> required<% } %>"><%= data.label %></div><% } %>
 	<div class="input-wrapper">
 		<% if(!data.textArea){ %>
 		<input 
 			type="text" 
-			class="input-text <% if(data.inputClass) { %><%= data.inputClass %> <% } %>" 
-			<% if(data.placeholder){ %>placeholder="<%= data.placeholder %>" <% } %> 
+			class="input-text <% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>" 
+			<% if(data.placeholder){ %>
+			placeholder="<%= data.placeholder %>" 
+			<% } %> 
 			<%= sb.setTemplate('attributes', {data: data}) %>
-
 		></input>
 		<% } else { %>
-		<textarea  class="<% if(data.inputClass) { %><%= data.inputClass %> <% } %>" 
-		<% if(data.placeholder){ %>placeholder="<%= data.placeholder %>" <% } %> 
-		<%= sb.setTemplate('attributes', {data: data}) %>
+		<textarea class="<% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>" 
+			<% if(data.placeholder){ %>
+			placeholder="<%= data.placeholder %>" 
+			<% } %> 
+			<%= sb.setTemplate('attributes', {data: data}) %>
 		 ></textarea>
 		<% } %>
 	</div>

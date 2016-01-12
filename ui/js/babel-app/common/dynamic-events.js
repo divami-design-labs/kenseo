@@ -132,7 +132,7 @@ $(function () {
 		var $self = $(this);
 		var actionType = sb.getPopupData('actionType');
 		var data = null;
-		var file = sb.getPopupData('file');
+		var file = sb.getPopupData('files');
 		var plainData = false,
 		    contentType = null,
 		    processData = null;
