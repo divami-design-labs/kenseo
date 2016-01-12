@@ -78,10 +78,10 @@ sb.popup = {
         };
 
         $(".upload-files-input").change(function () {
-            var file = this.files[0];
+            var files = this.files;
 
             // If user clicks cancel.
-            if (!file) {
+            if (!files) {
                 // Clear selected file path from input box
                 $(".create-file-close-icon").click();
                 return;
@@ -92,17 +92,21 @@ sb.popup = {
                 "visibility": "visible"
             });
 
-            // removing fakepath from string (Chrome)
-            var value = this.value.replace("C:\\fakepath\\", "");
-            $currentPopup.find(".create-file-item .notification-title").html(value).attr('title', value);
+            if (this.files.length === 1) {
+                // removing fakepath from string (Chrome)
+                var value = this.value.replace("C:\\fakepath\\", "");
+                $currentPopup.find(".create-file-item .notification-title").html(value).attr('title', value);
+            } else {
+                $currentPopup.find(".create-file-item .notification-title").html("mutiple files added");
+            }
             var info = "@ " + getTimeFormat() + " by " + Kenseo.data.header.screen_name;
             $currentPopup.find(".create-file-item .notification-time").html(info);
 
-            sb.setPopupData(file, "file");
-            sb.setPopupData(value, "fileName");
+            sb.setPopupData(files, "files");
+            // sb.setPopupData(value, "fileName");
             sb.setPopupData(value, "description");
-            sb.setPopupData(file, "MIMEtype");
-            sb.setPopupData(file.size, "size");
+            // sb.setPopupData(file, "MIMEtype");
+            // sb.setPopupData(file.size, "size");
             //if this is an add artefact in the next popup call back it will be set taccordingly
             //for replace this is the only place we can decide wheteher it is a replace call or not
             if (sb.getPopupData("actionType") == "replaceArtefact") {
@@ -273,6 +277,7 @@ sb.popup = {
             //         projectid: sb.getPopupData("project_id")
             //     },
             //     success: function success(data) {
+            var $currentPopup = Kenseo.current.popup;
             var container = document.querySelector(".reference-combobox");
             var combobox = sb.toolbox.applyComboBox({
                 elem: container,
@@ -297,8 +302,19 @@ sb.popup = {
             var typeCombobox = new sb.toolbox.applyComboBox({
                 elem: documentType,
                 // data: data.data,
-                data: Kenseo.settings.doctype
+                data: Kenseo.settings.doctype,
+                onchange: function onchange($elem, value, bln) {
+                    if (bln) {
+                        $currentPopup.find('.main-btn').removeAttr('disabled');
+                    } else {
+                        $currentPopup.find('.main-btn').attr('disabled', 'true');
+                    }
+                }
             });
+
+            // Keep the .main-btn class button disabled by default
+            // (Enable this button when user selects the document type)
+            $currentPopup.find('.main-btn').attr('disabled', 'true');
             //     }
             // });
 
@@ -396,7 +412,7 @@ sb.popup = {
                     "projectId": sb.getPopupData("id")
                 },
                 success: function success(resp) {
-                    //reder all the others in a COMBO
+                    //render all the others in a COMBO
                     var data = resp.data.otherMembers;
                     var container = document.querySelector(".people-combobox");
                     sb.toolbox.applyComboBox({

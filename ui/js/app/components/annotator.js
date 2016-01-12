@@ -336,8 +336,8 @@ $(document).on('click', '.dvt-item.toggle-annotations-icon', function () {
 	var $self = $(this);
 	var $outerContainer = $self.parents('.outerContainer');
 	if ($self.hasClass('active')) {
-		$outerContainer.find('.shape').addClass('hide-comment-section');
-	} else {
 		$outerContainer.find('.shape').removeClass('hide-comment-section');
+	} else {
+		$outerContainer.find('.shape').addClass('hide-comment-section');
 	}
 });

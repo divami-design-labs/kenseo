@@ -129,7 +129,7 @@ $(function () {
 		var $self = $(this);
 		var actionType = sb.getPopupData('actionType');
 		var data = null;
-		var file = sb.getPopupData('file');
+		var files = sb.getPopupData('files');
 		var plainData = false,
 		    contentType = null,
 		    processData = null;
@@ -142,15 +142,19 @@ $(function () {
 		}
 		sb.postcall.getPostObj($self); // temporary fix
 		// Submit the information
-		if (file) {
+		if (files) {
 			var data = new FormData();
 
 			for (var x in Kenseo.popup.data) {
 				var dump = sb.getPopupData(x);
-				if (typeof dump === 'object' && x !== 'file') {
+				if (typeof dump === 'object' && x !== 'files') {
 					dump = JSON.stringify(dump);
 				}
 				data.append(x, dump);
+			}
+
+			for (var x = 0, xLen = files.length; x < xLen; x++) {
+				data.append("filesToUpload[]", files[x]);
 			}
 
 			data.append('type', 'I');
