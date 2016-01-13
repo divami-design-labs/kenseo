@@ -2070,10 +2070,10 @@ svg {
 
 .popup-small {
   width: 425px;
-  max-height: 260px;
+  max-height: 225px;
 }
 
-@media (max-height: 260px) {
+@media (max-height: 225px) {
   .popup-small {
     max-height: auto;
   }
@@ -2107,7 +2107,7 @@ svg {
   background-color: #ececed;
   font-size: 18px;
   color: #464c5f;
-  padding-left: 30px;
+  padding-left: 25px;
   vertical-align: middle;
 }
 
@@ -2140,7 +2140,7 @@ svg {
 
 .popup-body-wrapper {
   padding: 30px;
-  padding-left: 50px;
+  /*padding-left: 50px;*/
 }
 
 .popup-message .buttons-section {
@@ -2170,7 +2170,7 @@ svg {
 }
 
 .meta-item {
-  padding-left: 50px;
+  padding-left: 30px;
   margin-top: 20px;
 }
 
@@ -2491,9 +2491,9 @@ svg {
 
 .popup-message .popup-body-wrapper {
   padding-bottom: 0px;
-  padding-left: 50px;
+  /*padding-left: 50px;*/
   padding-top: 10px;
-  padding-right: 10px;
+  /*padding-right: 10px;*/
 }
 
 .combobox.xm.artefact-combobox.comboTree {
@@ -3772,7 +3772,7 @@ input[type="text"].xm {
 }
 
 .project-input {
-  width: 323px;
+  width: 343px;
 }
 
 .nav-btn:disabled, .main-btn:disabled, .share-btn:disabled, .done-btn:disabled {

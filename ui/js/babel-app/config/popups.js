@@ -278,6 +278,7 @@ Kenseo.popups = (function(){
         		"page_name": "artefact-two",
         		"title": "Add version",
         		allow_artefact_selection: false,
+        		single_file_selector: true,
 	            chooseExistingFile: true,
         		"buttons": [{
 	            	"label": "Cancel",

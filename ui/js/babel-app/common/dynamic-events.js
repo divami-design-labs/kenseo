@@ -159,7 +159,7 @@ $(function () {
 			for (var x=0, xLen=files.length; x < xLen; x++) {
 				data.append("filesToUpload[]", files[x]);
 			}
-
+			// TODO: Remove hardcoded document type i.e IxD
 			data.append('type', 'I');
 			data.append('sid', Kenseo.cookie.sessionid());
 			type = 'POST';

@@ -39,7 +39,7 @@
 	@include popupDimensions(425px, 200px);
 }
 .popup-small{
-	@include popupDimensions(425px, 260px);
+	@include popupDimensions(425px, 225px);
 }
 .popup-large{
 	@include popupDimensions(740px, 570px);
@@ -52,7 +52,7 @@
 	position: relative;
 	background-color: $color6;
 	@include text(18px, $color7);
-	padding-left: 30px;
+	padding-left: 25px;
 	vertical-align: middle;
 	@extend .beforeMiddle;
 }
@@ -74,7 +74,7 @@
 }
 .popup-body-wrapper{
 	padding: 30px;
-	padding-left: 50px;
+	/*padding-left: 50px;*/
 	@extend .clearFloat;
 }
 .popup-message .buttons-section{
@@ -99,7 +99,7 @@
 	}
 }
 .meta-item{
-	padding-left:50px;
+	padding-left:30px;
 	margin-top: 20px;
 }
 $popup-content-space: 175px;
@@ -364,9 +364,9 @@ $popup-content-space: 175px;
 
 .popup-message .popup-body-wrapper {
   padding-bottom: 0px;
-  padding-left: 50px;
+  /*padding-left: 50px;*/
   padding-top: 10px;
-  padding-right: 10px;
+  /*padding-right: 10px;*/
 }
 
 .combobox.xm.artefact-combobox.comboTree{
