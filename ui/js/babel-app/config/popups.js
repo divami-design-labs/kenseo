@@ -38,7 +38,7 @@ Kenseo.popups = (function(){
 	        	'page_name': 'message',
 	        	'title': 'General artefact sharing',
 	        	'message': function(){
-	        		return 'This artefact will be shared with your project team members automatically';
+	        		return 'This artefact will be shared with your project team members (if any) automatically';
 	        	},
 	        	'buttons': [{
 	            	'label': 'Back',
