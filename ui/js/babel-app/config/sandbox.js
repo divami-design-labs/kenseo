@@ -540,11 +540,20 @@ var sb = (function () {
             var allPopups = $('.popup');
             var $popup = allPopups.eq(index);
             if($popup.length){
+                // if the popup was already rendered, show it instead of rendering again
                 allPopups.addClass('hide');
                 $popup.removeClass('hide');
 
+                // Change the meta states of popup
+
+
                 // Storing current popup root element
                 Kenseo.current.popup = $popup; 
+                // TODO: The following code runs on all popups instead of running only on add artefact and share artefact popups
+                // -- Start
+                // if the popup is already generated and the project name is changed in previous project, change the project name
+                $popup.find('.meta-project-name-txt').html(sb.getPopupData('name'));
+                // -- End
             }
             else{
                 $('.popup').addClass('hide');
