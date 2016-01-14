@@ -52,6 +52,7 @@ sb.popup = {
         //     });
         //     $(".main-btn").prop("disabled", false);
         // }
+
         var $currentPopup = Kenseo.current.popup;
 
         var toggleStateMainBtn = function toggleStateMainBtn(state) {
@@ -62,8 +63,14 @@ sb.popup = {
             return $currentPopup.find(".choose-file-combobox input").prop("disabled", state);
         };
 
-        var toggleStateExistingFileCheck = function toggleStateExistingFileCheck(state) {
-            return $currentPopup.find(".existing-files-chk").prop("disabled", state);
+        var toggleStateExistingFileCheck = function toggleStateExistingFileCheck(state, title) {
+            var $existingCheckBox = $currentPopup.find(".existing-files-chk");
+            if (state) {
+                $existingCheckBox.parent().attr('title', title);
+            } else if (title && title.length) {
+                $existingCheckBox.parent().attr('title', '');
+            }
+            return $existingCheckBox.prop("disabled", state);
         };
 
         var toggleStateUploadNewFile = function toggleStateUploadNewFile(state) {
@@ -96,8 +103,14 @@ sb.popup = {
                 // removing fakepath from string (Chrome)
                 var value = this.value.replace("C:\\fakepath\\", "");
                 $currentPopup.find(".create-file-item .notification-title").html(value).attr('title', value);
+                toggleStateExistingFileCheck(false);
+            } else if (this.files.length > 1) {
+                // if multiple files selected
+                $currentPopup.find(".create-file-item .notification-title").html("multiple files added");
+                // Hide the "existing artefact version selecting checkbox"
+                toggleStateExistingFileCheck(true, "you can't select a version for selected multiple files");
             } else {
-                $currentPopup.find(".create-file-item .notification-title").html("mutiple files added");
+                // when no file is selected
             }
             var info = "@ " + getTimeFormat() + " by " + Kenseo.data.header.screen_name;
             $currentPopup.find(".create-file-item .notification-time").html(info);
@@ -123,7 +136,6 @@ sb.popup = {
             toggleStateMainBtn(false);
 
             toggleStateChooseFileCombo(true);
-            toggleStateExistingFileCheck(false);
         });
         $(".create-file-close-icon").click(function () {
             var $currentPopup = Kenseo.current.popup;
@@ -215,6 +227,7 @@ sb.popup = {
                         onchange: function onchange($input, $selectedEl, bln) {
                             if (bln) {
                                 sb.setPopupData($selectedEl.data("id"), "artefact_id");
+                                sb.setPopupData($selectedEl.html(), "artefactName");
 
                                 var obj = {};
                                 var attrs = $selectedEl[0].attributes;

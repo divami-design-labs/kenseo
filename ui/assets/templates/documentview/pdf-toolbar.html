@@ -116,7 +116,8 @@
             <% } %>
         </div>
         <div class="current-artefact-info bar">
-            <div>Projects > <%= data.projName  %> >  <%= data.artTitle  %> </div>
+            <div>
+                <a href="#projects">Projects > </a><a href="#projectpage/<%= data.projId %>"><%= data.projName  %> >  </a><%= data.artTitle  %> </div>
             <div class="html-click show-all-versions">
                 <div>
                     <span>v<%= data.versionNo  %>.0</span>
@@ -129,10 +130,10 @@
                     <div class="sub-menu-item">
                         <span>v<%= p.versionNo %>.0</span>
                         <div class="actions">
-                            <a href="#compare/<%= p.versionId%>" class="v-compare-icon page-click">
+                            <a href="#compare/<%= p.masked_artefact_version_id%>" class="v-compare-icon page-click">
                                 <svg><use xlink:href="#v_compare"></use></svg>
                             </a>
-                            <a href="#documentview/<%= p.versionId%>" class="v-open-icon page-click">
+                            <a href="#documentview/<%= p.masked_artefact_version_id%>" class="v-open-icon page-click">
                                 <svg><use xlink:href="#v_open"></use></svg>
                             </a>
                         </div>

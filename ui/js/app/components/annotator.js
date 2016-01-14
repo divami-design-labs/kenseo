@@ -187,6 +187,7 @@ var annotator = (function () {
 			$(document).on('click', '.comment-section .cancel-btn', function () {
 				var $commentContainer = $(this).parents('.comment-container');
 				if ($commentContainer.hasClass('isSaved')) {
+					// if($commentContainer.attr('data-k-comment_thread_id') !== "-1"){
 					// if the comment is already saved, then just hide it
 					$commentContainer.children('.shape').addClass('hide-comment-section');
 				} else {

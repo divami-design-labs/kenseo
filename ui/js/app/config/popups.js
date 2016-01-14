@@ -235,7 +235,10 @@ Kenseo.popups = (function () {
 																					}, {
 																												"label": "Done",
 																												"cls": "main-btn done-btn",
-																												"disabled": false
+																												"disabled": false,
+																												'attr': {
+																																			'data-target-validating-section': '.popup-body'
+																												}
 																					}],
 																					"callbackfunc": function callbackfunc() {
 																												// sb.setPopupData('setMeetingInvitation', 'actionType');
