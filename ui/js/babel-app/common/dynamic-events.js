@@ -220,9 +220,9 @@ $(function () {
 	// 		}
 	// 	});
 	// })
-	.on('click', '.dvt-item.comment-summary-icon', function(e){
-		$('.comments-view-holder').toggleClass('active');
-	})
+	// .on('click', '.dvt-item.comment-summary-icon', function(e){
+	// 	$('.comments-view-holder').toggleClass('active');
+	// })
 	.on('change', '.filter-checkboxes input[data-all="true"]', function(e){
 		var $self = $(this);
 		$self.parents('.filter-checkboxes-content').find('input[type="checkbox"]').not($self).prop('checked', $self.prop('checked'));
