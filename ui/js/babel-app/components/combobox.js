@@ -34,16 +34,10 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	//events
 	// This section is to make sure that when the user clicks on outside of the suggestions box
 	// The suggestion box will hide.
-	document.onclick = function () {
-		// hideSuggestions(true);
-		// var $combobElem = (($elem.length && $elem) || $('.combobox')).find(suggestionsContainerClass).hide();
-		$('.combobox').find(suggestionsContainerClass).hide();
-	};
 	$elem.click(function (e) {
 		e.stopPropagation();
 	});
 	// <-- End of Hide section -->
-
 	/**
   * It is used to show or hide the child items. 'excludeChildren' flag is used to show or hide the child items
   * @constructor
@@ -103,6 +97,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	function insertData(e) {
 		var $el = $(e.currentTarget || e);
 		var $text = $elem.find("input");
+	
 		var html = $el.html();
 		// Trigger change event
 		if ($text.val().toLowerCase() !== html.toLowerCase() && _this.onchange) {
@@ -519,11 +514,16 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	renderSelectedItems();
 
 	/**
-  * when we want to change the suggestions or update the suggestion in the combobox
-  * we can use this method to update them
-  */
+	 * when we want to change the suggestions or update the suggestion in the combobox
+	 * we can use this method to update them
+	 */
 	_this.setSuggestions = function (newSuggestions) {
 		_this.suggestions = newSuggestions;
 		renderSuggestions(elem, _this.suggestions);
 	};
+};
+document.onclick = function () {
+	// hideSuggestions(true);
+	// var $combobElem = (($elem.length && $elem) || $('.combobox')).find(suggestionsContainerClass).hide();
+	$('.combobox').find('.suggestionsContainer').hide();
 };

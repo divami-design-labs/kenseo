@@ -16,6 +16,7 @@ sb.popup = {
                     userProjects: true
                 },
                 success: function success(data) {
+                    var $currentPopup = Kenseo.current.popup;
                     var container = Kenseo.current.popup.find(".combobox")[0];
                     sb.toolbox.applyComboBox({
                         elem: container,
@@ -27,16 +28,17 @@ sb.popup = {
                             if (bln) {
                                 sb.setPopupData($selectedEl.html(), "name");
                                 sb.setPopupData($selectedEl.data("id"), "id");
-                                $(".main-btn").prop("disabled", false);
+                                $currentPopup.find(".main-btn").prop("disabled", false);
+
                             } else {
-                                $(".main-btn").prop("disabled", true);
+                                $currentPopup.find(".main-btn").prop("disabled", true);
                             }
                         }
                     });
                     var popupData = sb.getPopupData();
                     if (popupData && popupData["project_name"]) {
                         $(container).find("input").val(popupData["project_name"]);
-                        $(".main-btn").prop("disabled", false);
+                        $currentPopup.find(".main-btn").prop("disabled", false);
                     }
                 }
             });

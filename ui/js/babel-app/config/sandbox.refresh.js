@@ -96,7 +96,7 @@ sb.refresh = (function(){
 		},
 		'projects-page': {
 			'projects-page': function(){
-				return sb.renderTemplate({ collection: new Kenseo.collections.Projects(),data: { includeArchives: true,userProjects: true }, templateName: 'db-projects-section', 'templateHolder': $('.projects-page') });
+				return sb.renderTemplate({ collection: new Kenseo.collections.Projects(),data: { includeArchives: true,userProjects: true }, templateName: 'db-projects-section', 'templateHolder': $('.projects-page-wrapper') });
 			}
 		}
 	}
