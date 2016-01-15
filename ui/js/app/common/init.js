@@ -5,6 +5,7 @@ var Kenseo = {
     models: {},
     collections: {},
     currentModel: {},
+    combobox: {},
     dropdown: {},
     data: {},
     popup: { "info": {}, "data": {}, "replace": {} },

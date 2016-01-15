@@ -33,6 +33,8 @@ sb.popup = {
                             } else {
                                 $currentPopup.find(".main-btn").prop("disabled", true);
                             }
+                            // set a global variable that the project dropdown value has changed
+                            Kenseo.popup.info.projectComboboxValueChanged = bln;
                         }
                     });
                     var popupData = sb.getPopupData();
@@ -178,12 +180,12 @@ sb.popup = {
                     references: true,
                     ignore: 0
                 },
-                success: function success(data) {
+                success: function success(response) {
                     var $currentPopup = Kenseo.current.popup;
 
                     var container = $currentPopup.find(".existing-files-combobox")[0];
-                    Kenseo.globalArtefacts = data.data;
-                    var existingCombobox = sb.toolbox.applyComboBox({
+                    Kenseo.globalArtefacts = response.data;
+                    Kenseo.combobox.existingCombobox = sb.toolbox.applyComboBox({
                         elem: container,
                         data: Kenseo.globalArtefacts,
                         settings: {
@@ -202,7 +204,7 @@ sb.popup = {
 
                     $currentPopup.find(".existing-files-chk").change(function (e) {
                         // e.stopPropagation();
-                        var $elem = existingCombobox.$elem;
+                        var $elem = Kenseo.combobox.existingCombobox.$elem;
                         var $input = $elem.find("input");
                         $elem.find(".suggestionsContainer").hide();
                         var $selectables = $elem.find(".selectable");
@@ -222,9 +224,9 @@ sb.popup = {
                         }
                     });
 
-                    var chooseFileCombobox = sb.toolbox.applyComboBox({
+                    Kenseo.combobox.chooseFileCombobox = sb.toolbox.applyComboBox({
                         elem: $currentPopup.find(".choose-file-combobox")[0],
-                        data: data.data,
+                        data: response.data,
                         settings: {
                             placeholder: "Choose Files"
                         },

@@ -34,6 +34,8 @@ sb.popup = {
                             } else {
                                 $currentPopup.find(".main-btn").prop("disabled", true);
                             }
+                            // set a global variable that the project dropdown value has changed
+                            Kenseo.popup.info.projectComboboxValueChanged = bln;
                         }
                     });
                     var popupData = sb.getPopupData();
