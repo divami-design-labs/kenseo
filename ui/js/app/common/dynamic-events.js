@@ -46,11 +46,11 @@ $(function () {
 		popupCloser($(this).parents(popupContainer));
 	}).on('click', '.nav-btn', function (e) {
 		e.preventDefault();
-
+		var currentIndex = $(this).parents('.popup').index();
 		sb.registerData();
-		var $dataUrl = $(this).data('index');
-		if ($dataUrl >= 0) {
-			sb.callPopup($dataUrl);
+		var nextIndex = $(this).data('index');
+		if (nextIndex >= 0) {
+			sb.callPopup(nextIndex, currentIndex);
 		}
 	})
 	// .on('click', '.toggle-click', function (e) {

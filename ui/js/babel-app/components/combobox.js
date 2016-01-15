@@ -519,6 +519,9 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	 */
 	_this.setSuggestions = function (newSuggestions) {
 		_this.suggestions = newSuggestions;
+		// clear previous suggestions and selections
+		$elem.find('input').val('');
+		// render new suggestions
 		renderSuggestions(elem, _this.suggestions);
 	};
 };

@@ -49,11 +49,14 @@ body{
 }
 .projects-page{
 	padding: 0px 40px;
-	@extend .clearFloat;
 	text-align: left;
 	/*display: inline-block;*/
-	& > div{
+	.project-block{
 		max-width: 25%;
 	}
 
+}
+.projects-page-wrapper{
+	@extend .clearFloat;
+	padding-top: 30px;
 }

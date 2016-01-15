@@ -536,9 +536,43 @@ var sb = (function () {
                 sb.callPopup(index);
             }
         },
-        callPopup: function callPopup(index) {
+        getPopupMetaInfo: function(dump){
+            return {
+                getProjectName: function(){
+                    if(dump.project_name){
+                        return dump.project_name;
+                    } else if(dump.name){
+                        return dump.name
+                    }else{
+                        return Kenseo.page.data.project.name;
+                    }
+                },
+                getFileName: function(){
+                    if(dump.files && dump.files.length == 1){               
+                        return dump.files[0].name;          
+                    }           
+                    else if(dump.files && dump.files.length > 1){               
+                        return "Multiple files";            
+                    }           
+                    else{               
+                        return dump.artefactName;               
+                    }       
+                },
+                getType: function(){
+                    return Kenseo.settings.doctype[dump.doctype[0]['data-name']];
+                },
+                getReferences: function(){
+                    return dump.references.map(function(e){return e.name}).join(", ");
+                },
+                getTags: function(){
+                    return dump.tags.value;
+                }
+            }
+        },
+        callPopup: function callPopup(index, currentIndex) {// or previousIndex?
             var allPopups = $('.popup');
             var $popup = allPopups.eq(index);
+            var currentActionType = Kenseo.popup.data.actionType;
             if($popup.length){
                 // if the popup was already rendered, show it instead of rendering again
                 allPopups.addClass('hide');
@@ -551,11 +585,65 @@ var sb = (function () {
                 Kenseo.current.popup = $popup; 
                 // TODO: The following code runs on all popups instead of running only on add artefact and share artefact popups
                 // -- Start
-                // if the popup is already generated and the project name is changed in previous project, change the project name
-                $popup.find('.meta-project-name-txt').html(sb.getPopupData('name'));
+                if(currentActionType === "shareArtefact" || currentActionType === "addArtefact"){
+                    var metaInfo = sb.getPopupMetaInfo(sb.getPopupData());
+
+                    var $projectText = $popup.find('.popup-meta-project-name-txt');
+                    var $fileName = $popup.find('.popup-meta-file-name');
+                    var $type = $popup.find('.popup-meta-type');
+                    var $references = $popup.find('.popup-meta-references');
+                    var $tags = $popup.find('.popup-meta-tags');
+                    // if the popup is already generated and the project name is changed in previous project, change the project name
+                    if($projectText.length){
+                        $projectText.attr('title', metaInfo.getProjectName());
+                    }
+                    // change the file name
+                    if($fileName.length){
+                        $fileName.attr('title', metaInfo.getFileName());
+                    }
+                    if($type.length){
+                        $type.attr('title', metaInfo.getType());
+                    }
+                    if($references.length){
+                        $references.attr('title', metaInfo.getReferences());
+                    }
+                    if($tags.length){
+                        $tags.attr('title', metaInfo.getTags());
+                    }
+
+                    // refresh the list of combobox based on project id
+                    if(index === 1 && currentIndex === 0 && Kenseo.popup.info.projectComboboxValueChanged/*&& currentActionType === "shareArtefact"*/){ // need to make this "shareArtefact" specific
+                        // clearing the previous selection manually
+                        $popup.find(".choose-existing-file-holder").remove();
+
+                        $('.existing-files-chk').prop('checked', false);
+
+                        sb.ajaxCall({
+                            collection: new Kenseo.collections.Artefacts(),
+                            data: {
+                                projectid: sb.getPopupData('id'),
+                                references: true,
+                                ignore: 0
+                            },
+                            success: function(response){
+                                if(Kenseo.combobox.chooseFileCombobox){
+                                    Kenseo.combobox.chooseFileCombobox.setSuggestions(response.data);
+                                }
+                                if(Kenseo.combobox.existingCombobox){
+                                    Kenseo.combobox.existingCombobox.setSuggestions(response.data);
+                                }
+                            }
+                        });
+                    }
+                }
                 // -- End
             }
             else{
+                // resetting the previous flags
+                // the below if condition works if the popup is shareArtefact or addArtefact and the current popup is second in list of popups navigated from the first popup
+                if((currentActionType === "shareArtefact" || currentActionType === "addArtefact") && index === 1 && currentIndex == 0){
+                    Kenseo.popup.info.projectComboboxValueChanged = false;
+                }
                 $('.popup').addClass('hide');
                 var info = Kenseo.popup.info[index];
                 _.extend(info, {'index': index});

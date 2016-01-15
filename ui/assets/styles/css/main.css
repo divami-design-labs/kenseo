@@ -51,7 +51,7 @@
   vertical-align: middle;
 }
 
-.clearFloat::after, .buttons-right-section::after, .header::after, .menu-profile::after, .menu-projects-section::after, .menu-recent::after, .menu-notifications-cnt::after, .projects-section-content::after, .review-request-item::after, .rr-state .rr-other-versions > div::after, .notification-item::after, .project-section-content::after, .sub-heading::after, .activity-holder::after, .summary-version-item .checkbox::after, .popup-body-wrapper::after, .files-section::after, .your-team-body::after, .share-artefact-people-item::after, .share-artefact-people-item .share-artefact-right-panel::after, .meeting-wrapper::after, .meeting-right-section::after, .meeting-section .project-heading::after, .summary-section-below-content::after, .dv-tb-people-wrapper::after, .cv-main-person::after, .page-wrapper::after, .projects-page::after {
+.clearFloat::after, .buttons-right-section::after, .header::after, .menu-profile::after, .menu-projects-section::after, .menu-recent::after, .menu-notifications-cnt::after, .projects-section-content::after, .review-request-item::after, .rr-state .rr-other-versions > div::after, .notification-item::after, .project-section-content::after, .sub-heading::after, .activity-holder::after, .summary-version-item .checkbox::after, .popup-body-wrapper::after, .files-section::after, .your-team-body::after, .share-artefact-people-item::after, .share-artefact-people-item .share-artefact-right-panel::after, .meeting-wrapper::after, .meeting-right-section::after, .meeting-section .project-heading::after, .summary-section-below-content::after, .dv-tb-people-wrapper::after, .cv-main-person::after, .page-wrapper::after, .projects-page-wrapper::after {
   content: "";
   display: block;
   clear: both;
@@ -422,6 +422,10 @@ svg {
   max-width: 100%;
   max-height: 100%;
   vertical-align: top;
+}
+
+.title-txt::before {
+  content: attr(title);
 }
 
 .header {
@@ -2571,7 +2575,7 @@ svg {
 }
 
 .tags-input-txt {
-  width: 300px;
+  width: 298px;
 }
 
 .notification-s-type-icon {
@@ -3649,7 +3653,7 @@ svg {
 }
 
 .combobox.xm.people-combobox {
-  width: 470px;
+  width: 505px;
 }
 
 .combobox.xm.people-combobox .suggestions-viewer {
@@ -6073,6 +6077,10 @@ body {
   /*display: inline-block;*/
 }
 
-.projects-page > div {
+.projects-page .project-block {
   max-width: 25%;
+}
+
+.projects-page-wrapper {
+  padding-top: 30px;
 }

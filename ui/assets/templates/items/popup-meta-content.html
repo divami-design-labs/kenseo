@@ -1,35 +1,15 @@
 <% var dump = data.dump %>
+<% var metaInfo = sb.getPopupMetaInfo(dump) %>
 <% if(data.project){ %>
 	<div class="meta-item">	
 		<div class="meta-heading">Under</div>
-		<div class="meta-text">
-			<% if(dump.project_name){ %>
-				<%= dump.project_name %>
-			<% } else if(dump.name){ %>
-				<%= dump.name %>
-			<% } else{ %>
-				<%= Kenseo.page.data.project.name %>
-			<% } %>
-		</div>
+		<div class="meta-text popup-meta-project-name-txt title-txt" title="<%= metaInfo.getProjectName() %>"></div>
 	</div>
 <% } %>
 <% if(data.file){ %>
 	<div class="meta-item">	
 		<div class="meta-heading">File</div>	
-		<div class="meta-text" title="<%= dump.fileName %>">		
-			<%= 		
-				(function(){			
-					if(dump.files && dump.files.length == 1){				
-						return dump.files[0].name;			
-					}			
-					else if(dump.files && dump.files.length > 1){				
-						return "Multiple files";			
-					}			
-					else{				
-						return dump.artefactName;				
-					}		
-				})() 		
-			%>	
+		<div class="meta-text popup-meta-file-name title-txt" title="<%= metaInfo.getFileName() %>">
 		</div>
 	</div>
 <% } %>
@@ -37,30 +17,23 @@
 	<div class="meta-item">	
 		<div class="meta-heading">Type</div>	
 		<% if(dump.doctype){ %>			
-			<div class="meta-text">
-				<%= Kenseo.settings.doctype[dump.doctype[0]['data-name']] %>
-			</div>	
+		<div class="meta-text popup-meta-type title-txt" title="<%= metaInfo.getType() %>"></div>	
 		<% } %>
 	</div>
 <% } %>
 <% if(data.references){ %>
 	<div class="meta-item">	
-	<div class="meta-heading">References</div>	
-	<% if(dump.references){ %>		
-		<% var references = dump.references.map(function(e){return e.name}).join(", ") %>		
-		<div class="meta-text" title="<%= references %>">
-			<%= references %>
-		</div>	
-	<% } %>
+		<div class="meta-heading">References</div>	
+		<% if(dump.references){ %>		
+		<div class="meta-text title-txt popup-meta-references" title="<%= metaInfo.getReferences() %>"></div>	
+		<% } %>
 	</div>
 <% } %>
 <% if(data.tags){ %>
 	<div class="meta-item">	
 		<div class="meta-heading">Tags</div>	
-		<div class="meta-text">		
 		<% if(dump.tags){ %>			
-			<%= dump.tags.value %>		
+		<div class="meta-text popup-meta-tags title-txt" title="<%= metaInfo.getTags() %>"></div>
 		<% } %>	
-		</div>
 	</div>
 <% } %>

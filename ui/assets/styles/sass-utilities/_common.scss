@@ -165,3 +165,8 @@ svg{
     max-height: 100%;
     vertical-align: top;
 }
+.title-txt{
+	&::before{
+		content: attr(title);
+	}
+}
