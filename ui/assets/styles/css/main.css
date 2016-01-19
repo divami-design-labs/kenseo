@@ -2076,10 +2076,10 @@ svg {
 
 .popup-small {
   width: 425px;
-  max-height: 225px;
+  max-height: 243px;
 }
 
-@media (max-height: 225px) {
+@media (max-height: 243px) {
   .popup-small {
     max-height: auto;
   }
