@@ -587,7 +587,7 @@
 					
 					// Share to members
 					if(count($data->shared_members)) {
-						$this->shareForTeam($artId, $artVerId, $data->shared_members, $userId);
+						$this->shareForTeam($artIds[$f], $artVerId, $data->shared_members, $userId);
 					}
 				}
 				
@@ -877,9 +877,13 @@
 			$dbQuery = getQuery('getArtefactSharedMembers', $queryParams);
 			$sharedMembers = $db->multiObjectQuery($dbQuery);
 
+			$dbQuery = getQuery('getArtefactType', $queryParams);
+			$docType = $db->singleObjectQuery($dbQuery)->artefact_id;
+
 			$result = array(
 				'referenceDocs' => $references,
-				'teamMembers' => $sharedMembers
+				'teamMembers' => $sharedMembers,
+				'docType' => $docType
 			);
 
 			return $result;

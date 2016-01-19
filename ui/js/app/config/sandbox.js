@@ -655,13 +655,13 @@ var sb = (function () {
                         }
                     });
 
-                // Storing current popup root element
-                Kenseo.current.popup = $templateHolder.find('.popup').last();
+                    // Storing current popup root element
+                    Kenseo.current.popup = $templateHolder.find('.popup').last();
 
-                if (info.callbackfunc) {
-                    info.callbackfunc();
+                    if (info.callbackfunc) {
+                        info.callbackfunc();
+                    }
                 }
-            }
         },
         toolbox: {
             textBox: function textBox(data) {
