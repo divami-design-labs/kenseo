@@ -173,8 +173,9 @@ $AppGlobal['sql']['getArtefactsLink'] = "SELECT DISTINCT artefacts.artefact_id,a
 										
 $AppGlobal['sql']['getReferences'] = "SELECT DISTINCT
 				 						artefacts.artefact_id as id, 
-										artefacts.artefact_title as name,
+										artefacts.artefact_title as name, 
 										versions.created_date as date,
+										versions.artefact_ver_id as version_id,
 										requestor.name as userName
 										
 										FROM " . TABLE_ARTEFACTS . " AS artefacts 

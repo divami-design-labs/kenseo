@@ -614,7 +614,7 @@ var sb = (function () {
                     // refresh the list of combobox based on project id
                     if(index === 1 && currentIndex === 0 && Kenseo.popup.info.projectComboboxValueChanged/*&& currentActionType === "shareArtefact"*/){ // need to make this "shareArtefact" specific
                         // clearing the previous selection manually
-                        $popup.find(".choose-existing-file-holder").remove();
+                        $popup.find(".choose-existing-file-holder").children().remove();
 
                         $('.existing-files-chk').prop('checked', false);
 
@@ -627,10 +627,32 @@ var sb = (function () {
                             },
                             success: function(response){
                                 if(Kenseo.combobox.chooseFileCombobox){
-                                    Kenseo.combobox.chooseFileCombobox.setSuggestions(response.data);
+                                    Kenseo.combobox.chooseFileCombobox.refresh({
+                                        newSuggestions: response.data
+                                    });
                                 }
                                 if(Kenseo.combobox.existingCombobox){
-                                    Kenseo.combobox.existingCombobox.setSuggestions(response.data);
+                                    Kenseo.combobox.existingCombobox.refresh({
+                                        newSuggestions: response.data
+                                    });
+                                }
+                            }
+                        });
+                    }
+
+                    if(index === 2 && currentIndex === 1 && Kenseo.popup.info.existingFileSelected){
+                        // refresh the dropdowns
+                        Kenseo.combobox.referenceCombobox.refresh({
+                            newSettings: {
+                                filterData: {
+                                    'version_id': Kenseo.popup.data.version_id
+                                }
+                            }
+                        });
+                        Kenseo.combobox.linksCombobox.refresh({
+                            newSettings: {
+                                filterData: {
+                                    'version_id': Kenseo.popup.data.version_id
                                 }
                             }
                         });

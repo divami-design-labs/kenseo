@@ -38,6 +38,17 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		e.stopPropagation();
 	});
 	// <-- End of Hide section -->
+	function filterCurrentIteration(obj){
+		if(values.filterData){
+			var filterData = values.filterData;
+			for(var key in filterData){
+				if(obj.hasOwnProperty(key)){
+					return (obj[key] == filterData[key]);
+				}
+			}
+		}
+		return false;
+	}
 	/**
   * It is used to show or hide the child items. 'excludeChildren' flag is used to show or hide the child items
   * @constructor
@@ -165,7 +176,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			$(".combobox").not($elem).find(suggestionsContainerClass).hide();
 			$suggestionsContainer.show();
 
-			placeSuggestions($elem);
+			placeSuggestionsBox($elem);
 		}
 	}
 	/**
@@ -187,7 +198,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	function focusInputTextBox() {
 		$elem.find("input").focus();
 	}
-	function placeSuggestions($combobox, $container) {
+	function placeSuggestionsBox($combobox, $container) {
 		var $el = $combobox.find('.combobox-wrapper');
 		var width = $el.innerWidth(),
 		    height = $el.outerHeight(),
@@ -387,6 +398,9 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 						projectHeadingWrapper.innerHTML = project.name;
 
+						if(filterCurrentIteration(project)){
+							continue;
+						}
 						for (var key in project) {
 							if (key !== "name") {
 								if (key === "date") {
@@ -451,16 +465,16 @@ var comboBox = function comboBox(elem, suggestions, values) {
 					el.appendChild(suggestionsViewer);
 				}
 				textBox.value = textBox.value || values.value || "";
-				placeSuggestions($elem);
+				placeSuggestionsBox($elem);
 				window.addEventListener("resize", function () {
-					placeSuggestions($elem);
+					placeSuggestionsBox($elem);
 				}, true);
 				document.addEventListener("scroll", function (e) {
 					var $self = $(e.target);
 					if ($self.hasClass("suggestionsContainer")) {
 						return;
 					}
-					placeSuggestions($elem, $self);
+					placeSuggestionsBox($elem, $self);
 				}, true);
 			} else {
 				$elem.find(dot + values.suggestionsContainer).html("");
@@ -475,6 +489,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			// textBox.focus();
 		}
 	}
+
 	function setSuggestionViewerItem(s) {
 		if (s.name) {
 			var svItem = document.createElement("div");
@@ -524,6 +539,26 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		// render new suggestions
 		renderSuggestions(elem, _this.suggestions);
 	};
+	_this.refresh = function(newObj){
+		if(newObj){
+			var newSettings = newObj.newSettings;
+			if(newSettings){
+				for(var key in newSettings){
+					values[key] = newSettings[key];
+				}
+			}
+			// clear previous suggestions and selections
+			$elem.find('input').val('');
+			// render new suggestions
+			renderSuggestions(elem, newObj.newSuggestions || _this.suggestions);
+		}
+	}
+	_this.populateExistingData = function(newData){
+		// In this function populate the combobox with provided existing data
+
+		// consider multiselect is true/false
+		// consider 
+	}
 };
 document.onclick = function () {
 	// hideSuggestions(true);

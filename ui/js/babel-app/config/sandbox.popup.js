@@ -234,6 +234,10 @@ sb.popup = {
                             if (bln) {
                                 sb.setPopupData($selectedEl.data("id"), "artefact_id");
                                 sb.setPopupData($selectedEl.html(), "artefactName");
+                                sb.setPopupData($selectedEl.data('version_id'), 'version_id');
+
+                                // A flag to determine that an existing file is selected
+                                Kenseo.popup.info.existingFileSelected = true;
 
                                 var obj = {};
                                 var attrs = $selectedEl[0].attributes;
@@ -259,6 +263,11 @@ sb.popup = {
                                     clearExistingFilesCombo();
 
                                     $currentPopup.find('.upload-file-section').css('cursor', 'pointer');
+
+                                    // Making the existing file selected flag as false when user clicks on close icon
+                                    Kenseo.popup.info.existingFileSelected = false;
+
+                                    // Also clear the Kenseo.popup.data 
                                 });
                                 $input.val("");
 
@@ -298,27 +307,33 @@ sb.popup = {
             //     success: function success(data) {
                     var $currentPopup = Kenseo.current.popup;
                     var container = document.querySelector(".reference-combobox");
-                    var combobox = sb.toolbox.applyComboBox({
+                    Kenseo.combobox.referenceCombobox = sb.toolbox.applyComboBox({
                         elem: container,
                         // data: data.data,
                         data: Kenseo.globalArtefacts,
                         settings: {
-                            multiSelect: true
+                            multiSelect: true,
+                            filterData: {
+                                'version_id': Kenseo.popup.data.version_id
+                            }
                         }
                     });
 
                     var links = document.querySelector(".links-combobox");
-                    var linksCombobox = new sb.toolbox.applyComboBox({
+                    Kenseo.combobox.linksCombobox = new sb.toolbox.applyComboBox({
                         elem: links,
                         // data: data.data,
                         data: Kenseo.globalArtefacts,
                         settings: {
-                            multiSelect: true
+                            multiSelect: true,
+                            filterData: {
+                                'version_id': Kenseo.popup.data.version_id
+                            }
                         }
                     });
 
                     var documentType = document.querySelector(".doctype-combobox");
-                    var typeCombobox = new sb.toolbox.applyComboBox({
+                    Kenseo.combobox.typeCombobox = new sb.toolbox.applyComboBox({
                         elem: documentType,
                         // data: data.data,
                         data: Kenseo.settings.doctype,
@@ -331,6 +346,23 @@ sb.popup = {
                             }
                         }
                     });
+
+                    // populating the fields if an existing artefact is selected
+                    if(Kenseo.popup.info.existingFileSelected){
+                        // populating field code
+                        sb.ajaxCall({
+                            url: sb.getRelativePath('getArtefactMetaInfo'),
+                            data: {
+                                id: sb.getPopupData('artefact_id')
+                            },
+                            success: function(response){
+                                console.dir(response.data);
+                            }
+                        });
+
+                        // resetting the flag so that the ajax call will not trigger again
+                        Kenseo.popup.info.existingFileSelected = false;
+                    }
 
                     // Keep the .main-btn class button disabled by default
                     // (Enable this button when user selects the document type)
@@ -589,7 +621,9 @@ sb.popup = {
                                     $sharePermission: "true"
                                 },
                                 "success": function success(response) {
-                                    artefactCombobox.setSuggestions(response.data);
+                                    artefactCombobox.refresh({
+                                        newSuggestions: response.data
+                                    });
                                 }
                             });
                         }
