@@ -341,10 +341,12 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		var query = el.val().toLowerCase();
 		for (var i = 0; i < _this.suggestions.length; i++) {
 			var p = _this.suggestions[i];
-			if (p.name.toLowerCase().indexOf(query) < 0) {
-				p.excludeParent = true;
-			} else {
-				p.excludeParent = false;
+			if (p) {
+				if (p.name.toLowerCase().indexOf(query) < 0) {
+					p.excludeParent = true;
+				} else {
+					p.excludeParent = false;
+				}
 			}
 		}
 		// renderSuggestions(elem, _this.suggestions, el.get(0));
