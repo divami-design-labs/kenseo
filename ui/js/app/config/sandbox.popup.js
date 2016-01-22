@@ -101,7 +101,8 @@ sb.popup = {
             $currentPopup.find(".create-file-item").css({
                 "visibility": "visible"
             });
-
+            // Setting the flag to true
+            Kenseo.popup.info.newFileSelected = true;
             if (this.files.length === 1) {
                 // removing fakepath from string (Chrome)
                 var value = this.value.replace("C:\\fakepath\\", "");
@@ -159,6 +160,7 @@ sb.popup = {
 
             // Clear selected file path from input box
             $currentPopup.find(".upload-files-input").val('');
+            Kenseo.popup.info.newFileSelected = false;
         });
         sb.loadFiles({
             "collections": ["Artefacts"],
@@ -231,6 +233,10 @@ sb.popup = {
                             if (bln) {
                                 sb.setPopupData($selectedEl.data("id"), "artefact_id");
                                 sb.setPopupData($selectedEl.html(), "artefactName");
+                                sb.setPopupData($selectedEl.data('version_id'), 'version_id');
+
+                                // A flag to determine that an existing file is selected
+                                Kenseo.popup.info.existingFileSelected = true;
 
                                 var obj = {};
                                 var attrs = $selectedEl[0].attributes;
@@ -256,6 +262,11 @@ sb.popup = {
                                     clearExistingFilesCombo();
 
                                     $currentPopup.find('.upload-file-section').css('cursor', 'pointer');
+
+                                    // Making the existing file selected flag as false when user clicks on close icon
+                                    Kenseo.popup.info.existingFileSelected = false;
+
+                                    // Also clear the Kenseo.popup.data
                                 });
                                 $input.val("");
 
@@ -284,38 +295,38 @@ sb.popup = {
             "collections": ["Artefacts", "Tags"],
             "models": ["Artefacts"]
         }, function () {
-            // Tags listing
-            // sb.ajaxCall({
-            //     "collection": new Kenseo.collections.Artefacts(),
-            //     "data": {
-            //         references: true,
-            //         ignore: 0,
-            //         projectid: sb.getPopupData("project_id")
-            //     },
-            //     success: function success(data) {
             var $currentPopup = Kenseo.current.popup;
+            // Keep the .main-btn class button disabled by default
+            // (Enable this button when user selects the document type)
+            $currentPopup.find('.main-btn').attr('disabled', 'true');
             var container = document.querySelector(".reference-combobox");
-            var combobox = sb.toolbox.applyComboBox({
+            Kenseo.combobox.referenceCombobox = sb.toolbox.applyComboBox({
                 elem: container,
                 // data: data.data,
                 data: Kenseo.globalArtefacts,
                 settings: {
-                    multiSelect: true
+                    multiSelect: true,
+                    filterData: {
+                        'version_id': Kenseo.popup.data.version_id
+                    }
                 }
             });
 
             var links = document.querySelector(".links-combobox");
-            var linksCombobox = new sb.toolbox.applyComboBox({
+            Kenseo.combobox.linksCombobox = new sb.toolbox.applyComboBox({
                 elem: links,
                 // data: data.data,
                 data: Kenseo.globalArtefacts,
                 settings: {
-                    multiSelect: true
+                    multiSelect: true,
+                    filterData: {
+                        'version_id': Kenseo.popup.data.version_id
+                    }
                 }
             });
 
             var documentType = document.querySelector(".doctype-combobox");
-            var typeCombobox = new sb.toolbox.applyComboBox({
+            Kenseo.combobox.typeCombobox = new sb.toolbox.applyComboBox({
                 elem: documentType,
                 // data: data.data,
                 data: Kenseo.settings.doctype,
@@ -328,26 +339,10 @@ sb.popup = {
                 }
             });
 
-            // Keep the .main-btn class button disabled by default
-            // (Enable this button when user selects the document type)
-            $currentPopup.find('.main-btn').attr('disabled', 'true');
-            //     }
-            // });
-
-            // sb.ajaxCall({
-            //     "collection": new Kenseo.collections.Tags(),
-            //     "data": {},
-            //     success: function success(data) {
-            //         var container = document.querySelector(".tags-combobox");
-            //         var combobox = sb.toolbox.applyComboBox({
-            //             elem: container,
-            //             data: data.data,
-            //             settings: {
-            //                 multiSelect: true
-            //             }
-            //         });
-            //     }
-            // });
+            // populating the fields if an existing artefact is selected
+            if (Kenseo.popup.info.existingFileSelected) {
+                sb.popup.populateExistingFileSelectedData();
+            }
         });
     },
     shareWithPeoplePopup: function shareWithPeoplePopup() {
@@ -358,69 +353,6 @@ sb.popup = {
             "collections": ["People"],
             "models": ["People"]
         }, function () {
-            function getChecked($el) {
-                return $el.attr("checked") === "checked";
-            }
-            function setChecked($el, bln) {
-                $el.attr("checked", bln);
-                $el[0].checked = bln;
-            }
-            function attachEvents() {
-                $(".apply-to-all").off("change");
-                $(".add-comments-chk input").off("click");
-                $(".others-chk input input").off("click");
-                $(".apply-to-all").on("change", function () {
-                    var $self = $(this);
-                    var $parent = $self.parents(".share-artefact-people-item-section");
-                    var $grandParent = $self.parents(".share-artefact-people-wrapper");
-                    var states = {
-                        comment: getChecked($parent.find(".add-comments-chk input")),
-                        others: getChecked($parent.find(".others-chk input")),
-                        all: !getChecked($self.find("input"))
-                    };
-
-                    $grandParent.find(".add-comments-chk").each(function () {
-                        setChecked($(this).find("input"), states.comment);
-                    });
-
-                    $grandParent.find(".others-chk").each(function () {
-                        setChecked($(this).find("input"), states.others);
-                    });
-
-                    $grandParent.find(".apply-to-all").each(function () {
-                        setChecked($(this).find("input"), states.all);
-                    });
-                });
-                $(".add-comments-chk input").on("click", function () {
-                    var $self = $(this);
-                    var $parent = $self.parents(".share-artefact-people-item-section");
-                    var $grandParent = $self.parents(".share-artefact-people-wrapper");
-                    var thisChk = !getChecked($self);
-                    var allChk = getChecked($parent.find(".apply-to-all input"));
-                    if (allChk) {
-                        $grandParent.find(".add-comments-chk").each(function () {
-                            setChecked($(this).find("input"), thisChk);
-                        });
-                    } else {
-                        setChecked($(this), thisChk);
-                    }
-                });
-
-                $(".others-chk input").on("click", function () {
-                    var $self = $(this);
-                    var $parent = $self.parents(".share-artefact-people-item-section");
-                    var $grandParent = $self.parents(".share-artefact-people-wrapper");
-                    var thisChk = !getChecked($self);
-                    var allChk = getChecked($parent.find(".apply-to-all input"));
-                    if (allChk) {
-                        $grandParent.find(".others-chk").each(function () {
-                            setChecked($(this).find("input"), thisChk);
-                        });
-                    } else {
-                        setChecked($(this), thisChk);
-                    }
-                });
-            }
             sb.ajaxCall({
                 collection: new Kenseo.collections.People(),
                 data: {
@@ -449,31 +381,30 @@ sb.popup = {
                                     }
                                 }
                                 obj.name = $selectedEl.html();
-                                $(".share-artefact-people-wrapper").append(_.template(templates["share-people"])({ data: obj }));
-                                attachEvents();
+                                sb.popup.renderSharePopupPeople(obj, true);
 
                                 // setting the default values
                                 var $all = $(".apply-to-all input").eq(0);
                                 var $comment = $(".add-comments-chk input").eq(0);
                                 var $others = $(".others-chk input").eq(0);
-                                if (getChecked($all)) {
+                                if (sb.popup.getChecked($all)) {
                                     var $grandParent = $(".share-artefact-people-wrapper");
                                     var states = {
-                                        comment: getChecked($comment),
-                                        others: getChecked($others),
-                                        all: getChecked($all)
+                                        comment: sb.popup.getChecked($comment),
+                                        others: sb.popup.getChecked($others),
+                                        all: sb.popup.getChecked($all)
                                     };
 
                                     $grandParent.find(".add-comments-chk").each(function () {
-                                        setChecked($(this).find("input"), states.comment);
+                                        sb.popup.setChecked($(this).find("input"), states.comment);
                                     });
 
                                     $grandParent.find(".others-chk").each(function () {
-                                        setChecked($(this).find("input"), states.others);
+                                        sb.popup.setChecked($(this).find("input"), states.others);
                                     });
 
                                     $grandParent.find(".apply-to-all").each(function () {
-                                        setChecked($(this).find("input"), states.all);
+                                        sb.popup.setChecked($(this).find("input"), states.all);
                                     });
                                 }
                             }
@@ -481,11 +412,7 @@ sb.popup = {
                     });
 
                     //render all the team members
-                    for (var i = 0; i < resp.data.teamMembers.length; i++) {
-                        $(".share-artefact-people-wrapper").append(_.template(templates["share-people"])({ data: resp.data.teamMembers[i] }));
-                    }
-
-                    attachEvents();
+                    sb.popup.renderSharePopupPeople(resp.data.teamMembers);
                 }
             });
         });
@@ -541,11 +468,11 @@ sb.popup = {
                         elem: container,
                         data: data.data,
                         settings: {
-                            placeholder: "Choose Project",
-                            value: Kenseo.page.data.project && Kenseo.page.data.project.name || ""
+                            placeholder: "Choose Project"
                         },
+                        // value: Kenseo.page.data.project && Kenseo.page.data.project.name || ""
                         insertAfter: function insertAfter($input, $selectedEl, bln) {
-                            console.log("project name changed");
+                            // console.log("project name changed");
 
                             var projectId = $selectedEl.attr("data-id");
                             var projectName = $selectedEl.html();
@@ -585,7 +512,9 @@ sb.popup = {
                                     $sharePermission: "true"
                                 },
                                 "success": function success(response) {
-                                    artefactCombobox.setSuggestions(response.data);
+                                    artefactCombobox.refresh({
+                                        newSuggestions: response.data
+                                    });
                                 }
                             });
                         }
@@ -698,6 +627,255 @@ sb.popup = {
                 });
             }
         });
+    },
+    // This function holds all the manipulations which holds the states inside array of popups
+    popupsStateMaintainer: function popupsStateMaintainer(payload) {
+        var index = payload.index;
+        var allPopups = payload.allPopups;
+        var $popup = allPopups.eq(index);
+        var currentActionType = payload.currentActionType;
+        var currentIndex = payload.currentIndex;
+        // if the popup was already rendered, show it instead of rendering again
+        allPopups.addClass('hide');
+        $popup.removeClass('hide');
+
+        // Change the meta states of popup
+
+        // Storing current popup root element
+        Kenseo.current.popup = $popup;
+        // TODO: The following code runs on all popups instead of running only on add artefact and share artefact popups
+        // -- Start
+        if (currentActionType === "shareArtefact" || currentActionType === "addArtefact") {
+            var metaInfo = sb.getPopupMetaInfo(sb.getPopupData());
+
+            var $projectText = $popup.find('.popup-meta-project-name-txt');
+            var $fileName = $popup.find('.popup-meta-file-name');
+            var $type = $popup.find('.popup-meta-type');
+            var $references = $popup.find('.popup-meta-references');
+            var $tags = $popup.find('.popup-meta-tags');
+            // if the popup is already generated and the project name is changed in previous project, change the project name
+            if ($projectText.length) {
+                $projectText.attr('title', metaInfo.getProjectName());
+            }
+            // change the file name
+            if ($fileName.length) {
+                $fileName.attr('title', metaInfo.getFileName());
+            }
+            if ($type.length) {
+                $type.attr('title', metaInfo.getType());
+            }
+            if ($references.length) {
+                $references.attr('title', metaInfo.getReferences());
+            }
+            if ($tags.length) {
+                $tags.attr('title', metaInfo.getTags());
+            }
+
+            // refresh the list of combobox based on project id
+            if (index === 1 && currentIndex === 0 && Kenseo.popup.info.projectComboboxValueChanged /*&& currentActionType === "shareArtefact"*/) {
+                    // need to make this "shareArtefact" specific
+                    // clearing the previous selection manually
+                    var $chooseExistingFileHolder = $popup.find(".choose-existing-file-holder");
+                    if ($chooseExistingFileHolder.length) {
+                        // if the existing file is chosen
+                        // reset the contents and disable the "proceed" button
+                        $chooseExistingFileHolder.children().remove();
+                        $popup.find('.main-btn').prop('disabled', 'true');
+
+                        // Also clear the Kenseo.popup.data contents
+                    }
+
+                    $('.existing-files-chk').prop('checked', false);
+
+                    sb.ajaxCall({
+                        collection: new Kenseo.collections.Artefacts(),
+                        data: {
+                            projectid: sb.getPopupData('id'),
+                            references: true,
+                            ignore: 0
+                        },
+                        success: function success(response) {
+                            if (Kenseo.combobox.chooseFileCombobox) {
+                                Kenseo.combobox.chooseFileCombobox.refresh({
+                                    newSuggestions: response.data
+                                });
+                            }
+                            if (Kenseo.combobox.existingCombobox) {
+                                Kenseo.combobox.existingCombobox.refresh({
+                                    newSuggestions: response.data
+                                });
+                            }
+                        }
+                    });
+                }
+
+            if (index === 2 && currentIndex === 1) {
+                if (Kenseo.popup.info.existingFileSelected) {
+                    // when existing file is selected
+                    sb.popup.populateExistingFileSelectedData();
+                } else if (Kenseo.popup.info.newFileSelected) {
+                    // reset the fields
+
+                    // references
+                    Kenseo.combobox.referenceCombobox.refresh({
+                        callback: function callback($el) {
+                            // represents to clear the data
+                            $el.find('.suggestions-viewer').empty();
+                        }
+                    });
+
+                    // Document type
+                    Kenseo.combobox.typeCombobox.refresh({
+                        // When existing file is selected, the document type dropdown should be kept disabled
+                        callback: function callback($el) {
+                            $el.find('input').val('').prop('disabled', false);
+                        }
+                    });
+
+                    // Links
+                    Kenseo.combobox.linksCombobox.refresh({
+                        newSettings: {
+                            filterData: {
+                                'version_id': Kenseo.popup.data.version_id
+                            }
+                        }
+                    });
+
+                    // Tags
+                }
+            }
+            if (index === 3) {
+                sb.popup.renderSharePopupPeople();
+            }
+        }
+        // -- End
+    },
+    populateExistingFileSelectedData: function populateExistingFileSelectedData() {
+        // populating field code
+        sb.ajaxCall({
+            url: sb.getRelativePath('getArtefactMetaInfo'),
+            data: {
+                id: sb.getPopupData('artefact_id')
+            },
+            success: function success(response) {
+                // pre-populating the dropdowns if existing artefact is selected in the previous popup
+                var artefactMetaInfo = response.data;
+                // references
+                Kenseo.combobox.referenceCombobox.refresh({
+                    selectedData: artefactMetaInfo.referenceDocs, //[{name: "venkateshwar"}],//
+                    newSettings: {
+                        filterData: {
+                            'version_id': Kenseo.popup.data.version_id
+                        }
+                    }
+                });
+
+                // Document type
+                Kenseo.combobox.typeCombobox.refresh({
+                    selectedData: Kenseo.settings.doctype[artefactMetaInfo.docType],
+                    // When existing file is selected, the document type dropdown should be kept disabled
+                    callback: function callback($el) {
+                        $el.find('input').prop('disabled', 'true');
+                    }
+                });
+                // Assuming the IXD value is inserted successfully, in the above typeCombobox
+                Kenseo.current.popup.find('.main-btn').prop('disabled', false);
+
+                // Links
+
+                // Tags
+            }
+        });
+
+        // resetting the flag so that the ajax call will not trigger again
+        // Kenseo.popup.info.existingFileSelected = false;
+    },
+    getChecked: function getChecked($el) {
+        return $el.attr("checked") === "checked";
+    },
+    setChecked: function setChecked($el, bln) {
+        $el.attr("checked", bln);
+        $el[0].checked = bln;
+    },
+    attachEvents: function attachEvents() {
+        $(".apply-to-all").off("change");
+        $(".add-comments-chk input").off("click");
+        $(".others-chk input input").off("click");
+        $(".apply-to-all").on("change", function () {
+            var $self = $(this);
+            var $parent = $self.parents(".share-artefact-people-item-section");
+            var $grandParent = $self.parents(".share-artefact-people-wrapper");
+            var states = {
+                comment: sb.popup.getChecked($parent.find(".add-comments-chk input")),
+                others: sb.popup.getChecked($parent.find(".others-chk input")),
+                all: !sb.popup.getChecked($self.find("input"))
+            };
+
+            $grandParent.find(".add-comments-chk").each(function () {
+                sb.popup.setChecked($(this).find("input"), states.comment);
+            });
+
+            $grandParent.find(".others-chk").each(function () {
+                sb.popup.setChecked($(this).find("input"), states.others);
+            });
+
+            $grandParent.find(".apply-to-all").each(function () {
+                sb.popup.setChecked($(this).find("input"), states.all);
+            });
+        });
+        $(".add-comments-chk input").on("click", function () {
+            var $self = $(this);
+            var $parent = $self.parents(".share-artefact-people-item-section");
+            var $grandParent = $self.parents(".share-artefact-people-wrapper");
+            var thisChk = !sb.popup.getChecked($self);
+            var allChk = sb.popup.getChecked($parent.find(".apply-to-all input"));
+            if (allChk) {
+                $grandParent.find(".add-comments-chk").each(function () {
+                    sb.popup.setChecked($(this).find("input"), thisChk);
+                });
+            } else {
+                sb.popup.setChecked($(this), thisChk);
+            }
+        });
+
+        $(".others-chk input").on("click", function () {
+            var $self = $(this);
+            var $parent = $self.parents(".share-artefact-people-item-section");
+            var $grandParent = $self.parents(".share-artefact-people-wrapper");
+            var thisChk = !sb.popup.getChecked($self);
+            var allChk = sb.popup.getChecked($parent.find(".apply-to-all input"));
+            if (allChk) {
+                $grandParent.find(".others-chk").each(function () {
+                    sb.popup.setChecked($(this).find("input"), thisChk);
+                });
+            } else {
+                sb.popup.setChecked($(this), thisChk);
+            }
+        });
+    },
+    renderSharePopupPeople: function renderSharePopupPeople(obj, isSingle) {
+
+        var $shareArtefactWrapper = $(".share-artefact-people-wrapper");
+        if (isSingle) {
+            $shareArtefactWrapper.append(_.template(templates["share-people"])({ data: obj }));
+        } else {
+            var teamMembers = Kenseo.data.teamMembers || obj || [];
+            var specialTeamMembers = Kenseo.data.artefactmetainfo.teamMembers;
+            if (Kenseo.popup.info.existingFileSelected || Kenseo.popup.info.newFileSelected) {
+                // clear the already present data
+                $shareArtefactWrapper.empty();
+            }
+            if (Kenseo.popup.info.existingFileSelected) {
+                // merge two objects
+                var newObj = _.merge(teamMembers, specialTeamMembers);
+            } else {
+                var newObj = teamMembers;
+            }
+            for (var i = 0; i < newObj.length; i++) {
+                $shareArtefactWrapper.append(_.template(templates["share-people"])({ data: newObj[i] }));
+            }
+        }
+        sb.popup.attachEvents();
     }
 };
 

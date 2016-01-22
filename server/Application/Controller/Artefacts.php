@@ -878,7 +878,7 @@
 			$sharedMembers = $db->multiObjectQuery($dbQuery);
 
 			$dbQuery = getQuery('getArtefactType', $queryParams);
-			$docType = $db->singleObjectQuery($dbQuery)->artefact_id;
+			$docType = $db->singleObjectQuery($dbQuery)->artefact_type;
 
 			$result = array(
 				'referenceDocs' => $references,

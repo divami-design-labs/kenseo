@@ -471,5 +471,6 @@ $AppGlobal['sql']['getArtefactSharedMembers'] = "SELECT u.user_id AS id, u.name,
 													WHERE asm.artefact_id =@~~artId~~@";
 
 
-$AppGlobal['sql']['getArtefactType'] = "SELECT artefact_type FROM " + TABLE_ARTEFACTS + " WHERE artefact_id = @~~artId~~@";
+$AppGlobal['sql']['getArtefactType'] = "SELECT artefact_type FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
+
 ?>

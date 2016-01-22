@@ -2,7 +2,7 @@
 	<% if(data.label){ %><div class="input-label <% if(data.required) {%>required<% } %>"><%= data.label %></div><% } %>
 	<div class="combobox <% if(data.class){ %><%= data.class %><% } %>" data-xtype="<%= data['data-xtype'] %>" <% if(data['data-xtype-key']){ %>data-xtype-key="<%=  data['data-xtype-key'] %>"<% } %>>
 		<div class="combobox-wrapper">
-			<input class="<% if(data.required){ %>k-required<% } %>" type="text" placeholder="<%= data.placeholder %>" <% if(data.required){ %>data-validate-this="empty,valid-list-item"<% } %>>
+			<input class="<% if(data.required){ %>k-required<% } %>" type="text" placeholder="<%= data.placeholder %>" <% if(data.required){ %>data-validate-this="valid-list-item"<% } %>>
 		</div>
 	</div>
 </div>

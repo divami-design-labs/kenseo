@@ -574,91 +574,13 @@ var sb = (function () {
             var $popup = allPopups.eq(index);
             var currentActionType = Kenseo.popup.data.actionType;
             if($popup.length){
-                // if the popup was already rendered, show it instead of rendering again
-                allPopups.addClass('hide');
-                $popup.removeClass('hide');
-
-                // Change the meta states of popup
-
-
-                // Storing current popup root element
-                Kenseo.current.popup = $popup; 
-                // TODO: The following code runs on all popups instead of running only on add artefact and share artefact popups
-                // -- Start
-                if(currentActionType === "shareArtefact" || currentActionType === "addArtefact"){
-                    var metaInfo = sb.getPopupMetaInfo(sb.getPopupData());
-
-                    var $projectText = $popup.find('.popup-meta-project-name-txt');
-                    var $fileName = $popup.find('.popup-meta-file-name');
-                    var $type = $popup.find('.popup-meta-type');
-                    var $references = $popup.find('.popup-meta-references');
-                    var $tags = $popup.find('.popup-meta-tags');
-                    // if the popup is already generated and the project name is changed in previous project, change the project name
-                    if($projectText.length){
-                        $projectText.attr('title', metaInfo.getProjectName());
-                    }
-                    // change the file name
-                    if($fileName.length){
-                        $fileName.attr('title', metaInfo.getFileName());
-                    }
-                    if($type.length){
-                        $type.attr('title', metaInfo.getType());
-                    }
-                    if($references.length){
-                        $references.attr('title', metaInfo.getReferences());
-                    }
-                    if($tags.length){
-                        $tags.attr('title', metaInfo.getTags());
-                    }
-
-                    // refresh the list of combobox based on project id
-                    if(index === 1 && currentIndex === 0 && Kenseo.popup.info.projectComboboxValueChanged/*&& currentActionType === "shareArtefact"*/){ // need to make this "shareArtefact" specific
-                        // clearing the previous selection manually
-                        $popup.find(".choose-existing-file-holder").children().remove();
-
-                        $('.existing-files-chk').prop('checked', false);
-
-                        sb.ajaxCall({
-                            collection: new Kenseo.collections.Artefacts(),
-                            data: {
-                                projectid: sb.getPopupData('id'),
-                                references: true,
-                                ignore: 0
-                            },
-                            success: function(response){
-                                if(Kenseo.combobox.chooseFileCombobox){
-                                    Kenseo.combobox.chooseFileCombobox.refresh({
-                                        newSuggestions: response.data
-                                    });
-                                }
-                                if(Kenseo.combobox.existingCombobox){
-                                    Kenseo.combobox.existingCombobox.refresh({
-                                        newSuggestions: response.data
-                                    });
-                                }
-                            }
-                        });
-                    }
-
-                    if(index === 2 && currentIndex === 1 && Kenseo.popup.info.existingFileSelected){
-                        // refresh the dropdowns
-                        Kenseo.combobox.referenceCombobox.refresh({
-                            newSettings: {
-                                filterData: {
-                                    'version_id': Kenseo.popup.data.version_id
-                                }
-                            }
-                        });
-                        Kenseo.combobox.linksCombobox.refresh({
-                            newSettings: {
-                                filterData: {
-                                    'version_id': Kenseo.popup.data.version_id
-                                }
-                            }
-                        });
-                    }
-                }
-                // -- End
+                // when the popup is already existing, show the popup and refresh the meta information if necessary
+                sb.popup.popupsStateMaintainer({
+                    index: index, 
+                    currentIndex: currentIndex,
+                    allPopups: allPopups,
+                    currentActionType: currentActionType
+                });
             }
             else{
                 // resetting the previous flags
