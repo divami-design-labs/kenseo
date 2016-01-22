@@ -390,34 +390,36 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			if(Array.isArray(newList)){
 				for (var i = 0; i < newList.length; i++) {
 					var project = newList[i];
-					if (!project.excludeParent) {
-						var projectHeadingWrapper = document.createElement("div");
+					if(project){
+						if (!project.excludeParent) {
+							var projectHeadingWrapper = document.createElement("div");
 
-						projectHeadingWrapper.className = values.listClass;
-						projectHeadingWrapper.onmouseover = makeActive;
+							projectHeadingWrapper.className = values.listClass;
+							projectHeadingWrapper.onmouseover = makeActive;
 
-						projectHeadingWrapper.innerHTML = project.name;
+							projectHeadingWrapper.innerHTML = project.name;
 
-						if(filterCurrentIteration(project)){
-							continue;
-						}
-						for (var key in project) {
-							if (key !== "name") {
-								if (key === "date") {
-									project[key] = sb.timeFormat(project[key]);
-								}
-								projectHeadingWrapper.setAttribute("data-" + key, project[key]);
+							if(filterCurrentIteration(project)){
+								continue;
 							}
+							for (var key in project) {
+								if (key !== "name") {
+									if (key === "date") {
+										project[key] = sb.timeFormat(project[key]);
+									}
+									projectHeadingWrapper.setAttribute("data-" + key, project[key]);
+								}
+							}
+							// projectHeadingWrapper.setAttribute('data-id', project.id);
+
+							projectHeadingWrapper.onclick = insertData;
+							projectHeadingWrapper.name = project.id;
+
+							var li = document.createElement("li");
+							li.appendChild(projectHeadingWrapper);
+
+							ul.appendChild(li);
 						}
-						// projectHeadingWrapper.setAttribute('data-id', project.id);
-
-						projectHeadingWrapper.onclick = insertData;
-						projectHeadingWrapper.name = project.id;
-
-						var li = document.createElement("li");
-						li.appendChild(projectHeadingWrapper);
-
-						ul.appendChild(li);
 					}
 				}
 			}
