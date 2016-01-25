@@ -690,6 +690,10 @@ sb.popup = {
                     $chooseExistingFileHolder.children().remove();
                     $popup.find('.main-btn').prop('disabled', 'true');
 
+                    // enable the file uploader section
+                    var $uploadFileSection = $popup.find('.upload-file-section');
+                    $uploadFileSection.css('cursor', 'pointer');
+                    $uploadFileSection.prop('disabled', false);
                     // Also clear the Kenseo.popup.data contents
                 }
 
