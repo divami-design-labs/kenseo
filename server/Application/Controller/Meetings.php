@@ -32,12 +32,13 @@
 			$location = $data->location->value;
 			$fromTime = $data->date . $data->fromTime->value;
 			$toTime = $data->date . $data->toTime->value;
+
 			$project = $data->meetingProject[0]->name;
 			$feature = $data->meetingArtefact[0]->{'data-id'};
 			$featureName = $data->meetingArtefact[0]->name;
 			$meetingType = ""; 
 			$description = isset($data->agenda->value) ? $data->agenda->value : "Description";
-			$title = $project ." : " . $featureName . " : " ;
+			$title = $project ." : " . $featureName;
 			
 			$event->setSummary($title);
 			$event->setLocation($location);
@@ -54,7 +55,7 @@
 			//building meeting invitaion attendee list
 			Master::getLogManager()->log(DEBUG, MOD_MAIN,"building meeting invitaion attendee list");
 			$attendee1 = new Google_Service_Calendar_EventAttendee();
-			$attendee1->setResponseStatus("accepted");
+			//$attendee1->setResponseStatus("accepted");
 			$attendee1->setEmail($user->email);
 			
 			$attendees = array($attendee1);
@@ -63,26 +64,27 @@
 				if($data->attendees[$i]->{'data-email'}) {
 					Master::getLogManager()->log(DEBUG, MOD_MAIN, "appending attendees");
 					$attendee = new Google_Service_Calendar_EventAttendee();
-					$attendee->setResponseStatus("accepted");
+					//$attendee->setResponseStatus("accepted");
 					$attendee->setEmail($data->attendees[$i]->{'data-email'});
 					array_push($attendees ,$attendee);
 				}
 			}
 			
 			$event->attendees = $attendees;
-			
+
 			//this option if set true will send the mail notifications to attendees
 			$optionaArguments = array("sendNotifications"=>true);
-			
-			$createdEvent = $service->events->insert($user->email, $event, $optionaArguments);
+
+			$createdEvent = $service->events->insert('primary', $event, $optionaArguments);
+
 			$meetingId = $createdEvent->getId();
 			
 			//now we need to store these in DB			
 			$db = Master::getDBConnectionManager();
 			
 			//insert into meetings
-			$columnnames = array("project_id", "artefact_id", "meeting_time", "meeting_end_time", "meeting_title", "meeting_agenda", "venue","created_by", "google_meeting_ref_id");
-			$rowvals = array($projectId, $feature, $fromTime, $toTime, $title, $description, $location,$user->user_id, google_meeting_ref_id);
+			$columnnames = array("project_id", "meeting_on_artefact_id", "meeting_time", "meeting_end_time", "meeting_title", "meeting_agenda", "venue","created_by", "google_meeting_ref_id");
+			$rowvals = array($projectId, $feature, $fromTime, $toTime, $title, $description, $location,$user->user_id, $meetingId);
 
 			$meetId = $db->insertSingleRowAndReturnId(TABLE_MEETINGS, $columnnames, $rowvals);
 
@@ -101,18 +103,9 @@
 			$db->insertSingleRow(TABLE_MEETING_NOTES, $notesColumnValues, $notesRowValues);
 			for($i = 0; $i < count($data->attendees); $i++) {
 				if($data->attendees[$i]->{'data-email'}) {
-					$partsRowvals = array($meetId, $data->attendees[$i]->{'data-user_id'}, date("Y-m-d H:i:s"), $user->user_id);
+					$partsRowvals = array($meetId, $data->attendees[$i]->{'data-id'}, date("Y-m-d H:i:s"), $user->user_id);
 					$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $partsColumnnames, $partsRowvals);
-					
-					//insert into notifications	
-					$notRowvals = array($data->attendees[$i]->{'data-user_id'}, $title, $projectId, $user->user_id, date("Y-m-d H:i:s"), 'M', $meetId, 'U');
-	
-					$actId = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notColumnnames, $notRowvals);
-					$notesRowValues = array($meetId, $data->attendees[$i]->{'data-user_id'}, "",date("Y-m-d H:i:s"), 0);
-					$db->insertSingleRow(TABLE_MEETING_NOTES, $notesColumnValues, $notesRowValues);
 				}
-
-
 			}
 
 			//insert into project activity
