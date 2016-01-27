@@ -1,5 +1,3 @@
-"use strict";
-
 var Router = Backbone.Router.extend({
     initialize: function initialize() {
         // Tells Backbone to start watching for hashchange events

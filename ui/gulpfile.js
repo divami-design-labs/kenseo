@@ -30,7 +30,7 @@ function spriteChanges() {
         }))
         .pipe(svgstore())
         .pipe(gulp.dest('assets/imgs/'));
-}    
+}
 
 
 var babel = require("gulp-babel");
@@ -49,7 +49,7 @@ function babelChange(){
 
 // task without watch
 function templateChange() {
-    var templates = {};  
+    var templates = {};
 
     gulp.src('assets/templates/**/*.html')
     // Run a loop through all files in 'app/templates/*/*.html'
@@ -68,7 +68,7 @@ function templateChange() {
     // return gulp.src('assets/templates/**.html')
     //     .pipe(template({
     //       commonjs: true,
-    //       // amd: true, 
+    //       // amd: true,
     //       strict: true
     //     }))
     //     .pipe(gulp.dest('new/'));
@@ -89,15 +89,16 @@ function sassChange(){
 function watchChanges(){
     templateChange();
     sassChange();
-    babelChange(/*{ blacklist: ["strict"] }*/);
+    // babelChange(/*{ blacklist: ["strict"] }*/);
     spriteChanges();
     gulp.watch([
         'assets/templates/**/*.html',
-        'assets/styles/sass/**/*.scss', 
-        'assets/styles/sass-utilities/**/*.scss', 
-        'js/babel-app/**/*.js',
+        'assets/styles/sass/**/*.scss',
+        'assets/styles/sass-utilities/**/*.scss',
+        // 'js/babel-app/**/*.js',
         'bundle-svgs/**/*.svg'
-    ], ['template', 'sass', 'babel','kenseo-sprt']);
+    // ], ['template', 'sass', 'babel','kenseo-sprt']);
+    ], ['template', 'sass', 'kenseo-sprt']);
 }
 
 // Tasks

@@ -1,5 +1,3 @@
-"use strict";
-
 var APIList = new Array();
 
 APIList["getCustomers"] = ["getCustomers", "GET", 10000];

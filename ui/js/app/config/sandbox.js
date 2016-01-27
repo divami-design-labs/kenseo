@@ -1,5 +1,3 @@
-'use strict';
-
 var sb = (function () {
     var labels = {
         popupContainer: '.popup-container'
@@ -60,6 +58,14 @@ var sb = (function () {
             }
             loadFile(0);
         },
+        loadCalls: function(arrayOfAjaxCalls, callbackfunction){
+            var filterArrayOfAjaxCalls = arrayOfAjaxCalls.filter(function(item){
+                return !item.exprCondition;
+            }).map(function(x){
+                return x.ajax;
+            });
+            $.when.apply(filterArrayOfAjaxCalls).then(callbackfunction);
+        },
         getPath: function getPath(type, fileName) {
             var o = i18n[type];
             if (!o) {
@@ -85,13 +91,13 @@ var sb = (function () {
             }
             // Desktop Logic
             else {
-                    // Desktop CSS and JavaScript files to load
-                    filesToLoad = {
-                        'js': {
-                            'files': ['js/app/config/sandbox.postcall.js']
-                        }
-                    };
-                }
+                // Desktop CSS and JavaScript files to load
+                filesToLoad = {
+                    'js': {
+                        'files': ['js/app/config/sandbox.postcall.js']
+                    }
+                };
+            }
             sb.loadFiles(filesToLoad.js, callBackFunc);
         },
         saveData: function saveData(payload) {
@@ -127,7 +133,7 @@ var sb = (function () {
                 }).data;
             }
             // Setting default values to the ajax properties
-            var contentType = payload.contentType; // || 'application/x-www-form-urlencoded; charset=UTF-8';
+            var contentType = payload.contentType;// || 'application/x-www-form-urlencoded; charset=UTF-8';
             var processData = payload.processData;
             if (contentType === undefined || contentType === null) {
                 contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
@@ -137,7 +143,9 @@ var sb = (function () {
             }
 
             // Ajax call
-            $.ajax({
+
+            // returning the ajax is necessary for jquery promises, if any.
+            return $.ajax({
                 url: url,
                 data: data,
                 type: payload.type || 'GET',
@@ -163,14 +171,14 @@ var sb = (function () {
                 }
             });
         },
-        loopAttributes: function loopAttributes(el, filter, callback) {
+        loopAttributes: function(el, filter, callback){
             var attributes = el.attributes;
-            if (!filter) filter = "";
-            for (var j = 0, jlen = attributes.length; j < jlen; j++) {
+            if(!filter) filter = "";
+            for(var j = 0, jlen = attributes.length; j < jlen; j++){
                 var attribute = attributes[j];
                 var attributeKey = attribute.name;
                 var attributeValue = attribute.value;
-                if (attributeKey.indexOf(filter) > -1) {
+                if(attributeKey.indexOf(filter) > -1){
                     callback(attributeKey.substr(filter.length), attributeValue);
                 }
             }
@@ -187,21 +195,21 @@ var sb = (function () {
                     dump[data.id] = data;
                 }
                 Kenseo.data[key] = dump;
-            } else if (obj.data) {
+            } else if(obj.data) {
                 Kenseo.data[key] = obj.data;
             }
         },
         getRelativePath: function getRelativePath(str) {
             return DOMAIN_ROOT_URL + str;
         },
-        hasInheritClass: function hasInheritClass($target, classes) {
-            for (var i = 0, len = classes.length; i < len; i++) {
+        hasInheritClass: function($target, classes){
+            for(var i = 0, len = classes.length; i < len; i++){
                 var currentClass = classes[i];
-                if ($target.hasClass(currentClass)) {
+                if($target.hasClass(currentClass)){
                     // A match is found
                     return true;
                 }
-                if ($target.parents('.' + currentClass).length) {
+                if($target.parents('.' + currentClass).length){
                     // A match is found
                     return true;
                 }
@@ -238,7 +246,7 @@ var sb = (function () {
                     if (_this.preLoader) {
                         _this.preLoader(response);
                     }
-                    if (_this.stopRenderX) {
+                    if(_this.stopRenderX){
                         return;
                     }
 
@@ -267,7 +275,7 @@ var sb = (function () {
                 data: p.noData || {}
             });
         },
-        getCommentThreadDumpObject: function getCommentThreadDumpObject($el) {
+        getCommentThreadDumpObject: function($el){
             var els = $el.find('*');
             els.push($el.get(0));
             var obj = {};
@@ -277,7 +285,7 @@ var sb = (function () {
                 for (var k = 0; k < attributes.length; k++) {
                     var attr = attributes[k];
                     var nodeName = attr.nodeName;
-                    if (nodeName.indexOf("data-k-") > -1) {
+                    if(nodeName.indexOf("data-k-") > -1){
                         obj[attr.nodeName.substr(7)] = attr.nodeValue;
                     }
                 }
@@ -298,9 +306,10 @@ var sb = (function () {
                     'data': p.data,
                     'success': function success(obj) {
                         if (p.templateHolder) {
-                            if (p.append) {
+                            if(p.append){
                                 p.templateHolder.append(compiler(obj));
-                            } else {
+                            }
+                            else{
                                 p.templateHolder.html(compiler(obj));
                             }
                         }
@@ -310,9 +319,10 @@ var sb = (function () {
                     }
                 });
             } else {
-                if (p.append) {
+                if(p.append){
                     p.templateHolder.append(compiler(p.data));
-                } else {
+                }
+                else{
                     p.templateHolder.html(compiler(p.data));
                 }
                 if (p.callbackfunc) {
@@ -320,7 +330,7 @@ var sb = (function () {
                 }
             }
         },
-        setTemplate: function setTemplate(str, data) {
+        setTemplate: function(str, data){
             data = data || {};
             return _.template(templates[str])(data);
         },
@@ -329,15 +339,15 @@ var sb = (function () {
             // Refer: http://stackoverflow.com/a/1353711/1577396
             var dateTime = new Date(time || null);
             // Valid date
-            if (Object.prototype.toString.call(dateTime) === "[object Date]" && !isNaN(dateTime.getTime())) {
+            if(Object.prototype.toString.call(dateTime) === "[object Date]" && !isNaN(dateTime.getTime())){
                 return dateTime;
             }
             // Invalid date
-            else {
-                    // Refer: http://stackoverflow.com/a/3075893/1577396
-                    var t = time.split(/[- :]/);
-                    return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
-                }
+            else{
+                // Refer: http://stackoverflow.com/a/3075893/1577396
+                var t = time.split(/[- :]/);
+                return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
+            }
         },
         timeFormat: function timeFormat(time, OnlyTime, OnlyDays) {
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -369,13 +379,14 @@ var sb = (function () {
             }
             return resultDateFormat;
         },
-        getHours: function getHours(time) {
+        getHours: function(time){
             var hh = ("0" + sb.getTime(time).replace(": ", ":")).slice(-8);
             var hhValue = hh.slice(0, -3);
             var value = +hhValue.split(":")[0];
-            if (/pm/i.test(hh)) {
+            if(/pm/i.test(hh)){
                 value = value + 11;
-            } else {
+            }
+            else{
                 value = value - 1;
             }
             return hhValue.replace(/^\d\d/, ("0" + value).slice(-2));
@@ -430,7 +441,7 @@ var sb = (function () {
                 sb.log('provide valid key id pair');
             }
         },
-        setTitle: function setTitle(str) {
+        setTitle: function(str){
             var $title = $('title');
             $title.html('Kenseo - ' + str);
         },
@@ -462,41 +473,41 @@ var sb = (function () {
                 Kenseo.popup.data = value;
             }
         },
-        getVersionIdFromMaskedId: function getVersionIdFromMaskedId(maskedId) {
-            if (!Kenseo.data.ma) {
+        getVersionIdFromMaskedId: function(maskedId){
+            if(!Kenseo.data.ma){
                 Kenseo.data.ma = {};
             }
             return Kenseo.data.ma[maskedId];
         },
-        setVersionIdForMaskedId: function setVersionIdForMaskedId(maskedId, versionId) {
-            if (!Kenseo.data.ma) {
+        setVersionIdForMaskedId: function(maskedId, versionId){
+            if(!Kenseo.data.ma){
                 Kenseo.data.ma = {};
             }
             Kenseo.data.ma[maskedId] = versionId;
         },
-        getAccessType: function getAccessType(value) {
+        getAccessType: function(value){
             var accessType = Kenseo.settings.accesstype;
-            for (var key in accessType) {
-                if (accessType[key] == value) {
+            for(var key in accessType){
+                if(accessType[key] == value){
                     return key;
                 }
             }
             return false;
         },
-        insertPopupData: function insertPopupData($elem) {
+        insertPopupData: function($elem) {
             var key = $elem.data('key');
             var id = $elem.data('id');
             // If id is undefined, Get other data attributes which are ending with "id"
 
-            if (key && id) {
+            if(key && id){
                 Kenseo.popup.data = _.cloneDeep(Kenseo.data[key][id]);
-            } else {
+            } else{
                 sb.log("data-holder class is provided but not its dependent attributes: data-key and data-id");
             }
 
-            sb.loopAttributes($elem.get(0), "data-k-", function (a, b) {
+            sb.loopAttributes($elem.get(0), "data-k-", function(a, b) {
                 Kenseo.popup.data[a] = b;
-            });
+            })
         },
         navigate: function navigate(str, el) {
             var $self = $(el);
@@ -518,7 +529,8 @@ var sb = (function () {
                     index = 0;
                 }
                 sb.callPopup(index);
-            } else if (str == 'overlay') {
+            }
+            else if (str == 'overlay') {
                 var index = $self.data('index') || 0;
                 $('.popup-container').show();
                 var actionType = $self.data('url');
@@ -532,61 +544,74 @@ var sb = (function () {
                 sb.callPopup(index);
             }
         },
-        getPopupMetaInfo: function getPopupMetaInfo(dump) {
+        getPopupMetaInfo: function(dump){
             return {
-                getProjectName: function getProjectName() {
-                    if (dump.project_name) {
-                        return dump.project_name;
-                    } else if (dump.name) {
-                        return dump.name;
-                    } else {
-                        return Kenseo.page.data.project.name;
+                getProjectName: function(){
+                    try{
+                        if(dump.project_name){
+                            return dump.project_name;
+                        } else if(dump.name){
+                            return dump.name
+                        }else{
+                            return Kenseo.page.data.project.name;
+                        }
+                    }
+                    catch(ex){
+                        sb.log(ex);
                     }
                 },
-                getFileName: function getFileName() {
-                    if (dump.files && dump.files.length == 1) {
-                        return dump.files[0].name;
-                    } else if (dump.files && dump.files.length > 1) {
-                        return "Multiple files";
-                    } else {
-                        return dump.artefactName;
+                getFileName: function(){
+                    try{
+                        if(dump.files && dump.files.length == 1){               
+                            return dump.files[0].name;          
+                        }           
+                        else if(dump.files && dump.files.length > 1){               
+                            return "Multiple files";            
+                        }           
+                        else if(dump.artefactName){               
+                            return dump.artefactName;               
+                        }
+                        else{
+                            return dump.title;
+                        }
+                    }
+                    catch(ex){
+                        sb.log(ex);
                     }
                 },
-                getType: function getType() {
+                getType: function(){
                     return Kenseo.settings.doctype[dump.doctype[0]['data-name']];
                 },
-                getReferences: function getReferences() {
-                    return dump.references.map(function (e) {
-                        return e.name;
-                    }).join(", ");
+                getReferences: function(){
+                    return dump.references.map(function(e){return e.name}).join(", ");
                 },
-                getTags: function getTags() {
+                getTags: function(){
                     return dump.tags.value;
                 }
-            };
+            }
         },
-        callPopup: function callPopup(index, currentIndex) {
-            // or previousIndex?
+        callPopup: function callPopup(index, currentIndex) {// or previousIndex?
             var allPopups = $('.popup');
             var $popup = allPopups.eq(index);
             var currentActionType = Kenseo.popup.data.actionType;
-            if ($popup.length) {
+            if($popup.length){
                 // when the popup is already existing, show the popup and refresh the meta information if necessary
                 sb.popup.popupsStateMaintainer({
-                    index: index,
+                    index: index, 
                     currentIndex: currentIndex,
                     allPopups: allPopups,
                     currentActionType: currentActionType
                 });
-            } else {
+            }
+            else{
                 // resetting the previous flags
                 // the below if condition works if the popup is shareArtefact or addArtefact and the current popup is second in list of popups navigated from the first popup
-                if ((currentActionType === "shareArtefact" || currentActionType === "addArtefact") && index === 1 && currentIndex == 0) {
+                if((currentActionType === "shareArtefact" || currentActionType === "addArtefact") && index === 1 && currentIndex == 0){
                     Kenseo.popup.info.projectComboboxValueChanged = false;
                 }
                 $('.popup').addClass('hide');
                 var info = Kenseo.popup.info[index];
-                _.extend(info, { 'index': index });
+                _.extend(info, {'index': index});
 
                 var $templateHolder = $('.popup-container');
 
@@ -616,7 +641,7 @@ var sb = (function () {
             buttons: function buttons(data) {
                 return _.template(templates['buttons'])(data);
             },
-            button: function button(data) {
+            button: function button(data){
                 return _.template(templates['button'])(data);
             },
             comboBox: function comboBox(data) {
@@ -630,20 +655,20 @@ var sb = (function () {
                 combobox.insertAfter = data.insertAfter;
                 return combobox;
             },
-            checkbox: function checkbox(data) {
-                return _.template(templates['checkbox'])({ data: data || {} });
+            checkbox: function checkbox(data){
+                return _.template(templates['checkbox'])({data: data || {}});
             }
         },
-        getCurrentDocumentData: function getCurrentDocumentData(id) {
+        getCurrentDocumentData: function(id){
             return Kenseo.document[id];
         },
-        setCurrentDocumentData: function setCurrentDocumentData(id, data) {
+        setCurrentDocumentData: function(id, data){
             Kenseo.document[id] = data;
         },
-        getCurrentThreadData: function getCurrentThreadData(versionId, threadId) {
+        getCurrentThreadData: function(versionId, threadId){
             return Kenseo.document[versionId][threadId];
         },
-        setCurrentThreadData: function setCurrentThreadData(versionId, threadId, data) {
+        setCurrentThreadData: function(versionId, threadId, data){
             Kenseo.document[versionId][threadId] = data;
         },
         page: {},

@@ -1,5 +1,3 @@
-'use strict';
-
 var i18n = {
 	text: {
 		'ongoing_review_requests': 'Ongoing review requests',

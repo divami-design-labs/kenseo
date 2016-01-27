@@ -1,7 +1,5 @@
 // Link: http://jsfiddle.net/venkateshwar/t368uyxg/
 
-'use strict';
-
 function beginPanning(e) {
     $(window).on('mousemove', startPanning);
     $(window).on('mouseup', endPanning);
@@ -49,7 +47,7 @@ function setPanningDimensions() {
 
     $('.pan-img').css({
         'max-width': $('.img-content').width(),
-        'max-height': $('.img-content').height()
+            'max-height': $('.img-content').height()
     });
 
     var imgOffset = $img.offset();

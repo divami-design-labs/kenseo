@@ -1,5 +1,3 @@
-'use strict';
-
 Kenseo.views.Projects = Backbone.View.extend({
     // The DOM Element associated with this view
     el: '.projects-section-content',
@@ -27,7 +25,7 @@ Kenseo.views.Project = Backbone.View.extend({
     template: _.template(templates['project-section']),
     // View constructor
     initialize: function initialize() {
-        if (this.model) {
+        if(this.model){
             this.listenTo(this.model, 'remove', this.remove);
         }
         // this.listenTo(this.model.collection, 'add', this.render);

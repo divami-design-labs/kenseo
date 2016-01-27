@@ -1,8 +1,6 @@
-'use strict';
-
 Kenseo.params = (function () {
 	var params = {
-		'db-projects': { /* limit: 6, */userProjects: true },
+		'db-projects': { /* limit: 6, */ userProjects: true },
 		'db-artefacts': { limit: 8, shared: true },
 		'db-notifications': { limit: 12 },
 
@@ -29,12 +27,12 @@ Kenseo.params = (function () {
 			}
 			// Array
 			else if (typeof str === 'object' && typeof str.length === 'undefined') {
-					result = str;
-				}
-				// Object: if the passed argument is already an object then send it as it is.
-				else if (typeof str === 'object') {
-						result = _.extend(fetchParams(str[0]), str[1] || {});
-					}
+				result = str;
+			}
+			// Object: if the passed argument is already an object then send it as it is.
+			else if (typeof str === 'object') {
+				result = _.extend(fetchParams(str[0]), str[1] || {});
+			}
 			return result;
 		}
 	};

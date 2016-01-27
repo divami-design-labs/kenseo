@@ -4,9 +4,7 @@
 // - The field should be wrapped in a ".field-section" element
 // - The field should have ".required" class
 // - The field should have "data-validate-this" attribute with all necessary validations as comma separated values
-'use strict';
-
-var validation = (function () {
+var validation = (function(){ 
 	// This counter will be incremented if any field has error
 	var validatingCounter = 0;
 	var $validationSection = null;

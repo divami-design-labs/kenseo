@@ -1,5 +1,3 @@
-'use strict';
-
 Kenseo.views.Notifications = Backbone.View.extend({
     // The DOM Element associated with this view
     el: '.notifications-content',

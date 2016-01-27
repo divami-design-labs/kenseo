@@ -1,11 +1,15 @@
-"use strict";
-
 sb.popup = {
     resetPopupData: function resetPopupData() {
         Kenseo.popup = {
             "info": {},
             "data": {}
         };
+
+        // the data which comes with call "artefactmetainfo" is stored in Kenseo.data.artefactmetainfo
+        // This data must be cleared when a popup is closed.
+        // TODO: the data must be cleared if the "artefactmetainfo" call is called through popup but not through page
+        // Currently, this call is happening under "shareartefact" popup when existing file is chosen.
+        Kenseo.data.artefactmetainfo = null;
     },
     getProjectsPopup: function getProjectsPopup() {
         sb.loadFiles({
@@ -31,6 +35,7 @@ sb.popup = {
                                 sb.setPopupData($selectedEl.html(), "name");
                                 sb.setPopupData($selectedEl.data("id"), "id");
                                 $currentPopup.find(".main-btn").prop("disabled", false);
+
                             } else {
                                 $currentPopup.find(".main-btn").prop("disabled", true);
                             }
@@ -56,31 +61,33 @@ sb.popup = {
         //     $(".main-btn").prop("disabled", false);
         // }
 
+
         var $currentPopup = Kenseo.current.popup;
 
-        var toggleStateMainBtn = function toggleStateMainBtn(state) {
+        var toggleStateMainBtn = function(state) {
             return $currentPopup.find(".main-btn").prop("disabled", state);
         };
 
-        var toggleStateChooseFileCombo = function toggleStateChooseFileCombo(state) {
+        var toggleStateChooseFileCombo = function(state) {
             return $currentPopup.find(".choose-file-combobox input").prop("disabled", state);
         };
 
-        var toggleStateExistingFileCheck = function toggleStateExistingFileCheck(state, title) {
+        var toggleStateExistingFileCheck = function(state, title) {
             var $existingCheckBox = $currentPopup.find(".existing-files-chk");
-            if (state) {
-                $existingCheckBox.parent().attr('title', title);
-            } else if (title && title.length) {
+            if(state){
+                $existingCheckBox.parent().attr('title', title);   
+            }
+            else if(title && title.length){
                 $existingCheckBox.parent().attr('title', '');
             }
             return $existingCheckBox.prop("disabled", state);
         };
 
-        var toggleStateUploadNewFile = function toggleStateUploadNewFile(state) {
+        var toggleStateUploadNewFile = function(state) {
             return $currentPopup.find(".upload-files-input").prop("disabled", state);
         };
 
-        var clearExistingFilesCombo = function clearExistingFilesCombo() {
+        var clearExistingFilesCombo = function() {
             var $existingFilesCombobox = $currentPopup.find(".existing-files-combobox");
 
             $existingFilesCombobox.find(".suggestionsContainer").hide();
@@ -91,7 +98,7 @@ sb.popup = {
             var files = this.files;
 
             // If user clicks cancel.
-            if (!files) {
+            if(!files) {
                 // Clear selected file path from input box
                 $(".create-file-close-icon").click();
                 return;
@@ -103,17 +110,19 @@ sb.popup = {
             });
             // Setting the flag to true
             Kenseo.popup.info.newFileSelected = true;
-            if (this.files.length === 1) {
+            if(this.files.length === 1){
                 // removing fakepath from string (Chrome)
                 var value = this.value.replace("C:\\fakepath\\", "");
                 $currentPopup.find(".create-file-item .notification-title").html(value).attr('title', value);
                 toggleStateExistingFileCheck(false);
-            } else if (this.files.length > 1) {
+            }
+            else if(this.files.length > 1){
                 // if multiple files selected
                 $currentPopup.find(".create-file-item .notification-title").html("multiple files added");
                 // Hide the "existing artefact version selecting checkbox"
                 toggleStateExistingFileCheck(true, "you can't select a version for selected multiple files");
-            } else {
+            }
+            else{
                 // when no file is selected
             }
             var info = "@ " + getTimeFormat() + " by " + Kenseo.data.header.screen_name;
@@ -132,7 +141,7 @@ sb.popup = {
             } else if (sb.getPopupData("actionType") == "addArtefactVersion") {
                 sb.setPopupData("addArtefactVersion", "command");
                 sb.setPopupData("addArtefactVersionFile", "actionType");
-            } else if (sb.getPopupData("actionType") == "addVersion") {
+            } else if(sb.getPopupData("actionType") == "addVersion") {
                 sb.setPopupData("addVersion", "command");
                 sb.setPopupData("addVersion", "actionType");
             }
@@ -155,7 +164,7 @@ sb.popup = {
             sb.setPopupData(null, "description");
 
             toggleStateExistingFileCheck(true).prop("checked", false);
-
+            
             clearExistingFilesCombo();
 
             // Clear selected file path from input box
@@ -167,7 +176,7 @@ sb.popup = {
             "models": ["Artefacts"]
         }, function () {
             var projectId;
-            if (Kenseo.popup.data.actionType == "addVersion") {
+            if(Kenseo.popup.data.actionType == "addVersion") {
                 projectId = sb.getPopupData("project_id");
             } else {
                 projectId = sb.getPopupData("id");
@@ -209,7 +218,7 @@ sb.popup = {
                         var $selectables = $elem.find(".selectable");
 
                         // Disable (or) Enable Proceed button when this checkbix is checked.
-                        if (this.checked) {
+                        if(this.checked) {
                             toggleStateMainBtn(true);
                         } else {
                             toggleStateMainBtn(false);
@@ -251,7 +260,7 @@ sb.popup = {
                                 $currentPopup.find(".choose-existing-file-holder").html(_.template(templates["new-file"])({
                                     data: obj
                                 }));
-
+                                
                                 $currentPopup.find(".choose-existing-file-holder .close-icon").click(function () {
                                     $currentPopup.find(".choose-existing-file-holder").html("");
                                     //
@@ -266,7 +275,7 @@ sb.popup = {
                                     // Making the existing file selected flag as false when user clicks on close icon
                                     Kenseo.popup.info.existingFileSelected = false;
 
-                                    // Also clear the Kenseo.popup.data
+                                    // Also clear the Kenseo.popup.data 
                                 });
                                 $input.val("");
 
@@ -294,7 +303,7 @@ sb.popup = {
         sb.loadFiles({
             "collections": ["Artefacts", "Tags"],
             "models": ["Artefacts"]
-        }, function () {
+        }, function () {          
             var $currentPopup = Kenseo.current.popup;
             // Keep the .main-btn class button disabled by default
             // (Enable this button when user selects the document type)
@@ -330,19 +339,23 @@ sb.popup = {
                 elem: documentType,
                 // data: data.data,
                 data: Kenseo.settings.doctype,
-                onchange: function onchange($elem, value, bln) {
-                    if (bln) {
+                onchange: function($elem, value, bln){
+                    if(bln){
                         $currentPopup.find('.main-btn').removeAttr('disabled');
-                    } else {
+                    }
+                    else{
                         $currentPopup.find('.main-btn').attr('disabled', 'true');
                     }
                 }
             });
 
             // populating the fields if an existing artefact is selected
-            if (Kenseo.popup.info.existingFileSelected) {
+            if(Kenseo.popup.info.existingFileSelected){
                 sb.popup.populateExistingFileSelectedData();
             }
+
+            
+
         });
     },
     shareWithPeoplePopup: function shareWithPeoplePopup() {
@@ -468,9 +481,9 @@ sb.popup = {
                         elem: container,
                         data: data.data,
                         settings: {
-                            placeholder: "Choose Project"
+                            placeholder: "Choose Project",
+                            // value: Kenseo.page.data.project && Kenseo.page.data.project.name || ""
                         },
-                        // value: Kenseo.page.data.project && Kenseo.page.data.project.name || ""
                         insertAfter: function insertAfter($input, $selectedEl, bln) {
                             // console.log("project name changed");
 
@@ -560,17 +573,18 @@ sb.popup = {
                     // if datepicker is already visisble
                 } else {
 
-                        // set a flag that the datepicker is not visible
-                        $(this).data("dp_visible", false);
+                    // set a flag that the datepicker is not visible
+                    $(this).data("dp_visible", false);
 
-                        // hide the datepicker
-                        plugin.hide();
-                    }
+                    // hide the datepicker
+                    plugin.hide();
+                }
             });
         });
 
+
         //onchange event to fromtime dropdown
-        $('.projects-dropdown.fromTime').on('change', function (x, y, z) {
+        $('.projects-dropdown.fromTime').on('change', function(x, y, z){
             var options = this.options;
             var index = options.selectedIndex;
 
@@ -578,12 +592,12 @@ sb.popup = {
             var toTimeField = document.querySelector('.projects-dropdown.toTime');
             toTimeField.innerHTML = "";
 
-            for (var i = index + 1; i < options.length; i++) {
+            for(var i = index + 1; i < options.length; i++){
                 toTimeField.innerHTML = toTimeField.innerHTML + options[i].outerHTML;
             }
         });
         // pre-populate the data if the user is in project page
-        if (Kenseo.current.page == "project-page") {
+        if(Kenseo.current.page == "project-page"){
             // var data = Kenseo.populate.meeting;
             var currentProjectPageName = Kenseo.data.projects[Kenseo.page.id].name;
             $('.project-combobox input[type="text"]').val(currentProjectPageName);
@@ -595,13 +609,13 @@ sb.popup = {
             // $('.field-section[data-name="location"] input[type="text"].meeting-location').val(data.venue);
         }
     },
-    coverImage: function coverImage() {
+    coverImage: function(){
         sb.loadFiles({
             'files': ['js/app/components/custom-panning.js']
-        }, function () {
+        }, function(){
             var $coverImageInput = $('.image-cover-section .upload-files-input');
-            if ($coverImageInput.length) {
-                $coverImageInput.on('change', function () {
+            if($coverImageInput.length){
+                $coverImageInput.on('change', function(){
                     console.dir(this);
                     // Link: http://stackoverflow.com/a/3814285/1577396
                     var files = this.files;
@@ -615,21 +629,21 @@ sb.popup = {
                             $('.cover-image-viewer').show();
                             $('.image-cover-section').hide();
                             setPanningDimensions();
-                        };
+                        }
                         fr.readAsDataURL(files[0]);
                     }
 
                     // Not supported
                     else {
-                            // fallback -- perhaps submit the input to an iframe and temporarily store
-                            // them on the server until the user's session ends.
-                        }
+                        // fallback -- perhaps submit the input to an iframe and temporarily store
+                        // them on the server until the user's session ends.
+                    }
                 });
             }
-        });
+        })
     },
     // This function holds all the manipulations which holds the states inside array of popups
-    popupsStateMaintainer: function popupsStateMaintainer(payload) {
+    popupsStateMaintainer: function(payload) {
         var index = payload.index;
         var allPopups = payload.allPopups;
         var $popup = allPopups.eq(index);
@@ -641,11 +655,12 @@ sb.popup = {
 
         // Change the meta states of popup
 
+
         // Storing current popup root element
-        Kenseo.current.popup = $popup;
+        Kenseo.current.popup = $popup; 
         // TODO: The following code runs on all popups instead of running only on add artefact and share artefact popups
         // -- Start
-        if (currentActionType === "shareArtefact" || currentActionType === "addArtefact") {
+        if(currentActionType === "shareArtefact" || currentActionType === "addArtefact"){
             var metaInfo = sb.getPopupMetaInfo(sb.getPopupData());
 
             var $projectText = $popup.find('.popup-meta-project-name-txt');
@@ -654,76 +669,75 @@ sb.popup = {
             var $references = $popup.find('.popup-meta-references');
             var $tags = $popup.find('.popup-meta-tags');
             // if the popup is already generated and the project name is changed in previous project, change the project name
-            if ($projectText.length) {
+            if($projectText.length){
                 $projectText.attr('title', metaInfo.getProjectName());
             }
             // change the file name
-            if ($fileName.length) {
+            if($fileName.length){
                 $fileName.attr('title', metaInfo.getFileName());
             }
-            if ($type.length) {
+            if($type.length){
                 $type.attr('title', metaInfo.getType());
             }
-            if ($references.length) {
+            if($references.length){
                 $references.attr('title', metaInfo.getReferences());
             }
-            if ($tags.length) {
+            if($tags.length){
                 $tags.attr('title', metaInfo.getTags());
             }
 
             // refresh the list of combobox based on project id
-            if (index === 1 && currentIndex === 0 && Kenseo.popup.info.projectComboboxValueChanged /*&& currentActionType === "shareArtefact"*/) {
-                    // need to make this "shareArtefact" specific
-                    // clearing the previous selection manually
-                    var $chooseExistingFileHolder = $popup.find(".choose-existing-file-holder");
-                    if ($chooseExistingFileHolder.length) {
-                        // if the existing file is chosen
-                        // reset the contents and disable the "proceed" button
-                        $chooseExistingFileHolder.children().remove();
-                        $popup.find('.main-btn').prop('disabled', 'true');
+            if(index === 1 && currentIndex === 0 && Kenseo.popup.info.projectComboboxValueChanged/*&& currentActionType === "shareArtefact"*/){ // need to make this "shareArtefact" specific
+                // clearing the previous selection manually
+                var $chooseExistingFileHolder = $popup.find(".choose-existing-file-holder");
+                if($chooseExistingFileHolder.length){
+                    // if the existing file is chosen
+                    // reset the contents and disable the "proceed" button
+                    $chooseExistingFileHolder.children().remove();
+                    $popup.find('.main-btn').prop('disabled', 'true');
 
-                        // enable the file uploader section
-                        var $uploadFileSection = $popup.find('.upload-file-section');
-                        $uploadFileSection.css('cursor', 'pointer');
-                        $uploadFileSection.prop('disabled', false);
-                        // Also clear the Kenseo.popup.data contents
-                    }
-
-                    $('.existing-files-chk').prop('checked', false);
-
-                    sb.ajaxCall({
-                        collection: new Kenseo.collections.Artefacts(),
-                        data: {
-                            projectid: sb.getPopupData('id'),
-                            references: true,
-                            ignore: 0
-                        },
-                        success: function success(response) {
-                            if (Kenseo.combobox.chooseFileCombobox) {
-                                Kenseo.combobox.chooseFileCombobox.refresh({
-                                    newSuggestions: response.data
-                                });
-                            }
-                            if (Kenseo.combobox.existingCombobox) {
-                                Kenseo.combobox.existingCombobox.refresh({
-                                    newSuggestions: response.data
-                                });
-                            }
-                        }
-                    });
+                    // enable the file uploader section
+                    var $uploadFileSection = $popup.find('.upload-file-section');
+                    $uploadFileSection.css('cursor', 'pointer');
+                    $uploadFileSection.prop('disabled', false);
+                    // Also clear the Kenseo.popup.data contents
                 }
 
-            if (index === 2 && currentIndex === 1) {
-                if (Kenseo.popup.info.existingFileSelected) {
+                $('.existing-files-chk').prop('checked', false);
+
+                sb.ajaxCall({
+                    collection: new Kenseo.collections.Artefacts(),
+                    data: {
+                        projectid: sb.getPopupData('id'),
+                        references: true,
+                        ignore: 0
+                    },
+                    success: function(response){
+                        if(Kenseo.combobox.chooseFileCombobox){
+                            Kenseo.combobox.chooseFileCombobox.refresh({
+                                newSuggestions: response.data
+                            });
+                        }
+                        if(Kenseo.combobox.existingCombobox){
+                            Kenseo.combobox.existingCombobox.refresh({
+                                newSuggestions: response.data
+                            });
+                        }
+                    }
+                });
+            }
+
+            if(index === 2 && currentIndex === 1){
+                if(Kenseo.popup.info.existingFileSelected){
                     // when existing file is selected
                     sb.popup.populateExistingFileSelectedData();
-                } else if (Kenseo.popup.info.newFileSelected) {
+                }
+                else if(Kenseo.popup.info.newFileSelected){
                     // reset the fields
 
                     // references
                     Kenseo.combobox.referenceCombobox.refresh({
-                        callback: function callback($el) {
-                            // represents to clear the data
+                        callback: function($el){// represents to clear the data
                             $el.find('.suggestions-viewer').empty();
                         }
                     });
@@ -731,7 +745,7 @@ sb.popup = {
                     // Document type
                     Kenseo.combobox.typeCombobox.refresh({
                         // When existing file is selected, the document type dropdown should be kept disabled
-                        callback: function callback($el) {
+                        callback: function($el){
                             $el.find('input').val('').prop('disabled', false);
                         }
                     });
@@ -746,22 +760,23 @@ sb.popup = {
                     });
 
                     // Tags
+
                 }
             }
-            if (index === 3) {
+            if(index === 3){
                 sb.popup.renderSharePopupPeople();
             }
         }
         // -- End
     },
-    populateExistingFileSelectedData: function populateExistingFileSelectedData() {
+    populateExistingFileSelectedData: function(){
         // populating field code
         sb.ajaxCall({
             url: sb.getRelativePath('getArtefactMetaInfo'),
             data: {
                 id: sb.getPopupData('artefact_id')
             },
-            success: function success(response) {
+            success: function(response){
                 // pre-populating the dropdowns if existing artefact is selected in the previous popup
                 var artefactMetaInfo = response.data;
                 // references
@@ -778,7 +793,7 @@ sb.popup = {
                 Kenseo.combobox.typeCombobox.refresh({
                     selectedData: Kenseo.settings.doctype[artefactMetaInfo.docType],
                     // When existing file is selected, the document type dropdown should be kept disabled
-                    callback: function callback($el) {
+                    callback: function($el){
                         $el.find('input').prop('disabled', 'true');
                     }
                 });
@@ -794,14 +809,14 @@ sb.popup = {
         // resetting the flag so that the ajax call will not trigger again
         // Kenseo.popup.info.existingFileSelected = false;
     },
-    getChecked: function getChecked($el) {
+    getChecked: function($el) {
         return $el.attr("checked") === "checked";
     },
-    setChecked: function setChecked($el, bln) {
+    setChecked: function ($el, bln) {
         $el.attr("checked", bln);
         $el[0].checked = bln;
     },
-    attachEvents: function attachEvents() {
+    attachEvents: function () {
         $(".apply-to-all").off("change");
         $(".add-comments-chk input").off("click");
         $(".others-chk input input").off("click");
@@ -857,29 +872,32 @@ sb.popup = {
             }
         });
     },
-    renderSharePopupPeople: function renderSharePopupPeople(obj, isSingle) {
-
+    renderSharePopupPeople: function(obj, isSingle){
+        
         var $shareArtefactWrapper = $(".share-artefact-people-wrapper");
-        if (isSingle) {
+        if(isSingle){
             $shareArtefactWrapper.append(_.template(templates["share-people"])({ data: obj }));
-        } else {
+        }
+        else{
             var teamMembers = Kenseo.data.teamMembers || obj || [];
-            var specialTeamMembers = Kenseo.data.artefactmetainfo.teamMembers;
-            if (Kenseo.popup.info.existingFileSelected || Kenseo.popup.info.newFileSelected) {
+            // if teammembers are present in aretefactmetainfo variable, take it. or else pass an empty array
+            var specialTeamMembers = Kenseo.data.artefactmetainfo && Kenseo.data.artefactmetainfo.teamMembers || [];
+            if(Kenseo.popup.info.existingFileSelected || Kenseo.popup.info.newFileSelected){
                 // clear the already present data
                 $shareArtefactWrapper.empty();
             }
-            if (Kenseo.popup.info.existingFileSelected) {
+            if(Kenseo.popup.info.existingFileSelected){
                 // merge two objects
                 var newObj = _.merge(teamMembers, specialTeamMembers);
-            } else {
+            }
+            else{
                 var newObj = teamMembers;
             }
             for (var i = 0; i < newObj.length; i++) {
                 $shareArtefactWrapper.append(_.template(templates["share-people"])({ data: newObj[i] }));
             }
         }
-        sb.popup.attachEvents();
+        sb.popup.attachEvents(); 
     }
 };
 

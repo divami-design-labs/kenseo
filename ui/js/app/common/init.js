@@ -1,5 +1,3 @@
-"use strict";
-
 var Kenseo = {
     views: {},
     models: {},

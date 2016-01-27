@@ -1,5 +1,3 @@
-"use strict";
-
 Kenseo.models.Notifications = Backbone.Model.extend({
     // urlRoot: "app/packages/db-notifications.json"
     "default": {

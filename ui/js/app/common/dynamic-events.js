@@ -1,5 +1,3 @@
-'use strict';
-
 $(function () {
 	var popupContainer = '.popup-container',
 	    closePopupIcon = '.popup-close-icon';
@@ -16,21 +14,23 @@ $(function () {
 	// .on('click', function (e) {
 	// 	var $el = $(e.target);
 	// 	var bln = $el.hasClass('.toggle-click') || $el.parents('.toggle-click').length;
-	// var bln = 	$el.hasClass('popup-click')
-	// 			|| $el.hasClass('page-click')
-	// 			|| $el.hasClass('toggle-click')
-	// 			|| $el.parents('.popup-click').length
-	// 			|| $el.parents('page-click').length
-	// 			|| $el.parents('.toggle-click').length;
-	// if (!bln) {
-	// 	$('.toggle-click').removeClass('active');
-	// }
+		// var bln = 	$el.hasClass('popup-click')
+		// 			|| $el.hasClass('page-click')
+		// 			|| $el.hasClass('toggle-click')
+		// 			|| $el.parents('.popup-click').length
+		// 			|| $el.parents('page-click').length
+		// 			|| $el.parents('.toggle-click').length;
+		// if (!bln) {
+		// 	$('.toggle-click').removeClass('active');
+		// }
 	// })
-	.on('click', '.prevent-default', function (e) {
+	.on('click', '.prevent-default', function(e){
 		e.preventDefault();
-	}).on('click', '.stop-propagate', function (e) {
+	})
+	.on('click', '.stop-propagate', function(e){
 		e.stopPropagation();
-	}).on('click', closePopupIcon, function () {
+	})
+	.on('click', closePopupIcon, function () {
 		popupCloser($(this).parents(popupContainer));
 	}).on('keyup', function (e) {
 		var keycode = e.which || e.keyCode;
@@ -68,11 +68,13 @@ $(function () {
 	.on('click', '.popup-click', function () {
 		var $self = $(this);
 		var $dataHolder = $self.closest('.data-holder');
-		if ($dataHolder.length) {
+		if($dataHolder.length){
 			sb.insertPopupData($dataHolder);
-		} else if ($self.hasClass('data-holder')) {
+		}
+		else if($self.hasClass('data-holder')){
 			sb.insertPopupData($self);
-		} else {
+		}
+		else{
 			sb.log("Didn't provide data-holder class to the element or its parent");
 		}
 
@@ -81,6 +83,7 @@ $(function () {
 		// if(key && id){
 		// 	Kenseo.popup.data = Kenseo.data[key][id];
 		// }
+
 
 		sb.navigate('popup', this);
 	}).on('click', '.overlay-click', function () {
@@ -101,7 +104,7 @@ $(function () {
 
 		// if the link is an anchor element, redirect it.
 		// Refer: http://stackoverflow.com/a/31177540/1577396
-		if (this.tagName.toLowerCase() === "a") {
+		if(this.tagName.toLowerCase() === "a"){
 			window.location.href = DOMAIN_UI_URL + $(this).attr('href');
 		}
 	}).on('click', '.share-btn', function () {
@@ -133,15 +136,15 @@ $(function () {
 		var plainData = false,
 		    contentType = null,
 		    processData = null;
-		var type = '';
-		var url = '';
-		// Validate the information
-		if (!validation.doValidate($(this))) {
-			// stop further processing
-			return false;
-		}
+	    var type = '';
+	    var url = '';
+	    // Validate the information
+	    if(!validation.doValidate($(this))){
+	    	// stop further processing
+	    	return false;
+	    }
 		sb.postcall.getPostObj($self); // temporary fix
-		// Submit the information
+	    // Submit the information
 		if (files) {
 			var data = new FormData();
 
@@ -220,19 +223,21 @@ $(function () {
 	// .on('click', '.dvt-item.comment-summary-icon', function(e){
 	// 	$('.comments-view-holder').toggleClass('active');
 	// })
-	.on('change', '.filter-checkboxes input[data-all="true"]', function (e) {
+	.on('change', '.filter-checkboxes input[data-all="true"]', function(e){
 		var $self = $(this);
 		$self.parents('.filter-checkboxes-content').find('input[type="checkbox"]').not($self).prop('checked', $self.prop('checked'));
-	}).on('change', '.filter-checkboxes input[type="checkbox"]:not([data-all="true"])', function (e) {
+	})
+	.on('change', '.filter-checkboxes input[type="checkbox"]:not([data-all="true"])', function(e){
 		var $self = $(this);
 		var $allchkBox = $self.parents('.filter-checkboxes-content').find('input[type="checkbox"][data-all="true"]');
-		if (!$self.prop('checked')) {
+		if(!$self.prop('checked')){
 			$allchkBox.prop('checked', false);
-		} else {
-			var $uncheckedBoxes = $self.parents('.filter-checkboxes-content').find('input[type="checkbox"]:not([data-all="true"])').filter(function () {
+		}
+		else{
+			var $uncheckedBoxes = $self.parents('.filter-checkboxes-content').find('input[type="checkbox"]:not([data-all="true"])').filter(function(){
 				return !$(this).prop('checked');
 			});
-			if (!$uncheckedBoxes.length) {
+			if(!$uncheckedBoxes.length){
 				$allchkBox.prop('checked', true);
 			}
 		}
@@ -249,19 +254,19 @@ $(function () {
 // })
 
 $(document).on('click', '.tab-item', function (e) {
-	var rel = this.getAttribute('targetrel');
-	$('.tab-item').removeClass('selectedTab');
-	$(this).addClass('selectedTab');
-	$('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
-	$('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
+    var rel = this.getAttribute('targetrel');
+    $('.tab-item').removeClass('selectedTab');
+    $(this).addClass('selectedTab');
+    $('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
+    $('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
 });
 
-var stickToBottom = function stickToBottom(parent) {
-	var bar = parent.querySelector('.bar');
-	var top = bar.offsetTop;
-	parent.addEventListener('scroll', function (e) {
-		var el = e.currentTarget;
-		bar.style.bottom = -el.scrollTop + "px";
-		bar.style.left = el.scrollLeft + "px";
-	});
-};
+var stickToBottom = function (parent) {
+    var bar = parent.querySelector('.bar');
+    var top = bar.offsetTop;
+    parent.addEventListener('scroll', function (e) {
+        var el = e.currentTarget;
+        bar.style.bottom = -el.scrollTop + "px";
+        bar.style.left = el.scrollLeft + "px";
+    });
+}

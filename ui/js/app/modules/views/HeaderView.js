@@ -1,5 +1,3 @@
-"use strict";
-
 Kenseo.views.Header = Backbone.View.extend({
     // The DOM Element associated with this view
     el: ".profile-pic-holder",

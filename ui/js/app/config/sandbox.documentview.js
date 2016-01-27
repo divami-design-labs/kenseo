@@ -1,5 +1,3 @@
-'use strict';
-
 sb.documentview = {
 	imageSlider: function imageSlider() {
 		var left = document.querySelector('.left-slider'),

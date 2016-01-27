@@ -2,8 +2,6 @@
   * This is a Type-ahead Hierarchical combo tree component
   * @author Venkateshwar
   */
-"use strict";
-
 var comboBox = function comboBox(elem, suggestions, values) {
 	var _this = this;
 	var code = { up: 38, down: 40, enter: 13 },
@@ -11,14 +9,14 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 	_this.suggestions = suggestions;
 	var values = values || {};
-	values.container = values.container || "comboTree";
-	values.suggestionsContainer = values.suggestionsContainer || "suggestionsContainer";
-	values.hoveredElement = values.hoveredElement || "active";
-	values.collapseArrow = values.collapseArrow || "collapseArrow";
-	values.expandArrow = values.expandArrow || "expandArrow";
-	values.listClass = values.listClass || "selectable";
-	values.noChild = "noChild";
-	values.placeholder = values.placeholder || "";
+		values.container = values.container || "comboTree";
+		values.suggestionsContainer = values.suggestionsContainer || "suggestionsContainer";
+		values.hoveredElement = values.hoveredElement || "active";
+		values.collapseArrow = values.collapseArrow || "collapseArrow";
+		values.expandArrow = values.expandArrow || "expandArrow";
+		values.listClass = values.listClass || "selectable";
+		values.noChild = "noChild";
+		values.placeholder = values.placeholder || "";
 	var dot = ".";
 	var suggestionsContainerClass = dot + values.suggestionsContainer;
 
@@ -40,12 +38,12 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		e.stopPropagation();
 	});
 	// <-- End of Hide section -->
-	function filterCurrentIteration(obj) {
-		if (values.filterData) {
+	function filterCurrentIteration(obj){
+		if(values.filterData){
 			var filterData = values.filterData;
-			for (var key in filterData) {
-				if (obj.hasOwnProperty(key)) {
-					return obj[key] == filterData[key];
+			for(var key in filterData){
+				if(obj.hasOwnProperty(key)){
+					return (obj[key] == filterData[key]);
 				}
 			}
 		}
@@ -110,7 +108,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	function insertData(e) {
 		var $el = $(e.currentTarget || e);
 		var $text = $elem.find("input");
-
+	
 		var html = $el.html();
 		// Trigger change event
 		if ($text.val().toLowerCase() !== html.toLowerCase() && _this.onchange) {
@@ -260,42 +258,42 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		}
 		// 'DOWN' key pressed
 		else if (code.down === keyCode) {
-				var active = $elem.find(dot + values.hoveredElement);
+			var active = $elem.find(dot + values.hoveredElement);
 
-				if (active.length) {
+			if (active.length) {
 
-					var selectables = $elem.find(dot + values.listClass);
+				var selectables = $elem.find(dot + values.listClass);
 
-					for (var i = 0; i < selectables.length; i++) {
-						var s = selectables.eq(i);
-						if (s[0] === active[0]) {
-							var k = i + 1;
-							if (k >= selectables.length) {
-								selectables.eq(0).addClass(values.hoveredElement);
-							} else {
-								selectables.eq(k).addClass(values.hoveredElement);
-							}
-							active.removeClass(values.hoveredElement);
+				for (var i = 0; i < selectables.length; i++) {
+					var s = selectables.eq(i);
+					if (s[0] === active[0]) {
+						var k = i + 1;
+						if (k >= selectables.length) {
+							selectables.eq(0).addClass(values.hoveredElement);
+						} else {
+							selectables.eq(k).addClass(values.hoveredElement);
 						}
+						active.removeClass(values.hoveredElement);
 					}
-				} else {
-					$elem.find(dot + values.listClass).first().addClass(values.hoveredElement);
 				}
-				showActiveItemDown();
+			} else {
+				$elem.find(dot + values.listClass).first().addClass(values.hoveredElement);
 			}
-			// 'ENTER' Key pressed
-			else if (code.enter === keyCode) {
-					var $active = $elem.find(dot + values.listClass + dot + values.hoveredElement);
-					if ($active.length && $active.is(":visible")) {
-						insertData($active);
-					} else {
-						showSuggestions();
-					}
-				}
-				// For other key pressed, just filter the suggestions.
-				else {
-						filterSuggestions(el);
-					}
+			showActiveItemDown();
+		}
+		// 'ENTER' Key pressed
+		else if (code.enter === keyCode) {
+			var $active = $elem.find(dot + values.listClass + dot + values.hoveredElement);
+			if ($active.length && $active.is(":visible")) {
+				insertData($active);
+			} else {
+				showSuggestions();
+			}
+		}
+		// For other key pressed, just filter the suggestions.
+		else {
+			filterSuggestions(el);
+		}
 	}
 	function showActiveItemTop() {
 		var $activeItem = $elem.find(dot + values.hoveredElement);
@@ -341,7 +339,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		var query = el.val().toLowerCase();
 		for (var i = 0; i < _this.suggestions.length; i++) {
 			var p = _this.suggestions[i];
-			if (p) {
+			if(p){
 				if (p.name.toLowerCase().indexOf(query) < 0) {
 					p.excludeParent = true;
 				} else {
@@ -377,6 +375,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		var textBox = el.querySelector('input[type="text"]');
 		var comboboxWrapper = el.querySelector('.combobox-wrapper');
 
+
 		var $suggestionsViewer = $elem.find(".suggestions-viewer");
 		var newList = _.cloneDeep(list);
 		if ($suggestionsViewer.length) {
@@ -390,10 +389,10 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		}
 		if (newList) {
 			var ul = document.createElement("ul");
-			if (Array.isArray(newList)) {
+			if(Array.isArray(newList)){
 				for (var i = 0; i < newList.length; i++) {
 					var project = newList[i];
-					if (project) {
+					if(project){
 						if (!project.excludeParent) {
 							var projectHeadingWrapper = document.createElement("div");
 
@@ -402,7 +401,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 							projectHeadingWrapper.innerHTML = project.name;
 
-							if (filterCurrentIteration(project)) {
+							if(filterCurrentIteration(project)){
 								continue;
 							}
 							for (var key in project) {
@@ -425,8 +424,9 @@ var comboBox = function comboBox(elem, suggestions, values) {
 						}
 					}
 				}
-			} else if (typeof newList == "object") {
-				for (var key in newList) {
+			}
+			else if(typeof newList == "object"){
+				for(var key in newList){
 					var projectHeadingWrapper = document.createElement("div");
 
 					projectHeadingWrapper.className = values.listClass;
@@ -465,9 +465,9 @@ var comboBox = function comboBox(elem, suggestions, values) {
 					el.insertBefore(suggestionsViewer, comboboxWrapper);
 					// el.appendChild(comboboxWrapper);
 				} else {
-						// el.appendChild(comboboxWrapper);
-						el.appendChild(suggestionsViewer);
-					}
+					// el.appendChild(comboboxWrapper);
+					el.appendChild(suggestionsViewer);
+				}
 				textBox.value = textBox.value || values.value || "";
 				placeSuggestionsBox($elem);
 				window.addEventListener("resize", function () {
@@ -501,7 +501,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			var svName = document.createElement("div");
 			svName.innerHTML = s.name || s;
 			svName.className = "sv-name";
-			if (typeof s === "object" && !Array.isArray(s)) {
+			if(typeof s === "object" && !Array.isArray(s)){
 				for (var key in s) {
 					if (key !== "name") svName.setAttribute(key, s[key]);
 				}
@@ -523,7 +523,8 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		var key = $elem.parent().data("name");
 		if (newSelectedItems) {
 			var selectedItems = newSelectedItems;
-		} else if (key) {
+		}
+		else if(key){
 			var selectedItems = Kenseo.popup.data[key];
 		}
 		if (selectedItems) {
@@ -546,13 +547,13 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	// 	renderSuggestions(elem, _this.suggestions);
 	// };
 	/**
-  *  Useful when we want to change the suggestions or update the suggestion in the combobox dynamically
-  */
-	_this.refresh = function (newObj) {
-		if (newObj) {
+	 *  Useful when we want to change the suggestions or update the suggestion in the combobox dynamically
+	 */
+	_this.refresh = function(newObj){
+		if(newObj){
 			var newSettings = newObj.newSettings;
-			if (newSettings) {
-				for (var key in newSettings) {
+			if(newSettings){
+				for(var key in newSettings){
 					values[key] = newSettings[key];
 				}
 			}
@@ -564,24 +565,25 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 			// In this function populate the combobox with provided existing data
 			// Populate if the multiselect value is true
-			if (newObj.selectedData && values.multiSelect) {
+			if(newObj.selectedData && values.multiSelect){
 				// populate the data inside suggestion viewer container
 				renderSelectedItems(newObj.selectedData);
-			} else if (newObj.selectedData && !values.multiSelect) {
+			}
+			else if(newObj.selectedData && !values.multiSelect){
 				// populate the data inside the text box
 				$elem.find('input').val(newObj.selectedData);
 			}
 
-			if (newObj.callback) {
+			if(newObj.callback){
 				newObj.callback($elem);
 			}
 		}
-	};
-	_this.populateExistingData = function (newData) {
+	}
+	_this.populateExistingData = function(newData){
 
 		// consider multiselect is true/false
-		// consider
-	};
+		// consider 
+	}
 };
 document.onclick = function () {
 	// hideSuggestions(true);

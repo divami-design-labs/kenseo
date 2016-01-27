@@ -1,5 +1,3 @@
-'use strict';
-
 function ServerConnection() {
 	this.ajaxPayload = null;
 	this.successHandlesrMethod = null;

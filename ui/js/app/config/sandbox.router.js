@@ -1,5 +1,3 @@
-'use strict';
-
 sb.router = {
     menu: function menu() {
         sb.loadFiles({
@@ -71,7 +69,10 @@ sb.router = {
             'views': ['Header', 'Artefacts', 'People', 'Activities'],
             'models': ['Projects', 'Header', 'Artefacts', 'People'],
             'collections': ['Projects', 'Artefacts', 'People'],
-            'files': ['js/app/components/texteditor.js', 'js/app/config/sandbox.meeting.js']
+            'files': [
+                'js/app/components/texteditor.js',
+                'js/app/config/sandbox.meeting.js'
+            ]
         }, function () {
             Kenseo.current.page = "meeting-notes";
             $('.hamburger-menu').removeClass('active');
@@ -100,8 +101,9 @@ sb.router = {
             'views': ['Header'],
             'models': ['Header'],
             'collections': ['People'],
-            'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js', 'js/libs/pdfjs/viewer.js', 'js/app/components/annotator.js']
-        }, (function () {
+            'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js', 
+                    'js/libs/pdfjs/viewer.js', 'js/app/components/annotator.js']
+        }, function () {
             Kenseo.current.page = "document-view";
 
             $('.header').addClass('fixed-header');
@@ -137,7 +139,7 @@ sb.router = {
                         withComments: true
                     },
                     type: 'GET',
-                    success: (function success(response) {
+                    success: function success(response) {
                         // console.log(this);
                         var data = response.data;
                         var params = response.params;
@@ -157,13 +159,13 @@ sb.router = {
                             });
                             // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
                             $('.dv-tab-panel-section').prepend(str);
-                            $('.pdfs-container').append(_.template(templates['pdf-viewer'])({ data: data }));
+                            $('.pdfs-container').append(_.template(templates['pdf-viewer'])({data: data}));
 
                             new paintPdf({
                                 url: sb.getRelativePath(data.documentPath),
                                 container: $('.outerContainer.inView').get(0),
                                 targetId: data.versionId,
-                                versionId: data.artefactId
+                                versionId: data.artefactId,
 
                             });
 
@@ -178,6 +180,8 @@ sb.router = {
                                 templateHolder: $('.dv-tb-people-section')
                             });
 
+
+
                             // Store the current artefact version related data in a global variable
                             var threads = data.threads;
                             // flag
@@ -185,26 +189,26 @@ sb.router = {
                             sb.setCurrentDocumentData(data.versionId, threads);
                             annotator.init();
                         }
-                        // Image viewer
-                        else if (data.type.indexOf('image') > -1) {
-                                var str = _.template(templates['tab-img'])({
-                                    maskedVersionId: maskedVersionId,
-                                    versionId: data.versionId
-                                });
-                                // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
-                                $('.dv-tab-panel-section').prepend(str);
-                                $('.pdfs-container').append(_.template(templates['image-viewer'])({ data: data }));
-                                // $('.pdfs-container').append('')
-                            }
+                        // Image viewer 
+                        else if(data.type.indexOf('image') > -1){
+                            var str = _.template(templates['tab-img'])({
+                                maskedVersionId: maskedVersionId,
+                                versionId: data.versionId
+                            });
+                            // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
+                            $('.dv-tab-panel-section').prepend(str);
+                            $('.pdfs-container').append(_.template(templates['image-viewer'])({data: data}));
+                            // $('.pdfs-container').append('')
+                        }
                         sb.setVersionIdForMaskedId(this, data.versionId);
                         var parent = document.querySelector('.outerContainer.inView .viewerContainer.parent');
-                        stickToBottom(parent);
-                    }).bind(this)
+                        stickToBottom(parent); 
+                    }.bind(this)
                 });
             }
-        }).bind(maskedId));
+        }.bind(maskedId));
     },
-    projects: function projects() {
+    projects: function(){
         sb.loadFiles({
             'views': ['Header', 'Projects'],
             'models': ['Header', 'Projects'],

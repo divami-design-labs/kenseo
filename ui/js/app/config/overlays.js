@@ -1,8 +1,6 @@
 /**
  * @author VK
  */
-"use strict";
-
 Kenseo.overlays = (function () {
     var overlays = {
         "summary": [{
