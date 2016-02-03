@@ -53,7 +53,7 @@
 			        $sortBy = "a.artefact_title";
 			        break;
 			    case "date":
-			        $sortBy = "m.shared_date";
+			        $sortBy = "sm.shared_date";
 			        break;
 			    case "owner":
 			        $sortBy = "u.name";

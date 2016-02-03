@@ -337,7 +337,13 @@ var sb = (function () {
         getDate: function getDate(time) {
             // Refer: http://stackoverflow.com/a/10589791/1577396
             // Refer: http://stackoverflow.com/a/1353711/1577396
-            var dateTime = new Date(time || null);
+            if(time){
+                var dateTime = new Date(time);
+            }
+            else{
+                var dateTime = new Date();
+            }
+            // var dateTime = new Date(time || null);
             // Valid date
             if(Object.prototype.toString.call(dateTime) === "[object Date]" && !isNaN(dateTime.getTime())){
                 return dateTime;

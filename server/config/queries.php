@@ -54,7 +54,7 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 																JOIN " . TABLE_USERS . " AS user on memb.user_id = user.user_id
 																WHERE memb.user_id = @~~userid~~@ AND arts.project_id = @~~projectid~~@";
 
-$AppGlobal['sql']['getProjectArtefacts'] = "SELECT a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id, 
+$AppGlobal['sql']['getProjectArtefacts'] = "SELECT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id, 
 											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name, 
 											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
 											a.artefact_type as document_type, v.state AS status, v.version_no as version, 
@@ -66,6 +66,7 @@ $AppGlobal['sql']['getProjectArtefacts'] = "SELECT a.artefact_id as id, v.artefa
 											inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.latest_version_id = v.artefact_ver_id
 											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
 											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
+											inner join ". TABLE_ARTEFACTS_SHARED_MEMBERS ." sm on sm.artefact_ver_id = a.latest_version_id AND sm.artefact_id = a.artefact_id AND u.user_id = sm.user_id
 											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id
 											where m.user_id = @~~userid~~@ AND p.project_id = @~~projectid~~@ AND
 											a.replace_ref_id is null 

@@ -10,7 +10,7 @@
             }
         })() %>" data-id="<%= data.id %>" data-k-project_id="<%= data.project_id %>" data-key="artefacts">
 	<div class="rr-left">
-		<div class="rr-status status-<%= data.status %>"><%= function(){ if(data['document_type'] == "U"){ return "UID"; }else if(data['document_type'] === "I"){ return "IXD"; } else if(data['document_type'] == "P") { return "IA"} else if(data['document_type'] == "IA") { return "IA"} }() %></div>
+		<div class="rr-status status-<%= data.status %>"><% if(data['document_type']){  %><%= Kenseo.settings.docTypeShort[data['document_type']] %><% } %></div>
 		<img class="rr-owner-image" src="<%= data.image %>"/>
 	</div>
 	<div class="rr-right">

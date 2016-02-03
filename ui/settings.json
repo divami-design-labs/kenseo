@@ -30,6 +30,13 @@
 			"01": "S",
 			"10": "E",
 			"11": "X"
+		},
+		"docTypeShort": {
+			"I": "IXD",
+			"U": "UID",
+			"P": "UP",
+			"IA": "IA",
+			"US": "US"
 		}
 	},
 	"status": "success"
