@@ -409,6 +409,11 @@
 	}
 
 }
+.notification-meeting-icon{
+	fill: #00AEEF;
+	float: left;
+	margin-left: -25px;
+}
 .notification-item.C-type{
 	/*@include listTypeImage("baloon1.svg");*/
 }
@@ -416,7 +421,7 @@
 	/*@include listTypeImage("file.svg");*/
 }
 .clock-icon{
-	/*@include elementWithBackground("clock.svg", 16px, 16px);*/
+	@include square(16px);
 	position: absolute;
 	bottom: 0;
 	right: 0;

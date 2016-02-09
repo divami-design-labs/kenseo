@@ -75,10 +75,10 @@ var validation = (function(){
 		// if the field is inside the combobox, apply the styling to combobox instead of field
 		var $combobox = $field.parents('.combobox');
 		if($combobox.length){
-			$combobox.addClass('error-field');
-			$combobox.children('.combobox').css({
-				'border': 'none'
-			});
+			$combobox.find('.combobox-wrapper').addClass('error-field');
+			// $combobox.find('.combobox-wrapper').css({
+			// 	'border': 'none'
+			// });
 		}
 		else{
 			$field.addClass('error-field');
@@ -87,10 +87,10 @@ var validation = (function(){
 	var removeErrorSkinning = function($field){
 		var $combobox = $field.parents('.combobox');
 		if($combobox.length){
-			$combobox.removeClass('error-field');
-			$combobox.children('.combobox').css({
-				'border': ''
-			});
+			$combobox.find('.combobox-wrapper').removeClass('error-field');
+			// $combobox.find('.combobox-wrapper').css({
+			// 	'border': ''
+			// });
 		}
 		else{
 			$field.removeClass('error-field');

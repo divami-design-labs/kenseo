@@ -60,12 +60,13 @@
 			
 			$attendees = array($attendee1);
 			
-			for($i = 0; $i < count($data->attendees); $i++) {
-				if($data->attendees[$i]->{'data-email'}) {
+			$newAttendees = explode(",", $data->attendees->value);
+			for($i = 0; $i < count($newAttendees); $i++) {
+				if($newAttendees[$i]) {
 					Master::getLogManager()->log(DEBUG, MOD_MAIN, "appending attendees");
 					$attendee = new Google_Service_Calendar_EventAttendee();
 					//$attendee->setResponseStatus("accepted");
-					$attendee->setEmail($data->attendees[$i]->{'data-email'});
+					$attendee->setEmail(trim($newAttendees[$i]));
 					array_push($attendees ,$attendee);
 				}
 			}
@@ -101,12 +102,23 @@
 			$notesColumnValues = array("meeting_id","participant_id", "participant_notes", "created_date", "is_public");
 			$notesRowValues = array($meetId,  $user->user_id, "",date("Y-m-d H:i:s"), 0);
 			$db->insertSingleRow(TABLE_MEETING_NOTES, $notesColumnValues, $notesRowValues);
-			for($i = 0; $i < count($data->attendees); $i++) {
-				if($data->attendees[$i]->{'data-email'}) {
-					$partsRowvals = array($meetId, $data->attendees[$i]->{'data-id'}, date("Y-m-d H:i:s"), $user->user_id);
-					$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $partsColumnnames, $partsRowvals);
+
+			// TODO: the attendees will come in single string (comma separated) instead of array
+			Master::getLogManager()->log("Venkateshwar1");
+			Master::getLogManager()->log(serialize($newAttendees));
+			Master::getLogManager()->log("Venkateshwar1");
+			for($i = 0; $i < count($newAttendees); $i++) {
+				if($newAttendees[$i]) {
+					$participantId = $this->getUserIdFromEmail($newAttendees[$i]);
+					if($participantId){
+						$partsRowvals = array($meetId, $participantId, date("Y-m-d H:i:s"), $user->user_id);
+						Master::getLogManager()->log(DEBUG, MOD_MAIN, "partsRowvals");
+						Master::getLogManager()->log(DEBUG, MOD_MAIN, $partsRowvals);
+						$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $partsColumnnames, $partsRowvals);
+					}
 				}
 			}
+			Master::getLogManager()->log("Venkateshwar3");
 
 			//insert into project activity
 			$actColumnnames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
@@ -158,6 +170,21 @@
 			
 			
 			return $meetingObj;
+		}
+
+		public function getUserIdFromEmail($email){
+			try{
+				$email = trim($email);
+				$db = Master::getDBConnectionManager();
+
+				$queryParams = array('email' => $email);
+				$dbQuery = getQuery('getUserIdFromEmail', $queryParams);
+				$userData = $db->singleObjectQuery($dbQuery);
+				return $userData->{'user_id'};
+			}
+			catch(Exception $e){
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
+			}
 		}
 	}
 ?>

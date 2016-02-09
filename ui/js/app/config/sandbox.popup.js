@@ -548,6 +548,7 @@ sb.popup = {
             $(".input-meeting-date").Zebra_DatePicker({
                 default_position: "below",
                 format: "M d, Y",
+                direction: true,
                 onSelect: function onSelect(display, date) {
                     console.log("changed something");
                     sb.setPopupData(date, "date");
@@ -582,9 +583,7 @@ sb.popup = {
             });
         });
 
-
-        //onchange event to fromtime dropdown
-        $('.projects-dropdown.fromTime').on('change', function(x, y, z){
+        function fromTimeDropdownChange(){
             var options = this.options;
             var index = options.selectedIndex;
 
@@ -595,7 +594,12 @@ sb.popup = {
             for(var i = index + 1; i < options.length; i++){
                 toTimeField.innerHTML = toTimeField.innerHTML + options[i].outerHTML;
             }
-        });
+        }
+        //onchange event to fromtime dropdown
+        $('.projects-dropdown.fromTime').on('change', fromTimeDropdownChange);
+        // Add the selectedIndex value as the next hour from current hour
+        $('.projects-dropdown.fromTime').get(0).selectedIndex = new Date().getHours() + 1;
+        fromTimeDropdownChange.call($('.projects-dropdown.fromTime').get(0));
         // pre-populate the data if the user is in project page
         if(Kenseo.current.page == "project-page"){
             // var data = Kenseo.populate.meeting;
