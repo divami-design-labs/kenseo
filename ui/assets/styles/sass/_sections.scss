@@ -27,6 +27,7 @@
 .heading-text-project-name{
 	@include text(20px, $colorOne);
 	@extend .inlineBlockMid;
+	text-decoration: none;
 }
 .projects-heading-icon, .review-requests-icon, .notifications-heading-icon{
 	// float: left;

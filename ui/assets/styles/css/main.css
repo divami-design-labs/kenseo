@@ -1148,6 +1148,7 @@ svg {
 .heading-text-project-name {
   font-size: 20px;
   color: #464c5f;
+  text-decoration: none;
 }
 
 .projects-heading-icon, .review-requests-icon, .notifications-heading-icon {

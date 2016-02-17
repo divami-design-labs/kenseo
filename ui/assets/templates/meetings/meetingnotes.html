@@ -5,7 +5,7 @@
             <svg><use xlink:href="#projects"></use></svg>
         </div>       
         <a href="#projects" class="heading-text-project">Projects &gt; </a>
-        <span class="heading-text-project-name"><%= data.projectName %></span>  
+        <a href="#projectpage/<%= data.projectId %>" class="heading-text-project-name"><%= data.projectName %></a>  
         <span class="heading-date">(<%= sb.timeFormat(data.startTime, true, true) %>)</span>
         <div class="meeting-update-btn-holder">
             <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>

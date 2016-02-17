@@ -22,6 +22,7 @@ sb.router = {
             $('.project-section').hide();
             $('.projects-page').hide();
             $('.documentView').hide();
+            $('.meeting-notes-section').hide();
             $('.dashboard-section').show();
             sb.refresh.section('header');
             sb.refresh.section('dashboard');
@@ -54,6 +55,7 @@ sb.router = {
                     $('.dashboard-section').hide();
                     $('.project-section').show();
                     $('.projects-page').hide();
+                    $('.meeting-notes-section').hide();
                     sb.refresh.section('header');
                     sb.refresh.section('project-page');
                 }
@@ -77,6 +79,9 @@ sb.router = {
             Kenseo.current.page = "meeting-notes";
             $('.hamburger-menu').removeClass('active');
             $('.projects-page').hide();
+            $('.project-section').hide();
+            $('.dashboard-section').hide();
+            $('.meeting-notes-section').show();
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
                 data: {
@@ -110,6 +115,7 @@ sb.router = {
             $('.hamburger-menu').removeClass('active');
             $('.project-section').hide();
             $('.dashboard-section').hide();
+            $('.meeting-notes-section').hide();
             $('.projects-page').hide();
             $('.documentView').show();
 
@@ -223,6 +229,7 @@ sb.router = {
             $('.documentView').hide();
             $('.dashboard-section').hide();
             $('.projects-page').show();
+            $('.meeting-notes-section').hide();
             sb.refresh.section('header');
             sb.refresh.section('projects-page');
         });

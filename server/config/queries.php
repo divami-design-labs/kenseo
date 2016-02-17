@@ -244,7 +244,7 @@ $AppGlobal['sql']['getMeetingNotes'] = "SELECT users.user_id as userId, notes.pa
 										WHERE meeting_id = @~~meetingId~~@ and users.user_id != @~~userId~~@";
 										
 $AppGlobal['sql']['getMeetingDetails'] = "SELECT proj.project_name as projectName, arts.artefact_title as artefactName, user.name as createdBy, 
-											meets.meeting_time as startTime, meets.meeting_end_time as endTime, meets.venue as venue, meets.meeting_agenda as agenda,
+											meets.meeting_time as startTime, meets.meeting_end_time as endTime, meets.venue as venue, meets.meeting_agenda as agenda, meets.project_id as projectId,
 											notes.participant_notes as userNotes, participant.user_id as participantId, participant.name as participantName, participant.profile_pic_url as participantPic
 											FROM " . TABLE_MEETINGS . " AS  meets 
 											JOIN " . TABLE_MEETING_NOTES . " as notes on
@@ -252,7 +252,7 @@ $AppGlobal['sql']['getMeetingDetails'] = "SELECT proj.project_name as projectNam
 											JOIN " . TABLE_PROJECTS . " AS proj ON
 											proj.project_id = meets.project_id 
 											JOIN " . TABLE_ARTEFACTS . " as arts ON 
-											arts.artefact_id = meets.artefact_id
+											arts.artefact_id = meets.meeting_on_artefact_id
 											JOIN " . TABLE_USERS . " as user ON
 											user.user_id = meets.created_by
 											JOIN " . TABLE_USERS . " as participant ON
