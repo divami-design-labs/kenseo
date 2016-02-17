@@ -27,6 +27,10 @@
 
 .input-meeting-date {
 	@include dimensions(115px, 30px);
+    box-sizing: border-box;
+    height: 36px;
+    border: 1px solid #aaacb4;
+    padding-left: 5px;
 }
 .datepicker-icon {
 	/*@include backgroundImage('calendar.svg');*/

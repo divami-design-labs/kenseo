@@ -16,21 +16,29 @@ var validation = (function(){
 	// }
 	var allValidations = {
 		'empty': {
-			'msg': 'Field is empty',
+			'msg': function(){
+				return this.fieldName + ' field is mandatory';
+			},
 			'check': function(value, $field){
+				this.fieldName = $field.parents('.field-section').find('.input-label').html() || $field.data('v-label');
 				return !!$.trim(value).length;
 			}
 		},
 		'email': {
-			'msg': 'Email is invalid',
+			'msg': function(){
+				return 'Email is invalid';
+			},
 			'check': function(value, $field){
 				var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 				return filter.test(value);
 			}
 		},
 		'valid-list-item': {
-			'msg': 'invalid list item',
+			'msg': function(){
+				return this.fieldName + ' field has invalid list item';
+			},
 			'check': function(value, $field){
+				this.fieldName = $field.parents('.field-section').find('.input-label').html();
 				// Check whether the value is inside the input box or the suggestions viewer
 				var $suggestionsViewer = $field.parents('.combobox').find('.suggestions-viewer');
 				var $svNames = $suggestionsViewer.find('.sv-name');
@@ -64,7 +72,7 @@ var validation = (function(){
 	var checkField = function(validatingType, $field, value){
 		var validate = allValidations[validatingType];
 		if(!validate.check(value, $field)){
-			allErrorMessages.push(validate.msg);
+			allErrorMessages.push(validate.msg());
 			return true;
 		}
 		else{
@@ -166,9 +174,26 @@ var validation = (function(){
 			var div = document.createElement('div');
 			div.className = "error-messages-wrapper";
 			var ul = document.createElement('ul');
-			for(var k = 0; k < allErrorMessages.length; k++){
+			// var errorMessages = _.uniq(allErrorMessages);
+			// check if "field is empty" message is more than once or not
+			var fieldEmptyCount = 0;
+			allErrorMessages.forEach(function(item){
+				if(item.indexOf('field is mandatory') > -1){
+					fieldEmptyCount++;
+				}
+			});
+			if(fieldEmptyCount > 1){
+				var errorMessages = allErrorMessages.filter(function(item){
+					return item.indexOf('field is mandatory') === -1;
+				});
+				errorMessages.push('* fields are mandatory');
+			}
+			else{
+				var errorMessages = allErrorMessages;
+			}
+			for(var k = 0; k < errorMessages.length; k++){
 				var li = document.createElement('li');
-				li.innerHTML = allErrorMessages[k];
+				li.innerHTML = errorMessages[k];
 				ul.appendChild(li);
 			}
 			div.appendChild(ul);

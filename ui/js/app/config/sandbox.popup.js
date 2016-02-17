@@ -547,14 +547,14 @@ sb.popup = {
 
             $(".input-meeting-date").Zebra_DatePicker({
                 default_position: "below",
-                format: "M d, Y",
+                format: "d M Y",
                 direction: true,
                 onSelect: function onSelect(display, date) {
                     console.log("changed something");
                     sb.setPopupData(date, "date");
                 }
 
-            });
+            }).val(sb.timeFormat(new Date(), true, true, true));
             $(document).on("click", ".datepicker-icon-holder", function (e) {
                 // prevent default action on button (if any)
                 e.preventDefault();

@@ -8,6 +8,7 @@
 				<%= 
 					toolbox.comboBox({
 						"label": "Project",
+						required: true,
 						"class": "xm project-combobox",
 						"dataName": "meetingProject",
 						"placeholder": "Choose Project"
@@ -16,6 +17,7 @@
 				<%= 
 					toolbox.comboBox({
 						"label": "Artefact",
+						required: true,
 						"class": "xm artefact-combobox",
 						"dataName": "meetingArtefact",
 						"placeholder": "Choose Artefact"
@@ -24,14 +26,18 @@
 				<%= 
 					toolbox.textBox({
 						"label": "Agenda",
+						required: true,
 						textArea: true,
 						dataName: "agenda",
-						"inputClass": "input-meeting-textarea meeting-agenda"
+						"inputClass": "input-meeting-textarea meeting-agenda",
+						'attr': {
+							'data-validate-this': 'empty'
+						}
 					})
 				%>
 				<div style="clear: both; padding-top: 20px;">
 					<div class="field-section in-line" data-name="date" data-ignore="1">
-						<div class="input-label">Scheduled on</div>
+						<div class="input-label required">Scheduled on</div>
 						<div class="input-wrapper float-left mini-datepicker">
 							<input type="text" class="input-meeting-date float-left"></input>
 							<div class="datepicker-icon-holder float-left">
@@ -108,15 +114,23 @@
 					toolbox.textBox({
 						"label": "Venue",
 						inputClass: "meeting-location",
-						dataName: "location"
+						dataName: "location",
+						'attr': {
+							'data-validate-this': 'empty'
+						}
 					})
 				%>
 				<%= 
-					toolbox.comboBox({
+					toolbox.textBox({
 						"label": "Recipients List",
-						fieldClass: "recipients-field-section",
+						textArea: true,
+						required: true,
+						inputClass: "recipients-meeting-txt-section",
 						"class": "xm people-name tags-combobox",
-						"dataName": "attendees"
+						"dataName": "attendees",
+						'attr': {
+							'data-validate-this': 'empty'
+						}
 					})
 				%>
 			</form>

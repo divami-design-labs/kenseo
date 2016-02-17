@@ -355,7 +355,7 @@ var sb = (function () {
                 return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
             }
         },
-        timeFormat: function timeFormat(time, OnlyTime, OnlyDays) {
+        timeFormat: function timeFormat(time, OnlyTime, OnlyDays, withYear) {
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             var theDate = sb.getDate(time);
             var currentDate = sb.getDate();
@@ -379,9 +379,16 @@ var sb = (function () {
                 } else {
                     resultDateFormat = text + sb.getTime(time);
                 }
+                if(withYear){
+                    resultDateFormat += ' ' + year;
+                }
             } else {
                 text = OnlyTime ? '' : 'On ';
                 resultDateFormat = text + day + ' ' + months[month];
+
+                if(withYear){
+                    resultDateFormat += ' ' + year;
+                }
             }
             return resultDateFormat;
         },

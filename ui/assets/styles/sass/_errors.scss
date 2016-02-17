@@ -10,7 +10,7 @@
 	&.show-errors{
 		transform: translate(0, 0);
 	}
-	background-color: rgba(163, 84, 88, 0.5);
+	background-color: rgba(253,194,198, 0.8);
 	border-radius: 0px 0px 4px 4px;
 }
 .error-messages{
@@ -21,9 +21,9 @@
 		display: block;
 		float: left;
 		clear: both;
-		color: red;
+		color: #ff0011;
 	}
 }
 .error-field {
-    border: 1px solid tomato !important;
+    border: 1px solid #ff0011 !important;
 }
