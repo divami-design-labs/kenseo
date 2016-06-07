@@ -170,3 +170,9 @@ svg{
 		content: attr(title);
 	}
 }
+.caps{
+	text-transform: uppercase;
+}
+.tilt{
+	transform: rotate(45deg);
+}

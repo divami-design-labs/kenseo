@@ -100,6 +100,13 @@ var sb = (function () {
             }
             sb.loadFiles(filesToLoad.js, callBackFunc);
         },
+        loadCss: function(url){
+            var link = document.createElement("link");
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.href = url;
+            document.getElementsByTagName("head")[0].appendChild(link);
+        },
         saveData: function saveData(payload) {
             var popupData = sb.getPopupData();
             for (key in popupData) {

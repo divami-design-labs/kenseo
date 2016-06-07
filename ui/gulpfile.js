@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var fs = require('fs');
 var tap = require('gulp-tap');
 var gutil = require('gulp-util');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 // var template = require('gulp-lodash-template');
 var sass = require('gulp-sass');
@@ -75,15 +77,17 @@ function templateChange() {
 }
 
 function sassChange(){
-  gulp.src(['assets/styles/sass/**/*.scss', 'assets/styles/sass-utilities/**/*.scss'])
-    // .pipe(sourcemaps.init())
-    // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
-    .pipe(sass({outputStyle: 'expanded', sourceComments: false})
-    .on('error', sass.logError))
-    // .pipe(sourcemaps.write('maps/'))
-    // .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
-    .pipe(gulp.dest('assets/styles/css'))
-    .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
+    var processors = [autoprefixer];
+    gulp.src(['assets/styles/sass/**/*.scss', 'assets/styles/sass-utilities/**/*.scss'])
+        // .pipe(sourcemaps.init())
+        // TO DO: remove comments while compiling sass to css "sourceComments: false" doesn't work.
+        .pipe(sass({outputStyle: 'expanded', sourceComments: false})
+        .on('error', sass.logError))
+        // .pipe(sourcemaps.write('maps/'))
+        // .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
+        .pipe(postcss(processors))
+        .pipe(gulp.dest('assets/styles/css'))
+        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
 }
 
 function watchChanges(){

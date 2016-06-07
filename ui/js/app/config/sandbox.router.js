@@ -23,6 +23,7 @@ sb.router = {
             $('.projects-page').hide();
             $('.documentView').hide();
             $('.meeting-notes-section').hide();
+            $('.persona-page-section').hide();
             $('.dashboard-section').show();
             sb.refresh.section('header');
             sb.refresh.section('dashboard');
@@ -56,6 +57,7 @@ sb.router = {
                     $('.project-section').show();
                     $('.projects-page').hide();
                     $('.meeting-notes-section').hide();
+                    $('.persona-page-section').hide();
                     sb.refresh.section('header');
                     sb.refresh.section('project-page');
                 }
@@ -81,6 +83,7 @@ sb.router = {
             $('.projects-page').hide();
             $('.project-section').hide();
             $('.dashboard-section').hide();
+            $('.persona-page-section').hide();
             $('.meeting-notes-section').show();
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
@@ -117,6 +120,7 @@ sb.router = {
             $('.dashboard-section').hide();
             $('.meeting-notes-section').hide();
             $('.projects-page').hide();
+            $('.persona-page-section').hide();
             $('.documentView').show();
 
             new Kenseo.views.Header({ 'model': new Kenseo.models.Header() });
@@ -230,8 +234,39 @@ sb.router = {
             $('.dashboard-section').hide();
             $('.projects-page').show();
             $('.meeting-notes-section').hide();
+            $('.persona-page-section').hide();
             sb.refresh.section('header');
             sb.refresh.section('projects-page');
         });
+    },
+    persona: function(id){
+        // id represents the template type of persona
+        sb.loadFiles({
+            'views': ['Header'],
+            'models': ['Header'],
+            'files': ['js/app/components/persona-builder.js']    
+            // 'collections': ['Persona']
+        }, function(){
+            Kenseo.current.page = "persona";
+            sb.setTitle('Persona');
+
+            $('.header').removeClass('fixed-header');
+            $('.hamburger-menu').removeClass('active');
+            $('.project-section').hide();
+            $('.documentView').hide();
+            $('.dashboard-section').hide();
+            $('.projects-page').hide();
+            $('.meeting-notes-section').hide();
+
+            sb.refresh.section('header');
+            sb.loadCss('assets/styles/css/persona.css');
+            // Show persona page
+            $('.persona-page-section').show()
+                .html(sb.setTemplate('persona'));
+
+            // After filling the html template, apply persona related interactions
+            var persona = new Persona();
+
+        })
     }
 };

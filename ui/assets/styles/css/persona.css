@@ -1,0 +1,337 @@
+@font-face {
+  font-family: 'OpenSansRegular';
+  src: url("../../fonts/opensans-regular.eot");
+  src: url("../../fonts/opensans-regular.eot") format("embedded-opentype"), url("../../fonts/opensans-regular.woff") format("woff"), url("../../fonts/opensans-regular.ttf") format("truetype"), url("../../fonts/opensans-regular.svg#OpenSansRegular") format("svg");
+}
+
+@font-face {
+  font-family: 'OpenSansBold';
+  src: url("../../fonts/opensans-bold.eot");
+  src: url("../../fonts/opensans-bold.eot") format("embedded-opentype"), url("../../fonts/opensans-bold.woff") format("woff"), url("../../fonts/opensans-bold.ttf") format("truetype"), url("../../fonts/opensans-bold.svg#OpenSansBold") format("svg");
+}
+
+@font-face {
+  font-family: 'OpenSansBoldItalic';
+  src: url("../../fonts/opensans-bolditalic.eot");
+  src: url("../../fonts/opensans-bolditalic.eot") format("embedded-opentype"), url("../../fonts/opensans-bolditalic.woff") format("woff"), url("../../fonts/opensans-bolditalic.ttf") format("truetype"), url("../../fonts/opensans-bolditalic.svg#OpenSansBoldItalic") format("svg");
+}
+
+@font-face {
+  font-family: 'OpenSansItalic';
+  src: url("../../fonts/opensans-italic.eot");
+  src: url("../../fonts/opensans-italic.eot") format("embedded-opentype"), url("../../fonts/opensans-italic.woff") format("woff"), url("../../fonts/opensans-italic.ttf") format("truetype"), url("../../fonts/opensans-italic.svg#OpenSansItalic") format("svg");
+}
+
+@font-face {
+  font-family: 'OpenSansSemibold';
+  src: url("../../fonts/opensans-semibold.eot");
+  src: url("../../fonts/opensans-semibold.eot") format("embedded-opentype"), url("../../fonts/opensans-semibold.woff") format("woff"), url("../../fonts/opensans-semibold.ttf") format("truetype"), url("../../fonts/opensans-semibold.svg#OpenSansSemibold") format("svg");
+}
+
+/*@import "../sass-utilities/colors";*/
+/*@import "../sass-utilities/variables";*/
+/*@import "../sass-utilities/common";*/
+/*@import "../sass-utilities/icons";*/
+.persona-template {
+  font-size: 13px;
+  padding: 0 10px;
+  text-align: right;
+  /* to show widget adder on right */
+}
+
+.persona-template-header {
+  background-color: #1b234a;
+  padding: 10px;
+  text-align: right;
+  color: white;
+  font-size: 16px;
+  padding-top: 20px;
+  margin: 0 -10px;
+  position: relative;
+}
+
+.persona-cards-holder {
+  text-align: left;
+}
+
+.persona-cards-holder--left, .persona-cards-holder--mid, .persona-cards-holder--right {
+  float: left;
+  width: 33.333%;
+}
+
+.template-section:hover > .template-section--close {
+  display: block;
+}
+
+.template-section--close {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  color: #676767;
+  /*border-radius: 50%;*/
+  /*box-shadow: 0px 0px 0px 5px currentColor, 0px 0px 0px 4px white;*/
+  fill: currentColor;
+}
+
+.template-section--close:hover {
+  color: black;
+}
+
+.persona-card {
+  width: 320px;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  padding: 10px;
+  position: relative;
+}
+
+.persona-card + .persona-card {
+  padding-top: 20px;
+}
+
+.persona-card:not(.persona-card--no-highlight):hover {
+  box-shadow: inset 0px 0px 0px 1px #ccc;
+}
+
+.persona-card--close {
+  width: 14px;
+  height: 14px;
+}
+
+.persona-card-heading {
+  font-size: 15px;
+  font-family: "OpenSansBold";
+  text-transform: uppercase;
+}
+
+.persona-name {
+  font-size: 16px;
+  font-family: "OpenSansBold";
+}
+
+.persona-img {
+  max-width: 100%;
+  display: block;
+}
+
+.persona-personal-details-top {
+  background-color: #A5A7B3;
+  padding: 10px 5px;
+  /*margin: 0 -5px;*/
+  position: absolute;
+  width: 300px;
+  text-align: left;
+  bottom: 0px;
+  left: 15px;
+}
+
+.persona-personal-details {
+  margin-top: -10px;
+}
+
+.persona-personal-details-bottom {
+  background-color: #E9E9E9;
+  padding: 5px;
+  margin: 0 -5px;
+  color: #676767;
+}
+
+.persona-image {
+  width: 310px;
+  /*height: 205px;*/
+  position: relative;
+  margin: 0 -5px;
+}
+
+.persona-image:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.persona-image:hover .persona--img-uploader {
+  display: block;
+}
+
+.persona--img-uploader {
+  position: absolute;
+  bottom: 50%;
+  right: 50%;
+  -webkit-transform: translate(50%, 50%);
+          transform: translate(50%, 50%);
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+  cursor: pointer;
+  display: none;
+}
+
+.persona-caption {
+  font-size: 14px;
+  font-family: "OpenSansBold";
+}
+
+.widget-close, .widget-add {
+  border-radius: 50%;
+  box-shadow: 0px 0px 1px #7C7C7C;
+  min-width: 15px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 15px;
+  cursor: pointer;
+  fill: #7C7C7C;
+}
+
+.widget-close:hover, .widget-add:hover {
+  fill: black;
+}
+
+.widget-close, .widget-add {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.widget-close {
+  position: static;
+}
+
+.widget-add {
+  position: absolute;
+  right: 5px;
+  bottom: 50%;
+  margin-bottom: -7.5px;
+  -webkit-transition: .3s transform;
+  transition: .3s transform;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+}
+
+.persona-trait-item {
+  padding: 5px 10px;
+  background-color: #D4D4D4;
+  float: left;
+  position: relative;
+  min-height: 20px;
+  min-width: 5px;
+  /* to make the widget-add icon in center */
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.persona-trait-item-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.persona-trait-item-text {
+  padding-right: 15px;
+}
+
+.persona-indicator {
+  background-color: #CED6EB;
+  height: 25px;
+  margin-top: 3px;
+}
+
+.persona-indicator-holder {
+  margin-top: 15px;
+  position: relative;
+}
+
+.persona-indicator-seek-bar {
+  height: 100%;
+  width: 40%;
+  background-color: #4B68B5;
+}
+
+.persona-indicator-name {
+  font-size: 14px;
+  font-family: "OpenSansBold";
+}
+
+.persona-indicator-info {
+  color: #7D7D7D;
+}
+
+.persona-indicator--add {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  margin-top: 20px;
+  background-image: -webkit-linear-gradient(left, #4B68B5 0%, #4B68B5 25%, #CED6EB 25%, #CED6EB 50%, transparent 50%);
+  background-image: linear-gradient(to right, #4B68B5 0%, #4B68B5 25%, #CED6EB 25%, #CED6EB 50%, transparent 50%);
+}
+
+.editable:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 1px #676767;
+}
+
+.widget-items {
+  max-height: 0px;
+  -webkit-transition: .6s max-height;
+  transition: .6s max-height;
+  overflow: hidden;
+  background-color: #D4D4D4;
+  left: 10px;
+  right: 10px;
+  position: absolute;
+  margin-top: -10px;
+  top: 100%;
+  z-index: 1;
+}
+
+.add-widget-section {
+  width: 200px;
+  padding: 10px;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+}
+
+.widget-item-name {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.widget-item-name:hover {
+  background-color: #676767;
+}
+
+.add-widget-btn {
+  width: 100%;
+  text-align: left;
+  position: relative;
+  background-color: #D4D4D4;
+  padding: 5px;
+  border: none;
+  box-shadow: inset 0px 0px 0px 1px #676767;
+}
+
+.add-widget-btn.active .widget-add {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.add-widget-btn.active + .widget-items {
+  max-height: 200px;
+}
+
+.input-hidden {
+  position: absolute;
+  z-index: -1;
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+}

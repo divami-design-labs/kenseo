@@ -10,11 +10,13 @@ var Router = Backbone.Router.extend({
         "projectpage/:id": "projectPage",
         "meetingnotes/:id": "meetingNotes",
         "documentview/:id": "documentView",
-        "projects": "projects"
+        "projects": "projects",
+        "persona/:id": "persona"
     },
     index: sb.router.dashboard,
     projectPage: sb.router.projectPage,
     meetingNotes: sb.router.meetingNotes,
     documentView: sb.router.documentView,
-    projects: sb.router.projects
+    projects: sb.router.projects,
+    persona: sb.router.persona
 });

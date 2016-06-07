@@ -58,10 +58,6 @@
 }
 
 .circle, .profile-image-black, .people-icon, .sp-left img, .profile-image-white, .profile-pic-holder img, .people-img-wrapper img, .profile-image-red, .profile-image-blue, .profile-image-grey, .profile-image-comment, .hamburger-notify, .menu-profile-img-dv img, .menu-recent-people-cnt img, .share-artefact-people-item .share-artefacts-img, .share-artefact-people-item .share-artefacts-img-holder, .share-artefact-people-item .share-artefacts-img-holder:after, .share-artefact-people-item:hover .share-artefacts-img-holder:after, .secondary-status-rr, .tf-images img {
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
   border-radius: 50%;
 }
 
@@ -133,10 +129,10 @@
 
 .unselectable, .checkbox, .toggle-checkbox, .create-icon-holder {
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: -moz-none;
   -o-user-select: none;
-  user-select: none;
+  -ms-user-select: none;
+      user-select: none;
 }
 
 .checkbox {
@@ -164,10 +160,6 @@
   width: 18px;
   height: 18px;
   border: 1px solid #acacac;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
   border-radius: 2px;
 }
 
@@ -194,10 +186,6 @@
 .toggle-checkbox {
   display: block;
   width: 52px;
-  -webkit-border-radius: 26px;
-  -moz-border-radius: 26px;
-  -ms-border-radius: 26px;
-  -o-border-radius: 26px;
   border-radius: 26px;
   position: relative;
   height: 26px;
@@ -217,10 +205,6 @@
   width: 26px;
   height: 26px;
   left: 0;
-  -webkit-border-radius: 26px;
-  -moz-border-radius: 26px;
-  -ms-border-radius: 26px;
-  -o-border-radius: 26px;
   border-radius: 26px;
   background-color: #a4a7b2;
   position: absolute;
@@ -289,10 +273,6 @@
 }
 
 .version-num, .rr-state span, .time-frame-item .version-type, .version-type {
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
   border-radius: 20px;
   height: 20px;
   min-width: 10px;
@@ -426,6 +406,15 @@ svg {
 
 .title-txt::before {
   content: attr(title);
+}
+
+.caps {
+  text-transform: uppercase;
+}
+
+.tilt {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
 }
 
 .header {
@@ -1325,6 +1314,7 @@ svg {
   line-height: 16px;
   /*text-indent: 5px;*/
   display: inline-block;
+  max-width: 100%;
 }
 
 .fixed-content {
@@ -1342,6 +1332,7 @@ svg {
 
 .project-block-details-text {
   white-space: nowrap;
+  margin-left: 20px;
 }
 
 .review-request-item {
@@ -1873,7 +1864,8 @@ svg {
   bottom: 100%;
   right: 100%;
   margin-right: 10px;
-  transform: translate(50%, 50%);
+  -webkit-transform: translate(50%, 50%);
+          transform: translate(50%, 50%);
   margin-bottom: 27.5px;
   z-index: 1;
 }
@@ -2136,6 +2128,7 @@ svg {
   position: absolute;
   right: 30px;
   top: 20px;
+  fill: #425182;
 }
 
 .dropdown {
@@ -2269,10 +2262,6 @@ svg {
   color: white;
   width: 55px;
   height: 35px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
   border-radius: 5px;
   font-family: "OpenSansSemibold";
   text-align: center;
@@ -2332,8 +2321,6 @@ svg {
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
-  width: -webkit-calc(100% - 50px);
-  width: -moz-calc(100% - 50px);
   width: -ms-calc(100% - 50px);
   width: -o-calc(100% - 50px);
   width: calc(100% - 50px);
@@ -2564,7 +2551,8 @@ svg {
 .cover-image-viewer .img-content {
   max-width: 100%;
   max-height: 100%;
-  transform: translate(50%, 50%);
+  -webkit-transform: translate(50%, 50%);
+          transform: translate(50%, 50%);
   position: absolute;
   bottom: 50%;
   right: 50%;
@@ -2579,6 +2567,7 @@ svg {
 }
 
 .cover-image-viewer .animate {
+  -webkit-transition: 0.2s all ease-in-out;
   transition: 0.2s all ease-in-out;
 }
 
@@ -2798,10 +2787,6 @@ svg {
 .text-editor-section {
   border: 1px solid #8d8f96;
   margin-top: 20px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
   margin-bottom: 10px;
   overflow: hidden;
@@ -2899,10 +2884,6 @@ svg {
   background-color: #435383;
   display: inline-block;
   padding: 0px 20px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
   border-radius: 3px;
   font-size: 16px;
   color: white;
@@ -2991,7 +2972,6 @@ svg {
 
 .time-frame-section .time-frame-extended {
   width: calc(100% - 6px);
-  width: -webkit-calc(100% - 6px);
   width: -moz-calc(100% - 6px);
   margin-left: 6px;
 }
@@ -3161,7 +3141,6 @@ svg {
   left: 0;
   right: 0;
   width: calc(100% - 6px);
-  width: -webkit-calc(100% - 6px);
   width: -moz-calc(100% - 6px);
   margin-left: 6px;
 }
@@ -3307,8 +3286,6 @@ svg {
 
 .sp-right {
   display: inline-block;
-  max-width: -webkit-calc(100% - 48px);
-  max-width: -moz-calc(100% - 48px);
   max-width: -ms-calc(100% - 48px);
   max-width: -o-calc(100% - 48px);
   max-width: calc(100% - 48px);
@@ -3512,9 +3489,6 @@ svg {
   right: 100%;
   margin-right: 10px;
   -webkit-transform: translate(0, -50%);
-  -moz-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  -o-transform: translate(0, -50%);
   transform: translate(0, -50%);
 }
 
@@ -4002,10 +3976,6 @@ input[type="text"].xm {
 
 .dv-toolbox {
   padding: 10px;
-  -webkit-border-radius: 0px 5px 5px 0px;
-  -moz-border-radius: 0px 5px 5px 0px;
-  -ms-border-radius: 0px 5px 5px 0px;
-  -o-border-radius: 0px 5px 5px 0px;
   border-radius: 0px 5px 5px 0px;
   background-color: #E8E8E9;
   transform: translate(0, -50%);
@@ -4135,14 +4105,11 @@ input[type="text"].xm {
   border: 1px solid #E1E1E1;
   background-color: white;
   left: 50%;
-  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   font-size: 8px;
   color: #3e4354;
   padding: 3px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
   border-radius: 5px;
 }
 
@@ -4276,9 +4243,6 @@ input[type="text"].xm {
   white-space: pre;
   cursor: text;
   -webkit-transform-origin: 0% 0%;
-  -moz-transform-origin: 0% 0%;
-  -o-transform-origin: 0% 0%;
-  -ms-transform-origin: 0% 0%;
   transform-origin: 0% 0%;
 }
 
@@ -4303,6 +4267,10 @@ input[type="text"].xm {
 
 .textLayer .highlight.selected {
   background-color: darkgreen;
+}
+
+.textLayer ::-moz-selection {
+  background: blue;
 }
 
 .textLayer ::selection {
@@ -4448,6 +4416,45 @@ input[type="text"].xm {
   background-color: #000;
 }
 
+#viewerContainer:-webkit-full-screen {
+  top: 0px;
+  border-top: 2px solid transparent;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+#viewerContainer:-moz-full-screen {
+  top: 0px;
+  border-top: 2px solid transparent;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+#viewerContainer:-ms-fullscreen {
+  top: 0px;
+  border-top: 2px solid transparent;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 #viewerContainer:fullscreen {
   top: 0px;
   border-top: 2px solid transparent;
@@ -4482,6 +4489,10 @@ input[type="text"].xm {
 }
 
 :-moz-full-screen .textLayer > div {
+  cursor: none;
+}
+
+:-ms-fullscreen .textLayer > div {
   cursor: none;
 }
 
@@ -4687,6 +4698,7 @@ input[type="text"].xm {
   left: 0;
   height: 100%;
   width: 50px;
+  background-image: -webkit-linear-gradient(left, #999 0%, #fff 50%, #999 100%);
   background-image: linear-gradient(to right, #999 0%, #fff 50%, #999 100%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -4856,6 +4868,7 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 .splitToolbarButton.toggled > .toolbarButton.toggled,
 .secondaryToolbarButton.toggled {
   background-color: rgba(0, 0, 0, 0.3);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   border-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.45) rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset, 0 0 1px rgba(0, 0, 0, 0.2) inset, 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -4955,8 +4968,6 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 
 .toolbarButton.bookmark,
 .secondaryToolbarButton.bookmark {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   outline: none;
   padding-top: 4px;
@@ -5099,7 +5110,8 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 }
 
 .thumbnailImage {
-  transition-duration: 150ms;
+  -webkit-transition-duration: 150ms;
+          transition-duration: 150ms;
   border: 1px solid transparent;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   opacity: 0.8;
@@ -5111,7 +5123,8 @@ html[dir='rtl'] #findInput[data-status="pending"] {
 .thumbnailSelectionRing {
   border-radius: 2px;
   padding: 7px;
-  transition-duration: 150ms;
+  -webkit-transition-duration: 150ms;
+          transition-duration: 150ms;
 }
 
 a:focus > .thumbnail > .thumbnailSelectionRing > .thumbnailImage,
@@ -5122,6 +5135,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing > .thumbnailImage,
 a:focus > .thumbnail > .thumbnailSelectionRing,
 .thumbnail:hover > .thumbnailSelectionRing {
   background-color: rgba(255, 255, 255, 0.15);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-clip: padding-box;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 0 1px rgba(255, 255, 255, 0.2) inset, 0 0 1px rgba(0, 0, 0, 0.2);
@@ -5135,6 +5149,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
 
 .thumbnail.selected > .thumbnailSelectionRing {
   background-color: rgba(255, 255, 255, 0.3);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-clip: padding-box;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 0 1px rgba(0, 0, 0, 0.2);
@@ -5186,6 +5201,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
 .outlineItem > a:hover,
 .attachmentsItem > button:hover {
   background-color: rgba(255, 255, 255, 0.02);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-clip: padding-box;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 0 1px rgba(255, 255, 255, 0.2) inset, 0 0 1px rgba(0, 0, 0, 0.2);
@@ -5194,6 +5210,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
 
 .outlineItem.selected {
   background-color: rgba(255, 255, 255, 0.08);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   background-clip: padding-box;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 0 1px rgba(0, 0, 0, 0.2);
@@ -5210,6 +5227,9 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
 /* TODO: file FF bug to support ::-moz-selection:window-inactive
    so we can override the opaque grey background when the window is inactive;
    see https://bugzilla.mozilla.org/show_bug.cgi?id=706209 */
+::-moz-selection {
+  background: rgba(0, 0, 255, 0.3);
+}
 ::selection {
   background: rgba(0, 0, 255, 0.3);
 }
@@ -5409,7 +5429,6 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
 .grab-to-pan-grab {
   cursor: url("images/grab.cur"), move !important;
   cursor: -webkit-grab !important;
-  cursor: -moz-grab !important;
   cursor: grab !important;
 }
 
@@ -5421,7 +5440,6 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
 .grab-to-pan-grabbing {
   cursor: url("images/grabbing.cur"), move !important;
   cursor: -webkit-grabbing !important;
-  cursor: -moz-grabbing !important;
   cursor: grabbing !important;
   position: fixed;
   background: transparent;
@@ -5443,7 +5461,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   display: none;
 }
 
-@media screen and (min-resolution: 2dppx) {
+@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 2dppx) {
   /* Rules for Retina screens */
   .toolbarButton::before {
     -webkit-transform: scale(0.5);
@@ -6033,14 +6051,19 @@ img.image-viewer {
   top: 0;
   left: 0;
   right: 0;
-  transform: translate(0, -100%);
+  -webkit-transform: translate(0, -100%);
+          transform: translate(0, -100%);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
   transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
   background-color: rgba(253, 194, 198, 0.8);
   border-radius: 0px 0px 4px 4px;
 }
 
 .error-messages-wrapper.show-errors {
-  transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
 }
 
 .error-messages {

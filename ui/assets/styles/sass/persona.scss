@@ -1,0 +1,293 @@
+@import "../sass-utilities/fonts";
+/*@import "../sass-utilities/colors";*/
+/*@import "../sass-utilities/variables";*/
+/*@import "../sass-utilities/common";*/
+/*@import "../sass-utilities/icons";*/
+.persona-template{
+	font-size: 13px;
+	padding: 0 10px;
+	text-align: right; /* to show widget adder on right */
+}
+
+.persona-template-header{
+	background-color: rgb(27,35,74);
+	padding: 10px;
+	text-align: right;
+	color: white;
+	font-size: 16px;
+	padding-top: 20px;
+	margin: 0 -10px;
+	position: relative;
+}
+.persona-cards-holder{
+	text-align: left;
+	&--left, &--mid, &--right{
+		float: left; 
+		width: 33.333%;
+	}
+}
+
+.template-section{
+    $root: &;
+	&:hover{
+		& > #{$root}--close{
+			display: block;
+		}
+	}
+	&--close{
+		display: none;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		width: 10px;
+		height: 10px;
+		cursor: pointer;
+		color: #676767;
+		/*border-radius: 50%;*/
+		/*box-shadow: 0px 0px 0px 5px currentColor, 0px 0px 0px 4px white;*/
+		fill: currentColor;
+		&:hover{
+			color: black;
+		}
+	}
+}
+.persona-card{
+	width: 320px;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    padding: 10px;
+    position: relative;
+    & + & {
+		padding-top: 20px;
+	}
+	&:not(.persona-card--no-highlight):hover{
+    	box-shadow: inset 0px 0px 0px 1px #ccc;
+	}
+	&--close{
+		width: 14px;
+		height: 14px;
+	}
+}
+
+.persona-card-heading{
+	font-size: 15px;
+	font-family: $boldFont;
+	text-transform: uppercase;
+}
+
+.persona-name{
+	font-size: 16px;
+	font-family: $boldFont;
+}
+
+.persona-img{
+    max-width: 100%;
+    display: block;
+}
+
+.persona-personal-details-top{
+	background-color: #A5A7B3;
+	padding: 10px 5px;
+	/*margin: 0 -5px;*/
+	position: absolute;
+	width: 300px;
+	text-align: left;
+	bottom: 0px;
+	left: 15px;
+}
+
+.persona-personal-details {
+    margin-top: -10px;
+}
+
+.persona-personal-details-bottom{
+	background-color: #E9E9E9;
+	padding: 5px;
+	margin: 0 -5px;
+	color: #676767;
+}
+
+.persona-image{
+	width: 310px;
+	/*height: 205px;*/
+	position: relative;
+	margin: 0 -5px;
+	&:hover{
+		&::after{
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.3);
+		}
+		.persona--img-uploader{
+			display: block;
+		}
+	}
+}
+
+.persona--img-uploader{
+	position: absolute;
+	bottom: 50%;
+	right: 50%;
+	transform: translate(50%, 50%);
+	width: 40px;
+	height: 40px;
+	z-index: 1;
+	cursor: pointer;
+	display: none;
+}
+
+.persona-caption{
+	font-size: 14px;
+	font-family: $boldFont;
+}
+
+
+// Traits
+.widget{
+	$v: 15px;
+	&-close, &-add{
+		border-radius: 50%;
+		box-shadow: 0px 0px 1px #7C7C7C;
+		min-width: $v;
+		width: $v;
+		height: $v;
+		text-align: center;
+		line-height: $v;
+		cursor: pointer;
+		fill: #7C7C7C;
+		&:hover{
+			fill: black;
+		}
+	}
+	&-close, &-add{
+		display: inline-block;
+		vertical-align: middle;
+	}
+	&-close{
+		position: static;
+	}
+
+	&-add{
+		position: absolute;
+		right: 5px;
+		bottom: 50%;
+		margin-bottom: -$v/2;
+		transition: .3s transform;
+		transform-origin: center;
+	}
+}
+.persona-trait-item{
+	padding: 5px 10px;
+	background-color: #D4D4D4;
+	float: left;
+	position: relative;
+	min-height: 20px;
+	min-width: 5px; /* to make the widget-add icon in center */
+	margin-right: 10px;
+	margin-bottom: 10px;
+	&-text{
+		display: inline-block;
+		vertical-align: middle;
+	}
+	&-text{
+		padding-right: 15px;
+	}
+}
+
+// Persona Indicators
+.persona-indicator{
+	background-color: #CED6EB;
+    height: 25px;
+    margin-top: 3px;
+	&-holder{
+		margin-top: 15px;
+		position: relative;
+	}
+	&-seek-bar{
+		height: 100%;
+		width: 40%;
+		background-color: #4B68B5;
+	}
+	&-name{
+		font-size: 14px;
+		font-family: $boldFont;
+	}
+
+	&-info{
+		color: #7D7D7D;
+	}
+	&--add{
+	    position: relative;
+	    width: 50px;
+	    height: 25px;
+	    margin-top: 20px;
+	    background-image: linear-gradient(to right, #4B68B5 0%, #4B68B5 25%, #CED6EB 25%, #CED6EB 50%, transparent 50%);
+	}
+}
+
+.editable{
+	&:focus{
+		outline: none;
+		box-shadow: 0px 0px 0px 1px #676767;
+	}
+}
+
+.widget-items {
+	max-height: 0px;
+	transition: .6s max-height;
+	overflow: hidden;
+	background-color: #D4D4D4;
+	left: 10px;
+	right: 10px;
+	position: absolute;
+	margin-top: -10px;
+	top: 100%;
+	z-index: 1;
+}
+
+.add-widget-section {
+	width: 200px;
+	padding: 10px;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+}
+
+.widget-item-name{
+	padding: 5px;
+	cursor: pointer;
+	&:hover{
+		background-color: #676767;
+	}
+}
+.add-widget-btn {
+	width: 100%;
+	text-align: left;
+	position: relative;
+	background-color: #D4D4D4;
+	padding: 5px;
+	border: none;
+	box-shadow: inset 0px 0px 0px 1px #676767;
+	&.active {
+		.widget-add {
+	  		transform: rotate(45deg);
+		}
+		& + .widget-items {
+	  		max-height: 200px;
+		}
+	}
+}
+
+.input-hidden{
+	position: absolute;
+	z-index: -1;
+	width: 0px;
+	height: 0px;
+	visibility: hidden;
+}
