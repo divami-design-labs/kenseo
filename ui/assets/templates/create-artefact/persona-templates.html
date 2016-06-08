@@ -1,0 +1,14 @@
+<div class="popup popup-large">
+	<% console.dir(data) %>
+	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
+	<div class="popup-body">
+		<div class="popup-body-wrapper">
+			<% if(data.index > 0){ %>
+			<button class="nav-btn" data-index="0">Back</button>
+			<% } %>
+			<div class="templates-viewer">
+				<div class="template-item nav-btn" data-href="#persona/1" template-type="Persona 1"></div>
+				<!-- <div class="template-item nav-btn" data-href="#persona/2" template-type="Persona 2"></div> -->
+			</div>
+		</div>
+	</div></div>

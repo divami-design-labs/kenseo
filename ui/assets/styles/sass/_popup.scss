@@ -454,3 +454,25 @@ $popup-content-space: 175px;
 	width: 360px;
 	resize: none;
 }
+
+.templates-viewer{
+	display: flex;
+}
+
+.template-item{
+	width: 200px;
+	height: 200px;
+	position: relative;
+	box-shadow: inset 0px 0px 1px #7f7f7f;
+	margin: 20px;
+	&:hover{
+		background-color: #676767;
+	}
+	&::after{
+		content: attr(template-type);
+		position: absolute;
+		bottom: 50%;
+		right: 50%;
+		transform: translate(50%, 50%);
+	}
+}

@@ -250,7 +250,7 @@ sb.router = {
             Kenseo.current.page = "persona";
             sb.setTitle('Persona');
 
-            $('.header').removeClass('fixed-header');
+            $('.header').addClass('fixed-header');
             $('.hamburger-menu').removeClass('active');
             $('.project-section').hide();
             $('.documentView').hide();

@@ -1,0 +1,10 @@
+<div class="persona-points-holder persona-card template-section">
+	<div class="persona-card--close template-section--close">
+		<svg><use xlink:href="#close"></use></svg>
+	</div>
+	<div class="persona-card-heading editable"><%= heading %></div>
+	<ul class="persona-points editable">
+		<% _.each(items, function(item){ %>
+			<li class="persona-point"><%= item %></li>
+		<% }) %>
+	</ul></div>

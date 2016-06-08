@@ -34,9 +34,21 @@
 /*@import "../sass-utilities/icons";*/
 .persona-template {
   font-size: 13px;
-  padding: 0 10px;
+  padding: 80px 30px;
   text-align: right;
   /* to show widget adder on right */
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  /*padding-top: 80px;*/
+}
+
+.persona-project-name {
+  display: inline-block;
+  vertical-align: top;
 }
 
 .persona-template-header {
@@ -52,6 +64,12 @@
 
 .persona-cards-holder {
   text-align: left;
+}
+
+.persona-cards-holder::after {
+  clear: both;
+  display: block;
+  content: "";
 }
 
 .persona-cards-holder--left, .persona-cards-holder--mid, .persona-cards-holder--right {
@@ -96,6 +114,14 @@
 
 .persona-card:not(.persona-card--no-highlight):hover {
   box-shadow: inset 0px 0px 0px 1px #ccc;
+}
+
+.persona-card.persona-traits:not(.persona-card--no-highlight) {
+  box-shadow: inset 0px 0px 0px 1px #ccc, inset 0px 0px 0px 10px white;
+}
+
+.persona-card.persona-traits:not(.persona-card--no-highlight):hover {
+  box-shadow: inset 0px 0px 0px 1px #ccc, inset 0px 0px 0px 10px white;
 }
 
 .persona-card--close {
@@ -216,21 +242,29 @@
           transform-origin: center;
 }
 
+.persona-traits {
+  overflow: hidden;
+}
+
 .persona-trait-item {
   padding: 5px 10px;
   background-color: #D4D4D4;
   float: left;
   position: relative;
-  min-height: 20px;
-  min-width: 5px;
-  /* to make the widget-add icon in center */
   margin-right: 10px;
   margin-bottom: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: 8px 0px 0px 2px white;
+  -webkit-transition: all .3s;
+  transition: all .3s;
 }
 
 .persona-trait-item-text {
   display: inline-block;
   vertical-align: middle;
+  -webkit-transition: .3s margin;
+  transition: .3s margin;
 }
 
 .persona-trait-item-text {
@@ -255,12 +289,13 @@
 }
 
 .persona-indicator-name {
-  font-size: 14px;
-  font-family: "OpenSansBold";
+  color: #7D7D7D;
 }
 
-.persona-indicator-info {
-  color: #7D7D7D;
+.persona-indicator-name::first-line {
+  color: black;
+  font-size: 14px;
+  font-family: "OpenSansBold";
 }
 
 .persona-indicator--add {
@@ -294,10 +329,20 @@
 .add-widget-section {
   width: 200px;
   padding: 10px;
-  position: relative;
   display: inline-block;
   vertical-align: top;
   text-align: left;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 32px;
+  z-index: 12;
+  opacity: 0.3;
+}
+
+.add-widget-section:hover {
+  opacity: 1;
 }
 
 .widget-item-name {
@@ -334,4 +379,8 @@
   width: 0px;
   height: 0px;
   visibility: hidden;
+}
+
+.fixed-bar {
+  position: fixed;
 }

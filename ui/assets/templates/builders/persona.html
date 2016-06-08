@@ -5,7 +5,7 @@
 			<span class="persona-name caps editable">full name, </span>
 			<span class="persona-age caps editable">age</span>
 		</div>
-		<div>Project</div>
+		<div class="persona-project-name editable">Project</div>
 	</div>
 	<div class="persona-cards-holder">
 		<div class="persona-cards-holder--left">
@@ -16,7 +16,7 @@
 				<div class="persona-image">
 					<label class="persona--img-uploader">
 						<svg><use xlink:href="#dropdown"></use></svg>
-						<input class="input-hidden" type="file"></input>
+						<input class="input-hidden persona-img-uploader-input" type="file"></input>
 					</label>
 					<img class="persona-img" src="http://dummyimage.com/310x205" alt="persona image" />
 				</div>
@@ -26,116 +26,69 @@
 					<div class="persona-location editable">Location: City, State</div>
 				</div>
 			</div>
-			<div class="persona-description persona-card template-section">
-				<div class="persona-card--close template-section--close">
+			<div class="persona-description persona-card template-section persona-card--no-highlight">
+				<!-- <div class="persona-card--close template-section--close">
 					<svg><use xlink:href="#close"></use></svg>
-				</div>
+				</div> -->
 				<div class="editable">A short biographical description of the persona that provides a quick insight into the lifestyle, personality and professional traits of the persona that would be helpful while coming up with designs. Make sure these details are related to the primary use case of the product so that all the details are covered within the given context.</div>
 			</div>
-			<div class="persona-traits persona-card template-section">
-				<div class="persona-card--close template-section--close">
-					<svg><use xlink:href="#close"></use></svg>
-				</div>
-				<div class="persona-card-heading editable">traits</div>
-				<div class="persona-trait-item">
-					<span class="persona-trait-item-text editable">Introvert</span>
-					<span class="persona-trait-item-close widget-close template-section--close">
-						<svg class="tilt"><use xlink:href="#add"></use></svg>
-					</span>
-				</div>
-				<div class="persona-trait-item">
-					<span class="persona-trait-item-text editable">Conservative</span>
-					<span class="persona-trait-item-close widget-close template-section--close">
-						<svg class="tilt"><use xlink:href="#add"></use></svg>
-					</span>
-				</div>
-				<div class="persona-trait-item">
-					<span class="persona-trait-item-add widget-add">
-						<svg><use xlink:href="#add"></use></svg>
-					</span>
-				</div>
-			</div>
+			<%= sb.setTemplate('widget-persona-tags') %>
 		</div>
 		<div class="persona-cards-holder--mid">
-			<div class="persona-points-holder persona-card template-section">
-				<div class="persona-card--close template-section--close">
-					<svg><use xlink:href="#close"></use></svg>
-				</div>
-				<div class="persona-card-heading editable">PERSONA DIFFERENTIATORS</div>
-				<ul class="persona-points editable">
-					<li class="persona-point">Student, part-time copywriter with a fair amount of financial independence</li>
-					<li class="persona-point">Busy youngster, juggling between college, work, friends and personal interests</li>
-					<li class="persona-point">A true Tennis fan and a player himself</li>
-					<li class="persona-point">Active on Social Networking sites. Keeps in touch with friends. Got registered from his mobile as well</li>
-					<li class="persona-point">Loves to try new trends in technology and gadgets</li>
-				</ul>
-			</div>
-			<div class="persona-points-holder persona-card template-section">
-				<div class="persona-card--close template-section--close">
-					<svg><use xlink:href="#close"></use></svg>
-				</div>
-				<div class="persona-card-heading editable">GOALS</div>
-				<ul class="persona-points editable">
-					<li class="persona-point">Need a computer to get help in academics in planning and scheduling his tasks, prepare assignments etc.</li>
-					<li class="persona-point">Handle official work from home - OSen prefers to work and submit his work from home.</li>
-					<li class="persona-point">Stay up-to-date on social and other events</li>
-					<li class="persona-point">Stay in touch with Family and Friends</li>
-				</ul>	
-			</div>
-			<div class="persona-points-holder persona-card template-section">
-				<div class="persona-card--close template-section--close">
-					<svg><use xlink:href="#close"></use></svg>
-				</div>
-				<div class="persona-card-heading editable">PAIN POINTS</div>
-				<ul class="persona-points editable">
-					<li class="persona-point">Manage college admission applications on the go - As he spends most of his time outside his home during weekends, he expects to take help from a handy computer that he could use from anywhere </li>
-					<li class="persona-point">Efficient Work Management - A handicap of not having a computer forces him to stay at office to get his work done. A personal computer solves his problems to a great extent</li>
-					<li class="persona-point">Manage Music files - As a music aficionado, he expects to have a personal computer that he could use to manage his music files.</li>
-					<li class="persona-point">Work on the move</li>
-				</ul>
-			</div>
+
+			<%= sb.setTemplate('widget-persona-list-items', {
+				heading: "PERSONA DIFFERENTIATORS",
+				items: [
+					"Student, part-time copywriter with a fair amount of financial independence",
+					"Busy youngster, juggling between college, work, friends and personal interests",
+					"A true Tennis fan and a player himself",
+					"Active on Social Networking sites. Keeps in touch with friends. Got registered from his mobile as well",
+					"Loves to try new trends in technology and gadgets"
+				]
+			}) %>
+
+			<%= sb.setTemplate('widget-persona-list-items', {
+				heading: "GOALS",
+				items: [
+					"Need a computer to get help in academics in planning and scheduling his tasks, prepare assignments etc.",
+					"Handle official work from home - OSen prefers to work and submit his work from home.",
+					"Stay up-to-date on social and other events",
+					"Stay in touch with Family and Friends"
+				]
+			}) %>
+
+			<%= 
+				sb.setTemplate('widget-persona-list-items', {
+					heading: "PAIN POINTS",
+					items: [
+						"Manage college admission applications on the go - As he spends most of his time outside his home during weekends, he expects to take help from a handy computer that he could use from anywhere",
+						"Efficient Work Management - A handicap of not having a computer forces him to stay at office to get his work done. A personal computer solves his problems to a great extent",
+						"Manage Music files - As a music aficionado, he expects to have a personal computer that he could use to manage his music files.",
+						"Work on the move"
+					]
+				})
+			%>
 		</div>
 		<div class="persona-cards-holder--right">
-			<div class="persona-indicators persona-card template-section">
-				<div class="persona-card--close template-section--close">
-					<svg><use xlink:href="#close"></use></svg>
-				</div>
-				<div class="persona-card-heading editable">persona indicators</div>
-				<div class="persona-indicator-holder template-section">
-					<div class="template-section--close">
-						<svg><use xlink:href="#close"></use></svg>
-					</div>
-					<div class="persona-indicator-name editable">Communication</div>
-					<div class="persona-indicator-info editable">Stay in touch with family and friends</div>
-					<div class="persona-indicator">
-						<div class="persona-indicator-seek-bar"></div>
-					</div>
-				</div>
-				<div class="persona-indicator-holder template-section">
-					<div class="template-section--close">
-						<svg><use xlink:href="#close"></use></svg>
-					</div>
-					<div class="persona-indicator-name editable">Work</div>
-					<div class="persona-indicator-info editable">Accomplish his tasks</div>
-					<div class="persona-indicator">
-						<div class="persona-indicator-seek-bar"></div>
-					</div>
-				</div>
-				<div class="persona-indicator-holder template-section">
-					<div class="template-section--close">
-						<svg><use xlink:href="#close"></use></svg>
-					</div>
-					<div class="persona-indicator-name editable">Entertainment</div>
-					<div class="persona-indicator-info editable">Sports, Music etc.</div>
-					<div class="persona-indicator">
-						<div class="persona-indicator-seek-bar"></div>
-					</div>
-				</div>
-				<div class="persona-indicator--add">
-					<span class="widget-add">
-						<svg><use xlink:href="#add"></use></svg>
-					</span>
-				</div>
-			</div>
+			<%= sb.setTemplate('widget-progress-indicators', {
+				indicators: [{
+					heading: 'Communication',
+					caption: 'Stay in touch with family and friends',
+					percentage: 45
+				},{
+					heading: 'Work',
+					caption: 'Accomplish his tasks',
+					percentage: 70
+				},{
+					heading: 'Entertainment',
+					caption: 'Sports, Music etc.'
+				}]
+			}) %>
 		</div>
-	</div></div>
+	</div>
+	<div class="current-artefact-info fixed-bar">
+        <div>
+            <a class="popup-click" data-url="create-artefact">Create Artefacts > </a><a class="popup-click" data-url="create-artefact" data-index="1">Persona Templates >  </a>
+            Persona template 1 
+        </div>
+    </div></div>

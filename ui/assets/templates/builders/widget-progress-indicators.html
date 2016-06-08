@@ -1,0 +1,13 @@
+<div class="persona-indicators persona-card template-section">
+	<div class="persona-card--close template-section--close">
+		<svg><use xlink:href="#close"></use></svg>
+	</div>
+	<div class="persona-card-heading editable">persona indicators</div>
+	<% for(var indicator in indicators){ %>
+		<%= sb.setTemplate('persona-indicator', indicators[indicator]) %>
+	<% } %>
+	<div class="persona-indicator--add">
+		<span class="widget-add">
+			<svg><use xlink:href="#add"></use></svg>
+		</span>
+	</div></div>

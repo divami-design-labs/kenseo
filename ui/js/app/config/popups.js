@@ -70,6 +70,16 @@ Kenseo.popups = (function(){
 	            "callbackfunc": sb.popup.teamPopup
 	        }
 	    ],
+	    "create-artefact": [
+	    	{
+	    		"page_name": "create-artefact",
+	    		"title": "Create an Artefact"
+	    	},
+	    	{
+	    		"page_name": "persona-templates",
+	    		"title": "Choose a persona template"
+	    	}
+	    ],
 	    "share-artefact": [
 	        {
 	            "page_name": "artefact-one",

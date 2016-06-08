@@ -66,6 +66,11 @@ var sb = (function () {
             });
             $.when.apply(filterArrayOfAjaxCalls).then(callbackfunction);
         },
+        redirectTo: function(value){
+            var a = document.createElement('a');
+            a.href = value;
+            window.location.href = a.href;
+        },
         getPath: function getPath(type, fileName) {
             var o = i18n[type];
             if (!o) {

@@ -241,6 +241,15 @@ $(function () {
 				$allchkBox.prop('checked', true);
 			}
 		}
+	})
+	.on('click', '[data-href]', function(e){
+		var el = e.currentTarget;
+		var href = el.getAttribute('data-href');
+		
+		// if any popup is open then close it
+		popupCloser($(popupContainer));
+		
+		sb.redirectTo(href);
 	});
 });
 
