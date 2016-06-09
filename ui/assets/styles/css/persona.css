@@ -342,10 +342,13 @@
 .add-widget-section {
   width: 200px;
   padding: 10px;
-  display: inline-block;
-  vertical-align: middle;
   text-align: left;
-  position: relative;
+  position: fixed;
+  top: 30px;
+  z-index: 12;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .persona-action-buttons {
