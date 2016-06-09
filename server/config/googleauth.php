@@ -5,11 +5,11 @@ global $AppGlobal;
 $AppGlobal['googleauth']['domain'] = "divami.com";
 
 $AppGlobal['googleauth']['kenseo'] = array();
-$AppGlobal['googleauth']['kenseo']['appName'] = "kenseo";
-$AppGlobal['googleauth']['kenseo']['clientId'] = "606167827250-6gfcm8a83s3k4q5s3s97csi782mkb0oe.apps.googleusercontent.com";
-$AppGlobal['googleauth']['kenseo']['clientSecret'] = "hsqP80yaiuBlvnQrbteBQTPj";
-$AppGlobal['googleauth']['kenseo']['redirectURL'] = "http://kenseo.divami.com";
-$AppGlobal['googleauth']['kenseo']['uiURL'] = $AppGlobal['global']['domain'] . "ui/index.html";
+$AppGlobal['googleauth']['kenseo']['appName'] = "Gapp";
+$AppGlobal['googleauth']['kenseo']['clientId'] = "812255691385-5vb8r97m642bpam478ns7k6u9sahac68.apps.googleusercontent.com";
+$AppGlobal['googleauth']['kenseo']['clientSecret'] = "dXGEK8SXoqwW2pIOJJSrbrX0";
+$AppGlobal['googleauth']['kenseo']['redirectURL'] = $AppGlobal['global']['domain'] . "server/index.php";
+$AppGlobal['googleauth']['kenseo']['uiURL'] = $AppGlobal['global']['domain'] . "site/index.html";
 
 /* End of file googleauth.php */
 ?>

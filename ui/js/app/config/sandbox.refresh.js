@@ -59,7 +59,7 @@ sb.refresh = (function(){
 	                data: { projects: true, project_id: Kenseo.page.id, sharePermission: false, sortBy: 'default' },
 	                stopRenderX: true,
 	                preLoader: function preLoader(response) {
-	                    $('.artifacts-section').html(_.template(templates['artefacts'])(response));
+	                    $('.artifacts-section').html(sb.setTemplate('artefacts', response));
 	                }
 	            });
             },
@@ -72,7 +72,7 @@ sb.refresh = (function(){
 	                colStr: 'People',
 	                data: { projectId: Kenseo.page.id },
 	                preLoader: function preLoader(response) {
-	                    $('.people-section').html(_.template(templates['people'])());
+	                    $('.people-section').html(sb.setTemplate('people'));
 	                }
 	            });
             }

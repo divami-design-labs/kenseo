@@ -11,7 +11,7 @@ Kenseo.views.Activities = Backbone.View.extend({
     render: function render() {
         var _this = this;
         sb.fetch(this.collection, this.data, function (collection, response, options) {
-            var html = _.template(templates['activities'])({ data: response.data });
+            var html = sb.setTemplate('activities', { data: response.data });
             _this.$el.html(html);
         });
         return this;

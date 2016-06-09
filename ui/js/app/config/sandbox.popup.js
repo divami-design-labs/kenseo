@@ -257,7 +257,7 @@ sb.popup = {
                                 }
                                 obj.name = $selectedEl.html();
 
-                                $currentPopup.find(".choose-existing-file-holder").html(_.template(templates["new-file"])({
+                                $currentPopup.find(".choose-existing-file-holder").html(sb.setTemplate("new-file", {
                                     data: obj
                                 }));
                                 
@@ -880,7 +880,7 @@ sb.popup = {
         
         var $shareArtefactWrapper = $(".share-artefact-people-wrapper");
         if(isSingle){
-            $shareArtefactWrapper.append(_.template(templates["share-people"])({ data: obj }));
+            $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: obj }));
         }
         else{
             var teamMembers = Kenseo.data.teamMembers || obj || [];
@@ -898,7 +898,7 @@ sb.popup = {
                 var newObj = teamMembers;
             }
             for (var i = 0; i < newObj.length; i++) {
-                $shareArtefactWrapper.append(_.template(templates["share-people"])({ data: newObj[i] }));
+                $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: newObj[i] }));
             }
         }
         sb.popup.attachEvents(); 

@@ -13,6 +13,8 @@ var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var stringify = require('stringify-object');
 var notify = require('gulp-notify');
+var postTemplate = require('gulp-lodash-template');
+var concat = require('gulp-concat');
 // var uglify = require('gulp-uglify');
 
 function spriteChanges() {
@@ -90,10 +92,27 @@ function sassChange(){
         .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
 }
 
+function postTemplateChanges(){
+    return gulp.src(['assets/templates/**/*.html'])
+        .pipe(postTemplate({
+            namespace: "templates",
+            name: function(file){
+                var filePath = file.relative;
+                var fileNameWithExt = path.basename(filePath);
+                var fileName = fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf("."));
+                return fileName;
+            }
+        }))
+        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err)); })
+		.pipe(concat('templates.js'))
+		.pipe(gulp.dest(''));
+}
+
 function watchChanges(){
-    templateChange();
+    // templateChange();
     sassChange();
     // babelChange(/*{ blacklist: ["strict"] }*/);
+    postTemplateChanges();
     spriteChanges();
     gulp.watch([
         'assets/templates/**/*.html',
@@ -107,7 +126,8 @@ function watchChanges(){
 
 // Tasks
 gulp.task('sass', sassChange);
-gulp.task('template', templateChange);
+// gulp.task('template', templateChange);
+gulp.task('template', postTemplateChanges);
 gulp.task('babel', babelChange);
 gulp.task('watch', watchChanges);
 gulp.task('kenseo-sprt', spriteChanges);

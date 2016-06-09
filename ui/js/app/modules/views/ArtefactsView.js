@@ -27,7 +27,9 @@ Kenseo.views.Artefact = Backbone.View.extend({
     // The DOM Element associated with this view
     tagName: 'a',
     className: 'review-request-item',
-    template: _.template(templates['artefact']),
+    template: function(data){
+        return sb.setTemplate('artefact', data);
+    },
     // View constructor
     initialize: function initialize() {
         this.listenTo(this.model, 'remove', this.remove);

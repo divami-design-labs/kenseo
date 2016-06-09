@@ -82,13 +82,14 @@ Persona.prototype = {
 			$el.parent().append($clone);
 
 		}
+		// Remove tag
 		else{
 			// $el.remove();
 			// setInterval(function)
 			// this.setAddingTag($target);
 			// setInterval(function(){
 				$el.css({
-					"margin-left": -$el.outerWidth(),
+					"margin-left": -$el.outerWidth() - 10,
 					"position": "relative",
 					"z-index": "-1"
 				});
@@ -137,5 +138,16 @@ Persona.prototype = {
 	},
 	uploadNewImage: function(e){
 		console.dir(e.currentTarget);
+		var input = e.currentTarget;
+		// $('.persona-img').attr('src', e.currentTarget.value);
+		if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+
+	        reader.onload = function (e) {
+	            $('.persona-img').attr('src', e.target.result);
+	        }
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
 	}
 }

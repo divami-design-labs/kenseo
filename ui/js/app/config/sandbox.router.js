@@ -163,13 +163,13 @@ sb.router = {
                         //before painting the pdf into the viewer we need to add a tab for it.
                         // pdf viewer
                         if (data.type == 'application/pdf') {
-                            var str = _.template(templates['tab-file'])({
+                            var str = sb.setTemplate('tab-file', {
                                 maskedVersionId: maskedVersionId,
                                 versionId: data.versionId
                             });
                             // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
                             $('.dv-tab-panel-section').prepend(str);
-                            $('.pdfs-container').append(_.template(templates['pdf-viewer'])({data: data}));
+                            $('.pdfs-container').append(sb.setTemplate('pdf-viewer', {data: data}));
 
                             new paintPdf({
                                 url: sb.getRelativePath(data.documentPath),
@@ -201,13 +201,13 @@ sb.router = {
                         }
                         // Image viewer 
                         else if(data.type.indexOf('image') > -1){
-                            var str = _.template(templates['tab-img'])({
+                            var str = sb.setTemplate('tab-img', {
                                 maskedVersionId: maskedVersionId,
                                 versionId: data.versionId
                             });
                             // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
                             $('.dv-tab-panel-section').prepend(str);
-                            $('.pdfs-container').append(_.template(templates['image-viewer'])({data: data}));
+                            $('.pdfs-container').append(sb.setTemplate('image-viewer', {data: data}));
                             // $('.pdfs-container').append('')
                         }
                         sb.setVersionIdForMaskedId(this, data.versionId);

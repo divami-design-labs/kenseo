@@ -3,7 +3,7 @@
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-left-section">
 		<%= 
-			_.template(templates['popup-meta-content'])({
+			sb.setTemplate('popup-meta-content', {
 				'data': {
 					project: true,
 					file: true,

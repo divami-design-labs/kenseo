@@ -22,7 +22,9 @@ Kenseo.views.Project = Backbone.View.extend({
     // The DOM Element associated with this view
     tagName: 'div',
     className: 'project-block',
-    template: _.template(templates['project-section']),
+    template: function(data){
+        return sb.setTemplate('project-section', data)
+    },
     // View constructor
     initialize: function initialize() {
         if(this.model){

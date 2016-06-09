@@ -1,7 +1,9 @@
 Kenseo.views.Notifications = Backbone.View.extend({
     // The DOM Element associated with this view
     el: '.notifications-content',
-    template: _.template(templates['db-notifications']),
+    template: function(data){
+        return sb.setTemplate('db-notifications', data)
+    },
     // View constructor
     initialize: function initialize(payload) {
         this.data = payload.data;
@@ -11,7 +13,7 @@ Kenseo.views.Notifications = Backbone.View.extend({
     render: function render() {
         var _this = this;
         sb.fetch(this.collection, this.data, function (collection, response, options) {
-            var html = _.template(templates['db-notifications'])({ data: response.data });
+            var html = sb.setTemplate('db-notifications', { data: response.data });
             _this.$el.html(html);
         });
         return this;
@@ -22,7 +24,7 @@ Kenseo.views.Notifications = Backbone.View.extend({
 //     // The DOM Element associated with this view
 //     tagName: 'div',
 //     className: 'review-request-item',
-//     template: _.template(templates['notification']),
+//     template: sb.setTemplate('notification'),
 //     // View constructor
 //     initialize: function() {
 

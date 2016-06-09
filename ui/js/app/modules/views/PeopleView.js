@@ -23,7 +23,7 @@ Kenseo.views.Person = Backbone.View.extend({
     // The DOM Element associated with this view
     tagName: 'div',
     className: 'people-item-holder',
-    template: _.template(templates['person']),
+    template: sb.setTemplate('person'),
     // View constructor
     initialize: function initialize() {},
     render: function render() {

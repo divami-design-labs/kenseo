@@ -3,11 +3,12 @@
 global $AppGlobal;
 
 $AppGlobal['log'] = array();
-$AppGlobal['log']['path'] = "/var/tmp/kenseo.log" ;
+$AppGlobal['log']['path'] = "/Users/venkateshwar/Documents/Projects/kenseo/error.log" ;
 $AppGlobal['log']['mode'] = "ON" ;
 $AppGlobal['log']['modules'] = "ALL" ;
-$AppGlobal['global']['domain'] = "https://kenseo.divami.com/";
 
+$AppGlobal['global']['domain'] = "http://localhost/kenseo/";
+$AppGlobal['store']['path'] = "/Applications/venkateshwar/Documents/Projects/kenseo/";
 $AppGlobal['gloabl']['storeLocation'] = "media/";
 
 $AppGlobal['cache'] = array();

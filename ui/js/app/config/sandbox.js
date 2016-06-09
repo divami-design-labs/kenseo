@@ -164,7 +164,7 @@ var sb = (function () {
                 contentType: contentType,
                 processData: processData,
                 success: function success(response) {
-                    try {
+                    // try {
                         var response = JSON.parse(response);
                         if (response.status == 'success') {
                             if (!payload.excludeDump) {
@@ -172,14 +172,16 @@ var sb = (function () {
                             }
                             payload.success(response);
                         } else {
-                            window.location.assign(DOMAIN_ROOT_URL);
+                            // window.location.assign(DOMAIN_ROOT_URL);
                         }
-                    } catch (ex) {
-                        // Catching the exception
-                        sb.log("Below error is in ajax request");
-                        console.error(ex);
-                        // Redirecting to the Dashboard
-                    }
+                    // }
+                    // catch(ex){
+                    //     // Catching the exception
+                    //     sb.log("Below error is in ajax request");
+                    //     console.error(ex);
+                    //     // Redirecting to the Dashboard
+
+                    // }
                 }
             });
         },
@@ -283,7 +285,7 @@ var sb = (function () {
             }
         },
         noItemsTemplate: function noItemsTemplate(p) {
-            return _.template(templates['no-items'])({
+            return sb.setTemplate('no-items', {
                 data: p.noData || {}
             });
         },
@@ -310,7 +312,7 @@ var sb = (function () {
             var template = templates[p.templateName];
             // Setting the view's template property using the Underscore template method
             // Backbone will automatically include Underscore plugin in it.
-            var compiler = _.template(template);
+            // var compiler = sb.setTemplate(p.templateName);
             var url = sb.getUrl(p);
             if (url) {
                 sb.ajaxCall({
@@ -319,10 +321,10 @@ var sb = (function () {
                     'success': function success(obj) {
                         if (p.templateHolder) {
                             if(p.append){
-                                p.templateHolder.append(compiler(obj));
+                                p.templateHolder.append(sb.setTemplate(p.templateName, obj));
                             }
                             else{
-                                p.templateHolder.html(compiler(obj));
+                                p.templateHolder.html(sb.setTemplate(p.templateName, obj));
                             }
                         }
                         if (p.callbackfunc) {
@@ -332,10 +334,10 @@ var sb = (function () {
                 });
             } else {
                 if(p.append){
-                    p.templateHolder.append(compiler(p.data));
+                    p.templateHolder.append(sb.setTemplate(p.templateName, p.data));
                 }
                 else{
-                    p.templateHolder.html(compiler(p.data));
+                    p.templateHolder.html(sb.setTemplate(p.templateName, p.data));
                 }
                 if (p.callbackfunc) {
                     p.callbackfunc();
@@ -344,7 +346,7 @@ var sb = (function () {
         },
         setTemplate: function(str, data){
             data = data || {};
-            return _.template(templates[str])(data);
+            return _.template(templates[str](data))();
         },
         getDate: function getDate(time) {
             // Refer: http://stackoverflow.com/a/10589791/1577396
@@ -657,20 +659,54 @@ var sb = (function () {
                 }
             }
         },
+        callOverlay: function callPopup(index) {
+            var allPopups = $('.overlay');
+            var $popup = allPopups.eq(index);
+            if($popup.length){
+                allPopups.addClass('hide');
+                $popup.removeClass('hide');
+
+                // Storing current popup root element
+                Kenseo.current.popup = $popup; 
+            }
+            else{
+                $('.overlay').addClass('hide');
+                var info = Kenseo.popup.info[index];
+                _.extend(info, {'index': index});
+
+                var $templateHolder = $('.popup-container');
+
+                sb.renderTemplate({
+                    'templateName': info.page_name,
+                    'templateHolder': $templateHolder,
+                    'append': true,
+                    'data': {
+                        'data': info
+                    }
+                });
+
+                // Storing current popup root element
+                Kenseo.current.popup = $templateHolder.find('.overlay').last();
+
+                if (info.callbackfunc) {
+                    info.callbackfunc();
+                }
+            }
+        },
         toolbox: {
             textBox: function textBox(data) {
-                return _.template(templates['textbox'])({
+                return sb.setTemplate('textbox', {
                     data: data
                 });
             },
             buttons: function buttons(data) {
-                return _.template(templates['buttons'])(data);
+                return sb.setTemplate('buttons', data);
             },
             button: function button(data){
-                return _.template(templates['button'])(data);
+                return sb.setTemplate('button', data);
             },
             comboBox: function comboBox(data) {
-                return _.template(templates['combobox'])({
+                return sb.setTemplate('combobox', {
                     'data': data
                 });
             },
@@ -681,7 +717,7 @@ var sb = (function () {
                 return combobox;
             },
             checkbox: function checkbox(data){
-                return _.template(templates['checkbox'])({data: data || {}});
+                return sb.setTemplate('checkbox', {data: data || {}});
             }
         },
         getCurrentDocumentData: function(id){
