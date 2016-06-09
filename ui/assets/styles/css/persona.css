@@ -77,6 +77,14 @@
   width: 33.333%;
 }
 
+.persona-cards-holder--mid {
+  text-align: center;
+}
+
+.persona-cards-holder--right {
+  text-align: right;
+}
+
 .template-section:hover > .template-section--close {
   display: block;
 }
@@ -106,6 +114,7 @@
   box-sizing: border-box;
   padding: 10px;
   position: relative;
+  text-align: left;
 }
 
 .persona-card + .persona-card {
@@ -133,6 +142,8 @@
   font-size: 15px;
   font-family: "OpenSansBold";
   text-transform: uppercase;
+  position: relative;
+  z-index: 1;
 }
 
 .persona-name {
@@ -286,6 +297,8 @@
   height: 100%;
   width: 40%;
   background-color: #4B68B5;
+  -webkit-transition: .3s width;
+  transition: .3s width;
 }
 
 .persona-indicator-name {
@@ -330,19 +343,24 @@
   width: 200px;
   padding: 10px;
   display: inline-block;
-  vertical-align: top;
+  vertical-align: middle;
   text-align: left;
+  position: relative;
+}
+
+.persona-action-buttons {
   position: fixed;
   left: 0;
   right: 0;
   margin: auto;
   top: 32px;
   z-index: 12;
-  opacity: 0.3;
+  text-align: center;
 }
 
-.add-widget-section:hover {
-  opacity: 1;
+.save-persona-button {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .widget-item-name {
@@ -362,6 +380,15 @@
   padding: 5px;
   border: none;
   box-shadow: inset 0px 0px 0px 1px #676767;
+  opacity: 0.3;
+}
+
+.add-widget-btn:hover {
+  opacity: 1;
+}
+
+.add-widget-btn.active {
+  opacity: 1;
 }
 
 .add-widget-btn.active .widget-add {

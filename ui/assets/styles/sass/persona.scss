@@ -42,6 +42,12 @@
 		float: left; 
 		width: 33.333%;
 	}
+	&--mid{
+		text-align: center;
+	}
+	&--right{
+		text-align: right;
+	}
 }
 
 .template-section{
@@ -75,6 +81,7 @@
     box-sizing: border-box;
     padding: 10px;
     position: relative;
+    text-align: left;
     & + & {
 		padding-top: 20px;
 	}
@@ -99,6 +106,8 @@
 	font-size: 15px;
 	font-family: $boldFont;
 	text-transform: uppercase;
+	position: relative;
+	z-index: 1;
 }
 
 .persona-name{
@@ -243,6 +252,7 @@
 		height: 100%;
 		width: 40%;
 		background-color: #4B68B5;
+		transition: .3s width;
 	}
 	&-name{
 		color: #7D7D7D;
@@ -286,18 +296,23 @@
 	width: 200px;
 	padding: 10px;
 	display: inline-block;
-	vertical-align: top;
+	vertical-align: middle;
 	text-align: left;
+	position: relative;
+
+}
+.persona-action-buttons{
 	position: fixed;
 	left: 0;
 	right: 0;
 	margin: auto;
 	top: 32px;
 	z-index: 12;
-	opacity: 0.3;
-	&:hover{
-		opacity: 1;
-	}
+	text-align: center;
+}
+.save-persona-button{
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .widget-item-name{
@@ -315,7 +330,12 @@
 	padding: 5px;
 	border: none;
 	box-shadow: inset 0px 0px 0px 1px #676767;
+	opacity: 0.3;
+	&:hover{
+		opacity: 1;
+	}
 	&.active {
+		opacity: 1;
 		.widget-add {
 	  		transform: rotate(45deg);
 		}
