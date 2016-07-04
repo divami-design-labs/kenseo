@@ -1260,6 +1260,115 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['header'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ if(data.picture !== "assets/imgs/avatar.svg"){ ;
+__p += '\r\n\t<img width="50" height="50" src="' +
+((__t = ( data.picture )) == null ? '' : __t) +
+'"/>\r\n';
+ } else { ;
+__p += '\r\n\t<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>\r\n';
+ } ;
+__p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item">Profile</div>\r\n    <div class="sub-menu-item">Settings</div>\r\n    <div class="separator"></div>\r\n    <div class="sub-menu-item">Log Out</div>\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['search-results'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ _.each(data.projects, function(p){ ;
+__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-folder">\r\n    \t<svg><use xlink:href="#search-folder"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
+((__t = ( p.matchedString )) == null ? '' : __t) +
+'</div> \r\n</div>\r\n';
+ }); ;
+__p += '\r\n';
+ _.each(data.artefacts, function(a){ ;
+__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-file">\r\n    \t<svg><use xlink:href="#search-file"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
+((__t = ( a.matchedString )) == null ? '' : __t) +
+'</div> \r\n</div>\r\n';
+ }); ;
+__p += '\r\n';
+ _.each(data.images, function(i){ ;
+__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-pic">\r\n    \t<svg><use xlink:href="#search-pic"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
+((__t = ( i.matchedString )) == null ? '' : __t) +
+'</div> \r\n</div>\r\n';
+ }); ;
+__p += '\r\n';
+ _.each(data.users, function(u){ ;
+__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-folder">\r\n    \t<svg><use xlink:href="#search-folder"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
+((__t = ( u.matchedString )) == null ? '' : __t) +
+'</div> \r\n</div>\r\n';
+ }); ;
+
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['search'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="search-section">\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['artefact'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -1655,115 +1764,6 @@ __p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div c
 '\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t';
  } ;
 __p += '\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['header'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- if(data.picture !== "assets/imgs/avatar.svg"){ ;
-__p += '\r\n\t<img width="50" height="50" src="' +
-((__t = ( data.picture )) == null ? '' : __t) +
-'"/>\r\n';
- } else { ;
-__p += '\r\n\t<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>\r\n';
- } ;
-__p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item">Profile</div>\r\n    <div class="sub-menu-item">Settings</div>\r\n    <div class="separator"></div>\r\n    <div class="sub-menu-item">Log Out</div>\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['search-results'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- _.each(data.projects, function(p){ ;
-__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-folder">\r\n    \t<svg><use xlink:href="#search-folder"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
-((__t = ( p.matchedString )) == null ? '' : __t) +
-'</div> \r\n</div>\r\n';
- }); ;
-__p += '\r\n';
- _.each(data.artefacts, function(a){ ;
-__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-file">\r\n    \t<svg><use xlink:href="#search-file"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
-((__t = ( a.matchedString )) == null ? '' : __t) +
-'</div> \r\n</div>\r\n';
- }); ;
-__p += '\r\n';
- _.each(data.images, function(i){ ;
-__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-pic">\r\n    \t<svg><use xlink:href="#search-pic"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
-((__t = ( i.matchedString )) == null ? '' : __t) +
-'</div> \r\n</div>\r\n';
- }); ;
-__p += '\r\n';
- _.each(data.users, function(u){ ;
-__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-folder">\r\n    \t<svg><use xlink:href="#search-folder"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
-((__t = ( u.matchedString )) == null ? '' : __t) +
-'</div> \r\n</div>\r\n';
- }); ;
-
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['search'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="search-section">\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>';
 
 }
 return __p
@@ -2227,6 +2227,148 @@ __p += '\r\n\t\t\t                <div class="linked-item" title="' +
 '\r\n\t\t\t                </div>\r\n\t\t                ';
  }); ;
 __p += '\r\n\t                </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['activities'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+
+	var newData = sb.getDayWiseData(data)
+;
+__p += '\r\n';
+ 
+	var svgicons = {
+		"user-added": "#icon11",
+		"artefact-share": "#icon11",
+		"artefact-approved": "#file12",
+		"artefact-added": "#addfile",
+		"artefact-comment": "#icon15",
+		"meeting-added": "#icon4",
+		"user-removed": "#icon2"
+	}
+;
+__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">Activity</div>\r\n\t</div>\r\n</div>\r\n<div class="activity-section-content sub-section-content">\r\n\t';
+ if(newData){ ;
+__p += '\r\n\t';
+ for(var key in newData){ ;
+__p += '\r\n\t<div class="day-activity">\r\n\t\t<div class="day-activity-label">\r\n\t\t\t' +
+((__t = ( key )) == null ? '' : __t) +
+'\r\n\t\t</div>\r\n\t\t<div class="day-activity-section">\r\n\t\t\t';
+ _.each(newData[key], function(a){ ;
+__p += '\r\n\t\t\t\t';
+ var activityTypeX = a.activityOn.toLowerCase() + "-" + a.activityType.toLowerCase() ;
+__p += '\r\n\t\t\t\t';
+ console.log(activityTypeX) ;
+__p += '\r\n\t\t\t<div class="activity-holder">\r\n\t\t\t\t<div class="activity-left">\r\n\t\t\t\t\t<div class="activity-icon">\r\n\t\t\t\t\t\t<svg><use xlink:href="' +
+((__t = ( svgicons[activityTypeX] )) == null ? '' : __t) +
+'"></use></svg>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="activity-right">\r\n\t\t\t\t\t<div class="activity-title ellipsis" title="' +
+((__t = ( a.activityName )) == null ? '' : __t) +
+'">' +
+((__t = ( a.project_name )) == null ? '' : __t) +
+': \r\n\t\t\t\t\t\t';
+ if(a.activityType.toLowerCase() === "removed" && a.activityName.toLowerCase() === "user"){ ;
+__p += '\r\n\t\t\t\t\t\t\t' +
+((__t = ( a.activityType )) == null ? '' : __t) +
+' ' +
+((__t = ( a.activityName )) == null ? '' : __t) +
+'\t\r\n\t\t\t\t\t\t';
+ } else { ;
+__p += '\r\n\t\t\t\t\t\t\t' +
+((__t = ( a.activityName )) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t';
+ } ;
+__p += '\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="activity-details ellipsis" title="' +
+((__t = ( a.doneBy )) == null ? '' : __t) +
+'">\r\n\t\t\t\t\t\t<div class="activity-time">' +
+((__t = ( sb.timeFormat(a.time) )) == null ? '' : __t) +
+'</div>\r\n\t\t\t\t\t\t<div class="activity-sender"> by ' +
+((__t = ( a.doneBy )) == null ? '' : __t) +
+'</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t';
+ }); ;
+__p += '\r\n\t\t</div>\r\n\t</div>\r\n\t';
+ } ;
+__p += '\r\n\t';
+ } else{ ;
+__p += '\r\n\t<div class="no-items">\r\n\t\tNo activies yet\r\n\t</div>\r\n\t';
+ } ;
+__p += '\r\n</div>\r\n\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['people'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">People</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-people">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="people-section-content sub-section-content">\r\n\t\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['project-page'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="project-heading data-holder" data-key="projects" data-id="' +
+((__t = ( Kenseo.page.id )) == null ? '' : __t) +
+'">\r\n\t<div class="projects-heading-icon">\r\n\t\t<svg><use xlink:href="#projects"></use></svg>\r\n\t</div>\r\n\t<a href="#projects" class="heading-text-project">Projects > </a>\r\n\t<span class="heading-text-project-name">' +
+((__t = ( Kenseo.page.data.project.name )) == null ? '' : __t) +
+'</span>\r\n\t<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">\r\n\t\t<div class="sub-heading-more-icon">\r\n\t\t\t<svg><use xlink:href="#more"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="sub-menu-holder right-nav bottom-nav">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="create-meeting">Create a Meeting</div>\r\n\t\t\t<div class="sub-menu-item">Share a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click hide">Delete a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-section-content data-holder" data-key="projects" data-id="' +
+((__t = ( Kenseo.page.id )) == null ? '' : __t) +
+'">\r\n\t<div class="artifacts-section review-requests-content sub-section">\r\n\t\t\r\n\t</div>\r\n\r\n\t<div class="activity-section sub-section">\r\n\t\t\r\n\t</div>\r\n\t<div class="people-section sub-section">\r\n\t\t\r\n\t</div>\r\n\r\n</div>\r\n';
 
 }
 return __p
@@ -2786,148 +2928,6 @@ __p += '<div class="popup-header">\r\n\t' +
 __p += '\r\n\t<div class="popup-close-icon">\r\n\t\t<svg><use xlink:href="#close"></use></svg>\r\n\t</div>\r\n\t';
  } ;
 __p += '\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['activities'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
-
-	var newData = sb.getDayWiseData(data)
-;
-__p += '\r\n';
- 
-	var svgicons = {
-		"user-added": "#icon11",
-		"artefact-share": "#icon11",
-		"artefact-approved": "#file12",
-		"artefact-added": "#addfile",
-		"artefact-comment": "#icon15",
-		"meeting-added": "#icon4",
-		"user-removed": "#icon2"
-	}
-;
-__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">Activity</div>\r\n\t</div>\r\n</div>\r\n<div class="activity-section-content sub-section-content">\r\n\t';
- if(newData){ ;
-__p += '\r\n\t';
- for(var key in newData){ ;
-__p += '\r\n\t<div class="day-activity">\r\n\t\t<div class="day-activity-label">\r\n\t\t\t' +
-((__t = ( key )) == null ? '' : __t) +
-'\r\n\t\t</div>\r\n\t\t<div class="day-activity-section">\r\n\t\t\t';
- _.each(newData[key], function(a){ ;
-__p += '\r\n\t\t\t\t';
- var activityTypeX = a.activityOn.toLowerCase() + "-" + a.activityType.toLowerCase() ;
-__p += '\r\n\t\t\t\t';
- console.log(activityTypeX) ;
-__p += '\r\n\t\t\t<div class="activity-holder">\r\n\t\t\t\t<div class="activity-left">\r\n\t\t\t\t\t<div class="activity-icon">\r\n\t\t\t\t\t\t<svg><use xlink:href="' +
-((__t = ( svgicons[activityTypeX] )) == null ? '' : __t) +
-'"></use></svg>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="activity-right">\r\n\t\t\t\t\t<div class="activity-title ellipsis" title="' +
-((__t = ( a.activityName )) == null ? '' : __t) +
-'">' +
-((__t = ( a.project_name )) == null ? '' : __t) +
-': \r\n\t\t\t\t\t\t';
- if(a.activityType.toLowerCase() === "removed" && a.activityName.toLowerCase() === "user"){ ;
-__p += '\r\n\t\t\t\t\t\t\t' +
-((__t = ( a.activityType )) == null ? '' : __t) +
-' ' +
-((__t = ( a.activityName )) == null ? '' : __t) +
-'\t\r\n\t\t\t\t\t\t';
- } else { ;
-__p += '\r\n\t\t\t\t\t\t\t' +
-((__t = ( a.activityName )) == null ? '' : __t) +
-'\r\n\t\t\t\t\t\t';
- } ;
-__p += '\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="activity-details ellipsis" title="' +
-((__t = ( a.doneBy )) == null ? '' : __t) +
-'">\r\n\t\t\t\t\t\t<div class="activity-time">' +
-((__t = ( sb.timeFormat(a.time) )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t\t\t<div class="activity-sender"> by ' +
-((__t = ( a.doneBy )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t';
- }); ;
-__p += '\r\n\t\t</div>\r\n\t</div>\r\n\t';
- } ;
-__p += '\r\n\t';
- } else{ ;
-__p += '\r\n\t<div class="no-items">\r\n\t\tNo activies yet\r\n\t</div>\r\n\t';
- } ;
-__p += '\r\n</div>\r\n\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['people'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">People</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-people">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="people-section-content sub-section-content">\r\n\t\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['project-page'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="project-heading data-holder" data-key="projects" data-id="' +
-((__t = ( Kenseo.page.id )) == null ? '' : __t) +
-'">\r\n\t<div class="projects-heading-icon">\r\n\t\t<svg><use xlink:href="#projects"></use></svg>\r\n\t</div>\r\n\t<a href="#projects" class="heading-text-project">Projects > </a>\r\n\t<span class="heading-text-project-name">' +
-((__t = ( Kenseo.page.data.project.name )) == null ? '' : __t) +
-'</span>\r\n\t<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">\r\n\t\t<div class="sub-heading-more-icon">\r\n\t\t\t<svg><use xlink:href="#more"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="sub-menu-holder right-nav bottom-nav">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="create-meeting">Create a Meeting</div>\r\n\t\t\t<div class="sub-menu-item">Share a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click hide">Delete a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-section-content data-holder" data-key="projects" data-id="' +
-((__t = ( Kenseo.page.id )) == null ? '' : __t) +
-'">\r\n\t<div class="artifacts-section review-requests-content sub-section">\r\n\t\t\r\n\t</div>\r\n\r\n\t<div class="activity-section sub-section">\r\n\t\t\r\n\t</div>\r\n\t<div class="people-section sub-section">\r\n\t\t\r\n\t</div>\r\n\r\n</div>\r\n';
 
 }
 return __p
