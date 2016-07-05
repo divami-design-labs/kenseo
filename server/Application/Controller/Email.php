@@ -54,5 +54,19 @@
 
             $this->sendMail($dump);
         }
+
+        public function addUser($info){
+            // Send mail to project members
+            $mailData = new stdClass();
+            $mailData->to = $info->emails;
+
+            $mailData->subject = $info->projectname . ": New User is added by '" . $info->user . "'";
+
+            $mailData->message = "New user '" . $info->screenname . "' is added to '" . $info->projectname . "' project by '" . $info->user . "'";
+
+            // Not using $this to avoid referencing to the called class
+            Email::sendMail($mailData);
+
+        }
     }
 ?>

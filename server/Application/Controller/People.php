@@ -50,7 +50,7 @@
 
 		public function addPeople($interpreter) {
             require_once('Email.php');
-            
+
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
 
@@ -131,20 +131,12 @@
 				// Add
 
 				$result->message = "People added successfully.";
-
-                // Send mail to project members
-                $mailData = new stdClass();
                 $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMail', array(
                     "projectid" => $projectId,
                     "userid" => $userId
                 )));
-                $mailData->to = $mailInfo->emails;
 
-                $mailData->subject = $mailInfo->project . ": New User is added by '" . $mailInfo->user . "'";
-
-                $mailData->message = "New user '" . $mailInfo->screenname . "' is added to '" . $mailInfo->project . "' project by '" . $mailInfo->user . "'";
-
-                Email::sendMail($mailData);
+                Email::addUser($mailInfo);
 
                 $db->commitTransaction();
 				return $result;
