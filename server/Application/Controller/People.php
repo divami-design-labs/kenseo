@@ -49,12 +49,14 @@
 		}
 
 		public function addPeople($interpreter) {
+            require_once('Email.php');
+            
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
 
 			$projectId = $data->project_id;
 			$accessType = $data->access_type;
-			$groupType = $data->group_type ? $data->group_type : 'I';
+			$groupType = isset($data->group_type) ? $data->group_type : 'I';
 
 			$users = $data->users;
 			$count = count($users);
@@ -132,7 +134,7 @@
 
                 // Send mail to project members
                 $mailData = new stdClass();
-                $mailInfo = $db->singleObjectQuery(query('getOtherProjectMembersMail', array(
+                $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMail', array(
                     "projectid" => $projectId,
                     "userid" => $userId
                 )));
