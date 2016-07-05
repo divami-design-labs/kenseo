@@ -10,11 +10,11 @@
         public function sendMail($dump){
             $result = new stdClass();
             //  $from = "sivakumar@gmail.com";
-            $from = $dump->from;
+            $from = "venkateshwar@divami.com"; //$dump->from;
             //  $to = "narendra@divami.com";
             $to = $dump->to;
             //  $subject = "Test HTML mail";
-            $subject = $dump->subject;
+            $subject = "[Kenseo] " . $dump->subject;
 
             $headers = "From: $from\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
@@ -51,7 +51,7 @@
             $dump->to = "venkateshwar@divami.com";
             $dump->subject = "Hello";
             $dump->message = "Hey";
-            
+
             $this->sendMail($dump);
         }
     }

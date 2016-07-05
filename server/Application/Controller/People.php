@@ -125,12 +125,26 @@
 
 				// Add users to the project.
 				$db->replaceMultipleRow(TABLE_PROJECT_MEMBERS, $pr_members_columns, $pr_members_values);
-				$db->commitTransaction();
 
 				// Add
 
 				$result->message = "People added successfully.";
 
+                // Send mail to project members
+                $mailData = new stdClass();
+                $mailInfo = $db->singleObjectQuery(query('getOtherProjectMembersMail', array(
+                    "projectid" => $projectId,
+                    "userid" => $userId
+                )));
+                $mailData->to = $mailInfo->emails;
+
+                $mailData->subject = $mailInfo->project . ": New User is added by '" . $mailInfo->user . "'";
+
+                $mailData->message = "New user '" . $mailInfo->screenname . "' is added to '" . $mailInfo->project . "' project by '" . $mailInfo->user . "'";
+
+                Email::sendMail($mailData);
+
+                $db->commitTransaction();
 				return $result;
 			}
 		}
