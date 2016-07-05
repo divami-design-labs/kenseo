@@ -13,7 +13,7 @@
     	public function getProjectsPeople($interpreter) {
     		$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
-			
+
 			if($data->limit) {
 				$limit  =  $data->limit;
 			} else {
@@ -29,23 +29,23 @@
 			$db = Master::getDBConnectionManager();
 			$querDetails = getQuery($query,array('userid'=>$userId, '@limit' => $limit, 'projectId' => $projectId));
 			$resultObj = $db->multiObjectQuery($querDetails);
-			return $resultObj; 
+			return $resultObj;
     	}
 		public function getTeamMembersList($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
 			$projectId = $data->projectId;
-			
+
 			$db = Master::getDBConnectionManager();
-			
+
 			$queryParams = array('userId' => $userId, 'projectId' => $projectId );
-			
+
 			$dbQuery = getQuery('getTeamMembersList',$queryParams);
-			
+
 			$resultObj = $db->multiObjectQuery($dbQuery);
-			
+
 			return $resultObj;
-			
+
 		}
 
 		public function addPeople($interpreter) {
@@ -55,7 +55,7 @@
 			$projectId = $data->project_id;
 			$accessType = $data->access_type;
 			$groupType = $data->group_type ? $data->group_type : 'I';
-			
+
 			$users = $data->users;
 			$count = count($users);
 			for($i=0; $i<$count; $i++) {
@@ -73,10 +73,16 @@
 			$actualCount = count($users);
 
 			$result = new stdClass();
-			if($count != $actualCount) {
+            if($actualCount == 0){
+                $result->status = "fail";
+                $result->message = "No user found with that mail";
+                return $result;
+            }
+			else if($actualCount > 0 && $count != $actualCount) {
 				$result->message = "Some of the users are not exists in DB.";
 				return $result;
-			} else {
+			}
+            else {
 				// Get project artefacts with versions
 				$params = array('projectId' => $projectId);
 				$query = getQuery('getAllArtefactsOfProject', $params);
@@ -121,38 +127,39 @@
 				$db->replaceMultipleRow(TABLE_PROJECT_MEMBERS, $pr_members_columns, $pr_members_values);
 				$db->commitTransaction();
 
-				// Add 
+				// Add
 
 				$result->message = "People added successfully.";
+
 				return $result;
 			}
 		}
-		
+
 		public function removePeople($interpreter) {
 			$data = $interpreter->getData()->data;
 			$projectId = $data->project_id;
 			$peopleId = $data->id;	// This is people id
-			
+
 			//remove people
 			$db = Master::getDBConnectionManager();
 			$db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId . " and user_id =" . $peopleId);
-			
-			return true;		
+
+			return true;
 		}
-		
+
 		public function getOthersAndProjectPeople($interpreter) {
 			$data = $interpreter->getData()->data;
 			$projectId = $data->projectId;
-			
+
 			$teamMembers = $this->getTeamMembersList($interpreter);
-			
+
 			$db = Master::getDBConnectionManager();
 			$queryParams = array('projectId' => $projectId );
-			
+
 			$dbQuery = getQuery('getOtherMembersList',$queryParams);
-			
+
 			$otherMembers = $db->multiObjectQuery($dbQuery);
-			
+
 			$resultObj = array(
 				otherMembers => $otherMembers,
 				teamMembers => $teamMembers

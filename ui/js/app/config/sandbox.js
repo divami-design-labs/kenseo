@@ -172,14 +172,16 @@ var sb = (function () {
                             }
                             payload.success(response);
                         } else {
-                            window.location.assign(DOMAIN_ROOT_URL);
+                            // window.location.assign(DOMAIN_ROOT_URL);
                         }
-                    } catch (ex) {
-                        // Catching the exception
-                        sb.log("Below error is in ajax request");
-                        console.error(ex);
-                        // Redirecting to the Dashboard
-                    }
+                    // }
+                    // catch(ex){
+                    //     // Catching the exception
+                    //     sb.log("Below error is in ajax request");
+                    //     console.error(ex);
+                    //     // Redirecting to the Dashboard
+
+                    // }
                 }
             });
         },

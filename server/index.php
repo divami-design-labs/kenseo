@@ -9,7 +9,7 @@ require_once("main.php");
 
 /*
  * We want to do the following:
- * 
+ *
  * -1: Handle Logout (clear session variables, destroy session, notify Google to revoke token)
  * 0. Handle redirects. (Here is where creating a new session will be handled)
  * 1. First check the session for a valid SID - We will use (set) KenseoSID to indicate we have an active session (same as Session ID)
@@ -29,19 +29,19 @@ try
 	$urlParts = explode('.', $url);
 	$project = "kenseo";
 	$authenticator = new Authenticator($project);
-	
+
 	if (isset($_REQUEST['logout'])) {
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Logout");
 		$authenticator->invalidateSession();
-		
+
 		//@TODO - Figure out where to go from here. - for now, redirect to google login page
 		$redirectURL = $AppGlobal['googleauth'][$project]['redirectURL'];
 		util_redirectToURL("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=$redirectURL");
 	} else if (isset($_GET['code'])) {
 		// We are here from a redirect. And we got the authentication code from Google!
-		
+
 		$token = $authenticator->setGoogleAuthCode($_GET['code']);
-		
+
 		if ($token) {
 			$userId = $authenticator->startNewSession();
 			if (!$userId) {
@@ -69,7 +69,7 @@ try
 		// Not needed anymore -- $authenticator->setUserInfoCookies();
 		util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.html');
 	}
-	
+
 } catch (CustomeException $exception) {
 	Master::getLogManager()->logException($exception, MOD_MAIN);
 	$result = Result::exceptionResult($exception);
