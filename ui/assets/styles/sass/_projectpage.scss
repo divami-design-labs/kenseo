@@ -31,7 +31,7 @@
     fill: #454C62;
 }
 .add-icon.big{
-    @include elementWithBackground("add.svg", 28px, 28px);   
+    @include elementWithBackground("add.svg", 28px, 28px);
 }
 .sub-section-content{
 	padding-top: 20px;
@@ -125,7 +125,7 @@
 .artifacts-content.sub-section-content.linked-artefacts .review-request-item {
     $b: 1px solid #cbd0d3;
     $s: 10px;
-    $h: 57px;    
+    $h: 57px;
     $mT: 55px;
     $xlMT: 92px;
     $xxlMT: 130px;
@@ -145,7 +145,7 @@
     }
     &[data-pass="0"] .rr-status:after,&[data-pass="0"] .rr-status:before{
         display: none !important;
-    }       
+    }
     &[data-pass="1"] .rr-status:after{
         border-bottom: $b;
     }
@@ -220,6 +220,11 @@
     display: inline-block;
     vertical-align: middle;
 }
+.people-remove-icon, .people-manage-icon{
+	fill: #efeff0;
+    margin-left: -8px;
+    margin-right: 8px;
+}
 .people-manage-icon{
     /*@include listImage('lock1.svg', 15px, 15px);*/
     width: 15px;
@@ -266,7 +271,7 @@
         .activity-icon{
             @include elementWithBackground("icon4.svg", 34px, 38px);
         }
-    }   
+    }
     .user-removed-activity-type{
         .activity-icon{
             @include elementWithBackground("icon2.svg", 34px, 38px);

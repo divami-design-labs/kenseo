@@ -1,4 +1,5 @@
 <?php
+    require_once('Email.php');
     class People {
     	public function getPeople($interpreter){
     		$data = $interpreter->getData()->data;
@@ -49,7 +50,6 @@
 		}
 
 		public function addPeople($interpreter) {
-            require_once('Email.php');
 
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
@@ -64,6 +64,7 @@
 				$users[$i] = "'" . $users[$i] . "'";
 			}
 
+
 			// Get DB Connection and start new transaction
 			$db = Master::getDBConnectionManager();
 			$db->beginTransaction();
@@ -73,6 +74,11 @@
 			$query = getQuery('getUserIdsFromEmails', $queryParams);
 			$users = $db->multiObjectQuery($query);
 			$actualCount = count($users);
+
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, "users in implode");
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, implode(array_map(function($c){ return $c->{'user_id'}; }, $users), ","));
+
+            $addedUserIds = array_map(function($c){ return $c->{'user_id'}; }, $users);
 
 			$result = new stdClass();
             if($actualCount == 0){
@@ -133,7 +139,8 @@
 				$result->message = "People added successfully.";
                 $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMail', array(
                     "projectid" => $projectId,
-                    "userid" => $userId
+                    "userid" => $userId,
+                    "@addeduserids" => join(",", $addedUserIds)
                 )));
 
                 Email::addUser($mailInfo);

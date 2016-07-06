@@ -451,13 +451,26 @@ $AppGlobal['sql']['getUserIdsFromEmails'] = "SELECT user_id FROM " . TABLE_USERS
 $AppGlobal['sql']['getProjectMembers'] = "SELECT * FROM " . TABLE_PROJECT_MEMBERS . " WHERE proj_id = @~~project_id~~@";
 
 
-$AppGlobal['sql']['getOtherProjectMembersMail'] = "SELECT (select t4.screen_name from users t4 where user_id = @~~userid~~@) as user,
-													GROUP_CONCAT(t2.email SEPARATOR ',') as emails,
-													GROUP_CONCAT(t2.screen_name SEPARATOR ', ') as screenname,
-													t3.project_name as projectname FROM project_members t1
-													JOIN users t2 ON t2.user_id = t1.user_id
-													JOIN projects t3 ON t3.project_id = t1.proj_id
-													WHERE proj_id = @~~projectid~~@ and t1.user_id != @~~userid~~@";
+$AppGlobal['sql']['getOtherProjectMembersMail'] = "SELECT
+														(
+															select
+																t4.screen_name
+															from
+																users t4
+															where
+																user_id = 1
+														) as activity_done_user,
+														(SELECT GROUP_CONCAT(t5.screen_name SEPARATOR ', ') FROM users as t5 WHERE user_id in (@~~addeduserids~~@)) as added_users,
+														GROUP_CONCAT(t2.email SEPARATOR ', ') as emails,
+														GROUP_CONCAT(t2.screen_name SEPARATOR ',') as users,
+														t3.project_name as project_name
+													FROM
+														project_members t1
+														JOIN users t2 ON t2.user_id = t1.user_id
+														JOIN projects t3 ON t3.project_id = t1.proj_id
+													WHERE
+														proj_id = @~~projectid~~@
+														and t1.user_id != @~~userid~~@";
 
 // Get artefacts & versions of a project
 $AppGlobal['sql']['getAllArtefactsOfProject'] = "SELECT a.artefact_id, v.artefact_ver_id FROM " . TABLE_ARTEFACTS . " a JOIN " .

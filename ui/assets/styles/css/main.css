@@ -1937,6 +1937,12 @@ svg {
   vertical-align: middle;
 }
 
+.people-remove-icon, .people-manage-icon {
+  fill: #efeff0;
+  margin-left: -8px;
+  margin-right: 8px;
+}
+
 .people-manage-icon {
   /*@include listImage('lock1.svg', 15px, 15px);*/
   width: 15px;
@@ -1985,7 +1991,7 @@ svg {
         .activity-icon{
             @include elementWithBackground("icon4.svg", 34px, 38px);
         }
-    }   
+    }
     .user-removed-activity-type{
         .activity-icon{
             @include elementWithBackground("icon2.svg", 34px, 38px);

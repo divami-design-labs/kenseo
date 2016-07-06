@@ -5,7 +5,9 @@ sb.postcall = (function(){
 	var accessType = Kenseo.settings.accesstype;
 	var fieldTypes = {
 		'text-with-comma': function($el){
-			return $el.val().split(',');
+			return $el.val().split(',').map(function(el){
+				return $.trim(el);
+			});
 		},
 		'access_type': function($el){
 			var $checkboxes = $el.find('input[type="checkbox"]');
@@ -52,7 +54,7 @@ sb.postcall = (function(){
 			// Get the target element in which the field type values are need to be passed to server
 			// The target element must be parent of the provided $el element
 			// Default targetElementString is assumed to be  ".k-form"
-			var $targetElement = $el.parents(targetElementString || '.k-form'); 
+			var $targetElement = $el.parents(targetElementString || '.k-form');
 			// Get all the fields whose values are need to be passed to the server
 			var $fields = $targetElement.find('.k-field');
 			for(var i = 0, len = $fields.length; i < len; i++){

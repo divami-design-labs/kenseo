@@ -14,7 +14,7 @@
             //  $to = "narendra@divami.com";
             $to = $dump->to;
             //  $subject = "Test HTML mail";
-            $subject = "[Kenseo] " . $dump->subject;
+            $subject = $dump->subject;
 
             $headers = "From: $from\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
@@ -58,19 +58,30 @@
         public function addUser($info){
             // Send mail to project members
             $mailData = new stdClass();
-            $mailData->to = $info->emails;
+            // $mailData->to = $info->emails;
+            $addedUsers = $info->{'added_users'};
+            $addedUsersCount = count(explode(",", $addedUsers));
+            $activityDoneUser = $info->{'activity_done_user'};
+            $projectName = $info->{'project_name'};
+            $emails = explode(",", $info->emails);
 
-            $mailData->subject = "$info->projectname: New User is added by '$info->user'";
+            $verb = $addedUsersCount > 1 ? "are" : "is";
+            $plural = $addedUsersCount > 1 ? "s" : "";
 
-            $mailData->message = "
-            Hi $info->user,
+            $mailData->subject = "[Kenseo] $projectName: New User$plural $verb added by $activityDoneUser";
 
-            New user '$info->screenname' is added to '$info->projectname' project by '$info->user'
-            ";
+            $users = explode(",", $info->users);
+            foreach($users as $key => $user){
+                $mailData->to = $emails[$key];
+                $mailData->message = "
+                Hi $user,
+                <br />
+                New user$plural '$addedUsers' $verb added to '$projectName' project by $activityDoneUser
+                ";
 
-            // Not using $this to avoid referencing to the called class
-            Email::sendMail($mailData);
-
+                // Not using $this to avoid referencing to the called class
+                Email::sendMail($mailData);
+            }
         }
     }
 ?>
