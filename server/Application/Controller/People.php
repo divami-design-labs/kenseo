@@ -2,11 +2,11 @@
     class People {
     	public function getPeople($interpreter){
     		$data = $interpreter->getData()->data;
-    		if($data->projects == "true"){
+    		if(isset($data->projects) && $data->projects == "true"){
     			return $this->getProjectsPeople($interpreter);
-    		} elseif ($data->all == "true") {
+    		} elseif (isset($data->all) && $data->all == "true") {
     			return $this->getOthersAndProjectPeople($interpreter);
-    		} elseif($data->projectId){
+    		} elseif(isset($data->projectId) && $data->projectId){
     			return $this->getTeamMembersList($interpreter);
     		}
     	}

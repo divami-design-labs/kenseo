@@ -142,7 +142,7 @@ $AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_title, artefact
 $AppGlobal['sql']['matchProjects'] = "SELECT project_name AS matchedString, project_id AS id FROM " . TABLE_PROJECTS . " WHERE project_name LIKE @~~string~~@";
 
 
-$AppGlobal['sql']['getTeamMembersList'] = "SELECT u.user_id as id, u.name, u.email, u.profile_pic_url as picture, m.access_type,
+$AppGlobal['sql']['getTeamMembersList'] = "SELECT u.user_id as id, m.proj_id, u.name, u.email, u.profile_pic_url as picture, m.access_type,
 											IF(p.created_by=u.user_id, 1, 0) as is_owner FROM " . TABLE_PROJECT_MEMBERS . " m
 											INNER JOIN " . TABLE_USERS . " u ON m.user_id = u.user_id
 											INNER JOIN " . TABLE_PROJECTS . " p ON p.project_id = m.proj_id
