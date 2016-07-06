@@ -461,7 +461,8 @@ $AppGlobal['sql']['getOtherProjectMembersMail'] = "SELECT
 																user_id = @~~userid~~@
 														) as activity_done_user,
 														(SELECT GROUP_CONCAT(t5.screen_name SEPARATOR ', ') FROM users as t5 WHERE user_id in (@~~addeduserids~~@)) as added_users,
-														GROUP_CONCAT(t2.email SEPARATOR ', ') as emails,
+													    (SELECT GROUP_CONCAT(t5.email SEPARATOR ',') FROM users as t5 WHERE user_id in (@~~addeduserids~~@)) as added_user_emails,
+														GROUP_CONCAT(t2.email SEPARATOR ',') as emails,
 														GROUP_CONCAT(t2.screen_name SEPARATOR ',') as users,
 														t3.project_name as project_name
 													FROM

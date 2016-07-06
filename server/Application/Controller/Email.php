@@ -64,6 +64,7 @@
             $activityDoneUser = $info->{'activity_done_user'};
             $projectName = $info->{'project_name'};
             $emails = explode(",", $info->emails);
+            $addedUserEmails = explode(",", $info->{'added_user_emails'});
 
             $verb = $addedUsersCount > 1 ? "are" : "is";
             $plural = $addedUsersCount > 1 ? "s" : "";
@@ -71,13 +72,22 @@
             $mailData->subject = "[Kenseo] $projectName: New User$plural $verb added by $activityDoneUser";
 
             $users = explode(",", $info->users);
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, "email data");
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, $addedUserEmails);
             foreach($users as $key => $user){
-                $mailData->to = $emails[$key];
+                $email = $emails[$key];
+                $mailData->to = $email;
+
+                $messageExcerpt = in_array($email, $addedUserEmails)? "You are": "New user$plural '$addedUsers' $verb";
                 $mailData->message = "
                 Hi $user,
                 <br />
-                New user$plural '$addedUsers' $verb added to '$projectName' project by $activityDoneUser
+                <br />
+                $messageExcerpt added to '$projectName' project by $activityDoneUser
                 ";
+
+                Master::getLogManager()->log(DEBUG, MOD_MAIN, "email data");
+                Master::getLogManager()->log(DEBUG, MOD_MAIN, $mailData);
 
                 // Not using $this to avoid referencing to the called class
                 Email::sendMail($mailData);
