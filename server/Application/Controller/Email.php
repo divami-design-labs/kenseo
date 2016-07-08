@@ -23,8 +23,21 @@
             $message = $dump->message;
             if(!$message){
                 // Get message from the template
-                $message = file_get_contents($this->getEmailTemplateUrl($dump->templateUrl));
+                $message = file_get_contents(Email::getEmailTemplateUrl($dump->templateUrl));
             }
+            
+            // add common things to the body of the mail
+            $message = "Hi <br />
+            $dump->username <br /><br />
+
+            $message <br />
+            <br />
+            This is automatically system generated email. <br />
+            <a href='//kenseo.divami.com'>kenseo.divami.com</a>
+            <br />
+            <br />
+            Regards, <br />
+            Team Kenseo";
             // Caution (Windows only) When PHP is talking to a SMTP server directly,
             // if a full stop is found on the start of a line, it is removed.
             // To counter-act this, replace these occurrences with a double dot.
@@ -32,6 +45,12 @@
             if($dump->windows){
                 $message = str_replace("\n.", "\n..", $message);
             }
+
+
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, "email data");
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, $to);
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, $subject);
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, $message);
 
             if (mail($to, $subject, $message, $headers)) {
                 $result->status = "success";
@@ -53,45 +72,6 @@
             $dump->message = "Hey";
 
             $this->sendMail($dump);
-        }
-
-        public function addUser($info){
-            // Send mail to project members
-            $mailData = new stdClass();
-            // $mailData->to = $info->emails;
-            $addedUsers = $info->{'added_users'};
-            $addedUsersCount = count(explode(",", $addedUsers));
-            $activityDoneUser = $info->{'activity_done_user'};
-            $projectName = $info->{'project_name'};
-            $emails = explode(",", $info->emails);
-            $addedUserEmails = explode(",", $info->{'added_user_emails'});
-
-            $verb = $addedUsersCount > 1 ? "are" : "is";
-            $plural = $addedUsersCount > 1 ? "s" : "";
-
-            $mailData->subject = "[Kenseo] $projectName: New User$plural $verb added by $activityDoneUser";
-
-            $users = explode(",", $info->users);
-            Master::getLogManager()->log(DEBUG, MOD_MAIN, "email data");
-            Master::getLogManager()->log(DEBUG, MOD_MAIN, $addedUserEmails);
-            foreach($users as $key => $user){
-                $email = $emails[$key];
-                $mailData->to = $email;
-
-                $messageExcerpt = in_array($email, $addedUserEmails)? "You are": "New user$plural '$addedUsers' $verb";
-                $mailData->message = "
-                Hi $user,
-                <br />
-                <br />
-                $messageExcerpt added to '$projectName' project by $activityDoneUser
-                ";
-
-                Master::getLogManager()->log(DEBUG, MOD_MAIN, "email data");
-                Master::getLogManager()->log(DEBUG, MOD_MAIN, $mailData);
-
-                // Not using $this to avoid referencing to the called class
-                Email::sendMail($mailData);
-            }
         }
     }
 ?>

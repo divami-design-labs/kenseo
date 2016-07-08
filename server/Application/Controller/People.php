@@ -49,6 +49,22 @@
 
 		}
 
+        public function getArtefactSharedMembersList($interpreter){
+            $data = $interpreter->getData()->data;
+			$userId = $interpreter->getUser()->user_id;
+			$artefactVersionId = $data->versionId;
+
+			$db = Master::getDBConnectionManager();
+
+			$queryParams = array('userId' => $userId, 'versionid' => $artefactVersionId );
+
+			$dbQuery = getQuery('getArtefactSharedMembersListFromVersionId',$queryParams);
+
+			$resultObj = $db->multiObjectQuery($dbQuery);
+
+			return $resultObj;
+        }
+
 		public function addPeople($interpreter) {
 
 			$data = $interpreter->getData()->data;
@@ -75,8 +91,8 @@
 			$users = $db->multiObjectQuery($query);
 			$actualCount = count($users);
 
-            Master::getLogManager()->log(DEBUG, MOD_MAIN, "users in implode");
-            Master::getLogManager()->log(DEBUG, MOD_MAIN, implode(array_map(function($c){ return $c->{'user_id'}; }, $users), ","));
+            // Master::getLogManager()->log(DEBUG, MOD_MAIN, "users in implode");
+            // Master::getLogManager()->log(DEBUG, MOD_MAIN, implode(array_map(function($c){ return $c->{'user_id'}; }, $users), ","));
 
             $addedUserIds = array_map(function($c){ return $c->{'user_id'}; }, $users);
 
@@ -137,13 +153,13 @@
 				// Add
 
 				$result->message = "People added successfully.";
-                $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMail', array(
+                $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserAdded', array(
                     "projectid" => $projectId,
                     "userid" => $userId,
                     "@addeduserids" => join(",", $addedUserIds)
                 )));
 
-                Email::addUser($mailInfo);
+                $this->addUserMail($mailInfo);
 
                 $db->commitTransaction();
 				return $result;
@@ -152,12 +168,28 @@
 
 		public function removePeople($interpreter) {
 			$data = $interpreter->getData()->data;
+            $userId = $interpreter->getUser()->user_id;
 			$projectId = $data->project_id;
 			$peopleId = $data->id;	// This is people id
 
 			//remove people
 			$db = Master::getDBConnectionManager();
-			$db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId . " and user_id =" . $peopleId);
+            $db->beginTransaction();
+            try{
+                $db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId . " and user_id =" . $peopleId);
+
+                $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserRemoved', array(
+                    "projectid" => $projectId,
+                    "userid" => $userId,
+                    "removeduserid" => $peopleId
+                )));
+
+                $this->removeUserMail($mailInfo);
+                $db->commitTransaction();
+            }
+            catch(Exception $e){
+                $db->abortTransaction();
+            }
 
 			return true;
 		}
@@ -166,7 +198,8 @@
 			$data = $interpreter->getData()->data;
 			$projectId = $data->projectId;
 
-			$teamMembers = $this->getTeamMembersList($interpreter);
+            // Get artefact shared members list
+			$teamMembers = $this->getArtefactSharedMembersList($interpreter);
 
 			$db = Master::getDBConnectionManager();
 			$queryParams = array('projectId' => $projectId );
@@ -181,5 +214,79 @@
 			);
 			return $resultObj;
 		}
+
+        public function addUserMail($info){
+            // Send mail to project members
+            $mailData = new stdClass();
+            // $mailData->to = $info->emails;
+            $addedUsers = $info->{'added_users'};
+            $addedUsersCount = count(explode(",", $addedUsers));
+            $activityDoneUser = $info->{'activity_done_user'};
+            $projectName = $info->{'project_name'};
+            $emails = explode(",", $info->emails);
+            $addedUserEmails = explode(",", $info->{'added_user_emails'});
+
+            $verb = $addedUsersCount > 1 ? "are" : "is";
+            $plural = $addedUsersCount > 1 ? "s" : "";
+
+            $mailData->subject = "[Kenseo] $projectName: New User$plural $verb added by $activityDoneUser";
+
+            $users = explode(",", $info->users);
+            // Master::getLogManager()->log(DEBUG, MOD_MAIN, "email data");
+            // Master::getLogManager()->log(DEBUG, MOD_MAIN, $addedUserEmails);
+            foreach($users as $key => $user){
+                $email = $emails[$key];
+                $mailData->to = $email;
+                $mailData->username = $user;
+
+                $messageExcerpt = in_array($email, $addedUserEmails)? "You are": "New user$plural '$addedUsers' $verb";
+                $mailData->message = "$messageExcerpt added to '$projectName' project by $activityDoneUser";
+
+                // Master::getLogManager()->log(DEBUG, MOD_MAIN, "email data");
+                // Master::getLogManager()->log(DEBUG, MOD_MAIN, $mailData);
+
+                // Not using $this to avoid referencing to the called class
+                Email::sendMail($mailData);
+            }
+        }
+
+        public function removeUserMail($info){
+            // Send mail to project members
+            $mailData = new stdClass();
+            // $mailData->to = $info->emails;
+            $removedUsers = $info->{'removed_users'};
+            $removedUsersArray = explode(",", $removedUsers);
+            $removedUsersCount = count($removeUsersArray);
+            $activityDoneUser = $info->{'activity_done_user'};
+            $projectName = $info->{'project_name'};
+            $emails = explode(",", $info->emails);
+            $removedUserEmails = explode(",", $info->{'removed_user_emails'});
+
+            $verb = $removedUsersCount > 1 ? "are" : "is";
+            $plural = $removedUsersCount > 1 ? "s" : "";
+
+            // Concat two arrays
+            $emails = array_merge($emails, $removedUserEmails);
+            $users = array_merge(explode(",", $info->users), $removedUsersArray);
+
+            $mailData->subject = "[Kenseo] $projectName: User$plural $verb removed by $activityDoneUser";
+
+            // Master::getLogManager()->log(DEBUG, MOD_MAIN, "email data");
+            // Master::getLogManager()->log(DEBUG, MOD_MAIN, $removedUserEmails);
+            foreach($users as $key => $user){
+                $email = $emails[$key];
+                $mailData->to = $email;
+
+                $mailData->username = $user;
+
+                $messageExcerpt = in_array($email, $removedUserEmails)? "You are": "User$plural '$removedUsers' $verb";
+                $mailData->message = "$messageExcerpt removed from '$projectName' project by $activityDoneUser";
+
+
+
+                // Not using $this to avoid referencing to the called class
+                Email::sendMail($mailData);
+            }
+        }
     }
 ?>

@@ -66,6 +66,154 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ if(params.projects && params.sortBy){ ;
+__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
+ if(data.length){ ;
+__p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
+ } ;
+__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
+ if(params.sortBy && params.sortBy === 'default'){ ;
+__p += ' linked-artefacts ';
+ } ;
+__p += '">\r\n\t<div class="sort-view">Sort By ';
+ if(params && params.sortBy){ ;
+__p += ' ' +
+((__t = ( _.capitalize(params.sortBy) )) == null ? '' : __t) +
+' ';
+ } else { ;
+__p += 'Default ';
+ } ;
+__p += '</div>\r\n';
+ } else{ ;
+__p += '\r\n\t<div class="review-requests-heading">            \r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
+ } ;
+__p += '\r\n\t\t';
+ _.each(data, function(d){ ;
+__p += '\r\n\t\t\t' +
+((__t = ( sb.setTemplate('artefact', {data: d}) )) == null ? '' : __t) +
+'\r\n\t\t';
+ }) ;
+__p += '\r\n';
+ if(params.projects && params.sortBy){ ;
+__p += '\r\n</div>\r\n';
+ } else{ ;
+__p += '\r\n\t</div>\r\n';
+ } ;
+
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['no-items'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="no-items ';
+ if(data.classes){ ;
+__p += ' ' +
+((__t = ( data.classes )) == null ? '' : __t) +
+' ';
+ } ;
+__p += '">\r\n\t';
+ if(data.message){ ;
+__p += '\r\n\t\t' +
+((__t = ( data.message )) == null ? '' : __t) +
+'\r\n\t';
+ } else if(data.add){ ;
+__p += '\r\n\t\t<div class="add-icon big inlineBlockMid"></div>\r\n\t\t<div class="no-items-text inlineBlockMid">' +
+((__t = ( data.name )) == null ? '' : __t) +
+'</div>\r\n\t';
+ } else { ;
+__p += '\r\n\t\tNo Items to show\r\n\t';
+ } ;
+__p += '\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['versions'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ for(var i=0; i< data.length; i++){ ;
+__p += '\r\n\t';
+ if(i === 0 || i%4 === 0){ ;
+__p += '\r\n\t<div>\r\n\t';
+ } ;
+__p += '\r\n\t';
+ var v = data[i] ;
+__p += '\r\n\t<span data-date="' +
+((__t = ( v.date )) == null ? '' : __t) +
+'">' +
+((__t = ( v.num )) == null ? '' : __t) +
+'</span>\r\n\t';
+ if(i === data.length-1 || (i+1)%4 === 0){ ;
+__p += '\t\t\r\n\t</div>\r\n\t';
+ } ;
+__p += '\r\n';
+ } ;
+
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['add-persona-widget'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -273,154 +421,6 @@ __p += '\n\t\t' +
 '\n\t';
  } ;
 __p += '\n\t<div class="persona-indicator--add">\n\t\t<span class="widget-add">\n\t\t\t<svg><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- if(params.projects && params.sortBy){ ;
-__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- if(data.length){ ;
-__p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- } ;
-__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
- if(params.sortBy && params.sortBy === 'default'){ ;
-__p += ' linked-artefacts ';
- } ;
-__p += '">\r\n\t<div class="sort-view">Sort By ';
- if(params && params.sortBy){ ;
-__p += ' ' +
-((__t = ( _.capitalize(params.sortBy) )) == null ? '' : __t) +
-' ';
- } else { ;
-__p += 'Default ';
- } ;
-__p += '</div>\r\n';
- } else{ ;
-__p += '\r\n\t<div class="review-requests-heading">            \r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
- } ;
-__p += '\r\n\t\t';
- _.each(data, function(d){ ;
-__p += '\r\n\t\t\t' +
-((__t = ( sb.setTemplate('artefact', {data: d}) )) == null ? '' : __t) +
-'\r\n\t\t';
- }) ;
-__p += '\r\n';
- if(params.projects && params.sortBy){ ;
-__p += '\r\n</div>\r\n';
- } else{ ;
-__p += '\r\n\t</div>\r\n';
- } ;
-
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['no-items'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="no-items ';
- if(data.classes){ ;
-__p += ' ' +
-((__t = ( data.classes )) == null ? '' : __t) +
-' ';
- } ;
-__p += '">\r\n\t';
- if(data.message){ ;
-__p += '\r\n\t\t' +
-((__t = ( data.message )) == null ? '' : __t) +
-'\r\n\t';
- } else if(data.add){ ;
-__p += '\r\n\t\t<div class="add-icon big inlineBlockMid"></div>\r\n\t\t<div class="no-items-text inlineBlockMid">' +
-((__t = ( data.name )) == null ? '' : __t) +
-'</div>\r\n\t';
- } else { ;
-__p += '\r\n\t\tNo Items to show\r\n\t';
- } ;
-__p += '\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['versions'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- for(var i=0; i< data.length; i++){ ;
-__p += '\r\n\t';
- if(i === 0 || i%4 === 0){ ;
-__p += '\r\n\t<div>\r\n\t';
- } ;
-__p += '\r\n\t';
- var v = data[i] ;
-__p += '\r\n\t<span data-date="' +
-((__t = ( v.date )) == null ? '' : __t) +
-'">' +
-((__t = ( v.num )) == null ? '' : __t) +
-'</span>\r\n\t';
- if(i === data.length-1 || (i+1)%4 === 0){ ;
-__p += '\t\t\r\n\t</div>\r\n\t';
- } ;
-__p += '\r\n';
- } ;
-
 
 }
 return __p
@@ -1398,6 +1398,8 @@ __p += ' class="review-request-item data-holder" data-pass="';
         })() ;
 __p += '" data-id="' +
 ((__t = ( data.id )) == null ? '' : __t) +
+'" data-version-id="' +
+((__t = ( data.id )) == null ? '' : __t) +
 '" data-k-project_id="' +
 ((__t = ( data.project_id )) == null ? '' : __t) +
 '" data-key="artefacts">\r\n\t<div class="rr-left">\r\n\t\t<div class="rr-status status-' +
@@ -1407,9 +1409,19 @@ __p += '" data-id="' +
 __p +=
 ((__t = ( Kenseo.settings.docTypeShort[data['document_type']] )) == null ? '' : __t);
  } ;
-__p += '</div>\r\n\t\t<img class="rr-owner-image" src="' +
+__p += '</div>\r\n        ';
+ if(data.image !== "assets/imgs/avatar.svg"){ ;
+__p += '\r\n            <img class="rr-owner-image" title="' +
+((__t = ( data['person_name'] )) == null ? '' : __t) +
+'" src="' +
 ((__t = ( data.image )) == null ? '' : __t) +
-'"/>\r\n\t</div>\r\n\t<div class="rr-right">\r\n\t\t<div class="rr-title ellipsis" title="' +
+'"/>\r\n        ';
+ } else { ;
+__p += '\r\n            <svg class="rr-owner-image" title="' +
+((__t = ( data['person_name'] )) == null ? '' : __t) +
+'"><use xlink:href="#avatar"></use></svg>\r\n        ';
+ } ;
+__p += '\r\n\t</div>\r\n\t<div class="rr-right">\r\n\t\t<div class="rr-title ellipsis" title="' +
 ((__t = ( data.title )) == null ? '' : __t);
  if(!isSupportedFile){ ;
 __p += ' - Unsupported format';
@@ -1430,7 +1442,7 @@ __p += '">' +
 ((__t = ( data.version )) == null ? '' : __t) +
 '</span>\r\n\t\t\t\t<div class="rr-other-versions"></div>\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="share-artefact" data-index="3">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>';
+'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="share-artefact" data-index="3">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
 
 }
 return __p
@@ -1727,16 +1739,22 @@ __p += '\r\n<div class="share-artefact-people-item" data-k-user_id="' +
 ((__t = ( data.id )) == null ? '' : __t) +
 '" data-access_type="' +
 ((__t = ( data['access_type'] )) == null ? '' : __t) +
-'">\r\n\t<div class="share-artefacts-img-holder">\r\n\t\t<img class="share-artefacts-img" src=' +
+'">\r\n\t<div class="share-artefacts-img-holder">\r\n\t\t';
+ if(data.picture !== "assets/imgs/avatar.svg"){ ;
+__p += '\r\n\t\t\t<img class="share-artefacts-img" src=' +
 ((__t = ( data.picture)) == null ? '' : __t) +
-' />\r\n\t</div>\r\n\t<span class="share-artefacts-text" title="' +
+' />\r\n\t\t';
+ } else { ;
+__p += '\r\n\t\t\t<svg class="share-artefacts-img"><use xlink:href="#avatar"></use></svg>\r\n\t\t';
+ } ;
+__p += '\r\n\t</div>\r\n\t<span class="share-artefacts-text" title="' +
 ((__t = ( data.name )) == null ? '' : __t) +
 '">' +
 ((__t = ( data.name )) == null ? '' : __t) +
 '</span>\r\n\t';
  if(data['is_owner'] != "1"){ ;
 __p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div class="share-artefact-right-panel">\r\n\t\t\t\t<div class="sarp-text">Can Add comments</div>\r\n\t\t\t\t' +
-((__t = ( 
+((__t = (
 					sb.toolbox.checkbox({
 						class: "add-comments-chk",
 						toggle: true,
@@ -1746,7 +1764,7 @@ __p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div c
 					})
 				)) == null ? '' : __t) +
 '\r\n\t\t\t</div>\r\n\t\t\t<div class="share-artefact-right-panel">\r\n\t\t\t\t<div class="sarp-text">Share with others</div>\r\n\t\t\t\t' +
-((__t = ( 
+((__t = (
 					sb.toolbox.checkbox({
 						class: "others-chk",
 						toggle: true,
@@ -1756,16 +1774,16 @@ __p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div c
 					})
 				)) == null ? '' : __t) +
 '\r\n\t\t\t</div>\r\n\t\t\t<div class="sarp-checkbox-holder">\r\n\t\t\t\t' +
-((__t = ( 
+((__t = (
 					sb.toolbox.checkbox({
 						class: "apply-to-all",
 						text: "Apply to all users in this group",
 						ignore: 1
-					}) 
+					})
 				)) == null ? '' : __t) +
 '\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t';
  } ;
-__p += '\r\n</div>';
+__p += '\r\n</div>\r\n';
 
 }
 return __p

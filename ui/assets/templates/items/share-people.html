@@ -3,14 +3,18 @@ var accessType = sb.getAccessType(data['access_type'])
 %>
 <div class="share-artefact-people-item" data-k-user_id="<%= data.id %>" data-access_type="<%= data['access_type'] %>">
 	<div class="share-artefacts-img-holder">
-		<img class="share-artefacts-img" src=<%= data.picture%> />
+		<% if(data.picture !== "assets/imgs/avatar.svg"){ %>
+			<img class="share-artefacts-img" src=<%= data.picture%> />
+		<% } else { %>
+			<svg class="share-artefacts-img"><use xlink:href="#avatar"></use></svg>
+		<% } %>
 	</div>
 	<span class="share-artefacts-text" title="<%= data.name %>"><%= data.name %></span>
 	<% if(data['is_owner'] != "1"){ %>
 		<div class="share-artefact-people-item-section">
 			<div class="share-artefact-right-panel">
 				<div class="sarp-text">Can Add comments</div>
-				<%= 
+				<%=
 					sb.toolbox.checkbox({
 						class: "add-comments-chk",
 						toggle: true,
@@ -22,7 +26,7 @@ var accessType = sb.getAccessType(data['access_type'])
 			</div>
 			<div class="share-artefact-right-panel">
 				<div class="sarp-text">Share with others</div>
-				<%= 
+				<%=
 					sb.toolbox.checkbox({
 						class: "others-chk",
 						toggle: true,
@@ -33,12 +37,12 @@ var accessType = sb.getAccessType(data['access_type'])
 				%>
 			</div>
 			<div class="sarp-checkbox-holder">
-				<%= 
+				<%=
 					sb.toolbox.checkbox({
 						class: "apply-to-all",
 						text: "Apply to all users in this group",
 						ignore: 1
-					}) 
+					})
 				%>
 			</div>
 		</div>

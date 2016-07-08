@@ -2392,7 +2392,7 @@ svg {
   right: -6px;
   bottom: -6px;
   border: 2px solid #7eb7fd;
-  background-color: white;
+  box-shadow: inset 0px 0px 0px 4px white;
   z-index: 1;
 }
 

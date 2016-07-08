@@ -75,7 +75,7 @@ sb.popup = {
         var toggleStateExistingFileCheck = function(state, title) {
             var $existingCheckBox = $currentPopup.find(".existing-files-chk");
             if(state){
-                $existingCheckBox.parent().attr('title', title);   
+                $existingCheckBox.parent().attr('title', title);
             }
             else if(title && title.length){
                 $existingCheckBox.parent().attr('title', '');
@@ -164,7 +164,7 @@ sb.popup = {
             sb.setPopupData(null, "description");
 
             toggleStateExistingFileCheck(true).prop("checked", false);
-            
+
             clearExistingFilesCombo();
 
             // Clear selected file path from input box
@@ -260,7 +260,7 @@ sb.popup = {
                                 $currentPopup.find(".choose-existing-file-holder").html(sb.setTemplate("new-file", {
                                     data: obj
                                 }));
-                                
+
                                 $currentPopup.find(".choose-existing-file-holder .close-icon").click(function () {
                                     $currentPopup.find(".choose-existing-file-holder").html("");
                                     //
@@ -275,7 +275,7 @@ sb.popup = {
                                     // Making the existing file selected flag as false when user clicks on close icon
                                     Kenseo.popup.info.existingFileSelected = false;
 
-                                    // Also clear the Kenseo.popup.data 
+                                    // Also clear the Kenseo.popup.data
                                 });
                                 $input.val("");
 
@@ -303,7 +303,7 @@ sb.popup = {
         sb.loadFiles({
             "collections": ["Artefacts", "Tags"],
             "models": ["Artefacts"]
-        }, function () {          
+        }, function () {
             var $currentPopup = Kenseo.current.popup;
             // Keep the .main-btn class button disabled by default
             // (Enable this button when user selects the document type)
@@ -354,7 +354,7 @@ sb.popup = {
                 sb.popup.populateExistingFileSelectedData();
             }
 
-            
+
 
         });
     },
@@ -370,7 +370,8 @@ sb.popup = {
                 collection: new Kenseo.collections.People(),
                 data: {
                     "all": true,
-                    "projectId": sb.getPopupData("id")
+                    "versionId": sb.getPopupData("artefact_ver_id") || sb.getPopupData("version_id"),
+                    "projectId": sb.getPopupData("project_id") || sb.getPopupData("id")
                 },
                 success: function success(resp) {
                     //render all the others in a COMBO
@@ -661,7 +662,7 @@ sb.popup = {
 
 
         // Storing current popup root element
-        Kenseo.current.popup = $popup; 
+        Kenseo.current.popup = $popup;
         // TODO: The following code runs on all popups instead of running only on add artefact and share artefact popups
         // -- Start
         if(currentActionType === "shareArtefact" || currentActionType === "addArtefact"){
@@ -877,7 +878,7 @@ sb.popup = {
         });
     },
     renderSharePopupPeople: function(obj, isSingle){
-        
+
         var $shareArtefactWrapper = $(".share-artefact-people-wrapper");
         if(isSingle){
             $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: obj }));
@@ -885,23 +886,23 @@ sb.popup = {
         else{
             var teamMembers = Kenseo.data.teamMembers || obj || [];
             // if teammembers are present in aretefactmetainfo variable, take it. or else pass an empty array
-            var specialTeamMembers = Kenseo.data.artefactmetainfo && Kenseo.data.artefactmetainfo.teamMembers || [];
+            // var specialTeamMembers = Kenseo.data.artefactmetainfo && Kenseo.data.artefactmetainfo.teamMembers || [];
             if(Kenseo.popup.info.existingFileSelected || Kenseo.popup.info.newFileSelected){
                 // clear the already present data
                 $shareArtefactWrapper.empty();
             }
-            if(Kenseo.popup.info.existingFileSelected){
-                // merge two objects
-                var newObj = _.merge(teamMembers, specialTeamMembers);
-            }
-            else{
-                var newObj = teamMembers;
-            }
-            for (var i = 0; i < newObj.length; i++) {
-                $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: newObj[i] }));
+            // if(Kenseo.popup.info.existingFileSelected){
+            //     // merge two objects
+            //     var newObj = _.merge(teamMembers, specialTeamMembers);
+            // }
+            // else{
+            //     var newObj = teamMembers;
+            // }
+            for (var i = 0; i < teamMembers.length; i++) {
+                $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: teamMembers[i] }));
             }
         }
-        sb.popup.attachEvents(); 
+        sb.popup.attachEvents();
     }
 };
 

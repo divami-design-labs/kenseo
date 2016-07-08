@@ -132,7 +132,7 @@ $popup-content-space: 175px;
 	margin-bottom: 10px;
 }
 .upload-file-section{
-	border-right: 1px solid $colorP;	
+	border-right: 1px solid $colorP;
 	padding-right: 55px;
 	@extend .hand;
 	input[type="file"]{
@@ -280,7 +280,7 @@ $popup-content-space: 175px;
 			@include absoluter($v,$v,$v,$v);
 			border: 2px solid $colorT;
 			@extend .circle;
-			background-color: white;
+			box-shadow: inset 0px 0px 0px 4px white;
 			z-index: 1;
 		}
 		.share-artefact-people-item-section{
