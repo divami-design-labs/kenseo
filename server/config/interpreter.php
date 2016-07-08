@@ -119,8 +119,10 @@ $AppGlobal['urlmap']['/createComment'] = array ('command' => 'createComment', 't
 $AppGlobal['cmdmap']['getArtefactMetaInfo'] = array ("class" => "Artefacts", "method" => "getArtefactMetaInfo");
 $AppGlobal['urlmap']['/getArtefactMetaInfo'] = array ('command' => 'getArtefactMetaInfo', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['shareArtefact'] = array ("class" => "Artefacts", "method" => "shareArtefact");
+$AppGlobal['urlmap']['/shareArtefact'] = array ('command' => 'shareArtefact', 'type' => 'GET');
 
-// Mail testing 
+// Mail testing
 $AppGlobal['cmdmap']['sendDummyMail'] = array ("class" => "Email", "method" => "sendDummyMail");
 $AppGlobal['urlmap']['/sendDummyMail'] = array ('command' => 'sendDummyMail', 'type' => 'GET');
 

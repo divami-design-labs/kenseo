@@ -715,7 +715,7 @@
 
 		public function shareForTeam($artId, $artVerId, $team, $sharedBy) {
 			$db = Master::getDBConnectionManager();
-			$team = json_decode($team);
+			$team = is_array($team)? $team: json_decode($team);
 
 			$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
 			$shareRowValues = array();
@@ -731,11 +731,13 @@
 		}
 
 		public function shareArtefact($interpreter) {
-			$data = $interpreter->getData();
-			$artVerId = $data->versionId;
+			$info = $interpreter->getData();
+			$data = $info->data;
+			$artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
 			$artId = $data->id;
 			$userId = $interpreter->getUser()->user_id;
-			$this->shareForTeam($artId, $artVerId,$data->sharedTo, $data->userId);
+			$this->shareForTeam($artId, $artVerId,$info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
+			return array();
 		}
 
 		public function getArtefactDetails($interpreter) {
