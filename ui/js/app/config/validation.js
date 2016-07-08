@@ -1,10 +1,10 @@
-// Some rules to do validation 
+// Some rules to do validation
 // - The clicked button to trigger validation must have "data-target-validating-section" attribute, this attribute value's element is the wrapper of all the fields
 // - The "data-target-validating-section" value element must have overflow: hidden and non-static value position
 // - The field should be wrapped in a ".field-section" element
 // - The field should have ".required" class
 // - The field should have "data-validate-this" attribute with all necessary validations as comma separated values
-var validation = (function(){ 
+var validation = (function(){
 	// This counter will be incremented if any field has error
 	var validatingCounter = 0;
 	var $validationSection = null;
@@ -51,7 +51,7 @@ var validation = (function(){
 					});
 					var listItems = $suggestionsContainer.find('.selectable').map(function(){
 						return this.innerHTML.toLowerCase();
-					}).filter(function(i, str){ 
+					}).filter(function(i, str){
 						for(var i = 0, len = newValues.length; i < len; i++){
 							if(newValues[i].toLowerCase() === str.toLowerCase()){
 								return true;
@@ -167,12 +167,42 @@ var validation = (function(){
 	}
 	var doValidate = function($clickedBtn){
 		if(isValidate($clickedBtn)){
+			//functionality to show the global success messages.
+			/*var div = document.createElement('div');
+			//added class to show success message.
+			div.className = "messages-wrapper success-messages-wrapper";
+			var span = document.createElement('span');
+			var img = document.createElement('img');
+			span.innerHTML = "Successfully added";
+			div.appendChild(img);
+			div.appendChild(span);
+			span.className = 'messages';
+			$(img).addClass("error-or-success-img");
+			$(img).attr("src","");
+			$validationSection.prepend($(div).css({
+				'top': $validationSection.scrollTop() + "px"
+			}));
+
+			$validationSection.on('scroll', function(){
+				$(div).css({
+					'top': $(this).scrollTop() + "px"
+				})
+			});
+			setTimeout(function(){
+				this.addClass('show-messages');
+			}.bind($(div)), 10);
+
+			setTimeout(function(){
+				this.removeClass('show-messages');
+			}.bind($(div)), 3010);*/
+			message = "Successfully added";
+			sb.showGlobalMessages($validationSection,message,1);
 			return true;
 		}
 		else{
 			// functionality to show the global validation messages
-			var div = document.createElement('div');
-			div.className = "error-messages-wrapper";
+			/*var div = document.createElement('div');
+			div.className = "messages-wrapper error-messages-wrapper";
 			var ul = document.createElement('ul');
 			// var errorMessages = _.uniq(allErrorMessages);
 			// check if "field is empty" message is more than once or not
@@ -196,7 +226,11 @@ var validation = (function(){
 				li.innerHTML = errorMessages[k];
 				ul.appendChild(li);
 			}
+			var img = document.createElement('img');
+			div.appendChild(img);
 			div.appendChild(ul);
+			$(img).addClass("error-or-success-img");
+			$(img).attr("src","");
 			$validationSection.prepend($(div).css({
 				'top': $validationSection.scrollTop() + "px"
 			}));
@@ -208,19 +242,21 @@ var validation = (function(){
 			})
 			//
 			// Add error class to show all the error messages
-			ul.className = 'error-messages';
+			ul.className = 'messages';
 			// set focus on first error-field
-			$validationSection.find('.error-field').first().focus();
+
 			// Hide above added error messages by removing the above added class after some time
 			// $(div).addClass('show-errors').delay(2000).removeClass('show-errors');
 			setTimeout(function(){
-				this.addClass('show-errors');
+				this.addClass('show-messages');
 			}.bind($(div)), 10);
 
 			setTimeout(function(){
-				this.removeClass('show-errors');
-			}.bind($(div)), 3010);
-
+				this.removeClass('show-messages');
+			}.bind($(div)), 3010);*/
+			message = "* fields are mandatory"
+			sb.showGlobalMessages($validationSection,message,0);
+      $validationSection.find('.error-field').first().focus();
 			// return false to acknowledge
 			return false;
 		}
