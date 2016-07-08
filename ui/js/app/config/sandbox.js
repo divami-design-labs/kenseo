@@ -165,23 +165,22 @@ var sb = (function () {
                 processData: processData,
                 success: function success(response) {
                     // try {
-                        if(typeof response === "string"){
-                            response = JSON.parse(response);
-                        }
-
+                        var response = JSON.parse(response);
                         if (response.status == 'success') {
                             if (!payload.excludeDump) {
                                 sb.setDump(response);
                             }
                             payload.success(response);
                         } else {
-                            window.location.assign(DOMAIN_ROOT_URL);
+                            // window.location.assign(DOMAIN_ROOT_URL);
                         }
-                    // } catch (ex) {
+                    // }
+                    // catch(ex){
                     //     // Catching the exception
                     //     sb.log("Below error is in ajax request");
                     //     console.error(ex);
                     //     // Redirecting to the Dashboard
+
                     // }
                 }
             });
@@ -590,14 +589,14 @@ var sb = (function () {
                 },
                 getFileName: function(){
                     try{
-                        if(dump.files && dump.files.length == 1){
-                            return dump.files[0].name;
-                        }
-                        else if(dump.files && dump.files.length > 1){
-                            return "Multiple files";
-                        }
-                        else if(dump.artefactName){
-                            return dump.artefactName;
+                        if(dump.files && dump.files.length == 1){               
+                            return dump.files[0].name;          
+                        }           
+                        else if(dump.files && dump.files.length > 1){               
+                            return "Multiple files";            
+                        }           
+                        else if(dump.artefactName){               
+                            return dump.artefactName;               
                         }
                         else{
                             return dump.title;
@@ -625,7 +624,7 @@ var sb = (function () {
             if($popup.length){
                 // when the popup is already existing, show the popup and refresh the meta information if necessary
                 sb.popup.popupsStateMaintainer({
-                    index: index,
+                    index: index, 
                     currentIndex: currentIndex,
                     allPopups: allPopups,
                     currentActionType: currentActionType
@@ -841,40 +840,6 @@ var sb = (function () {
                     }
                 });
             }
-        },
-        showGlobalMessages: function(validationSection,messages,flag){
-          var div = document.createElement('div');
-    			//added class to show success message.
-          if(flag){
-    			  $(div).addClass('messages-wrapper success-messages-wrapper');
-          }
-          else{
-            $(div).addClass('messages-wrapper error-messages-wrapper');
-          }
-          var span = document.createElement('span');
-    			var img = document.createElement('img');
-    			span.innerHTML = messages;
-    			div.appendChild(img);
-    			div.appendChild(span);
-    			span.className = 'messages';
-    			$(img).addClass("error-or-success-img");
-    			$(img).attr("src","");
-    			validationSection.prepend($(div).css({
-    				'top': validationSection.scrollTop() + "px"
-    			}));
-
-    			validationSection.on('scroll', function(){
-    				$(div).css({
-    					'top': $(this).scrollTop() + "px"
-    				})
-    			});
-    			setTimeout(function(){
-    				this.addClass('show-messages');
-    			}.bind($(div)), 10);
-
-    			setTimeout(function(){
-    				this.removeClass('show-messages');
-    			}.bind($(div)), 3010);
         }
     };
 })();
