@@ -340,6 +340,29 @@ $AppGlobal['sql']['getOtherMembersList'] = "SELECT users.user_id as id, users.na
 											FROM " . TABLE_PROJECT_MEMBERS . " AS members
 											WHERE members.proj_id = @~~projectId~~@)" ;
 
+$AppGlobal['sql']['getAllPeopleSpecificToAProject'] = "SELECT
+															users.user_id as id,
+															users.name,
+															users.email,
+															users.profile_pic_url as picture,
+															(
+																IF (
+																	(
+																		SELECT
+																			COUNT(t1.user_id)
+																		FROM
+																			artefact_shared_members AS t1
+																		WHERE
+																			t1.artefact_ver_id = @~~versionid~~@
+																			AND users.user_id = t1.user_id
+																	),
+																	1,
+																	0
+																)
+															) as in_project
+														FROM
+															users AS users";
+
 $AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, proj.project_id as projId, arts.artefact_title as artTitle, vers.artefact_ver_id, vers.masked_artefact_version_id, arts.artefact_id as artefactId, arts.description as description,vers.version_no as versionCount
 											FROM " . TABLE_ARTEFACTS . " AS arts
 											JOIN " . TABLE_PROJECTS . " AS proj ON

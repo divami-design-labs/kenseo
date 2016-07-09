@@ -375,11 +375,20 @@ sb.popup = {
                 },
                 success: function success(resp) {
                     //render all the others in a COMBO
-                    var data = resp.data.otherMembers;
+                    var otherMembers = [];
+                    var projectMembers = [];
+                    resp.data.forEach(function(el){
+                        if(el['in_project'] === "1"){
+                            projectMembers.push(el);
+                        }
+                        else{
+                            otherMembers.push(el);
+                        }
+                    })
                     var container = document.querySelector(".people-combobox");
                     sb.toolbox.applyComboBox({
                         elem: container,
-                        data: data,
+                        data: otherMembers,
                         settings: {
                             placeholder: "Type mail ID or username and press enter ",
                             multiSelect: true
@@ -426,7 +435,7 @@ sb.popup = {
                     });
 
                     //render all the team members
-                    sb.popup.renderSharePopupPeople(resp.data.teamMembers);
+                    sb.popup.renderSharePopupPeople(projectMembers);
                 }
             });
         });

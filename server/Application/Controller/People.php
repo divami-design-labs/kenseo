@@ -6,11 +6,26 @@
     		if(isset($data->projects) && $data->projects == "true"){
     			return $this->getProjectsPeople($interpreter);
     		} elseif (isset($data->all) && $data->all == "true") {
-    			return $this->getOthersAndProjectPeople($interpreter);
+                return $this->getAllPeople($interpreter);
+    			// return $this->getOthersAndProjectPeople($interpreter);
     		} elseif(isset($data->projectId) && $data->projectId){
     			return $this->getTeamMembersList($interpreter);
     		}
     	}
+
+        public function getAllPeople($interpreter){
+            $data = $interpreter->getData()->data;
+            $versionId = $data->versionId;
+			$userId = $interpreter->getUser()->user_id;
+            $db = Master::getDBConnectionManager();
+            $db->beginTransaction();
+            $people = $db->multiObjectQuery(getQuery('getAllPeopleSpecificToAProject', array(
+                "versionid" => $versionId
+            )));
+            $db->commitTransaction();
+            return $people;
+        }
+
     	public function getProjectsPeople($interpreter) {
     		$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
@@ -209,8 +224,8 @@
 			$otherMembers = $db->multiObjectQuery($dbQuery);
 
 			$resultObj = array(
-				otherMembers => $otherMembers,
-				teamMembers => $teamMembers
+				"otherMembers" => $otherMembers,
+				"teamMembers" => $teamMembers
 			);
 			return $resultObj;
 		}
