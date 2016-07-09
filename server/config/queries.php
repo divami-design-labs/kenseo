@@ -121,7 +121,7 @@ $AppGlobal['sql']['getPeopleInProject'] = "SELECT profile_pic_url as picture, na
 
 
 $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots.message as title, nots.notification_type as type, notification_ref_id as refId,
-										 av.masked_artefact_version_id, nots.notification_date as time, notifier.name as notifier, nots.notification_by as notifierId
+										 av.masked_artefact_version_id, av.MIME_type, nots.notification_date as time, notifier.name as notifier, nots.notification_by as notifierId
 										 FROM " . TABLE_NOTIFICATIONS . " as nots
 										 LEFT JOIN artefact_versions av ON nots.notification_ref_id = av.artefact_ver_id AND nots.notification_type =  'S'
 										 JOIN " . TABLE_USERS . " as notifier on notifier.user_id = nots.notification_by

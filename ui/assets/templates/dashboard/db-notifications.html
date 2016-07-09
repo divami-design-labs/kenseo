@@ -5,7 +5,9 @@
 	<div class="day-notifications-label"><%= key %></div>
 	<div class="notifications-holder">
 		<% _.each(newData[key], function(n){ %>
-		<a href="<% if(n.type == "M"){ %>#meetingnotes/<%= n.refId %><% } else { %>#documentview/<%= n.masked_artefact_version_id %> <% } %>" class="notification-item page-click" data-url="meeting-notes">
+		<% var mime = n.MIME_type || "" %>
+		<% var isSupportedFile = (mime.indexOf('pdf') > -1 || mime.indexOf('image') > -1) %>
+		<a <% if(n.type == "M"){ %>href="#meetingnotes/<%= n.refId %>" data-url="meeting-notes"<% } else if(!isSupportedFile){ %>style="cursor: default;"<%} else { %>href="#documentview/<%= n.masked_artefact_version_id %>"<% } %> class="notification-item">
 			<% if(n.type == "M"){ %>
 				<div class="notification-meeting-icon">
 					<svg><use xlink:href="#calendar"></use></svg>
@@ -19,7 +21,7 @@
 					<svg><use xlink:href="#file"></use></svg>
 				</div>
 			<% } %>
-			<div class="notification-title" title="<%= n.title %>">
+			<div class="notification-title" title="<%= n.title %><% if(!isSupportedFile && !(n.type == "M")){ %> - Unsupported format<% } %>">
 				<%= n.title %>
 			</div>
 			<div class="notification-time">

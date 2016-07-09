@@ -542,16 +542,23 @@ __p += '\r\n<div class="day-notifications">\r\n\t<div class="day-notifications-l
 ((__t = ( key )) == null ? '' : __t) +
 '</div>\r\n\t<div class="notifications-holder">\r\n\t\t';
  _.each(newData[key], function(n){ ;
-__p += '\r\n\t\t<a href="';
+__p += '\r\n\t\t';
+ var mime = n.MIME_type || "" ;
+__p += '\r\n\t\t';
+ var isSupportedFile = (mime.indexOf('pdf') > -1 || mime.indexOf('image') > -1) ;
+__p += '\r\n\t\t<a ';
  if(n.type == "M"){ ;
-__p += '#meetingnotes/' +
-((__t = ( n.refId )) == null ? '' : __t);
- } else { ;
-__p += '#documentview/' +
+__p += 'href="#meetingnotes/' +
+((__t = ( n.refId )) == null ? '' : __t) +
+'" data-url="meeting-notes"';
+ } else if(!isSupportedFile){ ;
+__p += 'style="cursor: default;"';
+} else { ;
+__p += 'href="#documentview/' +
 ((__t = ( n.masked_artefact_version_id )) == null ? '' : __t) +
-' ';
+'"';
  } ;
-__p += '" class="notification-item page-click" data-url="meeting-notes">\r\n\t\t\t';
+__p += ' class="notification-item">\r\n\t\t\t';
  if(n.type == "M"){ ;
 __p += '\r\n\t\t\t\t<div class="notification-meeting-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t';
  } else if(n.type == "C") { ;
@@ -560,8 +567,11 @@ __p += '\r\n\t\t\t\t<div class="notification-comment-icon">\r\n\t\t\t\t\t<svg><u
 __p += '\r\n\t\t\t\t<div class="notification-file-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#file"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t';
  } ;
 __p += '\r\n\t\t\t<div class="notification-title" title="' +
-((__t = ( n.title )) == null ? '' : __t) +
-'">\r\n\t\t\t\t' +
+((__t = ( n.title )) == null ? '' : __t);
+ if(!isSupportedFile && !(n.type == "M")){ ;
+__p += ' - Unsupported format';
+ } ;
+__p += '">\r\n\t\t\t\t' +
 ((__t = ( n.title )) == null ? '' : __t) +
 '\r\n\t\t\t</div>\r\n\t\t\t<div class="notification-time">\r\n\t\t\t\t' +
 ((__t = ( sb.timeFormat(n.time) )) == null ? '' : __t) +
@@ -585,7 +595,7 @@ __p += '\r\n';
  } else{ ;
 __p += '\r\n<div class="no-items">\r\n\tNo notifications yet\r\n</div>\r\n';
  } ;
-
+__p += '\r\n';
 
 }
 return __p
