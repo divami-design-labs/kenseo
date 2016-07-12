@@ -9,6 +9,8 @@ sb.router = {
         });
     },
     dashboard: function dashboard() {
+        sb.svgLoader(['common', 'dashboard']);
+
         sb.loadFiles({
             'views': ['Header', 'Artefacts', 'Projects', 'Notifications'],
             'models': ['Header', 'Notifications', 'Projects', 'Artefacts'],
@@ -30,6 +32,8 @@ sb.router = {
         });
     },
     projectPage: function projectPage(id) {
+        sb.svgLoader(['common', 'projectpage']);
+
         sb.loadFiles({
             'views': ['Header', 'Artefacts', 'People', 'Activities'],
             'models': ['Projects', 'Header', 'Artefacts', 'People'],
@@ -65,6 +69,8 @@ sb.router = {
         });
     },
     meetingNotes: function meetingNotes(id) {
+        sb.svgLoader(['common', 'meetingnotes']);
+
         Kenseo.data.meetingId = id;
         // Write meeting notes title here
 
@@ -103,6 +109,8 @@ sb.router = {
         // }
         // Kenseo.data.artefact.id = id;
         var maskedId = id;
+
+        sb.svgLoader(['common', 'documentview']);
 
         var _this = this;
         sb.loadFiles({
@@ -219,6 +227,8 @@ sb.router = {
         }.bind(maskedId));
     },
     projects: function(){
+        sb.svgLoader(['common', 'projects']);
+
         sb.loadFiles({
             'views': ['Header', 'Projects'],
             'models': ['Header', 'Projects'],
@@ -240,6 +250,8 @@ sb.router = {
         });
     },
     persona: function(id){
+        sb.svgLoader(['common', 'persona']);
+        
         // id represents the template type of persona
         sb.loadFiles({
             'views': ['Header'],

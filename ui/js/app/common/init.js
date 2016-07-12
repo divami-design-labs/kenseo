@@ -8,6 +8,7 @@ var Kenseo = {
     data: {},
     popup: { "info": {}, "data": {}, "replace": {} },
     populate: {},
+    alreadyLoadedSVGs: [],
     overlays: { "info": {}, "data": {} },
     page: { "info": {}, "data": {} },
     current: {

@@ -50,30 +50,6 @@
         <script src="js/app/components/html.js" type="text/javascript"></script>
     </head>
     <body>
-    <script>    
-        (function (doc) { 
-            var scripts = doc.getElementsByTagName('script')    
-            var script = scripts[scripts.length - 1]        
-            var xhr = new XMLHttpRequest()      
-            xhr.onload = function (response) {      
-                // If success
-                // srcElement is for chrome and IE
-                // originalTarget is for Firefox
-                var target = response.srcElement || response.originalTarget;
-                var statusText = target.statusText.toLowerCase();
-                // If success
-                // statusText will not be "ok" but empty string in ios safari.
-                if(statusText == "ok" || statusText == "" ){    
-                    var div = doc.createElement('div')      
-                    div.innerHTML = this.responseText       
-                    div.style.display = 'none'      
-                    script.parentNode.insertBefore(div, script)     
-                }       
-            }       
-            xhr.open('get', 'assets/imgs/kenseo-sprt.svg', true)        
-            xhr.send()        
-        })(document)        
-    </script>
         <div class="popup-container" style="display: none;"></div>
         <div class="page">
             <div class="page-wrapper">

@@ -167,96 +167,23 @@ var validation = (function(){
 	}
 	var doValidate = function($clickedBtn){
 		if(isValidate($clickedBtn)){
-			//functionality to show the global success messages.
-			/*var div = document.createElement('div');
-			//added class to show success message.
-			div.className = "messages-wrapper success-messages-wrapper";
-			var span = document.createElement('span');
-			var img = document.createElement('img');
-			span.innerHTML = "Successfully added";
-			div.appendChild(img);
-			div.appendChild(span);
-			span.className = 'messages';
-			$(img).addClass("error-or-success-img");
-			$(img).attr("src","");
-			$validationSection.prepend($(div).css({
-				'top': $validationSection.scrollTop() + "px"
-			}));
-
-			$validationSection.on('scroll', function(){
-				$(div).css({
-					'top': $(this).scrollTop() + "px"
-				})
-			});
-			setTimeout(function(){
-				this.addClass('show-messages');
-			}.bind($(div)), 10);
-
-			setTimeout(function(){
-				this.removeClass('show-messages');
-			}.bind($(div)), 3010);*/
 			message = "Successfully added";
-			sb.showGlobalMessages($validationSection,message,1);
+			var validationSectionStr = $clickedBtn.attr('data-target-validating-section');
+			if(validationSectionStr){
+				$validationSection = $(validationSectionStr);
+				sb.showGlobalMessages($validationSection,message,1);
+			}
 			return true;
 		}
 		else{
-			// functionality to show the global validation messages
-			/*var div = document.createElement('div');
-			div.className = "messages-wrapper error-messages-wrapper";
-			var ul = document.createElement('ul');
-			// var errorMessages = _.uniq(allErrorMessages);
-			// check if "field is empty" message is more than once or not
-			var fieldEmptyCount = 0;
-			allErrorMessages.forEach(function(item){
-				if(item.indexOf('field is mandatory') > -1){
-					fieldEmptyCount++;
-				}
-			});
-			if(fieldEmptyCount > 1){
-				var errorMessages = allErrorMessages.filter(function(item){
-					return item.indexOf('field is mandatory') === -1;
-				});
-				errorMessages.push('* fields are mandatory');
-			}
-			else{
-				var errorMessages = allErrorMessages;
-			}
-			for(var k = 0; k < errorMessages.length; k++){
-				var li = document.createElement('li');
-				li.innerHTML = errorMessages[k];
-				ul.appendChild(li);
-			}
-			var img = document.createElement('img');
-			div.appendChild(img);
-			div.appendChild(ul);
-			$(img).addClass("error-or-success-img");
-			$(img).attr("src","");
-			$validationSection.prepend($(div).css({
-				'top': $validationSection.scrollTop() + "px"
-			}));
+			message = "* fields are mandatory";
+			var validationSectionStr = $clickedBtn.attr('data-target-validating-section');
+			if(validationSectionStr){
+				$validationSection = $(validationSectionStr);
+				sb.showGlobalMessages($validationSection,message,0);
 
-			$validationSection.on('scroll', function(){
-				$(div).css({
-					'top': $(this).scrollTop() + "px"
-				})
-			})
-			//
-			// Add error class to show all the error messages
-			ul.className = 'messages';
-			// set focus on first error-field
-
-			// Hide above added error messages by removing the above added class after some time
-			// $(div).addClass('show-errors').delay(2000).removeClass('show-errors');
-			setTimeout(function(){
-				this.addClass('show-messages');
-			}.bind($(div)), 10);
-
-			setTimeout(function(){
-				this.removeClass('show-messages');
-			}.bind($(div)), 3010);*/
-			message = "* fields are mandatory"
-			sb.showGlobalMessages($validationSection,message,0);
-      $validationSection.find('.error-field').first().focus();
+	      		$validationSection.find('.error-field').first().focus();
+			}
 			// return false to acknowledge
 			return false;
 		}

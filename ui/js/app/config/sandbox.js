@@ -123,6 +123,32 @@ var sb = (function () {
             link.href = url;
             document.getElementsByTagName("head")[0].appendChild(link);
         },
+        svgLoader: function(svgs){
+            svgs = _.difference(svgs, Kenseo.alreadyLoadedSVGs);
+            for(var i = 0; i < svgs.length; i++){
+        		var scripts = document.getElementsByTagName('script')
+        		var script = scripts[scripts.length - 1]
+        		var xhr = new XMLHttpRequest()
+        		xhr.onload = function (response) {
+        			// If success
+        			// srcElement is for chrome and IE
+        			// originalTarget is for Firefox
+        			var target = response.srcElement || response.originalTarget;
+        			var statusText = target.statusText.toLowerCase();
+        			// If success
+        			// statusText will not be "ok" but empty string in ios safari.
+        			if(statusText == "ok" || statusText == "" ){
+             			var div = document.createElement('div')
+             			div.innerHTML = this.responseText
+             			div.style.display = 'none'
+             			script.parentNode.insertBefore(div, script)
+        			}
+           		}
+           		xhr.open('get', 'assets/imgs/'+ svgs[i] +'.svg', true)
+           		xhr.send()
+        	}
+            Kenseo.alreadyLoadedSVGs = _.union(Kenseo.alreadyLoadedSVGs, svgs);
+        },
         saveData: function saveData(payload) {
             var popupData = sb.getPopupData();
             for (key in popupData) {
@@ -629,6 +655,8 @@ var sb = (function () {
             }
         },
         callPopup: function callPopup(index, currentIndex) {// or previousIndex?
+            this.svgLoader(['popups']);
+            
             var allPopups = $('.popup');
             var $popup = allPopups.eq(index);
             var currentActionType = Kenseo.popup.data.actionType;
@@ -671,6 +699,8 @@ var sb = (function () {
             }
         },
         newCallPopup: function(payload){
+            this.svgLoader(['popups']);
+
             var _this = payload.scope;
             var el = payload.el;
             var index = el.getAttribute('data-index') || 0;

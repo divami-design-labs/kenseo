@@ -16,67 +16,55 @@ var notify = require('gulp-notify');
 var postTemplate = require('gulp-lodash-template');
 var concat = require('gulp-concat');
 // var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var config = require('./config.json');
 
-function spriteChanges() {
-    return gulp
-        // looks for each folder inside "bundle-svgs" folder
-        .src('bundle-svgs/kenseo-sprt/*.svg')
-        .pipe(svgmin(function (file) {
-            var prefix = path.basename(file.relative, path.extname(file.relative));
-            return {
-                plugins: [{
-                    cleanupIDs: {
-                        prefix: prefix + '-',
-                        minify: true
+var svgs = [];
+
+
+/*****************************************/
+function generateSvg(){
+    var svgGrouping = config['svg-grouping'];
+    if(svgGrouping){
+        for(var pageName in svgGrouping){
+            // storing all page names in svgs global variable
+            svgs.push(pageName);
+
+            var pageSpecificSVGs = svgGrouping[pageName]; // Array
+
+            // mapping the page specific variables with relative path
+            var newPageSpecificSVGs = pageSpecificSVGs.map(function(p){ return 'bundle-svgs/' + p + '.svg' });
+            gulp
+                .src(newPageSpecificSVGs)
+                .pipe(svgmin(function(file){
+                    var prefix = path.basename(file.relative, path.extname(file.relative));
+                    // console.log(prefix);
+                    return {
+                        plugins: [{
+                            cleanupIDs: {
+                                prefix: prefix + '-',
+                                minify: true
+                            }
+                        }]
                     }
-                }]
-            }
-        }))
-        .pipe(svgstore())
-        .pipe(gulp.dest('assets/imgs/'));
-}
-
-
-var babel = require("gulp-babel");
-
-function babelChange(){
-    return gulp.src("js/babel-app/**/*.js")
-        // .pipe(sourcemaps.init())
-        // .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
-        .pipe(babel())
-        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
-        // .pipe(sourcemaps.write('.'))
-        // .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
-        .pipe(gulp.dest("js/app/"))
-        .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
-}
-
-// task without watch
-function templateChange() {
-    var templates = {};
-
-    gulp.src('assets/templates/**/*.html')
-    // Run a loop through all files in 'app/templates/*/*.html'
-    .pipe(tap(function (file, t) {
-        // For each file in the loop get "file name" and "file path"
-        var filePath = file.relative;
-        var fileNameWithExt = path.basename(filePath);
-        var fileName = fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf("."));
-        templates[fileName] = fs.readFileSync('assets/templates/' + filePath, 'utf8');
-    })).on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); })
-        .pipe(tap(function () {
-        // Append the above "file name" and "file path"
-        fs.writeFile('templates.js', "var templates =  " + stringify(templates).replace(/[\n\r]*\s\s+/g, " "));
-    })).on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err.message)); });
-
-    // return gulp.src('assets/templates/**.html')
-    //     .pipe(template({
-    //       commonjs: true,
-    //       // amd: true,
-    //       strict: true
-    //     }))
-    //     .pipe(gulp.dest('new/'));
-}
+                }))
+                .on('error', function(error){
+                    gutil.log(error.message);
+                })
+                .pipe(svgstore())
+                // Uncomment the below lines to add additional attributes to the generated SVG Sprite
+                // .pipe(cheerio(function($, file){
+                //     $('svg > symbol').attr('preserveAspectRatio', 'xMinYMid');
+                // }))
+                .on('error', function(error){
+                    gutil.log(error.message);
+                })
+                .pipe(rename(pageName + '.svg'))
+                // Store the generated svg sprite in "site/assets/images/" folder
+                .pipe(gulp.dest('assets/imgs/'));
+        }
+    }
+};
 
 function sassChange(){
     var processors = [autoprefixer];
@@ -111,23 +99,17 @@ function postTemplateChanges(){
 function watchChanges(){
     // templateChange();
     sassChange();
-    // babelChange(/*{ blacklist: ["strict"] }*/);
     postTemplateChanges();
-    spriteChanges();
-    gulp.watch([
-        'assets/templates/**/*.html',
-        'assets/styles/sass/**/*.scss',
-        'assets/styles/sass-utilities/**/*.scss',
-        // 'js/babel-app/**/*.js',
-        'bundle-svgs/**/*.svg'
-    // ], ['template', 'sass', 'babel','kenseo-sprt']);
-    ], ['template', 'sass', 'kenseo-sprt']);
+    generateSvg();
+    gulp.watch(['assets/templates/**/*.html'], ['template']);
+    gulp.watch(['assets/styles/sass/**/*.scss', 'assets/styles/sass-utilities/**/*.scss'], ['sass']);
+    gulp.watch(['bundle-svgs/*.svg'], ['generate-svg']);
 }
 
 // Tasks
 gulp.task('sass', sassChange);
 // gulp.task('template', templateChange);
 gulp.task('template', postTemplateChanges);
-gulp.task('babel', babelChange);
+// gulp.task('babel', babelChange);
+gulp.task('generate-svg', generateSvg);
 gulp.task('watch', watchChanges);
-gulp.task('kenseo-sprt', spriteChanges);

@@ -31,6 +31,8 @@ Kenseo.views.Header = Backbone.View.extend({
     },
     stopMenuClick: function stopMenuClick(e) {},
     showSearchBox: function showSearchBox() {
+        sb.svgLoader(["search"]);
+        
         var $popupContainer = $(".popup-container");
         $popupContainer.show();
         sb.renderTemplate({ "templateName": "search", "templateHolder": $popupContainer });
