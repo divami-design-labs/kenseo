@@ -210,10 +210,22 @@
 
 		public function archiveArtefact($interpreter) {
 			$data = $interpreter->getData()->data;
+			$userId =  $interpreter->getUser()->user_id;
 			$artId = $data->id;
 
 			$db = Master::getDBConnectionManager();
+			$db->beginTransaction();
 			$db->updateTable(TABLE_ARTEFACTS, array("state"), array('A'), "artefact_id = " . $artId);
+
+			// mail
+			$mailInfo = $db->multiObjectQuery(getQuery('artefactRelatedMail', array(
+				"artefactid" => $artId,
+				"userid" => $userId
+			)));
+
+			$this->sendArtefactActionMail($mailInfo, "archived");
+
+			$db->commitTransaction();
 
 			return true;
 		}
@@ -225,6 +237,7 @@
 
 			//first get project ID
 			$db = Master::getDBConnectionManager();
+			$db->beginTransaction();
 			$queryParams = array('artId' => $artId );
 			$dbQuery = getQuery('getProjectOfArtefact',$queryParams);
 			$artefactProjId = $db->singleObjectQuery($dbQuery);
@@ -237,7 +250,35 @@
 			$activityRowValues = array($project_id, $userId, date("Y-m-d H:i:s"), 'A', 'D', $artId);
 			$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 
+
+			// mail
+			$mailInfo = $db->multiObjectQuery(getQuery('artefactRelatedMail', array(
+				"artefactid" => $artId,
+				"userid" => $userId
+			)));
+
+			$this->sendArtefactActionMail($mailInfo, "deleted");
+
+			$db->commitTransaction();
 			return true;
+		}
+
+		public function sendArtefactActionMail($infos, $action){
+			foreach($infos as $key => $info){
+				$mailData = new stdClass();
+				$projectName = $info->{'project_name'};
+				$artefactName = $info->{'artefact_title'};
+				$mailData->to = $info->{'usermail'};
+				$mailData->username = $info->{'username'};
+
+				$userInsideName = $info->{'activity_done_user_mail'} == $info->{'usermail'}? "you": $info->{'activity_done_user'};
+
+				$mailData->subject = "'$projectName': Artefact $action";
+
+				$mailData->message = "Artefact '$artefactName' is $action from '$projectName' project by $userInsideName";
+
+				Email::sendMail($mailData);
+			}
 		}
 
 		public function linkArtefacts($interpreter) {
@@ -691,14 +732,17 @@
 				$mailData->to = $email;
 
 				if($activityDoneUserMail == $email){
-					$mailData->subject = "$projectName: An artefact '$artefactTitle' is shared by you";
-
-					$mailData->message = "Artefact '$artefactTitle' in $projectName is shared by you with " .
-					$this->customImplode(array_map(function($a){
+					$sharedWithUsers = array_map(function($a){
 						return $a->{'screen_name'};
 					}, array_filter($infos, function($a){
 						return ($a->{'email'} != $a->{'activity_done_user_mail'});
-					})));
+					}));
+					$mailData->subject = "$projectName: An artefact '$artefactTitle' is shared by you";
+
+					$mailData->message = "Artefact '$artefactTitle' in $projectName is shared by you";
+					if(count($sharedWithUsers) > 0){
+						$mailData->message = $mailData->message . " with " . $this->customImplode($sharedWithUsers);
+					}
 				}
 				else{
 					$mailData->subject = "$projectName: An artefact '$artefactTitle' is shared with you";

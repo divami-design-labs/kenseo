@@ -10,7 +10,7 @@
         public function sendMail($dump){
             $result = new stdClass();
             //  $from = "sivakumar@gmail.com";
-            $from = "venkateshwar@divami.com"; //$dump->from;
+            $from = "itadmin@divami.com"; //$dump->from;
             //  $to = "narendra@divami.com";
             $to = $dump->to;
             //  $subject = "Test HTML mail";
@@ -25,7 +25,7 @@
                 // Get message from the template
                 $message = file_get_contents(Email::getEmailTemplateUrl($dump->templateUrl));
             }
-            
+
             // add common things to the body of the mail
             $message = "Hi <br />
             $dump->username <br /><br />

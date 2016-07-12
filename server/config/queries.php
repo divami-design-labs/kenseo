@@ -583,5 +583,63 @@ $AppGlobal['sql']['getAddArtefactMailQuery'] = "SELECT
 													JOIN users t5 ON t5.user_id = t4.user_id
 												WHERE
 													t1.artefact_ver_id  IN (@~~artefactversionids~~@)";
+
+$AppGlobal['sql']['projectMembersForMail'] = "SELECT t1.project_name, t3.screen_name as user_name,
+													t3.email as user_mail,
+													(SELECT t5.screen_name FROM users t5 WHERE t5.user_id = t1.created_by) as owner_name,
+													(SELECT t5.email FROM users t5 WHERE t5.user_id = t1.created_by) as owner_mail,
+													(SELECT t5.screen_name FROM users t5 WHERE t5.user_id = @~~userid~~@) as activity_done_user,
+													(SELECT t5.email FROM users t5 WHERE t5.user_id = @~~userid~~@) as activity_done_user_mail
+												FROM projects t1
+												JOIN project_members t2 ON t1.project_id = t2.proj_id
+												JOIN users t3 ON t3.user_id = t2.user_id
+												WHERE t1.project_id = @~~projectid~~@";
+
+$AppGlobal['sql']['artefactRelatedMail'] = "SELECT
+													t4.project_name,
+													t1.artefact_title,
+													t3.screen_name as username,
+												    t3.email as usermail,
+													(
+														SELECT
+															t5.screen_name
+														FROM
+															users t5
+														WHERE
+															t5.user_id = @~~userid~~@
+													) as activity_done_user,
+													(
+														SELECT
+															t5.email
+														FROM
+															users t5
+														WHERE
+															t5.user_id = @~~userid~~@
+													) as activity_done_user_mail,
+												    (
+														SELECT
+															t5.screen_name
+														FROM
+															users t5
+														WHERE
+															t5.user_id = t6.created_by
+													) as owner_name,
+													(
+														SELECT
+															t5.email
+														FROM
+															users t5
+														WHERE
+															t5.user_id = t6.created_by
+													) as owner_mail
+
+												FROM
+													artefacts t1
+													JOIN artefact_shared_members t2 ON t2.artefact_ver_id = t1.latest_version_id
+												    JOIN users t3 ON t3.user_id = t2.user_id
+												    JOIN projects t4 ON t4.project_id = t1.project_id
+												    JOIN artefact_versions t6 ON t6.artefact_ver_id = t1.latest_version_id
+												WHERE
+													t1.artefact_id = @~~artefactid~~@";
 /* Mail activities ended */
 ?>

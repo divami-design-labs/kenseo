@@ -88,7 +88,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
         _this.collection.fetch(sb.getStandardData({
             data: _this.data,
             success: function(collection, response){
-                console.dir(response);
+                // console.dir(response);
                 var data = response.data;
                 if(_this.templateWrapperHolder){
                     sb.renderTemplate({
@@ -116,27 +116,20 @@ Kenseo.views.Artefacts = Backbone.View.extend({
 
                 var linkedId = -1;
                 data.forEach(function(m, i, a){
-                    console.log(linkedId, m['linked_id'], linkedId === +m['linked_id']);
+                    // console.log(linkedId, m['linked_id'], linkedId === +m['linked_id']);
                     var view = new Kenseo.views.Artefact({
                         model: new Kenseo.models.Artefacts(m),
                         collection: _this.collection,
                         linkedArtefactNo: function(){
                             if(m['linked_id'] !== null){
                                 if(((a[i-1] && a[i-1]['linked_id']) === m['linked_id'])){
-                                    console.log(m['linked_id'], "else if");
+                                    // console.log(m['linked_id'], "else if");
                                     return 1
                                 }
                             }
-                            console.log(m['linked_id'], "something");
+                            // console.log(m['linked_id'], "something");
                             return 0;
                         }
-                        // (
-                        //     (
-                        //             ((a[i+1] && a[i+1]['linked_id']) === m['linked_id'])
-                        //         ||  ((a[i-1] && a[i-1]['linked_id']) === m['linked_id'])
-                        //     )
-                        //     && m['linked_id'] !== null
-                        // ) ? 1 : 0,
                     });
                     linkedId = m['linked_id'];
                     _this.templateHolder.append(view.el);

@@ -1,4 +1,5 @@
-<?php 
+<?php
+	require_once('Email.php');
 	class Projects {
 		public function getProjects($interpreter) {
 			$data = $interpreter->getData()->data;
@@ -7,15 +8,15 @@
 				return $this->getMyProjectsList($interpreter);
 			}
 		}
-		
+
 		public function getMyProjectsList($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userid = $interpreter->getUser()->user_id;
 			$limit = $data->limit;
 			$includeArchives = $data->includeArchives;
-			
+
 			$db = Master::getDBConnectionManager();
-			
+
 			$queryParams = array('userid' => $userid, '@limit'=>$limit);
 			if($includeArchives) {
 				// Get all projects along with archived projects
@@ -32,36 +33,96 @@
 		public function deleteProject($interpreter) {
 			$data = $interpreter->getData()->data;
 			$projectId = $data->projectId;
-			
+
 			// Delete the project
 			$db = Master::getDBConnectionManager();
 			$db->deleteTable(TABLE_PROJECTS, "project_id = " . $projectId);
-			
-			return true;
-		}
-											
-		public function archiveProject($interpreter) {
-			$data = $interpreter->getData()->data;
-			$projectId = $data->id;
-			
-			//Archive project
-			$db = Master::getDBConnectionManager();
-			$db->updateTable(TABLE_PROJECTS, array("state"), array('Z'), "project_id = " . $projectId);
-			
+
 			return true;
 		}
 
-		public function unArchiveProject($interpreter) {
+		public function archiveProject($interpreter) {
 			$data = $interpreter->getData()->data;
+			$userId = $interpreter->getUser()->user_id;
 			$projectId = $data->id;
-			
-			//Un archive project
+
+			//Archive project
 			$db = Master::getDBConnectionManager();
-			$db->updateTable(TABLE_PROJECTS, array("state"), array('A'), "project_id = " . $projectId);
-			
+			$db->beginTransaction();
+			$db->updateTable(TABLE_PROJECTS, array("state"), array('Z'), "project_id = " . $projectId);
+
+			// send mail
+			$mailInfo = $db->multiObjectQuery(getQuery('projectMembersForMail', array(
+				"projectid" => $projectId,
+				"userid" => $userId
+			)));
+			$this->archiveProjectMail($mailInfo);
+
+			$db->commitTransaction();
 			return true;
 		}
-														
+
+		public function unarchiveProject($interpreter) {
+			$data = $interpreter->getData()->data;
+			$userId = $interpreter->getUser()->user_id;
+			$projectId = $data->id;
+
+			//Un archive project
+			$db = Master::getDBConnectionManager();
+			$db->beginTransaction();
+			$db->updateTable(TABLE_PROJECTS, array("state"), array('A'), "project_id = " . $projectId);
+
+			// send mail
+			$mailInfo = $db->multiObjectQuery(getQuery('projectMembersForMail', array(
+				"projectid" => $projectId,
+				"userid" => $userId
+			)));
+
+			$this->unArchiveProjectMail($mailInfo);
+
+			$db->commitTransaction();
+
+			return true;
+		}
+
+		public function archiveProjectMail($infos){
+			foreach($infos as $key => $info){
+				$mailData = new stdClass();
+
+				$projectName = $info->{'project_name'};
+
+				$mailData->subject = "$projectName: Archived";
+				$mailData->to = $info->{'user_mail'};
+
+				$activityDoneUser = $info->{'activity_done_user'};
+
+				$mailData->username = $info->{'user_name'};
+				$userInsideName = $info->{'activity_done_user_mail'} == $info->{'user_mail'} ? "you": $info->{'activity_done_user'};
+
+				$mailData->message = "Project '$projectName' has been archived by $userInsideName";
+				Email::sendMail($mailData);
+			}
+		}
+
+		public function unArchiveProjectMail($infos){
+			foreach($infos as $key => $info){
+				$mailData = new stdClass();
+
+				$projectName = $info->{'project_name'};
+
+				$mailData->subject = "$projectName: Un-Archived";
+				$mailData->to = $info->{'user_mail'};
+
+				$activityDoneUser = $info->{'activity_done_user'};
+
+				$mailData->username = $info->{'user_name'};
+				$userInsideName = $info->{'activity_done_user_mail'} == $info->{'user_mail'} ? "you": $info->{'activity_done_user'};
+
+				$mailData->message = "Project '$projectName' has been un-archived by $userInsideName";
+				Email::sendMail($mailData);
+			}
+		}
+
 		public function addProject($interpreter) {
 			$data = $interpreter->getData()->data;
 			// $projectName = $data->projectName->value;
@@ -76,10 +137,10 @@
 			$queryParams = array('user_id' => $userId);
 			$dbQuery = getQuery('getUserOrganizationId', $queryParams);
 			$org_id = $db->singleObjectQuery($dbQuery)->org_id;
-			
+
 			// Add project
 			$projId = $db->insertSingleRowAndReturnId(TABLE_PROJECTS,
-				array("project_name", "state", "org_id", "created_by", "last_updated_date"), 
+				array("project_name", "state", "org_id", "created_by", "last_updated_date"),
 				array("$projectName", "A", $org_id, $userId, "$date")
 			);
 
@@ -89,7 +150,7 @@
 			$columns = array("proj_id", "user_id", "access_type", "group_type");
 			$rows = array();
 			$rows[] = array($projId, $userId, "X", "I");
-			
+
 			//@TODO: Remove this code when UI for "Adding management users to the project" is implemented.
 			// Add management users also to this project.
 			$management_users = array("naveen@divami.com", "vasu@divami.com");
@@ -106,21 +167,21 @@
 			$db->insertMultipleRow(TABLE_PROJECT_MEMBERS, $columns, $rows);
 
 			$db->commitTransaction();
-			
+
 			return true;
 		}
-		
+
 		public function getProjectActivity($interpreter) {
 			$data = $interpreter->getData()->data;
 			$projectId = $data->projectId;
-			
+
 			$db = Master::getDBConnectionManager();
 			$queryParams = array('projectId' => $projectId);
-			
+
 			$dbQuery = getQuery('getProjectActivity',$queryParams);
-			
+
 			$resultObj = $db->multiObjectQuery($dbQuery);
-			
+
 		}
 	}
 ?>
