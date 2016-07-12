@@ -92,7 +92,7 @@
 	position: relative;
 	left: 0;
 	@include transition(left 1s ease-in-out);
-	img{
+	img, svg{
 		width: 30px;
 		height: 30px;
 		display: inline-block;

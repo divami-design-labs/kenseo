@@ -72,40 +72,34 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
- if(params.projects && params.sortBy){ ;
+ if(data.projects && data.sortBy){ ;
 __p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- if(data.length){ ;
+ if(data.projects.length){ ;
 __p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
  } ;
 __p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
- if(params.sortBy && params.sortBy === 'default'){ ;
+ if(data.sortBy && data.sortBy === 'default'){ ;
 __p += ' linked-artefacts ';
  } ;
 __p += '">\r\n\t<div class="sort-view">Sort By ';
- if(params && params.sortBy){ ;
+ if(data && data.sortBy){ ;
 __p += ' ' +
-((__t = ( _.capitalize(params.sortBy) )) == null ? '' : __t) +
+((__t = ( _.capitalize(data.sortBy) )) == null ? '' : __t) +
 ' ';
  } else { ;
 __p += 'Default ';
  } ;
 __p += '</div>\r\n';
  } else{ ;
-__p += '\r\n\t<div class="review-requests-heading">            \r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
+__p += '\r\n\t<div class="review-requests-heading">\r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
  } ;
-__p += '\r\n\t\t';
- _.each(data, function(d){ ;
-__p += '\r\n\t\t\t' +
-((__t = ( sb.setTemplate('artefact', {data: d}) )) == null ? '' : __t) +
-'\r\n\t\t';
- }) ;
-__p += '\r\n';
- if(params.projects && params.sortBy){ ;
+__p += '\r\n\r\n';
+ if(data.projects && data.sortBy){ ;
 __p += '\r\n</div>\r\n';
  } else{ ;
 __p += '\r\n\t</div>\r\n';
  } ;
-
+__p += '\r\n';
 
 }
 return __p
@@ -1043,7 +1037,7 @@ __p += '\r\n\t\t<div class="left-slider">\r\n\t\t\t<svg><use xlink:href="#left-s
 __p += '\r\n\t<div class="dv-tb-people">\r\n\t\t';
  _.each(data.sharedTo, function(p){ ;
 __p += '\r\n\t\t';
- if(data.profilePic !== "assets/imgs/avatar.svg"){ ;
+ if(p.profilePic !== "assets/imgs/avatar.svg"){ ;
 __p += '\r\n\t\t\t<img class="profile-image-black" src="' +
 ((__t = ( p.profilePic )) == null ? '' : __t) +
 '"/>\r\n\t\t';
@@ -1396,7 +1390,7 @@ __p += 'href="#documentview/' +
  } else{ ;
 __p += ' style="cursor:default;" ';
  } ;
-__p += ' class="review-request-item data-holder" data-pass="';
+__p += ' data-pass="';
  (function () {
             if (dataComparer == data.linkedId) {
                 dataComparer = data.linkedId;
@@ -1406,13 +1400,7 @@ __p += ' class="review-request-item data-holder" data-pass="';
                 return 0;
             }
         })() ;
-__p += '" data-id="' +
-((__t = ( data.id )) == null ? '' : __t) +
-'" data-version-id="' +
-((__t = ( data.id )) == null ? '' : __t) +
-'" data-k-project_id="' +
-((__t = ( data.project_id )) == null ? '' : __t) +
-'" data-key="artefacts">\r\n\t<div class="rr-left">\r\n\t\t<div class="rr-status status-' +
+__p += '">\r\n\t<div class="rr-left">\r\n\t\t<div class="rr-status status-' +
 ((__t = ( data.status )) == null ? '' : __t) +
 '">';
  if(data['document_type']){  ;
@@ -1452,7 +1440,7 @@ __p += '">' +
 ((__t = ( data.version )) == null ? '' : __t) +
 '</span>\r\n\t\t\t\t<div class="rr-other-versions"></div>\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="share-artefact" data-index="3">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-click sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
+'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="3">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
 
 }
 return __p
@@ -1921,7 +1909,7 @@ __p += '\r\n    </div>\r\n    <div class="menu-profile-text">\r\n        <div cl
 ((__t = ( data.name )) == null ? '' : __t) +
 '</div>\r\n        <div class="menu-profile-txt-dsgn">' +
 ((__t = ( data.designation )) == null ? '' : __t) +
-'</div>\r\n    </div>\r\n</div>\r\n<div class="menu-settings">\r\n    <a href="#" class="menu-settings-dshbd-dv page-click">\r\n        <div class="menu-settings-img menu-dashboard-icon">\r\n            <svg><use xlink:href="#dashboard"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Dashboard</span>\r\n    </a>\r\n    <a href="#projects" class="menu-settings-dshbd-dv page-click hide">\r\n        <div class="menu-settings-img menu-archive-icon">\r\n            <svg fill="#BEC0CF"><use xlink:href="#archive-icn"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Projects</span>\r\n    </a>\r\n    <a href="#" class="menu-settings-dshbd-dv page-click hide">\r\n        <div class="menu-settings-img menu-analytics-icon">\r\n            <svg><use xlink:href="#analytics"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Analytics</span>\r\n    </a>\r\n    <a href="#" class="menu-settings-dshbd-dv page-click hide">\r\n        <div class="menu-settings-img menu-archive-icon">\r\n            <svg fill="#BEC0CF"><use xlink:href="#archive-icn"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Archives</span>\r\n    </a>\r\n    <a href="#" class="menu-settings-dshbd-dv page-click hide">\r\n        <div class="menu-settings-img menu-settings-icon">\r\n            <svg><use xlink:href="#settings"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Settings</span>\r\n    </a>\r\n</div>';
+'</div>\r\n    </div>\r\n</div>\r\n<div class="menu-settings">\r\n    <a href="#" class="menu-settings-dshbd-dv page-click">\r\n        <div class="menu-settings-img menu-dashboard-icon">\r\n            <svg><use xlink:href="#dashboard"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Dashboard</span>\r\n    </a>\r\n    <a href="#projects" class="menu-settings-dshbd-dv page-click hide">\r\n        <div class="menu-settings-img menu-archive-icon">\r\n            <svg fill="#BEC0CF"><use xlink:href="#archive-icn"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Projects</span>\r\n    </a>\r\n    <a href="#" class="menu-settings-dshbd-dv page-click hide">\r\n        <div class="menu-settings-img menu-analytics-icon">\r\n            <svg><use xlink:href="#analytics"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Analytics</span>\r\n    </a>\r\n    <a href="#" class="menu-settings-dshbd-dv page-click hide">\r\n        <div class="menu-settings-img menu-archive-icon">\r\n            <svg fill="#BEC0CF"><use xlink:href="#archive-icn"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Archives</span>\r\n    </a>\r\n    <a href="#" class="menu-settings-dshbd-dv page-click hide">\r\n        <div class="menu-settings-img menu-settings-icon">\r\n            <svg><use xlink:href="#settings"></use></svg>\r\n        </div>\r\n        <span class="menu-settings-txt">Settings</span>\r\n    </a>\r\n</div>\r\n';
 
 }
 return __p
@@ -2083,7 +2071,7 @@ __p += '\r\n';
  _.each(data, function(p){ ;
 __p += '\r\n<div class="menu-recent-people-cnt">\r\n\t';
  if(p.picture == "assets/imgs/avatar.svg"){ ;
-__p += '\r\n\t\t<svg><use xlink:href="#avatar" class="menu-people-img"></use></svg>\r\n    ';
+__p += '\r\n\t\t<svg class="menu-people-img"><use xlink:href="#avatar" class="menu-people-img"></use></svg>\r\n    ';
  } else { ;
 __p += '\r\n    \t<img src="' +
 ((__t = ( p.picture )) == null ? '' : __t) +
@@ -2095,7 +2083,7 @@ __p += '\r\n';
  } else{ ;
 __p += '\r\n<div class="no-items">\r\n\tNo added people\r\n</div>\r\n';
  } ;
-
+__p += '\r\n';
 
 }
 return __p
@@ -2416,7 +2404,7 @@ with (obj) {
 __p += '\r\n<div class="popup popup-large k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
 '\r\n\t<div class="popup-left-section">\r\n\t\t' +
-((__t = ( 
+((__t = (
 			sb.setTemplate('popup-meta-content', {
 				'data': {
 					project: true,
@@ -2424,9 +2412,9 @@ __p += '\r\n<div class="popup popup-large k-form">\r\n\t' +
 					type: true,
 					references: true,
 					tags: true,
-					'dump': sb.getPopupData()
+					'dump': dump
 				},
-			}) 
+			})
 		)) == null ? '' : __t) +
 '\r\n\t</div>\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper popup-right-section">\r\n\t\t\t<div class="your-team-section">\r\n\t\t\t\t<div class="your-team-heading">Your Team</div>\r\n\t\t\t\t<form class="your-team-body">\r\n\t\t\t\t\t<div class="field-section your-team-field" data-name="new-people">\r\n\t\t\t\t\t\t<form>\r\n\t\t\t\t\t\t\t';
 
@@ -2441,9 +2429,9 @@ __p += '\r\n<div class="popup popup-large k-form">\r\n\t' +
 							;
 __p += '\r\n\t\t\t\t\t\t\t' +
 ((__t = ( fields.shareCombo )) == null ? '' : __t) +
-'\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="share-artefact-people">\r\n\t\t\t\t\t\t<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</form>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+'\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="share-artefact-people">\r\n\t\t\t\t\t\t<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">\r\n\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</form>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
-'\r\n\t</div>\r\n</div>';
+'\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p

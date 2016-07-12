@@ -153,7 +153,6 @@
         content: "";
         /*@include elementWithBackground("link.svg", 8px, 21px);*/
         @include dimensions(8px, 21px);
-        background-color: white;
         position: absolute;
         bottom: 100%;
         right: 100%;
@@ -161,6 +160,8 @@
         transform: translate(50%, 50%);
         margin-bottom: $mT/2;
         z-index: 1;
+		@include backgroundImage('link.svg');
+		background-color: white;
     }
     &.xl .rr-status:after{
         height: $h + $xlMT;

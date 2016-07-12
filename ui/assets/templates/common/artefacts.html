@@ -1,4 +1,4 @@
-<% if(params.projects && params.sortBy){ %>
+<% if(data.projects && data.sortBy){ %>
 <div class="sub-heading-section">
 	<div class="artifacts-heading sub-heading">
 		<div class="sub-heading-label">Artefacts</div>
@@ -7,7 +7,7 @@
 				<svg><use xlink:href="#add"></use></svg>
 			</div>
 		</div>
-		<% if(data.length){ %>
+		<% if(data.projects.length){ %>
 		<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">
 			<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>
 			<div class="sub-menu-holder left-nav bottom-nav">
@@ -20,10 +20,10 @@
 		<% } %>
 	</div>
 </div>
-<div class="artifacts-content sub-section-content <% if(params.sortBy && params.sortBy === 'default'){ %> linked-artefacts <% } %>">
-	<div class="sort-view">Sort By <% if(params && params.sortBy){ %> <%= _.capitalize(params.sortBy) %> <% } else { %>Default <% } %></div>
+<div class="artifacts-content sub-section-content <% if(data.sortBy && data.sortBy === 'default'){ %> linked-artefacts <% } %>">
+	<div class="sort-view">Sort By <% if(data && data.sortBy){ %> <%= _.capitalize(data.sortBy) %> <% } else { %>Default <% } %></div>
 <% } else{ %>
-	<div class="review-requests-heading">            
+	<div class="review-requests-heading">
 		<div class="review-requests-icon">
 			<svg><use xlink:href="#reviewrequest"></use></svg>
 		</div>
@@ -31,10 +31,8 @@
 	</div>
 	<div class="review-requests-content">
 <% } %>
-		<% _.each(data, function(d){ %>
-			<%= sb.setTemplate('artefact', {data: d}) %>
-		<% }) %>
-<% if(params.projects && params.sortBy){ %>
+
+<% if(data.projects && data.sortBy){ %>
 </div>
 <% } else{ %>
 	</div>

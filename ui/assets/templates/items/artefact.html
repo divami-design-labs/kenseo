@@ -1,6 +1,6 @@
 <% var dataComparer = -1; %>
 <% var isSupportedFile = data.MIME_type.indexOf('pdf') > -1 || data.MIME_type.indexOf('image') > -1 %>
-<a <% if(isSupportedFile){ %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %> class="review-request-item data-holder" data-pass="<% (function () {
+<a <% if(isSupportedFile){ %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %> data-pass="<% (function () {
             if (dataComparer == data.linkedId) {
                 dataComparer = data.linkedId;
                 return 1;
@@ -8,7 +8,7 @@
                 dataComparer = data.linkedId;
                 return 0;
             }
-        })() %>" data-id="<%= data.id %>" data-version-id="<%= data.id %>" data-k-project_id="<%= data.project_id %>" data-key="artefacts">
+        })() %>">
 	<div class="rr-left">
 		<div class="rr-status status-<%= data.status %>"><% if(data['document_type']){  %><%= Kenseo.settings.docTypeShort[data['document_type']] %><% } %></div>
         <% if(data.image !== "assets/imgs/avatar.svg"){ %>
@@ -36,31 +36,31 @@
 			<svg><use xlink:href="#dropdown"></use></svg>
 		</div>
 		<div class="requests-dropdown-items sub-menu-holder small">
-			<div class="popup-click sub-menu-item" data-url="archive-artefact">
+			<div class="sub-menu-item" data-url="archive-artefact">
 				<div class="item-icon">
 					<svg><use xlink:href="#archive1"></use></svg>
 				</div>
 				<div class="sub-menu-item-text">Archive</div>
 			</div>
-			<div class="popup-click sub-menu-item" data-url="replace-artefact">
+			<div class="sub-menu-item" data-url="replace-artefact">
 				<div class="item-icon">
 					<svg><use xlink:href="#replace"></use></svg>
 				</div>
 				<div class="sub-menu-item-text">Replace</div>
 			</div>
-			<div class="popup-click sub-menu-item" data-url="add-version">
+			<div class="sub-menu-item" data-url="add-version">
 				<div class="item-icon">
 					<svg><use xlink:href="#addversion"></use></svg>
 				</div>
 				<div class="sub-menu-item-text">Add Version</div>
 			</div>
-			<div class="popup-click sub-menu-item" data-url="share-artefact" data-index="3">
+			<div class="sub-menu-item" data-url="share-artefact" data-index="3">
 				<div class="item-icon">
 					<svg><use xlink:href="#share"></use></svg>
 				</div>
 				<div class="sub-menu-item-text">Share</div>
 			</div>
-			<div class="popup-click sub-menu-item" data-url="delete-artefact">
+			<div class="sub-menu-item" data-url="delete-artefact">
 				<div class="item-icon">
 					<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>
 				</div>

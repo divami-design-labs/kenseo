@@ -2,7 +2,7 @@
 <div class="popup popup-large k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-left-section">
-		<%= 
+		<%=
 			sb.setTemplate('popup-meta-content', {
 				'data': {
 					project: true,
@@ -10,9 +10,9 @@
 					type: true,
 					references: true,
 					tags: true,
-					'dump': sb.getPopupData()
+					'dump': dump
 				},
-			}) 
+			})
 		%>
 	</div>
 	<div class="popup-body">
@@ -37,7 +37,7 @@
 					</div>
 					<div class="share-artefact-people">
 						<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">
-							
+
 						</div>
 					</div>
 				</form>

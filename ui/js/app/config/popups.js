@@ -207,7 +207,7 @@ Kenseo.popups = (function(){
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
-	            	"cls": "main-btn done-btn",
+	            	"cls": "main-btn ok-btn",
 	            },{
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"

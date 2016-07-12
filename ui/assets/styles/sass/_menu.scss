@@ -308,7 +308,7 @@
 .menu-recent-people-cnt {
     text-align: center;
     margin-bottom: 20px;
-    img{
+    img, svg{
         @extend .circle;
         background-color: white;
         border: 2px solid $colorEight;

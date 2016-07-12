@@ -66,6 +66,17 @@ var sb = (function () {
             });
             $.when.apply(filterArrayOfAjaxCalls).then(callbackfunction);
         },
+        attach: function($element, eventName, func){
+            $element.off(eventName, func)
+                .on(eventName, func);
+        },
+        attachIn: function(eventName, selector, func, $inElement){
+            if(!$inElement) $inElement = $(document.body);
+
+            // @TODO: off is not unbinding the events
+            $inElement.off(eventName, selector, func);
+            $inElement.on(eventName, selector, func);
+        },
         redirectTo: function(value){
             var a = document.createElement('a');
             a.href = value;
@@ -657,6 +668,51 @@ var sb = (function () {
                 if (info.callbackfunc) {
                     info.callbackfunc();
                 }
+            }
+        },
+        newCallPopup: function(payload){
+            var _this = payload.scope;
+            var el = payload.el;
+            var index = el.getAttribute('data-index') || 0;
+            var actionType = el.getAttribute('data-url');
+            Kenseo.popup.info = Kenseo.popups.getPopupsInfo(actionType);
+            if (index > 0) {
+                Kenseo.popup.info = Kenseo.popup.info.slice(index);
+                index = 0;
+            }
+            if(payload.beforeRender){
+                payload.beforeRender();
+            }
+            // Kenseo.popup.info.projectComboboxValueChanged = false;
+            var info = Kenseo.popup.info[index];
+            _.extend(info, {'index': index});
+
+            var $templateHolder = $('.popup-container');
+
+            //
+            sb.setPopupData(_this.model.toJSON());
+            sb.setPopupData(_.camelCase(actionType), 'actionType');
+
+            sb.renderTemplate({
+                'templateName': info.page_name,
+                'templateHolder': $templateHolder,
+                'append': true,
+                'data': {
+                    'data': info
+                }
+            });
+
+            $templateHolder.show();
+            // Storing current popup root element
+            Kenseo.current.popup = $templateHolder.find('.popup').last();
+
+            // @INFO: Compatible with new changes
+            if(payload.afterRender){
+                payload.afterRender($templateHolder, _this);
+            }
+
+            if (info.callbackfunc) {
+                info.callbackfunc();
             }
         },
         toolbox: {

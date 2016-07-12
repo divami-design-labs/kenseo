@@ -187,18 +187,18 @@ $(function () {
 			}
 		});
 	}).on('click', '.sort-item', function (e) {
-		var $self = $(e.currentTarget),
-		    id = sb.getPageData('project').id;
-		new Kenseo.views.Artefacts({
-			el: '.artifacts-content',
-			id: id,
-			colStr: 'Artefacts',
-			data: { projects: true, project_id: id, sharePermission: false, sortBy: $self.data('stype') },
-			stopRenderX: true,
-			preLoader: function preLoader(response) {
-				$('.artifacts-section').html(sb.setTemplate('artefacts', response));
-			}
-		});
+		// var $self = $(e.currentTarget),
+		//     id = sb.getPageData('project').id;
+		// new Kenseo.views.Artefacts({
+		// 	el: '.artifacts-content',
+		// 	id: id,
+		// 	colStr: 'Artefacts',
+		// 	data: { projects: true, project_id: id, sharePermission: false, sortBy: $self.data('stype') },
+		// 	stopRenderX: true,
+		// 	preLoader: function preLoader(response) {
+		// 		$('.artifacts-section').html(sb.setTemplate('artefacts', response));
+		// 	}
+		// });
 	})
 	// This is not required because people removing is handling in confirmation popup.
 	// .on('click', '.people-remove-icon', function (e) {
@@ -245,10 +245,10 @@ $(function () {
 	.on('click', '[data-href]', function(e){
 		var el = e.currentTarget;
 		var href = el.getAttribute('data-href');
-		
+
 		// if any popup is open then close it
 		popupCloser($(popupContainer));
-		
+
 		sb.redirectTo(href);
 	});
 });

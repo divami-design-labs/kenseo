@@ -39,7 +39,16 @@ sb.refresh = (function(){
             'db-artefacts': function(){
             	$('.dashboard-section .review-requests-content').html("");
             	// return new Kenseo.views.Artefacts({ colStr: 'Artefacts', data: 'db-artefacts' });
-            	return sb.renderTemplate({ templateName: 'artefacts', templateHolder: $('.dashboard-section .review-requests-section'), collection: new Kenseo.collections.Artefacts(), data: 'db-artefacts'})
+				// @OLDCODE - commented
+            	// return sb.renderTemplate({ templateName: 'artefacts', templateHolder: $('.dashboard-section .review-requests-section'), collection: new Kenseo.collections.Artefacts(), data: 'db-artefacts'})
+				return new Kenseo.views.Artefacts({
+					collection: new Kenseo.collections.Artefacts(),
+					templateHolder: $('.review-requests-content'),
+					data: {
+		                shared: true,
+		                limit: 8
+		            }
+				})
             }
 		},
 		'header': {
@@ -51,17 +60,33 @@ sb.refresh = (function(){
 			'project-page-section': function(){
 				return sb.renderTemplate({ 'templateName': 'project-page', 'templateHolder': $('.project-section') });
 			},
-            'pp-artefacts': function() {
-            	return new Kenseo.views.Artefacts({
-	                el: '.artifacts-content',
-	                id: Kenseo.page.id,
-	                colStr: 'Artefacts',
-	                data: { projects: true, project_id: Kenseo.page.id, sharePermission: false, sortBy: 'default' },
-	                stopRenderX: true,
-	                preLoader: function preLoader(response) {
-	                    $('.artifacts-section').html(sb.setTemplate('artefacts', response));
-	                }
-	            });
+            'pp-artefacts': function(sortBy) {
+				// @OLDCODE
+            	// return new Kenseo.views.Artefacts({
+	            //     el: '.artifacts-content',
+	            //     id: Kenseo.page.id,
+	            //     colStr: 'Artefacts',
+	            //     data: { projects: true, project_id: Kenseo.page.id, sharePermission: false, sortBy: 'default' },
+	            //     stopRenderX: true,
+	            //     preLoader: function preLoader(response) {
+	            //         $('.artifacts-section').html(sb.setTemplate('artefacts', response));
+	            //     }
+	            // });
+
+				// @NEWCODE
+				// sb.renderTemplate({
+				// 	templateHolder: $('.review-requests-content.artifacts-section'),
+				// 	templateName: 'artefacts',
+				// 	data: {}
+				// })
+				sortBy = sortBy || 'default';
+				return new Kenseo.views.Artefacts({
+					collection: new Kenseo.collections.Artefacts(),
+					templateHolder: $('.artifacts-content'),
+					templateWrapperHolder: $('.review-requests-content.artifacts-section'),
+					sortBy: sortBy,
+					data: { projects: true, project_id: Kenseo.page.id, sharePermission: false, sortBy: sortBy }
+				})
             },
             'pp-activities': function(){
             	return new Kenseo.views.Activities({ collection: new Kenseo.collections.Artefacts(), data: { projectActivities: true, project_id: Kenseo.page.id } });
