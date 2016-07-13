@@ -181,6 +181,7 @@ $(function () {
 			plainData: plainData,
 			contentType: contentType,
 			processData: processData,
+			container: $('.popup'),
 			success: function success() {
 				popupCloser($self.parents(popupContainer));
 				sb.refresh.type(actionType);

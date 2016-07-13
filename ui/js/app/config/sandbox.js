@@ -171,6 +171,7 @@ var sb = (function () {
             $.ajaxSetup({
                 cache: false
             });
+            sb.throbber(payload.container);
             // var url = payload.url || collection.urlRoot || collection.url;
             var url = sb.getUrl(payload);
             // If plainData is true, don't add session Id. This assumes the session id has already been added.
@@ -190,7 +191,7 @@ var sb = (function () {
             if (processData === undefined || processData === null) {
                 processData = true;
             }
-
+            var timeBeforeAjaxCall = Date.now();
             // Ajax call
 
             // returning the ajax is necessary for jquery promises, if any.
@@ -203,14 +204,17 @@ var sb = (function () {
                 success: function success(response) {
                     // try {
                         var response = JSON.parse(response);
-                        if (response.status == 'success') {
-                            if (!payload.excludeDump) {
-                                sb.setDump(response);
-                            }
-                            payload.success(response);
-                        } else {
-                            // window.location.assign(DOMAIN_ROOT_URL);
-                        }
+                        sb.throbberTimeOut(timeBeforeAjaxCall, function() {
+                          if (response.status == 'success') {
+                              if (!payload.excludeDump) {
+                                  sb.setDump(response);
+                              }
+                              payload.success(response);
+                          } else {
+                              // window.location.assign(DOMAIN_ROOT_URL);
+                          }
+                        });
+
                     // }
                     // catch(ex){
                     //     // Catching the exception
@@ -221,6 +225,16 @@ var sb = (function () {
                     // }
                 }
             });
+        },
+        throbberTimeOut: function(timeBeforeAjaxCall,responseFunction) {
+          var timeAfterAjaxCall = Date.now();
+          var responseTime = timeAfterAjaxCall - timeBeforeAjaxCall;
+          var fixedTime = 1000;
+          var timeForThrobber = fixedTime - responseTime;
+          setTimeout(function() {
+            responseFunction();
+            $('div').removeClass('throbber');
+          }, timeForThrobber < 0 ? 0 : timeForThrobber);
         },
         loopAttributes: function(el, filter, callback){
             var attributes = el.attributes;
@@ -626,14 +640,14 @@ var sb = (function () {
                 },
                 getFileName: function(){
                     try{
-                        if(dump.files && dump.files.length == 1){               
-                            return dump.files[0].name;          
-                        }           
-                        else if(dump.files && dump.files.length > 1){               
-                            return "Multiple files";            
-                        }           
-                        else if(dump.artefactName){               
-                            return dump.artefactName;               
+                        if(dump.files && dump.files.length == 1){
+                            return dump.files[0].name;
+                        }
+                        else if(dump.files && dump.files.length > 1){
+                            return "Multiple files";
+                        }
+                        else if(dump.artefactName){
+                            return dump.artefactName;
                         }
                         else{
                             return dump.title;
@@ -656,14 +670,14 @@ var sb = (function () {
         },
         callPopup: function callPopup(index, currentIndex) {// or previousIndex?
             this.svgLoader(['popups']);
-            
+
             var allPopups = $('.popup');
             var $popup = allPopups.eq(index);
             var currentActionType = Kenseo.popup.data.actionType;
             if($popup.length){
                 // when the popup is already existing, show the popup and refresh the meta information if necessary
                 sb.popup.popupsStateMaintainer({
-                    index: index, 
+                    index: index,
                     currentIndex: currentIndex,
                     allPopups: allPopups,
                     currentActionType: currentActionType
@@ -959,7 +973,25 @@ var sb = (function () {
 
     			setTimeout(function(){
     				this.removeClass('show-messages');
-    			}.bind($(div)), 3010);
+    			}.bind($('div.messages-wrapper')), 3010);
+        },
+        throbber: function(ele){
+          var div = document.createElement('div');
+          $(div).addClass('throbber');
+          var loaderdiv = document.createElement('div');
+          $(loaderdiv).addClass('loader');
+          div.appendChild(loaderdiv);
+          if(!ele){
+            $('body').prepend($(div));
+          }
+          else{
+            var element = ele.get();
+            var position = getComputedStyle(element[0]).getPropertyValue("position");
+            if(position == "static"){
+              $(div).css({'position' : 'relative'});
+            }
+            ele.prepend($(div));
+          }
         }
     };
 })();

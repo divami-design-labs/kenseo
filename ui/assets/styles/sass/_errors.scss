@@ -1,28 +1,57 @@
-.error-messages-wrapper{
-	text-align: center;
-	position: absolute;
-	z-index: 10;
-	top: 0;
-	left: 0;
-	right: 0;
-	transform: translate(0, -100%);
-	transition: transform 0.5s;
-	&.show-errors{
-		transform: translate(0, 0);
-	}
-	background-color: rgba(253,194,198, 0.8);
-	border-radius: 0px 0px 4px 4px;
+
+.messages-wrapper {
+  text-align: center;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 50%;
+  right: 0;
+  -webkit-transform: translate(-50%, -100%);
+          transform: translate(-50%, -100%);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+  border-radius: 0px 0px 4px 4px;
+  line-height: 100px;
+  width: 425px;
+  min-height: 110px;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
-.error-messages{
-	display: inline-block;
-	text-align: left;
-	padding: 0px;
-	& > li{
-		display: block;
-		float: left;
-		clear: both;
-		color: #ff0011;
-	}
+.error-messages-wrapper{
+  background-color: #f6916b;
+}
+.success-messages-wrapper{
+  background-color: green;
+}
+.messages-wrapper.show-messages ,.messages-wrapper.show-messages{
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+.error-or-success-img{
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+}
+.messages {
+  line-height: normal;
+  padding: 0px;
+  padding-left: 15px;
+  display: block;
+  float: left;
+  clear: both;
+  color: white;
 }
 .error-field {
     border: 1px solid #ff0011 !important;
