@@ -114,6 +114,9 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                     });
                 }
 
+                // make sure the element is empty
+                _this.templateHolder.html('');
+                
                 var linkedId = -1;
                 data.forEach(function(m, i, a){
                     // console.log(linkedId, m['linked_id'], linkedId === +m['linked_id']);

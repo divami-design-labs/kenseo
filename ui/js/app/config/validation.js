@@ -4,7 +4,7 @@
 // - The field should be wrapped in a ".field-section" element
 // - The field should have ".required" class
 // - The field should have "data-validate-this" attribute with all necessary validations as comma separated values
-var validation = (function(){ 
+var validation = (function(){
 	// This counter will be incremented if any field has error
 	var validatingCounter = 0;
 	var $validationSection = null;
@@ -51,7 +51,7 @@ var validation = (function(){
 					});
 					var listItems = $suggestionsContainer.find('.selectable').map(function(){
 						return this.innerHTML.toLowerCase();
-					}).filter(function(i, str){ 
+					}).filter(function(i, str){
 						for(var i = 0, len = newValues.length; i < len; i++){
 							if(newValues[i].toLowerCase() === str.toLowerCase()){
 								return true;

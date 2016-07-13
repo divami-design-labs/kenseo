@@ -1,7 +1,7 @@
 sb.refresh = (function(){
 	var sections = {
 		'menu': {
-			'menu-section': function(){ 
+			'menu-section': function(){
 				return sb.renderTemplate({ 'templateName': 'nav-menu', 'templateHolder': $('.menu') })
 			},
 			'menu-header': function(){
@@ -27,10 +27,21 @@ sb.refresh = (function(){
 		'dashboard': {
 			'dashboard-section': function(){
 				return sb.renderTemplate({ templateName: 'dashboard', 'templateHolder': $('.dashboard-section') });
+
 			},
             'db-projects': function(){
             	// return new Kenseo.views.Projects({ colStr: 'Projects', data: 'db-projects' });
-            	return sb.renderTemplate({ templateName: 'db-projects-section', 'templateHolder': $('.projects-section-content'), collection: new Kenseo.collections.Projects(), data: 'db-projects'})
+				// @OLDCODE
+            	// return sb.renderTemplate({ templateName: 'db-projects-section', 'templateHolder': $('.projects-section-content'), collection: new Kenseo.collections.Projects(), data: 'db-projects'})
+				// @NEWCODE
+				return new Kenseo.views.Projects({
+					collection: new Kenseo.collections.Projects(),
+					templateHolder: $('.projects-section-content'),
+					data: {
+						userProjects: true,
+						limit: 6
+					}
+				});
             },
             'db-notifications': function(){
             	return new Kenseo.views.Notifications({ collection: new Kenseo.collections.Notifications(), data: 'db-notifications' });
@@ -121,7 +132,18 @@ sb.refresh = (function(){
 		},
 		'projects-page': {
 			'projects-page': function(){
-				return sb.renderTemplate({ collection: new Kenseo.collections.Projects(),data: { includeArchives: true,userProjects: true }, templateName: 'db-projects-section', 'templateHolder': $('.projects-page-wrapper') });
+				// @OLDCODE
+				// return sb.renderTemplate({ collection: new Kenseo.collections.Projects(),data: { includeArchives: true,userProjects: true }, templateName: 'db-projects-section', 'templateHolder': $('.projects-page-wrapper') });
+
+				// @NEWCODE
+				return new Kenseo.views.Projects({
+					collection: new Kenseo.collections.Projects(),
+					templateHolder: $('.projects-page-wrapper'),
+					data: {
+						includeArchives: true,
+						userProjects: true
+					}
+				});
 			}
 		}
 	}

@@ -19,6 +19,7 @@ sb.router = {
             Kenseo.current.page = "dashboard";
             sb.setTitle('Dashboard');
 
+
             $('.header').removeClass('fixed-header');
             $('.hamburger-menu').removeClass('active');
             $('.project-section').hide();
@@ -40,6 +41,7 @@ sb.router = {
             'collections': ['Projects', 'Artefacts', 'People']
         }, function () {
             Kenseo.current.page = "project-page";
+
 
             Kenseo.page.id = id;
             $('.hamburger-menu').removeClass('active');
@@ -117,7 +119,7 @@ sb.router = {
             'views': ['Header'],
             'models': ['Header'],
             'collections': ['People'],
-            'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js', 
+            'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js',
                     'js/libs/pdfjs/viewer.js', 'js/app/components/annotator.js']
         }, function () {
             Kenseo.current.page = "document-view";
@@ -207,7 +209,7 @@ sb.router = {
                             sb.setCurrentDocumentData(data.versionId, threads);
                             annotator.init();
                         }
-                        // Image viewer 
+                        // Image viewer
                         else if(data.type.indexOf('image') > -1){
                             var str = sb.setTemplate('tab-img', {
                                 maskedVersionId: maskedVersionId,
@@ -220,7 +222,7 @@ sb.router = {
                         }
                         sb.setVersionIdForMaskedId(this, data.versionId);
                         var parent = document.querySelector('.outerContainer.inView .viewerContainer.parent');
-                        stickToBottom(parent); 
+                        stickToBottom(parent);
                     }.bind(this)
                 });
             }
@@ -256,7 +258,7 @@ sb.router = {
         sb.loadFiles({
             'views': ['Header'],
             'models': ['Header'],
-            'files': ['js/app/components/persona-builder.js']    
+            'files': ['js/app/components/persona-builder.js']
             // 'collections': ['Persona']
         }, function(){
             Kenseo.current.page = "persona";

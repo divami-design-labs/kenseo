@@ -175,7 +175,7 @@ Kenseo.popups = (function(){
 			        });
 	            },
 	            'callbackfunc': function(){
-	            	// 
+	            	//
 	            }
 	    	}
 	    ],
@@ -194,7 +194,7 @@ Kenseo.popups = (function(){
 	            	"cls": "main-btn cancel-btn"
 	            }],
 	            "callbackfunc": function() {
-	            	sb.setPopupData('archiveArtefact', 'actionType'); 
+	            	sb.setPopupData('archiveArtefact', 'actionType');
 	            }
         	}
         ],
@@ -226,7 +226,7 @@ Kenseo.popups = (function(){
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
-	            	"cls": "main-btn done-btn",
+	            	"cls": "main-btn ok-btn",
 	            },{
 	            	"label": "No",
 	            	"cls": "main-btn cancel-btn"
@@ -234,7 +234,7 @@ Kenseo.popups = (function(){
 	            // "callbackfunc": function() {
 	            // 	sb.setPopupData('archiveProject', 'actionType');
 	            // }
-	            
+
         	}
         ],
         "unarchive-project": [
@@ -254,7 +254,7 @@ Kenseo.popups = (function(){
 	            // "callbackfunc": function() {
 	            // 	sb.setPopupData('archiveProject', 'actionType');
 	            // }
-	            
+
         	}
         ],
         "replace-artefact": [
@@ -274,7 +274,7 @@ Kenseo.popups = (function(){
 	            }],
 	            "callbackfunc": function() {
 	            	// sb.setPopupData('replaceArtefact', 'actionType');
-	            	sb.popup.createFilePopup();	
+	            	sb.popup.createFilePopup();
 	            }
         	}
         ],
@@ -313,7 +313,7 @@ Kenseo.popups = (function(){
 			}],
 			"callbackfunc": function() {
             	// sb.setPopupData('setMeetingInvitation', 'actionType');
-            	sb.popup.meetingIvite();	
+            	sb.popup.meetingIvite();
             }
     	}],
         "add-version":[
@@ -334,7 +334,7 @@ Kenseo.popups = (function(){
 	            }],
 	            "callbackfunc": function() {
 	            	// sb.setPopupData('addArtefactVersion', 'actionType');
-	            	sb.popup.createFilePopup();	
+	            	sb.popup.createFilePopup();
 	            }
         	}
         ],
@@ -352,7 +352,7 @@ Kenseo.popups = (function(){
         //     }],
         //     "callbackfunc": function() {
         //     	sb.setPopupData('shareArtefact', 'actionType');
-        //     	sb.popup.shareWithPeoplePopup()	
+        //     	sb.popup.shareWithPeoplePopup()
         //     }
         // }],
         "add-project": [{

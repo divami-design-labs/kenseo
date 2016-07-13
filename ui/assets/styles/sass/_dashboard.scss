@@ -46,6 +46,7 @@
 	display: inline-block;
 	margin: 0 12px;
 	margin-top: 8px;
+	cursor: pointer;
 }
 .project-action-icon{
 	@include dimensions(28px, 28px);
@@ -141,7 +142,7 @@
 	&:hover{
 		.requests-dropdown-icon{
 			display: block;
-			z-index: 2;	
+			z-index: 2;
 		}
 	}
 	.requests-dropdown{
@@ -344,7 +345,7 @@
 	@include requestHoverListType("archive1.svg");
 }
 .requests-replace-item{
-	@include requestHoverListType("replace.svg");	
+	@include requestHoverListType("replace.svg");
 }
 .requests-add-version-item{
 	@include requestHoverListType("addversion.svg");
