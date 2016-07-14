@@ -1,61 +1,8 @@
-<%
-	var newData = sb.getDayWiseData(data)
-%>
-<% 
-	var svgicons = {
-		"user-added": "#icon11",
-		"artefact-share": "#icon11",
-		"artefact-approved": "#file12",
-		"artefact-added": "#addfile",
-		"artefact-comment": "#icon15",
-		"meeting-added": "#icon4",
-		"user-removed": "#icon2"
-	}
-%>
 <div class="sub-heading-section">
 	<div class="sub-heading">
 		<div class="sub-heading-label">Activity</div>
 	</div>
 </div>
 <div class="activity-section-content sub-section-content">
-	<% if(newData){ %>
-	<% for(var key in newData){ %>
-	<div class="day-activity">
-		<div class="day-activity-label">
-			<%= key %>
-		</div>
-		<div class="day-activity-section">
-			<% _.each(newData[key], function(a){ %>
-				<% var activityTypeX = a.activityOn.toLowerCase() + "-" + a.activityType.toLowerCase() %>
-				<% console.log(activityTypeX) %>
-			<div class="activity-holder">
-				<div class="activity-left">
-					<div class="activity-icon">
-						<svg><use xlink:href="<%= svgicons[activityTypeX] %>"></use></svg>
-					</div>
-				</div>
-				<div class="activity-right">
-					<div class="activity-title ellipsis" title="<%= a.activityName %>"><%= a.project_name %>: 
-						<% if(a.activityType.toLowerCase() === "removed" && a.activityName.toLowerCase() === "user"){ %>
-							<%= a.activityType %> <%= a.activityName %>	
-						<% } else { %>
-							<%= a.activityName %>
-						<% } %>
-					</div>
-					<div class="activity-details ellipsis" title="<%= a.doneBy %>">
-						<div class="activity-time"><%= sb.timeFormat(a.time) %></div>
-						<div class="activity-sender"> by <%= a.doneBy %></div>
-					</div>
-				</div>
-			</div>
-			<% }); %>
-		</div>
-	</div>
-	<% } %>
-	<% } else{ %>
-	<div class="no-items">
-		No activies yet
-	</div>
-	<% } %>
-</div>
 
+</div>

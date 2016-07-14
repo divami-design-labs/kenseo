@@ -11,10 +11,32 @@ sb.refresh = (function(){
             	return sb.renderTemplate({ 'templateName': 'menu-projects-container', 'templateHolder': $('.menu-projects-section'), 'collection': new Kenseo.collections.Projects(), 'data': 'menu-projects' });
             },
             'menu-recent-activity': function(){
-            	return sb.renderTemplate({ 'templateName': 'menu-recent-activity', 'templateHolder': $('.menu-recent-activity-section'), 'collection': new Kenseo.collections.Artefacts(), 'data': 'menu-activities' });
+				// @OLDCODE
+            	// return sb.renderTemplate({ 'templateName': 'menu-recent-activity', 'templateHolder': $('.menu-recent-activity-section'), 'collection': new Kenseo.collections.Artefacts(), 'data': 'menu-activities' });
+
+				// @NEWCODE
+				return new Kenseo.views.Activities({
+					collection: new Kenseo.collections.Activities(),
+					templateHolder: $('.menu-recent-activity'),
+					data: {
+		                activities: true,
+		                limit: 3
+		            }
+				});
             },
             'menu-request-section': function(){
-            	return new Kenseo.views.Artefacts({ el: '.menu-recent-requests-section', colStr: 'Artefacts', data: 'menu-artefacts' });
+				// @OLDCODE
+            	// return new Kenseo.views.Artefacts({ el: '.menu-recent-requests-section', colStr: 'Artefacts', data: 'menu-artefacts' });
+
+				// @NEWCODE
+				return new Kenseo.views.Artefacts({
+					collection: new Kenseo.collections.Artefacts(),
+					templateHolder: $('.menu-recent-requests-section'),
+					data: {
+		                shared: true,
+		                limit: 3
+		            }
+				});
             },
             // sb.renderTemplate({"templateName": 'artefact', "templateHolder": $('.menu-recent-requests-section'), "collection": new Kenseo.collections.Artefacts(), "data": 'menu-artefacts'});
             'menu-recent-notifications': function(){
@@ -44,14 +66,25 @@ sb.refresh = (function(){
 				});
             },
             'db-notifications': function(){
-            	return new Kenseo.views.Notifications({ collection: new Kenseo.collections.Notifications(), data: 'db-notifications' });
+				// @OLDCODE
+            	// return new Kenseo.views.Notifications({ collection: new Kenseo.collections.Notifications(), data: 'db-notifications' });
             	// return sb.renderTemplate({ templateName: 'db-notifications', templateHolder: $('.') collection: new Kenseo.collections.Notifications(), data: 'db-notifications'})
+
+				// @NEWCODE
+				return new Kenseo.views.Notifications({
+					collection: new Kenseo.collections.Notifications(),
+					templateHolder: $('.notifications-content'),
+					timeRelated: true,
+					data: { limit: 12 }
+				})
             },
             'db-artefacts': function(){
             	$('.dashboard-section .review-requests-content').html("");
             	// return new Kenseo.views.Artefacts({ colStr: 'Artefacts', data: 'db-artefacts' });
 				// @OLDCODE - commented
             	// return sb.renderTemplate({ templateName: 'artefacts', templateHolder: $('.dashboard-section .review-requests-section'), collection: new Kenseo.collections.Artefacts(), data: 'db-artefacts'})
+
+				// @NEWCODE
 				return new Kenseo.views.Artefacts({
 					collection: new Kenseo.collections.Artefacts(),
 					templateHolder: $('.review-requests-content'),
@@ -100,17 +133,31 @@ sb.refresh = (function(){
 				})
             },
             'pp-activities': function(){
-            	return new Kenseo.views.Activities({ collection: new Kenseo.collections.Artefacts(), data: { projectActivities: true, project_id: Kenseo.page.id } });
+            	return new Kenseo.views.Activities({
+					collection: new Kenseo.collections.Artefacts(),
+					templateHolder: '.activity-section-content',
+					templateWrapperHolder: $('.activity-section'),
+					data: { projectActivities: true, project_id: Kenseo.page.id }
+				});
             },
             'pp-people': function(){
-            	return new Kenseo.views.People({
-	                el: '.people-section-content',
-	                colStr: 'People',
-	                data: { projectId: Kenseo.page.id },
-	                preLoader: function preLoader(response) {
-	                    $('.people-section').html(sb.setTemplate('people'));
-	                }
-	            });
+				// @OLDCODE
+            	// return new Kenseo.views.People({
+	            //     el: '.people-section-content',
+	            //     colStr: 'People',
+	            //     data: { projectId: Kenseo.page.id },
+	            //     preLoader: function preLoader(response) {
+	            //         $('.people-section').html(sb.setTemplate('people'));
+	            //     }
+	            // });
+
+				// @NEWCODE
+				return new Kenseo.views.People({
+					collection: new Kenseo.collections.People(),
+					templateHolder: '.people-section-content',
+					templateWrapperHolder: $('.people-section'),
+					data: { projectId: Kenseo.page.id }
+				})
             }
 		},
 		'meeting-notes': {

@@ -17,6 +17,7 @@ var postTemplate = require('gulp-lodash-template');
 var concat = require('gulp-concat');
 // var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+// var htmlmin = require('gulp-htmlmin');
 var config = require('./config.json');
 
 var svgs = [];
@@ -93,6 +94,7 @@ function postTemplateChanges(){
         }))
         .on('error', function(err){ gutil.log(gutil.colors.red('ERROR:'),gutil.colors.red(err)); })
 		.pipe(concat('templates.js'))
+        // .pipe(uglify())
 		.pipe(gulp.dest(''));
 }
 

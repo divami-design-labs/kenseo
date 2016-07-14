@@ -278,9 +278,9 @@
             @include elementWithBackground("icon2.svg", 34px, 38px);
         }
     }*/
-    .activity-icon{
-        @include dimensions(34px, 38px);
-    }
+}
+.activity-icon{
+	@include dimensions(34px, 38px);
 }
 
 .current-type{

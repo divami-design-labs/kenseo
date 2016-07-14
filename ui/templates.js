@@ -66,148 +66,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- if(data.projects && data.sortBy){ ;
-__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- if(data.projects.length){ ;
-__p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- } ;
-__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
- if(data.sortBy && data.sortBy === 'default'){ ;
-__p += ' linked-artefacts ';
- } ;
-__p += '">\r\n\t<div class="sort-view">Sort By ';
- if(data && data.sortBy){ ;
-__p += ' ' +
-((__t = ( _.capitalize(data.sortBy) )) == null ? '' : __t) +
-' ';
- } else { ;
-__p += 'Default ';
- } ;
-__p += '</div>\r\n';
- } else{ ;
-__p += '\r\n\t<div class="review-requests-heading">\r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
- } ;
-__p += '\r\n\r\n';
- if(data.projects && data.sortBy){ ;
-__p += '\r\n</div>\r\n';
- } else{ ;
-__p += '\r\n\t</div>\r\n';
- } ;
-__p += '\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['no-items'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="no-items ';
- if(data.classes){ ;
-__p += ' ' +
-((__t = ( data.classes )) == null ? '' : __t) +
-' ';
- } ;
-__p += '">\r\n\t';
- if(data.message){ ;
-__p += '\r\n\t\t' +
-((__t = ( data.message )) == null ? '' : __t) +
-'\r\n\t';
- } else if(data.add){ ;
-__p += '\r\n\t\t<div class="add-icon big inlineBlockMid"></div>\r\n\t\t<div class="no-items-text inlineBlockMid">' +
-((__t = ( data.name )) == null ? '' : __t) +
-'</div>\r\n\t';
- } else { ;
-__p += '\r\n\t\tNo Items to show\r\n\t';
- } ;
-__p += '\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['versions'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- for(var i=0; i< data.length; i++){ ;
-__p += '\r\n\t';
- if(i === 0 || i%4 === 0){ ;
-__p += '\r\n\t<div>\r\n\t';
- } ;
-__p += '\r\n\t';
- var v = data[i] ;
-__p += '\r\n\t<span data-date="' +
-((__t = ( v.date )) == null ? '' : __t) +
-'">' +
-((__t = ( v.num )) == null ? '' : __t) +
-'</span>\r\n\t';
- if(i === data.length-1 || (i+1)%4 === 0){ ;
-__p += '\t\t\r\n\t</div>\r\n\t';
- } ;
-__p += '\r\n';
- } ;
-
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['add-persona-widget'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -415,6 +273,177 @@ __p += '\n\t\t' +
 '\n\t';
  } ;
 __p += '\n\t<div class="persona-indicator--add">\n\t\t<span class="widget-add">\n\t\t\t<svg><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ if(data.projects && data.sortBy){ ;
+__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
+ if(data.projects.length){ ;
+__p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
+ } ;
+__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
+ if(data.sortBy && data.sortBy === 'default'){ ;
+__p += ' linked-artefacts ';
+ } ;
+__p += '">\r\n\t<div class="sort-view">Sort By ';
+ if(data && data.sortBy){ ;
+__p += ' ' +
+((__t = ( _.capitalize(data.sortBy) )) == null ? '' : __t) +
+' ';
+ } else { ;
+__p += 'Default ';
+ } ;
+__p += '</div>\r\n';
+ } else{ ;
+__p += '\r\n\t<div class="review-requests-heading">\r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
+ } ;
+__p += '\r\n\r\n';
+ if(data.projects && data.sortBy){ ;
+__p += '\r\n</div>\r\n';
+ } else{ ;
+__p += '\r\n\t</div>\r\n';
+ } ;
+__p += '\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['day-wise-item'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="day-activity">\n    <div class="day-activity-label">\n        ' +
+((__t = ( data.label )) == null ? '' : __t) +
+'\n    </div>\n    <div class="day-activity-section">\n        ' +
+((__t = ( data.content )) == null ? '' : __t) +
+'\n    </div>\n</div>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['no-items'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="no-items ';
+ if(data.classes){ ;
+__p += ' ' +
+((__t = ( data.classes )) == null ? '' : __t) +
+' ';
+ } ;
+__p += '">\r\n\t';
+ if(data.message){ ;
+__p += '\r\n\t\t' +
+((__t = ( data.message )) == null ? '' : __t) +
+'\r\n\t';
+ } else if(data.add){ ;
+__p += '\r\n\t\t<div class="add-icon big inlineBlockMid"></div>\r\n\t\t<div class="no-items-text inlineBlockMid">' +
+((__t = ( data.name )) == null ? '' : __t) +
+'</div>\r\n\t';
+ } else { ;
+__p += '\r\n\t\tNo Items to show\r\n\t';
+ } ;
+__p += '\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['versions'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ for(var i=0; i< data.length; i++){ ;
+__p += '\r\n\t';
+ if(i === 0 || i%4 === 0){ ;
+__p += '\r\n\t<div>\r\n\t';
+ } ;
+__p += '\r\n\t';
+ var v = data[i] ;
+__p += '\r\n\t<span data-date="' +
+((__t = ( v.date )) == null ? '' : __t) +
+'">' +
+((__t = ( v.num )) == null ? '' : __t) +
+'</span>\r\n\t';
+ if(i === data.length-1 || (i+1)%4 === 0){ ;
+__p += '\t\t\r\n\t</div>\r\n\t';
+ } ;
+__p += '\r\n';
+ } ;
+
 
 }
 return __p
@@ -659,15 +688,15 @@ __p += '<img src="http://lorempixel.com/sports/280/200" />\r\n<div class="projec
 ((__t = ( sb.timeFormat(data.last_updated_date) )) == null ? '' : __t) +
 '</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-block-hover-content data-holder" data-key="projects" data-id="' +
 ((__t = ( data.id )) == null ? '' : __t) +
-'">\r\n\t<div class="project-black-out"></div>\r\n\t<div class="project-actions-wrapper">\r\n\t\t<div class="project-action popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t<div class="project-action-icon add-artefact-icon">\r\n\t\t\t\t<svg><use xlink:href="#artifacts"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Add an Artefact</div>\r\n\t\t</div>\r\n\t\t<div class="project-action popup-click" data-url="add-people">\r\n\t\t\t<div class="project-action-icon add-user-icon">\r\n\t\t\t\t<svg><use xlink:href="#adduser"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Add User</div>\r\n\t\t</div>\r\n\t\t';
+'">\r\n\t<div class="project-black-out"></div>\r\n\t<div class="project-actions-wrapper">\r\n\t\t<div class="project-action" data-url="add-artefact" data-index="1">\r\n\t\t\t<div class="project-action-icon add-artefact-icon">\r\n\t\t\t\t<svg><use xlink:href="#artifacts"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Add an Artefact</div>\r\n\t\t</div>\r\n\t\t<div class="project-action" data-url="add-people">\r\n\t\t\t<div class="project-action-icon add-user-icon">\r\n\t\t\t\t<svg><use xlink:href="#adduser"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Add User</div>\r\n\t\t</div>\r\n\t\t';
  if(data['is_archive'] == "0"){ ;
-__p += '\r\n\t\t<div class="project-action popup-click" data-url="archive-project" data-index="0">\r\n\t\t\t<div class="project-action-icon archive-icon">\r\n\t\t\t\t<svg><use xlink:href="#archive"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Archive</div>\r\n\t\t</div>\r\n\t\t';
+__p += '\r\n\t\t<div class="project-action" data-url="archive-project" data-index="0">\r\n\t\t\t<div class="project-action-icon archive-icon">\r\n\t\t\t\t<svg><use xlink:href="#archive"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Archive</div>\r\n\t\t</div>\r\n\t\t';
  } else { ;
-__p += '\r\n\t\t<div class="project-action popup-click" data-url="unarchive-project" data-index="0">\r\n\t\t\t<div class="project-action-icon archive-icon">\r\n\t\t\t\t<svg><use xlink:href="#archive"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Unarchive</div>\r\n\t\t</div>\r\n\t\t';
+__p += '\r\n\t\t<div class="project-action" data-url="unarchive-project" data-index="0">\r\n\t\t\t<div class="project-action-icon archive-icon">\r\n\t\t\t\t<svg><use xlink:href="#archive"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Unarchive</div>\r\n\t\t</div>\r\n\t\t';
  } ;
 __p += '\r\n\t</div>\r\n\t<a href="#projectpage/' +
 ((__t = ( data.id )) == null ? '' : __t) +
-'" class="btn-project-open page-click">Open Project</a>\r\n</div>';
+'" class="btn-project-open page-click">Open Project</a>\r\n</div>\r\n';
 
 }
 return __p
@@ -1373,6 +1402,72 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['activity'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+
+	var svgicons = {
+		"user-added": "#icon11",
+		"artefact-share": "#icon11",
+		"artefact-approved": "#file12",
+		"artefact-added": "#addfile",
+		"artefact-comment": "#icon15",
+		"meeting-added": "#icon4",
+		"user-removed": "#icon2"
+	}
+;
+__p += '\n';
+ var activityTypeX = data.activityOn.toLowerCase() + "-" + data.activityType.toLowerCase() ;
+__p += '\n';
+ console.log(activityTypeX) ;
+__p += '\n<div class="activity-left">\n    <div class="activity-icon">\n        <svg><use xlink:href="' +
+((__t = ( svgicons[activityTypeX] )) == null ? '' : __t) +
+'"></use></svg>\n    </div>\n</div>\n<div class="activity-right">\n    <div class="activity-title ellipsis" title="' +
+((__t = ( data.activityName )) == null ? '' : __t) +
+'">' +
+((__t = ( data.project_name )) == null ? '' : __t) +
+':\n        ';
+ if(data.activityType.toLowerCase() === "removed" && data.activityName.toLowerCase() === "user"){ ;
+__p += '\n            ' +
+((__t = ( data.activityType )) == null ? '' : __t) +
+' ' +
+((__t = ( data.activityName )) == null ? '' : __t) +
+'\n        ';
+ } else { ;
+__p += '\n            ' +
+((__t = ( data.activityName )) == null ? '' : __t) +
+'\n        ';
+ } ;
+__p += '\n    </div>\n    <div class="activity-details ellipsis" title="' +
+((__t = ( data.doneBy )) == null ? '' : __t) +
+'">\n        <div class="activity-time">' +
+((__t = ( sb.timeFormat(data.time) )) == null ? '' : __t) +
+'</div>\n        <div class="activity-sender"> by ' +
+((__t = ( data.doneBy )) == null ? '' : __t) +
+'</div>\n    </div>\n</div>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['artefact'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -1441,6 +1536,77 @@ __p += '">' +
 '</span>\r\n\t\t\t\t<div class="rr-other-versions"></div>\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
 '</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="3">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['db-notification'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ var mime = data.MIME_type || "" ;
+__p += '\n';
+ var isSupportedFile = (mime.indexOf('pdf') > -1 || mime.indexOf('image') > -1) ;
+__p += '\n<a ';
+ if(data.type == "M"){ ;
+__p += 'href="#meetingnotes/' +
+((__t = ( data.refId )) == null ? '' : __t) +
+'" data-url="meeting-notes"';
+ } else if(!isSupportedFile){ ;
+__p += 'style="cursor: default;"';
+} else { ;
+__p += 'href="#documentview/' +
+((__t = ( data.masked_artefact_version_id )) == null ? '' : __t) +
+'"';
+ } ;
+__p += ' class="notification-item">\n    ';
+ if(data.type == "M"){ ;
+__p += '\n        <div class="notification-meeting-icon">\n            <svg><use xlink:href="#calendar"></use></svg>\n        </div>\n    ';
+ } else if(data.type == "C") { ;
+__p += '\n        <div class="notification-comment-icon">\n            <svg><use xlink:href="#baloon1"></use></svg>\n        </div>\n    ';
+ } else if(data.type == "S"){ ;
+__p += '\n        <div class="notification-file-icon">\n            <svg><use xlink:href="#file"></use></svg>\n        </div>\n    ';
+ } ;
+__p += '\n    <div class="notification-title" title="' +
+((__t = ( data.title )) == null ? '' : __t);
+ if(!isSupportedFile && !(data.type == "M")){ ;
+__p += ' - Unsupported format';
+ } ;
+__p += '">\n        ' +
+((__t = ( data.title )) == null ? '' : __t) +
+'\n    </div>\n    <div class="notification-time">\n        ' +
+((__t = ( sb.timeFormat(data.time) )) == null ? '' : __t) +
+' by ' +
+((__t = ( data.notifier )) == null ? '' : __t) +
+'\n    </div>\n    ';
+ if(data.meetingDetails){ ;
+__p += '\n    <div class="meeting-notify-section">\n        <div class="mn-left">\n            <div>Meeting @ Conference 2</div>\n            <div class="mn-left-title">' +
+((__t = ( data.meetingDetails.title )) == null ? '' : __t) +
+'</div>\n            <div class="meeting-notify-icon"></div>\n            <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>\n        </div>\n        <div class="mn-right">\n            <div>' +
+((__t = ( sb.timeFormat(data.meetingDetails.time) )) == null ? '' : __t) +
+'</div>\n            <div>' +
+((__t = ( sb.getTime(data.meetingDetails.time) )) == null ? '' : __t) +
+'</div>\n        </div>\n    </div>\n    ';
+ } ;
+__p += '\n</a>\n';
 
 }
 return __p
@@ -1573,7 +1739,7 @@ __p += '\r\n</div>\r\n<div class="people-item-right">\r\n\t<div class="people-na
 ((__t = ( data.name )) == null ? '' : __t) +
 '</div>\r\n\t\t<div class="people-request-holder html-click sub-menu-nav inlineBlockTop">\r\n\t\t\t<div class="requests-dropdown-icon">\r\n\t\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t';
  if(data['is_owner'] != "1") {;
-__p += '\r\n\t\t\t\t<div class="sub-menu-item popup-click" data-url="removePeople" data-id="' +
+__p += '\r\n\t\t\t\t<div class="sub-menu-item" data-url="removePeople" data-id="' +
 ((__t = ( data.id )) == null ? '' : __t) +
 '" >\r\n\t\t\t\t\t<div class="people-remove-icon">\r\n\t\t\t\t\t\t<svg><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="sub-menu-item-text">Remove</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t';
 };
@@ -2826,70 +2992,9 @@ _.escape = function(string) {
 };
 (window['templates'] = window['templates'] || {})['activities'] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
+var __t, __p = '', __e = _.escape;
 with (obj) {
-
-
-	var newData = sb.getDayWiseData(data)
-;
-__p += '\r\n';
- 
-	var svgicons = {
-		"user-added": "#icon11",
-		"artefact-share": "#icon11",
-		"artefact-approved": "#file12",
-		"artefact-added": "#addfile",
-		"artefact-comment": "#icon15",
-		"meeting-added": "#icon4",
-		"user-removed": "#icon2"
-	}
-;
-__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">Activity</div>\r\n\t</div>\r\n</div>\r\n<div class="activity-section-content sub-section-content">\r\n\t';
- if(newData){ ;
-__p += '\r\n\t';
- for(var key in newData){ ;
-__p += '\r\n\t<div class="day-activity">\r\n\t\t<div class="day-activity-label">\r\n\t\t\t' +
-((__t = ( key )) == null ? '' : __t) +
-'\r\n\t\t</div>\r\n\t\t<div class="day-activity-section">\r\n\t\t\t';
- _.each(newData[key], function(a){ ;
-__p += '\r\n\t\t\t\t';
- var activityTypeX = a.activityOn.toLowerCase() + "-" + a.activityType.toLowerCase() ;
-__p += '\r\n\t\t\t\t';
- console.log(activityTypeX) ;
-__p += '\r\n\t\t\t<div class="activity-holder">\r\n\t\t\t\t<div class="activity-left">\r\n\t\t\t\t\t<div class="activity-icon">\r\n\t\t\t\t\t\t<svg><use xlink:href="' +
-((__t = ( svgicons[activityTypeX] )) == null ? '' : __t) +
-'"></use></svg>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="activity-right">\r\n\t\t\t\t\t<div class="activity-title ellipsis" title="' +
-((__t = ( a.activityName )) == null ? '' : __t) +
-'">' +
-((__t = ( a.project_name )) == null ? '' : __t) +
-': \r\n\t\t\t\t\t\t';
- if(a.activityType.toLowerCase() === "removed" && a.activityName.toLowerCase() === "user"){ ;
-__p += '\r\n\t\t\t\t\t\t\t' +
-((__t = ( a.activityType )) == null ? '' : __t) +
-' ' +
-((__t = ( a.activityName )) == null ? '' : __t) +
-'\t\r\n\t\t\t\t\t\t';
- } else { ;
-__p += '\r\n\t\t\t\t\t\t\t' +
-((__t = ( a.activityName )) == null ? '' : __t) +
-'\r\n\t\t\t\t\t\t';
- } ;
-__p += '\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="activity-details ellipsis" title="' +
-((__t = ( a.doneBy )) == null ? '' : __t) +
-'">\r\n\t\t\t\t\t\t<div class="activity-time">' +
-((__t = ( sb.timeFormat(a.time) )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t\t\t<div class="activity-sender"> by ' +
-((__t = ( a.doneBy )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t';
- }); ;
-__p += '\r\n\t\t</div>\r\n\t</div>\r\n\t';
- } ;
-__p += '\r\n\t';
- } else{ ;
-__p += '\r\n\t<div class="no-items">\r\n\t\tNo activies yet\r\n\t</div>\r\n\t';
- } ;
-__p += '\r\n</div>\r\n\r\n';
+__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">Activity</div>\r\n\t</div>\r\n</div>\r\n<div class="activity-section-content sub-section-content">\r\n\r\n</div>\r\n';
 
 }
 return __p

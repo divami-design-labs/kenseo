@@ -1313,6 +1313,7 @@ a {
   display: inline-block;
   margin: 0 12px;
   margin-top: 8px;
+  cursor: pointer;
 }
 
 .project-action-icon {
@@ -1657,7 +1658,7 @@ a {
 	@include requestHoverListType("archive1.svg");
 }
 .requests-replace-item{
-	@include requestHoverListType("replace.svg");	
+	@include requestHoverListType("replace.svg");
 }
 .requests-add-version-item{
 	@include requestHoverListType("addversion.svg");
@@ -1670,6 +1671,10 @@ a {
 }*/
 .notifications-content {
   margin-top: 30px;
+}
+
+.notifications-content .day-activity-label {
+  border-bottom: 1px solid #aaacb4;
 }
 
 .day-notifications + .day-notifications {
@@ -1718,7 +1723,6 @@ a {
 .notification-item {
   padding-left: 25px;
   position: relative;
-  margin-top: 20px;
   display: block;
   text-decoration: none;
 }
@@ -2080,7 +2084,7 @@ a {
     }*/
 }
 
-.activity-section-content .activity-icon {
+.activity-icon {
   width: 34px;
   height: 38px;
 }
@@ -6166,12 +6170,11 @@ img.image-viewer {
   left: 50%;
   right: 0;
   -webkit-transform: translate(-50%, -100%);
-          transform: translate(-50%, -100%);
+  transform: translate(-50%, -100%);
   -webkit-transition: -webkit-transform 0.5s;
   transition: -webkit-transform 0.5s;
   transition: transform 0.5s;
   transition: transform 0.5s, -webkit-transform 0.5s;
-
   border-radius: 0px 0px 4px 4px;
   line-height: 100px;
   width: 425px;
@@ -6179,32 +6182,33 @@ img.image-viewer {
   padding-left: 20px;
   padding-right: 20px;
   display: -webkit-box;
-  display: -moz-box;
   display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   -webkit-box-align: center;
-  -moz-box-align: center;
-  -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
 }
-.error-messages-wrapper{
+
+.error-messages-wrapper {
   background-color: #f6916b;
 }
-.success-messages-wrapper{
+
+.success-messages-wrapper {
   background-color: green;
 }
-.messages-wrapper.show-messages ,.messages-wrapper.show-messages{
+
+.messages-wrapper.show-messages, .messages-wrapper.show-messages {
   -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
 }
-.error-or-success-img{
+
+.error-or-success-img {
   width: 72px;
   height: 72px;
   min-width: 72px;
 }
-.messages ,.messages {
+
+.messages {
   line-height: normal;
   padding: 0px;
   padding-left: 15px;

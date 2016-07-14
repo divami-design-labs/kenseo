@@ -359,6 +359,9 @@
 //Notifications
 .notifications-content{
 	margin-top: 30px;
+	.day-activity-label{
+		border-bottom: 1px solid #aaacb4;
+	}
 }
 .day-notifications + .day-notifications{
 	margin-top: 20px;
@@ -399,7 +402,7 @@
 .notification-item{
 	padding-left: 25px;
 	position: relative;
-	margin-top: 20px;
+	// margin-top: 20px;
 	@extend .clearFloat;
 	display: block;
 	text-decoration: none;

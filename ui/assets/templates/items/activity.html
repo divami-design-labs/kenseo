@@ -1,0 +1,31 @@
+<%
+	var svgicons = {
+		"user-added": "#icon11",
+		"artefact-share": "#icon11",
+		"artefact-approved": "#file12",
+		"artefact-added": "#addfile",
+		"artefact-comment": "#icon15",
+		"meeting-added": "#icon4",
+		"user-removed": "#icon2"
+	}
+%>
+<% var activityTypeX = data.activityOn.toLowerCase() + "-" + data.activityType.toLowerCase() %>
+<% console.log(activityTypeX) %>
+<div class="activity-left">
+    <div class="activity-icon">
+        <svg><use xlink:href="<%= svgicons[activityTypeX] %>"></use></svg>
+    </div>
+</div>
+<div class="activity-right">
+    <div class="activity-title ellipsis" title="<%= data.activityName %>"><%= data.project_name %>:
+        <% if(data.activityType.toLowerCase() === "removed" && data.activityName.toLowerCase() === "user"){ %>
+            <%= data.activityType %> <%= data.activityName %>
+        <% } else { %>
+            <%= data.activityName %>
+        <% } %>
+    </div>
+    <div class="activity-details ellipsis" title="<%= data.doneBy %>">
+        <div class="activity-time"><%= sb.timeFormat(data.time) %></div>
+        <div class="activity-sender"> by <%= data.doneBy %></div>
+    </div>
+</div>

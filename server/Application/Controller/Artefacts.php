@@ -98,7 +98,7 @@
 			$db = Master::getDBConnectionManager();
 
 			$queryParams = array('userid' => $userid , '@limit' => $limit);
-			$dbQuery = getQuery('getMyRecentArtefacts',$queryParams);
+			$dbQuery = getQuery('getMyRecentArtefactsActivities',$queryParams);
 			$resultObj = $db->multiObjectQuery($dbQuery);
 			return $resultObj;
 		}

@@ -1,0 +1,37 @@
+<% var mime = data.MIME_type || "" %>
+<% var isSupportedFile = (mime.indexOf('pdf') > -1 || mime.indexOf('image') > -1) %>
+<a <% if(data.type == "M"){ %>href="#meetingnotes/<%= data.refId %>" data-url="meeting-notes"<% } else if(!isSupportedFile){ %>style="cursor: default;"<%} else { %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } %> class="notification-item">
+    <% if(data.type == "M"){ %>
+        <div class="notification-meeting-icon">
+            <svg><use xlink:href="#calendar"></use></svg>
+        </div>
+    <% } else if(data.type == "C") { %>
+        <div class="notification-comment-icon">
+            <svg><use xlink:href="#baloon1"></use></svg>
+        </div>
+    <% } else if(data.type == "S"){ %>
+        <div class="notification-file-icon">
+            <svg><use xlink:href="#file"></use></svg>
+        </div>
+    <% } %>
+    <div class="notification-title" title="<%= data.title %><% if(!isSupportedFile && !(data.type == "M")){ %> - Unsupported format<% } %>">
+        <%= data.title %>
+    </div>
+    <div class="notification-time">
+        <%= sb.timeFormat(data.time) %> by <%= data.notifier %>
+    </div>
+    <% if(data.meetingDetails){ %>
+    <div class="meeting-notify-section">
+        <div class="mn-left">
+            <div>Meeting @ Conference 2</div>
+            <div class="mn-left-title"><%= data.meetingDetails.title %></div>
+            <div class="meeting-notify-icon"></div>
+            <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>
+        </div>
+        <div class="mn-right">
+            <div><%= sb.timeFormat(data.meetingDetails.time) %></div>
+            <div><%= sb.getTime(data.meetingDetails.time) %></div>
+        </div>
+    </div>
+    <% } %>
+</a>

@@ -24,29 +24,63 @@ $AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name 
 											FROM " . TABLE_PROJECTS . "
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . "
-											WHERE user_id = @~~userid~~@) AND state = 'A' LIMIT @~~limit~~@";
+											WHERE user_id = @~~userid~~@) AND state = 'A' ORDER BY last_updated_date DESC LIMIT @~~limit~~@";
 
 $AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url,
 											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . "
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . "
-											WHERE user_id = @~~userid~~@) AND state = 'A'";
+											WHERE user_id = @~~userid~~@) AND state = 'A' ORDER BY last_updated_date DESC";
 
 $AppGlobal['sql']['getMyProjectsWithArchive'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url,
 											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . "
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . "
-											WHERE user_id = @~~userid~~@)";
+											WHERE user_id = @~~userid~~@) ORDER BY last_updated_date DESC";
 
-$AppGlobal['sql']['getMyRecentArtefacts'] = "SELECT projects.project_id, projects.project_name,
-											 artefacts.artefact_title, project_activity.activity_id,
-											 project_activity.activity_type, project_activity.performed_on_id
-											 FROM " . TABLE_PROJECT_ACTIVITY . "
-											 JOIN " . TABLE_PROJECTS . " ON project_activity.project_id = projects.project_id
-											 JOIN " . TABLE_ARTEFACTS . " ON artefacts.artefact_id = project_activity.performed_on_id
-											 WHERE logged_by = @~~userid~~@ AND performed_on =  'A' AND projects.state = 'A' limit @~~limit~~@";
+$AppGlobal['sql']['getMyRecentArtefactsActivities'] = "SELECT p.project_name, pa.logged_time as time,
+											pa.performed_on as activityOn,
+											pa.activity_id as id,
+											actBy.name as doneBy,
+											CASE activity_type
+												WHEN 'N' THEN 'Added'
+												WHEN 'D' THEN 'Removed'
+												WHEN 'R' THEN 'Replace'
+												WHEN 'U' THEN 'Updated'
+												WHEN 'H' THEN 'Hold'
+												WHEN 'C' THEN 'Comment'
+												WHEN 'S' THEN 'Share'
+											END as activityType,
+											CASE performed_on
+												WHEN 'U' THEN 'User'
+												WHEN 'A' THEN 'Artefact'
+												WHEN 'M' THEN 'Meeting'
+												WHEN 'V' THEN 'Version'
+											END as activityOn,
+											CASE performed_on
+												WHEN 'A' THEN (SELECT arts.artefact_title FROM artefacts AS  arts WHERE arts.artefact_id = pa.performed_on_id)
+												WHEN 'U' THEN (SELECT name FROM users where user_id = pa.performed_on_id)
+												WHEN 'M' THEN (SELECT meeting_title FROM meetings WHERE meeting_id = pa.performed_on_id)
+												WHEN 'V' THEN (SELECT vers.version_label FROM artefact_versions as vers WHERE vers.artefact_ver_id = pa.performed_on_id)
+											END as activityName
+											FROM " .
+											TABLE_PROJECT_ACTIVITY . " as pa
+											JOIN " . TABLE_USERS . " as actBy
+											on
+											actBy.user_id = pa.logged_by
+											join " . TABLE_PROJECTS . " as p on p.project_id = pa.project_id
+											WHERE logged_by = @~~userid~~@ AND performed_on =  'A'
+											ORDER BY pa.logged_time DESC limit @~~limit~~@";
+
+											// "SELECT projects.project_id, projects.project_name,
+											//  artefacts.artefact_title, project_activity.activity_id,
+											//  project_activity.activity_type, project_activity.performed_on_id
+											//  FROM " . TABLE_PROJECT_ACTIVITY . "
+											//  JOIN " . TABLE_PROJECTS . " ON project_activity.project_id = projects.project_id
+											//  JOIN " . TABLE_ARTEFACTS . " ON artefacts.artefact_id = project_activity.performed_on_id
+											//  WHERE logged_by = @~~userid~~@ AND performed_on =  'A' AND projects.state = 'A' limit @~~limit~~@";
 
 
 $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FROM " . TABLE_ARTEFACTS . " AS arts

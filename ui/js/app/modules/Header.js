@@ -32,7 +32,7 @@ Kenseo.views.Header = Backbone.View.extend({
     stopMenuClick: function stopMenuClick(e) {},
     showSearchBox: function showSearchBox() {
         sb.svgLoader(["search"]);
-        
+
         var $popupContainer = $(".popup-container");
         $popupContainer.show();
         sb.renderTemplate({ "templateName": "search", "templateHolder": $popupContainer });
@@ -41,8 +41,9 @@ Kenseo.views.Header = Backbone.View.extend({
         var searchString = this.value;
         if (searchString.length > 2) {
             sb.loadFiles({
-                "models": ["Search"],
-                "collections": ["Search"]
+                // "models": ["Search"],
+                // "collections": ["Search"]
+                "modules": ["Search"]
             }, function () {
                 sb.renderTemplate({ "templateName": "search-results", "templateHolder": $(".search-section").find(".search-results"), "collection": new Kenseo.collections.Search(), "callbackfunc": function callbackfunc() {
                         if ($(".search-results").children().length) {
@@ -61,3 +62,8 @@ Kenseo.views.Header = Backbone.View.extend({
 });
 
 // e.stopPropagation();
+
+
+Kenseo.models.Header = Backbone.Model.extend({
+	urlRoot: sb.getRelativePath('getHeader')
+});

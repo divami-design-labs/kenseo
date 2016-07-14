@@ -184,7 +184,7 @@
 		public function removePeople($interpreter) {
 			$data = $interpreter->getData()->data;
             $userId = $interpreter->getUser()->user_id;
-			$projectId = $data->project_id;
+			$projectId = $data->proj_id;
 			$peopleId = $data->id;	// This is people id
 
 			//remove people

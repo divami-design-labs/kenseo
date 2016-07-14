@@ -1,78 +1,3 @@
-// Kenseo.views.Artefacts = Backbone.View.extend({
-//     // The DOM Element associated with this view
-//     el: '.review-requests-content',
-//     itemView: function itemView(x) {
-//         return new Kenseo.views.Artefact(x);
-//     },
-//     // View constructor
-//     initialize: function initialize(payload) {
-//         this.data = payload.data;
-//         this.colStr = payload.colStr;
-//         this.el = payload.el;
-//         this.$el.html(this.template);
-//         this.preLoader = payload.preLoader;
-//         this.id = payload.id;
-//         this.stopRenderX = payload.stopRenderX;
-//         // this.payload = payload;
-//         this.render();
-//     },
-//     render: function render() {
-//         sb.renderXTemplate(this);
-//
-//         return this;
-//     }
-// });
-//
-// Kenseo.views.Artefact = Backbone.View.extend({
-//     // The DOM Element associated with this view
-//     tagName: 'a',
-//     className: 'review-request-item',
-//     template: function(data){
-//         return sb.setTemplate('artefact', data);
-//     },
-//     // View constructor
-//     initialize: function initialize() {
-//         this.listenTo(this.model, 'remove', this.remove);
-//     },
-//     events: {
-//         'click .popup-click': 'openPopup',
-//         'click .artefact-cur-version': 'toggleVersions'
-//     },
-//     render: function render() {
-//         var data = this.model.toJSON();
-//         var html = this.template({ data: data });
-//         this.$el.append(html);
-//         var dataComparer = -1;
-//         this.$el.attr('data-pass', (function () {
-//             if (dataComparer == data.linkedId) {
-//                 dataComparer = data.linkedId;
-//                 return 1;
-//             } else {
-//                 dataComparer = data.linkedId;
-//                 return 0;
-//             }
-//         })());
-//
-//         this.$el.attr('href', '#documentview/' + data.versionId);
-//
-//         return this;
-//     },
-//     openPopup: function openPopup(e) {
-//         e.preventDefault();
-//         // var model = this.model.collection.get($(e.currentTarget).data('id'));
-//         sb.setPopupData(this.model.toJSON());
-//
-//         // Kenseo.currentModel = model;
-//     },
-//     toggleVersions: function toggleVersions(e) {
-//         var $self = $(this);
-//         var num = +$self.html().substr(1);
-//         if (num > 0) {
-//             $self.toggleClass('active');
-//         }
-//     }
-// });
-
 Kenseo.views.Artefacts = Backbone.View.extend({
     initialize: function(payload){
         this.data = payload.data;
@@ -91,6 +16,9 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                 // console.dir(response);
                 var data = response.data;
                 if(_this.templateWrapperHolder){
+                    // Making sure the element is empty
+                    _this.templateWrapperHolder.html('');
+
                     sb.renderTemplate({
                         templateHolder: _this.templateWrapperHolder,
                         templateName: 'artefacts',
@@ -105,7 +33,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                     _this.templateHolder = _this.templateWrapperHolder.find('.artifacts-content');
 
                     // Attach necessary events
-                    sb.attach($('.sub-menu-item'), 'click', function(e){
+                    sb.attach($('.sort-item'), 'click', function(e){
                         var el = e.currentTarget;
                         var sortType = el.getAttribute('data-stype');
                         _this.sortBy = sortType;
@@ -116,7 +44,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
 
                 // make sure the element is empty
                 _this.templateHolder.html('');
-                
+
                 var linkedId = -1;
                 data.forEach(function(m, i, a){
                     // console.log(linkedId, m['linked_id'], linkedId === +m['linked_id']);
@@ -136,7 +64,12 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                     });
                     linkedId = m['linked_id'];
                     _this.templateHolder.append(view.el);
-                })
+                });
+
+                // no items template
+                if(data.length === 0){
+                    _this.templateHolder.html("No artefacts found");
+                }
             }
         }));
     }
@@ -177,7 +110,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
                     scope.$el.hide();
                     sb.ajaxCall({
                         url: sb.getRelativePath('deleteArtefact'),
-                        data: scope.model,
+                        data: scope.model.toJSON(),
                         success: function(response){
                             // console.log("delete artefact");
                             if(response.data){ // is true
@@ -224,4 +157,33 @@ Kenseo.views.Artefact = Backbone.View.extend({
             scope: this
         });
     }
+});
+
+Kenseo.models.Artefacts = Backbone.Model.extend({
+	// urlRoot: 'app/packages/artifacts.json'
+	defaults: {
+		MIME_type: null,
+		artefact_time: null,
+		artefact_ver_id: null,
+		comment_count: null,
+		document_type: null,
+		id: null,
+		image: null,
+		masked_artefact_version_id: null,
+		owner_id: null,
+		person_name: null,
+		project_id: null,
+		project_name: null,
+		status: null,
+		title: null,
+		version: null
+	}
+});
+
+Kenseo.collections.Artefacts = Backbone.Collection.extend({
+	url: sb.getRelativePath('getArtefacts'),
+	model: function(attrs, options){
+		// console.dir(arguments);
+		return new Kenseo.models.Artefacts();
+	}
 });

@@ -13,8 +13,9 @@ sb.popup = {
     },
     getProjectsPopup: function getProjectsPopup() {
         sb.loadFiles({
-            "models": ["Projects"],
-            "collections": ["Projects"]
+            // "models": ["Projects"],
+            // "collections": ["Projects"],
+            "modules": ["Projects"]
         }, function () {
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
@@ -172,8 +173,9 @@ sb.popup = {
             Kenseo.popup.info.newFileSelected = false;
         });
         sb.loadFiles({
-            "collections": ["Artefacts"],
-            "models": ["Artefacts"]
+            // "collections": ["Artefacts"],
+            // "models": ["Artefacts"]
+            "modules": ["Artefacts"]
         }, function () {
             var projectId;
             if(Kenseo.popup.data.actionType === "addVersion" || Kenseo.popup.data.actionType === "replaceArtefact") {
@@ -301,8 +303,9 @@ sb.popup = {
         sb.setPopupData("addArtefact", "command");
         sb.setPopupData(false, "share");
         sb.loadFiles({
-            "collections": ["Artefacts", "Tags"],
-            "models": ["Artefacts"]
+            // "collections": ["Artefacts", "Tags"],
+            // "models": ["Artefacts"]
+            "modules": ["Artefacts", "Tags"]
         }, function () {
             var $currentPopup = Kenseo.current.popup;
             // Keep the .main-btn class button disabled by default
@@ -363,8 +366,9 @@ sb.popup = {
         //now you need 2 sets of people, people those who are arleady in the project and all the remaining people
 
         sb.loadFiles({
-            "collections": ["People"],
-            "models": ["People"]
+            // "collections": ["People"],
+            // "models": ["People"]
+            "modules": ["People"]
         }, function () {
             sb.ajaxCall({
                 collection: new Kenseo.collections.People(),
@@ -477,8 +481,9 @@ sb.popup = {
     },
     meetingIvite: function meetingIvite() {
         sb.loadFiles({
-            "models": ["Projects", "Artefacts", "People"],
-            "collections": ["Projects", "Artefacts", "People"]
+            // "models": ["Projects", "Artefacts", "People"],
+            // "collections": ["Projects", "Artefacts", "People"]
+            "modules": ["Projects", "Artefacts", "People"]
         }, function () {
             sb.ajaxCall({
                 "collection": new Kenseo.collections.Projects(),

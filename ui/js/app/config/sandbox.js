@@ -3,14 +3,18 @@ var sb = (function () {
         popupContainer: '.popup-container'
     };
     var scripts = {
+        'modules': {},
+        'files': {},
+
+        // @TODO: remove the below code
         'views': {},
         'models': {},
-        'collections': {},
-        'files': {}
+        'collections': {}
     };
 
     function getModulePath(moduleType, moduleName) {
-        return 'js/app/modules/' + moduleType + '/' + moduleName + _.capitalize(moduleType).substring(0, moduleType.length - 1) + '.js';
+        // return 'js/app/modules/' + moduleType + '/' + moduleName + _.capitalize(moduleType).substring(0, moduleType.length - 1) + '.js';
+        return 'js/app/modules/' + moduleName + '.js';
     }
     return {
         log: function log(msg) {
@@ -20,7 +24,7 @@ var sb = (function () {
         // TO DO: Sometimes, this function is loading files not in dependency sequence
         loadFiles: function loadFiles(payload, fn) {
             var files = [];
-            var types = ['files', 'views', 'models', 'collections'];
+            var types = ['files', 'modules', 'views', 'models', 'collections'];
             for (var k = 0; k < types.length; k++) {
                 var type = types[k];
                 if (payload[type]) {
