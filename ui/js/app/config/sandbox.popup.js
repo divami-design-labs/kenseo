@@ -126,7 +126,7 @@ sb.popup = {
             else{
                 // when no file is selected
             }
-            var info = "@ " + getTimeFormat() + " by " + Kenseo.data.header.screen_name;
+            var info = "@ " + sb.getTimeFormat() + " by " + Kenseo.data.header.screen_name;
             $currentPopup.find(".create-file-item .notification-time").html(info);
 
             sb.setPopupData(files, "files");

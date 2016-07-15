@@ -26,7 +26,8 @@ Kenseo.views.Projects = Backbone.View.extend({
                 data.forEach(function(item){
                     var view = new Kenseo.views.Project({
                         model: new Kenseo.models.Projects(item),
-                        collection: _this.collection
+                        collection: _this.collection,
+                        parent: _this
                     });
                     _this.templateHolder.append(view.el);
                 });
@@ -44,10 +45,13 @@ Kenseo.views.Project = Backbone.View.extend({
         return sb.setTemplate('project-section', data)
     },
     // View constructor
-    initialize: function initialize() {
-        if(this.model){
-            this.listenTo(this.model, 'remove', this.remove);
-        }
+    initialize: function initialize(payload) {
+        // if(this.model){
+        //     this.listenTo(this.model, 'remove', this.remove);
+        // }
+        this.listenTo(this.model, 'change', this.render);
+
+        this.parent = payload.parent;
         this.render();
         return this;
         // this.listenTo(this.model.collection, 'add', this.render);
@@ -60,10 +64,10 @@ Kenseo.views.Project = Backbone.View.extend({
         'click [data-url="unarchive-project"]': 'unarchiveProject'
     },
     render: function render(data) {
-        var data = data || this.model.toJSON();
+        var data = this.model.toJSON();
         var html = this.template({ data: data });
 
-        this.$el.append(html);
+        this.$el.html(html);
         return this;
     },
     openPopup: function openPopup(e) {
@@ -94,19 +98,28 @@ Kenseo.views.Project = Backbone.View.extend({
             scope: this,
             afterRender: function($popupContainer, scope){
                 sb.attachIn('click', '.ok-btn', function(){
-                    // hide the item temporarily
-                    scope.$el.hide();
+                    var includeArchives = scope.parent.data.includeArchives;
+                    if(!includeArchives){  // if includeArchives is true, the user is in projects page
+                        // hide the item temporarily
+                        scope.$el.hide();
+                    }
+                    else{
+                        var isArchive = scope.model.get('is_archive');
+                        scope.model.set('is_archive', "1");
+                    }
                     sb.ajaxCall({
                         url: sb.getRelativePath('archiveProject'),
                         data: scope.model.toJSON(),
                         success: function(response){
                             // console.log("delete artefact");
                             if(response.data){ // is true
+                                if(!includeArchives){
+                                    // delete the item permanently
+                                    scope.$el.remove();
+                                }
                                 // hide popup
-                                $popupContainer.remove();
+                                $popupContainer.children().remove();
                                 $popupContainer.hide();
-                                // delete the item permanently
-                                scope.$el.remove();
                             }
                         }
                     })
@@ -118,7 +131,25 @@ Kenseo.views.Project = Backbone.View.extend({
         var el = e.currentTarget;
         sb.newCallPopup({
             el: el,
-            scope: this
+            scope: this,
+            afterRender: function($popupContainer, scope){
+                sb.attachIn('click', '.ok-btn', function(){
+                    var isArchive = scope.model.get('is_archive');
+                    scope.model.set('is_archive', "0");
+                    sb.ajaxCall({
+                        url: sb.getRelativePath('archiveProject'),
+                        data: scope.model.toJSON(),
+                        success: function(response){
+                            // console.log("delete artefact");
+                            if(response.data){ // is true
+                                // hide popup
+                                $popupContainer.children().remove();
+                                $popupContainer.hide();
+                            }
+                        }
+                    })
+                }, $popupContainer);
+            }
         });
     }
 });

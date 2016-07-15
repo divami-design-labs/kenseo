@@ -152,12 +152,14 @@ sb.refresh = (function(){
 	            // });
 
 				// @NEWCODE
-				return new Kenseo.views.People({
-					collection: new Kenseo.collections.People(),
-					templateHolder: '.people-section-content',
-					templateWrapperHolder: $('.people-section'),
-					data: { projectId: Kenseo.page.id }
-				})
+				if(Kenseo.current.page === "project-page"){
+					return new Kenseo.views.People({
+						collection: new Kenseo.collections.People(),
+						templateHolder: '.people-section-content',
+						templateWrapperHolder: $('.people-section'),
+						data: { projectId: Kenseo.page.id }
+					})
+				}
             }
 		},
 		'meeting-notes': {
@@ -196,9 +198,9 @@ sb.refresh = (function(){
 	}
 
 	var actionType = {
-		archiveProject : function(){
-			refreshSection('dashboard', 'db-projects');
-		},
+		// archiveProject : function(){
+		// 	refreshSection('dashboard', 'db-projects');
+		// },
 		archiveArtefact: function(){
 			// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
 			refreshSection('dashboard', 'db-artefacts');
@@ -220,9 +222,9 @@ sb.refresh = (function(){
 			refreshSection('dashboard', 'db-notifications');
 			refreshSection('project-page', 'pp-artefacts');
 		},
-		unarchiveProject: function(){
-			refreshSection('projects-page', 'projects-page');
-		},
+		// unarchiveProject: function(){
+		// 	refreshSection('projects-page', 'projects-page');
+		// },
 		addPeople: function(){
 			refreshSection('project-page', 'pp-people');
 		},

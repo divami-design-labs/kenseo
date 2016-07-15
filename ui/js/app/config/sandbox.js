@@ -424,6 +424,20 @@ var sb = (function () {
                 return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
             }
         },
+        getTimeFormat: function getTimeFormat() {
+        	var now = new Date();
+        	var hh = now.getHours();
+        	var min = now.getMinutes();
+
+        	var ampm = (hh>=12)?'PM':'AM';
+        	hh = hh%12;
+        	hh = hh?hh:12;
+        	hh = hh<10?'0'+hh:hh;
+        	min = min<10?'0'+min:min;
+
+        	var time = hh+":"+min+" "+ampm;
+        	return time;
+        },
         timeFormat: function timeFormat(time, OnlyTime, OnlyDays, withYear) {
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             var theDate = sb.getDate(time);
