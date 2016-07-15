@@ -117,6 +117,9 @@ Kenseo.views.Artefact = Backbone.View.extend({
                                 // hide popup
                                 $popupContainer.remove();
                                 $popupContainer.hide();
+                                if(response.data.messages) {
+                                  sb.showGlobalMessages(response);
+                                }
                                 // delete the item permanently
                                 scope.$el.remove();
                             }

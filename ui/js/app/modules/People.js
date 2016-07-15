@@ -97,6 +97,10 @@ Kenseo.views.Person = Backbone.View.extend({
                                 $popupContainer.remove();
                                 $popupContainer.hide();
                                 // delete the item permanently
+
+                                if(response.data.messages) {
+                                  sb.showGlobalMessages(response);
+                                }
                                 scope.$el.remove();
                             }
                         }

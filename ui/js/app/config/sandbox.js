@@ -959,8 +959,8 @@ var sb = (function () {
                 });
             }
         },
-        showGlobalMessages: function(validationSection,messages,flag){
-          var div = document.createElement('div');
+        showGlobalMessages: function(response){
+          /*var div = document.createElement('div');
     			//added class to show success message.
           if(flag){
     			  $(div).addClass('messages-wrapper success-messages-wrapper');
@@ -984,14 +984,20 @@ var sb = (function () {
     				$(div).css({
     					'top': $(this).scrollTop() + "px"
     				})
-    			});
+    			});*/
+          var message = response.data.messages.message;
+          var icon = response.data.messages.icon;
+          var type = response.data.messages.type;
+          $('body').prepend(sb.setTemplate('show-global-messages',{type,message, icon}));
     			setTimeout(function(){
-    				this.addClass('show-messages');
-    			}.bind($(div)), 10);
+    				$('div.messages-wrapper').addClass('show-messages');
+    			}.bind($('div.messages-wrapper')), 10);
 
     			setTimeout(function(){
-    				this.removeClass('show-messages');
+    				$('div.messages-wrapper').removeClass('show-messages');
+            $('.messages-wrapper').remove();
     			}.bind($('div.messages-wrapper')), 3010);
+
         },
         throbber: function(ele){
           var div = document.createElement('div');
@@ -1011,5 +1017,5 @@ var sb = (function () {
             ele.prepend($(div));
           }
         }
-    };
+     };
 })();

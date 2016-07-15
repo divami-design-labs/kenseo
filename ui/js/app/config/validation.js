@@ -167,11 +167,7 @@ var validation = (function(){
 	}
 	var doValidate = function($clickedBtn){
 		if(isValidate($clickedBtn)){
-			message = "Successfully added";
-			var validationSectionStr = $clickedBtn.attr('data-target-validating-section');
-			if(validationSectionStr){
-				$validationSection = $(validationSectionStr);
-				sb.showGlobalMessages($validationSection,message,1);
+			
 			}
 			return true;
 		}
@@ -180,7 +176,7 @@ var validation = (function(){
 			var validationSectionStr = $clickedBtn.attr('data-target-validating-section');
 			if(validationSectionStr){
 				$validationSection = $(validationSectionStr);
-				sb.showGlobalMessages($validationSection,message,0);
+			//	sb.showGlobalMessages($validationSection,message,0);
 
 	      		$validationSection.find('.error-field').first().focus();
 			}

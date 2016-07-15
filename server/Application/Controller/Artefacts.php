@@ -227,7 +227,12 @@
 
 			$db->commitTransaction();
 
-			return true;
+			$resultMessage = new stdClass();
+      $resultMessage->messages = new stdClass();
+      $resultMessage->messages->type = "success";
+      $resultMessage->messages->message = "Successfully archieved artefact";
+      $resultMessage->messages->icon = "message-archieve";
+      return $resultMessage;
 		}
 
 		public function deleteArtefact($interpreter) {
@@ -260,7 +265,12 @@
 			$this->sendArtefactActionMail($mailInfo, "deleted");
 
 			$db->commitTransaction();
-			return true;
+			$resultMessage = new stdClass();
+      $resultMessage->messages = new stdClass();
+      $resultMessage->messages->type = "success";
+      $resultMessage->messages->message = "Successfully deleted artefact";
+      $resultMessage->messages->icon = "message-delete";
+      return $resultMessage;
 		}
 
 		public function sendArtefactActionMail($infos, $action){

@@ -34,17 +34,23 @@
 			$data = $interpreter->getData()->data;
 			$projectId = $data->projectId;
 
+			$resultMessage = new stdClass();
+			$resultMessage->messages = new stdClass();
+			$resultMessage->messages->type = "success";
+			$resultMessage->messages->message = "Successfully deleted project";
+			$resultMessage->messages->icon = "done";
 			// Delete the project
 			$db = Master::getDBConnectionManager();
 			$db->deleteTable(TABLE_PROJECTS, "project_id = " . $projectId);
 
-			return true;
+			return $result;
 		}
 
 		public function archiveProject($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
 			$projectId = $data->id;
+
 
 			//Archive project
 			$db = Master::getDBConnectionManager();
@@ -59,13 +65,19 @@
 			$this->archiveProjectMail($mailInfo);
 
 			$db->commitTransaction();
-			return true;
+			$resultMessage = new stdClass();
+			$resultMessage->messages = new stdClass();
+			$resultMessage->messages->type = "success";
+			$resultMessage->messages->message = "Successfully archieved project";
+			$resultMessage->messages->icon = "message-archieve";
+			return $resultMessage;
 		}
 
 		public function unarchiveProject($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
 			$projectId = $data->id;
+
 
 			//Un archive project
 			$db = Master::getDBConnectionManager();
@@ -82,7 +94,12 @@
 
 			$db->commitTransaction();
 
-			return true;
+			$resultMessage = new stdClass();
+			$resultMessage->messages = new stdClass();
+			$resultMessage->messages->type = "success";
+			$resultMessage->messages->message = "Successfully unarchieved project";
+			$resultMessage->messages->icon = "message-archieve";
+			return $resultMessage;
 		}
 
 		public function archiveProjectMail($infos){
@@ -133,6 +150,11 @@
 			$db = Master::getDBConnectionManager();
 			$db->beginTransaction();
 
+			$result = new stdClass();
+			$result->messages = new stdClass();
+			$result->messages->type = "success";
+			$result->messages->message = "Successfully added ".$projectName."project";
+			$result->messages->icon = "success";
 			// Get org_id id from user_id and save org_id in projects table.
 			$queryParams = array('user_id' => $userId);
 			$dbQuery = getQuery('getUserOrganizationId', $queryParams);
@@ -168,7 +190,7 @@
 
 			$db->commitTransaction();
 
-			return true;
+			return $result;
 		}
 
 		public function getProjectActivity($interpreter) {

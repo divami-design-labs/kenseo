@@ -177,7 +177,12 @@
                 $this->addUserMail($mailInfo);
 
                 $db->commitTransaction();
-				return $result;
+        $resultMessage = new stdClass();
+  			$resultMessage->messages = new stdClass();
+  			$resultMessage->messages->type = "success";
+  			$resultMessage->messages->message = "Successfully added people";
+  			$resultMessage->messages->icon = "message-people";
+  			return $resultMessage;
 			}
 		}
 
@@ -206,7 +211,12 @@
                 $db->abortTransaction();
             }
 
-			return true;
+      $resultMessage = new stdClass();
+      $resultMessage->messages = new stdClass();
+      $resultMessage->messages->type = "success";
+      $resultMessage->messages->message = "Successfully removed people";
+      $resultMessage->messages->icon = "message-people";
+      return $resultMessage;
 		}
 
 		public function getOthersAndProjectPeople($interpreter) {

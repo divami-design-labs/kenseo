@@ -120,6 +120,11 @@ Kenseo.views.Project = Backbone.View.extend({
                                 // hide popup
                                 $popupContainer.children().remove();
                                 $popupContainer.hide();
+                                if(response.data.messages) {
+                        			    sb.showGlobalMessages(response);
+                                }
+                                // delete the item permanently
+                                
                             }
                         }
                     })

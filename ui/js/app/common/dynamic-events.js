@@ -182,9 +182,21 @@ $(function () {
 			contentType: contentType,
 			processData: processData,
 			container: $('.popup'),
-			success: function success() {
+
+			success: function success(response) {
+				/*var response = {
+					data :{
+						message: "request successfull",
+				    icon: "success",
+				  	type: "success"
+					}
+				}*/
+
 				popupCloser($self.parents(popupContainer));
 				sb.refresh.type(actionType);
+				if(response.data.messages) {
+					sb.showGlobalMessages(response);
+				}
 			}
 		});
 	}).on('click', '.sort-item', function (e) {
