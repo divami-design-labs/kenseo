@@ -150,11 +150,6 @@
 			$db = Master::getDBConnectionManager();
 			$db->beginTransaction();
 
-			$result = new stdClass();
-			$result->messages = new stdClass();
-			$result->messages->type = "success";
-			$result->messages->message = "Successfully added ".$projectName."project";
-			$result->messages->icon = "success";
 			// Get org_id id from user_id and save org_id in projects table.
 			$queryParams = array('user_id' => $userId);
 			$dbQuery = getQuery('getUserOrganizationId', $queryParams);
@@ -189,6 +184,12 @@
 			$db->insertMultipleRow(TABLE_PROJECT_MEMBERS, $columns, $rows);
 
 			$db->commitTransaction();
+			
+			$result = new stdClass();
+			$result->messages = new stdClass();
+			$result->messages->type = "success";
+			$result->messages->message = "Successfully added ".$projectName."project";
+			$result->messages->icon = "success";
 
 			return $result;
 		}

@@ -1,7 +1,7 @@
 <button type="button"
-	<% if(data.disabled){ %> 
-		disabled="true" autocomplete="off" 
-	<% } %> 
+	<% if(data.disabled){ %>
+		disabled="true" autocomplete="off"
+	<% } %>
 		class="<%= data.cls %> <% if(data.label === "Proceed" || data.label === "Back"){ %>nav-btn<% } %>"
 		<% if(data.label === "Proceed"){ %>
 			data-index="<%= +data.index+1 %>"
@@ -9,6 +9,6 @@
 			data-index="<%= +data.index-1 %>"
 		<% } %>
 
-		<%= sb.setTemplate('attributes', {data: data}) %>
+		<%= sb.setTemplate('attributes', {data: data.attr}) %>
 	><%= data.label %>
 </button>

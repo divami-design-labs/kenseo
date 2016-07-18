@@ -5,11 +5,11 @@
 	left: 50%;
 }
 
-.input-field {   
+.input-field {
 	position: relative;
 }
 
-.search-field {
+.custom-search-field {
     @include dimensions(472px, 55px);
     @include text(16px, $colorTwo);
     @include placeHolder($color5, 16px, $italicFont);

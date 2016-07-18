@@ -1,6 +1,6 @@
-<% if(data.attr && typeof data.attr == "object"){ 
-	var attributes = data.attr;
+<% if(data && typeof data == "object"){
+	var attributes = data;
 	for(var key in attributes){ %>
-		<%= key %> = "<%= attributes[key] %>" 
+		<%= key %> = "<%= attributes[key] %>"
 <%	}
  } %>

@@ -85,11 +85,8 @@ Kenseo.views.Project = Backbone.View.extend({
         });
     },
     addPeople: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
+        var peopleView = new Kenseo.views.People({});
+        peopleView.addPeople(e, this);
     },
     archiveProject: function(e){
         var el = e.currentTarget;

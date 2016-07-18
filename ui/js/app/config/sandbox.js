@@ -230,6 +230,12 @@ var sb = (function () {
                 }
             });
         },
+        ajaxCalls: function(payloads, callback){
+            payloads.map(function(payload){
+                return sb.ajaxCall(payload);
+            });
+            $.when.apply($, payloads).then(callback);
+        },
         throbberTimeOut: function(timeBeforeAjaxCall,responseFunction) {
           var timeAfterAjaxCall = Date.now();
           var responseTime = timeAfterAjaxCall - timeBeforeAjaxCall;
@@ -731,51 +737,62 @@ var sb = (function () {
             }
         },
         newCallPopup: function(payload){
-            this.svgLoader(['popups']);
-
-            var _this = payload.scope;
-            var el = payload.el;
-            var index = el.getAttribute('data-index') || 0;
-            var actionType = el.getAttribute('data-url');
-            Kenseo.popup.info = Kenseo.popups.getPopupsInfo(actionType);
-            if (index > 0) {
-                Kenseo.popup.info = Kenseo.popup.info.slice(index);
-                index = 0;
+            if(!payload.beforeRender){
+                // Initializing beforeRender
+                payload.beforeRender = function(){};
             }
-            if(payload.beforeRender){
-                payload.beforeRender();
-            }
-            // Kenseo.popup.info.projectComboboxValueChanged = false;
-            var info = Kenseo.popup.info[index];
-            _.extend(info, {'index': index});
-
-            var $templateHolder = $('.popup-container');
 
             //
-            sb.setPopupData(_this.model.toJSON());
-            sb.setPopupData(_.camelCase(actionType), 'actionType');
+            $.when(payload.beforeRender()).then(function(){
 
-            sb.renderTemplate({
-                'templateName': info.page_name,
-                'templateHolder': $templateHolder,
-                'append': true,
-                'data': {
-                    'data': info
+                // Callback to before render
+                console.log("newCallPopup");
+                this.svgLoader(['popups']);
+
+                var _this = payload.scope;
+                var el = payload.el;
+                var index = el.getAttribute('data-index') || 0;
+                var actionType = el.getAttribute('data-url');
+                Kenseo.popup.info = Kenseo.popups.getPopupsInfo(actionType);
+                if (index > 0) {
+                    Kenseo.popup.info = Kenseo.popup.info.slice(index);
+                    index = 0;
                 }
-            });
+                // Kenseo.popup.info.projectComboboxValueChanged = false;
+                var info = Kenseo.popup.info[index];
+                _.extend(info, {'index': index});
 
-            $templateHolder.show();
-            // Storing current popup root element
-            Kenseo.current.popup = $templateHolder.find('.popup').last();
+                var $templateHolder = $('.popup-container');
 
-            // @INFO: Compatible with new changes
-            if(payload.afterRender){
-                payload.afterRender($templateHolder, _this);
-            }
+                //
+                if(_this.model){
+                    sb.setPopupData(_this.model.toJSON());
+                }
+                sb.setPopupData(_.camelCase(actionType), 'actionType');
 
-            if (info.callbackfunc) {
-                info.callbackfunc();
-            }
+                sb.renderTemplate({
+                    'templateName': info.page_name,
+                    'templateHolder': $templateHolder,
+                    'append': true,
+                    'data': {
+                        'data': info
+                    }
+                });
+
+                $templateHolder.show();
+                // Storing current popup root element
+                Kenseo.current.popup = $templateHolder.find('.popup').last();
+
+                // @INFO: Compatible with new changes
+                if(payload.afterRender){
+                    payload.afterRender($templateHolder, _this);
+                }
+
+                if (info.callbackfunc) {
+                    info.callbackfunc();
+                }
+            }.bind(this))
+            
         },
         toolbox: {
             textBox: function textBox(data) {

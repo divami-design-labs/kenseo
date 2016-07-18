@@ -153,12 +153,14 @@ sb.refresh = (function(){
 
 				// @NEWCODE
 				if(Kenseo.current.page === "project-page"){
-					return new Kenseo.views.People({
+					var peopleView = new Kenseo.views.People({
 						collection: new Kenseo.collections.People(),
 						templateHolder: '.people-section-content',
 						templateWrapperHolder: $('.people-section'),
 						data: { projectId: Kenseo.page.id }
-					})
+					});
+
+					peopleView.render();
 				}
             }
 		},
@@ -208,7 +210,9 @@ sb.refresh = (function(){
 		deleteArtefact: function(){
 			// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
 			if(Kenseo.current.page == "dashboard"){
-				refreshSection('dashboard', 'db-artefacts');
+				// @OLDCODE - commented
+				// refreshSection('dashboard', 'db-artefacts');
+				console.dir(Kenseo.popup.data);
 			}
 			else if(Kenseo.current.page == "project-page"){
 				refreshSection('project-page', 'pp-artefacts');

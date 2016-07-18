@@ -420,6 +420,37 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['show-global-messages'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="messages-wrapper ' +
+((__t = (type)) == null ? '' : __t) +
+'-messages-wrapper ">\n  <svg class="error-or-success-img ">\n    <use xlink:href="#' +
+((__t = (icon)) == null ? '' : __t) +
+'"></use>\n  </svg>\n  <span class="messages">' +
+((__t = (message)) == null ? '' : __t) +
+'</span>\n</div>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['versions'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -682,7 +713,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<img src="http://lorempixel.com/sports/280/200" />\r\n<div class="project-block-overlay">\r\n\t<div class="project-block-overlay-wrapper">\r\n\t\t<div class="project-block-title">\r\n\t\t\t' +
+__p += '<img src="http://placeimg.com/280/200/arch" />\r\n<div class="project-block-overlay">\r\n\t<div class="project-block-overlay-wrapper">\r\n\t\t<div class="project-block-title">\r\n\t\t\t' +
 ((__t = ( data.name )) == null ? '' : __t) +
 '\r\n\t\t</div>\r\n\t\t<div class="project-block-details">\r\n\t\t\t<div class="project-block-details-icon">\r\n\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-block-details-text ellipsis">Last Updated ' +
 ((__t = ( sb.timeFormat(data.last_updated_date) )) == null ? '' : __t) +
@@ -1381,7 +1412,7 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="search-section">\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>';
+__p += '<div class="search-section">\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="custom-search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>\r\n';
 
 }
 return __p
@@ -2442,8 +2473,8 @@ __p += '<div class="popup popup-add-people k-form">\r\n\t' +
 ((__t = ( Kenseo.popup.data.id )) == null ? '' : __t) +
 '">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<div class="add-people-text-project">\r\n\t\t\t\tAdd People under ' +
 ((__t = ( Kenseo.popup.data.project_name )) == null ? '' : __t) +
-' Project\r\n\t\t\t</div>\r\n\t\t\t' +
-((__t = ( 
+' Project\r\n\t\t\t</div>\r\n\t\t\t<!-- ' +
+((__t = (
 				sb.toolbox.textBox({
 					placeholder: "Enter mail ID. Use comma to add multiple people.",
 					inputClass: "xm required k-field",
@@ -2455,6 +2486,19 @@ __p += '<div class="popup popup-add-people k-form">\r\n\t' +
 					}
 				})
 			)) == null ? '' : __t) +
+' -->\r\n\t\t\t' +
+((__t = ( sb.setTemplate('select', {
+				data: {
+					required: true,
+					inputClass: "add-people-to-project k-field",
+					selectAttr: {
+						multiple: "",
+						"data-xtype": "text",
+						"data-xtype-key": "users",
+						"data-validate-this": "empty"
+					}
+				}
+			})	)) == null ? '' : __t) +
 '\r\n\t\t\t<div class="existing-users-section">\r\n\t\t\t\t';
  _.each(data.existingUsers, function(u){ ;
 __p += '\r\n\t\t\t\t\t,&nbsp;' +
@@ -2463,7 +2507,7 @@ __p += '\r\n\t\t\t\t\t,&nbsp;' +
  }) ;
 __p += '\r\n\t\t\t</div>\r\n\t\t\t<div class="people-permissions-section">\r\n\t\t\t\t<div class="permissions-header">This Person(s) can</div>\r\n\t\t\t\t<div class="permissions-wrapper k-field" data-xtype="access_type">\r\n\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t<div class="permission-item-text">Add comments</div>\r\n\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t<label class="toggle-checkbox">\r\n\t\t\t\t\t\t\t\t<input type="checkbox" data-subtype="comments"></input><span></span>\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t<div class="permission-item-text">Share with others</div>\r\n\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t<label class="toggle-checkbox">\r\n\t\t\t\t\t\t\t\t<input type="checkbox" data-subtype="share"></input><span></span>\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
-'\r\n\t</div>\r\n</div>';
+'\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p
@@ -3019,7 +3063,7 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">People</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-people">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="people-section-content sub-section-content">\r\n\t\r\n</div>';
+__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">People</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon" data-url="add-people">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="people-section-content sub-section-content">\r\n\r\n</div>\r\n';
 
 }
 return __p
@@ -3078,9 +3122,9 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<button type="button"\r\n\t';
  if(data.disabled){ ;
-__p += ' \r\n\t\tdisabled="true" autocomplete="off" \r\n\t';
+__p += '\r\n\t\tdisabled="true" autocomplete="off"\r\n\t';
  } ;
-__p += ' \r\n\t\tclass="' +
+__p += '\r\n\t\tclass="' +
 ((__t = ( data.cls )) == null ? '' : __t) +
 ' ';
  if(data.label === "Proceed" || data.label === "Back"){ ;
@@ -3097,10 +3141,10 @@ __p += '\r\n\t\t\tdata-index="' +
 '"\r\n\t\t';
  } ;
 __p += '\r\n\r\n\t\t' +
-((__t = ( sb.setTemplate('attributes', {data: data}) )) == null ? '' : __t) +
+((__t = ( sb.setTemplate('attributes', {data: data.attr}) )) == null ? '' : __t) +
 '\r\n\t>' +
 ((__t = ( data.label )) == null ? '' : __t) +
-'\r\n</button>';
+'\r\n</button>\r\n';
 
 }
 return __p
@@ -3187,15 +3231,15 @@ __p += 'checkbox';
  } ;
 __p += ' ' +
 ((__t = ( data.class )) == null ? '' : __t) +
-'">\r\n\t\t<input type="checkbox" \r\n\t\t\t';
+'">\r\n\t\t<input type="checkbox"\r\n\t\t\t';
  if(data.checked == true){ ;
 __p += '\r\n\t\t\t\tchecked\r\n\t\t\t';
  } ;
 __p += '\r\n\t\t\t' +
-((__t = ( sb.setTemplate('attributes', {data: data}) )) == null ? '' : __t) +
+((__t = ( sb.setTemplate('attributes', {data: data.attr}) )) == null ? '' : __t) +
 '\r\n\t\t></input>\r\n\t\t<span>' +
 ((__t = ( data.text )) == null ? '' : __t) +
-'</span>\r\n\t</label>\r\n</div>';
+'</span>\r\n\t</label>\r\n</div>\r\n';
 
 }
 return __p
@@ -3286,6 +3330,104 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['option'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ console.dir(option) ;
+__p += '\n<option ' +
+((__t = ( sb.setTemplate('attributes', {data: option.attr}) )) == null ? '' : __t) +
+'>' +
+((__t = ( option.text )) == null ? '' : __t) +
+'</option>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['select'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ console.log("select") ;
+__p += '\n';
+ console.dir(data) ;
+__p += '\n<div class="field-section ' +
+((__t = ( data.fieldClass )) == null ? '' : __t) +
+'" ';
+ if(data.dataName){ ;
+__p += ' data-name="' +
+((__t = ( data.dataName )) == null ? '' : __t) +
+'" ';
+ } ;
+__p += '>\n\t';
+ if(data.label){ ;
+__p += '\n        <div class="input-label ';
+ if(data.labelClass){ ;
+__p +=
+((__t = ( data.labelClass )) == null ? '' : __t);
+ } ;
+__p += ' ';
+ if(data.required){ ;
+__p += ' required';
+ } ;
+__p += '">\n            ' +
+((__t = ( data.label )) == null ? '' : __t) +
+'\n        </div>\n    ';
+ } ;
+__p += '\n\t<div class="input-wrapper">\n        <select class="' +
+((__t = ( data.inputClass )) == null ? '' : __t);
+ if(data.required){ ;
+__p += ' k-required';
+ } ;
+__p += '" ' +
+((__t = ( sb.setTemplate('attributes', {data: data.selectAttr}) )) == null ? '' : __t) +
+' >\n            ';
+ _.each(data.options, function(option){ ;
+__p += '\n\t\t\t\tconsole.log("in option");\n\t\t\t\tconsole.dir(option);\n                ' +
+((__t = ( sb.setTemplate('option', {data: option}) )) == null ? '' : __t) +
+'\n            ';
+ }) ;
+__p += '\n        </select>\n\t</div>\n</div>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['textbox'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -3314,7 +3456,7 @@ __p += '">' +
  } ;
 __p += '\r\n\t<div class="input-wrapper">\r\n\t\t';
  if(!data.textArea){ ;
-__p += '\r\n\t\t<input \r\n\t\t\ttype="text" \r\n\t\t\tclass="input-text ';
+__p += '\r\n\t\t<input\r\n\t\t\ttype="text"\r\n\t\t\tclass="input-text ';
  if(data.inputClass) { ;
 __p +=
 ((__t = ( data.inputClass )) == null ? '' : __t) +
@@ -3324,14 +3466,14 @@ __p +=
  if(data.required){ ;
 __p += ' k-required';
  } ;
-__p += '" \r\n\t\t\t';
+__p += '"\r\n\t\t\t';
  if(data.placeholder){ ;
 __p += '\r\n\t\t\tplaceholder="' +
 ((__t = ( data.placeholder )) == null ? '' : __t) +
-'" \r\n\t\t\t';
+'"\r\n\t\t\t';
  } ;
-__p += ' \r\n\t\t\t' +
-((__t = ( sb.setTemplate('attributes', {data: data}) )) == null ? '' : __t) +
+__p += '\r\n\t\t\t' +
+((__t = ( sb.setTemplate('attributes', {data: data.attr}) )) == null ? '' : __t) +
 '\r\n\t\t></input>\r\n\t\t';
  } else { ;
 __p += '\r\n\t\t<textarea class="';
@@ -3344,21 +3486,21 @@ __p +=
  if(data.required){ ;
 __p += ' k-required';
  } ;
-__p += '" \r\n\t\t\t';
+__p += '"\r\n\t\t\t';
  if(data.placeholder){ ;
 __p += '\r\n\t\t\tplaceholder="' +
 ((__t = ( data.placeholder )) == null ? '' : __t) +
-'" \r\n\t\t\t';
+'"\r\n\t\t\t';
  } ;
-__p += ' \r\n\t\t\t' +
-((__t = ( sb.setTemplate('attributes', {data: data}) )) == null ? '' : __t) +
+__p += '\r\n\t\t\t' +
+((__t = ( sb.setTemplate('attributes', {data: data.attr}) )) == null ? '' : __t) +
 '\r\n\t\t ></textarea>\r\n\t\t';
  } ;
 __p += '\r\n\t</div>\r\n\t';
  if(data.enableSuggestions){ ;
 __p += '\r\n\t<div class="field-suggestions"></div>\r\n\t<div class="field-suggestions-viewer"></div>\r\n\t';
  } ;
-__p += '\r\n</div>';
+__p += '\r\n</div>\r\n';
 
 }
 return __p
@@ -3385,17 +3527,17 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
- if(data.attr && typeof data.attr == "object"){ 
-	var attributes = data.attr;
+ if(data && typeof data == "object"){
+	var attributes = data;
 	for(var key in attributes){ ;
 __p += '\r\n\t\t' +
 ((__t = ( key )) == null ? '' : __t) +
 ' = "' +
 ((__t = ( attributes[key] )) == null ? '' : __t) +
-'" \r\n';
+'"\r\n';
 	}
  } ;
-
+__p += '\r\n';
 
 }
 return __p

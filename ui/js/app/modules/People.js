@@ -10,10 +10,12 @@ Kenseo.views.People = Backbone.View.extend({
         this.templateHolder = payload.templateHolder;
         // presence of templateWrapperHolder is assumed to render the project page section
         this.templateWrapperHolder = payload.templateWrapperHolder;
-        this.render();
+        // this.render();
         return this;
     },
-    events: {},
+    events: {
+        "click [data-url='add-people']": "addPeople"
+    },
     render: function render() {
         var _this = this;
         _this.collection.fetch(sb.getStandardData({
@@ -53,6 +55,49 @@ Kenseo.views.People = Backbone.View.extend({
                 }
             }
         }));
+    },
+    addPeople: function(e, scope){
+        var el = e.currentTarget;
+        if(!scope){
+            scope = this;
+        }
+        sb.newCallPopup({
+            el: el,
+            scope: scope,
+            afterRender: function($popupContainer, scope){
+                sb.loadCss('assets/styles/css/chosen.css');
+                var data =
+                sb.ajaxCall({
+                    url: sb.getRelativePath('getOtherProjectMembers'),
+                    data: {
+                        projectId: Kenseo.current.page === "project-page"?
+                                    Kenseo.page.id : 
+                                    (scope.model && scope.model.get('id'))
+                    },
+                    success: function(response){
+                        var data = response.data;
+
+                        $select = $('.add-people-to-project');
+
+                        data.users.map(function(user){
+                            var obj = {};
+                            obj.attr = {
+                                value: user.id
+                            };
+
+                            obj.text = user.name + ": " + user.email;
+
+                            $select.append(sb.setTemplate('option', {option: obj}));
+                            return obj;
+                        });
+
+                        $select.chosen({display_selected_options: false});
+
+
+                    }
+                })
+            }
+        });
     }
 });
 

@@ -718,7 +718,7 @@ a {
   position: relative;
 }
 
-.search-field {
+.custom-search-field {
   width: 472px;
   height: 55px;
   font-size: 16px;
@@ -734,27 +734,27 @@ a {
   background-color: #ececed;
 }
 
-.search-field::-webkit-input-placeholder {
+.custom-search-field::-webkit-input-placeholder {
   color: #7d808f;
   font: 16px;
   font-family: "OpenSansItalic";
 }
 
-.search-field:-moz-placeholder {
+.custom-search-field:-moz-placeholder {
   /* Firefox 18- */
   color: #7d808f;
   font: 16px;
   font-family: "OpenSansItalic";
 }
 
-.search-field::-moz-placeholder {
+.custom-search-field::-moz-placeholder {
   /* Firefox 19+ */
   color: #7d808f;
   font: 16px;
   font-family: "OpenSansItalic";
 }
 
-.search-field:-ms-input-placeholder {
+.custom-search-field:-ms-input-placeholder {
   color: #7d808f;
   font: 16px;
   font-family: "OpenSansItalic";
@@ -2704,6 +2704,11 @@ a {
   right: 50%;
   -webkit-transform: translate(50%, 50%);
           transform: translate(50%, 50%);
+}
+
+.add-people-to-project {
+  width: 390px;
+  height: 40px;
 }
 
 .input-meeting-text {
@@ -6195,7 +6200,7 @@ img.image-viewer {
 }
 
 .success-messages-wrapper {
-   background-color: #6cbf5d;
+  background-color: #6cbf5d;
   border: 1px solid #3d9176;
 }
 

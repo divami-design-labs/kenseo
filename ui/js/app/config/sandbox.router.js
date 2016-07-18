@@ -13,7 +13,7 @@ sb.router = {
             // 'views': ['Header', 'Artefacts', 'Projects', 'Notifications'],
             // 'models': ['Header', 'Notifications', 'Projects', 'Artefacts'],
             // 'collections': ['Projects', 'Artefacts', 'Notifications'],
-            'modules': ['Header', 'Artefacts', 'Projects', 'Notifications']
+            'modules': ['Header', 'Artefacts', 'Projects', 'People', 'Notifications']
         }, function () {
             Kenseo.current.page = "dashboard";
             sb.setTitle('Dashboard');

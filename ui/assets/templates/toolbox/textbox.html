@@ -2,20 +2,20 @@
 	<% if(data.label){ %><div class="input-label <% if(data.labelClass){ %><%= data.labelClass %><% } %> <% if(data.required){ %> required<% } %>"><%= data.label %></div><% } %>
 	<div class="input-wrapper">
 		<% if(!data.textArea){ %>
-		<input 
-			type="text" 
-			class="input-text <% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>" 
+		<input
+			type="text"
+			class="input-text <% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>"
 			<% if(data.placeholder){ %>
-			placeholder="<%= data.placeholder %>" 
-			<% } %> 
-			<%= sb.setTemplate('attributes', {data: data}) %>
+			placeholder="<%= data.placeholder %>"
+			<% } %>
+			<%= sb.setTemplate('attributes', {data: data.attr}) %>
 		></input>
 		<% } else { %>
-		<textarea class="<% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>" 
+		<textarea class="<% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>"
 			<% if(data.placeholder){ %>
-			placeholder="<%= data.placeholder %>" 
-			<% } %> 
-			<%= sb.setTemplate('attributes', {data: data}) %>
+			placeholder="<%= data.placeholder %>"
+			<% } %>
+			<%= sb.setTemplate('attributes', {data: data.attr}) %>
 		 ></textarea>
 		<% } %>
 	</div>

@@ -1,0 +1,18 @@
+<% console.log("select") %>
+<% console.dir(data) %>
+<div class="field-section <%= data.fieldClass %>" <% if(data.dataName){ %> data-name="<%= data.dataName %>" <% } %>>
+	<% if(data.label){ %>
+        <div class="input-label <% if(data.labelClass){ %><%= data.labelClass %><% } %> <% if(data.required){ %> required<% } %>">
+            <%= data.label %>
+        </div>
+    <% } %>
+	<div class="input-wrapper">
+        <select class="<%= data.inputClass %><% if(data.required){ %> k-required<% } %>" <%= sb.setTemplate('attributes', {data: data.selectAttr}) %> >
+            <% _.each(data.options, function(option){ %>
+				console.log("in option");
+				console.dir(option);
+                <%= sb.setTemplate('option', {data: option}) %>
+            <% }) %>
+        </select>
+	</div>
+</div>

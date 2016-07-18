@@ -5,7 +5,7 @@
 			<div class="add-people-text-project">
 				Add People under <%= Kenseo.popup.data.project_name %> Project
 			</div>
-			<%= 
+			<!-- <%=
 				sb.toolbox.textBox({
 					placeholder: "Enter mail ID. Use comma to add multiple people.",
 					inputClass: "xm required k-field",
@@ -16,7 +16,19 @@
 						'data-xtype-key': 'users'
 					}
 				})
-			%>
+			%> -->
+			<%= sb.setTemplate('select', {
+				data: {
+					required: true,
+					inputClass: "add-people-to-project k-field",
+					selectAttr: {
+						multiple: "",
+						"data-xtype": "text",
+						"data-xtype-key": "users",
+						"data-validate-this": "empty"
+					}
+				}
+			})	%>
 			<div class="existing-users-section">
 				<% _.each(data.existingUsers, function(u){ %>
 					,&nbsp;<%= u.mailId %>

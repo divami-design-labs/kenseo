@@ -510,6 +510,8 @@ $AppGlobal['sql']['getCommentThread'] = "SELECT * FROM " . TABLE_COMMENT_THREADS
 // Get users from emails
 $AppGlobal['sql']['getUserIdsFromEmails'] = "SELECT user_id FROM " . TABLE_USERS . " WHERE email in (@~~emailIds~~@)";
 
+$AppGlobal['sql']['getUserIdsFromUserIds'] = "SELECT user_id FROM " . TABLE_USERS . " WHERE user_id in (@~~userids~~@)";
+
 
 // Get project members
 $AppGlobal['sql']['getProjectMembers'] = "SELECT * FROM " . TABLE_PROJECT_MEMBERS . " WHERE proj_id = @~~project_id~~@";

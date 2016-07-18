@@ -91,9 +91,9 @@
 
 			$users = $data->users;
 			$count = count($users);
-			for($i=0; $i<$count; $i++) {
-				$users[$i] = "'" . $users[$i] . "'";
-			}
+			// for($i=0; $i<$count; $i++) {
+			// 	$users[$i] = "'" . $users[$i] . "'";
+			// }
 
 
 			// Get DB Connection and start new transaction
@@ -101,8 +101,8 @@
 			$db->beginTransaction();
 
 			//@TODO: Get user ids from email ids. Remove this section once UI implement suggestions list
-			$queryParams = array('@emailIds' => join(",", $users));
-			$query = getQuery('getUserIdsFromEmails', $queryParams);
+			$queryParams = array('@userids' => join(",", $users));
+			$query = getQuery('getUserIdsFromUserIds', $queryParams);
 			$users = $db->multiObjectQuery($query);
 			$actualCount = count($users);
 
@@ -239,6 +239,31 @@
 			);
 			return $resultObj;
 		}
+
+        public function getOtherProjectMembers($interpreter){
+            $result = new stdClass();
+
+            $data = $interpreter->getData()->data;
+			$projectId = $data->projectId;
+
+            $db = Master::getDBConnectionManager();
+            $db->beginTransaction();
+
+
+            try{
+                $result->users = $db->multiObjectQuery(getQuery('getOtherMembersList', array(
+                    "projectId" => $projectId
+                )));
+
+                $db->commitTransaction();
+            }
+            catch(Exception $e){
+                $db->abortTransaction();
+                $result->status = "fail";
+            }
+
+            return $result;
+        }
 
         public function addUserMail($info){
             // Send mail to project members
