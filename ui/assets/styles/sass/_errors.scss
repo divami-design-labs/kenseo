@@ -15,7 +15,7 @@
   border-radius: 0px 0px 4px 4px;
   line-height: 100px;
   width: 425px;
-  min-height: 110px;
+  min-height: 86px;
   padding-left: 20px;
   padding-right: 20px;
   display: -webkit-box;
@@ -30,28 +30,36 @@
   align-items: center;
 }
 .error-messages-wrapper{
-  background-color: #f6916b;
+  background-color: #ef989c;
+  border: 1px solid #f26d7d;
 }
 .success-messages-wrapper{
   background-color: #6cbf5d;
+  border: 1px solid #3d9176;
 }
 .messages-wrapper.show-messages ,.messages-wrapper.show-messages{
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
 }
 .error-or-success-img{
-  width: 72px;
-  height: 72px;
-  min-width: 72px;
+  width: 70px;
+  height: 70px;
+  min-width: 70px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .messages {
   line-height: normal;
   padding: 0px;
   padding-left: 15px;
+  font-size: 14px;
   display: block;
   float: left;
   clear: both;
   color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: "OpenSansRegular";
 }
 .error-field {
     border: 1px solid #ff0011 !important;

@@ -202,8 +202,12 @@
 				$rowValues = array($projId, $userId, $date, 'A', 'R', $artId);
 				$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $columnNames, $rowValues);
 
-				return true;
-
+				$resultMessage = new stdClass();
+	      $resultMessage->messages = new stdClass();
+	      $resultMessage->messages->type = "success";
+	      $resultMessage->messages->message = "Successfully replaced artefact";
+	      $resultMessage->messages->icon = "done";
+	      return $resultMessage;
 			}
 
 		}
@@ -490,7 +494,12 @@
 				$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $columnNames, $rowValues);
 
 				$db->commitTransaction();
-				return true;
+				$resultMessage = new stdClass();
+	      $resultMessage->messages = new stdClass();
+	      $resultMessage->messages->type = "success";
+	      $resultMessage->messages->message = "Successfully added new version to artefact";
+	      $resultMessage->messages->icon = "done";
+	      return $resultMessage;
 			}
 		}
 
@@ -720,6 +729,12 @@
 			$this->addArtefactMail($mailInfo);
 
 			$db->commitTransaction();
+			// $resultMessage = new stdClass();
+			// $resultMessage->messages = new stdClass();
+			// $resultMessage->messages->type = "success";
+			// $resultMessage->messages->message = "Successfully added artefact";
+			// $resultMessage->messages->icon = "success";
+			// return $resultMessage;
 			return array();
 		}
 
@@ -791,6 +806,12 @@
 			$artId = $data->id;
 			$userId = $interpreter->getUser()->user_id;
 			$this->shareForTeam($artId, $artVerId,$info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
+			// $resultMessage = new stdClass();
+			// $resultMessage->messages = new stdClass();
+			// $resultMessage->messages->type = "success";
+			// $resultMessage->messages->message = "Successfully shared artefact";
+			// $resultMessage->messages->icon = "success";
+			// return $resultMessage;
 			return array();
 		}
 

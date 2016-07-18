@@ -167,8 +167,8 @@ var validation = (function(){
 	}
 	var doValidate = function($clickedBtn){
 		if(isValidate($clickedBtn)){
+
 			
-			}
 			return true;
 		}
 		else{

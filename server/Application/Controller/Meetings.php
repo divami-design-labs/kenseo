@@ -125,7 +125,12 @@
 			$actRowvals = array($projectId, $user->user_id, date("Y-m-d H:i:s"), 'M','N', $meetId);
 
 			$actId = $db->insertSingleRowAndReturnId(TABLE_PROJECT_ACTIVITY, $actColumnnames, $actRowvals);
-
+			// $resultMessage = new stdClass();
+			// $resultMessage->messages = new stdClass();
+			// $resultMessage->messages->type = "success";
+			// $resultMessage->messages->message = "Meeting invitation is sent successfully";
+			// $resultMessage->messages->icon = "done";
+			// return $resultMessage;
 			return $meetId;
 		}
 		
