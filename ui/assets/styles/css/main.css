@@ -90,7 +90,7 @@
   bottom: 0;
 }
 
-.ellipsis, .menu-notifications-txt-tm, .rr-details, .notification-title, .notification-time, .mn-left-title, .summary-version-item .checkbox .doc-type, .meta-text, .meta-text div, .combobox-wrapper .selectable {
+.ellipsis, .menu-notifications-txt-tm, .rr-details, .rr-project-name, .notification-title, .notification-time, .mn-left-title, .summary-version-item .checkbox .doc-type, .meta-text, .meta-text div, .combobox-wrapper .selectable {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -701,6 +701,33 @@ a {
   40% {
     box-shadow: 0 2.5em 0 0;
   }
+}
+
+.splash-screen-container {
+  position: fixed;
+  background-color: white;
+  z-index: 200;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  opacity: 1;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.splash-screen-container::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0px;
+}
+
+.splash-container {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .search-section {
@@ -1487,6 +1514,13 @@ a {
 .rr-details {
   font-size: 13px;
   color: #6f7588;
+  margin-top: 6px;
+  margin-bottom: 5px;
+}
+
+.rr-project-name {
+  color: #6f7588;
+  font-size: 14px;
   margin-top: 6px;
   margin-bottom: 5px;
 }
@@ -2566,6 +2600,7 @@ a {
 .choose-existing-file-holder {
   float: left;
   width: 100%;
+  padding-top: 10px;
 }
 
 .choose-existing-file-holder .close-icon {

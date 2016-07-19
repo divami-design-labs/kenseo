@@ -1433,6 +1433,96 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['meetingnotes'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ Kenseo.populate.meeting = data ;
+__p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">       \r\n        <div class="projects-heading-icon">\r\n            <svg><use xlink:href="#projects"></use></svg>\r\n        </div>       \r\n        <a href="#projects" class="heading-text-project">Projects &gt; </a>\r\n        <a href="#projectpage/' +
+((__t = ( data.projectId )) == null ? '' : __t) +
+'" class="heading-text-project-name">' +
+((__t = ( data.projectName )) == null ? '' : __t) +
+'</a>  \r\n        <span class="heading-date">(' +
+((__t = ( sb.timeFormat(data.startTime, true, true) )) == null ? '' : __t) +
+')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
+((__t = ( data.projectName )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Artefact</div>\r\n                <div class="meta-text">' +
+((__t = ( data.artefactName )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Sender</div>\r\n                <div class="meta-text">' +
+((__t = ( data.createdBy )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Agenda</div>\r\n                <div class="meta-text">' +
+((__t = ( data.agenda )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Scheduled On</div>\r\n                <div class="meta-text">\r\n                    <div>Dec 04, 2014</div>\r\n                    <div>11:00 am to 12:00 pm</div>\r\n                </div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Venue</div>\r\n                <div class="meta-text">' +
+((__t = ( data.venue )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Recipients</div>\r\n                ';
+ _.each(data.participants, function(p){ ;
+__p += '\r\n                <div class="meta-text">' +
+((__t = ( p.participentName )) == null ? '' : __t) +
+'</div>\r\n\t\t\t\t';
+ }); ;
+__p += '\r\n            </div>\r\n        </div>\r\n        <div class="meeting-right-section">\r\n            <div class="meeting-people-section">\r\n                <div class="meeting-people-active">\r\n                \t<div class=\'currentPersonNotes acitiveNotesPartcipant\' data-user="' +
+((__t = ( data.participantId )) == null ? '' : __t) +
+'">\r\n\t                    <div class="people-img-wrapper">\r\n\t                        <img src="' +
+((__t = (data.participantPic)) == null ? '' : __t) +
+'" />\r\n\t                    </div>\r\n\t                    <span class="meeting-people-name">\r\n\t                        ' +
+((__t = (data.participantName)) == null ? '' : __t) +
+'\r\n\t                    </span>\r\n                \t</div>\r\n\t                ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n\t            \t\t<div class=\'currentPersonNotes\' data-user="' +
+((__t = ( p.userId )) == null ? '' : __t) +
+'">\r\n\t\t            \t\t<div class="meeting-people-active">\r\n\t\t\t                    <div class="people-img-wrapper">\r\n\t\t\t                        <img src="' +
+((__t = (p.profilePic)) == null ? '' : __t) +
+'" />\r\n\t\t\t                    </div>\r\n\t\t\t                    <span class="meeting-people-name">\r\n\t\t\t                        ' +
+((__t = (p.userName)) == null ? '' : __t) +
+'\r\n\t\t\t                    </span>\r\n\t\t\t                </div>\r\n\t            \t';
+ }); ;
+__p += '\r\n               </div>\r\n                <div class="meeting-people-other">\r\n                    <div class="people-img-wrapper participant active" data-user=' +
+((__t = (data.participantId)) == null ? '' : __t) +
+'>\r\n                        <img src="' +
+((__t = (data.participantPic)) == null ? '' : __t) +
+'" />\r\n                    </div>\r\n                    <div class="v-separator"></div>\r\n                    ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n                    <div class="people-img-wrapper participant" data-user=' +
+((__t = (p.userId)) == null ? '' : __t) +
+'>\r\n                        <img src="' +
+((__t = (p.profilePic)) == null ? '' : __t) +
+'" />\r\n                    </div>\r\n                    ';
+ }); ;
+__p += '\r\n                </div>\r\n            </div>\r\n            <div class="text-editor-section">\r\n                <div class="text-actions-section">\r\n                    <button name="text-b" text-name="bold">Bold</button>\r\n                    <button name="text-i" text-name="italic">Italic</button>\r\n                    <button name="text-u" text-name="underline">Underline</button>\r\n                </div>\r\n                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="' +
+((__t = ( data.participantId )) == null ? '' : __t) +
+'">\r\n                \t' +
+((__t = (data.userNotes)) == null ? '' : __t) +
+'\r\n                </div>\r\n                ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n            \t\t<div class="view-notes" data-user="' +
+((__t = ( p.userId )) == null ? '' : __t) +
+'" >\r\n            \t\t\t' +
+((__t = ( p.notes)) == null ? '' : __t) +
+'\r\n        \t\t\t</div>\r\n            \t';
+ }); ;
+__p += '\r\n               \r\n            </div>\r\n            <label class="checkbox">\r\n                <input class="existing-files-chk" type="checkbox">\r\n                <span>Let others see my notes</span>\r\n            </label>\r\n        </div>\r\n    </div>\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['activity'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -1551,9 +1641,9 @@ __p += '\r\n\t</div>\r\n\t<div class="rr-right">\r\n\t\t<div class="rr-title ell
 __p += ' - Unsupported format';
  } ;
 __p += '">' +
-((__t = ( data['project_name'] )) == null ? '' : __t) +
-': ' +
 ((__t = ( data.title )) == null ? '' : __t) +
+'</div>\r\n        <div class="rr-project-name ellipsis">' +
+((__t = ( data['project_name'] )) == null ? '' : __t) +
 '</div>\r\n\t\t<div class="rr-details ellipsis" title="' +
 ((__t = ( sb.timeFormat(data['artefact_time']) )) == null ? '' : __t) +
 ' by ' +
@@ -1979,96 +2069,6 @@ __p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div c
 '\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t';
  } ;
 __p += '\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['meetingnotes'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- Kenseo.populate.meeting = data ;
-__p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">       \r\n        <div class="projects-heading-icon">\r\n            <svg><use xlink:href="#projects"></use></svg>\r\n        </div>       \r\n        <a href="#projects" class="heading-text-project">Projects &gt; </a>\r\n        <a href="#projectpage/' +
-((__t = ( data.projectId )) == null ? '' : __t) +
-'" class="heading-text-project-name">' +
-((__t = ( data.projectName )) == null ? '' : __t) +
-'</a>  \r\n        <span class="heading-date">(' +
-((__t = ( sb.timeFormat(data.startTime, true, true) )) == null ? '' : __t) +
-')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
-((__t = ( data.projectName )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Artefact</div>\r\n                <div class="meta-text">' +
-((__t = ( data.artefactName )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Sender</div>\r\n                <div class="meta-text">' +
-((__t = ( data.createdBy )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Agenda</div>\r\n                <div class="meta-text">' +
-((__t = ( data.agenda )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Scheduled On</div>\r\n                <div class="meta-text">\r\n                    <div>Dec 04, 2014</div>\r\n                    <div>11:00 am to 12:00 pm</div>\r\n                </div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Venue</div>\r\n                <div class="meta-text">' +
-((__t = ( data.venue )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Recipients</div>\r\n                ';
- _.each(data.participants, function(p){ ;
-__p += '\r\n                <div class="meta-text">' +
-((__t = ( p.participentName )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t';
- }); ;
-__p += '\r\n            </div>\r\n        </div>\r\n        <div class="meeting-right-section">\r\n            <div class="meeting-people-section">\r\n                <div class="meeting-people-active">\r\n                \t<div class=\'currentPersonNotes acitiveNotesPartcipant\' data-user="' +
-((__t = ( data.participantId )) == null ? '' : __t) +
-'">\r\n\t                    <div class="people-img-wrapper">\r\n\t                        <img src="' +
-((__t = (data.participantPic)) == null ? '' : __t) +
-'" />\r\n\t                    </div>\r\n\t                    <span class="meeting-people-name">\r\n\t                        ' +
-((__t = (data.participantName)) == null ? '' : __t) +
-'\r\n\t                    </span>\r\n                \t</div>\r\n\t                ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n\t            \t\t<div class=\'currentPersonNotes\' data-user="' +
-((__t = ( p.userId )) == null ? '' : __t) +
-'">\r\n\t\t            \t\t<div class="meeting-people-active">\r\n\t\t\t                    <div class="people-img-wrapper">\r\n\t\t\t                        <img src="' +
-((__t = (p.profilePic)) == null ? '' : __t) +
-'" />\r\n\t\t\t                    </div>\r\n\t\t\t                    <span class="meeting-people-name">\r\n\t\t\t                        ' +
-((__t = (p.userName)) == null ? '' : __t) +
-'\r\n\t\t\t                    </span>\r\n\t\t\t                </div>\r\n\t            \t';
- }); ;
-__p += '\r\n               </div>\r\n                <div class="meeting-people-other">\r\n                    <div class="people-img-wrapper participant active" data-user=' +
-((__t = (data.participantId)) == null ? '' : __t) +
-'>\r\n                        <img src="' +
-((__t = (data.participantPic)) == null ? '' : __t) +
-'" />\r\n                    </div>\r\n                    <div class="v-separator"></div>\r\n                    ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n                    <div class="people-img-wrapper participant" data-user=' +
-((__t = (p.userId)) == null ? '' : __t) +
-'>\r\n                        <img src="' +
-((__t = (p.profilePic)) == null ? '' : __t) +
-'" />\r\n                    </div>\r\n                    ';
- }); ;
-__p += '\r\n                </div>\r\n            </div>\r\n            <div class="text-editor-section">\r\n                <div class="text-actions-section">\r\n                    <button name="text-b" text-name="bold">Bold</button>\r\n                    <button name="text-i" text-name="italic">Italic</button>\r\n                    <button name="text-u" text-name="underline">Underline</button>\r\n                </div>\r\n                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="' +
-((__t = ( data.participantId )) == null ? '' : __t) +
-'">\r\n                \t' +
-((__t = (data.userNotes)) == null ? '' : __t) +
-'\r\n                </div>\r\n                ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n            \t\t<div class="view-notes" data-user="' +
-((__t = ( p.userId )) == null ? '' : __t) +
-'" >\r\n            \t\t\t' +
-((__t = ( p.notes)) == null ? '' : __t) +
-'\r\n        \t\t\t</div>\r\n            \t';
- }); ;
-__p += '\r\n               \r\n            </div>\r\n            <label class="checkbox">\r\n                <input class="existing-files-chk" type="checkbox">\r\n                <span>Let others see my notes</span>\r\n            </label>\r\n        </div>\r\n    </div>\r\n</div>';
 
 }
 return __p
@@ -2890,18 +2890,18 @@ with (obj) {
  var toolbox = sb.toolbox ;
 __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<form class="meeting-invite-form">\r\n\t\t\t\t\r\n\t\t\t\t' +
-((__t = ( 
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<form class="meeting-invite-form">\r\n\r\n\t\t\t\t' +
+((__t = (
 					toolbox.comboBox({
 						"label": "Project",
 						required: true,
 						"class": "xm project-combobox",
 						"dataName": "meetingProject",
 						"placeholder": "Choose Project"
-					}) 
+					})
 				)) == null ? '' : __t) +
 '\r\n\t\t\t\t' +
-((__t = ( 
+((__t = (
 					toolbox.comboBox({
 						"label": "Artefact",
 						required: true,
@@ -2911,7 +2911,7 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 					})
 				)) == null ? '' : __t) +
 '\r\n\t\t\t\t' +
-((__t = ( 
+((__t = (
 					toolbox.textBox({
 						"label": "Agenda",
 						required: true,
@@ -2923,8 +2923,8 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 						}
 					})
 				)) == null ? '' : __t) +
-'\r\n\t\t\t\t<div style="clear: both; padding-top: 20px;">\r\n\t\t\t\t\t<div class="field-section in-line" data-name="date" data-ignore="1">\r\n\t\t\t\t\t\t<div class="input-label required">Scheduled on</div>\r\n\t\t\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t\t\t<input type="text" class="input-meeting-date float-left"></input>\r\n\t\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="fromTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">From</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">\r\n\t\t\t\t\t\t\t    <option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="toTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">To</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">\r\n\t\t\t\t\t\t\t    <option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t' +
-((__t = ( 
+'\r\n\t\t\t\t<div style="clear: both; padding-top: 20px;">\r\n\t\t\t\t\t<div class="field-section in-line" data-name="date" data-ignore="1">\r\n\t\t\t\t\t\t<div class="input-label required">Scheduled on</div>\r\n\t\t\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t\t\t<input type="text" class="input-meeting-date float-left"></input>\r\n\t\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="fromTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">From</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">\r\n\t\t\t\t\t\t\t    <option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="toTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">To</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">\r\n\t\t\t\t\t\t\t    <option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t' +
+((__t = (
 					toolbox.textBox({
 						"label": "Venue",
 						inputClass: "meeting-location",
@@ -2935,7 +2935,7 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 					})
 				)) == null ? '' : __t) +
 '\r\n\t\t\t\t' +
-((__t = ( 
+((__t = (
 					toolbox.textBox({
 						"label": "Recipients List",
 						textArea: true,
