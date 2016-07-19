@@ -57,6 +57,6 @@ var Kenseo = {
     }
 };
 
-$(function () {
-    Kenseo.init();
-});
+// $(function () {
+//     Kenseo.init();
+// });

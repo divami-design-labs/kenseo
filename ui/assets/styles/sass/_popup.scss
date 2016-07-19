@@ -352,6 +352,7 @@ $popup-content-space: 175px;
 .choose-existing-file-holder{
 	float: left;
 	width: 100%;
+	padding-top: 10px;
 	.close-icon{
 		@include closeIcon(10px);
 		position: absolute;

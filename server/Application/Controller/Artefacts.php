@@ -188,7 +188,7 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $latestVer);
 
 				//update artefact version Numbers
-				singleResultQuery("UPDATE artefact_versions set version_no = version_no+$latestVer where artefact_id=$newArt");
+				$db->singleResultQuery("UPDATE artefact_versions set version_no = version_no+$latestVer where artefact_id=$newArt");
 				//now change the artefact id
 				$db->updateTable(TABLE_ARTEFACTS_VERSIONS, array("artefact_id"), array($newVer), "artefact_id = " . $artId);
 

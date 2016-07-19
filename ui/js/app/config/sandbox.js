@@ -1,15 +1,6 @@
-var sb = (function () {
+var sb = _.extend(sb, (function () {
     var labels = {
         popupContainer: '.popup-container'
-    };
-    var scripts = {
-        'modules': {},
-        'files': {},
-
-        // @TODO: remove the below code
-        'views': {},
-        'models': {},
-        'collections': {}
     };
 
     function getModulePath(moduleType, moduleName) {
@@ -19,48 +10,6 @@ var sb = (function () {
     return {
         log: function log(msg) {
             console.log(msg);
-        },
-        // Function to load files in sequence (useful to consider dependency).
-        // TO DO: Sometimes, this function is loading files not in dependency sequence
-        loadFiles: function loadFiles(payload, fn) {
-            var files = [];
-            var types = ['files', 'modules', 'views', 'models', 'collections'];
-            for (var k = 0; k < types.length; k++) {
-                var type = types[k];
-                if (payload[type]) {
-                    var items = payload[type];
-                    for (var i = 0; i < items.length; i++) {
-                        var file = items[i];
-
-                        // Checking the file whether it is already loaded or not.
-                        if (!scripts[type][file]) {
-                            var src = type === 'files' ? file : getModulePath(type, file);
-                            // Setting the loaded flag to true to avoid loading a same file again.
-                            scripts[type][file] = true;
-                            files.push(src);
-                        }
-                    }
-                }
-            }
-            // files.push(fn);
-
-            var head = document.head || document.getElementsByTagName('head')[0];
-            function loadFile(index) {
-                if (files.length > index) {
-                    var fileref = document.createElement('script');
-                    fileref.setAttribute('type', 'text/javascript');
-                    fileref.setAttribute('src', files[index]);
-                    head.appendChild(fileref);
-                    index = index + 1;
-                    // Used to call a callback function
-                    fileref.onload = function () {
-                        loadFile(index);
-                    };
-                } else {
-                    fn();
-                }
-            }
-            loadFile(0);
         },
         loadCalls: function(arrayOfAjaxCalls, callbackfunction){
             var filterArrayOfAjaxCalls = arrayOfAjaxCalls.filter(function(item){
@@ -114,19 +63,13 @@ var sb = (function () {
                 // Desktop CSS and JavaScript files to load
                 filesToLoad = {
                     'js': {
-                        'files': ['js/app/config/sandbox.postcall.js']
+                        // 'files': ['js/app/config/sandbox.postcall.js']
                     }
                 };
             }
             sb.loadFiles(filesToLoad.js, callBackFunc);
         },
-        loadCss: function(url){
-            var link = document.createElement("link");
-            link.type = "text/css";
-            link.rel = "stylesheet";
-            link.href = url;
-            document.getElementsByTagName("head")[0].appendChild(link);
-        },
+
         svgLoader: function(svgs){
             svgs = _.difference(svgs, Kenseo.alreadyLoadedSVGs);
             for(var i = 0; i < svgs.length; i++){
@@ -792,7 +735,6 @@ var sb = (function () {
                     info.callbackfunc();
                 }
             }.bind(this))
-            
         },
         toolbox: {
             textBox: function textBox(data) {

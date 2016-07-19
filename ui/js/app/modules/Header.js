@@ -40,11 +40,11 @@ Kenseo.views.Header = Backbone.View.extend({
     validateSearch: function validateSearch(e) {
         var searchString = this.value;
         if (searchString.length > 2) {
-            sb.loadFiles({
-                // "models": ["Search"],
-                // "collections": ["Search"]
-                "modules": ["Search"]
-            }, function () {
+            // sb.loadFiles({
+            //     // "models": ["Search"],
+            //     // "collections": ["Search"]
+            //     "modules": ["Search"]
+            // }, function () {
                 sb.renderTemplate({ "templateName": "search-results", "templateHolder": $(".search-section").find(".search-results"), "collection": new Kenseo.collections.Search(), "callbackfunc": function callbackfunc() {
                         if ($(".search-results").children().length) {
                             $(".search-results").show();
@@ -54,7 +54,7 @@ Kenseo.views.Header = Backbone.View.extend({
                     }, "data": {
                         "string": searchString
                     } });
-            });
+            // });
         } else {
             $(".search-results").hide();
         }

@@ -12,11 +12,11 @@ sb.popup = {
         Kenseo.data.artefactmetainfo = null;
     },
     getProjectsPopup: function getProjectsPopup() {
-        sb.loadFiles({
-            // "models": ["Projects"],
-            // "collections": ["Projects"],
-            "modules": ["Projects"]
-        }, function () {
+        // sb.loadFiles({
+        //     // "models": ["Projects"],
+        //     // "collections": ["Projects"],
+        //     "modules": ["Projects"]
+        // }, function () {
             sb.ajaxCall({
                 collection: new Kenseo.collections.Projects(),
                 data: {
@@ -51,7 +51,7 @@ sb.popup = {
                     }
                 }
             });
-        });
+        // });
     },
     createFilePopup: function createFilePopup() {
         // if (sb.getPopupData("fileName")) {
@@ -172,11 +172,11 @@ sb.popup = {
             $currentPopup.find(".upload-files-input").val('');
             Kenseo.popup.info.newFileSelected = false;
         });
-        sb.loadFiles({
-            // "collections": ["Artefacts"],
-            // "models": ["Artefacts"]
-            "modules": ["Artefacts"]
-        }, function () {
+        // sb.loadFiles({
+        //     // "collections": ["Artefacts"],
+        //     // "models": ["Artefacts"]
+        //     "modules": ["Artefacts"]
+        // }, function () {
             var projectId;
             if(Kenseo.popup.data.actionType === "addVersion" || Kenseo.popup.data.actionType === "replaceArtefact") {
                 projectId = sb.getPopupData("project_id");
@@ -296,17 +296,17 @@ sb.popup = {
                     });
                 }
             });
-        });
+        // });
     },
     teamPopup: function teamPopup() {
         sb.setPopupData("addArtefact", "actionType");
         sb.setPopupData("addArtefact", "command");
         sb.setPopupData(false, "share");
-        sb.loadFiles({
-            // "collections": ["Artefacts", "Tags"],
-            // "models": ["Artefacts"]
-            "modules": ["Artefacts", "Tags"]
-        }, function () {
+        // sb.loadFiles({
+        //     // "collections": ["Artefacts", "Tags"],
+        //     // "models": ["Artefacts"]
+        //     "modules": ["Artefacts", "Tags"]
+        // }, function () {
             var $currentPopup = Kenseo.current.popup;
             // Keep the .main-btn class button disabled by default
             // (Enable this button when user selects the document type)
@@ -359,17 +359,17 @@ sb.popup = {
 
 
 
-        });
+        // });
     },
     shareWithPeoplePopup: function shareWithPeoplePopup() {
         sb.setPopupData(true, "share");
         //now you need 2 sets of people, people those who are arleady in the project and all the remaining people
 
-        sb.loadFiles({
-            // "collections": ["People"],
-            // "models": ["People"]
-            "modules": ["People"]
-        }, function () {
+        // sb.loadFiles({
+        //     // "collections": ["People"],
+        //     // "models": ["People"]
+        //     "modules": ["People"]
+        // }, function () {
             sb.ajaxCall({
                 collection: new Kenseo.collections.People(),
                 data: {
@@ -442,7 +442,7 @@ sb.popup = {
                     sb.popup.renderSharePopupPeople(projectMembers);
                 }
             });
-        });
+        // });
     },
     replaceArtefact: function replaceArtefact() {
         sb.setPopupData("replaceArtefact", "actionType");
@@ -480,11 +480,11 @@ sb.popup = {
         });
     },
     meetingIvite: function meetingIvite() {
-        sb.loadFiles({
-            // "models": ["Projects", "Artefacts", "People"],
-            // "collections": ["Projects", "Artefacts", "People"]
-            "modules": ["Projects", "Artefacts", "People"]
-        }, function () {
+        // sb.loadFiles({
+        //     // "models": ["Projects", "Artefacts", "People"],
+        //     // "collections": ["Projects", "Artefacts", "People"]
+        //     "modules": ["Projects", "Artefacts", "People"]
+        // }, function () {
             sb.ajaxCall({
                 "collection": new Kenseo.collections.Projects(),
                 "data": {
@@ -596,7 +596,7 @@ sb.popup = {
                     plugin.hide();
                 }
             });
-        });
+        // });
 
         function fromTimeDropdownChange(){
             var options = this.options;
@@ -629,9 +629,9 @@ sb.popup = {
         }
     },
     coverImage: function(){
-        sb.loadFiles({
-            'files': ['js/app/components/custom-panning.js']
-        }, function(){
+        // sb.loadFiles({
+        //     'files': ['js/app/components/custom-panning.js']
+        // }, function(){
             var $coverImageInput = $('.image-cover-section .upload-files-input');
             if($coverImageInput.length){
                 $coverImageInput.on('change', function(){
@@ -659,7 +659,7 @@ sb.popup = {
                     }
                 });
             }
-        })
+        // })
     },
     // This function holds all the manipulations which holds the states inside array of popups
     popupsStateMaintainer: function(payload) {

@@ -1,11 +1,11 @@
 sb.overlay = {
 	summaryOverlay : function() {
-		sb.loadFiles({
-			"files": ['js/app/components/sliderComponent.js']
-		}, function(){
+		// sb.loadFiles({
+		// 	"files": ['js/app/components/sliderComponent.js']
+		// }, function(){
 			//first the document version ID from URL
 			var maskedVerId = window.location.hash.split('/')[1];
-			
+
 			//make the call,get the data and render template
 			sb.renderTemplate({
 	            url: sb.getRelativePath('getDocumentSummary'),
@@ -37,7 +37,7 @@ sb.overlay = {
 			        });
 	            }
 	        });
-			
-		});
+
+		// });
 	}
 }

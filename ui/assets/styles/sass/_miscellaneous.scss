@@ -22,7 +22,7 @@
 	}
 	&::before{
 		border-width: 9px;
-		border-color: transparent transparent $colorZ transparent;	
+		border-color: transparent transparent $colorZ transparent;
 		z-index: 1;
 		margin-left: 1px;
 	}
@@ -105,4 +105,28 @@
   40% {
     box-shadow: 0 2.5em 0 0;
   }
+}
+
+.splash-screen-container{
+	position: fixed;
+	background-color: white;
+	z-index: 200;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	opacity: 1;
+	transition: opacity 1s;
+	&::before{
+		content: "";
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		width: 0px;
+	}
+}
+.splash-container{
+	display: inline-block;
+	vertical-align: middle;
 }
