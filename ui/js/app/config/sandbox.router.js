@@ -1,74 +1,56 @@
 sb.router = {
     menu: function menu() {
-        // sb.loadFiles({
-        //     'modules': ['Header', 'People', 'Projects', 'Artefacts', 'Activities', 'Notifications']
-        // }, function () {
-            sb.refresh.section('menu');
-        // });
+        sb.refresh.section('menu');
     },
     dashboard: function dashboard() {
         sb.svgLoader(['common', 'dashboard']);
 
-        // sb.loadFiles({
-        //     // 'views': ['Header', 'Artefacts', 'Projects', 'Notifications'],
-        //     // 'models': ['Header', 'Notifications', 'Projects', 'Artefacts'],
-        //     // 'collections': ['Projects', 'Artefacts', 'Notifications'],
-        //     'modules': ['Header', 'Artefacts', 'Projects', 'People', 'Notifications']
-        // }, function () {
-            Kenseo.current.page = "dashboard";
-            sb.setTitle('Dashboard');
+        Kenseo.current.page = "dashboard";
+        sb.setTitle('Dashboard');
 
 
-            $('.header').removeClass('fixed-header');
-            $('.hamburger-menu').removeClass('active');
-            $('.project-section').hide();
-            $('.projects-page').hide();
-            $('.documentView').hide();
-            $('.meeting-notes-section').hide();
-            $('.persona-page-section').hide();
-            $('.dashboard-section').show();
-            sb.refresh.section('header');
-            sb.refresh.section('dashboard');
-        // });
+        $('.header').removeClass('fixed-header');
+        $('.hamburger-menu').removeClass('active');
+        $('.project-section').hide();
+        $('.projects-page').hide();
+        $('.documentView').hide();
+        $('.meeting-notes-section').hide();
+        $('.persona-page-section').hide();
+        $('.dashboard-section').show();
+        sb.refresh.section('header');
+        sb.refresh.section('dashboard');
     },
     projectPage: function projectPage(id) {
         sb.svgLoader(['common', 'projectpage']);
 
-        // sb.loadFiles({
-        //     // 'views': ['Header', 'Artefacts', 'People', 'Activities'],
-        //     // 'models': ['Projects', 'Activities', 'Header', 'Artefacts', 'People'],
-        //     // 'collections': ['Projects', 'Artefacts', 'People', 'Activities'],
-        //     'modules': ['Header', 'Projects', 'Artefacts', 'People', 'Activities']
-        // }, function () {
-            Kenseo.current.page = "project-page";
+        Kenseo.current.page = "project-page";
 
 
-            Kenseo.page.id = id;
-            $('.hamburger-menu').removeClass('active');
-            sb.ajaxCall({
-                collection: new Kenseo.collections.Projects(),
-                data: {
-                    userProjects: true,
-                    includeArchives: true
-                },
-                success: function success(response) {
-                    var currentProjectInfo = Kenseo.data.projects[id];
-                    sb.setTitle(currentProjectInfo['name']);
-                    // sb.setPopupData(currentProjectInfo.name, 'project_name');
-                    sb.setPageData(currentProjectInfo, 'project');
-                    $('.header').removeClass('fixed-header');
+        Kenseo.page.id = id;
+        $('.hamburger-menu').removeClass('active');
+        sb.ajaxCall({
+            collection: new Kenseo.collections.Projects(),
+            data: {
+                userProjects: true,
+                includeArchives: true
+            },
+            success: function success(response) {
+                var currentProjectInfo = Kenseo.data.projects[id];
+                sb.setTitle(currentProjectInfo['name']);
+                // sb.setPopupData(currentProjectInfo.name, 'project_name');
+                sb.setPageData(currentProjectInfo, 'project');
+                $('.header').removeClass('fixed-header');
 
-                    $('.documentView').hide();
-                    $('.dashboard-section').hide();
-                    $('.project-section').show();
-                    $('.projects-page').hide();
-                    $('.meeting-notes-section').hide();
-                    $('.persona-page-section').hide();
-                    sb.refresh.section('header');
-                    sb.refresh.section('project-page');
-                }
-            });
-        // });
+                $('.documentView').hide();
+                $('.dashboard-section').hide();
+                $('.project-section').show();
+                $('.projects-page').hide();
+                $('.meeting-notes-section').hide();
+                $('.persona-page-section').hide();
+                sb.refresh.section('header');
+                sb.refresh.section('project-page');
+            }
+        });
     },
     meetingNotes: function meetingNotes(id) {
         sb.svgLoader(['common', 'meetingnotes']);
@@ -76,54 +58,31 @@ sb.router = {
         Kenseo.data.meetingId = id;
         // Write meeting notes title here
 
-        //
-        // sb.loadFiles({
-        //     // 'views': ['Header', 'Artefacts', 'People', 'Activities'],
-        //     // 'models': ['Projects', 'Header', 'Artefacts', 'People'],
-        //     // 'collections': ['Projects', 'Artefacts', 'People'],
-        //     'modules': ['Header', 'Artefacts', 'People', 'Projects', 'Activities'],
-        //     'files': [
-        //         'js/app/components/texteditor.js',
-        //         'js/app/config/sandbox.meeting.js'
-        //     ]
-        // }, function () {
-            Kenseo.current.page = "meeting-notes";
-            $('.hamburger-menu').removeClass('active');
-            $('.projects-page').hide();
-            $('.project-section').hide();
-            $('.dashboard-section').hide();
-            $('.persona-page-section').hide();
-            $('.meeting-notes-section').show();
-            sb.ajaxCall({
-                collection: new Kenseo.collections.Projects(),
-                data: {
-                    userProjects: true
-                },
-                success: function success(response) {
-                    sb.refresh.section('header');
-                    sb.refresh.section('meeting-notes');
-                }
-            });
-        // });
+        Kenseo.current.page = "meeting-notes";
+        $('.hamburger-menu').removeClass('active');
+        $('.projects-page').hide();
+        $('.project-section').hide();
+        $('.dashboard-section').hide();
+        $('.persona-page-section').hide();
+        $('.meeting-notes-section').show();
+        sb.ajaxCall({
+            collection: new Kenseo.collections.Projects(),
+            data: {
+                userProjects: true
+            },
+            success: function success(response) {
+                sb.refresh.section('header');
+                sb.refresh.section('meeting-notes');
+            }
+        });
     },
     documentView: function documentView(id) {
-        // if (!Kenseo.data.artefact) {
-        //     Kenseo.data.artefact = {};
-        // }
-        // Kenseo.data.artefact.id = id;
         var maskedId = id;
 
         sb.svgLoader(['common', 'documentview']);
 
         var _this = this;
-        // sb.loadFiles({
-        //     // 'views': ['Header'],
-        //     // 'models': ['Header'],
-        //     // 'collections': ['People'],
-        //     'modules': ['Header', 'People'],
-        //     'files': ['js/libs/pdfjs/pdf.js', 'js/libs/pdfjs/pdf.worker.js',
-        //             'js/libs/pdfjs/viewer.js', 'js/app/components/annotator.js']
-        // }, function () {
+
         (function(){
             Kenseo.current.page = "document-view";
 
@@ -234,58 +193,41 @@ sb.router = {
     projects: function(){
         sb.svgLoader(['common', 'projects']);
 
-        // sb.loadFiles({
-        //     // 'views': ['Header', 'Projects'],
-        //     // 'models': ['Header', 'Projects'],
-        //     // 'collections': ['Projects'],
-        //     'modules': ['Header', 'Projects']
-        // }, function () {
-            Kenseo.current.page = "projects-page";
-            sb.setTitle('All Projects');
+        Kenseo.current.page = "projects-page";
+        sb.setTitle('All Projects');
 
-            $('.header').removeClass('fixed-header');
-            $('.hamburger-menu').removeClass('active');
-            $('.project-section').hide();
-            $('.documentView').hide();
-            $('.dashboard-section').hide();
-            $('.projects-page').show();
-            $('.meeting-notes-section').hide();
-            $('.persona-page-section').hide();
-            sb.refresh.section('header');
-            sb.refresh.section('projects-page');
-        // });
+        $('.header').removeClass('fixed-header');
+        $('.hamburger-menu').removeClass('active');
+        $('.project-section').hide();
+        $('.documentView').hide();
+        $('.dashboard-section').hide();
+        $('.projects-page').show();
+        $('.meeting-notes-section').hide();
+        $('.persona-page-section').hide();
+        sb.refresh.section('header');
+        sb.refresh.section('projects-page');
     },
     persona: function(id){
         sb.svgLoader(['common', 'persona']);
 
-        // id represents the template type of persona
-        // sb.loadFiles({
-        //     // 'views': ['Header'],
-        //     // 'models': ['Header'],
-        //     'modules': ['Header'],
-        //     'files': ['js/app/components/persona-builder.js']
-        //     // 'collections': ['Persona']
-        // }, function(){
-            Kenseo.current.page = "persona";
-            sb.setTitle('Persona');
+        Kenseo.current.page = "persona";
+        sb.setTitle('Persona');
 
-            $('.header').addClass('fixed-header');
-            $('.hamburger-menu').removeClass('active');
-            $('.project-section').hide();
-            $('.documentView').hide();
-            $('.dashboard-section').hide();
-            $('.projects-page').hide();
-            $('.meeting-notes-section').hide();
+        $('.header').addClass('fixed-header');
+        $('.hamburger-menu').removeClass('active');
+        $('.project-section').hide();
+        $('.documentView').hide();
+        $('.dashboard-section').hide();
+        $('.projects-page').hide();
+        $('.meeting-notes-section').hide();
 
-            sb.refresh.section('header');
-            sb.loadCss('assets/styles/css/persona.css');
-            // Show persona page
-            $('.persona-page-section').show()
-                .html(sb.setTemplate('persona'));
+        sb.refresh.section('header');
+        sb.loadCss('assets/styles/css/persona.css');
+        // Show persona page
+        $('.persona-page-section').show()
+            .html(sb.setTemplate('persona'));
 
-            // After filling the html template, apply persona related interactions
-            var persona = new Persona();
-
-        // })
+        // After filling the html template, apply persona related interactions
+        var persona = new Persona();
     }
 };

@@ -976,5 +976,5 @@ var sb = _.extend(sb, (function () {
             ele.prepend($(div));
           }
         }
-     };
-})();
+    };
+})());

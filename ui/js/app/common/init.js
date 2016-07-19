@@ -56,7 +56,3 @@ var Kenseo = {
         });
     }
 };
-
-// $(function () {
-//     Kenseo.init();
-// });
