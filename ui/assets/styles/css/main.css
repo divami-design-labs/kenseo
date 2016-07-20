@@ -646,7 +646,9 @@ a {
   border-radius: 50%;
   width: 2.5em;
   height: 2.5em;
+  -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
           animation: load7 1.8s infinite ease-in-out;
 }
 
@@ -657,7 +659,9 @@ a {
   top: 45%;
   position: absolute;
   text-indent: -9999em;
+  -webkit-transform: translateZ(0);
           transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
           animation-delay: -0.16s;
 }
 
@@ -1511,15 +1515,14 @@ a {
 .rr-details {
   font-size: 13px;
   color: #6f7588;
-  margin-top: 6px;
+  margin-top: 5px;
   margin-bottom: 5px;
 }
 
 .rr-project-name {
   color: #6f7588;
   font-size: 14px;
-  margin-top: 6px;
-  margin-bottom: 5px;
+  margin-top: 3px;
 }
 
 .rr-state {
@@ -1631,7 +1634,7 @@ a {
 
 .rr-state .rr-comment {
   position: absolute;
-  left: 40px;
+  left: 35px;
   top: 2px;
 }
 

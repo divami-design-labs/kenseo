@@ -30,6 +30,18 @@ var sb = _.extend(sb, (function () {
             $inElement.off(eventName, selector, func);
             $inElement.on(eventName, selector, func);
         },
+        subscribe: function(element, eventType, callbackFunc){
+            // reset / remove the event if it is from before
+            element.off(eventType);
+
+            // register the event
+            element.on(eventType, callbackFunc);
+        },
+        trigger: function(triggerElement, triggerEventType, targetEventObject){
+            // sb.attach(element, eventType, function(e){
+                triggerElement.trigger(triggerEventType, targetEventObject);
+            // });
+        },
         redirectTo: function(value){
             var a = document.createElement('a');
             a.href = value;
@@ -358,6 +370,10 @@ var sb = _.extend(sb, (function () {
             // Refer: http://stackoverflow.com/a/1353711/1577396
             if(time){
                 var dateTime = new Date(time);
+
+                // The time comes from the server
+                // So, add the clients timezone offset to the fetched time
+                dateTime = sb.addTimeZoneToDate(dateTime);
             }
             else{
                 var dateTime = new Date();
@@ -373,6 +389,15 @@ var sb = _.extend(sb, (function () {
                 var t = time.split(/[- :]/);
                 return new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
             }
+        },
+        addTimeZoneToDate: function(date){
+            // return date;
+            var d = new Date();
+            var minutes = d.getTimezoneOffset();  // in minutes
+
+            var newDateTime = date.getTime() - (minutes * 60 * 1000);
+            console.log("new date time: ", newDateTime, date.getTime());
+            return new Date(newDateTime);
         },
         getTimeFormat: function getTimeFormat() {
         	var now = new Date();

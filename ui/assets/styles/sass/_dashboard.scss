@@ -187,15 +187,15 @@
 }
 .rr-details{
 	@include textSix();
-	margin-top: 6px;
+	margin-top: 5px;
 	margin-bottom: 5px;
 	@extend .ellipsis;
 }
 .rr-project-name{
 	color: $colorFive;
 	font-size: 14px;
-	margin-top: 6px;
-	margin-bottom: 5px;
+	margin-top: 3px;
+	// margin-bottom: 5px;
 	@extend .ellipsis;
 }
 .rr-state{
@@ -298,7 +298,7 @@
 }
 .rr-state .rr-comment{
 	position: absolute;
-	left: 40px;
+	left: 35px;
   	top: 2px;
 }
 .rr-state .rr-comment{

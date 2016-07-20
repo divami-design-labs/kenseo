@@ -21,7 +21,7 @@ sb.refresh = (function(){
 					'templateHolder': $('.menu-projects-section'),
 					'collection': new Kenseo.collections.Projects(),
 					'data': 'menu-projects',
-					container: $('.menu') 
+					container: $('.menu')
 				});
             },
             'menu-recent-activity': function(){
@@ -232,8 +232,10 @@ sb.refresh = (function(){
 				refreshSection('project-page', 'pp-artefacts');
 			}
 		},
-		addProject: function(){
-			refreshSection('dashboard', 'db-projects');
+		addProject: function(response){
+			// refreshSection('dashboard', 'db-projects');
+			Kenseo.data.model = response.data.data;
+			sb.trigger($(window), 'addProject');
 		},
 		addArtefact: function(){
 			refreshSection('dashboard', 'db-artefacts');
@@ -263,9 +265,9 @@ sb.refresh = (function(){
 	}
 	return {
 		section: refreshSection,
-		type: function(actionTypeProp){
+		type: function(actionTypeProp, response){
 			if(actionType[actionTypeProp]){
-				actionType[actionTypeProp]();
+				actionType[actionTypeProp](response);
 			}
 			else{
 				sb.log("undefined actionType");

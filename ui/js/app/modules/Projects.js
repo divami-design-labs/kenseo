@@ -33,6 +33,20 @@ Kenseo.views.Projects = Backbone.View.extend({
                 });
             }
         }));
+
+        sb.subscribe($(window), 'addProject', function(){
+            var view = new Kenseo.views.Project({
+                // Insert global variable data in to the model
+                model: new Kenseo.models.Projects(Kenseo.data.model),
+                collection: _this.collection,
+                parent: _this
+            })
+            _this.templateHolder.prepend(view.el);
+
+            // Empty the used global variable
+            Kenseo.data.model = {};
+
+        });
         return this;
     }
 });

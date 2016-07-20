@@ -193,7 +193,7 @@ $(function () {
 				}*/
 
 				popupCloser($self.parents(popupContainer));
-				sb.refresh.type(actionType);
+				sb.refresh.type(actionType, response);
 				if(response.data.messages) {
 					sb.showGlobalMessages(response);
 				}

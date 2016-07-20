@@ -1,6 +1,6 @@
 Kenseo.views.Header = Backbone.View.extend({
     // The DOM Element associated with this view
-    el: ".profile-pic-holder",
+    el: ".header",
     // View constructor
     initialize: function initialize() {
         // Calls the view's render method
@@ -14,7 +14,7 @@ Kenseo.views.Header = Backbone.View.extend({
     // },
     // Renders the view's template to the UI
     render: function render() {
-        sb.renderTemplate({ "templateName": "header", "templateHolder": this.$el, "model": this.model, "callbackfunc": this.headerAttachEvents.bind(this) });
+        sb.renderTemplate({ "templateName": "header", "templateHolder": $(".profile-pic-holder"), "model": this.model, "callbackfunc": this.headerAttachEvents.bind(this) });
         // Maintains chainability
         return this;
     },
