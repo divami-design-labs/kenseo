@@ -17,7 +17,15 @@ var validation = (function(){
 	var allValidations = {
 		'empty': {
 			'msg': function(){
-				return this.fieldName + ' field is mandatory';
+				if(this.fieldName == 'Project') {
+						return 'Please select project name';
+				} else if (this.fieldName == 'Artefact') {
+						return 'Please select Artefact';
+				} else if (this.fieldName == 'Agenda') {
+						return 'Please provide Meeting agenda';
+				} else if (this.fieldName == 'Recipients List') {
+						return ' Please select at least one recipient ';
+				}
 			},
 			'check': function(value, $field){
 				this.fieldName = $field.parents('.field-section').find('.input-label').html() || $field.data('v-label');
@@ -72,6 +80,7 @@ var validation = (function(){
 	var checkField = function(validatingType, $field, value){
 		var validate = allValidations[validatingType];
 		if(!validate.check(value, $field)){
+			$field.parents('.field-section').find('.message-display').removeClass('hide').html(validate.msg());
 			allErrorMessages.push(validate.msg());
 			return true;
 		}
@@ -126,9 +135,16 @@ var validation = (function(){
 	}
 	var isValidate = function($clickedBtn){
 		var validationSectionStr = $clickedBtn.attr('data-target-validating-section');
-		if(validationSectionStr){
-			$validationSection = $(validationSectionStr);
-			var $fieldSections = $validationSection.find('.field-section');
+		//if data-target-validating-sectionis not an attribute for current target element
+		if(validationSectionStr || ($clickedBtn.hasClass('blur-field'))){
+				var $fieldSections;
+				if($clickedBtn.hasClass('blur-field')){
+						$fieldSections = $clickedBtn.parents('.field-section');
+				}
+				else{
+						$validationSection = $(validationSectionStr);
+					$fieldSections = $validationSection.find('.field-section');
+			}
 			// remove all before present error messages container
 			$('.error-messages-wrapper').remove();
 			// initializing counter
@@ -139,6 +155,7 @@ var validation = (function(){
 			$fieldSections.each(function(){
 				var $field = getValidatingField(this);
 				removeErrorSkinning($field);
+				$field.parents('.field-section').find('.message-display').addClass('hide');
 			});
 			// Do validation
 			for(var j = 0, jLen = $fieldSections.length; j < jLen; j++){
@@ -168,7 +185,7 @@ var validation = (function(){
 	var doValidate = function($clickedBtn){
 		if(isValidate($clickedBtn)){
 
-			
+
 			return true;
 		}
 		else{

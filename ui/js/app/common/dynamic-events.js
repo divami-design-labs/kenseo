@@ -263,7 +263,11 @@ $(function () {
 		popupCloser($(popupContainer));
 
 		sb.redirectTo(href);
-	});
+	})
+	.on('blur', '.blur-field', function(e){
+		//validating the fields when focus is lost
+		validation.doValidate($(this));
+	})
 });
 
 // $(document).on('scroll', '.viewerContainer', function(e){

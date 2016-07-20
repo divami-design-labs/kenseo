@@ -4,32 +4,32 @@
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
 			<form class="meeting-invite-form">
-				
-				<%= 
+
+				<%=
 					toolbox.comboBox({
 						"label": "Project",
 						required: true,
-						"class": "xm project-combobox",
+						"class": "xm project-combobox blur-field",
 						"dataName": "meetingProject",
 						"placeholder": "Choose Project"
-					}) 
+					})
 				%>
-				<%= 
+				<%=
 					toolbox.comboBox({
 						"label": "Artefact",
 						required: true,
-						"class": "xm artefact-combobox",
+						"class": "xm artefact-combobox blur-field",
 						"dataName": "meetingArtefact",
 						"placeholder": "Choose Artefact"
 					})
 				%>
-				<%= 
+				<%=
 					toolbox.textBox({
 						"label": "Agenda",
 						required: true,
 						textArea: true,
 						dataName: "agenda",
-						"inputClass": "input-meeting-textarea meeting-agenda",
+						"inputClass": "input-meeting-textarea meeting-agenda blur-field",
 						'attr': {
 							'data-validate-this': 'empty'
 						}
@@ -107,10 +107,10 @@
 							    <option value="22:00">10:00 PM</option>
 							    <option value="23:00">11:00 PM</option>
 							</select>
-						</div>	
+						</div>
 					</div>
 				</div>
-				<%= 
+				<%=
 					toolbox.textBox({
 						"label": "Venue",
 						inputClass: "meeting-location",
@@ -120,12 +120,12 @@
 						}
 					})
 				%>
-				<%= 
+				<%=
 					toolbox.textBox({
 						"label": "Recipients List",
 						textArea: true,
 						required: true,
-						inputClass: "recipients-meeting-txt-section",
+						inputClass: "recipients-meeting-txt-section blur-field",
 						"class": "xm people-name tags-combobox",
 						"dataName": "attendees",
 						'attr': {

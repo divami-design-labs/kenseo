@@ -6267,7 +6267,14 @@ img.image-viewer {
 }
 
 .error-field {
-  border: 1px solid #ff0011 !important;
+  border-bottom: 2px solid #f26d7d !important;
+}
+
+.message-display {
+  font-family: "OpenSansRegular";
+  font-size: 13px;
+  padding-top: 10px;
+  color: #f26d7d;
 }
 
 body {
