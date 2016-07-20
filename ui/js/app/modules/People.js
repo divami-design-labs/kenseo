@@ -71,9 +71,10 @@ Kenseo.views.People = Backbone.View.extend({
                     url: sb.getRelativePath('getOtherProjectMembers'),
                     data: {
                         projectId: Kenseo.current.page === "project-page"?
-                                    Kenseo.page.id : 
+                                    Kenseo.page.id :
                                     (scope.model && scope.model.get('id'))
                     },
+                    container: $('.popup'),
                     success: function(response){
                         var data = response.data;
 

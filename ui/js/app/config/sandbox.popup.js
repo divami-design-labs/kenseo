@@ -14,6 +14,7 @@ sb.popup = {
     getProjectsPopup: function getProjectsPopup() {
         sb.ajaxCall({
             collection: new Kenseo.collections.Projects(),
+            container: $('.popup'),
             data: {
                 userProjects: true
             },
@@ -166,6 +167,7 @@ sb.popup = {
         }
         sb.ajaxCall({
             collection: new Kenseo.collections.Artefacts(),
+            container: $('.popup'),
             data: {
                 projectid: projectId,
                 references: true,
@@ -338,6 +340,7 @@ sb.popup = {
 
         sb.ajaxCall({
             collection: new Kenseo.collections.People(),
+            container: $('.popup'),
             data: {
                 "all": true,
                 "versionId": sb.getPopupData("artefact_ver_id") || sb.getPopupData("version_id"),
@@ -447,6 +450,7 @@ sb.popup = {
     meetingIvite: function meetingIvite() {
         sb.ajaxCall({
             "collection": new Kenseo.collections.Projects(),
+            container: $('.popup'),
             "data": {
                 userProjects: true
             },
@@ -473,6 +477,7 @@ sb.popup = {
                         // now set the project people
                         sb.ajaxCall({
                             "collection": new Kenseo.collections.People(),
+                            container: $('[data-name="attendees"].field-section'),
                             "data": {
                                 projectId: projectId
                             },
@@ -493,6 +498,7 @@ sb.popup = {
                         });
                         sb.ajaxCall({
                             "collection": new Kenseo.collections.Artefacts(),
+                            container: $('[data-name="meetingArtefact"].field-section'),
                             "data": {
                                 projects: true,
                                 project_id: projectId,
@@ -681,6 +687,7 @@ sb.popup = {
 
                 sb.ajaxCall({
                     collection: new Kenseo.collections.Artefacts(),
+                    container: $('.popup'),
                     data: {
                         projectid: sb.getPopupData('id'),
                         references: true,
@@ -747,6 +754,7 @@ sb.popup = {
         // populating field code
         sb.ajaxCall({
             url: sb.getRelativePath('getArtefactMetaInfo'),
+            container: $('.popup'),
             data: {
                 id: sb.getPopupData('artefact_id')
             },

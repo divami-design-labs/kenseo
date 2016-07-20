@@ -293,208 +293,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- if(data.projects && data.sortBy){ ;
-__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- if(data.projects.length){ ;
-__p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- } ;
-__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
- if(data.sortBy && data.sortBy === 'default'){ ;
-__p += ' linked-artefacts ';
- } ;
-__p += '">\r\n\t<div class="sort-view">Sort By ';
- if(data && data.sortBy){ ;
-__p += ' ' +
-((__t = ( _.capitalize(data.sortBy) )) == null ? '' : __t) +
-' ';
- } else { ;
-__p += 'Default ';
- } ;
-__p += '</div>\r\n';
- } else{ ;
-__p += '\r\n\t<div class="review-requests-heading">\r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
- } ;
-__p += '\r\n\r\n';
- if(data.projects && data.sortBy){ ;
-__p += '\r\n</div>\r\n';
- } else{ ;
-__p += '\r\n\t</div>\r\n';
- } ;
-__p += '\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['day-wise-item'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="day-activity">\n    <div class="day-activity-label">\n        ' +
-((__t = ( data.label )) == null ? '' : __t) +
-'\n    </div>\n    <div class="day-activity-section">\n        ' +
-((__t = ( data.content )) == null ? '' : __t) +
-'\n    </div>\n</div>\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['no-items'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="no-items ';
- if(data.classes){ ;
-__p += ' ' +
-((__t = ( data.classes )) == null ? '' : __t) +
-' ';
- } ;
-__p += '">\r\n\t';
- if(data.message){ ;
-__p += '\r\n\t\t' +
-((__t = ( data.message )) == null ? '' : __t) +
-'\r\n\t';
- } else if(data.add){ ;
-__p += '\r\n\t\t<div class="add-icon big inlineBlockMid"></div>\r\n\t\t<div class="no-items-text inlineBlockMid">' +
-((__t = ( data.name )) == null ? '' : __t) +
-'</div>\r\n\t';
- } else { ;
-__p += '\r\n\t\tNo Items to show\r\n\t';
- } ;
-__p += '\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['show-global-messages'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="messages-wrapper ' +
-((__t = (type)) == null ? '' : __t) +
-'-messages-wrapper ">\n  <svg class="error-or-success-img ">\n    <use xlink:href="#' +
-((__t = (icon)) == null ? '' : __t) +
-'"></use>\n  </svg>\n  <span class="messages">' +
-((__t = (message)) == null ? '' : __t) +
-'</span>\n</div>\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['versions'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- for(var i=0; i< data.length; i++){ ;
-__p += '\r\n\t';
- if(i === 0 || i%4 === 0){ ;
-__p += '\r\n\t<div>\r\n\t';
- } ;
-__p += '\r\n\t';
- var v = data[i] ;
-__p += '\r\n\t<span data-date="' +
-((__t = ( v.date )) == null ? '' : __t) +
-'">' +
-((__t = ( v.num )) == null ? '' : __t) +
-'</span>\r\n\t';
- if(i === data.length-1 || (i+1)%4 === 0){ ;
-__p += '\t\t\r\n\t</div>\r\n\t';
- } ;
-__p += '\r\n';
- } ;
-
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['create-artefact'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -728,6 +526,208 @@ __p += '\r\n\t\t<div class="project-action" data-url="unarchive-project" data-in
 __p += '\r\n\t</div>\r\n\t<a href="#projectpage/' +
 ((__t = ( data.id )) == null ? '' : __t) +
 '" class="btn-project-open page-click">Open Project</a>\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ if(data.projects && data.sortBy){ ;
+__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
+ if(data.projects.length){ ;
+__p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
+ } ;
+__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
+ if(data.sortBy && data.sortBy === 'default'){ ;
+__p += ' linked-artefacts ';
+ } ;
+__p += '">\r\n\t<div class="sort-view">Sort By ';
+ if(data && data.sortBy){ ;
+__p += ' ' +
+((__t = ( _.capitalize(data.sortBy) )) == null ? '' : __t) +
+' ';
+ } else { ;
+__p += 'Default ';
+ } ;
+__p += '</div>\r\n';
+ } else{ ;
+__p += '\r\n\t<div class="review-requests-heading">\r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
+ } ;
+__p += '\r\n\r\n';
+ if(data.projects && data.sortBy){ ;
+__p += '\r\n</div>\r\n';
+ } else{ ;
+__p += '\r\n\t</div>\r\n';
+ } ;
+__p += '\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['day-wise-item'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="day-activity">\n    <div class="day-activity-label">\n        ' +
+((__t = ( data.label )) == null ? '' : __t) +
+'\n    </div>\n    <div class="day-activity-section">\n        ' +
+((__t = ( data.content )) == null ? '' : __t) +
+'\n    </div>\n</div>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['no-items'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="no-items ';
+ if(data.classes){ ;
+__p += ' ' +
+((__t = ( data.classes )) == null ? '' : __t) +
+' ';
+ } ;
+__p += '">\r\n\t';
+ if(data.message){ ;
+__p += '\r\n\t\t' +
+((__t = ( data.message )) == null ? '' : __t) +
+'\r\n\t';
+ } else if(data.add){ ;
+__p += '\r\n\t\t<div class="add-icon big inlineBlockMid"></div>\r\n\t\t<div class="no-items-text inlineBlockMid">' +
+((__t = ( data.name )) == null ? '' : __t) +
+'</div>\r\n\t';
+ } else { ;
+__p += '\r\n\t\tNo Items to show\r\n\t';
+ } ;
+__p += '\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['show-global-messages'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="messages-wrapper ' +
+((__t = (type)) == null ? '' : __t) +
+'-messages-wrapper ">\n  <svg class="error-or-success-img ">\n    <use xlink:href="#' +
+((__t = (icon)) == null ? '' : __t) +
+'"></use>\n  </svg>\n  <span class="messages">' +
+((__t = (message)) == null ? '' : __t) +
+'</span>\n</div>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['versions'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ for(var i=0; i< data.length; i++){ ;
+__p += '\r\n\t';
+ if(i === 0 || i%4 === 0){ ;
+__p += '\r\n\t<div>\r\n\t';
+ } ;
+__p += '\r\n\t';
+ var v = data[i] ;
+__p += '\r\n\t<span data-date="' +
+((__t = ( v.date )) == null ? '' : __t) +
+'">' +
+((__t = ( v.num )) == null ? '' : __t) +
+'</span>\r\n\t';
+ if(i === data.length-1 || (i+1)%4 === 0){ ;
+__p += '\t\t\r\n\t</div>\r\n\t';
+ } ;
+__p += '\r\n';
+ } ;
+
 
 }
 return __p
@@ -1433,96 +1433,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['meetingnotes'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- Kenseo.populate.meeting = data ;
-__p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">       \r\n        <div class="projects-heading-icon">\r\n            <svg><use xlink:href="#projects"></use></svg>\r\n        </div>       \r\n        <a href="#projects" class="heading-text-project">Projects &gt; </a>\r\n        <a href="#projectpage/' +
-((__t = ( data.projectId )) == null ? '' : __t) +
-'" class="heading-text-project-name">' +
-((__t = ( data.projectName )) == null ? '' : __t) +
-'</a>  \r\n        <span class="heading-date">(' +
-((__t = ( sb.timeFormat(data.startTime, true, true) )) == null ? '' : __t) +
-')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
-((__t = ( data.projectName )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Artefact</div>\r\n                <div class="meta-text">' +
-((__t = ( data.artefactName )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Sender</div>\r\n                <div class="meta-text">' +
-((__t = ( data.createdBy )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Agenda</div>\r\n                <div class="meta-text">' +
-((__t = ( data.agenda )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Scheduled On</div>\r\n                <div class="meta-text">\r\n                    <div>Dec 04, 2014</div>\r\n                    <div>11:00 am to 12:00 pm</div>\r\n                </div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Venue</div>\r\n                <div class="meta-text">' +
-((__t = ( data.venue )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Recipients</div>\r\n                ';
- _.each(data.participants, function(p){ ;
-__p += '\r\n                <div class="meta-text">' +
-((__t = ( p.participentName )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t';
- }); ;
-__p += '\r\n            </div>\r\n        </div>\r\n        <div class="meeting-right-section">\r\n            <div class="meeting-people-section">\r\n                <div class="meeting-people-active">\r\n                \t<div class=\'currentPersonNotes acitiveNotesPartcipant\' data-user="' +
-((__t = ( data.participantId )) == null ? '' : __t) +
-'">\r\n\t                    <div class="people-img-wrapper">\r\n\t                        <img src="' +
-((__t = (data.participantPic)) == null ? '' : __t) +
-'" />\r\n\t                    </div>\r\n\t                    <span class="meeting-people-name">\r\n\t                        ' +
-((__t = (data.participantName)) == null ? '' : __t) +
-'\r\n\t                    </span>\r\n                \t</div>\r\n\t                ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n\t            \t\t<div class=\'currentPersonNotes\' data-user="' +
-((__t = ( p.userId )) == null ? '' : __t) +
-'">\r\n\t\t            \t\t<div class="meeting-people-active">\r\n\t\t\t                    <div class="people-img-wrapper">\r\n\t\t\t                        <img src="' +
-((__t = (p.profilePic)) == null ? '' : __t) +
-'" />\r\n\t\t\t                    </div>\r\n\t\t\t                    <span class="meeting-people-name">\r\n\t\t\t                        ' +
-((__t = (p.userName)) == null ? '' : __t) +
-'\r\n\t\t\t                    </span>\r\n\t\t\t                </div>\r\n\t            \t';
- }); ;
-__p += '\r\n               </div>\r\n                <div class="meeting-people-other">\r\n                    <div class="people-img-wrapper participant active" data-user=' +
-((__t = (data.participantId)) == null ? '' : __t) +
-'>\r\n                        <img src="' +
-((__t = (data.participantPic)) == null ? '' : __t) +
-'" />\r\n                    </div>\r\n                    <div class="v-separator"></div>\r\n                    ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n                    <div class="people-img-wrapper participant" data-user=' +
-((__t = (p.userId)) == null ? '' : __t) +
-'>\r\n                        <img src="' +
-((__t = (p.profilePic)) == null ? '' : __t) +
-'" />\r\n                    </div>\r\n                    ';
- }); ;
-__p += '\r\n                </div>\r\n            </div>\r\n            <div class="text-editor-section">\r\n                <div class="text-actions-section">\r\n                    <button name="text-b" text-name="bold">Bold</button>\r\n                    <button name="text-i" text-name="italic">Italic</button>\r\n                    <button name="text-u" text-name="underline">Underline</button>\r\n                </div>\r\n                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="' +
-((__t = ( data.participantId )) == null ? '' : __t) +
-'">\r\n                \t' +
-((__t = (data.userNotes)) == null ? '' : __t) +
-'\r\n                </div>\r\n                ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n            \t\t<div class="view-notes" data-user="' +
-((__t = ( p.userId )) == null ? '' : __t) +
-'" >\r\n            \t\t\t' +
-((__t = ( p.notes)) == null ? '' : __t) +
-'\r\n        \t\t\t</div>\r\n            \t';
- }); ;
-__p += '\r\n               \r\n            </div>\r\n            <label class="checkbox">\r\n                <input class="existing-files-chk" type="checkbox">\r\n                <span>Let others see my notes</span>\r\n            </label>\r\n        </div>\r\n    </div>\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['activity'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -2089,6 +1999,96 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['meetingnotes'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ Kenseo.populate.meeting = data ;
+__p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">       \r\n        <div class="projects-heading-icon">\r\n            <svg><use xlink:href="#projects"></use></svg>\r\n        </div>       \r\n        <a href="#projects" class="heading-text-project">Projects &gt; </a>\r\n        <a href="#projectpage/' +
+((__t = ( data.projectId )) == null ? '' : __t) +
+'" class="heading-text-project-name">' +
+((__t = ( data.projectName )) == null ? '' : __t) +
+'</a>  \r\n        <span class="heading-date">(' +
+((__t = ( sb.timeFormat(data.startTime, true, true) )) == null ? '' : __t) +
+')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
+((__t = ( data.projectName )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Artefact</div>\r\n                <div class="meta-text">' +
+((__t = ( data.artefactName )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Sender</div>\r\n                <div class="meta-text">' +
+((__t = ( data.createdBy )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Agenda</div>\r\n                <div class="meta-text">' +
+((__t = ( data.agenda )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Scheduled On</div>\r\n                <div class="meta-text">\r\n                    <div>Dec 04, 2014</div>\r\n                    <div>11:00 am to 12:00 pm</div>\r\n                </div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Venue</div>\r\n                <div class="meta-text">' +
+((__t = ( data.venue )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Recipients</div>\r\n                ';
+ _.each(data.participants, function(p){ ;
+__p += '\r\n                <div class="meta-text">' +
+((__t = ( p.participentName )) == null ? '' : __t) +
+'</div>\r\n\t\t\t\t';
+ }); ;
+__p += '\r\n            </div>\r\n        </div>\r\n        <div class="meeting-right-section">\r\n            <div class="meeting-people-section">\r\n                <div class="meeting-people-active">\r\n                \t<div class=\'currentPersonNotes acitiveNotesPartcipant\' data-user="' +
+((__t = ( data.participantId )) == null ? '' : __t) +
+'">\r\n\t                    <div class="people-img-wrapper">\r\n\t                        <img src="' +
+((__t = (data.participantPic)) == null ? '' : __t) +
+'" />\r\n\t                    </div>\r\n\t                    <span class="meeting-people-name">\r\n\t                        ' +
+((__t = (data.participantName)) == null ? '' : __t) +
+'\r\n\t                    </span>\r\n                \t</div>\r\n\t                ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n\t            \t\t<div class=\'currentPersonNotes\' data-user="' +
+((__t = ( p.userId )) == null ? '' : __t) +
+'">\r\n\t\t            \t\t<div class="meeting-people-active">\r\n\t\t\t                    <div class="people-img-wrapper">\r\n\t\t\t                        <img src="' +
+((__t = (p.profilePic)) == null ? '' : __t) +
+'" />\r\n\t\t\t                    </div>\r\n\t\t\t                    <span class="meeting-people-name">\r\n\t\t\t                        ' +
+((__t = (p.userName)) == null ? '' : __t) +
+'\r\n\t\t\t                    </span>\r\n\t\t\t                </div>\r\n\t            \t';
+ }); ;
+__p += '\r\n               </div>\r\n                <div class="meeting-people-other">\r\n                    <div class="people-img-wrapper participant active" data-user=' +
+((__t = (data.participantId)) == null ? '' : __t) +
+'>\r\n                        <img src="' +
+((__t = (data.participantPic)) == null ? '' : __t) +
+'" />\r\n                    </div>\r\n                    <div class="v-separator"></div>\r\n                    ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n                    <div class="people-img-wrapper participant" data-user=' +
+((__t = (p.userId)) == null ? '' : __t) +
+'>\r\n                        <img src="' +
+((__t = (p.profilePic)) == null ? '' : __t) +
+'" />\r\n                    </div>\r\n                    ';
+ }); ;
+__p += '\r\n                </div>\r\n            </div>\r\n            <div class="text-editor-section">\r\n                <div class="text-actions-section">\r\n                    <button name="text-b" text-name="bold">Bold</button>\r\n                    <button name="text-i" text-name="italic">Italic</button>\r\n                    <button name="text-u" text-name="underline">Underline</button>\r\n                </div>\r\n                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="' +
+((__t = ( data.participantId )) == null ? '' : __t) +
+'">\r\n                \t' +
+((__t = (data.userNotes)) == null ? '' : __t) +
+'\r\n                </div>\r\n                ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n            \t\t<div class="view-notes" data-user="' +
+((__t = ( p.userId )) == null ? '' : __t) +
+'" >\r\n            \t\t\t' +
+((__t = ( p.notes)) == null ? '' : __t) +
+'\r\n        \t\t\t</div>\r\n            \t';
+ }); ;
+__p += '\r\n               \r\n            </div>\r\n            <label class="checkbox">\r\n                <input class="existing-files-chk" type="checkbox">\r\n                <span>Let others see my notes</span>\r\n            </label>\r\n        </div>\r\n    </div>\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['menu-header'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -2535,10 +2535,10 @@ with (obj) {
 __p += '<div class="popup popup-small k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
 '\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t' +
-((__t = ( 
+((__t = (
 				sb.toolbox.textBox({
 					placeholder: "Project name",
-					inputClass: "project-input required k-field",
+					inputClass: "project-input required k-field blur-field",
 					dataName : "projectName",
 					required: true,
 					attr: {
@@ -2895,7 +2895,7 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 					toolbox.comboBox({
 						"label": "Project",
 						required: true,
-						"class": "xm project-combobox",
+						"class": "xm project-combobox blur-field",
 						"dataName": "meetingProject",
 						"placeholder": "Choose Project"
 					})
@@ -2905,7 +2905,7 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 					toolbox.comboBox({
 						"label": "Artefact",
 						required: true,
-						"class": "xm artefact-combobox",
+						"class": "xm artefact-combobox blur-field",
 						"dataName": "meetingArtefact",
 						"placeholder": "Choose Artefact"
 					})
@@ -2917,7 +2917,7 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 						required: true,
 						textArea: true,
 						dataName: "agenda",
-						"inputClass": "input-meeting-textarea meeting-agenda",
+						"inputClass": "input-meeting-textarea meeting-agenda blur-field",
 						'attr': {
 							'data-validate-this': 'empty'
 						}
@@ -2940,7 +2940,7 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 						"label": "Recipients List",
 						textArea: true,
 						required: true,
-						inputClass: "recipients-meeting-txt-section",
+						inputClass: "recipients-meeting-txt-section blur-field",
 						"class": "xm people-name tags-combobox",
 						"dataName": "attendees",
 						'attr': {
@@ -3309,7 +3309,7 @@ __p += '" type="text" placeholder="' +
  if(data.required){ ;
 __p += 'data-validate-this="empty,valid-list-item"';
  } ;
-__p += '>\r\n\t\t</div>\r\n\t</div>\r\n</div>';
+__p += '>\r\n\t\t</div>\r\n\t\t<div class="message-display"></div>\r\n\t</div>\r\n</div>';
 
 }
 return __p
@@ -3496,7 +3496,7 @@ __p += '\r\n\t\t\t' +
 ((__t = ( sb.setTemplate('attributes', {data: data.attr}) )) == null ? '' : __t) +
 '\r\n\t\t ></textarea>\r\n\t\t';
  } ;
-__p += '\r\n\t</div>\r\n\t';
+__p += '\r\n\t\t<div class="message-display"></div>\r\n\t</div>\r\n\t';
  if(data.enableSuggestions){ ;
 __p += '\r\n\t<div class="field-suggestions"></div>\r\n\t<div class="field-suggestions-viewer"></div>\r\n\t';
  } ;

@@ -2,13 +2,27 @@ sb.refresh = (function(){
 	var sections = {
 		'menu': {
 			'menu-section': function(){
-				return sb.renderTemplate({ 'templateName': 'nav-menu', 'templateHolder': $('.menu') })
+				return sb.renderTemplate({
+					'templateName': 'nav-menu',
+					'templateHolder': $('.menu')
+				})
 			},
 			'menu-header': function(){
-				return sb.renderTemplate({ 'templateName': 'menu-header', 'templateHolder': $('.menu-header'), 'model': new Kenseo.models.Header() })
+				return sb.renderTemplate({
+					'templateName': 'menu-header',
+					'templateHolder': $('.menu-header'),
+					'model': new Kenseo.models.Header(),
+					container: $('.menu')
+				})
 			},
             'menu-projects-container': function(){
-            	return sb.renderTemplate({ 'templateName': 'menu-projects-container', 'templateHolder': $('.menu-projects-section'), 'collection': new Kenseo.collections.Projects(), 'data': 'menu-projects' });
+            	return sb.renderTemplate({
+					'templateName': 'menu-projects-container',
+					'templateHolder': $('.menu-projects-section'),
+					'collection': new Kenseo.collections.Projects(),
+					'data': 'menu-projects',
+					container: $('.menu') 
+				});
             },
             'menu-recent-activity': function(){
 				// @OLDCODE

@@ -121,7 +121,7 @@ Kenseo.views.Project = Backbone.View.extend({
                         			    sb.showGlobalMessages(response);
                                 }
                                 // delete the item permanently
-                                
+
                             }
                         }
                     })

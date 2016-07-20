@@ -186,7 +186,7 @@ var sb = _.extend(sb, (function () {
           var timeForThrobber = fixedTime - responseTime;
           setTimeout(function() {
             responseFunction();
-            $('div').removeClass('throbber');
+            $('.throbber').remove();
           }, timeForThrobber < 0 ? 0 : timeForThrobber);
         },
         loopAttributes: function(el, filter, callback){
@@ -322,6 +322,7 @@ var sb = _.extend(sb, (function () {
                 sb.ajaxCall({
                     'url': url,
                     'data': p.data,
+                    container: p.container,
                     'success': function success(obj) {
                         if (p.templateHolder) {
                             if(p.append){
