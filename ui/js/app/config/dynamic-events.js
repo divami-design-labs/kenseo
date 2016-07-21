@@ -143,7 +143,7 @@ $(function () {
 	    var type = '';
 	    var url = '';
 	    // Validate the information
-	    if(!validation.doValidate($(this))){
+	    if(!validation.doFormValidate($(this))){
 	    	// stop further processing
 	    	return false;
 	    }
@@ -270,7 +270,7 @@ $(function () {
 	})
 	.on('blur', '.blur-field', function(e){
 		//validating the fields when focus is lost
-		validation.doValidate($(this));
+		validation.doFieldValidate($(this));
 	})
 });
 

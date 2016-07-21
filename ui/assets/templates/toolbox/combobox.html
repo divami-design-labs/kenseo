@@ -1,9 +1,13 @@
 <div class="field-section <% if(data.fieldClass){ %><%= data.fieldClass %><% } %>" <% if(data.dataName){ %> data-name="<%= data.dataName %>" <% } %>>
 	<% if(data.label){ %><div class="input-label <% if(data.required) {%>required<% } %>"><%= data.label %></div><% } %>
 	<div class="combobox <% if(data.class){ %><%= data.class %><% } %>" data-xtype="<%= data['data-xtype'] %>" <% if(data['data-xtype-key']){ %>data-xtype-key="<%=  data['data-xtype-key'] %>"<% } %>>
-		<div class="combobox-wrapper">
+		<div class="combobox-wrapper field-section-wrapper">
 			<input class="<% if(data.required){ %>k-required<% } %>" type="text" placeholder="<%= data.placeholder %>" <% if(data.required){ %>data-validate-this="empty,valid-list-item"<% } %>>
 		</div>
-		<div class="message-display"></div>
+		<div class="field-section-error-messages">
+			<% for(var key in data.fieldSectionErrorMessages) { %>
+				<div class="hide message-display" trigger="<%=key%>"><%= data.fieldSectionErrorMessages[key] %></div>
+			<% } %>
+		</div>
 	</div>
 </div>

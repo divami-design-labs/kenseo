@@ -11,7 +11,10 @@
 						required: true,
 						"class": "xm project-combobox blur-field",
 						"dataName": "meetingProject",
-						"placeholder": "Choose Project"
+						"placeholder": "Choose Project",
+						"fieldSectionErrorMessages": {
+								'empty': 'Please select project name',
+						}
 					})
 				%>
 				<%=
@@ -20,7 +23,10 @@
 						required: true,
 						"class": "xm artefact-combobox blur-field",
 						"dataName": "meetingArtefact",
-						"placeholder": "Choose Artefact"
+						"placeholder": "Choose Project",
+						"fieldSectionErrorMessages": {
+								'empty': 'Please select project name',
+						}
 					})
 				%>
 				<%=
@@ -32,6 +38,9 @@
 						"inputClass": "input-meeting-textarea meeting-agenda blur-field",
 						'attr': {
 							'data-validate-this': 'empty'
+						},
+						"fieldSectionErrorMessages": {
+								'empty': ' Please provide meeting agenda',
 						}
 					})
 				%>
@@ -130,6 +139,9 @@
 						"dataName": "attendees",
 						'attr': {
 							'data-validate-this': 'empty'
+						},
+						"fieldSectionErrorMessages": {
+								'empty': ' Please select at least one recipient',
 						}
 					})
 				%>

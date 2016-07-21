@@ -4,21 +4,25 @@
 		<% if(!data.textArea){ %>
 		<input
 			type="text"
-			class="input-text <% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>"
+			class="field-section-wrapper input-text <% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>"
 			<% if(data.placeholder){ %>
 			placeholder="<%= data.placeholder %>"
 			<% } %>
 			<%= sb.setTemplate('attributes', {data: data.attr}) %>
 		></input>
 		<% } else { %>
-		<textarea class="<% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>"
+		<textarea class="field-section-wrapper <% if(data.inputClass) { %><%= data.inputClass %> <% } %><% if(data.required){ %> k-required<% } %>"
 			<% if(data.placeholder){ %>
 			placeholder="<%= data.placeholder %>"
 			<% } %>
 			<%= sb.setTemplate('attributes', {data: data.attr}) %>
 		 ></textarea>
 		<% } %>
-		<div class="message-display"></div>
+		<div class="field-section-error-messages">
+			<% for(var key in data.fieldSectionErrorMessages) { %>
+				<div class="hide message-display" trigger="<%=key%>"><%= data.fieldSectionErrorMessages[key] %></div>
+			<% } %>
+		</div>
 	</div>
 	<% if(data.enableSuggestions){ %>
 	<div class="field-suggestions"></div>
