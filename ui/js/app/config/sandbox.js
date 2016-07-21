@@ -11,6 +11,7 @@ var sb = _.extend(sb, (function () {
         log: function log(msg) {
             console.log(msg);
         },
+        //unused function
         loadCalls: function(arrayOfAjaxCalls, callbackfunction){
             var filterArrayOfAjaxCalls = arrayOfAjaxCalls.filter(function(item){
                 return !item.exprCondition;
@@ -19,7 +20,9 @@ var sb = _.extend(sb, (function () {
             });
             $.when.apply(filterArrayOfAjaxCalls).then(callbackfunction);
         },
+
         attach: function($element, eventName, func){
+          //@TODO: off is not unbinding the events
             $element.off(eventName, func)
                 .on(eventName, func);
         },
@@ -42,11 +45,13 @@ var sb = _.extend(sb, (function () {
                 triggerElement.trigger(triggerEventType, targetEventObject);
             // });
         },
+        //redirecting to the path specified to function
         redirectTo: function(value){
             var a = document.createElement('a');
             a.href = value;
             window.location.href = a.href;
         },
+        //unused function
         getPath: function getPath(type, fileName) {
             var o = i18n[type];
             if (!o) {
@@ -58,6 +63,7 @@ var sb = _.extend(sb, (function () {
             }
             return k;
         },
+        //@TODO:to be implemented
         viewPortSwitch: function viewPortSwitch(callBackFunc) {
             var ua = navigator.userAgent || navigator.vendor || window.opera;
             var production = false;
@@ -79,35 +85,40 @@ var sb = _.extend(sb, (function () {
                     }
                 };
             }
+
+            //loading the files depending on viewport
             sb.loadFiles(filesToLoad.js, callBackFunc);
         },
-
+        //loading the svg files
         svgLoader: function(svgs){
+            //setting the unloaded svgs
             svgs = _.difference(svgs, Kenseo.alreadyLoadedSVGs);
             for(var i = 0; i < svgs.length; i++){
-        		var scripts = document.getElementsByTagName('script')
-        		var script = scripts[scripts.length - 1]
-        		var xhr = new XMLHttpRequest()
-        		xhr.onload = function (response) {
-        			// If success
-        			// srcElement is for chrome and IE
-        			// originalTarget is for Firefox
-        			var target = response.srcElement || response.originalTarget;
-        			var statusText = target.statusText.toLowerCase();
-        			// If success
-        			// statusText will not be "ok" but empty string in ios safari.
-        			if(statusText == "ok" || statusText == "" ){
-             			var div = document.createElement('div')
-             			div.innerHTML = this.responseText
-             			div.style.display = 'none'
-             			script.parentNode.insertBefore(div, script)
-        			}
-           		}
-           		xhr.open('get', 'assets/imgs/'+ svgs[i] +'.svg', true)
-           		xhr.send()
-        	}
+          		var scripts = document.getElementsByTagName('script')
+          		var script = scripts[scripts.length - 1]
+          		var xhr = new XMLHttpRequest()
+          		xhr.onload = function (response) {
+          			// If success
+          			// srcElement is for chrome and IE
+          			// originalTarget is for Firefox
+          			var target = response.srcElement || response.originalTarget;
+          			var statusText = target.statusText.toLowerCase();
+          			// If success
+          			// statusText will not be "ok" but empty string in ios safari.
+          			if(statusText == "ok" || statusText == "" ){
+               			var div = document.createElement('div')
+               			div.innerHTML = this.responseText
+               			div.style.display = 'none'
+               			script.parentNode.insertBefore(div, script)
+          			}
+              }
+              xhr.open('get', 'assets/imgs/'+ svgs[i] +'.svg', true)
+              xhr.send()
+        	  }
+            //storing the loaded svgs
             Kenseo.alreadyLoadedSVGs = _.union(Kenseo.alreadyLoadedSVGs, svgs);
         },
+        //unused function
         saveData: function saveData(payload) {
             var popupData = sb.getPopupData();
             for (key in popupData) {
@@ -130,6 +141,7 @@ var sb = _.extend(sb, (function () {
             $.ajaxSetup({
                 cache: false
             });
+            //providing throbber during ajax call
             sb.throbber(payload.container);
             // var url = payload.url || collection.urlRoot || collection.url;
             var url = sb.getUrl(payload);
@@ -163,6 +175,7 @@ var sb = _.extend(sb, (function () {
                 success: function success(response) {
                     // try {
                         var response = JSON.parse(response);
+                        //removing throbber on succcess of ajax call
                         sb.throbberTimeOut(timeBeforeAjaxCall, function() {
                           if (response.status == 'success') {
                               if (!payload.excludeDump) {
@@ -185,12 +198,14 @@ var sb = _.extend(sb, (function () {
                 }
             });
         },
+        //unused function
         ajaxCalls: function(payloads, callback){
             payloads.map(function(payload){
                 return sb.ajaxCall(payload);
             });
             $.when.apply($, payloads).then(callback);
         },
+        //timeout function for removing throbber
         throbberTimeOut: function(timeBeforeAjaxCall,responseFunction) {
           var timeAfterAjaxCall = Date.now();
           var responseTime = timeAfterAjaxCall - timeBeforeAjaxCall;
@@ -201,6 +216,7 @@ var sb = _.extend(sb, (function () {
             $('.throbber').remove();
           }, timeForThrobber < 0 ? 0 : timeForThrobber);
         },
+        //checking for attributes in provided element
         loopAttributes: function(el, filter, callback){
             var attributes = el.attributes;
             if(!filter) filter = "";
@@ -213,6 +229,7 @@ var sb = _.extend(sb, (function () {
                 }
             }
         },
+        //storing the response data
         setDump: function setDump(obj) {
             var key = obj.command.slice(3).toLowerCase(); // removing "get" prefix
             var dump = Kenseo.data[key];
@@ -224,14 +241,18 @@ var sb = _.extend(sb, (function () {
                     }
                     dump[data.id] = data;
                 }
+                //storing data in kenseo
                 Kenseo.data[key] = dump;
             } else if(obj.data) {
+              //storing data in kenseo
                 Kenseo.data[key] = obj.data;
             }
         },
         getRelativePath: function getRelativePath(str) {
             return DOMAIN_ROOT_URL + str;
         },
+        //check whether class is available in currentelement or in child elements
+        //@TODO:change name of function
         hasInheritClass: function($target, classes){
             for(var i = 0, len = classes.length; i < len; i++){
                 var currentClass = classes[i];
@@ -247,6 +268,7 @@ var sb = _.extend(sb, (function () {
             // No match found
             return false;
         },
+        //to validate session user
         getStandardData: function getStandardData(p) {
             p = p || {};
             var data = _.cloneDeep(p.data);
@@ -261,6 +283,7 @@ var sb = _.extend(sb, (function () {
 
             return p;
         },
+        //unused funtion
         renderXTemplate: function renderXTemplate(_this, payload) {
             // debugger;
             payload = payload || {};
@@ -300,6 +323,7 @@ var sb = _.extend(sb, (function () {
                 });
             }
         },
+        //unused funtion
         noItemsTemplate: function noItemsTemplate(p) {
             return sb.setTemplate('no-items', {
                 data: p.noData || {}
@@ -324,6 +348,7 @@ var sb = _.extend(sb, (function () {
             obj.description = $text.val();
             return obj;
         },
+        //setting the template
         renderTemplate: function renderTemplate(p) {
             var template = templates[p.templateName];
             // Setting the view's template property using the Underscore template method
@@ -361,10 +386,12 @@ var sb = _.extend(sb, (function () {
                 }
             }
         },
+        //returning the template required
         setTemplate: function(str, data){
             data = data || {};
             return _.template(templates[str](data))();
         },
+        //to get time and date
         getDate: function getDate(time) {
             // Refer: http://stackoverflow.com/a/10589791/1577396
             // Refer: http://stackoverflow.com/a/1353711/1577396
@@ -498,12 +525,15 @@ var sb = _.extend(sb, (function () {
                 return false;
             }
         },
+        //returns the popups data
         getPopupsInfo: function getPopupsInfo(info) {
             return Kenseo.popups.getPopupsInfo(info);
         },
+        //returns the overlays data
         getOverlaysInfo: function getOverlaysInfo(info) {
             return Kenseo.overlays.getOverlaysInfo(info);
         },
+        //unused function
         getDynamicData: function getDynamicData(str, id) {
             var key = Kenseo.data[str];
             if (key) {
@@ -516,6 +546,7 @@ var sb = _.extend(sb, (function () {
             var $title = $('title');
             $title.html('Kenseo - ' + str);
         },
+        //storing the page data
         setPageData: function setPageData(value, key) {
             if (key) {
                 Kenseo.page.data[key] = value;
@@ -523,6 +554,7 @@ var sb = _.extend(sb, (function () {
                 Kenseo.page.data = value;
             }
         },
+        //retrieving the page information
         getPageData: function getPageData(key) {
             if (key) {
                 return Kenseo.page.data[key];
@@ -530,6 +562,7 @@ var sb = _.extend(sb, (function () {
                 return Kenseo.page.data;
             }
         },
+        //retrieving the popup data
         getPopupData: function getPopupData(key) {
             if (key) {
                 return Kenseo.popup.data[key];
@@ -537,6 +570,7 @@ var sb = _.extend(sb, (function () {
                 return Kenseo.popup.data;
             }
         },
+        //storing popup information
         setPopupData: function setPopupData(value, key) {
             if (key) {
                 Kenseo.popup.data[key] = value;
@@ -544,18 +578,21 @@ var sb = _.extend(sb, (function () {
                 Kenseo.popup.data = value;
             }
         },
+        //retrieving the id of artefact
         getVersionIdFromMaskedId: function(maskedId){
             if(!Kenseo.data.ma){
                 Kenseo.data.ma = {};
             }
             return Kenseo.data.ma[maskedId];
         },
+        //storing the id of artefact
         setVersionIdForMaskedId: function(maskedId, versionId){
             if(!Kenseo.data.ma){
                 Kenseo.data.ma = {};
             }
             Kenseo.data.ma[maskedId] = versionId;
         },
+        //retrieving the accesstype
         getAccessType: function(value){
             var accessType = Kenseo.settings.accesstype;
             for(var key in accessType){
@@ -580,6 +617,7 @@ var sb = _.extend(sb, (function () {
                 Kenseo.popup.data[a] = b;
             })
         },
+        //navigating to popup or overlay
         navigate: function navigate(str, el) {
             var $self = $(el);
             // var key = $self.data("key");
@@ -615,6 +653,7 @@ var sb = _.extend(sb, (function () {
                 sb.callPopup(index);
             }
         },
+        //providing the data regarding passed object
         getPopupMetaInfo: function(dump){
             return {
                 getProjectName: function(){
@@ -661,6 +700,7 @@ var sb = _.extend(sb, (function () {
                 }
             }
         },
+        //displaying the current popup and storing it's data
         callPopup: function callPopup(index, currentIndex) {// or previousIndex?
             this.svgLoader(['popups']);
 
@@ -763,38 +803,47 @@ var sb = _.extend(sb, (function () {
             }.bind(this))
         },
         toolbox: {
+            //common functionality for rendering textbox
             textBox: function textBox(data) {
                 return sb.setTemplate('textbox', {
                     data: data
                 });
             },
+            //common functionality for rendering mutiple buttons
             buttons: function buttons(data) {
                 return sb.setTemplate('buttons', data);
             },
+            //common functionality for rendering button
             button: function button(data){
                 return sb.setTemplate('button', data);
             },
+            //common functionality for rendering select list
             comboBox: function comboBox(data) {
                 return sb.setTemplate('combobox', {
                     'data': data
                 });
             },
+            //
             applyComboBox: function applyComboBox(data) {
                 var combobox = new comboBox(data.elem, data.data, data.settings);
                 combobox.onchange = data.onchange;
                 combobox.insertAfter = data.insertAfter;
                 return combobox;
             },
+            //common functionality for rendering checkbox
             checkbox: function checkbox(data){
                 return sb.setTemplate('checkbox', {data: data || {}});
             }
         },
+        //retrieves document data of given versionid
         getCurrentDocumentData: function(id){
             return Kenseo.document[id];
         },
+        //sets the document data of given versionid
         setCurrentDocumentData: function(id, data){
             Kenseo.document[id] = data;
         },
+        //unused funtion
         getCurrentThreadData: function(versionId, threadId){
             return Kenseo.document[versionId][threadId];
         },
@@ -803,12 +852,14 @@ var sb = _.extend(sb, (function () {
         },
         page: {},
         overlay: {},
+        //unused function
         fetch: function fetch(collection, data, func) {
             collection.fetch(sb.getStandardData({
                 data: data,
                 success: func
             }));
         },
+        //storing popup data
         registerData: function registerData() {
             var $fieldSection = $('.popup').find('.field-section');
             if ($fieldSection.length) {
@@ -944,6 +995,7 @@ var sb = _.extend(sb, (function () {
                 });
             }
         },
+        //messages to dispaly whether action is success or failure
         showGlobalMessages: function(response){
           /*var div = document.createElement('div');
     			//added class to show success message.
@@ -984,6 +1036,7 @@ var sb = _.extend(sb, (function () {
     			}.bind($('div.messages-wrapper')), 3010);
 
         },
+        //show throbber while loading files
         throbber: function(ele){
           var div = document.createElement('div');
           $(div).addClass('throbber');

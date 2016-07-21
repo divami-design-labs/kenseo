@@ -96,7 +96,7 @@ var sb = {
         document.getElementsByTagName("head")[0].appendChild(link);
     }
 }
-
+//loaading the necessary files
 sb.loadFiles({
     files: [
         'js/app/config/domain_urls.js',

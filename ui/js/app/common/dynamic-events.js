@@ -1,7 +1,7 @@
 $(function () {
 	var popupContainer = '.popup-container',
 	    closePopupIcon = '.popup-close-icon';
-
+  //close the current popup and store the data
 	function popupCloser($el) {
 		$el.hide();
 		$el.children().remove();
@@ -25,12 +25,15 @@ $(function () {
 		// }
 	// })
 	.on('click', '.prevent-default', function(e){
+		//stops default action of click event
 		e.preventDefault();
 	})
 	.on('click', '.stop-propagate', function(e){
+		//stops bubbling and capturing
 		e.stopPropagation();
 	})
 	.on('click', closePopupIcon, function () {
+		//close current popup
 		popupCloser($(this).parents(popupContainer));
 	}).on('keyup', function (e) {
 		var keycode = e.which || e.keyCode;
@@ -42,6 +45,7 @@ $(function () {
 			$(popupContainer)[0].removeChild($(popupContainer).children()[0]);
 		}
 	}).on('click', popupContainer + ' .cancel-btn', function (e) {
+		//removing default action of click
 		e.preventDefault();
 		popupCloser($(this).parents(popupContainer));
 	}).on('click', '.nav-btn', function (e) {
@@ -191,7 +195,7 @@ $(function () {
 				  	type: "success"
 					}
 				}*/
-
+				//close the current popup
 				popupCloser($self.parents(popupContainer));
 				sb.refresh.type(actionType, response);
 				if(response.data.messages) {

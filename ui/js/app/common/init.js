@@ -45,6 +45,7 @@ var Kenseo = {
                             var router = new Router();
                         });
                     } else {
+                        //redirecting to root url on failure
                         window.location.assign(DOMAIN_ROOT_URL);
                     }
                 } catch (ex) {
