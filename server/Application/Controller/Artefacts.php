@@ -699,6 +699,7 @@
 					$details = $details[0];
 
 					// Generate masked artefact version id
+					// @TODO CRITICAL BUG: Sometimes the generated random number is printing as NULL in database
 					$masked_artefact_version = getRandomString(12) . $artId . $ver_no;
 
 					// Insert a new row for the new artefact version of the main artefact

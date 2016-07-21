@@ -11,6 +11,9 @@ class CommandInterpreter
 	
 	public function __construct($request)	
 	{
+		// Set default timezone to GMT
+		date_default_timezone_set('UTC');
+
 		$reqObj = $request;
 		
 		$this->command = $reqObj->command;

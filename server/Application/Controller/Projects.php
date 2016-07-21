@@ -141,6 +141,7 @@
 		}
 
 		public function addProject($interpreter) {
+			$result = new stdClass();
 			$data = $interpreter->getData()->data;
 			// $projectName = $data->projectName->value;
 			$projectName = $data->projectName;
@@ -170,22 +171,30 @@
 
 			//@TODO: Remove this code when UI for "Adding management users to the project" is implemented.
 			// Add management users also to this project.
-			$management_users = array("naveen@divami.com", "vasu@divami.com");
-			$queryParams = array('@emailIds' => "'" . join("','", $management_users) . "'");
-
-			$query = getQuery('getUserIdsFromEmails', $queryParams);
-			$users = $db->multiObjectQuery($query);
-
-			for($i=0, $iLen=count($users); $i<$iLen; $i++) {
-				$rows[] = array($projId, $users[$i]->user_id, "X", "I");
-			}
-
-			// Insert above users as project members
+			// UNCOMMENT the below code to hardcode users in every newly added project
+			//
+			// $management_users = array("naveen@divami.com", "vasu@divami.com");
+			// $queryParams = array('@emailIds' => "'" . join("','", $management_users) . "'");
+			//
+			// $query = getQuery('getUserIdsFromEmails', $queryParams);
+			// $users = $db->multiObjectQuery($query);
+			//
+			// for($i=0, $iLen=count($users); $i<$iLen; $i++) {
+			// 	$rows[] = array($projId, $users[$i]->user_id, "X", "I");
+			// }
+			//
+			// // Insert above users as project members
 			$db->insertMultipleRow(TABLE_PROJECT_MEMBERS, $columns, $rows);
+			//
+
+			// Get project related data
+			$result->data = $db->singleObjectQuery(getQuery('getAProject', array(
+				"userid" => $userId,
+				"projectid" => $projId
+			)));
 
 			$db->commitTransaction();
-			
-			$result = new stdClass();
+
 			$result->messages = new stdClass();
 			$result->messages->type = "success";
 			$result->messages->message = "Successfully added ".$projectName."project";

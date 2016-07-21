@@ -26,6 +26,11 @@ $AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name 
 											FROM " . TABLE_PROJECT_MEMBERS . "
 											WHERE user_id = @~~userid~~@) AND state = 'A' ORDER BY last_updated_date DESC LIMIT @~~limit~~@";
 
+$AppGlobal['sql']['getAProject'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url,
+											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
+											FROM " . TABLE_PROJECTS . "
+											WHERE project_id = @~~projectid~~@ AND state = 'A' ORDER BY last_updated_date DESC";
+
 $AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url,
 											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . "
