@@ -29,6 +29,7 @@ try
 	$urlParts = explode('.', $url);
 	$project = "App";
 	$authenticator = new Authenticator($project);
+	global $AppGlobal;
 
 	if (isset($_REQUEST['logout'])) {
 		// Master::getLogManager()->log(DEBUG, MOD_MAIN, "Logout");
@@ -61,7 +62,7 @@ try
 				util_redirectToURL($authenticator->getAuthURL());
 			}
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to UI URL");
-			util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.php');
+			util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
 		} else {
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "GAT token unavailable");
 			$authenticator->invalidateSession();
@@ -77,7 +78,7 @@ try
 		setcookie("DivamiAppUserID", $userObj->user_id, 0, "/");
 		// everything is fine. redirect to app page.
 		// Not needed anymore -- $authenticator->setUserInfoCookies();
-		util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.php');
+		util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
 	}
 
 } catch (CustomeException $exception) {
