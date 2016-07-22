@@ -12,8 +12,8 @@ require_once("main.php");
  *
  * -1: Handle Logout (clear session variables, destroy session, notify Google to revoke token)
  * 0. Handle redirects. (Here is where creating a new session will be handled)
- * 1. First check the session for a valid SID - We will use (set) KenseoSID to indicate we have an active session (same as Session ID)
- * 2. If we have KenseoSID, check in the DB to see if this SID is still valid. If it is, take the Google auth tokens etc. and the user
+ * 1. First check the session for a valid SID - We will use (set) AppSID to indicate we have an active session (same as Session ID)
+ * 2. If we have AppSID, check in the DB to see if this SID is still valid. If it is, take the Google auth tokens etc. and the user
  *    name from the DB and verify with Google to ensure this info is still valid. If it is not, Google will redirect anyway and come back
  *    to us via a redirect at which time we will be starting a new session in Step #0.
  * 3. If the DB says we dont have a valid SID (expired), use Google API to authenticate and we will be back in Step #0.
@@ -27,16 +27,26 @@ try
 	$url = $_SERVER['HTTP_HOST'];
 	Master::getLogManager()->log(DEBUG, MOD_MAIN, $url);
 	$urlParts = explode('.', $url);
-	$project = "kenseo";
+	$project = "App";
 	$authenticator = new Authenticator($project);
 
 	if (isset($_REQUEST['logout'])) {
-		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Logout");
+		// Master::getLogManager()->log(DEBUG, MOD_MAIN, "Logout");
+		// $authenticator->invalidateSession();
+		//
+		// //@TODO - Figure out where to go from here. - for now, redirect to google login page
+		// $redirectURL = $AppGlobal['googleauth'][$project]['redirectURL'];
+		// util_redirectToURL("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=$redirectURL");
 		$authenticator->invalidateSession();
 
-		//@TODO - Figure out where to go from here. - for now, redirect to google login page
-		$redirectURL = $AppGlobal['googleauth'][$project]['redirectURL'];
-		util_redirectToURL("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=$redirectURL");
+		unset($_SESSION['DivamiAppSID']);
+		unset($_SESSION["DivamiAppGAT"]);
+		unset($_SESSION["DivamiAppUserName"]);
+		unset($_SESSION["DivamiAppUserEmail"]);
+		unset($_SESSION["DivamiAppUserPicture"]);
+		unset($_SESSION["PHPSESSID"]);
+
+		util_redirectToURL($authenticator->getAuthURL());
 	} else if (isset($_GET['code'])) {
 		// We are here from a redirect. And we got the authentication code from Google!
 
@@ -45,13 +55,13 @@ try
 		if ($token) {
 			$userId = $authenticator->startNewSession();
 			if (!$userId) {
-				// This user is not authorized to access Kenseo. Redirect to a descriptive page that has a Google Logout button.
+				// This user is not authorized to access App. Redirect to a descriptive page that has a Google Logout button.
 				//@TODO - Figure out where to go from here. - for now, redirect to Google.com
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to authentication URL");
 				util_redirectToURL($authenticator->getAuthURL());
 			}
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to UI URL");
-			util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.html');
+			util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.php');
 		} else {
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "GAT token unavailable");
 			$authenticator->invalidateSession();
@@ -64,10 +74,10 @@ try
 			util_redirectToURL($authenticator->getAuthURL());
 		}
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "set cookie ");
-		setcookie("DivamiKenseoUserID", $userObj->user_id, 0, "/");
+		setcookie("DivamiAppUserID", $userObj->user_id, 0, "/");
 		// everything is fine. redirect to app page.
 		// Not needed anymore -- $authenticator->setUserInfoCookies();
-		util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.html');
+		util_redirectToURL($AppGlobal['global']['domain'] . 'ui/index.php');
 	}
 
 } catch (CustomeException $exception) {

@@ -1,3 +1,7 @@
+/*
+ * Overlay container related functionalities.
+ * All functionalities related to different overlay containers are present here
+ */
 sb.overlay = {
 	summaryOverlay : function() {
 		//first the document version ID from URL

@@ -4,7 +4,7 @@
  * Handles authentication with Google
  */
 
-require_once("thirdparty/google-api-php-client/autoload.php");
+require_once(ROOT . "thirdparty/google-api-php-client/src/Google/autoload.php");
 define("SECONDS_IN_WEEK", 604800);
 
 class Authenticator
@@ -12,11 +12,11 @@ class Authenticator
 	private $client = null;
 	private $oauth2 = null;
 	private $authUrl = FALSE;
-	private $kenseoSID = FALSE;
+	private $appSID = FALSE;
 	private $googleAccessToken = FALSE;
 	private $userInfo = null;
-	
-	public function __construct($project) {
+
+	public function __construct($project = "App") {
 		global $AppGlobal;
 		
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, 'in constructor');
@@ -36,13 +36,13 @@ class Authenticator
 		$this->authUrl = $this->client->createAuthUrl();
 
 		// Just check if we got a cookie with the SID.
-		$this->kenseoSID = (isset($_COOKIE['DivamiKenseoSID']) ? $_COOKIE['DivamiKenseoSID'] : FALSE);
-		$this->googleAccessToken = (isset($_COOKIE['DivamiKenseoGAT']) ? $_COOKIE['DivamiKenseoGAT'] : FALSE);
+		$this->appSID = (isset($_COOKIE['DivamiAppSID']) ? $_COOKIE['DivamiAppSID'] : FALSE);
+		$this->googleAccessToken = (isset($_COOKIE['DivamiAppGAT']) ? $_COOKIE['DivamiAppGAT'] : FALSE);
 	}
 	
 	
 	public function getSID() {
-		return $this->kenseoSID;
+		return $this->appSID;
 	}
 	
 	public function getAuthURL() {
@@ -75,11 +75,11 @@ class Authenticator
 		$this->client->revokeToken();
 		
 		// Update DB to invalidate the session.
-		if ($this->kenseoSID) {
-			setcookie("DivamiKenseoSID", "", -1, "/");
-			setcookie("DivamiKenseoGAT", "", -1, "/");
-			Master::getDBConnectionManager()->updateTable(DBSchema::$Table_Session, array("expiry"), array(time()), "sid = '$this->kenseoSID'");
-			$this->kenseoSID = FALSE;
+		if ($this->appSID) {
+			setcookie("DivamiAppSID", "", -1, "/");
+			setcookie("DivamiAppGAT", "", -1, "/");
+			Master::getDBConnectionManager()->updateTable(DBSchema::$Table_Session, array("expiry"), array(time()), "sid = '$this->appSID'");
+			$this->appSID = FALSE;
 			$this->googleAccessToken = FALSE;
 		}
 	}
@@ -97,18 +97,18 @@ class Authenticator
 		
 		// for now, store the access token also in a cookie. @TODO
 		$this->storeSessionInfo($userId);
-		setcookie("DivamiKenseoUserID", $userId, 0, "/");
+		setcookie("DivamiAppUserID", $userId, 0, "/");
 		return $userId;
 	}
 	
 	public function generateNewSession() {
 		session_start();
 		session_regenerate_id(TRUE);
-		
-		$this->kenseoSID = session_id();
-		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Generated a new session id: %s", $this->kenseoSID);
-	
-		return $this->kenseoSID;
+
+		$this->appSID = session_id();
+		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Generated a new session id: %s", $this->appSID);
+
+		return $this->appSID;
 	}
 
 
@@ -118,25 +118,25 @@ class Authenticator
 		$clientId = $_SERVER['REMOTE_ADDR'];
 		
 	    $db = Master::getDBConnectionManager();
-		$result = $db->insertSingleRow(DBSchema::$Table_Session, DBSchema::$Table_Session_Cols, array($this->kenseoSID, $userId, $clientId, $expiry));
-		
+		$result = $db->insertSingleRow(DBSchema::$Table_Session, DBSchema::$Table_Session_Cols, array($this->appSID, $userId, $clientId, $expiry));
+
 		if (!$result) {
 			throw new CustomException("Failed to save in DB.");
 		}
 		
 		//session will be valid for 7 days.
-		setcookie("DivamiKenseoSID", $this->kenseoSID, $expiry, "/");
-		setcookie("DivamiKenseoGAT", $this->googleAccessToken, $expiry, "/");
-		
+		setcookie("DivamiAppSID", $this->appSID, $expiry, "/");
+		setcookie("DivamiAppGAT", $this->googleAccessToken, $expiry, "/");
+
 		$this->setUserInfoCookies();
 	}
 	
 	
 	public function setUserInfoCookies() {
-		setcookie("DivamiKenseoUserName", $this->userInfo['name'], 0, "/");
-		setrawcookie("DivamiKenseoUserEmail", $this->userInfo['email'], 0, "/");
-		setrawcookie("DivamiKenseoUserPicture", $this->userInfo['picture'], 0, "/");
-		
+		setcookie("DivamiAppUserName", $this->userInfo['name'], 0, "/");
+		setrawcookie("DivamiAppUserEmail", $this->userInfo['email'], 0, "/");
+		setrawcookie("DivamiAppUserPicture", $this->userInfo['picture'], 0, "/");
+
 		$db = Master::getDBConnectionManager();
 		$db->updateTable(TABLE_USERS, array("profile_pic_url"),array($this->userInfo['picture']),"email = '" . $this->userInfo['email'] . "'");
 	}
@@ -179,24 +179,24 @@ class Authenticator
 
 	public function validateSession() {
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Printing tokens");
-		Master::getLogManager()->log(DEBUG, MOD_MAIN, $this->kenseoSID);
+		Master::getLogManager()->log(DEBUG, MOD_MAIN, $this->appSID);
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, $this->googleAccessToken);
-		if (!$this->kenseoSID || !$this->googleAccessToken) {
+		if (!$this->appSID || !$this->googleAccessToken) {
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Session Id or Google Access Token missing.");
 			return FALSE;
 		}
-		
-		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Have a valid session Id: %s", $this->kenseoSID);
+
+		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Have a valid session Id: %s", $this->appSID);
 		$now = time();
 	    $db = Master::getDBConnectionManager();
-	    $userObj = $db->singleObjectQuery(getQuery('validateSID', array('sid' => $this->kenseoSID, 'now' => $now)));
+	    $userObj = $db->singleObjectQuery(getQuery('validateSID', array('sid' => $this->appSID, 'now' => $now)));
 		if (!$userObj) {
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Session ID: %s seems to have expired or not in DB", $this->kenseoSID);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Session ID: %s seems to have expired or not in DB", $this->appSID);
 			return FALSE;
 		}
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Found User: %s", $userObj);
-		
-		$userObj->sid = $this->kenseoSID;
+
+		$userObj->sid = $this->appSID;
 		return $userObj;
 
 	}

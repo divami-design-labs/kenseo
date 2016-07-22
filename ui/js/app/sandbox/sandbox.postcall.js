@@ -1,5 +1,5 @@
 /*
- * Main aim of this library is to send all the necessary data to server
+ * Main aim of this library is to gather all necessary data which is supposed to send to server
  */
 sb.postcall = (function(){
 	var fieldTypes = {

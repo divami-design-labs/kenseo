@@ -1,3 +1,7 @@
+/*
+ * Ajax function and all ajax related functions are present here
+ * Like: rendering a template, showing/hiding throbber
+ */
 _.extend(sb, {
     //unused function
     saveData: function saveData(payload) {
@@ -55,7 +59,14 @@ _.extend(sb, {
             processData: processData,
             success: function success(response) {
                 // try {
-                    var response = JSON.parse(response);
+                    if(typeof response === "string"){
+                        var response = JSON.parse(response);
+                    }
+
+                    if(response.data && response.data.code === "EXC_AUTH_FAILURE"){
+                        // Authenticate the page by redirecting
+                        sb.redirectTo('../server');
+                    }
                     //removing throbber on succcess of ajax call
                     sb.throbberTimeOut(timeBeforeAjaxCall, function() {
                       if (response.status == 'success') {

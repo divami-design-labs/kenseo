@@ -1,4 +1,4 @@
-<?php 
+<?php
 	class Comments {
 		public function createComment($interpreter) {
 			$data = $interpreter->getData()->data;
@@ -46,8 +46,8 @@
 				}
 
 				$db->updateTable(TABLE_COMMENT_THREADS,
-					array('category', 'severity', 'is_private', 'state'), 
-					array($category, $severity, $is_private, $state), 
+					array('category', 'severity', 'is_private', 'state'),
+					array($category, $severity, $is_private, $state),
 					"comment_thread_id = " . $comment_thread_id);
 			}
 
@@ -81,7 +81,7 @@
 
 			// Update state in artefact versions table
 			$db->updateTable(TABLE_ARTEFACTS_VERSIONS,
-					array('state'), 
+					array('state'),
 					array($artefact_ver_state),
 					"artefact_ver_id = " . $data->artefact_ver_id);
 
@@ -130,7 +130,7 @@
 				$commentThreads = $db->multiObjectQuery($commentThreadQuery);
 			}
 
-			// Generate an array of comment thread ids 
+			// Generate an array of comment thread ids
 			$threadCount = count($commentThreads);
 			$commentThreadIds = array();
 			for($i=0; $i<$threadCount; $i++) {

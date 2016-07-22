@@ -1,12 +1,7 @@
+/*
+ * This library holds the methods which are commonly used in many functionalities
+ */
 var sb = _.extend(sb, (function () {
-    var labels = {
-        popupContainer: '.popup-container'
-    };
-
-    function getModulePath(moduleType, moduleName) {
-        // return 'js/app/modules/' + moduleType + '/' + moduleName + _.capitalize(moduleType).substring(0, moduleType.length - 1) + '.js';
-        return 'js/app/modules/' + moduleName + '.js';
-    }
     return {
         log: function log(msg) {
             console.log(msg);
@@ -341,7 +336,7 @@ var sb = _.extend(sb, (function () {
                     Kenseo.popup.info = Kenseo.popup.info.slice(index);
                     index = 0;
                 }
-                sb.callPopup(index);
+                sb.callOverlay(index);
             }
         },
         //providing the data regarding passed object
@@ -512,6 +507,7 @@ var sb = _.extend(sb, (function () {
 
                 sb.renderTemplate({
                     'templateName': info.page_name,
+                    'url': info.url,
                     'templateHolder': $templateHolder,
                     'append': true,
                     'data': {

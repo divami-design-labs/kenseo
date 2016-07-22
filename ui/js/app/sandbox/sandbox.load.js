@@ -1,3 +1,6 @@
+/*
+ * This sandbox module has functions which are useful to load js, svg and css files with loader functionality
+ */
 var sb = {
     getModulePath: function(moduleType, moduleName) {
         // return 'js/app/modules/' + moduleType + '/' + moduleName + _.capitalize(moduleType).substring(0, moduleType.length - 1) + '.js';
@@ -9,15 +12,12 @@ var sb = {
         var scripts = {
             'modules': {},
             'files': {},
-
-            // @TODO: remove the below code
-            'views': {},
-            'models': {},
-            'collections': {}
+            'svgs': {},
+            'css' : {}
         };
         hasSplash = true;
         var files = [];
-        var types = ['files', 'modules', 'views', 'models', 'collections'];
+        var types = ['files', 'modules', 'svgs', 'css'];
         for (var k = 0; k < types.length; k++) {
             var type = types[k];
             if (payload[type]) {
@@ -154,9 +154,11 @@ var sb = {
 }
 
 //loaading the necessary files
+
 sb.loadFiles({
+    svgs: [],
     files: [
-        'js/app/config/domain_urls.js',
+        'js/app/config/global-variables.js',
 
         'js/libs/jquery.js',
         'js/libs/lodash.js',

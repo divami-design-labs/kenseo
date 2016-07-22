@@ -1,3 +1,6 @@
+/*
+ * All time related methods
+ */
 _.extend(sb, {
     //to get time and date
     getDate: function getDate(time) {

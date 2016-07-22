@@ -7,7 +7,7 @@
         "projectpage":  ["addfile", "projects", "more","baloon", "icon4","delete","lock1", "dropdown", "archive1", "replace", "addversion", "share", "delete"],
         "projects":     ["artifacts", "adduser", "archive", "calendar", "projects"],
         "meetingnotes": ["projects"],
-        "documentview": ["right-slider","left-slider","file-tab", "previous-page-icon", "next-page-icon", "document-info", "add-comment", "toggle-annotations", "share-artefact", "submit-review", "more-menu", "up-drpdwn", "v_open", "v_compare"],
+        "documentview": ["right-slider","left-slider","file-tab", "img-tab", "previous-page-icon", "next-page-icon", "document-info", "add-comment", "toggle-annotations", "share-artefact", "submit-review", "more-menu", "up-drpdwn", "v_open", "v_compare"],
         "persona":      ["add", "close"]
     }
 }

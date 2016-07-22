@@ -1,3 +1,7 @@
+/*
+ * This library handles all main API calls, related to sections like Project, Notifications, Artefacts, Activities, People.
+ * This library also has implementation for success callbacks of ajax requests to do actions like add, delete, archive etc
+ */
 sb.refresh = (function(){
 	var sections = {
 		'menu': {

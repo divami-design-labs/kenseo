@@ -1,3 +1,6 @@
+/*
+ * This library has the initiating code for each different page
+ */
 sb.router = {
     menu: function menu() {
         sb.refresh.section('menu');

@@ -731,6 +731,10 @@ a {
   vertical-align: middle;
 }
 
+.sub-menu-item {
+  display: block;
+}
+
 .search-section {
   position: absolute;
   top: 80px;

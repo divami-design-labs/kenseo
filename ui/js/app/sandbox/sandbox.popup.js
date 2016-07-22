@@ -1,3 +1,7 @@
+/*
+ * Popup containers related functionality is present here
+ * Functionalities of all popup containers invoked at different stages of different pages are present here
+ */
 sb.popup = {
     resetPopupData: function resetPopupData() {
         Kenseo.popup = {

@@ -8,6 +8,7 @@
  *
  */
 define("CACHE_TYPE", "local");
+define("ROOT", __DIR__ . "/");
 
 global $APPLICATION_PATH;
 $APPLICATION_PATH = dirname(__FILE__);
@@ -15,9 +16,9 @@ $APPLICATION_PATH = dirname(__FILE__);
 define('BASEPATH', $APPLICATION_PATH.'/');
 define('PHP_EXT', '.php');
 
-require_once("config/ConfigMain.php");
-require_once("Framework/FrameworkMain.php");
-require_once("Application/AppMain.php");
+require_once(ROOT . "config/ConfigMain.php");
+require_once(ROOT . "Framework/FrameworkMain.php");
+require_once(ROOT . "Application/AppMain.php");
 
 try
 {

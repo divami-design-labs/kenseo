@@ -35,13 +35,13 @@ global $AppGlobal;
 $AppGlobal = array();
 
 
-require_once("config/dbSchema.php");			// Include Constants for database table names.
-require_once("config/config.php");
-require_once("config/database.php");
-require_once("config/googleauth.php");
-require_once("config/errormessages.php");
-require_once("config/interpreter.php");
-require_once("config/queries.php");
+require_once(ROOT . "config/dbSchema.php");			// Include Constants for database table names.
+require_once(ROOT . "config/config.php");
+require_once(ROOT . "config/database.php");
+require_once(ROOT . "config/googleauth.php");
+require_once(ROOT . "config/errormessages.php");
+require_once(ROOT . "config/interpreter.php");
+require_once(ROOT . "config/queries.php");
 
 
 ?>
