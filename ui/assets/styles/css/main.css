@@ -6241,6 +6241,7 @@ img.image-viewer {
 .success-messages-wrapper {
   background-color: #6cbf5d;
   border: 1px solid #3d9176;
+  fill: #ffffff;
 }
 
 .messages-wrapper.show-messages, .messages-wrapper.show-messages {
