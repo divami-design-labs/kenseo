@@ -1,5 +1,5 @@
 <?php
-    require_once("../server/main.php");
+    require_once("../main.php");
 
     $project = "App";
     $authenticator = new Authenticator($project);
