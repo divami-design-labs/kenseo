@@ -57,7 +57,7 @@
   clear: both;
 }
 
-.circle, .profile-image-black, .people-icon, .sp-left img, .profile-image-white, .profile-pic-holder img, .people-img-wrapper img, .profile-image-red, .profile-image-blue, .profile-image-grey, .profile-image-comment, .hamburger-notify, .menu-profile-img-dv img, .menu-recent-people-cnt img, .menu-recent-people-cnt svg, .share-artefact-people-item .share-artefacts-img, .share-artefact-people-item .share-artefacts-img-holder, .share-artefact-people-item .share-artefacts-img-holder:after, .share-artefact-people-item:hover .share-artefacts-img-holder:after, .secondary-status-rr, .tf-images img {
+.circle, .profile-image-black, .people-icon, .sp-left img, .sp-left svg, .profile-image-white, .profile-pic-holder img, .people-img-wrapper img, .profile-image-red, .profile-image-blue, .profile-image-grey, .profile-image-comment, .hamburger-notify, .menu-profile-img-dv img, .menu-recent-people-cnt img, .menu-recent-people-cnt svg, .share-artefact-people-item .share-artefacts-img, .share-artefact-people-item .share-artefacts-img-holder, .share-artefact-people-item .share-artefacts-img-holder:after, .share-artefact-people-item:hover .share-artefacts-img-holder:after, .secondary-status-rr, .tf-images img {
   border-radius: 50%;
 }
 
@@ -242,7 +242,7 @@
   vertical-align: top;
 }
 
-.profile-image-black, .people-icon, .sp-left img {
+.profile-image-black, .people-icon, .sp-left img, .sp-left svg {
   background-color: white;
   border: 2px solid #EBECEE;
 }
@@ -3059,7 +3059,15 @@ a {
   width: 85%;
   height: 614px;
   min-width: 1000px;
+  max-height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   background-color: white;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 .secondary-status-rr {
@@ -3394,6 +3402,7 @@ a {
 
 .summary-section-below-content {
   display: none;
+  overflow: auto;
 }
 
 .summary-section-overlay.view .summary-section-header {
@@ -3441,7 +3450,7 @@ a {
   margin-right: 10px;
 }
 
-.sp-left img {
+.sp-left img, .sp-left svg {
   width: 28px;
   height: 28px;
 }

@@ -47,7 +47,7 @@
 	                    <div class="time-frame-item mg-item">
 	                        <div class="time-frame">
 	                            <%_.each(data.timeline[v], function(item) {%>
-                            		
+
                             			<% if(item.type === "links") {%>
                         					 <div class="file-type top-viewer">
                         				<% } else if(item.type === "shared") {%>
@@ -55,7 +55,11 @@
                         					<div class="user-type-viewer top-hover-viewer">
 			                                    <div class="user-type-content">
 			                                        <div class="tf-images">
-			                                            <img src=<%= item.profPic %> />
+                                                        <% if(item.profPic !== "assets/imgs/avatar.svg"){ %>
+                                                            <img src=<%= item.profPic %> />
+                                                		<% } else { %>
+                                                			<svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>
+                                                		<% } %>
 			                                        </div>
 			                                        <div class="tf-more-people"><%= sb.timeFormat(item.shared_date,true,true)%> @<%= sb.getTime(item.shared_date) %></div>
 			                                    </div>
@@ -130,7 +134,11 @@
                  <% _.each(data.sharedTo, function(d){ %>
 	                 <div class="summary-people-item">
 	                    <div class="sp-left">
-	                        <img title"<%= d.name%>" src="<%= d.userImage%>" />
+                            <% if(d.userImage !== "assets/imgs/avatar.svg"){ %>
+                                <img title="<%= d.name%>" src="<%= d.userImage %>" />
+                    		<% } else { %>
+                    			<svg><use xlink:href="#avatar"></use></svg>
+                    		<% } %>
 	                    </div>
 	                    <div class="sp-right">
 	                        <div class="sp-name ellipsis" title"<%= d.name%>"><%= d.name%></div>
@@ -159,7 +167,7 @@
             </div>
             <div class="sub-section-content">
                 <a class="summary-compare-btn" href="">Compare selected</a>
-                
+
                 <% _.each(data.versions, function(d){ %>
                     <% if(d.artefact_ver_id !== data.basicDetails.versionId){ %>
 	                <div class="summary-version-item">

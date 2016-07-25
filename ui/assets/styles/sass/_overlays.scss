@@ -5,7 +5,10 @@
 	width: 85%;
 	height: 614px;
 	min-width: 1000px;
+	max-height: 100%;
+	flex-direction: column;
 	background-color: white;
+	display: inline-flex;
 	.rr-comment{
 		@extend .inlineBlockTop;
 	}
@@ -251,6 +254,7 @@
 }
 .summary-section-below-content{
 	display: none;
+	overflow: auto;
 }
 .summary-section-overlay.view{
 	.summary-section-header{
@@ -288,13 +292,13 @@
 	}
 }
 .summary-people-item{
-	
+
 }
 .sp-left{
 	display: inline-block;
 	vertical-align: middle;
 	margin-right: 10px;
-	img{
+	img, svg{
 		@extend .profile-image-black;
 		@include square(28px);
 	}

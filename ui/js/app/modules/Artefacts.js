@@ -87,6 +87,11 @@ Kenseo.views.Artefact = Backbone.View.extend({
         return this;//.render();
     },
     render: function(){
+        if(Kenseo.current.page === "project-page"){
+            // setting a property which determines the artefact card is related to project page
+            // and renders as necessary
+            this.model.set('is_project_page', true);
+        }
         var data = this.model.toJSON();
         this.$el.html(this.template(data));
         this.$el.attr('data-pass', this.linkedArtefactNo);

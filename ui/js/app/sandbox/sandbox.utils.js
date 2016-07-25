@@ -305,6 +305,9 @@ var sb = _.extend(sb, (function () {
         },
         //navigating to popup or overlay
         navigate: function navigate(str, el) {
+            // load necessary svgs for popups and overlays
+            this.svgLoader(['popups']);
+            
             var $self = $(el);
             // var key = $self.data("key");
             // var id = $self.data("id");
@@ -388,8 +391,6 @@ var sb = _.extend(sb, (function () {
         },
         //displaying the current popup and storing it's data
         callPopup: function callPopup(index, currentIndex) {// or previousIndex?
-            this.svgLoader(['popups']);
-
             var allPopups = $('.popup');
             var $popup = allPopups.eq(index);
             var currentActionType = Kenseo.popup.data.actionType;
