@@ -127,7 +127,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		} else {
 			var obj = {};
 			var attrs = $el[0].attributes;
-			attrs.forEach(function(attr){
+			Array.prototype.forEach.call(attrs, function(attr){
 				if (attr.name !== "class") {
 					obj[attr.name] = attr.value;
 				}
@@ -335,15 +335,18 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			showSuggestions();
 		}
 		var query = el.val().toLowerCase();
-		_this.suggestions.forEach(function(p){
-			if(p){
-				if (p.name.toLowerCase().indexOf(query) < 0) {
-					p.excludeParent = true;
-				} else {
-					p.excludeParent = false;
+		if(Array.isArray(_this.suggestions)){
+			_this.suggestions.forEach(function(p){
+
+				if(p){
+					if (p.name.toLowerCase().indexOf(query) < 0) {
+						p.excludeParent = true;
+					} else {
+						p.excludeParent = false;
+					}
 				}
-			}
-		});
+			});
+		}
 		// renderSuggestions(elem, _this.suggestions, el.get(0));
 		renderSuggestions(elem, _this.suggestions);
 
