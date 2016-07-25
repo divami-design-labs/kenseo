@@ -117,7 +117,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		if (!values.multiSelect) {
 			var obj = {};
 			var attrs = $el[0].attributes;
-			attrs.forEach(function(attr){
+			Array.prototype.forEach.call(attrs, function(attr){
 				if (attr.name !== "class") {
 					$text.attr(attr.name, attr.value);
 				}
