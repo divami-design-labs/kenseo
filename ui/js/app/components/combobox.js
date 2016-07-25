@@ -72,12 +72,12 @@ var comboBox = function comboBox(elem, suggestions, values) {
   */
 	function collapseItems(el) {
 		var refId = el.parent().data("id");
-		for (var i = 0; i < _this.suggestions.length; i++) {
+		_this.suggestions.forEach(function(p){
 			var p = _this.suggestions[i];
 			if (refId === p.id) {
 				p.excludeChildren = true;
 			}
-		}
+		});
 		renderSuggestions(elem, _this.suggestions);
 	}
 
@@ -88,13 +88,13 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	function expandItems(el) {
 		var refId = el.parent().data("id");
 		var blnAccess = false;
-		for (var i = 0; i < _this.suggestions.length; i++) {
-			var p = _this.suggestions[i];
+		_this.suggestions.forEach(function(p){
+			// var p = _this.suggestions[i];
 			if (refId === p.id) {
 				blnAccess = true;
 				p.excludeChildren = false;
 			}
-		}
+		});
 		if (blnAccess) {
 			renderSuggestions(elem, _this.suggestions);
 		}
@@ -108,7 +108,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	function insertData(e) {
 		var $el = $(e.currentTarget || e);
 		var $text = $elem.find("input");
-	
+
 		var html = $el.html();
 		// Trigger change event
 		if ($text.val().toLowerCase() !== html.toLowerCase() && _this.onchange) {
@@ -117,23 +117,21 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		if (!values.multiSelect) {
 			var obj = {};
 			var attrs = $el[0].attributes;
-			for (var i = 0; i < attrs.length; i++) {
-				var attr = attrs[i];
+			attrs.forEach(function(attr){
 				if (attr.name !== "class") {
 					$text.attr(attr.name, attr.value);
 				}
-			}
+			});
 
 			$text.val(html);
 		} else {
 			var obj = {};
 			var attrs = $el[0].attributes;
-			for (var i = 0; i < attrs.length; i++) {
-				var attr = attrs[i];
+			attrs.forEach(function(attr){
 				if (attr.name !== "class") {
 					obj[attr.name] = attr.value;
 				}
-			}
+			});
 			obj.name = html;
 			setSuggestionViewerItem(obj);
 			$text.val("");
@@ -223,7 +221,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	}
 	/**
   * Triggers whenever user presses a keyboard key.
-  * <br><b>Code explanation:</b> Handles keys to navigate the items up or down and 
+  * <br><b>Code explanation:</b> Handles keys to navigate the items up or down and
   * when pressed 'Enter', the selected item will be added to the textbox.
   * @constructor
   * @param {object} e - represents key pressed event.
@@ -239,7 +237,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 				var selectables = $elem.find(dot + values.listClass);
 
-				for (var i = 0; i < selectables.length; i++) {
+				for (var i = 0, selectLen = selectables.length; i < selectLen; i++) {
 					var s = selectables.eq(i);
 					if (s[0] === active[0]) {
 						var k = i - 1;
@@ -264,7 +262,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 				var selectables = $elem.find(dot + values.listClass);
 
-				for (var i = 0; i < selectables.length; i++) {
+				for (var i = 0, selectLen = selectables.length; i < selectLen; i++) {
 					var s = selectables.eq(i);
 					if (s[0] === active[0]) {
 						var k = i + 1;
@@ -337,8 +335,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			showSuggestions();
 		}
 		var query = el.val().toLowerCase();
-		for (var i = 0; i < _this.suggestions.length; i++) {
-			var p = _this.suggestions[i];
+		_this.suggestions.forEach(function(p){
 			if(p){
 				if (p.name.toLowerCase().indexOf(query) < 0) {
 					p.excludeParent = true;
@@ -346,7 +343,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 					p.excludeParent = false;
 				}
 			}
-		}
+		});
 		// renderSuggestions(elem, _this.suggestions, el.get(0));
 		renderSuggestions(elem, _this.suggestions);
 
@@ -380,18 +377,19 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		var newList = _.cloneDeep(list);
 		if ($suggestionsViewer.length) {
 			$suggestionsViewer.find(".sv-item").each(function () {
-				for (var i = 0; i < newList.length; i++) {
-					if (newList[i].name.toLowerCase() === this.textContent.toLowerCase()) {
-						newList.splice(i, 1);
+				newList.forEach(function(newListItem, i){
+					if(newListItem){  // sometimes the newListItem variable is coming as undefined
+						if (newListItem.name.toLowerCase() === this.textContent.toLowerCase()) {
+							newList.splice(i, 1);
+						}
 					}
-				}
+				}.bind(this));
 			});
 		}
 		if (newList) {
 			var ul = document.createElement("ul");
 			if(Array.isArray(newList)){
-				for (var i = 0; i < newList.length; i++) {
-					var project = newList[i];
+				newList.forEach(function(project){
 					if(project){
 						if (!project.excludeParent) {
 							var projectHeadingWrapper = document.createElement("div");
@@ -402,7 +400,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 							projectHeadingWrapper.innerHTML = project.name;
 
 							if(filterCurrentIteration(project)){
-								continue;
+								return; // stopping this iteration
 							}
 							for (var key in project) {
 								if (key !== "name") {
@@ -423,7 +421,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 							ul.appendChild(li);
 						}
 					}
-				}
+				});
 			}
 			else if(typeof newList == "object"){
 				for(var key in newList){
@@ -531,9 +529,9 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			var $suggestionsViewer = $elem.find(".suggestions-viewer");
 			// clear the old suggestions
 			$suggestionsViewer.empty();
-			for (var i = 0; i < selectedItems.length; i++) {
-				setSuggestionViewerItem(selectedItems[i]);
-			}
+			selectedItems.forEach(function(selectedItem){
+				setSuggestionViewerItem(selectedItem);
+			});
 		}
 	}
 
@@ -582,7 +580,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	_this.populateExistingData = function(newData){
 
 		// consider multiselect is true/false
-		// consider 
+		// consider
 	}
 };
 document.onclick = function () {

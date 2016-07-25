@@ -28,8 +28,9 @@ var validation = (function(){
 
 	var validateRequiredField = function($requiredField, validatingTokens){
 		var value = $requiredField.val();
-		for(var i = 0; i < validatingTokens.length; i++){
-			var validate = allValidations[validatingTokens[i]];
+		validatingTokens.forEach(function(validatingToken){
+
+			var validate = allValidations[validatingToken];
 			// validating required field based on validating token
 			if(!validate(value, $requiredField)){
 				validatingCounter++;
@@ -40,7 +41,7 @@ var validation = (function(){
 				$requiredField.parents(".field-section").find("[trigger ='"+ validatingTokens[i]+"']").show();
 				return true;
 			}
-		}
+		});
 	}
 
 	// validate single input field

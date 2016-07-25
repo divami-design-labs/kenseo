@@ -18,12 +18,10 @@ var sb = {
         hasSplash = true;
         var files = [];
         var types = ['files', 'modules', 'svgs', 'css'];
-        for (var k = 0; k < types.length; k++) {
-            var type = types[k];
+        types.forEach(function(type){
             if (payload[type]) {
                 var items = payload[type];
-                for (var i = 0; i < items.length; i++) {
-                    var file = items[i];
+                items.forEach(function(file){
 
                     // Checking the file whether it is already loaded or not.
                     if (!scripts[type][file]) {
@@ -32,9 +30,9 @@ var sb = {
                         scripts[type][file] = true;
                         files.push(src);
                     }
-                }
+                });
             }
-        }
+        });
         // files.push(fn);
 
         var head = document.head || document.getElementsByTagName('head')[0];
@@ -127,7 +125,7 @@ var sb = {
 
     svgLoader: function(svgs){
         svgs = _.difference(svgs, Kenseo.alreadyLoadedSVGs);
-        for(var i = 0; i < svgs.length; i++){
+        svgs.forEach(function(svg){
             var scripts = document.getElementsByTagName('script')
             var script = scripts[scripts.length - 1]
             var xhr = new XMLHttpRequest()
@@ -146,9 +144,9 @@ var sb = {
                     script.parentNode.insertBefore(div, script)
                 }
             }
-            xhr.open('get', 'assets/imgs/'+ svgs[i] +'.svg', true)
+            xhr.open('get', 'assets/imgs/'+ svg +'.svg', true)
             xhr.send()
-        }
+        })
         Kenseo.alreadyLoadedSVGs = _.union(Kenseo.alreadyLoadedSVGs, svgs);
     }
 }

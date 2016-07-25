@@ -238,12 +238,14 @@ sb.popup = {
 
                             var obj = {};
                             var attrs = $selectedEl[0].attributes;
-                            for (var i = 0; i < attrs.length; i++) {
-                                var attr = attrs[i];
+			    
+			    // converting nodelist map to an array
+                            Array.prototype.forEach.call(attrs, function(attr){
+                                // var attr = attrs[i];
                                 if (attr.name.indexOf("data-") > -1) {
                                     obj[attr.name.substr(5)] = attr.value;
                                 }
-                            }
+                            });
                             obj.name = $selectedEl.html();
 
                             $currentPopup.find(".choose-existing-file-holder").html(sb.setTemplate("new-file", {
@@ -374,12 +376,11 @@ sb.popup = {
                         if (bln) {
                             var obj = {};
                             var attrs = $selectedEl[0].attributes;
-                            for (var i = 0; i < attrs.length; i++) {
-                                var attr = attrs[i];
+                            Array.prototype.forEach.call(attrs, function(attr){
                                 if (attr.name.indexOf("data-") > -1) {
                                     obj[attr.name.substr(5)] = attr.value;
                                 }
-                            }
+                            });
                             obj.name = $selectedEl.html();
                             sb.popup.renderSharePopupPeople(obj, true);
 
@@ -873,9 +874,9 @@ sb.popup = {
                 $shareArtefactWrapper.empty();
             }
 
-            for (var i = 0; i < teamMembers.length; i++) {
-                $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: teamMembers[i] }));
-            }
+            teamMembers.forEach(function(teamMember){
+                $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: teamMember }));
+            });
         }
         sb.popup.attachEvents();
     }

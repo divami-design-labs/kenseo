@@ -121,8 +121,7 @@ _.extend(sb, {
     getDayWiseData: function getDayWiseData(data) {
         if (data.length) {
             var newData = {};
-            for (var i = 0; i < data.length; i++) {
-                var d = data[i];
+            data.forEach(function(d){
                 var time = sb.timeFormat(d.time, true, true);
                 if (!newData[time]) {
                     newData[time] = [];
@@ -130,7 +129,7 @@ _.extend(sb, {
                 } else {
                     newData[time].push(d);
                 }
-            }
+            });
             return newData;
         } else {
             return false;

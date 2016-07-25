@@ -114,12 +114,12 @@ $(function () {
 	}).on('click', '.share-btn', function () {
 		var container = document.querySelectorAll('.share-artefact-people-item');
 		var sharedDetails = [];
-		for (var i = 0; i < container.length; i++) {
-			var $elem = $(container[i]);
+		container.forEach(function(singleContainer){
+			var $elem = $(singleContainer);
 			var userId = $elem.attr('data-id');
 			var permissions = $elem.find('.user-permission');
-			for (var j = 0; j < permissions.length; j++) {
-				var $permission = $(permissions[j]);
+			permissions.forEach(function(permission){
+				var $permission = $(permission);
 				if ($permission[0].checked == true) {
 					var permissionType = $($permission[0]).attr('data-elem') == 'comment' ? 'c' : 's';
 					sharedDetails.push({
@@ -127,8 +127,8 @@ $(function () {
 						'permission': permissionType
 					});
 				}
-			}
-		}
+			});
+		});
 		// sb.setPopupData(JSON.stringify(sharedDetails), 'sharedTo')
 		console.log('parsing is completed');
 	}).on('click', '.done-btn', function () {

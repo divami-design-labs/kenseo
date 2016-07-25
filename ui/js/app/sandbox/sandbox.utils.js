@@ -191,17 +191,15 @@ var sb = _.extend(sb, (function () {
             var els = $el.find('*');
             els.push($el.get(0));
             var obj = {};
-            for (var i = 0; i < els.length; i++) {
-                var el = els[i];
+            els.forEach(function(el){
                 var attributes = el.attributes;
-                for (var k = 0; k < attributes.length; k++) {
-                    var attr = attributes[k];
+                Array.prototype.forEach.call(attributes, function(attr){
                     var nodeName = attr.nodeName;
                     if(nodeName.indexOf("data-k-") > -1){
                         obj[attr.nodeName.substr(7)] = attr.nodeValue;
                     }
-                }
-            }
+                });
+            });
             var $text = $el.find('.write-comment');
             obj.description = $text.val();
             return obj;
@@ -307,7 +305,7 @@ var sb = _.extend(sb, (function () {
         navigate: function navigate(str, el) {
             // load necessary svgs for popups and overlays
             this.svgLoader(['popups']);
-            
+
             var $self = $(el);
             // var key = $self.data("key");
             // var id = $self.data("id");
@@ -608,10 +606,9 @@ var sb = _.extend(sb, (function () {
                                 $svName.each(function () {
                                     var obj = {};
                                     var attrs = this.attributes;
-                                    for (var i = 0; i < attrs.length; i++) {
-                                        var attr = attrs[i];
+                                    Array.prototype.forEach.call(attrs, function(attr){
                                         obj[attr.name] = attr.value;
-                                    }
+                                    });
                                     obj.name = $(this).html();
                                     arrValue.push(obj);
                                     //TODO: Remove arrayIds concept
@@ -626,10 +623,9 @@ var sb = _.extend(sb, (function () {
 
                                 var obj = {};
                                 var attrs = $text[0].attributes;
-                                for (var i = 0; i < attrs.length; i++) {
-                                    var attr = attrs[i];
+	                        Array.prototype.forEach.call(attrs, function(attr){
                                     obj[attr.name] = attr.value;
-                                }
+                                });
                                 obj.name = $text.val();
                                 arrValue.push(obj);
                                 // settings
@@ -642,10 +638,9 @@ var sb = _.extend(sb, (function () {
                             var text = $text[0];
                             var obj = {};
                             var attrs = text.attributes;
-                            for (var i = 0; i < attrs.length; i++) {
-                                var attr = attrs[i];
+                            Array.prototype.forEach.call(attrs, function(attr){
                                 obj[attr.name] = attr.value;
-                            }
+                            });
                             obj.value = text.value;
                             // settings
                             if (property) {
@@ -658,10 +653,9 @@ var sb = _.extend(sb, (function () {
                                 if (this.checked) {
                                     var obj = {};
                                     var attrs = this.attributes;
-                                    for (var i = 0; i < attrs.length; i++) {
-                                        var attr = attrs[i];
+                                    Array.prototype.forEach.call(attrs, function(attr){
                                         obj[attr.name] = attr.value;
-                                    }
+                                    });
                                     // obj.name = $(this).html();
                                     // arrValue.push(obj);
                                     if (asArray) {
@@ -685,10 +679,9 @@ var sb = _.extend(sb, (function () {
                             var textarea = $textArea[0];
                             var obj = {};
                             var attrs = textarea.attributes;
-                            for (var i = 0; i < attrs.length; i++) {
-                                var attr = attrs[i];
+                            Array.prototype.forEach.call(attrs, function(attr){
                                 obj[attr.name] = attr.value;
-                            }
+                            });
                             obj.value = textarea.value;
                             // settings
                             if (property) {
@@ -699,10 +692,9 @@ var sb = _.extend(sb, (function () {
                             var dropdown = $dropdown[0];
                             var obj = {};
                             var attrs = dropdown.attributes;
-                            for (var i = 0; i < attrs.length; i++) {
-                                var attr = attrs[i];
+                            Array.prototype.forEach.call(attrs, function(attr){
                                 obj[attr.name] = attr.value;
-                            }
+                            });
                             if (property === 'toTime' || property === 'fromTime') {
                                 obj.value = 'T' + dropdown.value + ':00.000' + sb.getTimeZone();
                             } else {

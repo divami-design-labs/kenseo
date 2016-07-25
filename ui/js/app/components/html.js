@@ -2,14 +2,14 @@
 
 /* Requirement - explanation */
 // Please check this link for explanation: https://github.com/kamlekar/HTML-Skinning-Boilerplate/issues/12
-var htmljs = (function(){ 
+var htmljs = (function(){
 	// Global Variable
 	var ignorableElements = [];
 	var htmlClickElements = function(){
 		return document.getElementsByClassName('html-click');
 	}
 	var init = function(){
-		// Registering clicks on clickable 
+		// Registering clicks on clickable
 		// [].forEach.call(htmlClickElements(), function(el){
 		// 	el.addEventListener('click', htmlClick, true);
 		// });
@@ -21,16 +21,14 @@ var htmljs = (function(){
 			// If user hasn't clicked on the clickable element or target element then reset the performed actions on the clickable element(s) and target element(s) with outside clicking is as active.
 			// (For this, we need to add another common attribute to clicked element and target element)
 			var resettableElements = [].slice.call(htmlClickElements()).filter(function(el){
-				for(var j = 0;j < ignorableElements.length; j++){
-					if(el === ignorableElements[j]){
-						return false;
-					}
-				}
-				return true;
+				return !ignorableElements.some(function(ignorableElement){
+					return el === ignorableElement;
+				});
 			})
-			for(var i = 0; i < resettableElements.length; i++){
-				performActions(resettableElements[i], true);
-			}
+
+			resettableElements.forEach(function(resettableElement){
+				performActions(resettableElement, true);
+			})
 
 			// reset
 			resetIgnoringElements();
@@ -51,7 +49,7 @@ var htmljs = (function(){
 		}
 		else{
 			var targetElements = [clickedElement];
-		} 
+		}
 		// After getting the relative element, the added custom attribute is useless
 		// So, remove it
 		clickedElement.removeAttribute('data-html-dummy-selector');
@@ -113,8 +111,7 @@ var htmljs = (function(){
 	}
 
 	function htmlActions(targetElements, toggleType, targetElementClass, removeActiveHtml){
-		for(var i = 0; i < targetElements.length; i++){
-			var targetElement = targetElements[i];
+		targetElements.forEach(function(targetElement){
 			if(removeActiveHtml){
 				unmarkAsActive(targetElement);
 			}
@@ -124,7 +121,7 @@ var htmljs = (function(){
 			else{
 				// Throw error saying - Please provide class name to add to the target element.
 			}
-		}
+		});
 	}
 	return {
 		init: init,

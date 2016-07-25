@@ -268,6 +268,294 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['add-persona-widget'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="add-widget-section">\n\t<button class="add-widget-btn">\n\t\t<span class="add-widget-text">Add Widget</span>\n\t\t<span class="widget-add"><svg><use xlink:href="#add"></use></svg></span>\n\t</button>\n\t<div class="widget-items">\n\t\t<div class="widget-item-name" persona-widget-type="tags">Tags</div>\n\t\t<div class="widget-item-name" persona-widget-type="list-items">List Items</div>\n\t\t<div class="widget-item-name" persona-widget-type="progress-indicators">Progress Indicators</div>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['persona-indicator'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="persona-indicator-holder template-section">\n\t';
+ var percentage = percentage || 50 ;
+__p += '\n\t<div class="template-section--close">\n\t\t<svg><use xlink:href="#close"></use></svg>\n\t</div>\n\t<div class="persona-indicator-name editable">' +
+((__t = ( heading )) == null ? '' : __t) +
+'<br />' +
+((__t = ( caption )) == null ? '' : __t) +
+'</div>\n\t<div class="persona-indicator">\n\t\t<div class="persona-indicator-seek-bar" style="width: ' +
+((__t = ( percentage )) == null ? '' : __t) +
+'%"></div>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['persona'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="persona-template">\n\t' +
+((__t = ( sb.setTemplate('add-persona-widget') )) == null ? '' : __t) +
+'\n\t<div class="persona-template-header">\n\t\t<div class="persona-personal-details-top">\n\t\t\t<span class="persona-name caps editable">full name, </span>\n\t\t\t<span class="persona-age caps editable">age</span>\n\t\t</div>\n\t\t<div class="persona-project-name editable">Project</div>\n\t</div>\n\t<div class="persona-cards-holder">\n\t\t<div class="persona-cards-holder--left">\n\t\t\t<div class="persona-personal-details persona-card template-section persona-card--no-highlight">\n\t\t\t\t<!-- <div class="persona-card--close template-section--close">\n\t\t\t\t\t<svg><use xlink:href="#close"></use></svg>\n\t\t\t\t</div> -->\n\t\t\t\t<div class="persona-image">\n\t\t\t\t\t<label class="persona--img-uploader">\n\t\t\t\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\n\t\t\t\t\t\t<input class="input-hidden persona-img-uploader-input" type="file"></input>\n\t\t\t\t\t</label>\n\t\t\t\t\t<img class="persona-img" src="http://dummyimage.com/310x205" alt="persona image" />\n\t\t\t\t</div>\n\t\t\t\t<div class="persona-personal-details-bottom">\n\t\t\t\t\t<div class="persona-caption editable">Persona Caption</div>\n\t\t\t\t\t<div class="persona-occupation editable">Occupation: Job Title</div>\n\t\t\t\t\t<div class="persona-location editable">Location: City, State</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class="persona-description persona-card template-section persona-card--no-highlight">\n\t\t\t\t<!-- <div class="persona-card--close template-section--close">\n\t\t\t\t\t<svg><use xlink:href="#close"></use></svg>\n\t\t\t\t</div> -->\n\t\t\t\t<div class="editable">A short biographical description of the persona that provides a quick insight into the lifestyle, personality and professional traits of the persona that would be helpful while coming up with designs. Make sure these details are related to the primary use case of the product so that all the details are covered within the given context.</div>\n\t\t\t</div>\n\t\t\t' +
+((__t = ( sb.setTemplate('widget-persona-tags') )) == null ? '' : __t) +
+'\n\t\t</div>\n\t\t<div class="persona-cards-holder--mid">\n\n\t\t\t' +
+((__t = ( sb.setTemplate('widget-persona-list-items', {
+				heading: "PERSONA DIFFERENTIATORS",
+				items: [
+					"Student, part-time copywriter with a fair amount of financial independence",
+					"Busy youngster, juggling between college, work, friends and personal interests",
+					"A true Tennis fan and a player himself",
+					"Active on Social Networking sites. Keeps in touch with friends. Got registered from his mobile as well",
+					"Loves to try new trends in technology and gadgets"
+				]
+			}) )) == null ? '' : __t) +
+'\n\n\t\t\t' +
+((__t = ( sb.setTemplate('widget-persona-list-items', {
+				heading: "GOALS",
+				items: [
+					"Need a computer to get help in academics in planning and scheduling his tasks, prepare assignments etc.",
+					"Handle official work from home - OSen prefers to work and submit his work from home.",
+					"Stay up-to-date on social and other events",
+					"Stay in touch with Family and Friends"
+				]
+			}) )) == null ? '' : __t) +
+'\n\n\t\t\t' +
+((__t = ( 
+				sb.setTemplate('widget-persona-list-items', {
+					heading: "PAIN POINTS",
+					items: [
+						"Manage college admission applications on the go - As he spends most of his time outside his home during weekends, he expects to take help from a handy computer that he could use from anywhere",
+						"Efficient Work Management - A handicap of not having a computer forces him to stay at office to get his work done. A personal computer solves his problems to a great extent",
+						"Manage Music files - As a music aficionado, he expects to have a personal computer that he could use to manage his music files.",
+						"Work on the move"
+					]
+				})
+			)) == null ? '' : __t) +
+'\n\t\t</div>\n\t\t<div class="persona-cards-holder--right">\n\t\t\t' +
+((__t = ( sb.setTemplate('widget-progress-indicators', {
+				indicators: [{
+					heading: 'Communication',
+					caption: 'Stay in touch with family and friends',
+					percentage: 45
+				},{
+					heading: 'Work',
+					caption: 'Accomplish his tasks',
+					percentage: 70
+				},{
+					heading: 'Entertainment',
+					caption: 'Sports, Music etc.'
+				}]
+			}) )) == null ? '' : __t) +
+'\n\t\t</div>\n\t</div>\n\t<div class="current-artefact-info fixed-bar">\n        <div>\n            <a class="popup-click" data-url="create-artefact">Create Artefacts > </a><a class="popup-click" data-url="create-artefact" data-index="1">Persona Templates >  </a>\n            Persona template 1 \n        </div>\n    </div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['widget-persona-list-items'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="persona-points-holder persona-card template-section">\n\t<div class="persona-card--close template-section--close">\n\t\t<svg><use xlink:href="#close"></use></svg>\n\t</div>\n\t<div class="persona-card-heading editable">' +
+((__t = ( heading )) == null ? '' : __t) +
+'</div>\n\t<ul class="persona-points editable">\n\t\t';
+ _.each(items, function(item){ ;
+__p += '\n\t\t\t<li class="persona-point">' +
+((__t = ( item )) == null ? '' : __t) +
+'</li>\n\t\t';
+ }) ;
+__p += '\n\t</ul></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['widget-persona-tags'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="persona-traits persona-card template-section">\n\t<div class="persona-card--close template-section--close">\n\t\t<svg><use xlink:href="#close"></use></svg>\n\t</div>\n\t<div class="persona-card-heading editable">traits</div>\n\t<div class="persona-trait-item">\n\t\t<span class="persona-trait-item-text editable">Introvert</span>\n\t\t<span class="persona-trait-item-close widget-close">\n\t\t\t<svg class="tilt"><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div>\n\t<div class="persona-trait-item">\n\t\t<span class="persona-trait-item-text editable">Conservative</span>\n\t\t<span class="persona-trait-item-close widget-close">\n\t\t\t<svg class="tilt"><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div>\n\t<div class="persona-trait-item">\n\t\t<span class="persona-trait-item-text editable">Tag name</span>\n\t\t<span class="persona-trait-item-close persona-trait-item--add widget-close">\n\t\t\t<svg><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['widget-progress-indicators'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="persona-indicators persona-card template-section">\n\t<div class="persona-card--close template-section--close">\n\t\t<svg><use xlink:href="#close"></use></svg>\n\t</div>\n\t<div class="persona-card-heading editable">persona indicators</div>\n\t';
+ for(var indicator in indicators){ ;
+__p += '\n\t\t' +
+((__t = ( sb.setTemplate('persona-indicator', indicators[indicator]) )) == null ? '' : __t) +
+'\n\t';
+ } ;
+__p += '\n\t<div class="persona-indicator--add">\n\t\t<span class="widget-add">\n\t\t\t<svg><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['create-artefact'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="popup popup-large">\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\n\t<div class="popup-body">\n\t\t<div class="popup-body-wrapper">\n\t\t\t<div class="templates-viewer">\n\t\t\t\t<div class="template-item nav-btn" data-index="1" template-type="Persona"></div>\n\t\t\t\t<!-- <div class="template-item nav-btn" data-index="2" template-type="Document"></div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['persona-templates'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="popup popup-large">\n\t';
+ console.dir(data) ;
+__p += '\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\n\t<div class="popup-body">\n\t\t<div class="popup-body-wrapper">\n\t\t\t';
+ if(data.index > 0){ ;
+__p += '\n\t\t\t<button class="nav-btn" data-index="0">Back</button>\n\t\t\t';
+ } ;
+__p += '\n\t\t\t<div class="templates-viewer">\n\t\t\t\t<div class="template-item nav-btn" data-href="#persona/1" template-type="Persona 1"></div>\n\t\t\t\t<!-- <div class="template-item nav-btn" data-href="#persona/2" template-type="Persona 2"></div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['dashboard'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -440,115 +728,6 @@ __p += '\r\n\t\t<div class="project-action" data-url="unarchive-project" data-in
 __p += '\r\n\t</div>\r\n\t<a href="#projectpage/' +
 ((__t = ( data.id )) == null ? '' : __t) +
 '" class="btn-project-open">Open Project</a>\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['header'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- if(data.picture !== "assets/imgs/avatar.svg"){ ;
-__p += '\r\n\t<img width="50" height="50" src="' +
-((__t = ( data.picture )) == null ? '' : __t) +
-'"/>\r\n';
- } else { ;
-__p += '\r\n\t<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>\r\n';
- } ;
-__p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item">Profile</div>\r\n    <div class="sub-menu-item">Settings</div>\r\n    <div class="separator"></div>\r\n    <a href="../server?logout" class="sub-menu-item">Log Out</a>\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['search-results'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- _.each(data.projects, function(p){ ;
-__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-folder">\r\n    \t<svg><use xlink:href="#search-folder"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
-((__t = ( p.matchedString )) == null ? '' : __t) +
-'</div> \r\n</div>\r\n';
- }); ;
-__p += '\r\n';
- _.each(data.artefacts, function(a){ ;
-__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-file">\r\n    \t<svg><use xlink:href="#search-file"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
-((__t = ( a.matchedString )) == null ? '' : __t) +
-'</div> \r\n</div>\r\n';
- }); ;
-__p += '\r\n';
- _.each(data.images, function(i){ ;
-__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-pic">\r\n    \t<svg><use xlink:href="#search-pic"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
-((__t = ( i.matchedString )) == null ? '' : __t) +
-'</div> \r\n</div>\r\n';
- }); ;
-__p += '\r\n';
- _.each(data.users, function(u){ ;
-__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-folder">\r\n    \t<svg><use xlink:href="#search-folder"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
-((__t = ( u.matchedString )) == null ? '' : __t) +
-'</div> \r\n</div>\r\n';
- }); ;
-
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['search'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="search-section">\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="custom-search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>\r\n';
 
 }
 return __p
@@ -1145,6 +1324,115 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['header'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ if(data.picture !== "assets/imgs/avatar.svg"){ ;
+__p += '\r\n\t<img width="50" height="50" src="' +
+((__t = ( data.picture )) == null ? '' : __t) +
+'"/>\r\n';
+ } else { ;
+__p += '\r\n\t<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>\r\n';
+ } ;
+__p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item">Profile</div>\r\n    <div class="sub-menu-item">Settings</div>\r\n    <div class="separator"></div>\r\n    <a href="../server?logout" class="sub-menu-item">Log Out</a>\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['search-results'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ _.each(data.projects, function(p){ ;
+__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-folder">\r\n    \t<svg><use xlink:href="#search-folder"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
+((__t = ( p.matchedString )) == null ? '' : __t) +
+'</div> \r\n</div>\r\n';
+ }); ;
+__p += '\r\n';
+ _.each(data.artefacts, function(a){ ;
+__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-file">\r\n    \t<svg><use xlink:href="#search-file"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
+((__t = ( a.matchedString )) == null ? '' : __t) +
+'</div> \r\n</div>\r\n';
+ }); ;
+__p += '\r\n';
+ _.each(data.images, function(i){ ;
+__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-pic">\r\n    \t<svg><use xlink:href="#search-pic"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
+((__t = ( i.matchedString )) == null ? '' : __t) +
+'</div> \r\n</div>\r\n';
+ }); ;
+__p += '\r\n';
+ _.each(data.users, function(u){ ;
+__p += '\r\n<div class="search-row">\r\n    <div class="search-row-img search-img-type-folder">\r\n    \t<svg><use xlink:href="#search-folder"></use></svg>\r\n    </div>\r\n    <div  class="search-row-txt">' +
+((__t = ( u.matchedString )) == null ? '' : __t) +
+'</div> \r\n</div>\r\n';
+ }); ;
+
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['search'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="search-section">\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="custom-search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['activity'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -1264,9 +1552,13 @@ __p += ' - Unsupported format';
  } ;
 __p += '">' +
 ((__t = ( data.title )) == null ? '' : __t) +
-'</div>\r\n        <div class="rr-project-name ellipsis">' +
+'</div>\r\n        ';
+ if(!data['is_project_page']){ ;
+__p += '\r\n        <div class="rr-project-name ellipsis">' +
 ((__t = ( data['project_name'] )) == null ? '' : __t) +
-'</div>\r\n\t\t<div class="rr-details ellipsis" title="' +
+'</div>\r\n        ';
+ } ;
+__p += '\r\n\t\t<div class="rr-details ellipsis" title="' +
 ((__t = ( sb.timeFormat(data['artefact_time']) )) == null ? '' : __t) +
 ' by ' +
 ((__t = ( data['person_name'] )) == null ? '' : __t) +
@@ -1711,6 +2003,96 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['meetingnotes'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ Kenseo.populate.meeting = data ;
+__p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">       \r\n        <div class="projects-heading-icon">\r\n            <svg><use xlink:href="#projects"></use></svg>\r\n        </div>       \r\n        <a href="#projects" class="heading-text-project">Projects &gt; </a>\r\n        <a href="#projectpage/' +
+((__t = ( data.projectId )) == null ? '' : __t) +
+'" class="heading-text-project-name">' +
+((__t = ( data.projectName )) == null ? '' : __t) +
+'</a>  \r\n        <span class="heading-date">(' +
+((__t = ( sb.timeFormat(data.startTime, true, true) )) == null ? '' : __t) +
+')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
+((__t = ( data.projectName )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Artefact</div>\r\n                <div class="meta-text">' +
+((__t = ( data.artefactName )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Sender</div>\r\n                <div class="meta-text">' +
+((__t = ( data.createdBy )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Agenda</div>\r\n                <div class="meta-text">' +
+((__t = ( data.agenda )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Scheduled On</div>\r\n                <div class="meta-text">\r\n                    <div>Dec 04, 2014</div>\r\n                    <div>11:00 am to 12:00 pm</div>\r\n                </div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Venue</div>\r\n                <div class="meta-text">' +
+((__t = ( data.venue )) == null ? '' : __t) +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Recipients</div>\r\n                ';
+ _.each(data.participants, function(p){ ;
+__p += '\r\n                <div class="meta-text">' +
+((__t = ( p.participentName )) == null ? '' : __t) +
+'</div>\r\n\t\t\t\t';
+ }); ;
+__p += '\r\n            </div>\r\n        </div>\r\n        <div class="meeting-right-section">\r\n            <div class="meeting-people-section">\r\n                <div class="meeting-people-active">\r\n                \t<div class=\'currentPersonNotes acitiveNotesPartcipant\' data-user="' +
+((__t = ( data.participantId )) == null ? '' : __t) +
+'">\r\n\t                    <div class="people-img-wrapper">\r\n\t                        <img src="' +
+((__t = (data.participantPic)) == null ? '' : __t) +
+'" />\r\n\t                    </div>\r\n\t                    <span class="meeting-people-name">\r\n\t                        ' +
+((__t = (data.participantName)) == null ? '' : __t) +
+'\r\n\t                    </span>\r\n                \t</div>\r\n\t                ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n\t            \t\t<div class=\'currentPersonNotes\' data-user="' +
+((__t = ( p.userId )) == null ? '' : __t) +
+'">\r\n\t\t            \t\t<div class="meeting-people-active">\r\n\t\t\t                    <div class="people-img-wrapper">\r\n\t\t\t                        <img src="' +
+((__t = (p.profilePic)) == null ? '' : __t) +
+'" />\r\n\t\t\t                    </div>\r\n\t\t\t                    <span class="meeting-people-name">\r\n\t\t\t                        ' +
+((__t = (p.userName)) == null ? '' : __t) +
+'\r\n\t\t\t                    </span>\r\n\t\t\t                </div>\r\n\t            \t';
+ }); ;
+__p += '\r\n               </div>\r\n                <div class="meeting-people-other">\r\n                    <div class="people-img-wrapper participant active" data-user=' +
+((__t = (data.participantId)) == null ? '' : __t) +
+'>\r\n                        <img src="' +
+((__t = (data.participantPic)) == null ? '' : __t) +
+'" />\r\n                    </div>\r\n                    <div class="v-separator"></div>\r\n                    ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n                    <div class="people-img-wrapper participant" data-user=' +
+((__t = (p.userId)) == null ? '' : __t) +
+'>\r\n                        <img src="' +
+((__t = (p.profilePic)) == null ? '' : __t) +
+'" />\r\n                    </div>\r\n                    ';
+ }); ;
+__p += '\r\n                </div>\r\n            </div>\r\n            <div class="text-editor-section">\r\n                <div class="text-actions-section">\r\n                    <button name="text-b" text-name="bold">Bold</button>\r\n                    <button name="text-i" text-name="italic">Italic</button>\r\n                    <button name="text-u" text-name="underline">Underline</button>\r\n                </div>\r\n                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="' +
+((__t = ( data.participantId )) == null ? '' : __t) +
+'">\r\n                \t' +
+((__t = (data.userNotes)) == null ? '' : __t) +
+'\r\n                </div>\r\n                ';
+ _.each(data.notes, function(p){ ;
+__p += '\r\n            \t\t<div class="view-notes" data-user="' +
+((__t = ( p.userId )) == null ? '' : __t) +
+'" >\r\n            \t\t\t' +
+((__t = ( p.notes)) == null ? '' : __t) +
+'\r\n        \t\t\t</div>\r\n            \t';
+ }); ;
+__p += '\r\n               \r\n            </div>\r\n            <label class="checkbox">\r\n                <input class="existing-files-chk" type="checkbox">\r\n                <span>Let others see my notes</span>\r\n            </label>\r\n        </div>\r\n    </div>\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['menu-header'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -1973,13 +2355,19 @@ __p += '<div class="overlay summary-section-overlay view">\r\n    <div class="su
  for(var v in data.timeline){ ;
 __p += '\r\n\t                <div class="time-frame-holder mg-holder">\r\n\t                    <div class="time-frame-item mg-item">\r\n\t                        <div class="time-frame">\r\n\t                            ';
 _.each(data.timeline[v], function(item) {;
-__p += '\r\n                            \t\t\r\n                            \t\t\t';
+__p += '\r\n\r\n                            \t\t\t';
  if(item.type === "links") {;
 __p += '\r\n                        \t\t\t\t\t <div class="file-type top-viewer">\r\n                        \t\t\t\t';
  } else if(item.type === "shared") {;
-__p += '\r\n                        \t\t\t\t\t<div class="user-type top-viewer">\r\n                        \t\t\t\t\t<div class="user-type-viewer top-hover-viewer">\r\n\t\t\t                                    <div class="user-type-content">\r\n\t\t\t                                        <div class="tf-images">\r\n\t\t\t                                            <img src=' +
+__p += '\r\n                        \t\t\t\t\t<div class="user-type top-viewer">\r\n                        \t\t\t\t\t<div class="user-type-viewer top-hover-viewer">\r\n\t\t\t                                    <div class="user-type-content">\r\n\t\t\t                                        <div class="tf-images">\r\n                                                        ';
+ if(item.profPic !== "assets/imgs/avatar.svg"){ ;
+__p += '\r\n                                                            <img src=' +
 ((__t = ( item.profPic )) == null ? '' : __t) +
-' />\r\n\t\t\t                                        </div>\r\n\t\t\t                                        <div class="tf-more-people">' +
+' />\r\n                                                \t\t';
+ } else { ;
+__p += '\r\n                                                \t\t\t<svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>\r\n                                                \t\t';
+ } ;
+__p += '\r\n\t\t\t                                        </div>\r\n\t\t\t                                        <div class="tf-more-people">' +
 ((__t = ( sb.timeFormat(item.shared_date,true,true))) == null ? '' : __t) +
 ' @' +
 ((__t = ( sb.getTime(item.shared_date) )) == null ? '' : __t) +
@@ -2017,11 +2405,17 @@ __p += '\r\n                <div class="time-frame-holder mg-holder">\r\n       
 ((__t = ( sb.timeFormat(new Date(), true, true))) == null ? '' : __t) +
 '</div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class="slider-component">\r\n                <div class="slider-left"></div>\r\n                <div class="slider-right"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class="summary-section-footer">\r\n        <div class="summary-footer-item">Summary</div>\r\n        <div class="summary-footer-item">Notes</div>\r\n    </div>\r\n\r\n\r\n\r\n    <div class="summary-section-below-content">\r\n        <div class="summary-people-section">\r\n            <div class="sub-heading-section">\r\n                <div class="artifacts-heading sub-heading">\r\n                    <div class="sub-heading-label">Shared with</div>\r\n                    <div class="sub-heading-add-wrapper">\r\n                        <div class="sub-heading-add-icon">\r\n                            <svg><use xlink:href="#add"></use></svg>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class="sub-section-content">\r\n                 ';
  _.each(data.sharedTo, function(d){ ;
-__p += '\r\n\t                 <div class="summary-people-item">\r\n\t                    <div class="sp-left">\r\n\t                        <img title"' +
+__p += '\r\n\t                 <div class="summary-people-item">\r\n\t                    <div class="sp-left">\r\n                            ';
+ if(d.userImage !== "assets/imgs/avatar.svg"){ ;
+__p += '\r\n                                <img title="' +
 ((__t = ( d.name)) == null ? '' : __t) +
 '" src="' +
-((__t = ( d.userImage)) == null ? '' : __t) +
-'" />\r\n\t                    </div>\r\n\t                    <div class="sp-right">\r\n\t                        <div class="sp-name ellipsis" title"' +
+((__t = ( d.userImage )) == null ? '' : __t) +
+'" />\r\n                    \t\t';
+ } else { ;
+__p += '\r\n                    \t\t\t<svg><use xlink:href="#avatar"></use></svg>\r\n                    \t\t';
+ } ;
+__p += '\r\n\t                    </div>\r\n\t                    <div class="sp-right">\r\n\t                        <div class="sp-name ellipsis" title"' +
 ((__t = ( d.name)) == null ? '' : __t) +
 '">' +
 ((__t = ( d.name)) == null ? '' : __t) +
@@ -2029,7 +2423,7 @@ __p += '\r\n\t                 <div class="summary-people-item">\r\n\t          
 ((__t = ( d['comment_count'] )) == null ? '' : __t) +
 '</div>\r\n                                </div>\r\n\t                            <div class="status-c secondary-status-rr"></div>\r\n\t                        </div>\r\n\t                    </div>\r\n\t                </div>\r\n                ';
  }); ;
-__p += '\r\n            </div>\r\n        </div>\r\n        <div class="summary-versions-section">\r\n            <div class="sub-heading-section">\r\n                <div class="sub-heading">\r\n                    <div class="sub-heading-label">Versions</div>\r\n                    <div class="sub-heading-add-wrapper">\r\n                        <div class="sub-heading-add-icon">\r\n                            <svg><use xlink:href="#add"></use></svg>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class="sub-section-content">\r\n                <a class="summary-compare-btn" href="">Compare selected</a>\r\n                \r\n                ';
+__p += '\r\n            </div>\r\n        </div>\r\n        <div class="summary-versions-section">\r\n            <div class="sub-heading-section">\r\n                <div class="sub-heading">\r\n                    <div class="sub-heading-label">Versions</div>\r\n                    <div class="sub-heading-add-wrapper">\r\n                        <div class="sub-heading-add-icon">\r\n                            <svg><use xlink:href="#add"></use></svg>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class="sub-section-content">\r\n                <a class="summary-compare-btn" href="">Compare selected</a>\r\n\r\n                ';
  _.each(data.versions, function(d){ ;
 __p += '\r\n                    ';
  if(d.artefact_ver_id !== data.basicDetails.versionId){ ;
@@ -2752,133 +3146,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['meetingnotes'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- Kenseo.populate.meeting = data ;
-__p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">       \r\n        <div class="projects-heading-icon">\r\n            <svg><use xlink:href="#projects"></use></svg>\r\n        </div>       \r\n        <a href="#projects" class="heading-text-project">Projects &gt; </a>\r\n        <a href="#projectpage/' +
-((__t = ( data.projectId )) == null ? '' : __t) +
-'" class="heading-text-project-name">' +
-((__t = ( data.projectName )) == null ? '' : __t) +
-'</a>  \r\n        <span class="heading-date">(' +
-((__t = ( sb.timeFormat(data.startTime, true, true) )) == null ? '' : __t) +
-')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
-((__t = ( data.projectName )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Artefact</div>\r\n                <div class="meta-text">' +
-((__t = ( data.artefactName )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Sender</div>\r\n                <div class="meta-text">' +
-((__t = ( data.createdBy )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Agenda</div>\r\n                <div class="meta-text">' +
-((__t = ( data.agenda )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Scheduled On</div>\r\n                <div class="meta-text">\r\n                    <div>Dec 04, 2014</div>\r\n                    <div>11:00 am to 12:00 pm</div>\r\n                </div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Venue</div>\r\n                <div class="meta-text">' +
-((__t = ( data.venue )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Recipients</div>\r\n                ';
- _.each(data.participants, function(p){ ;
-__p += '\r\n                <div class="meta-text">' +
-((__t = ( p.participentName )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t';
- }); ;
-__p += '\r\n            </div>\r\n        </div>\r\n        <div class="meeting-right-section">\r\n            <div class="meeting-people-section">\r\n                <div class="meeting-people-active">\r\n                \t<div class=\'currentPersonNotes acitiveNotesPartcipant\' data-user="' +
-((__t = ( data.participantId )) == null ? '' : __t) +
-'">\r\n\t                    <div class="people-img-wrapper">\r\n\t                        <img src="' +
-((__t = (data.participantPic)) == null ? '' : __t) +
-'" />\r\n\t                    </div>\r\n\t                    <span class="meeting-people-name">\r\n\t                        ' +
-((__t = (data.participantName)) == null ? '' : __t) +
-'\r\n\t                    </span>\r\n                \t</div>\r\n\t                ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n\t            \t\t<div class=\'currentPersonNotes\' data-user="' +
-((__t = ( p.userId )) == null ? '' : __t) +
-'">\r\n\t\t            \t\t<div class="meeting-people-active">\r\n\t\t\t                    <div class="people-img-wrapper">\r\n\t\t\t                        <img src="' +
-((__t = (p.profilePic)) == null ? '' : __t) +
-'" />\r\n\t\t\t                    </div>\r\n\t\t\t                    <span class="meeting-people-name">\r\n\t\t\t                        ' +
-((__t = (p.userName)) == null ? '' : __t) +
-'\r\n\t\t\t                    </span>\r\n\t\t\t                </div>\r\n\t            \t';
- }); ;
-__p += '\r\n               </div>\r\n                <div class="meeting-people-other">\r\n                    <div class="people-img-wrapper participant active" data-user=' +
-((__t = (data.participantId)) == null ? '' : __t) +
-'>\r\n                        <img src="' +
-((__t = (data.participantPic)) == null ? '' : __t) +
-'" />\r\n                    </div>\r\n                    <div class="v-separator"></div>\r\n                    ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n                    <div class="people-img-wrapper participant" data-user=' +
-((__t = (p.userId)) == null ? '' : __t) +
-'>\r\n                        <img src="' +
-((__t = (p.profilePic)) == null ? '' : __t) +
-'" />\r\n                    </div>\r\n                    ';
- }); ;
-__p += '\r\n                </div>\r\n            </div>\r\n            <div class="text-editor-section">\r\n                <div class="text-actions-section">\r\n                    <button name="text-b" text-name="bold">Bold</button>\r\n                    <button name="text-i" text-name="italic">Italic</button>\r\n                    <button name="text-u" text-name="underline">Underline</button>\r\n                </div>\r\n                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="' +
-((__t = ( data.participantId )) == null ? '' : __t) +
-'">\r\n                \t' +
-((__t = (data.userNotes)) == null ? '' : __t) +
-'\r\n                </div>\r\n                ';
- _.each(data.notes, function(p){ ;
-__p += '\r\n            \t\t<div class="view-notes" data-user="' +
-((__t = ( p.userId )) == null ? '' : __t) +
-'" >\r\n            \t\t\t' +
-((__t = ( p.notes)) == null ? '' : __t) +
-'\r\n        \t\t\t</div>\r\n            \t';
- }); ;
-__p += '\r\n               \r\n            </div>\r\n            <label class="checkbox">\r\n                <input class="existing-files-chk" type="checkbox">\r\n                <span>Let others see my notes</span>\r\n            </label>\r\n        </div>\r\n    </div>\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['attributes'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- if(data && typeof data == "object"){
-	var attributes = data;
-	for(var key in attributes){ ;
-__p += '\r\n\t\t' +
-((__t = ( key )) == null ? '' : __t) +
-' = "' +
-((__t = ( attributes[key] )) == null ? '' : __t) +
-'"\r\n';
-	}
- } ;
-__p += '\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['button'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -2937,9 +3204,7 @@ with (obj) {
 
  var buttons = data.buttons ;
 __p += '\r\n';
- for(var i=0; i < buttons.length; i++){ ;
-__p += '\r\n\t';
- var b = buttons[i]; ;
+ _.each(buttons, function(b){ ;
 __p += '\r\n\t';
  if(!isNaN(Number(data.index))){ ;
 __p += '\r\n\t\t';
@@ -2949,8 +3214,8 @@ __p += '\r\n\t';
 __p += '\r\n\t' +
 ((__t = ( sb.toolbox.button({data: b}) )) == null ? '' : __t) +
 '\r\n';
- }; ;
-
+ }) ;
+__p += '\r\n';
 
 }
 return __p
@@ -3301,274 +3566,23 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['create-artefact'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="popup popup-large">\n\t' +
-((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\n\t<div class="popup-body">\n\t\t<div class="popup-body-wrapper">\n\t\t\t<div class="templates-viewer">\n\t\t\t\t<div class="template-item nav-btn" data-index="1" template-type="Persona"></div>\n\t\t\t\t<!-- <div class="template-item nav-btn" data-index="2" template-type="Document"></div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['persona-templates'] = function(obj) {
+(window['templates'] = window['templates'] || {})['attributes'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class="popup popup-large">\n\t';
- console.dir(data) ;
-__p += '\n\t' +
-((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\n\t<div class="popup-body">\n\t\t<div class="popup-body-wrapper">\n\t\t\t';
- if(data.index > 0){ ;
-__p += '\n\t\t\t<button class="nav-btn" data-index="0">Back</button>\n\t\t\t';
+
+ if(data && typeof data == "object"){
+	var attributes = data;
+	for(var key in attributes){ ;
+__p += '\r\n\t\t' +
+((__t = ( key )) == null ? '' : __t) +
+' = "' +
+((__t = ( attributes[key] )) == null ? '' : __t) +
+'"\r\n';
+	}
  } ;
-__p += '\n\t\t\t<div class="templates-viewer">\n\t\t\t\t<div class="template-item nav-btn" data-href="#persona/1" template-type="Persona 1"></div>\n\t\t\t\t<!-- <div class="template-item nav-btn" data-href="#persona/2" template-type="Persona 2"></div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['add-persona-widget'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="add-widget-section">\n\t<button class="add-widget-btn">\n\t\t<span class="add-widget-text">Add Widget</span>\n\t\t<span class="widget-add"><svg><use xlink:href="#add"></use></svg></span>\n\t</button>\n\t<div class="widget-items">\n\t\t<div class="widget-item-name" persona-widget-type="tags">Tags</div>\n\t\t<div class="widget-item-name" persona-widget-type="list-items">List Items</div>\n\t\t<div class="widget-item-name" persona-widget-type="progress-indicators">Progress Indicators</div>\n\t</div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['persona-indicator'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="persona-indicator-holder template-section">\n\t';
- var percentage = percentage || 50 ;
-__p += '\n\t<div class="template-section--close">\n\t\t<svg><use xlink:href="#close"></use></svg>\n\t</div>\n\t<div class="persona-indicator-name editable">' +
-((__t = ( heading )) == null ? '' : __t) +
-'<br />' +
-((__t = ( caption )) == null ? '' : __t) +
-'</div>\n\t<div class="persona-indicator">\n\t\t<div class="persona-indicator-seek-bar" style="width: ' +
-((__t = ( percentage )) == null ? '' : __t) +
-'%"></div>\n\t</div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['persona'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="persona-template">\n\t' +
-((__t = ( sb.setTemplate('add-persona-widget') )) == null ? '' : __t) +
-'\n\t<div class="persona-template-header">\n\t\t<div class="persona-personal-details-top">\n\t\t\t<span class="persona-name caps editable">full name, </span>\n\t\t\t<span class="persona-age caps editable">age</span>\n\t\t</div>\n\t\t<div class="persona-project-name editable">Project</div>\n\t</div>\n\t<div class="persona-cards-holder">\n\t\t<div class="persona-cards-holder--left">\n\t\t\t<div class="persona-personal-details persona-card template-section persona-card--no-highlight">\n\t\t\t\t<!-- <div class="persona-card--close template-section--close">\n\t\t\t\t\t<svg><use xlink:href="#close"></use></svg>\n\t\t\t\t</div> -->\n\t\t\t\t<div class="persona-image">\n\t\t\t\t\t<label class="persona--img-uploader">\n\t\t\t\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\n\t\t\t\t\t\t<input class="input-hidden persona-img-uploader-input" type="file"></input>\n\t\t\t\t\t</label>\n\t\t\t\t\t<img class="persona-img" src="http://dummyimage.com/310x205" alt="persona image" />\n\t\t\t\t</div>\n\t\t\t\t<div class="persona-personal-details-bottom">\n\t\t\t\t\t<div class="persona-caption editable">Persona Caption</div>\n\t\t\t\t\t<div class="persona-occupation editable">Occupation: Job Title</div>\n\t\t\t\t\t<div class="persona-location editable">Location: City, State</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class="persona-description persona-card template-section persona-card--no-highlight">\n\t\t\t\t<!-- <div class="persona-card--close template-section--close">\n\t\t\t\t\t<svg><use xlink:href="#close"></use></svg>\n\t\t\t\t</div> -->\n\t\t\t\t<div class="editable">A short biographical description of the persona that provides a quick insight into the lifestyle, personality and professional traits of the persona that would be helpful while coming up with designs. Make sure these details are related to the primary use case of the product so that all the details are covered within the given context.</div>\n\t\t\t</div>\n\t\t\t' +
-((__t = ( sb.setTemplate('widget-persona-tags') )) == null ? '' : __t) +
-'\n\t\t</div>\n\t\t<div class="persona-cards-holder--mid">\n\n\t\t\t' +
-((__t = ( sb.setTemplate('widget-persona-list-items', {
-				heading: "PERSONA DIFFERENTIATORS",
-				items: [
-					"Student, part-time copywriter with a fair amount of financial independence",
-					"Busy youngster, juggling between college, work, friends and personal interests",
-					"A true Tennis fan and a player himself",
-					"Active on Social Networking sites. Keeps in touch with friends. Got registered from his mobile as well",
-					"Loves to try new trends in technology and gadgets"
-				]
-			}) )) == null ? '' : __t) +
-'\n\n\t\t\t' +
-((__t = ( sb.setTemplate('widget-persona-list-items', {
-				heading: "GOALS",
-				items: [
-					"Need a computer to get help in academics in planning and scheduling his tasks, prepare assignments etc.",
-					"Handle official work from home - OSen prefers to work and submit his work from home.",
-					"Stay up-to-date on social and other events",
-					"Stay in touch with Family and Friends"
-				]
-			}) )) == null ? '' : __t) +
-'\n\n\t\t\t' +
-((__t = ( 
-				sb.setTemplate('widget-persona-list-items', {
-					heading: "PAIN POINTS",
-					items: [
-						"Manage college admission applications on the go - As he spends most of his time outside his home during weekends, he expects to take help from a handy computer that he could use from anywhere",
-						"Efficient Work Management - A handicap of not having a computer forces him to stay at office to get his work done. A personal computer solves his problems to a great extent",
-						"Manage Music files - As a music aficionado, he expects to have a personal computer that he could use to manage his music files.",
-						"Work on the move"
-					]
-				})
-			)) == null ? '' : __t) +
-'\n\t\t</div>\n\t\t<div class="persona-cards-holder--right">\n\t\t\t' +
-((__t = ( sb.setTemplate('widget-progress-indicators', {
-				indicators: [{
-					heading: 'Communication',
-					caption: 'Stay in touch with family and friends',
-					percentage: 45
-				},{
-					heading: 'Work',
-					caption: 'Accomplish his tasks',
-					percentage: 70
-				},{
-					heading: 'Entertainment',
-					caption: 'Sports, Music etc.'
-				}]
-			}) )) == null ? '' : __t) +
-'\n\t\t</div>\n\t</div>\n\t<div class="current-artefact-info fixed-bar">\n        <div>\n            <a class="popup-click" data-url="create-artefact">Create Artefacts > </a><a class="popup-click" data-url="create-artefact" data-index="1">Persona Templates >  </a>\n            Persona template 1 \n        </div>\n    </div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['widget-persona-list-items'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="persona-points-holder persona-card template-section">\n\t<div class="persona-card--close template-section--close">\n\t\t<svg><use xlink:href="#close"></use></svg>\n\t</div>\n\t<div class="persona-card-heading editable">' +
-((__t = ( heading )) == null ? '' : __t) +
-'</div>\n\t<ul class="persona-points editable">\n\t\t';
- _.each(items, function(item){ ;
-__p += '\n\t\t\t<li class="persona-point">' +
-((__t = ( item )) == null ? '' : __t) +
-'</li>\n\t\t';
- }) ;
-__p += '\n\t</ul></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['widget-persona-tags'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="persona-traits persona-card template-section">\n\t<div class="persona-card--close template-section--close">\n\t\t<svg><use xlink:href="#close"></use></svg>\n\t</div>\n\t<div class="persona-card-heading editable">traits</div>\n\t<div class="persona-trait-item">\n\t\t<span class="persona-trait-item-text editable">Introvert</span>\n\t\t<span class="persona-trait-item-close widget-close">\n\t\t\t<svg class="tilt"><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div>\n\t<div class="persona-trait-item">\n\t\t<span class="persona-trait-item-text editable">Conservative</span>\n\t\t<span class="persona-trait-item-close widget-close">\n\t\t\t<svg class="tilt"><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div>\n\t<div class="persona-trait-item">\n\t\t<span class="persona-trait-item-text editable">Tag name</span>\n\t\t<span class="persona-trait-item-close persona-trait-item--add widget-close">\n\t\t\t<svg><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['widget-progress-indicators'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="persona-indicators persona-card template-section">\n\t<div class="persona-card--close template-section--close">\n\t\t<svg><use xlink:href="#close"></use></svg>\n\t</div>\n\t<div class="persona-card-heading editable">persona indicators</div>\n\t';
- for(var indicator in indicators){ ;
-__p += '\n\t\t' +
-((__t = ( sb.setTemplate('persona-indicator', indicators[indicator]) )) == null ? '' : __t) +
-'\n\t';
- } ;
-__p += '\n\t<div class="persona-indicator--add">\n\t\t<span class="widget-add">\n\t\t\t<svg><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div></div>';
+__p += '\r\n';
 
 }
 return __p

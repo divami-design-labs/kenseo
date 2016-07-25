@@ -1,8 +1,7 @@
 <% var buttons = data.buttons %>
-<% for(var i=0; i < buttons.length; i++){ %>
-	<% var b = buttons[i]; %>
+<% _.each(buttons, function(b){ %>
 	<% if(!isNaN(Number(data.index))){ %>
 		<% _.extend(b, { index: data.index }) %>
 	<% } %>
 	<%= sb.toolbox.button({data: b}) %>
-<% }; %>
+<% }) %>
