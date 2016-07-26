@@ -4249,6 +4249,19 @@ input[type="text"].xm {
   top: 50%;
 }
 
+#toolbarViewerRight {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 10px;
+}
+
+#toolbarViewerRight > * {
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
 #toolbarViewerRight .slider {
   width: 100px;
   background-color: #222F38;
@@ -4305,7 +4318,6 @@ input[type="text"].xm {
   position: absolute;
   bottom: 0px;
   left: 0;
-  height: 35px;
   border: 2px solid #3e4354;
   z-index: 3;
   background-color: rgba(255, 255, 255, 0.6);
@@ -5960,21 +5972,8 @@ select {
 }
 
 #toolbarViewerLeft {
-  width: 50%;
+  width: 100%;
   display: table-cell;
-}
-
-#toolbarViewerRight {
-  display: table-cell;
-  vertical-align: middle;
-  width: 50%;
-  text-align: right;
-  padding-right: 10px;
-}
-
-#toolbarViewerRight > * {
-  display: inline-block !important;
-  vertical-align: middle !important;
 }
 
 #scaleSelectContainer {

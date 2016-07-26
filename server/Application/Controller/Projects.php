@@ -27,6 +27,12 @@
 				$dbQuery = getQuery('getMyProjectsListAll', $queryParams);
 			}
 			$resultObj = $db->multiObjectQuery($dbQuery);
+			// if the result object is empty
+			if(!$resultObj){
+				// store an empty object
+				$resultObj = new stdClass();
+			}
+			
 			return $resultObj;
 		}
 

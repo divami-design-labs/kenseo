@@ -118,10 +118,10 @@ $(function () {
 			var $elem = $(singleContainer);
 			var userId = $elem.attr('data-id');
 			var permissions = $elem.find('.user-permission');
-			permissions.forEach(function(permission){
+			permissions.each(function(i, permission){
 				var $permission = $(permission);
-				if ($permission[0].checked == true) {
-					var permissionType = $($permission[0]).attr('data-elem') == 'comment' ? 'c' : 's';
+				if (permission.checked == true) {
+					var permissionType = $permission.attr('data-elem') == 'comment' ? 'c' : 's';
 					sharedDetails.push({
 						'userId': userId,
 						'permission': permissionType
@@ -287,16 +287,10 @@ $(document).on('click', '.tab-item', function (e) {
     var rel = this.getAttribute('targetrel');
     $('.tab-item').removeClass('selectedTab');
     $(this).addClass('selectedTab');
+
+	// get the selected tab at first of all tabs
+	this.parentElement.insertBefore(this, this.parentElement.firstChild);
+
     $('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
     $('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
 });
-
-var stickToBottom = function (parent) {
-    var bar = parent.querySelector('.bar');
-    var top = bar.offsetTop;
-    parent.addEventListener('scroll', function (e) {
-        var el = e.currentTarget;
-        bar.style.bottom = -el.scrollTop + "px";
-        bar.style.left = el.scrollLeft + "px";
-    });
-}

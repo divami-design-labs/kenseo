@@ -1,13 +1,24 @@
 {
     "svg-grouping": {
-        "common":       ["logo", "hamburger", "avatar", "search", "add", "error", "message-archieve", "message-delete", "done", "success","message-people"],
-        "dashboard":    ["reviewrequest", "projects", "notify", "baloon", "dropdown", "file", "calendar", "clock", "artifacts", "adduser", "archive", "calendar", "archive1", "replace", "addversion", "share", "delete"],
+        "common":       ["logo", "hamburger", "avatar", "search", "add", "error",
+            "message-archieve", "message-delete", "done", "success","message-people"
+        ],
+        "dashboard":    ["reviewrequest", "projects", "notify", "baloon", "dropdown", "file",
+            "calendar", "clock", "artifacts", "adduser", "archive", "calendar", "archive1",
+            "replace", "addversion", "share", "delete"
+        ],
         "popups":       ["close", "pdfnpng", "archive-icn", "submit", "baloon", "delete"],
         "search":       ["search-folder", "search-file"],
-        "projectpage":  ["addfile", "projects", "more","baloon", "icon4","delete","lock1", "dropdown", "archive1", "replace", "addversion", "share", "delete"],
+        "projectpage":  ["addfile", "projects", "more","baloon", "icon4",
+            "delete","lock1", "dropdown", "archive1", "replace", "addversion", "share", "delete"
+        ],
         "projects":     ["artifacts", "adduser", "archive", "calendar", "projects"],
         "meetingnotes": ["projects"],
-        "documentview": ["right-slider","left-slider","file-tab", "img-tab", "previous-page-icon", "next-page-icon", "document-info", "add-comment", "toggle-annotations", "share-artefact", "submit-review", "more-menu", "up-drpdwn", "v_open", "v_compare", "severity-drpdwn-icn"],
+        "documentview": [
+            "right-slider","left-slider","file-tab", "img-tab", "previous-page-icon", "next-page-icon",
+            "document-info", "add-comment", "toggle-annotations", "share-artefact", "submit-review",
+            "more-menu", "up-drpdwn", "v_open", "v_compare", "severity-drpdwn-icn", "zoom-in", "zoom-out"
+        ],
         "persona":      ["add", "close"]
     }
 }

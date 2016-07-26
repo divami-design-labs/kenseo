@@ -191,7 +191,7 @@ var sb = _.extend(sb, (function () {
             var els = $el.find('*');
             els.push($el.get(0));
             var obj = {};
-            els.forEach(function(el){
+            Array.prototype.forEach.call(els, function(el){
                 var attributes = el.attributes;
                 Array.prototype.forEach.call(attributes, function(attr){
                     var nodeName = attr.nodeName;

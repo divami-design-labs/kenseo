@@ -24,7 +24,7 @@ sb.refresh = (function(){
 					'templateName': 'menu-projects-container',
 					'templateHolder': $('.menu-projects-section'),
 					'collection': new Kenseo.collections.Projects(),
-					'data': 'menu-projects',
+					'data': { limit: 3, userProjects: true },
 					container: $('.menu')
 				});
             },
@@ -61,7 +61,7 @@ sb.refresh = (function(){
             	return sb.renderTemplate({ 'templateName': 'menu-recent-notifications', 'templateHolder': $('.menu-recent-notifications-section'), 'collection': new Kenseo.collections.Notifications(), 'data': 'menu-notifications' });
             },
             'menu-recent-people': function(){
-            	return sb.renderTemplate({ 'templateName': 'menu-recent-people', 'templateHolder': $('.menu-recent-people-section'), 'collection': new Kenseo.collections.People(), 'data': 'menu-people' });
+            	return sb.renderTemplate({ 'templateName': 'menu-recent-people', 'templateHolder': $('.menu-recent-people-section'), 'collection': new Kenseo.collections.People(), 'data': { limit: 3, projects: true } });
             }
 		},
 		'dashboard': {
@@ -213,6 +213,26 @@ sb.refresh = (function(){
 						userProjects: true
 					}
 				});
+			}
+		},
+		'project-page-info': {
+			'project-page-info': function(){
+				sb.ajaxCall({
+	                collection: new Kenseo.collections.Projects(),
+	                data: {
+	                    userProjects: true,
+	                    includeArchives: true
+	                },
+	                success: function success(response) {
+	                    var currentProjectInfo = Kenseo.data.projects[Kenseo.page.id];
+	                    sb.setTitle(currentProjectInfo['name']);
+	                    // sb.setPopupData(currentProjectInfo.name, 'project_name');
+	                    sb.setPageData(currentProjectInfo, 'project');
+
+	                    sb.refresh.section('header');
+	                    sb.refresh.section('project-page');
+	                }
+	            });
 			}
 		}
 	}

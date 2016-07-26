@@ -128,7 +128,7 @@ _.extend(sb, {
               client: {
                   sid: Kenseo.cookie.sessionid()
               },
-              data: Kenseo.params.getParams(data)
+              data: data
           };
       }
 
