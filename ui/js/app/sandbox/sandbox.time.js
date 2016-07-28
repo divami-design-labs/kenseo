@@ -11,7 +11,8 @@ _.extend(sb, {
 
             // The time comes from the server
             // So, add the clients timezone offset to the fetched time
-            dateTime = sb.addTimeZoneToDate(dateTime);
+            // --- Don't apply timezone offset to each date --
+            // dateTime = sb.addTimeZoneToDate(dateTime);
         }
         else{
             var dateTime = new Date();
@@ -33,6 +34,8 @@ _.extend(sb, {
         var d = new Date();
         var minutes = d.getTimezoneOffset();  // in minutes
 
+        date = new Date(date);
+        
         var newDateTime = date.getTime() - (minutes * 60 * 1000);
         // console.log("new date time: ", newDateTime, date.getTime());
         return new Date(newDateTime);

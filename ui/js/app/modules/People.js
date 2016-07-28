@@ -65,7 +65,7 @@ Kenseo.views.People = Backbone.View.extend({
             el: el,
             scope: scope,
             afterRender: function($popupContainer, scope){
-                sb.loadCss('assets/styles/css/chosen.css');
+                // sb.loadCss('assets/styles/css/chosen.css');
                 var data =
                 sb.ajaxCall({
                     url: sb.getRelativePath('getOtherProjectMembers'),

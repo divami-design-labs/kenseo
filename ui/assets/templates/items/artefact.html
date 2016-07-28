@@ -22,7 +22,7 @@
         <% if(!data['is_project_page']){ %>
         <div class="rr-project-name ellipsis"><%= data['project_name'] %></div>
         <% } %>
-		<div class="rr-details ellipsis" title="<%= sb.timeFormat(data['artefact_time']) %> by <%= data['person_name'] %>"><%= sb.timeFormat(data['artefact_time']) %> by <%= data['person_name'] %></div>
+		<div class="rr-details ellipsis" title="<%= sb.timeFormat(data['artefact_time']) %> by <%= data['person_name'] %>"><%= sb.timeFormat(sb.addTimeZoneToDate(data['artefact_time'])) %> by <%= data['person_name'] %></div>
 		<div class="rr-state-details">
 			<div class="rr-state">
 				<span class="artefact-cur-version">v<%= data.version %></span>

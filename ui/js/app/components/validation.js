@@ -15,7 +15,7 @@ var validation = (function(){
 		'email': function(value, $requiredField){
 				var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 				return filter.test(value);
-		},
+		}
 	}
 	// displays border color red if the input is invalid
 	var addErrorSkinning = function($requiredField){
@@ -46,6 +46,8 @@ var validation = (function(){
 
 	// validate single input field
 	var isFieldValidate = function($field) {
+		// Getting the field section
+		// This step is crucial because sometimes the $field is not HTML input element but could be something else
 		var $fieldSections = $field.parents('.field-section');
 		validate($fieldSections);
 	}

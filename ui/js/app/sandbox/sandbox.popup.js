@@ -238,7 +238,7 @@ sb.popup = {
 
                             var obj = {};
                             var attrs = $selectedEl[0].attributes;
-			    
+
 			    // converting nodelist map to an array
                             Array.prototype.forEach.call(attrs, function(attr){
                                 // var attr = attrs[i];
@@ -365,7 +365,7 @@ sb.popup = {
                     }
                 })
                 var container = document.querySelector(".people-combobox");
-                sb.toolbox.applyComboBox({
+                Kenseo.combobox.sharePeople = sb.toolbox.applyComboBox({
                     elem: container,
                     data: otherMembers,
                     settings: {
@@ -409,6 +409,12 @@ sb.popup = {
                                 });
                             }
                         }
+                    },
+                    insertAfter: function($text, $el, bln, selectedObject){
+                        if(!Kenseo.combobox.sharePeople.filterData){
+                            Kenseo.combobox.sharePeople.filterData = [];
+                        }
+                        Kenseo.combobox.sharePeople.filterData.push(selectedObject);
                     }
                 });
 
@@ -453,9 +459,10 @@ sb.popup = {
         });
     },
     meetingIvite: function meetingIvite() {
+        var $currentPopup = Kenseo.current.popup;
         sb.ajaxCall({
             "collection": new Kenseo.collections.Projects(),
-            container: $('.popup'),
+            container: $currentPopup,
             "data": {
                 userProjects: true
             },
@@ -471,6 +478,14 @@ sb.popup = {
                     insertAfter: function insertAfter($input, $selectedEl, bln) {
                         // console.log("project name changed");
 
+                        // if the field-section has blur event registered,
+                        // then trigger the blur event
+                        var $blurField = $input.parents('.blur-field');
+                        if($blurField.length){
+                            $blurField.trigger('blur');
+                        }
+
+
                         var projectId = $selectedEl.attr("data-id");
                         var projectName = $selectedEl.html();
 
@@ -480,27 +495,7 @@ sb.popup = {
                         $(this).parent().hide();
                         sb.setPopupData([], "selectedUsers");
                         // now set the project people
-                        sb.ajaxCall({
-                            "collection": new Kenseo.collections.People(),
-                            container: $('[data-name="attendees"].field-section'),
-                            "data": {
-                                projectId: projectId
-                            },
-                            "success": function success(data) {
-                                var peopleHolder = document.querySelector(".people-name");
-                                var combobox = sb.toolbox.applyComboBox({
-                                    elem: peopleHolder,
-                                    data: data.data,
-                                    settings: {
-                                        placeholder: "",
-                                        multiSelect: true,
-                                        suggestionsViewerAlign: "top",
-                                        noplaceholder: " "
-                                    },
-                                    insertAfter: function insertAfter($input, $selectedEl, bln) {}
-                                });
-                            }
-                        });
+
                         sb.ajaxCall({
                             "collection": new Kenseo.collections.Artefacts(),
                             container: $('[data-name="meetingArtefact"].field-section'),
@@ -519,6 +514,51 @@ sb.popup = {
                     }
                 });
 
+                sb.ajaxCall({
+                    "collection": new Kenseo.collections.People(),
+                    container: $('[data-name="attendees"].field-section'),
+                    "data": {
+                        all: true
+                    },
+                    "success": function success(response) {
+                        // var peopleHolder = $currentPopup.find(".people-name").get(0);
+                        // var combobox = sb.toolbox.applyComboBox({
+                        //     elem: peopleHolder,
+                        //     data: data.data,
+                        //     settings: {
+                        //         placeholder: "",
+                        //         multiSelect: true,
+                        //         suggestionsViewerAlign: "top",
+                        //         noplaceholder: " "
+                        //     },
+                        //     insertAfter: function insertAfter($input, $selectedEl, bln) {}
+                        // });
+
+                        // integrate chosen library
+                        var $peopleSelect = $currentPopup.find(".recipients-meeting");
+                        // reset
+                        $peopleSelect.html('');
+                        // looping through each item
+                        response.data.forEach(function(item){
+                            // don't show in list if the user is the one who is creating the meeting
+                            if(item['is_owner'] !== "1"){
+                                // preparing object to pass to option template
+                                var obj = {};
+                                obj.text = item.email;
+                                obj.attr = {};
+                                obj.attr.value = item.id;
+                                // Adding rendered option template to the select element
+                                $peopleSelect.append(sb.setTemplate('option', {
+                                    option: obj
+                                }));
+                            }
+                        });
+
+                        // Applying chosen library
+                        $peopleSelect.chosen({display_selected_options: false});
+                    }
+                });
+
                 var artefactComboboxContainer = document.querySelector(".artefact-combobox");
                 var artefactCombobox = sb.toolbox.applyComboBox({
                     elem: artefactComboboxContainer,
@@ -526,6 +566,14 @@ sb.popup = {
                     settings: {
                         placeholder: "Choose Artefact",
                         value: Kenseo.page.data.artefact && Kenseo.page.data.artefact.name || ""
+                    },
+                    insertAfter: function($input, $selectedEl, bln) {
+                        // if the field-section has blur event registered,
+                        // then trigger the blur event
+                        var $blurField = $input.parents('.blur-field');
+                        if($blurField.length){
+                            $blurField.trigger('blur');
+                        }
                     }
                 });
             }
@@ -583,7 +631,15 @@ sb.popup = {
         //onchange event to fromtime dropdown
         $('.projects-dropdown.fromTime').on('change', fromTimeDropdownChange);
         // Add the selectedIndex value as the next hour from current hour
-        $('.projects-dropdown.fromTime').get(0).selectedIndex = new Date().getHours() + 1;
+        var newSelectValue = new Date();
+        newSelectValue.setMinutes(Math.ceil(newSelectValue.getMinutes() / 30) * 30);
+        var diffSelectValue = new Date();
+        diffSelectValue.setHours(0);
+        diffSelectValue.setMinutes(0);
+        diffSelectValue.setSeconds(0);
+        var index = Math.floor((newSelectValue.getTime() - diffSelectValue.getTime())  // milliseconds difference
+                    / (30 * 60 * 1000));
+        $('.projects-dropdown.fromTime').get(0).selectedIndex = index;
         fromTimeDropdownChange.call($('.projects-dropdown.fromTime').get(0));
         // pre-populate the data if the user is in project page
         if(Kenseo.current.page == "project-page"){

@@ -114,8 +114,12 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		if ($text.val().toLowerCase() !== html.toLowerCase() && _this.onchange) {
 			_this.onchange($text, $el, true);
 		}
+		// The below object stores key value with "data-" prefix
+		var obj = {};
+		// The below object stores key value without "data-" prefix
+		// This is used to filter the suggestions later in insertAfter event
+		var selectedObject = {};
 		if (!values.multiSelect) {
-			var obj = {};
 			var attrs = $el[0].attributes;
 			Array.prototype.forEach.call(attrs, function(attr){
 				if (attr.name !== "class") {
@@ -125,11 +129,16 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 			$text.val(html);
 		} else {
-			var obj = {};
 			var attrs = $el[0].attributes;
 			Array.prototype.forEach.call(attrs, function(attr){
 				if (attr.name !== "class") {
 					obj[attr.name] = attr.value;
+
+					var key = attr.name;
+					if(/^data-/.test(attr.name)){
+						key = key.substr(5);
+					}
+					selectedObject[key] = attr.value;
 				}
 			});
 			obj.name = html;
@@ -139,7 +148,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		hideSuggestions();
 		// Trigger change event
 		if (_this.insertAfter) {
-			_this.insertAfter($text, $el, true);
+			_this.insertAfter($text, $el, true, selectedObject);
 		}
 	}
 
@@ -378,17 +387,20 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 		var $suggestionsViewer = $elem.find(".suggestions-viewer");
 		var newList = _.cloneDeep(list);
-		if ($suggestionsViewer.length) {
-			$suggestionsViewer.find(".sv-item").each(function () {
-				newList.forEach(function(newListItem, i){
-					if(newListItem){  // sometimes the newListItem variable is coming as undefined
-						if (newListItem.name.toLowerCase() === this.textContent.toLowerCase()) {
-							newList.splice(i, 1);
-						}
-					}
-				}.bind(this));
-			});
+		if(_this.filterData){
+			newList = _.differenceBy(newList, _this.filterData, 'id');
 		}
+		// if ($suggestionsViewer.length) {
+		// 	$suggestionsViewer.find(".sv-item").each(function () {
+		// 		newList.forEach(function(newListItem, i){
+		// 			if(newListItem){  // sometimes the newListItem variable is coming as undefined
+		// 				if (newListItem.name.toLowerCase() === this.textContent.toLowerCase()) {
+		// 					newList.splice(i, 1);
+		// 				}
+		// 			}
+		// 		}.bind(this));
+		// 	});
+		// }
 		if (newList) {
 			var ul = document.createElement("ul");
 			if(Array.isArray(newList)){

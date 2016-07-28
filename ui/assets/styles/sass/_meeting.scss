@@ -180,7 +180,9 @@
 .selectedNotes {
 	display: block;
 }
-
+.recipients-meeting{
+	width: 382px;
+}
 .currentPersonNotes {
 	display: none;
 }
@@ -207,7 +209,7 @@
 .names-holder {
 	float: left;
 	margin-right: 10px;
-} 
+}
 .meeting-section .project-heading{
 	@extend .clearFloat;
 	line-height: 40px;

@@ -3004,6 +3004,10 @@ a {
   display: block;
 }
 
+.recipients-meeting {
+  width: 382px;
+}
+
 .currentPersonNotes {
   display: none;
 }

@@ -66,208 +66,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- if(data.projects && data.sortBy){ ;
-__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- if(data.projects.length){ ;
-__p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
- } ;
-__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
- if(data.sortBy && data.sortBy === 'default'){ ;
-__p += ' linked-artefacts ';
- } ;
-__p += '">\r\n\t<div class="sort-view">Sort By ';
- if(data && data.sortBy){ ;
-__p += ' ' +
-((__t = ( _.capitalize(data.sortBy) )) == null ? '' : __t) +
-' ';
- } else { ;
-__p += 'Default ';
- } ;
-__p += '</div>\r\n';
- } else{ ;
-__p += '\r\n\t<div class="review-requests-heading">\r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
- } ;
-__p += '\r\n\r\n';
- if(data.projects && data.sortBy){ ;
-__p += '\r\n</div>\r\n';
- } else{ ;
-__p += '\r\n\t</div>\r\n';
- } ;
-__p += '\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['day-wise-item'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="day-activity">\n    <div class="day-activity-label">\n        ' +
-((__t = ( data.label )) == null ? '' : __t) +
-'\n    </div>\n    <div class="day-activity-section">\n        ' +
-((__t = ( data.content )) == null ? '' : __t) +
-'\n    </div>\n</div>\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['no-items'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="no-items ';
- if(data.classes){ ;
-__p += ' ' +
-((__t = ( data.classes )) == null ? '' : __t) +
-' ';
- } ;
-__p += '">\r\n\t';
- if(data.message){ ;
-__p += '\r\n\t\t' +
-((__t = ( data.message )) == null ? '' : __t) +
-'\r\n\t';
- } else if(data.add){ ;
-__p += '\r\n\t\t<div class="add-icon big inlineBlockMid"></div>\r\n\t\t<div class="no-items-text inlineBlockMid">' +
-((__t = ( data.name )) == null ? '' : __t) +
-'</div>\r\n\t';
- } else { ;
-__p += '\r\n\t\tNo Items to show\r\n\t';
- } ;
-__p += '\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['show-global-messages'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="messages-wrapper ' +
-((__t = (type)) == null ? '' : __t) +
-'-messages-wrapper ">\n  <svg class="error-or-success-img ">\n    <use xlink:href="#' +
-((__t = (icon)) == null ? '' : __t) +
-'"></use>\n  </svg>\n  <span class="messages">' +
-((__t = (message)) == null ? '' : __t) +
-'</span>\n</div>\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['versions'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- for(var i=0; i< data.length; i++){ ;
-__p += '\r\n\t';
- if(i === 0 || i%4 === 0){ ;
-__p += '\r\n\t<div>\r\n\t';
- } ;
-__p += '\r\n\t';
- var v = data[i] ;
-__p += '\r\n\t<span data-date="' +
-((__t = ( v.date )) == null ? '' : __t) +
-'">' +
-((__t = ( v.num )) == null ? '' : __t) +
-'</span>\r\n\t';
- if(i === data.length-1 || (i+1)%4 === 0){ ;
-__p += '\t\t\r\n\t</div>\r\n\t';
- } ;
-__p += '\r\n';
- } ;
-
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['add-persona-widget'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -556,6 +354,208 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ if(data.projects && data.sortBy){ ;
+__p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading sub-heading">\r\n\t\t<div class="sub-heading-label">Artefacts</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon popup-click" data-url="add-artefact" data-index="1">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
+ if(data.projects.length){ ;
+__p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
+ } ;
+__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
+ if(data.sortBy && data.sortBy === 'default'){ ;
+__p += ' linked-artefacts ';
+ } ;
+__p += '">\r\n\t<div class="sort-view">Sort By ';
+ if(data && data.sortBy){ ;
+__p += ' ' +
+((__t = ( _.capitalize(data.sortBy) )) == null ? '' : __t) +
+' ';
+ } else { ;
+__p += 'Default ';
+ } ;
+__p += '</div>\r\n';
+ } else{ ;
+__p += '\r\n\t<div class="review-requests-heading">\r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
+ } ;
+__p += '\r\n\r\n';
+ if(data.projects && data.sortBy){ ;
+__p += '\r\n</div>\r\n';
+ } else{ ;
+__p += '\r\n\t</div>\r\n';
+ } ;
+__p += '\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['day-wise-item'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="day-activity">\n    <div class="day-activity-label">\n        ' +
+((__t = ( data.label )) == null ? '' : __t) +
+'\n    </div>\n    <div class="day-activity-section">\n        ' +
+((__t = ( data.content )) == null ? '' : __t) +
+'\n    </div>\n</div>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['no-items'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="no-items ';
+ if(data.classes){ ;
+__p += ' ' +
+((__t = ( data.classes )) == null ? '' : __t) +
+' ';
+ } ;
+__p += '">\r\n\t';
+ if(data.message){ ;
+__p += '\r\n\t\t' +
+((__t = ( data.message )) == null ? '' : __t) +
+'\r\n\t';
+ } else if(data.add){ ;
+__p += '\r\n\t\t<div class="add-icon big inlineBlockMid"></div>\r\n\t\t<div class="no-items-text inlineBlockMid">' +
+((__t = ( data.name )) == null ? '' : __t) +
+'</div>\r\n\t';
+ } else { ;
+__p += '\r\n\t\tNo Items to show\r\n\t';
+ } ;
+__p += '\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['show-global-messages'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="messages-wrapper ' +
+((__t = (type)) == null ? '' : __t) +
+'-messages-wrapper ">\n  <svg class="error-or-success-img ">\n    <use xlink:href="#' +
+((__t = (icon)) == null ? '' : __t) +
+'"></use>\n  </svg>\n  <span class="messages">' +
+((__t = (message)) == null ? '' : __t) +
+'</span>\n</div>\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['versions'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ for(var i=0; i< data.length; i++){ ;
+__p += '\r\n\t';
+ if(i === 0 || i%4 === 0){ ;
+__p += '\r\n\t<div>\r\n\t';
+ } ;
+__p += '\r\n\t';
+ var v = data[i] ;
+__p += '\r\n\t<span data-date="' +
+((__t = ( v.date )) == null ? '' : __t) +
+'">' +
+((__t = ( v.num )) == null ? '' : __t) +
+'</span>\r\n\t';
+ if(i === data.length-1 || (i+1)%4 === 0){ ;
+__p += '\t\t\r\n\t</div>\r\n\t';
+ } ;
+__p += '\r\n';
+ } ;
+
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['dashboard'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -716,7 +716,7 @@ with (obj) {
 __p += '<img src="http://placeimg.com/280/200/arch" />\r\n<div class="project-block-overlay">\r\n\t<div class="project-block-overlay-wrapper">\r\n\t\t<div class="project-block-title">\r\n\t\t\t' +
 ((__t = ( data.name )) == null ? '' : __t) +
 '\r\n\t\t</div>\r\n\t\t<div class="project-block-details">\r\n\t\t\t<div class="project-block-details-icon">\r\n\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-block-details-text ellipsis">Last Updated ' +
-((__t = ( sb.timeFormat(data.last_updated_date) )) == null ? '' : __t) +
+((__t = ( sb.timeFormat(sb.addTimeZoneToDate(data.last_updated_date)) )) == null ? '' : __t) +
 '</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-block-hover-content data-holder" data-key="projects" data-id="' +
 ((__t = ( data.id )) == null ? '' : __t) +
 '">\r\n\t<div class="project-black-out"></div>\r\n\t<div class="project-actions-wrapper">\r\n\t\t<div class="project-action" data-url="add-artefact" data-index="1">\r\n\t\t\t<div class="project-action-icon add-artefact-icon">\r\n\t\t\t\t<svg><use xlink:href="#artifacts"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Add an Artefact</div>\r\n\t\t</div>\r\n\t\t<div class="project-action" data-url="add-people">\r\n\t\t\t<div class="project-action-icon add-user-icon">\r\n\t\t\t\t<svg><use xlink:href="#adduser"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-action-label">Add User</div>\r\n\t\t</div>\r\n\t\t';
@@ -1131,35 +1131,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['image-viewer'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="outerContainer inView" rel="pdf_' +
-((__t = ( data['artefact_ver_id'] )) == null ? '' : __t) +
-'">' +
-((__t = ( sb.setTemplate('pdf-toolbar', {data: data}) )) == null ? '' : __t) +
-'</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['pdf-toolbar'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -1239,13 +1210,11 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class="outerContainer inView" rel=\'pdf_' +
-((__t = ( data.versionId  )) == null ? '' : __t) +
-'\' >\r\n    <div id="sidebarContainer">\r\n        <div id="toolbarSidebar">\r\n            <div class="splitToolbarButton toggled">\r\n                <button id="viewThumbnail" class="toolbarButton group toggled" title="Show Thumbnails" tabindex="2" data-l10n-id="thumbs">\r\n                <span data-l10n-id="thumbs_label">Thumbnails</span>\r\n                </button>\r\n                <button id="viewOutline" class="toolbarButton group" title="Show Document Outline" tabindex="3" data-l10n-id="outline">\r\n                <span data-l10n-id="outline_label">Document Outline</span>\r\n                </button>\r\n                <button id="viewAttachments" class="toolbarButton group" title="Show Attachments" tabindex="4" data-l10n-id="attachments">\r\n                <span data-l10n-id="attachments_label">Attachments</span>\r\n                </button>\r\n            </div>\r\n        </div>\r\n        <div id="sidebarContent">\r\n            <div id="thumbnailView">\r\n            </div>\r\n            <div id="outlineView" class="hidden">\r\n            </div>\r\n            <div id="attachmentsView" class="hidden">\r\n            </div>\r\n        </div>\r\n    </div>\r\n    ';
+__p += '    <div id="sidebarContainer">\r\n        <div id="toolbarSidebar">\r\n            <div class="splitToolbarButton toggled">\r\n                <button id="viewThumbnail" class="toolbarButton group toggled" title="Show Thumbnails" tabindex="2" data-l10n-id="thumbs">\r\n                <span data-l10n-id="thumbs_label">Thumbnails</span>\r\n                </button>\r\n                <button id="viewOutline" class="toolbarButton group" title="Show Document Outline" tabindex="3" data-l10n-id="outline">\r\n                <span data-l10n-id="outline_label">Document Outline</span>\r\n                </button>\r\n                <button id="viewAttachments" class="toolbarButton group" title="Show Attachments" tabindex="4" data-l10n-id="attachments">\r\n                <span data-l10n-id="attachments_label">Attachments</span>\r\n                </button>\r\n            </div>\r\n        </div>\r\n        <div id="sidebarContent">\r\n            <div id="thumbnailView">\r\n            </div>\r\n            <div id="outlineView" class="hidden">\r\n            </div>\r\n            <div id="attachmentsView" class="hidden">\r\n            </div>\r\n        </div>\r\n    </div>\r\n    ';
  data.isPdf = true ;
 __p += '\r\n    ' +
 ((__t = ( sb.setTemplate('pdf-toolbar', {data: data}) )) == null ? '' : __t) +
-'\r\n</div>\r\n<!-- mainContainer -->\r\n<div id="overlayContainer" class="hidden">\r\n    <div id="passwordOverlay" class="container hidden">\r\n        <div class="dialog">\r\n            <div class="row">\r\n                <p id="passwordText" data-l10n-id="password_label">Enter the password to open this PDF file:</p>\r\n            </div>\r\n            <div class="row">\r\n                <input type="password" id="password" class="toolbarField" />\r\n            </div>\r\n            <div class="buttonRow">\r\n                <button id="passwordCancel" class="overlayButton"><span data-l10n-id="password_cancel">Cancel</span></button>\r\n                <button id="passwordSubmit" class="overlayButton"><span data-l10n-id="password_ok">OK</span></button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- overlayContainer -->\r\n</div> <!-- outerContainer -->';
+'\r\n    <!-- mainContainer -->\r\n    <div id="overlayContainer" class="hidden">\r\n        <div id="passwordOverlay" class="container hidden">\r\n            <div class="dialog">\r\n                <div class="row">\r\n                    <p id="passwordText" data-l10n-id="password_label">Enter the password to open this PDF file:</p>\r\n                </div>\r\n                <div class="row">\r\n                    <input type="password" id="password" class="toolbarField" />\r\n                </div>\r\n                <div class="buttonRow">\r\n                    <button id="passwordCancel" class="overlayButton"><span data-l10n-id="password_cancel">Cancel</span></button>\r\n                    <button id="passwordSubmit" class="overlayButton"><span data-l10n-id="password_ok">OK</span></button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n<!-- overlayContainer -->\r\n';
 
 }
 return __p
@@ -1274,7 +1243,7 @@ __p += '<a href="#documentview/' +
 ((__t = ( maskedVersionId )) == null ? '' : __t) +
 '" class="tab-item selectedTab" targetRel="' +
 ((__t = ( versionId )) == null ? '' : __t) +
-'"><div class= "fileTab"><svg><use xlink:href="#file-tab"></use></svg></div></a>';
+'">\n    <div class= "fileTab">\n        <svg><use xlink:href="#file-tab"></use></svg>\n    </div>\n</a>\n';
 
 }
 return __p
@@ -1303,7 +1272,7 @@ __p += '<a href="#documentview/' +
 ((__t = ( maskedVersionId )) == null ? '' : __t) +
 '" class="tab-item selectedTab" targetRel="' +
 ((__t = ( versionId )) == null ? '' : __t) +
-'"><div class= "imageTab"><svg><use xlink:href="#img-tab"></use></svg></div></a>';
+'">\n    <div class= "imageTab">\n        <svg><use xlink:href="#img-tab"></use></svg>\n    </div>\n</a>\n';
 
 }
 return __p
@@ -1475,7 +1444,7 @@ __p += '\n            ' +
 __p += '\n    </div>\n    <div class="activity-details ellipsis" title="' +
 ((__t = ( data.doneBy )) == null ? '' : __t) +
 '">\n        <div class="activity-time">' +
-((__t = ( sb.timeFormat(data.time) )) == null ? '' : __t) +
+((__t = ( sb.timeFormat(sb.addTimeZoneToDate(data.time)) )) == null ? '' : __t) +
 '</div>\n        <div class="activity-sender"> by ' +
 ((__t = ( data.doneBy )) == null ? '' : __t) +
 '</div>\n    </div>\n</div>\n';
@@ -1563,7 +1532,7 @@ __p += '\r\n\t\t<div class="rr-details ellipsis" title="' +
 ' by ' +
 ((__t = ( data['person_name'] )) == null ? '' : __t) +
 '">' +
-((__t = ( sb.timeFormat(data['artefact_time']) )) == null ? '' : __t) +
+((__t = ( sb.timeFormat(sb.addTimeZoneToDate(data['artefact_time'])) )) == null ? '' : __t) +
 ' by ' +
 ((__t = ( data['person_name'] )) == null ? '' : __t) +
 '</div>\r\n\t\t<div class="rr-state-details">\r\n\t\t\t<div class="rr-state">\r\n\t\t\t\t<span class="artefact-cur-version">v' +
@@ -1717,22 +1686,24 @@ __p += '\r\n\t\t\t<div class="notification-title ellipsis" title="' +
 '">\r\n\t\t\t\t' +
 ((__t = ( n.title )) == null ? '' : __t) +
 '\r\n\t\t\t</div>\r\n\t\t\t<div class="notification-time">\r\n\t\t\t\t' +
-((__t = ( sb.timeFormat(n.time) )) == null ? '' : __t) +
+((__t = ( sb.timeFormat(sb.addTimeZoneToDate(n.time)) )) == null ? '' : __t) +
 ' by ' +
 ((__t = ( n.notifier )) == null ? '' : __t) +
 '\r\n\t\t\t</div>\r\n\t\t\t';
  if(n.meetingDetails){ ;
 __p += '\r\n\t\t\t<div class="meeting-notify-section">\r\n\t\t\t\t<div class="mn-left">\r\n\t\t\t\t\t<div>Meeting @ Conference 2</div>\r\n\t\t\t\t\t<div class="mn-left-title">' +
 ((__t = ( n.meetingDetails.title )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t\t<div class="meeting-notify-icon"></div>\r\n\t\t\t\t\t<div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="mn-right">\r\n\t\t\t\t\t<div>' +
-((__t = ( sb.timeFormat(n.meetingDetails.time) )) == null ? '' : __t) +
+'</div>\r\n\t\t\t\t\t<div class="meeting-notify-icon"></div>\r\n\t\t\t\t\t<div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="mn-right">\r\n\t\t\t\t\t';
+ var newDate = sb.addTimeZoneToDate(n.meetingDetails.time) ;
+__p += '\r\n\t\t\t\t\t<div>' +
+((__t = ( sb.timeFormat(newDate) )) == null ? '' : __t) +
 '</div>\r\n\t\t\t\t\t<div>' +
-((__t = ( sb.getTime(n.meetingDetails.time) )) == null ? '' : __t) +
+((__t = ( sb.getTime(newDate) )) == null ? '' : __t) +
 '</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t';
  } ;
 __p += '\r\n\t\t</div>\r\n\t\t';
  }); ;
-__p += '\r\n\t</div>\r\n</div>';
+__p += '\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p
@@ -2951,7 +2922,7 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 						}
 					})
 				)) == null ? '' : __t) +
-'\r\n\t\t\t\t<div style="clear: both; padding-top: 20px;">\r\n\t\t\t\t\t<div class="field-section in-line" data-name="date" data-ignore="1">\r\n\t\t\t\t\t\t<div class="input-label required">Scheduled on</div>\r\n\t\t\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t\t\t<input type="text" class="input-meeting-date float-left"></input>\r\n\t\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="fromTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">From</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">\r\n\t\t\t\t\t\t\t    <option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="toTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">To</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">\r\n\t\t\t\t\t\t\t    <option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t' +
+'\r\n\t\t\t\t<div style="clear: both; padding-top: 20px;">\r\n\t\t\t\t\t<div class="field-section in-line" data-name="date" data-ignore="1">\r\n\t\t\t\t\t\t<div class="input-label required">Scheduled on</div>\r\n\t\t\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t\t\t<input type="text" class="input-meeting-date float-left"></input>\r\n\t\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="fromTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">From</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">\r\n\t\t\t\t\t\t\t\t<option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="00:30">12:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="01:30">01:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="02:30">02:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="03:30">03:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="04:30">04:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="05:30">05:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="06:30">06:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="07:30">07:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="08:30">08:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="09:30">09:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="10:30">10:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="11:30">11:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="12:30">12:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="13:30">01:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="14:30">02:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="15:30">03:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="16:30">04:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="17:30">05:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="18:30">06:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="19:30">07:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="20:30">08:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="21:30">09:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="22:30">10:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="23:30">11:30 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="toTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">To</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">\r\n\t\t\t\t\t\t\t    <option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="00:30">12:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="01:30">01:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="02:30">02:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="03:30">03:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="04:30">04:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="05:30">05:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="06:30">06:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="07:30">07:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="08:30">08:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="09:30">09:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="10:30">10:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="11:30">11:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="12:30">12:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="13:30">01:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="14:30">02:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="15:30">03:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="16:30">04:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="17:30">05:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="18:30">06:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="19:30">07:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="20:30">08:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="21:30">09:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="22:30">10:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="23:30">11:30 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t' +
 ((__t = (
 					toolbox.textBox({
 						"label": "Venue",
@@ -2962,8 +2933,8 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 						}
 					})
 				)) == null ? '' : __t) +
-'\r\n\t\t\t\t' +
-((__t = (
+'\r\n\t\t\t\t';
+
 					toolbox.textBox({
 						"label": "Recipients List",
 						textArea: true,
@@ -2975,7 +2946,24 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 							'data-validate-this': 'empty'
 						},
 						"fieldSectionErrorMessages": {
+							'empty': ' Please select at least one recipient',
+						}
+					})
+				;
+__p += '\r\n\r\n\t\t\t\t' +
+((__t = (
+					sb.setTemplate('select', {
+						data: {
+							"label": "Recipients List",
+							required: true,
+							inputClass: "recipients-meeting blur-field",
+							"dataName": "attendees",
+							"selectAttr": {
+								"multiple": ""
+							},
+							"fieldSectionErrorMessages": {
 								'empty': ' Please select at least one recipient',
+							}
 						}
 					})
 				)) == null ? '' : __t) +
@@ -3369,12 +3357,9 @@ _.escape = function(string) {
 };
 (window['templates'] = window['templates'] || {})['option'] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
+var __t, __p = '', __e = _.escape;
 with (obj) {
-
- console.dir(option) ;
-__p += '\n<option ' +
+__p += '<option ' +
 ((__t = ( sb.setTemplate('attributes', {data: option.attr}) )) == null ? '' : __t) +
 '>' +
 ((__t = ( option.text )) == null ? '' : __t) +
@@ -3404,11 +3389,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-
- console.log("select") ;
-__p += '\n';
- console.dir(data) ;
-__p += '\n<div class="field-section ' +
+__p += '<div class="field-section ' +
 ((__t = ( data.fieldClass )) == null ? '' : __t) +
 '" ';
  if(data.dataName){ ;

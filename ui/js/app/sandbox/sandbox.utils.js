@@ -634,7 +634,7 @@ var sb = _.extend(sb, (function () {
                                     sb.setPopupData(arrayIds, property + 'Ids');
                                 }
                             }
-                        } else if ($text.length) {
+                        } else if ($text.length && !$dropdown.length) { // it is a textbox, but not dropdown textbox
                             var text = $text[0];
                             var obj = {};
                             var attrs = text.attributes;
@@ -698,7 +698,7 @@ var sb = _.extend(sb, (function () {
                             if (property === 'toTime' || property === 'fromTime') {
                                 obj.value = 'T' + dropdown.value + ':00.000' + sb.getTimeZone();
                             } else {
-                                obj.value = dropdown.value;
+                                obj.value = Array.prototype.map.call(dropdown.selectedOptions, function(e) { return e.value; });
                             }
                             // settings
                             if (property) {

@@ -224,9 +224,6 @@
   height: auto;
   border: 1px solid #aaa;
   background-color: #fff;
-  background-image: -webkit-gradient(linear, 50% 0, 50% 100%, color-stop(1%, #eee), color-stop(15%, #fff));
-  background-image: -webkit-linear-gradient(#eee 1%, #fff 15%);
-  background-image: linear-gradient(#eee 1%, #fff 15%);
   cursor: text;
 }
 
@@ -349,8 +346,7 @@
 }
 
 .chosen-container-active .chosen-choices {
-  border: 1px solid #5897fb;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #aaacb4;
 }
 
 .chosen-container-active .chosen-choices li.search-field input[type=text] {

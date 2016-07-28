@@ -21,7 +21,7 @@ var htmljs = (function(){
 			// If user hasn't clicked on the clickable element or target element then reset the performed actions on the clickable element(s) and target element(s) with outside clicking is as active.
 			// (For this, we need to add another common attribute to clicked element and target element)
 			var resettableElements = [].slice.call(htmlClickElements()).filter(function(el){
-				return !ignorableElements.some(function(ignorableElement){
+				return !Array.prototype.some.call(ignorableElements, function(ignorableElement){
 					return el === ignorableElement;
 				});
 			})

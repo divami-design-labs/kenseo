@@ -22,6 +22,7 @@
         <!-- Mobile viewport optimized: h5bp.com/viewport -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
         <link href="assets/styles/css/normalize.css" type="text/css" rel="stylesheet" />
+        <link href="assets/styles/css/chosen.css" type="text/css" rel="stylesheet" />
         <link href="assets/styles/css/main.css" type="text/css" rel="stylesheet" />
         <!-- <link href="assets/styles/css/viewer.css" type="text/css" rel="stylesheet" /> -->
 

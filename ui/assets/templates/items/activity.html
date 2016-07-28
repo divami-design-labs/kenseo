@@ -25,7 +25,7 @@
         <% } %>
     </div>
     <div class="activity-details ellipsis" title="<%= data.doneBy %>">
-        <div class="activity-time"><%= sb.timeFormat(data.time) %></div>
+        <div class="activity-time"><%= sb.timeFormat(sb.addTimeZoneToDate(data.time)) %></div>
         <div class="activity-sender"> by <%= data.doneBy %></div>
     </div>
 </div>

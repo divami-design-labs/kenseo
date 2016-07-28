@@ -12,7 +12,7 @@
 				<%= n.title %>
 			</div>
 			<div class="notification-time">
-				<%= sb.timeFormat(n.time) %> by <%= n.notifier %>
+				<%= sb.timeFormat(sb.addTimeZoneToDate(n.time)) %> by <%= n.notifier %>
 			</div>
 			<% if(n.meetingDetails){ %>
 			<div class="meeting-notify-section">
@@ -23,8 +23,9 @@
 					<div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>
 				</div>
 				<div class="mn-right">
-					<div><%= sb.timeFormat(n.meetingDetails.time) %></div>
-					<div><%= sb.getTime(n.meetingDetails.time) %></div>
+					<% var newDate = sb.addTimeZoneToDate(n.meetingDetails.time) %>
+					<div><%= sb.timeFormat(newDate) %></div>
+					<div><%= sb.getTime(newDate) %></div>
 				</div>
 			</div>
 			<% } %>
