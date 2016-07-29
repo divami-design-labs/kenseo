@@ -83,10 +83,11 @@
 		public function addPeople($interpreter) {
 
 			$data = $interpreter->getData()->data;
-			$userId = $interpreter->getUser()->user_id;
+			$userId = $interpreter->getUser()->userId;
 
 			$projectId = $data->project_id;
 			$accessType = $data->access_type;
+      // @TODO:TO be implemented in future
 			$groupType = isset($data->group_type) ? $data->group_type : 'I';
 
 			$users = $data->users;
@@ -94,22 +95,24 @@
 			// for($i=0; $i<$count; $i++) {
 			// 	$users[$i] = "'" . $users[$i] . "'";
 			// }
-
+      foreach($users as $key => $value) {
+        $userids[] = $value->user_id;
+      }
 
 			// Get DB Connection and start new transaction
 			$db = Master::getDBConnectionManager();
 			$db->beginTransaction();
 
 			//@TODO: Get user ids from email ids. Remove this section once UI implement suggestions list
-			$queryParams = array('@userids' => join(",", $users));
+			$queryParams = array('@userids' => join(",", $userids));
 			$query = getQuery('getUserIdsFromUserIds', $queryParams);
-			$users = $db->multiObjectQuery($query);
-			$actualCount = count($users);
+			$actualusers = $db->multiObjectQuery($query);
+			$actualCount = count($actualusers);
 
             // Master::getLogManager()->log(DEBUG, MOD_MAIN, "users in implode");
             // Master::getLogManager()->log(DEBUG, MOD_MAIN, implode(array_map(function($c){ return $c->{'user_id'}; }, $users), ","));
 
-            $addedUserIds = array_map(function($c){ return $c->{'user_id'}; }, $users);
+            $addedUserIds = array_map(function($c){ return $c->{'user_id'}; }, $actualusers);
 
 			$result = new stdClass();
             if($actualCount == 0){
@@ -149,12 +152,17 @@
 
 				for($i=0; $i<$actualCount; $i++) {
 					// Prepare rows for project_members
-					$pr_members_values[] = array($projectId, $users[$i]->user_id, $accessType, $groupType);
+            for($j=0; $j<$count; $j++){
+              if($actualusers[$i]->user_id == $users[$j]->user_id){
+                $accessType = $users[$j]->access_type;
+              }
+            }
+					$pr_members_values[] = array($projectId, $actualusers[$i]->user_id, $accessType, $groupType);
 
 					// Prepare rows for artefact shared members
 					foreach($artefactVersions as $key => $value) {
-						$artf_members_values[] = array($value->artefact_ver_id, $value->artefact_id, $users[$i]->user_id, $accessType, date("Y-m-d H:i:s"), $userId, 0);
-					}
+						$artf_members_values[] = array($value->artefact_ver_id, $value->artefact_id, $actualusers[$i]->user_id,$accessType, date("Y-m-d H:i:s"), $userId, 0);
+  				}
 				}
 
 				// Share all artefacts in a project to the users

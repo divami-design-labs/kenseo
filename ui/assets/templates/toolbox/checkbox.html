@@ -1,6 +1,6 @@
 <div class="field-section" <% if(data['dataName']) { %>data-name=<%= data.dataName %><% } %> <% if(data['data-array']){ %> data-array="<%= data['data-array'] %>" <% } %>>
 	<label class="<% if(data.toggle){ %>toggle-checkbox<% } else {%>checkbox<% } %> <%= data.class %>">
-		<input type="checkbox"
+		<input type="checkbox" class="<%= data.inputClass%>"
 			<% if(data.checked == true){ %>
 				checked
 			<% } %>

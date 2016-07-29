@@ -293,7 +293,10 @@ Kenseo.popups = (function(){
         			"attr": {
         				"data-target-validating-section": ".popup-body"
         			}
-        		}]
+        		}],
+						"callbackfunc": function() {
+			          sb.popup.addPeopleAndPermissions();
+			      }
         	}
         ],
 		"create-meeting" : [{

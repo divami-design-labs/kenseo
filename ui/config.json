@@ -1,12 +1,7 @@
 {
     "svg-grouping": {
-        "common":       ["logo", "hamburger", "avatar", "search", "add", "error",
-            "message-archieve", "message-delete", "done", "success","message-people"
-        ],
-        "dashboard":    ["reviewrequest", "projects", "notify", "baloon", "dropdown", "file",
-            "calendar", "clock", "artifacts", "adduser", "archive", "calendar", "archive1",
-            "replace", "addversion", "share", "delete"
-        ],
+        "common":       ["logo", "hamburger", "avatar", "search", "add", "unexpected-error", "message-archieve", "message-delete", "done", "success", "message-people", "relevant-error", "request", "review-comments", "warning"],
+        "dashboard":    ["reviewrequest", "projects", "notify", "baloon", "dropdown", "file", "calendar", "clock", "artifacts", "adduser", "archive", "calendar", "archive1", "replace", "addversion", "share", "delete"],
         "popups":       ["close", "pdfnpng", "archive-icn", "submit", "baloon", "delete"],
         "search":       ["search-folder", "search-file"],
         "projectpage":  ["addfile", "projects", "more","baloon", "icon4",

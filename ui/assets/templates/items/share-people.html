@@ -13,7 +13,6 @@ var accessType = sb.getAccessType(data['access_type'])
 	<% if(data['is_owner'] != "1"){ %>
 		<div class="share-artefact-people-item-section">
 			<div class="share-artefact-right-panel">
-				<div class="sarp-text">Can Add comments</div>
 				<%=
 					sb.toolbox.checkbox({
 						class: "add-comments-chk",
@@ -23,9 +22,9 @@ var accessType = sb.getAccessType(data['access_type'])
 						"data-array": "1"
 					})
 				%>
+				<div class="sarp-text">Comment</div>
 			</div>
 			<div class="share-artefact-right-panel">
-				<div class="sarp-text">Share with others</div>
 				<%=
 					sb.toolbox.checkbox({
 						class: "others-chk",
@@ -35,16 +34,14 @@ var accessType = sb.getAccessType(data['access_type'])
 						"data-array": "1"
 					})
 				%>
+				<div class="sarp-text">Share</div>
 			</div>
-			<div class="sarp-checkbox-holder">
-				<%=
-					sb.toolbox.checkbox({
-						class: "apply-to-all",
-						text: "Apply to all users in this group",
-						ignore: 1
-					})
-				%>
-			</div>
+
+		</div>
+		<div class="close-people-icon">
+			<svg>
+				<use xlink:href="#close"></use>
+			</svg>
 		</div>
 	<% } %>
 </div>

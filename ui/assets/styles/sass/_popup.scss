@@ -204,54 +204,70 @@ $popup-content-space: 175px;
 .share-artefact-people{
 	position: relative;
 	float: left;
-    margin-top: 20px;
+    margin-top: 15px;
     position: relative;
     width: 100%;
 }
 .share-artefact-people-wrapper{
     height: 186px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    //overflow-x: hidden;
+    //overflow-y: auto;
 }
 .share-artefact-people-item{
 	@extend .clearFloat;
 	$w: 200px;
 	$x: 22px;
 	& + &{
-		margin-top: 25px;
+		margin-top: 5px;
 	}
 	margin-top: 2px;
-	margin-left: $x + 3px;
-	width: $w - $x;
+	//margin-left: $x + 3px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+  height: 58px;
+	//width: $w - $x;
+	&:hover{
+		background-color: #d1e5fe;
+		box-shadow: -30px 0px 0px 0px #d1e5fe,30px 0px 0px 0px #d1e5fe;
+		.close-people-icon{
+			visibility: visible;
+		}
+	}
 	@extend .hand;
 	.share-artefacts-text{
 	    line-height: 40px;
 	    white-space: nowrap;
 	    overflow: hidden;
 	    display: inline-block;
+			flex: auto;
 	    vertical-align: middle;
-	    @include withSuffix(width, calc(100% - 50px));
+			margin-left: 10px;
+	    //@include withSuffix(width, calc(100% - 50px));
 	    text-overflow: ellipsis;
   		@include text(14px, $colorTwo);
 	}
 	.share-artefact-right-panel{
 		margin-left: 20px;
 		@extend .clearFloat;
+		display: inline-block;
+		vertical-align: middle;
 	}
 	.sarp-text{
-		@include text(14px, $colorTwo);
-		margin-bottom: 10px;
-		margin-top: 15px;
+		@include text(12px, $colorTwo);
+		//margin-bottom: 10px;
+		//margin-top: 15px;
+		text-align: center;
 	}
 	.share-artefacts-img {
-		height: 34px;
-		width: 34px;
+		height: 38px;
+		width: 38px;
 		@extend .circle;
 	}
 	.share-artefacts-img-holder{
 		@extend .circle;
-	    margin-left: -22px;
-	    border: 5px solid transparent;
+	    //margin-left: -22px;
+	    //border: 5px solid transparent;
 	    position: relative;
 	    display: inline-block;
 	    vertical-align: middle;
@@ -269,37 +285,44 @@ $popup-content-space: 175px;
 			z-index: 1;
 		}
 	}
-	&:hover{
-		background-color: $colorR;
-		.share-artefacts-text{
-			font-family: $boldFont;
-		}
-		.share-artefacts-img-holder:after{
-			$v: -6px;
-			content: "";
-			@include absoluter($v,$v,$v,$v);
-			border: 2px solid $colorT;
-			@extend .circle;
-			box-shadow: inset 0px 0px 0px 4px white;
-			z-index: 1;
-		}
-		.share-artefact-people-item-section{
-			display: block;
-		}
-	}
+	// &:hover{
+	// 	background-color: $colorR;
+	// 	.share-artefacts-text{
+	// 		font-family: $boldFont;
+	// 	}
+	// 	.share-artefacts-img-holder:after{
+	// 		$v: -6px;
+	// 		content: "";
+	// 		@include absoluter($v,$v,$v,$v);
+	// 		border: 2px solid $colorT;
+	// 		@extend .circle;
+	// 		box-shadow: inset 0px 0px 0px 4px white;
+	// 		z-index: 1;
+	// 	}
+	// 	.share-artefact-people-item-section{
+	// 		display: block;
+	// 	}
+	// }
 	.share-artefact-people-item-section{
-		display: none;
-		position: absolute;
-		left: $w - 1;
-		right: 0px;
-		top: 2px;
-		bottom: 2px;
-		background-color: $colorR;
+		display: inline-block;
+		vertical-align: middle;
+		float: right;
+
+		// position: absolute;
+		// left: $w - 1;
+		// right: 0px;
+		// top: 2px;
+		// bottom: 2px;
+		// background-color: $colorR;
 	}
 }
+input:disabled{
+	opacity: 0.5;
+}
 .sarp-checkbox-holder{
-	margin-top: 10px;
-	margin-left: 10px;
+	//margin-top: 10px;
+	//margin-left: 10px;
+	flex: auto;
 }
 .suggestion-item {
     padding: 5px;
@@ -307,6 +330,15 @@ $popup-content-space: 175px;
     border: 1px solid #fff;
     @extend .hand;
     @include text(14px, $colorTwo);
+}
+.close-people-icon{
+	width: 10px;
+  height: 10px;
+	visibility: hidden;
+  display: inline-block;;
+  vertical-align: top;
+  padding-left: 40px;
+	padding-right: 20px;
 }
 .field-suggestions{
     background-color: white;
@@ -325,7 +357,7 @@ $popup-content-space: 175px;
 .permission-item{
 	display: inline-block;
 	vertical-align: top;
-	margin-right: 20px;
+	margin-left: 20px;
 }
 .add-people-text-project{
 	@include text(14px, $colorOne);
@@ -336,12 +368,22 @@ $popup-content-space: 175px;
 	margin-bottom: 15px;
 }
 .permission-item-text{
-	@include text(14px, $colorOne);
-	margin-bottom: 5px;
+	@include text(12px, $colorOne);
+	//margin-bottom: 5px;
 }
 .people-permissions-section{
-	margin-top: 40px;
-	float: left;
+	display: none;;
+  float: right;
+	clear: both;
+}
+.permissions-section{
+	position: relative;
+  padding-top: 14px;
+  clear: both;
+	display: flex;
+	align-items: center;
+  width: 89%;
+	height: 35px;
 }
 
 .combobox.existing-files-combobox {

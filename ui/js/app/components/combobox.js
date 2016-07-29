@@ -387,20 +387,20 @@ var comboBox = function comboBox(elem, suggestions, values) {
 
 		var $suggestionsViewer = $elem.find(".suggestions-viewer");
 		var newList = _.cloneDeep(list);
-		if(_this.filterData){
-			newList = _.differenceBy(newList, _this.filterData, 'id');
-		}
-		// if ($suggestionsViewer.length) {
-		// 	$suggestionsViewer.find(".sv-item").each(function () {
-		// 		newList.forEach(function(newListItem, i){
-		// 			if(newListItem){  // sometimes the newListItem variable is coming as undefined
-		// 				if (newListItem.name.toLowerCase() === this.textContent.toLowerCase()) {
-		// 					newList.splice(i, 1);
-		// 				}
-		// 			}
-		// 		}.bind(this));
-		// 	});
+		// if(_this.filterData){
+		// 	newList = _.differenceBy(newList, _this.filterData, 'id');
 		// }
+		if ($suggestionsViewer.length) {
+			$suggestionsViewer.find(".sv-item").each(function () {
+				newList.forEach(function(newListItem, i){
+					if(newListItem){  // sometimes the newListItem variable is coming as undefined
+						if (newListItem.name.toLowerCase() === this.textContent.toLowerCase()) {
+							newList.splice(i, 1);
+						}
+					}
+				}.bind(this));
+			});
+		}
 		if (newList) {
 			var ul = document.createElement("ul");
 			if(Array.isArray(newList)){

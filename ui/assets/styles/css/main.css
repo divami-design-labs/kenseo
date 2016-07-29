@@ -169,7 +169,7 @@
   pointer-events: none;
 }
 
-:checked + span:after {
+.checkbox :checked + span:after {
   width: 10px;
   height: 5px;
   left: 4px;
@@ -185,12 +185,11 @@
 
 .toggle-checkbox {
   display: block;
-  width: 52px;
+  width: 36px;
   border-radius: 26px;
   position: relative;
-  height: 26px;
+  height: 18px;
   background-color: #dbdfeb;
-  border: 1px solid #a4a7b2;
   cursor: pointer;
 }
 
@@ -202,8 +201,20 @@
 
 .toggle-checkbox input[type="checkbox"] + span {
   display: block;
-  width: 26px;
-  height: 26px;
+  width: 36px;
+  height: 18px;
+  left: 0;
+  border: 1px solid #a4a7b2;
+  border-radius: 26px;
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.toggle-checkbox input[type="checkbox"] + span:after {
+  content: " ";
+  display: block;
+  width: 50%;
+  height: 100%;
   left: 0;
   border-radius: 26px;
   background-color: #a4a7b2;
@@ -215,9 +226,13 @@
   -ms-transition: all 0.1s ease-out;
 }
 
-.toggle-checkbox input[type="checkbox"]:checked + span {
-  left: 26px;
+.toggle-checkbox input[type="checkbox"]:checked + span:after {
+  left: 50%;
   background-color: green;
+}
+
+.toggle-checkbox input[disabled="disabled"] + span {
+  opacity: 0.2;
 }
 
 .unfocus:focus, .dropdown:focus, input[type=text]:focus {
@@ -2423,25 +2438,38 @@ a {
 .share-artefact-people {
   position: relative;
   float: left;
-  margin-top: 20px;
+  margin-top: 15px;
   position: relative;
   width: 100%;
 }
 
 .share-artefact-people-wrapper {
   height: 186px;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 .share-artefact-people-item {
   margin-top: 2px;
-  margin-left: 25px;
-  width: 178px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 58px;
 }
 
 .share-artefact-people-item + .share-artefact-people-item {
-  margin-top: 25px;
+  margin-top: 5px;
+}
+
+.share-artefact-people-item:hover {
+  background-color: #d1e5fe;
+  box-shadow: -30px 0px 0px 0px #d1e5fe,30px 0px 0px 0px #d1e5fe;
+}
+
+.share-artefact-people-item:hover .close-people-icon {
+  visibility: visible;
 }
 
 .share-artefact-people-item .share-artefacts-text {
@@ -2449,10 +2477,11 @@ a {
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
   vertical-align: middle;
-  width: -ms-calc(100% - 50px);
-  width: -o-calc(100% - 50px);
-  width: calc(100% - 50px);
+  margin-left: 10px;
   text-overflow: ellipsis;
   font-size: 14px;
   color: #3e4354;
@@ -2460,23 +2489,22 @@ a {
 
 .share-artefact-people-item .share-artefact-right-panel {
   margin-left: 20px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .share-artefact-people-item .sarp-text {
-  font-size: 14px;
+  font-size: 12px;
   color: #3e4354;
-  margin-bottom: 10px;
-  margin-top: 15px;
+  text-align: center;
 }
 
 .share-artefact-people-item .share-artefacts-img {
-  height: 34px;
-  width: 34px;
+  height: 38px;
+  width: 38px;
 }
 
 .share-artefact-people-item .share-artefacts-img-holder {
-  margin-left: -22px;
-  border: 5px solid transparent;
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -2499,43 +2527,20 @@ a {
   z-index: 1;
 }
 
-.share-artefact-people-item:hover {
-  background-color: #d1e5fe;
-}
-
-.share-artefact-people-item:hover .share-artefacts-text {
-  font-family: "OpenSansBold";
-}
-
-.share-artefact-people-item:hover .share-artefacts-img-holder:after {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border: 2px solid #7eb7fd;
-  box-shadow: inset 0px 0px 0px 4px white;
-  z-index: 1;
-}
-
-.share-artefact-people-item:hover .share-artefact-people-item-section {
-  display: block;
-}
-
 .share-artefact-people-item .share-artefact-people-item-section {
-  display: none;
-  position: absolute;
-  left: 199px;
-  right: 0px;
-  top: 2px;
-  bottom: 2px;
-  background-color: #d1e5fe;
+  display: inline-block;
+  vertical-align: middle;
+  float: right;
+}
+
+input:disabled {
+  opacity: 0.5;
 }
 
 .sarp-checkbox-holder {
-  margin-top: 10px;
-  margin-left: 10px;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
 }
 
 .suggestion-item {
@@ -2544,6 +2549,16 @@ a {
   border: 1px solid #fff;
   font-size: 14px;
   color: #3e4354;
+}
+
+.close-people-icon {
+  width: 10px;
+  height: 10px;
+  visibility: hidden;
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 40px;
+  padding-right: 20px;
 }
 
 .field-suggestions {
@@ -2570,7 +2585,7 @@ a {
 .permission-item {
   display: inline-block;
   vertical-align: top;
-  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .add-people-text-project {
@@ -2586,14 +2601,28 @@ a {
 }
 
 .permission-item-text {
-  font-size: 14px;
+  font-size: 12px;
   color: #464c5f;
-  margin-bottom: 5px;
 }
 
 .people-permissions-section {
-  margin-top: 40px;
-  float: left;
+  display: none;
+  float: right;
+  clear: both;
+}
+
+.permissions-section {
+  position: relative;
+  padding-top: 14px;
+  clear: both;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 89%;
+  height: 35px;
 }
 
 .combobox.existing-files-combobox {

@@ -12,7 +12,7 @@ sb.postcall = (function(){
 			var accessType = Kenseo.settings.accesstype;
 			var $checkboxes = $el.find('input[type="checkbox"]');
 			var str = "";
-			$checkboxes.forEach(function(checkbox){
+			$checkboxes.each(function(i, checkbox){
 				// Converting boolean to 0 and 1
 				str += checkbox.checked * 1;
 			});

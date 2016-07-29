@@ -458,8 +458,29 @@ sb.popup = {
             sb.setPopupData(null, "file");
         });
     },
+    addPeopleAndPermissions: function addPeopleAndPermissions() {
+      var $currentPopup = Kenseo.current.popup;
+      $currentPopup.find(".permissions").change(function (){
+        if(this.checked) {
+            $currentPopup.find(".people-permissions-section").css({
+              "display" : "inline-block"
+            });
+            $currentPopup.find(".add-comments-chk input, .others-chk input").attr("disabled","disabled");
+            //trigger chenge event when global-permissionsare cheked
+            $('.global-permissions').trigger('change');
+        } else {
+            $currentPopup.find(".people-permissions-section").css({
+             "display" : "none"
+            });
+            $currentPopup.find(".add-comments-chk input, .others-chk input").removeAttr("disabled");
+        }
+        $(".global-permissions").change(function (e){
+          $(this.getAttribute('trigger-chk')).find('input').prop("checked",this.checked);
+        });
+      });
+
+    },
     meetingIvite: function meetingIvite() {
-        var $currentPopup = Kenseo.current.popup;
         sb.ajaxCall({
             "collection": new Kenseo.collections.Projects(),
             container: $currentPopup,
@@ -920,6 +941,7 @@ sb.popup = {
         var $shareArtefactWrapper = $(".share-artefact-people-wrapper");
         if(isSingle){
             $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: obj }));
+            $('.permissions').trigger('change');
         }
         else{
             var teamMembers = Kenseo.data.teamMembers || obj || [];
@@ -934,6 +956,12 @@ sb.popup = {
                 $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: teamMember }));
             });
         }
+        $('.close-people-icon').click(function(){
+          var userId = $(this).parent(".share-artefact-people-item").attr("data-k-user_id");
+          $(this).parent(".share-artefact-people-item").remove();
+          var $elm = $('.sv-name').filter(function(){ return this.getAttribute('data-id') == userId });
+          $elm.parent(".sv-item").remove();
+        });
         sb.popup.attachEvents();
     }
 };

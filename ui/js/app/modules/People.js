@@ -68,6 +68,7 @@ Kenseo.views.People = Backbone.View.extend({
                 // sb.loadCss('assets/styles/css/chosen.css');
                 var data =
                 sb.ajaxCall({
+                  //ajax call to get non-existing project members
                     url: sb.getRelativePath('getOtherProjectMembers'),
                     data: {
                         projectId: Kenseo.current.page === "project-page"?
@@ -76,28 +77,63 @@ Kenseo.views.People = Backbone.View.extend({
                     },
                     container: $('.popup'),
                     success: function(response){
-                        var data = response.data;
+                        var otherMembers = response.data.users;
 
-                        $select = $('.add-people-to-project');
+                        var container = document.querySelector(".people-combobox");
+                        Kenseo.combobox.addPeople = sb.toolbox.applyComboBox({
+                            elem: container,
+                            data: otherMembers,
+                            settings: {
+                                placeholder: "Type mail ID or username and press enter ",
+                                multiSelect: true
+                            },
+                            onchange: function onchange($input, $selectedEl, bln) {
+                                if (bln) {
+                                    var obj = {};
+                                    var attrs = $selectedEl[0].attributes;
+                                    Array.prototype.forEach.call(attrs, function(attr){
+                                        if (attr.name.indexOf("data-") > -1) {
+                                            obj[attr.name.substr(5)] = attr.value;
+                                        }
+                                    });
+                                    obj.name = $selectedEl.html();
+                                    sb.popup.renderSharePopupPeople(obj, true);
 
-                        data.users.map(function(user){
-                            var obj = {};
-                            obj.attr = {
-                                value: user.id
-                            };
 
-                            obj.text = user.name + ": " + user.email;
+                                }
+                            },
+                            insertAfter: function($text, $el, bln, selectedObject){
+                                // if(!Kenseo.combobox.addPeople.filterData){
+                                //     Kenseo.combobox.addPeople.filterData = [];
+                                // }
+                                // Kenseo.combobox.addPeople.filterData.push(selectedObject);
+                            },
 
-                            $select.append(sb.setTemplate('option', {option: obj}));
-                            return obj;
                         });
 
-                        $select.chosen({display_selected_options: false});
+                      //  sb.popup.renderSharePopupPeople(projectMembers);
+                        // $select = $('.add-people-to-project');
+                        //
+                        // data.users.map(function(user){
+                        //     var obj = {};
+                        //     obj.attr = {
+                        //         value: user.id
+                        //     };
+                        //
+                        //     obj.text = user.name + ": " + user.email;
+                        //
+                        //     $select.append(sb.setTemplate('option', {option: obj}));
+                        //     return obj;
+                        // });
+
+                        // $select.chosen({display_selected_options: false});
 
 
                     }
                 })
+                
             }
+
         });
     }
 });
