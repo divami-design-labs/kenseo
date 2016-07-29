@@ -24,31 +24,38 @@ sb.popup = {
             },
             success: function success(data) {
                 var $currentPopup = Kenseo.current.popup;
-                var container = Kenseo.current.popup.find(".combobox")[0];
-                sb.toolbox.applyComboBox({
-                    elem: container,
-                    data: data.data,
-                    settings: {
-                        placeholder: "Choose Project"
-                    },
-                    onchange: function onchange($input, $selectedEl, bln) {
-                        if (bln) {
-                            sb.setPopupData($selectedEl.html(), "name");
-                            sb.setPopupData($selectedEl.data("id"), "id");
-                            $currentPopup.find(".main-btn").prop("disabled", false);
-
-                        } else {
-                            $currentPopup.find(".main-btn").prop("disabled", true);
-                        }
-                        // set a global variable that the project dropdown value has changed
-                        Kenseo.popup.info.projectComboboxValueChanged = bln;
-                    }
+                var container = Kenseo.current.popup.find(".projects-selection-section");
+                $(container).append(sb.setTemplate("project-section-popup",{data:data}));
+                var $selectedElement = $currentPopup.find('.project-selection-block-title');
+                $('input[type=radio][name=projectSection]').change(function() {
+                  sb.setPopupData($selectedElement.html(), "name");
+                  sb.setPopupData($selectedElement.attr('data-k-project_id'), "id");
+                  $currentPopup.find(".main-btn").prop("disabled", false);
                 });
-                var popupData = sb.getPopupData();
-                if (popupData && popupData["project_name"]) {
-                    $(container).find("input").val(popupData["project_name"]);
-                    $currentPopup.find(".main-btn").prop("disabled", false);
-                }
+                // sb.toolbox.applyComboBox({
+                //     elem: container,
+                //     data: data.data,
+                //     settings: {
+                //         placeholder: "Choose Project"
+                //     },
+                //     onchange: function onchange($input, $selectedEl, bln) {
+                //         if (bln) {
+                //             sb.setPopupData($selectedEl.html(), "name");
+                //             sb.setPopupData($selectedEl.data("id"), "id");
+                //             $currentPopup.find(".main-btn").prop("disabled", false);
+                //
+                //         } else {
+                //             $currentPopup.find(".main-btn").prop("disabled", true);
+                //         }
+                //         // set a global variable that the project dropdown value has changed
+                //         Kenseo.popup.info.projectComboboxValueChanged = bln;
+                //     }
+                // });
+                // var popupData = sb.getPopupData();
+                // if (popupData && popupData["project_name"]) {
+                //     $(container).find("input").val(popupData["project_name"]);
+                //     $currentPopup.find(".main-btn").prop("disabled", false);
+                // }
             }
         });
     },
@@ -96,8 +103,14 @@ sb.popup = {
             }
             var $currentPopup = Kenseo.current.popup;
 
-            $currentPopup.find(".create-file-item").css({
-                "visibility": "visible"
+            $currentPopup.find(".files-list").css({
+                "display": "block"
+            });
+            $currentPopup.find(".checkbox").css({
+                "display": "block"
+            });
+            $currentPopup.find(".artefact-combobox").css({
+                "display": "block"
             });
             // Setting the flag to true
             Kenseo.popup.info.newFileSelected = true;
@@ -218,6 +231,17 @@ sb.popup = {
                         if (!this.checked) {
                             $input.val("");
                         }
+                    }
+                });
+
+                $currentPopup.find(".project-page-existing-files-chk").change(function (e) {
+                    // Disable (or) Enable Proceed button when this checkbix is checked.
+                    if(this.checked) {
+                      $(".done-btn").css({"display": "none"});
+                      $(".nav-btn").css({"display": "inline-block"});
+                    } else {
+                      $(".done-btn").css({"display": "inline-block"});
+                      $(".nav-btn").css({"display": "none"});
                     }
                 });
 
@@ -383,31 +407,30 @@ sb.popup = {
                             });
                             obj.name = $selectedEl.html();
                             sb.popup.renderSharePopupPeople(obj, true);
-
                             // setting the default values
-                            var $all = $(".apply-to-all input").eq(0);
-                            var $comment = $(".add-comments-chk input").eq(0);
-                            var $others = $(".others-chk input").eq(0);
-                            if (sb.popup.getChecked($all)) {
-                                var $grandParent = $(".share-artefact-people-wrapper");
-                                var states = {
-                                    comment: sb.popup.getChecked($comment),
-                                    others: sb.popup.getChecked($others),
-                                    all: sb.popup.getChecked($all)
-                                };
-
-                                $grandParent.find(".add-comments-chk").each(function () {
-                                    sb.popup.setChecked($(this).find("input"), states.comment);
-                                });
-
-                                $grandParent.find(".others-chk").each(function () {
-                                    sb.popup.setChecked($(this).find("input"), states.others);
-                                });
-
-                                $grandParent.find(".apply-to-all").each(function () {
-                                    sb.popup.setChecked($(this).find("input"), states.all);
-                                });
-                            }
+                            // var $all = $(".apply-to-all input").eq(0);
+                            // var $comment = $(".add-comments-chk input").eq(0);
+                            // var $others = $(".others-chk input").eq(0);
+                            // if (sb.popup.getChecked($all)) {
+                            //     var $grandParent = $(".share-artefact-people-wrapper");
+                            //     var states = {
+                            //         comment: sb.popup.getChecked($comment),
+                            //         others: sb.popup.getChecked($others),
+                            //         all: sb.popup.getChecked($all)
+                            //     };
+                            //
+                            //     $grandParent.find(".add-comments-chk").each(function () {
+                            //         sb.popup.setChecked($(this).find("input"), states.comment);
+                            //     });
+                            //
+                            //     $grandParent.find(".others-chk").each(function () {
+                            //         sb.popup.setChecked($(this).find("input"), states.others);
+                            //     });
+                            //
+                            //     $grandParent.find(".apply-to-all").each(function () {
+                            //         sb.popup.setChecked($(this).find("input"), states.all);
+                            //     });
+                            // }
                         }
                     },
                     insertAfter: function($text, $el, bln, selectedObject){
@@ -419,7 +442,8 @@ sb.popup = {
                 });
 
                 //render all the team members
-                sb.popup.renderSharePopupPeople(projectMembers);
+                // sb.popup.renderSharePopupPeople(projectMembers);
+                sb.popup.addPeopleAndPermissions();
             }
         });
     },

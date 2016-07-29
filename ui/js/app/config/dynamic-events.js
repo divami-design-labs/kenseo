@@ -51,9 +51,14 @@ $(function () {
 	}).on('click', '.nav-btn', function (e) {
 		e.preventDefault();
 		var currentIndex = $(this).parents('.popup').index();
-		sb.registerData();
+		// sb.registerData();
+		sb.postcall.getPostObj($(this));
 		var nextIndex = $(this).data('index');
 		if (nextIndex >= 0) {
+			if(!validation.doFormValidate($(this))){
+	    	// stop further processing
+	    	return false;
+	    }
 			sb.callPopup(nextIndex, currentIndex);
 		}
 	})

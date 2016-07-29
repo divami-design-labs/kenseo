@@ -61,7 +61,7 @@
 	margin: 0px;
 }
 
-.input-meeting-textarea{
+.input-meeting-textarea, .input-project-textarea{
 	@include placeHolder($colorTwo, 14px, $normalFont);
 	@include dimensions(360px, 58px);
 	border: 1px solid $colorB;

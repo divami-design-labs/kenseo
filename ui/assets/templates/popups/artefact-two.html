@@ -16,71 +16,55 @@
 		%>
 	</div>
 	<div class="popup-body">
-		<div class="popup-body-wrapper popup-right-section">
+		<div class="popup-body-wrapper popup-right-section padding-zero">
+			<div class="add-artefact-section">
+      	<span>This artefact will be share with the people in this project</span>
+      </div>
 			<div class="files-section">
 				<label class="upload-file-section">
 					<input type="file" class="upload-files-input" <% if(!data.single_file_selector){ %>multiple=""<% } %>></input>
-					<div class="file-heading">
-						Upload a new file
-					</div>
 					<div class="uploader-section">
 						<div class="uploader-section-img">
 							<svg><use xlink:href="#pdfnpng"></use></svg>
 						</div>
+						<div class="uploader-section-file">
+							<span>Drag & Drop your artefacts here</span>
+						</div>
 					</div>
 				</label>
-				<span class="or-btn">Or</span>
-				<div class="create-file-section">
-					<% if(data.chooseExistingFile){ %>
-						<div class="file-heading">
-							Choose an existing file
+			</div>
+			<div class="uploaded-file-display">
+				<div class="files-list display-none">
+					<div class="create-file-item">
+						<div class="notification-item S-type">
+							<svg class="notification-s-type-icon"><use xlink:href="#file"></use></svg>
+							<div class="notification-title">
+								Balfour: Image Share
+							</div>
+							<div class="notification-time">
+								@ 11:20 AM by Rakesh
+							</div>
 						</div>
+						<div class="create-file-close-icon">
+							<svg><use xlink:href="#close"></use></svg>
+						</div>
+					</div>
+				</div>
+				<% if(data.allow_artefact_selection){ %>
+					<label class="checkbox display-none">
+						<input type="checkbox" disabled="true" class="existing-files-chk"></input>
+						<span>This is a new version of an existing file</span>
+					</label>
+					<div class="artefact-combobox display-none">
 						<%=
 							sb.toolbox.comboBox({
-								"class": "xm choose-file-combobox",
-								"dataName": "choose-existing-file"
+								"class": "xm existing-files-combobox",
+								"dataName": "choose-file"
 							})
 						%>
-					<% } else{ %>
-						<div class="file-heading">
-							Create file
-						</div>
-					<% } %>
-					<% if(data.show_coming_soon){ %>
-						<div class="coming-soon-text">Coming soon!</div>
-					<% } %>
-					<div class="choose-existing-file-holder">
 					</div>
-				</div>
+				<% } %>
 			</div>
-			<div class="files-list">
-				<div class="create-file-item">
-					<div class="notification-item S-type">
-						<svg class="notification-s-type-icon"><use xlink:href="#file"></use></svg>
-						<div class="notification-title">
-							Balfour: Image Share
-						</div>
-						<div class="notification-time">
-							@ 11:20 AM by Rakesh
-						</div>
-					</div>
-					<div class="create-file-close-icon">
-						<svg><use xlink:href="#close"></use></svg>
-					</div>
-				</div>
-			</div>
-			<% if(data.allow_artefact_selection){ %>
-				<label class="checkbox">
-					<input type="checkbox" disabled="true" class="existing-files-chk"></input>
-					<span>This is a new version of an existing file</span>
-				</label>
-				<%= 
-					sb.toolbox.comboBox({
-						"class": "xm existing-files-combobox",
-						"dataName": "choose-file"
-					})
-				%>
-			<% } %>
 		</div>
 	</div>
 	<div class="buttons-section">

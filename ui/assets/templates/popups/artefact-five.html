@@ -1,0 +1,33 @@
+<% var dump = sb.getPopupData() %>
+<div class="popup popup-large">
+	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
+	<div class="popup-left-section">
+		<%=
+			sb.setTemplate('popup-meta-content', {
+				'data': {
+					project: true,
+					'dump': sb.getPopupData()
+				},
+			})
+		%>
+	</div>
+	<div class="popup-body">
+		<div class="popup-body-wrapper popup-right-section padding-zero">
+			<div class="share-artefact-container">
+					<% if(data.chooseExistingFile){ %>
+						<div class="heading">Artefact</div>
+						<%=
+							sb.toolbox.comboBox({
+								"class": "xm choose-file-combobox",
+								"dataName": "choose-existing-file"
+							})
+						%>
+					<% } %>
+					<div class="choose-existing-file-holder"></div>
+				</div>
+			</div>
+		</div>
+	<div class="buttons-section">
+		<%= sb.toolbox.buttons({"data": data}) %>
+	</div>
+</div>

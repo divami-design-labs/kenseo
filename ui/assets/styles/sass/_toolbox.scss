@@ -84,9 +84,9 @@
 		@include closeIcon(10px);
 	}
 }
-.choose-file-combobox.xm.combobox{
-	width: auto;
-}
+// .choose-file-combobox.xm.combobox{
+// 	width: auto;
+// }
 
 .combobox.xm.people-combobox{
 	width: 505px;
@@ -119,6 +119,11 @@
 	position: relative;
 	float: left;
 	clear: both;
+}
+.checkbox-section{
+	float: left;
+	clear: both;
+	padding-top: 20px;
 }
 .input-wrapper{
 	@extend .wrap;
@@ -250,4 +255,28 @@ input[type="text"].xm{
 		color: tomato;
 		margin-left: 2px;
 	}
+}
+.display-none {
+	display: none;
+}
+.add-artefact-section {
+	width: 565px;
+  height: 48px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 14px;
+  background-color: #c1dafd;
+}
+.padding-zero {
+	padding: 0px;
+}
+.share-artefact-container {
+	padding: 20px 0 0 15px;
+}
+.heading {
+	font-size: 16px;
+	font-family: "OpenSansRegular";
+	color: #3e4354;
+	padding-bottom: 5px;
 }

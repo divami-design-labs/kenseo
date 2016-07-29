@@ -35,6 +35,46 @@
 							<%= fields.shareCombo %>
 						</form>
 					</div>
+
+
+					<div class="permissions-section">
+						<div class="sarp-checkbox-holder">
+					<%=
+						sb.toolbox.checkbox({
+							class: "apply-to-all",
+							inputClass: "permissions",
+							text: "Enable group level permission",
+							ignore: 1
+						})
+					%>
+				</div>
+						<div class="people-permissions-section ">
+							<div class="permissions-wrapper k-field" data-xtype="access_type">
+								<div class="permission-item">
+									<div class="checkbox-holder">
+										<label class="toggle-checkbox" >
+											<input type="checkbox" class="global-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" ></input><span></span>
+										</label>
+									</div>
+									<div class="permission-item-text">comment</div>
+								</div>
+								<div class="permission-item">
+									<div class="checkbox-holder">
+										<label class="toggle-checkbox" >
+											<input type="checkbox" class="global-permissions" trigger-chk=".others-chk" data-subtype="share" ></input><span></span>
+										</label>
+									</div>
+									<div class="permission-item-text">Share</div>
+								</div>
+							</div>
+						</div>
+				</div>
+
+
+
+
+
+
 					<div class="share-artefact-people">
 						<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">
 

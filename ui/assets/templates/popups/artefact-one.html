@@ -1,13 +1,12 @@
-<div class="popup popup-small">
+<div class="popup popup-large">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-body">
-		<div class="popup-body-wrapper">
-			<%= 
-				sb.toolbox.comboBox({
-					"fieldClass": "flt-none",
-					"class": "projects-dropdown",
-				})
-			%>
+		<div class="projects-selection-section-wrapper">
+			<div class="projects-selection-section">
+				<div class="projects-selection-heading">
+					<div class="projects-selection-heading-text">Projects</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="buttons-section">

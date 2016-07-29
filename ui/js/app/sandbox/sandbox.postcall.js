@@ -43,6 +43,18 @@ sb.postcall = (function(){
 				}
 			}
 			return shared_members;
+		},
+		// for Project card selection
+		'project-selection' : function($el) {
+			var $item = $el.find('.project-selection-block-title');
+			var selected_project = {};
+			if($item.html()) {
+				selected_project = {
+					'project_id': $item.attr('data-k-project_id'),
+					'project_name': $item.html()
+				}
+			}
+			return selected_project;
 		}
 	}
 	return {

@@ -57,7 +57,7 @@
   clear: both;
 }
 
-.circle, .profile-image-black, .people-icon, .sp-left img, .sp-left svg, .profile-image-white, .profile-pic-holder img, .people-img-wrapper img, .profile-image-red, .profile-image-blue, .profile-image-grey, .profile-image-comment, .hamburger-notify, .menu-profile-img-dv img, .menu-recent-people-cnt img, .menu-recent-people-cnt svg, .share-artefact-people-item .share-artefacts-img, .share-artefact-people-item .share-artefacts-img-holder, .share-artefact-people-item .share-artefacts-img-holder:after, .share-artefact-people-item:hover .share-artefacts-img-holder:after, .secondary-status-rr, .tf-images img {
+.circle, .profile-image-black, .people-icon, .sp-left img, .sp-left svg, .profile-image-white, .profile-pic-holder img, .people-img-wrapper img, .profile-image-red, .profile-image-blue, .profile-image-grey, .profile-image-comment, .hamburger-notify, .menu-profile-img-dv img, .menu-recent-people-cnt img, .menu-recent-people-cnt svg, .share-artefact-people-item .share-artefacts-img, .share-artefact-people-item .share-artefacts-img-holder, .share-artefact-people-item .share-artefacts-img-holder:after, .secondary-status-rr, .tf-images img {
   border-radius: 50%;
 }
 
@@ -2339,11 +2339,19 @@ a {
   margin-left: 175px;
 }
 
+.uploader-section {
+  padding: 50px 0px;
+}
+
 .uploader-section-img {
   /*@include elementWithBackground("pdfnpng.svg", 125px, 200px);*/
-  width: 125px;
-  height: 200px;
-  margin-top: 45px;
+  display: table-cell;
+}
+
+.uploader-section-file {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 14px;
 }
 
 .file-heading, .your-team-heading {
@@ -2356,13 +2364,8 @@ a {
   margin-bottom: 10px;
 }
 
-.upload-file-section {
-  border-right: 1px solid #c3c5ca;
-  padding-right: 55px;
-}
-
-.upload-file-section, .create-file-section {
-  float: left;
+.uploaded-file-display {
+  padding-left: 30px;
 }
 
 .create-file-section {
@@ -2374,7 +2377,6 @@ a {
   position: relative;
   width: 195px;
   margin-bottom: 10px;
-  visibility: hidden;
 }
 
 .create-file-item .notification-item {
@@ -2779,6 +2781,101 @@ input:disabled {
   height: 40px;
 }
 
+.projects-selection-section-wrapper {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.projects-selection-heading-text {
+  font-size: 16px;
+  font-family: "OpenSansRegular";
+  padding-bottom: 20px;
+}
+
+.project-selection-block {
+  float: left;
+  width: 220px;
+  height: 80px;
+  position: relative;
+  min-height: 120px;
+  overflow: hidden;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.project-selection-block-overlay {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 40px;
+  background-color: #D7D9E0;
+  text-align: center;
+}
+
+.project-selection-block-overlay-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+}
+
+.project-selection-block-title {
+  font-size: 17px;
+  color: #3e4354;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0px 10px;
+  line-height: 40px;
+}
+
+.toggle-project-radio input[type="radio"] {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.toggle-project-radio input[type="radio"]:checked + div::after {
+  content: "";
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  border-radius: 50%;
+  background-color: white;
+  display: block;
+  box-shadow: 0px 0px 0px 200px rgba(99, 173, 236, 0.6);
+}
+
+.toggle-project-radio input[type="radio"]:checked + div::before {
+  content: "";
+  width: 12px;
+  height: 6px;
+  border-left: 3px solid #63adec;
+  border-bottom: 3px solid #63adec;
+  display: block;
+  position: absolute;
+  left: 1px;
+  right: 0;
+  bottom: 6px;
+  top: 0;
+  margin: auto;
+  z-index: 1;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  opacity: 0.6;
+}
+
+.project-selection-block img {
+  width: 100%;
+}
+
 .input-meeting-text {
   width: 366px;
   height: 18px;
@@ -2874,7 +2971,7 @@ input:disabled {
   margin: 0px;
 }
 
-.input-meeting-textarea {
+.input-meeting-textarea, .input-project-textarea {
   width: 360px;
   height: 58px;
   border: 1px solid #aaacb4;
@@ -2883,33 +2980,33 @@ input:disabled {
   vertical-align: top;
 }
 
-.input-meeting-textarea::-webkit-input-placeholder {
+.input-meeting-textarea::-webkit-input-placeholder, .input-project-textarea::-webkit-input-placeholder {
   color: #3e4354;
   font: 14px;
   font-family: "OpenSansRegular";
 }
 
-.input-meeting-textarea:-moz-placeholder {
+.input-meeting-textarea:-moz-placeholder, .input-project-textarea:-moz-placeholder {
   /* Firefox 18- */
   color: #3e4354;
   font: 14px;
   font-family: "OpenSansRegular";
 }
 
-.input-meeting-textarea::-moz-placeholder {
+.input-meeting-textarea::-moz-placeholder, .input-project-textarea::-moz-placeholder {
   /* Firefox 19+ */
   color: #3e4354;
   font: 14px;
   font-family: "OpenSansRegular";
 }
 
-.input-meeting-textarea:-ms-input-placeholder {
+.input-meeting-textarea:-ms-input-placeholder, .input-project-textarea:-ms-input-placeholder {
   color: #3e4354;
   font: 14px;
   font-family: "OpenSansRegular";
 }
 
-.input-meeting-textarea:focus {
+.input-meeting-textarea:focus, .input-project-textarea:focus {
   outline: none;
 }
 
@@ -3843,10 +3940,6 @@ input:disabled {
   height: 10px;
 }
 
-.choose-file-combobox.xm.combobox {
-  width: auto;
-}
-
 .combobox.xm.people-combobox {
   width: 505px;
 }
@@ -3885,6 +3978,12 @@ input:disabled {
   position: relative;
   float: left;
   clear: both;
+}
+
+.checkbox-section {
+  float: left;
+  clear: both;
+  padding-top: 20px;
 }
 
 .field-section ~ .field-section {
@@ -4055,6 +4154,35 @@ input[type="text"].xm {
   content: "*";
   color: tomato;
   margin-left: 2px;
+}
+
+.display-none {
+  display: none;
+}
+
+.add-artefact-section {
+  width: 565px;
+  height: 48px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 14px;
+  background-color: #c1dafd;
+}
+
+.padding-zero {
+  padding: 0px;
+}
+
+.share-artefact-container {
+  padding: 20px 0 0 15px;
+}
+
+.heading {
+  font-size: 16px;
+  font-family: "OpenSansRegular";
+  color: #3e4354;
+  padding-bottom: 5px;
 }
 
 .fixed-header.header {

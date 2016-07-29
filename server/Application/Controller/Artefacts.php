@@ -512,7 +512,21 @@
 			$data = $interpreter->getData();
 			if($data->data) {
 				$data = $data->data;
+			} else{
+				$interpreter->getData()->data = $data;
 			}
+			$projectId = isset($data->project_id) ? $data->project_id : $data->id;
+
+			if(!$projectId) {
+				require_once('Projects.php');
+				$newdata = Projects::addProject($interpreter);
+				$data->project_id = $newdata->projectid;
+				$projectId = $data->project_id;
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->project_name);
+			}
+
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
 
 			// @TODO: Write all required params here
 			/* Required params */
@@ -803,7 +817,9 @@
 		public function shareArtefact($interpreter) {
 			$info = $interpreter->getData();
 			$data = $info->data;
-			$artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
+			$artVerId = isset($data->{'version_id'})? $data->{'version_id'}: $data->{'artefact_ver_id'};
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Venkateshwar");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
 			$artId = $data->id;
 			$userId = $interpreter->getUser()->user_id;
 			$this->shareForTeam($artId, $artVerId,$info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);

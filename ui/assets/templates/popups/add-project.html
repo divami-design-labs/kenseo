@@ -1,24 +1,43 @@
-<div class="popup popup-small k-form">
+<div class="popup popup-large k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
 			<%=
 				sb.toolbox.textBox({
-					placeholder: "Project name",
-					inputClass: "project-input required k-field blur-field",
+					"label": "Project",
+					placeholder: "Enter project name",
+					inputClass: "project-input required k-field blur-field float-none",
 					dataName : "projectName",
 					required: true,
 					attr: {
 						'data-validate-this': 'empty',
 						'data-v-label': 'Project',
 						'data-xtype': 'text',
-						'data-xtype-key': 'projectName'
+						'data-xtype-key': 'project_name'
 					},
 					"fieldSectionErrorMessages": {
 							'empty': ' Please enter project name',
 					}
 				})
 			%>
+			<%=
+				sb.toolbox.textBox({
+					"label": "Description",
+					placeholder: "Enter project description",
+					textArea: true,
+					dataName: "project_description",
+					"inputClass": "input-project-textarea project-input k-field",
+					'attr': {
+						'data-validate-this': 'empty'
+					}
+				})
+			%>
+			<div class="checkbox-section">
+				<label class="checkbox">
+					<input type="checkbox" class="project-page-existing-files-chk"></input>
+					<span>Do you like to add an artefact.</span>
+				</label>
+		 </div>
 		</div>
 	</div>
 	<div class="buttons-section">
