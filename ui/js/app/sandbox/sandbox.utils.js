@@ -377,7 +377,11 @@ var sb = _.extend(sb, (function () {
                     }
                 },
                 getType: function(){
-                    return Kenseo.settings.doctype[dump.doctype[0]['data-name']] || Kenseo.settings.doctype[dump.document_type];
+                  if(dump.document_type) {
+                    return Kenseo.settings.doctype[dump.document_type];
+                  }else{
+                    return Kenseo.settings.doctype[dump.doctype[0]['data-name']];
+                  }
                 },
                 getReferences: function(){
                     return dump.references.map(function(e){return e.name}).join(", ");

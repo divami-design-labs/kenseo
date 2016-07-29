@@ -14,10 +14,10 @@
 	</div>
 <% } %>
 <% if(data.type){ %>
-	<div class="meta-item">	
-		<div class="meta-heading">Type</div>	
-		<% if(dump.doctype){ %>			
-		<div class="meta-text popup-meta-type title-txt" title="<%= metaInfo.getType() %>"></div>	
+	<div class="meta-item">
+		<div class="meta-heading">Type</div>
+		<% if(dump.doctype || dump.document_type){ %>			
+		<div class="meta-text popup-meta-type title-txt" title="<%= metaInfo.getType() %>"></div>
 		<% } %>
 	</div>
 <% } %>

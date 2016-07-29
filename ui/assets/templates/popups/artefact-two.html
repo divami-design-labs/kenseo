@@ -2,10 +2,14 @@
 <div class="popup popup-large">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-left-section">
-		<%= 
+		<%=
 			sb.setTemplate('popup-meta-content', {
 				'data': {
 					project: true,
+					file: true,
+					type: true,
+					references: true,
+					tags: true,
 					'dump': sb.getPopupData()
 				},
 			}) 
