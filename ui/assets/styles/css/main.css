@@ -104,7 +104,7 @@
   display: none;
 }
 
-.disappear, .review-request-item input[type="checkbox"], .upload-file-section input[type="file"] {
+.disappear, .review-request-item input[type="checkbox"] {
   visibility: hidden;
   position: absolute;
   pointer-events: none;
@@ -2362,6 +2362,11 @@ a {
 
 .files-section {
   margin-bottom: 10px;
+}
+
+.upload-file-section input[type="file"] {
+  opacity: 0;
+  position: absolute;
 }
 
 .uploaded-file-display {

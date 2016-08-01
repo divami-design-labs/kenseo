@@ -187,7 +187,7 @@ sb.loadFiles({
         'js/app/config/overlays.js',
 
         'templates.js',
-
+        'js/app/components/upload.js',
         'js/app/components/validation.js',
         'js/app/components/combobox.js',
         'js/app/components/html.js',

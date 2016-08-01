@@ -141,7 +141,8 @@ $popup-content-space: 175px;
 .upload-file-section{
 	@extend .hand;
 	input[type="file"]{
-		@extend .disappear;
+		opacity: 0;
+		position: absolute;
 	}
 }
 .uploaded-file-display{

@@ -70,6 +70,13 @@ sb.popup = {
             return $currentPopup.find(".choose-file-combobox input").prop("disabled", state);
         };
 
+          // $currentPopup.ready(function(){
+            // alert("hello");
+            $('#drop-zone').dropZone();
+          // });
+
+
+
         var toggleStateExistingFileCheck = function(state, title) {
             var $existingCheckBox = $currentPopup.find(".existing-files-chk");
             if(state){
@@ -91,6 +98,7 @@ sb.popup = {
             $existingFilesCombobox.find(".suggestionsContainer").hide();
             $existingFilesCombobox.find('input').val('').prop("disabled", true);
         };
+
 
         $(".upload-files-input").change(function () {
             var files = this.files;
@@ -192,7 +200,6 @@ sb.popup = {
             },
             success: function success(response) {
                 var $currentPopup = Kenseo.current.popup;
-
                 var container = $currentPopup.find(".existing-files-combobox")[0];
                 Kenseo.globalArtefacts = response.data;
                 Kenseo.combobox.existingCombobox = sb.toolbox.applyComboBox({
@@ -211,7 +218,6 @@ sb.popup = {
                         }
                     }
                 });
-
                 $currentPopup.find(".existing-files-chk").change(function (e) {
                     // e.stopPropagation();
                     var $elem = Kenseo.combobox.existingCombobox.$elem;

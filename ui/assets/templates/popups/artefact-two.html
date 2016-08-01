@@ -12,7 +12,7 @@
 					tags: true,
 					'dump': sb.getPopupData()
 				},
-			}) 
+			})
 		%>
 	</div>
 	<div class="popup-body">
@@ -20,7 +20,7 @@
 			<div class="add-artefact-section">
       	<span>This artefact will be share with the people in this project</span>
       </div>
-			<div class="files-section">
+			<div class="files-section" id="drop-zone">
 				<label class="upload-file-section">
 					<input type="file" class="upload-files-input" <% if(!data.single_file_selector){ %>multiple=""<% } %>></input>
 					<div class="uploader-section">
