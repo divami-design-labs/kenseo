@@ -44,7 +44,7 @@ sb.postcall = (function(){
 			}
 			return shared_members;
 		},
-		// for Project card selection
+		// for Project card selection	
 		'project-selection' : function($el) {
 			var $item = $el.find('.project-selection-block-title');
 			var selected_project = {};

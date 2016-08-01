@@ -59,6 +59,19 @@ sb.popup = {
             }
         });
     },
+    addNewProject: function addNewProject() {
+      var $currentPopup = Kenseo.current.popup;
+      $currentPopup.find(".project-page-existing-files-chk").change(function (e) {
+          // Disable (or) Enable Proceed button when this checkbix is checked.
+          if(this.checked) {
+            $(".done-btn").css({"display": "none"});
+            $(".nav-btn").css({"display": "inline-block"});
+          } else {
+            $(".done-btn").css({"display": "inline-block"});
+            $(".nav-btn").css({"display": "none"});
+          }
+      });
+    },
     createFilePopup: function createFilePopup() {
         var $currentPopup = Kenseo.current.popup;
 
@@ -70,12 +83,7 @@ sb.popup = {
             return $currentPopup.find(".choose-file-combobox input").prop("disabled", state);
         };
 
-          // $currentPopup.ready(function(){
-            // alert("hello");
-            $('#drop-zone').dropZone();
-          // });
-
-
+        $('#drop-zone').dropZone();
 
         var toggleStateExistingFileCheck = function(state, title) {
             var $existingCheckBox = $currentPopup.find(".existing-files-chk");
@@ -237,17 +245,6 @@ sb.popup = {
                         if (!this.checked) {
                             $input.val("");
                         }
-                    }
-                });
-
-                $currentPopup.find(".project-page-existing-files-chk").change(function (e) {
-                    // Disable (or) Enable Proceed button when this checkbix is checked.
-                    if(this.checked) {
-                      $(".done-btn").css({"display": "none"});
-                      $(".nav-btn").css({"display": "inline-block"});
-                    } else {
-                      $(".done-btn").css({"display": "inline-block"});
-                      $(".nav-btn").css({"display": "none"});
                     }
                 });
 

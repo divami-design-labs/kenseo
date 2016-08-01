@@ -121,7 +121,7 @@ Kenseo.popups = (function(){
 						"data-target-validating-section": ".popup-body"
 					}
 				}],
-				"callbackfunc": sb.popup.createFilePopup
+				"callbackfunc": sb.popup.addNewProject
 		}
 	}
 	function artefactFive(obj) {
