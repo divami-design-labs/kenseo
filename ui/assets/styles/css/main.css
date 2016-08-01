@@ -2881,6 +2881,10 @@ input:disabled {
   width: 100%;
 }
 
+.overflowx-hidden {
+  overflow-x: hidden;
+}
+
 .input-meeting-text {
   width: 366px;
   height: 18px;
