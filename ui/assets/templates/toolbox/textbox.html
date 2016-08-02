@@ -16,7 +16,7 @@
 			placeholder="<%= data.placeholder %>"
 			<% } %>
 			<%= sb.setTemplate('attributes', {data: data.attr}) %>
-		 ></textarea>
+		 ><%= data.value %></textarea>
 		<% } %>
 		<div class="field-section-error-messages">
 			<% for(var key in data.fieldSectionErrorMessages) { %>

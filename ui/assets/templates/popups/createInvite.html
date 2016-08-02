@@ -12,8 +12,11 @@
 						"class": "xm project-combobox blur-field",
 						"dataName": "meetingProject",
 						"placeholder": "Choose Project",
+						"inputAttr": {
+							"value": sb.getPopulateValue(data.populateType, 'project_name')
+						},
 						"fieldSectionErrorMessages": {
-								'empty': 'Please select project name',
+							'empty': 'Please select project name',
 						}
 					})
 				%>
@@ -24,6 +27,9 @@
 						"class": "xm artefact-combobox blur-field",
 						"dataName": "meetingArtefact",
 						"placeholder": "Choose Project",
+						"inputAttr": {
+							"value": sb.getPopulateValue(data.populateType, 'artefact_name')
+						},
 						"fieldSectionErrorMessages": {
 								'empty': 'Please select project name',
 						}
@@ -39,16 +45,27 @@
 						'attr': {
 							'data-validate-this': 'empty'
 						},
+						'value': sb.getPopulateValue(data.populateType, 'agenda'),
 						"fieldSectionErrorMessages": {
 								'empty': ' Please provide meeting agenda',
 						}
 					})
 				%>
 				<div style="clear: both; padding-top: 20px;">
-					<div class="field-section in-line" data-name="date" data-ignore="1">
+					<div class="field-section in-line" data-name="date">
+						<%
+							var dateValue = sb.getPopulateValue(data.populateType, 'meeting_date');
+							if(dateValue){
+								dateValueTokens = new Date(dateValue).toDateString().split(" ");
+								dateValue = dateValueTokens[2] + " " + dateValueTokens[1] + " " + dateValueTokens[3];
+							}
+							else{
+								dateValue = "";
+							}
+						%>
 						<div class="input-label required">Scheduled on</div>
 						<div class="input-wrapper float-left mini-datepicker">
-							<input type="text" class="input-meeting-date float-left"></input>
+							<input type="text" value="<%= dateValue %>" class="input-meeting-date float-left"></input>
 							<div class="datepicker-icon-holder float-left">
 								<div class="datepicker-icon">
 									<svg><use xlink:href="#calendar"></use></svg>
@@ -56,58 +73,41 @@
 							</div>
 						</div>
 					</div>
+					<%
+						var timeValues = [
+											"12:30 AM","01:00 AM","01:30 AM","02:00 AM","02:30 AM","03:00 AM",
+											"03:30 AM","04:00 AM","04:30 AM","05:00 AM","05:30 AM","06:00 AM",
+											"06:30 AM","07:00 AM","07:30 AM","08:00 AM","08:30 AM","09:00 AM",
+											"09:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM",
+											"12:30 PM","01:00 PM","01:30 PM","02:00 PM","02:30 PM","03:00 PM",
+											"03:30 PM","04:00 PM","04:30 PM","05:00 PM","05:30 PM","06:00 PM",
+											"06:30 PM","07:00 PM","07:30 PM","08:00 PM","08:30 PM","09:00 PM",
+											"09:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM","11:30 PM"
+										]
+					%>
 					<div class="field-section in-line" data-name="fromTime">
 						<div class="input-wrapper float-left">
 							<div class="time-label">From</div>
 							<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">
-								<option value="00:00">12:00 AM</option>
-								<option value="00:30">12:30 AM</option>
-							    <option value="01:00">01:00 AM</option>
-								<option value="01:30">01:30 AM</option>
-							    <option value="02:00">02:00 AM</option>
-								<option value="02:30">02:30 AM</option>
-							    <option value="03:00">03:00 AM</option>
-								<option value="03:30">03:30 AM</option>
-							    <option value="04:00">04:00 AM</option>
-								<option value="04:30">04:30 AM</option>
-							    <option value="05:00">05:00 AM</option>
-								<option value="05:30">05:30 AM</option>
-							    <option value="06:00">06:00 AM</option>
-								<option value="06:30">06:30 AM</option>
-							    <option value="07:00">07:00 AM</option>
-								<option value="07:30">07:30 AM</option>
-							    <option value="08:00">08:00 AM</option>
-								<option value="08:30">08:30 AM</option>
-							    <option value="09:00">09:00 AM</option>
-								<option value="09:30">09:30 AM</option>
-							    <option value="10:00">10:00 AM</option>
-								<option value="10:30">10:30 AM</option>
-							    <option value="11:00">11:00 AM</option>
-								<option value="11:30">11:30 AM</option>
-							    <option value="12:00">12:00 PM</option>
-								<option value="12:30">12:30 PM</option>
-							    <option value="13:00">01:00 PM</option>
-								<option value="13:30">01:30 PM</option>
-							    <option value="14:00">02:00 PM</option>
-								<option value="14:30">02:30 PM</option>
-							    <option value="15:00">03:00 PM</option>
-								<option value="15:30">03:30 PM</option>
-							    <option value="16:00">04:00 PM</option>
-								<option value="16:30">04:30 PM</option>
-							    <option value="17:00">05:00 PM</option>
-								<option value="17:30">05:30 PM</option>
-							    <option value="18:00">06:00 PM</option>
-								<option value="18:30">06:30 PM</option>
-							    <option value="19:00">07:00 PM</option>
-								<option value="19:30">07:30 PM</option>
-							    <option value="20:00">08:00 PM</option>
-								<option value="20:30">08:30 PM</option>
-							    <option value="21:00">09:00 PM</option>
-								<option value="21:30">09:30 PM</option>
-							    <option value="22:00">10:00 PM</option>
-								<option value="22:30">10:30 PM</option>
-							    <option value="23:00">11:00 PM</option>
-								<option value="23:30">11:30 PM</option>
+								<% var fromTime = sb.getPopulateValue(data.populateType, 'meeting_date_from_time') %>
+								<% var fromTimeSelectIndex = 0 %>
+								<%
+									if(fromTime){
+										fromTimeSelectIndex = timeValues.indexOf(sb.getTime(new Date(fromTime).toString())) + 1;
+									}
+									else{
+										var newSelectValue = new Date();
+										newSelectValue.setMinutes(Math.ceil(newSelectValue.getMinutes() / 30) * 30);
+										var diffSelectValue = new Date();
+										diffSelectValue.setHours(0);
+										diffSelectValue.setMinutes(0);
+										diffSelectValue.setSeconds(0);
+										fromTimeSelectIndex = Math.floor((newSelectValue.getTime() - diffSelectValue.getTime()) / (30 * 60 * 1000));
+									}
+								%>
+								<% _.each(timeValues, function(time, i){ %>
+									<option <% if(i === fromTimeSelectIndex - 1){ %>selected<% } %> value="<%= time.split(' ')[0] %>"><%= time %></option>
+								<% }) %>
 							</select>
 						</div>
 					</div>
@@ -115,54 +115,16 @@
 						<div class="input-wrapper float-left">
 							<div class="time-label">To</div>
 							<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">
-							    <option value="00:00">12:00 AM</option>
-								<option value="00:30">12:30 AM</option>
-							    <option value="01:00">01:00 AM</option>
-								<option value="01:30">01:30 AM</option>
-							    <option value="02:00">02:00 AM</option>
-								<option value="02:30">02:30 AM</option>
-							    <option value="03:00">03:00 AM</option>
-								<option value="03:30">03:30 AM</option>
-							    <option value="04:00">04:00 AM</option>
-								<option value="04:30">04:30 AM</option>
-							    <option value="05:00">05:00 AM</option>
-								<option value="05:30">05:30 AM</option>
-							    <option value="06:00">06:00 AM</option>
-								<option value="06:30">06:30 AM</option>
-							    <option value="07:00">07:00 AM</option>
-								<option value="07:30">07:30 AM</option>
-							    <option value="08:00">08:00 AM</option>
-								<option value="08:30">08:30 AM</option>
-							    <option value="09:00">09:00 AM</option>
-								<option value="09:30">09:30 AM</option>
-							    <option value="10:00">10:00 AM</option>
-								<option value="10:30">10:30 AM</option>
-							    <option value="11:00">11:00 AM</option>
-								<option value="11:30">11:30 AM</option>
-							    <option value="12:00">12:00 PM</option>
-								<option value="12:30">12:30 PM</option>
-							    <option value="13:00">01:00 PM</option>
-								<option value="13:30">01:30 PM</option>
-							    <option value="14:00">02:00 PM</option>
-								<option value="14:30">02:30 PM</option>
-							    <option value="15:00">03:00 PM</option>
-								<option value="15:30">03:30 PM</option>
-							    <option value="16:00">04:00 PM</option>
-								<option value="16:30">04:30 PM</option>
-							    <option value="17:00">05:00 PM</option>
-								<option value="17:30">05:30 PM</option>
-							    <option value="18:00">06:00 PM</option>
-								<option value="18:30">06:30 PM</option>
-							    <option value="19:00">07:00 PM</option>
-								<option value="19:30">07:30 PM</option>
-							    <option value="20:00">08:00 PM</option>
-								<option value="20:30">08:30 PM</option>
-							    <option value="21:00">09:00 PM</option>
-								<option value="21:30">09:30 PM</option>
-							    <option value="22:00">10:00 PM</option>
-								<option value="22:30">10:30 PM</option>
-							    <option value="23:00">11:00 PM</option>
-								<option value="23:30">11:30 PM</option>
+								<% var toTime = sb.getPopulateValue(data.populateType, 'meeting_date_to_time') %>
+								<% var toTimeSelectIndex = 0 %>
+								<%
+									if(toTime){
+										toTimeSelectIndex = timeValues.indexOf(sb.getTime(new Date(toTime).toString())) + 1;
+									}
+								%>
+								<% _.each(timeValues, function(time, i){ %>
+									<option <% if(i === toTimeSelectIndex - 1){ %>selected<% } %> value="<%= time.split(' ')[0] %>"><%= time %></option>
+								<% }) %>
 							</select>
 						</div>
 					</div>
@@ -173,23 +135,8 @@
 						inputClass: "meeting-location",
 						dataName: "location",
 						'attr': {
-							'data-validate-this': 'empty'
-						}
-					})
-				%>
-				<%
-					toolbox.textBox({
-						"label": "Recipients List",
-						textArea: true,
-						required: true,
-						inputClass: "recipients-meeting-txt-section blur-field",
-						"class": "xm people-name tags-combobox",
-						"dataName": "attendees",
-						'attr': {
-							'data-validate-this': 'empty'
-						},
-						"fieldSectionErrorMessages": {
-							'empty': ' Please select at least one recipient',
+							'data-validate-this': 'empty',
+							'value': sb.getPopulateValue(data.populateType, 'venue')
 						}
 					})
 				%>

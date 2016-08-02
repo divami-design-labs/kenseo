@@ -149,17 +149,8 @@
 		public function addProject($interpreter) {
 			$result = new stdClass();
 			$data = $interpreter->getData()->data;
-			// return $data;
 			// $projectName = $data->projectName->value;
 			$projectName = $data->project_name;
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "project name");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $interpreter);
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "project name");
-			
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "project name");
-
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $projectName);
 			$userId = $interpreter->getUser()->user_id;
 			$date = date("Y-m-d H:i:s");
 

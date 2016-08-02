@@ -3,47 +3,63 @@
     class Meetings {
 		public function setMeetingInvitaion($interpreter) {
 			global $AppGlobal;
-			
+
 			$data = $interpreter->getData()->data;
 			$user = $interpreter->getUser();
-			
+
 			// Create the google client.
 			$client = new Google_Client();
-			$project = 'kenseo';
-			$client->setApplicationName($AppGlobal['googleauth'][$project]['appName']);
-			$client->setClientId($AppGlobal['googleauth'][$project]['clientId']);
-			$client->setClientSecret($AppGlobal['googleauth'][$project]['clientSecret']);
-			$client->setRedirectUri($AppGlobal['googleauth'][$project]['redirectURL']);
+			$appName = 'App';
+			$client->setApplicationName($AppGlobal['googleauth'][$appName]['appName']);
+			$client->setClientId($AppGlobal['googleauth'][$appName]['clientId']);
+			$client->setClientSecret($AppGlobal['googleauth'][$appName]['clientSecret']);
+			$client->setRedirectUri($AppGlobal['googleauth'][$appName]['redirectURL']);
 			$client->setApprovalPrompt('auto');
+			// $client->setAccessType("offline");
 			$client->setScopes(array('https://www.googleapis.com/auth/calendar'));
-			
-			$kenseoGAT = $_COOKIE['DivamiKenseoGAT'];
-			
+
+			$kenseoGAT = $_COOKIE['DivamiAppGAT'];
+
 			//we need to have a calendar service to create a new calendar meeting invitation
 			$service = new Google_Service_Calendar($client);
-			
+
 			//since we already have the GAT with us we say get AccessToken to get the client authenticated
 			$client->setAccessToken($kenseoGAT);
 			$token = $client->getAccessToken();
-			
-			//this google event stores the data and this is inserted into the calendar 
+			if($client->isAccessTokenExpired()){
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,"Token expired");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,$kenseoGAT);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,$client->isAccessTokenExpired());
+			}
+
+			// now we need to store these in DB
+			$db = Master::getDBConnectionManager();
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN,"line 38");
+			// this google event stores the data and this is inserted into the calendar
 			$event = new Google_Service_Calendar_Event();
+			Master::getLogManager()->log(DEBUG, MOD_MAIN,"line 41");
 			$projectId = $data->meetingProject[0]->{'data-id'};
 			$location = $data->location->value;
-			$fromTime = $data->date . $data->fromTime->value;
-			$toTime = $data->date . $data->toTime->value;
+			// Converting string to datetime format and then again to string for further operations
+			$date = DateTime::createFromFormat(
+						"d M Y",
+						$data->date->value
+					)->format('Y-m-d');
+			$fromTime = $date . $data->fromTime->value;
+			$toTime = $date . $data->toTime->value;
 
 			$project = $data->meetingProject[0]->name;
 			$feature = $data->meetingArtefact[0]->{'data-id'};
 			$featureName = $data->meetingArtefact[0]->name;
-			$meetingType = ""; 
+			$meetingType = "";
 			$description = isset($data->agenda->value) ? $data->agenda->value : "Description";
 			$title = $project ." : " . $featureName;
-			
+
 			$event->setSummary($title);
 			$event->setLocation($location);
 			$event->setDescription($description);
-			
+
 			$start = new Google_Service_Calendar_EventDateTime();
 			$start->setDateTime($fromTime);
 			$event->setStart($start);
@@ -51,16 +67,26 @@
 			$end->setDateTime($toTime);
 			$event->setEnd($end);
 			$event->setVisibility('public');
-			
+
 			//building meeting invitaion attendee list
 			Master::getLogManager()->log(DEBUG, MOD_MAIN,"building meeting invitaion attendee list");
 			$attendee1 = new Google_Service_Calendar_EventAttendee();
 			//$attendee1->setResponseStatus("accepted");
 			$attendee1->setEmail($user->email);
-			
+
 			$attendees = array($attendee1);
-			
-			$newAttendees = explode(",", $data->attendees->value);
+
+			$attendeesUserIds = join(",", $data->attendees->value);
+
+			// $newAttendees = explode(",", $data->attendees->value);
+
+			$newAttendees = array_map(function($row) {
+				return $row->email;
+			}, $db->multiObjectQuery(getQuery('getUsers', array(
+				"@userids" => $attendeesUserIds
+			))));
+
+
 			for($i = 0; $i < count($newAttendees); $i++) {
 				if($newAttendees[$i]) {
 					Master::getLogManager()->log(DEBUG, MOD_MAIN, "appending attendees");
@@ -70,7 +96,7 @@
 					array_push($attendees ,$attendee);
 				}
 			}
-			
+
 			$event->attendees = $attendees;
 
 			//this option if set true will send the mail notifications to attendees
@@ -79,10 +105,8 @@
 			$createdEvent = $service->events->insert('primary', $event, $optionaArguments);
 
 			$meetingId = $createdEvent->getId();
-			
-			//now we need to store these in DB			
-			$db = Master::getDBConnectionManager();
-			
+
+
 			//insert into meetings
 			$columnnames = array("project_id", "meeting_on_artefact_id", "meeting_time", "meeting_end_time", "meeting_title", "meeting_agenda", "venue","created_by", "google_meeting_ref_id");
 			$rowvals = array($projectId, $feature, $fromTime, $toTime, $title, $description, $location,$user->user_id, $meetingId);
@@ -92,13 +116,13 @@
 			//insert into meeting participants
 			$partsColumnnames = array("meeting_id", "participent_id", "invitation_date", "invited_by");
 			$notColumnnames = array("user_id", "message","project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
-			
+
 
 			//notify the user itself
 			$notRowvals = array($user->user_id, $title, $projectId, $user->user_id, date("Y-m-d H:i:s"), 'M', $meetId, 'U');
 
 			$actId = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notColumnnames, $notRowvals);
-			
+
 			$notesColumnValues = array("meeting_id","participant_id", "participant_notes", "created_date", "is_public");
 			$notesRowValues = array($meetId,  $user->user_id, "",date("Y-m-d H:i:s"), 0);
 			$db->insertSingleRow(TABLE_MEETING_NOTES, $notesColumnValues, $notesRowValues);
@@ -133,47 +157,47 @@
 			// return $resultMessage;
 			return $meetId;
 		}
-		
+
 		public function writeMeetingNotes($interpreter) {
 			$data = $interpreter->getData()->data;
 			$user = $interpreter->getUser();
-			
+
 			$db = Master::getDBConnectionManager();
-			
+
 			$columnnames = array("meeting_id", "participent_id", "participation_notes", "created_date", "is_public");
 			$rowvals = array($data->meetingId, $user->uesr_id, $data->notes, date("Y-m-d H:i:s"), $data->is_public);
-			
+
 			$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $columnnames, $rowvals);
-			
+
 			return true;
 		}
-		
+
 		public function getMeetingNotes($interpreter) {
 			$data = $interpreter->getData()->data;
 			$user = $interpreter->getUser();
-			
+
 			$db = Master::getDBConnectionManager();
-			
+
 			$queryParams = array(meetingId => $data->meetingId, userId=> $user->user_id);
-			
-			//first get meeting Details 
+
+			//first get meeting Details
 			$dbQuery = getQuery('getMeetingDetails',$queryParams);
 			$meetingObj = $db->singleObjectQuery($dbQuery);
-			
-			
+
+
 			//now get participants
 			$dbQuery = getQuery('getMeetingParticipants',$queryParams);
 			$participants = $db->multiObjectQuery($dbQuery);
-			
+
 			$meetingObj->participants = $participants;
-			
+
 			//now get notes
 			$dbQuery = getQuery('getMeetingNotes',$queryParams);
 			$notes = $db->multiObjectQuery($dbQuery);
-			
+
 			$meetingObj->notes = $notes;
-			
-			
+
+
 			return $meetingObj;
 		}
 

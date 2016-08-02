@@ -1,14 +1,14 @@
 <% Kenseo.populate.meeting = data %>
 <div class="meeting-section">
-    <div class="project-heading">       
+    <div class="project-heading">
         <div class="projects-heading-icon">
             <svg><use xlink:href="#projects"></use></svg>
-        </div>       
+        </div>
         <a href="#projects" class="heading-text-project">Projects &gt; </a>
-        <a href="#projectpage/<%= data.projectId %>" class="heading-text-project-name"><%= data.projectName %></a>  
+        <a href="#projectpage/<%= data.projectId %>" class="heading-text-project-name"><%= data.projectName %></a>
         <span class="heading-date">(<%= sb.timeFormat(data.startTime, true, true) %>)</span>
         <div class="meeting-update-btn-holder">
-            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>
+            <div class="popup-click meeting-update-button" data-url="edit-meeting" data-others="populate">Update</div>
         </div>
     </div>
     <div class="meeting-wrapper">
@@ -96,7 +96,7 @@
             			<%= p.notes%>
         			</div>
             	<% }); %>
-               
+
             </div>
             <label class="checkbox">
                 <input class="existing-files-chk" type="checkbox">

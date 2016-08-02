@@ -817,9 +817,7 @@
 		public function shareArtefact($interpreter) {
 			$info = $interpreter->getData();
 			$data = $info->data;
-			$artVerId = isset($data->{'version_id'})? $data->{'version_id'}: $data->{'artefact_ver_id'};
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Venkateshwar");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
+			$artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
 			$artId = $data->id;
 			$userId = $interpreter->getUser()->user_id;
 			$this->shareForTeam($artId, $artVerId,$info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
