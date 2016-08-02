@@ -532,6 +532,17 @@ sb.popup = {
                 refreshArtefactCombobox(sb.getPopulateValue('create-meeting', 'project_id'));
             }
 
+            if(sb.getPopulateValue('update-meeting', 'project_id')){
+                // get the value in artefact combobox's input field
+                var $artefactComboboxInput = $currentPopup.find('.artefact-combobox input');
+                var value = $artefactComboboxInput.val();
+                // refresh the artefact section with new list according to the passed project id
+                refreshArtefactCombobox(sb.getPopulateValue('update-meeting', 'project_id'), function(){
+                    // adding the value again to the artefact combobox's input
+                    $artefactComboboxInput.val(value);
+                });
+            }
+
             var container = document.querySelector(".project-combobox");
             var combobox = sb.toolbox.applyComboBox({
                 elem: container,
@@ -612,8 +623,8 @@ sb.popup = {
                 }
             });
 
-            function refreshArtefactCombobox(projectId){
-                sb.ajaxCall({
+            function refreshArtefactCombobox(projectId, callbackfunc){
+                return sb.ajaxCall({
                     "collection": new Kenseo.collections.Artefacts(),
                     container: $('[data-name="meetingArtefact"].field-section'),
                     "data": {
@@ -626,6 +637,10 @@ sb.popup = {
                         artefactCombobox.refresh({
                             newSuggestions: response.data
                         });
+
+                        if(callbackfunc){
+                            callbackfunc();
+                        }
                     }
                 });
             }

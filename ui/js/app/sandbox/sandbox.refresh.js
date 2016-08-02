@@ -194,14 +194,14 @@ sb.refresh = (function(){
 	                callbackfunc: function(response) {
 						var data = response.data;
 						// prepare the edit meeting invitation field values
-						sb.setPopulateValue('edit-meeting', 'agenda', data.agenda);
-						sb.setPopulateValue('edit-meeting', 'artefact_name', data.artefactName);
-						sb.setPopulateValue('edit-meeting', 'project_id', data.projectId);
-						sb.setPopulateValue('edit-meeting', 'project_name', data.projectName);
-						sb.setPopulateValue('edit-meeting', 'venue', data.venue);
-						sb.setPopulateValue('edit-meeting', 'meeting_date', data.startTime.split(" ")[0]);
-						sb.setPopulateValue('edit-meeting', 'meeting_date_from_time', data.startTime);
-						sb.setPopulateValue('edit-meeting', 'meeting_date_to_time', data.endTime);
+						sb.setPopulateValue('update-meeting', 'agenda', data.agenda);
+						sb.setPopulateValue('update-meeting', 'artefact_name', data.artefactName);
+						sb.setPopulateValue('update-meeting', 'project_id', data.projectId);
+						sb.setPopulateValue('update-meeting', 'project_name', data.projectName);
+						sb.setPopulateValue('update-meeting', 'venue', data.venue);
+						sb.setPopulateValue('update-meeting', 'meeting_date', data.startTime.split(" ")[0]);
+						sb.setPopulateValue('update-meeting', 'meeting_date_from_time', data.startTime);
+						sb.setPopulateValue('update-meeting', 'meeting_date_to_time', data.endTime);
 	                    //since we have the Html ready now we can have the editor in place.
 	                    var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
 	                    sb.meeting.notes();
