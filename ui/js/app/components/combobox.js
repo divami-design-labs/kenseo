@@ -168,7 +168,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	}
 
 	function toggleSuggestions(e) {
-		var $el = $(e.currentTarget);
+		var $el = $(e.currentTarget || e.target);
 
 		if ($(e.target).hasClass("selectable") || $el.find("input").prop("disabled")) {
 			return;

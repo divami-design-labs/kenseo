@@ -2,7 +2,7 @@
  * Main aim of this library is to gather all necessary data which is supposed to send to server
  */
 sb.postcall = (function(){
-	var fieldTypes = {
+	var getFieldTypes = {
 		'text-with-comma': function($el){
 			return $el.val().split(',').map(function(el){
 				return $.trim(el);
@@ -74,7 +74,7 @@ sb.postcall = (function(){
 				// Get the type of functionality/implementation to be done to fetch the attached data
 				var type = $field.attr('data-xtype');
 				var typeKey = $field.attr('data-xtype-key') || type; // Applying provided xtype as key when no key is provided
-				var func = fieldTypes[type];
+				var func = getFieldTypes[type];
 				if(func){ // if k-xtype field's functionality is present in fieldTypes variable above
 					// data[typeKey] = func($field);
 					Kenseo.popup.data[typeKey] = func($field); // temporary fix
@@ -91,6 +91,32 @@ sb.postcall = (function(){
 
 			// return the filled data
 			return data;
+		},
+		setPostObj: function(){
+			// @Expected structure
+
+			// {
+			// 	"x-type": [
+			// 		{
+			// 			"x-type-key-token": "x-type-key-value",
+			// 			"x-type-key-token": "x-type-key-value"
+			// 		},
+			// 		{
+			// 			"x-type-key-token": "x-type-key-value",
+			// 			"x-type-key-token": "x-type-key-value"
+			// 		}
+			// 	],
+			// 	"x-type": [
+			// 		{
+			// 			"x-type-key-token": "x-type-key-value",
+			// 			"x-type-key-token": "x-type-key-value"
+			// 		},
+			// 		{
+			// 			"x-type-key-token": "x-type-key-value",
+			// 			"x-type-key-token": "x-type-key-value"
+			// 		}
+			// 	]
+			// }
 		}
 	}
 })()

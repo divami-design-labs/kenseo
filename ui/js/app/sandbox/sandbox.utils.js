@@ -226,6 +226,29 @@ var sb = _.extend(sb, (function () {
                 sb.log('provide valid key id pair');
             }
         },
+        // A variable to hold flag to populate fields based on action type
+        triggerPopulateFor: [],
+        // gets the populating value for fields
+        getPopulateValue: function(property, str){
+            // Check if the triggerPopulateFor global array holds to populate the passed property
+            if(sb.triggerPopulateFor.indexOf(property) > -1){
+                // get the populating data
+                var populate = Kenseo.populate[property];
+                // if populating data is present
+                if(populate){
+                    // return the property value and if it not present then return empty string
+                    return populate[str] || "";
+                }
+            }
+            return "";
+        },
+        setPopulateValue: function(property, str, value){
+            // if the object is not present, create one
+            if(!Kenseo.populate[property]){
+                Kenseo.populate[property] = {};
+            }
+            Kenseo.populate[property][str] = value;
+        },
         setTitle: function(str){
             var $title = $('title');
             $title.html('Kenseo - ' + str);
@@ -301,44 +324,72 @@ var sb = _.extend(sb, (function () {
                 Kenseo.popup.data[a] = b;
             })
         },
+        setOtherSettings: function(payload){
+            var settings = ['populate'];
+            var addSettings = {
+                // This property is used to activate populate the fields flag
+                "populate": function() {
+                    // if the actiontype setting is not already registered
+                    if(sb.triggerPopulateFor.indexOf(payload.actionType) === -1){
+                        // register the action type setting
+                        sb.triggerPopulateFor.push(payload.actionType);
+                    }
+                }
+            };
+
+            var resetSettings = {
+                "populate": function(){
+                    // remove actiontype info from the array
+                    var index = sb.triggerPopulateFor.indexOf(payload.actionType);
+                    // if the setting is present
+                    if(index > -1){
+                        // remove it
+                        sb.triggerPopulateFor.splice(index, 1)
+                    }
+                }
+            };
+            // call the setting
+            payload.settings.forEach(function(setting){
+                if(addSettings[setting]){
+                    addSettings[setting]();
+                }
+            });
+
+            // get the settings which aren't mentioned by the call
+            // the settings which aren't mentioned by the call should be reset
+            _.difference(settings, payload.settings).forEach(function(setting){
+                if(resetSettings[setting]){
+                    resetSettings[setting]();
+                }
+            });
+
+            // settings[payload.setting]();
+        },
         //navigating to popup or overlay
         navigate: function navigate(str, el) {
+            str = _.capitalize(str);
             // load necessary svgs for popups and overlays
             this.svgLoader(['popups']);
 
             var $self = $(el);
-            // var key = $self.data("key");
-            // var id = $self.data("id");
-            // if(key){
-            // 	// Storing the current dump data in popup's data
-            //     Kenseo[str].data = Kenseo.data[key][id];
-            // }
-            if (str == 'popup') {
-                var index = $self.data('index') || 0;
-                $('.popup-container').show();
-                var actionType = $self.data('url');
-                // Important: this should be called after dump object is stored in the Kenseo.popup.data
-                Kenseo.popup.info = sb.getPopupsInfo(actionType);
-                sb.setPopupData(_.camelCase(actionType), 'actionType');
-                if (index > 0) {
-                    Kenseo.popup.info = Kenseo.popup.info.slice(index);
-                    index = 0;
-                }
-                sb.callPopup(index);
+            var index = $self.data('index') || 0;
+            $('.popup-container').show();
+            var actionType = $self.data('url');
+            // get other settings like populating the fields by default
+            var otherSettings = $self.data('others') || "";
+            // Activate settings for the current rendering
+            sb.setOtherSettings({
+                settings: otherSettings.split(","),
+                actionType: actionType
+            });
+            // Important: this should be called after dump object is stored in the Kenseo.popup.data
+            Kenseo.popup.info = sb["get" + str + "sInfo"](actionType);
+            sb.setPopupData(_.camelCase(actionType), 'actionType');
+            if (index > 0) {
+                Kenseo.popup.info = Kenseo.popup.info.slice(index);
+                index = 0;
             }
-            else if (str == 'overlay') {
-                var index = $self.data('index') || 0;
-                $('.popup-container').show();
-                var actionType = $self.data('url');
-                // Important: this should be called after dump object is stored in the Kenseo.popup.data
-                Kenseo.popup.info = sb.getOverlaysInfo(actionType);
-                sb.setPopupData(_.camelCase(actionType), 'actionType');
-                if (index > 0) {
-                    Kenseo.popup.info = Kenseo.popup.info.slice(index);
-                    index = 0;
-                }
-                sb.callOverlay(index);
-            }
+            sb["call" + str](index);
         },
         //providing the data regarding passed object
         getPopupMetaInfo: function(dump){

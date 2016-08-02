@@ -508,199 +508,189 @@ sb.popup = {
 
     },
     meetingIvite: function meetingIvite() {
-        sb.ajaxCall({
-            "collection": new Kenseo.collections.Projects(),
-            container: $currentPopup,
-            "data": {
-                userProjects: true
+        var $currentPopup = Kenseo.current.popup;
+        sb.ajaxCalls([
+            {
+                "collection": new Kenseo.collections.Projects(),
+                container: $currentPopup,
+                "data": {
+                    userProjects: true
+                }
             },
-            success: function success(data) {
-                var container = document.querySelector(".project-combobox");
-                var combobox = sb.toolbox.applyComboBox({
-                    elem: container,
-                    data: data.data,
-                    settings: {
-                        placeholder: "Choose Project",
-                        // value: Kenseo.page.data.project && Kenseo.page.data.project.name || ""
-                    },
-                    insertAfter: function insertAfter($input, $selectedEl, bln) {
-                        // console.log("project name changed");
+            {
+                "collection": new Kenseo.collections.People(),
+                container: $('[data-name="attendees"].field-section'),
+                "data": {
+                    all: true
+                }
+            }
+        ], function(projectResponse, peopleResponse){
+            // projects related calculations
+            // checking whether project_id info is present in populating object
+            if(sb.getPopulateValue('create-meeting', 'project_id')){
+                // refresh the artefact section with new list according to the passed project id
+                refreshArtefactCombobox(sb.getPopulateValue('create-meeting', 'project_id'));
+            }
 
-                        // if the field-section has blur event registered,
-                        // then trigger the blur event
-                        var $blurField = $input.parents('.blur-field');
-                        if($blurField.length){
-                            $blurField.trigger('blur');
-                        }
+            var container = document.querySelector(".project-combobox");
+            var combobox = sb.toolbox.applyComboBox({
+                elem: container,
+                data: projectResponse.data,
+                settings: {
+                    placeholder: "Choose Project",
+                    // value: Kenseo.page.data.project && Kenseo.page.data.project.name || ""
+                },
+                insertAfter: function insertAfter($input, $selectedEl, bln) {
+                    // console.log("project name changed");
 
-
-                        var projectId = $selectedEl.attr("data-id");
-                        var projectName = $selectedEl.html();
-
-                        sb.setPopupData(projectId, "projectId");
-                        sb.setPopupData(this.innerText, "projectName");
-
-                        $(this).parent().hide();
-                        sb.setPopupData([], "selectedUsers");
-                        // now set the project people
-
-                        sb.ajaxCall({
-                            "collection": new Kenseo.collections.Artefacts(),
-                            container: $('[data-name="meetingArtefact"].field-section'),
-                            "data": {
-                                projects: true,
-                                project_id: projectId,
-                                sortBy: "name",
-                                $sharePermission: "true"
-                            },
-                            "success": function success(response) {
-                                artefactCombobox.refresh({
-                                    newSuggestions: response.data
-                                });
-                            }
-                        });
+                    // if the field-section has blur event registered,
+                    // then trigger the blur event
+                    var $blurField = $input.parents('.blur-field');
+                    if($blurField.length){
+                        $blurField.trigger('blur');
                     }
-                });
 
+
+                    var projectId = $selectedEl.attr("data-id");
+                    var projectName = $selectedEl.html();
+
+                    sb.setPopupData(projectId, "projectId");
+                    sb.setPopupData(this.innerText, "projectName");
+
+                    $(this).parent().hide();
+                    sb.setPopupData([], "selectedUsers");
+                    // now set the project people
+
+                    refreshArtefactCombobox(projectId);
+                }
+            });
+
+
+
+            // people related calculations
+            // integrate chosen library
+            var $peopleSelect = $currentPopup.find(".recipients-meeting");
+            // reset
+            $peopleSelect.html('');
+            // looping through each item
+            peopleResponse.data.forEach(function(item){
+                // don't show in list if the user is the one who is creating the meeting
+                if(item['is_owner'] !== "1"){
+                    // preparing object to pass to option template
+                    var obj = {};
+                    obj.text = item.email;
+                    obj.attr = {
+                        // selected: ""
+                    };
+                    obj.attr.value = item.id;
+                    // Adding rendered option template to the select element
+                    $peopleSelect.append(sb.setTemplate('option', {
+                        option: obj
+                    }));
+                }
+            });
+
+            // Applying chosen library
+            $peopleSelect.chosen({display_selected_options: false});
+
+
+            var artefactComboboxContainer = document.querySelector(".artefact-combobox");
+            var artefactCombobox = sb.toolbox.applyComboBox({
+                elem: artefactComboboxContainer,
+                data: [],
+                settings: {
+                    placeholder: "Choose Artefact",
+                    value: Kenseo.page.data.artefact && Kenseo.page.data.artefact.name || ""
+                },
+                insertAfter: function($input, $selectedEl, bln) {
+                    // if the field-section has blur event registered,
+                    // then trigger the blur event
+                    var $blurField = $input.parents('.blur-field');
+                    if($blurField.length){
+                        $blurField.trigger('blur');
+                    }
+                }
+            });
+
+            function refreshArtefactCombobox(projectId){
                 sb.ajaxCall({
-                    "collection": new Kenseo.collections.People(),
-                    container: $('[data-name="attendees"].field-section'),
+                    "collection": new Kenseo.collections.Artefacts(),
+                    container: $('[data-name="meetingArtefact"].field-section'),
                     "data": {
-                        all: true
+                        projects: true,
+                        project_id: projectId,
+                        sortBy: "name",
+                        $sharePermission: "true"
                     },
                     "success": function success(response) {
-                        // var peopleHolder = $currentPopup.find(".people-name").get(0);
-                        // var combobox = sb.toolbox.applyComboBox({
-                        //     elem: peopleHolder,
-                        //     data: data.data,
-                        //     settings: {
-                        //         placeholder: "",
-                        //         multiSelect: true,
-                        //         suggestionsViewerAlign: "top",
-                        //         noplaceholder: " "
-                        //     },
-                        //     insertAfter: function insertAfter($input, $selectedEl, bln) {}
-                        // });
-
-                        // integrate chosen library
-                        var $peopleSelect = $currentPopup.find(".recipients-meeting");
-                        // reset
-                        $peopleSelect.html('');
-                        // looping through each item
-                        response.data.forEach(function(item){
-                            // don't show in list if the user is the one who is creating the meeting
-                            if(item['is_owner'] !== "1"){
-                                // preparing object to pass to option template
-                                var obj = {};
-                                obj.text = item.email;
-                                obj.attr = {};
-                                obj.attr.value = item.id;
-                                // Adding rendered option template to the select element
-                                $peopleSelect.append(sb.setTemplate('option', {
-                                    option: obj
-                                }));
-                            }
+                        artefactCombobox.refresh({
+                            newSuggestions: response.data
                         });
-
-                        // Applying chosen library
-                        $peopleSelect.chosen({display_selected_options: false});
-                    }
-                });
-
-                var artefactComboboxContainer = document.querySelector(".artefact-combobox");
-                var artefactCombobox = sb.toolbox.applyComboBox({
-                    elem: artefactComboboxContainer,
-                    data: [],
-                    settings: {
-                        placeholder: "Choose Artefact",
-                        value: Kenseo.page.data.artefact && Kenseo.page.data.artefact.name || ""
-                    },
-                    insertAfter: function($input, $selectedEl, bln) {
-                        // if the field-section has blur event registered,
-                        // then trigger the blur event
-                        var $blurField = $input.parents('.blur-field');
-                        if($blurField.length){
-                            $blurField.trigger('blur');
-                        }
                     }
                 });
             }
-        });
 
-        $(".input-meeting-date").Zebra_DatePicker({
-            default_position: "below",
-            format: "d M Y",
-            direction: true,
-            onSelect: function onSelect(display, date) {
-                console.log("changed something");
-                sb.setPopupData(date, "date");
+
+            var $inputMeetingDate = $(".input-meeting-date");
+            $inputMeetingDate.Zebra_DatePicker({
+                default_position: "below",
+                format: "d M Y",
+                direction: true,
+                onSelect: function onSelect(display, date) {
+                    console.log("changed something");
+                    sb.setPopupData(date, "date");
+                }
+
+            });
+            // When the input meeting date is not already present
+            if(!$inputMeetingDate.val()){
+                // Apply the current date
+                $inputMeetingDate.val(sb.timeFormat(new Date(), true, true, true));
             }
+            $(document).on("click", ".datepicker-icon-holder", function (e) {
+                // prevent default action on button (if any)
+                e.preventDefault();
 
-        }).val(sb.timeFormat(new Date(), true, true, true));
-        $(document).on("click", ".datepicker-icon-holder", function (e) {
-            // prevent default action on button (if any)
-            e.preventDefault();
+                // get reference to the plugin
+                var plugin = $(".input-meeting-date").data("Zebra_DatePicker");
 
-            // get reference to the plugin
-            var plugin = $(".input-meeting-date").data("Zebra_DatePicker");
+                // if the datepicker is not already visible
+                if (!$(this).data("dp_visible")) {
 
-            // if the datepicker is not already visible
-            if (!$(this).data("dp_visible")) {
+                    // set a flag that the datepicker is visible
+                    $(this).data("dp_visible", true);
 
-                // set a flag that the datepicker is visible
-                $(this).data("dp_visible", true);
+                    // show the datepicker
+                    plugin.show();
 
-                // show the datepicker
-                plugin.show();
+                    // if datepicker is already visisble
+                } else {
 
-                // if datepicker is already visisble
-            } else {
+                    // set a flag that the datepicker is not visible
+                    $(this).data("dp_visible", false);
 
-                // set a flag that the datepicker is not visible
-                $(this).data("dp_visible", false);
+                    // hide the datepicker
+                    plugin.hide();
+                }
+            });
 
-                // hide the datepicker
-                plugin.hide();
+            function fromTimeDropdownChange(){
+                var options = this.options;
+                var index = options.selectedIndex;
+
+                // resetting html of toTime field
+                var toTimeField = document.querySelector('.projects-dropdown.toTime');
+                toTimeField.innerHTML = "";
+
+                for(var i = index + 1; i < options.length; i++){
+                    toTimeField.innerHTML = toTimeField.innerHTML + options[i].outerHTML;
+                }
             }
-        });
+            //onchange event to fromtime dropdown
+            $('.projects-dropdown.fromTime').on('change', fromTimeDropdownChange);
 
-        function fromTimeDropdownChange(){
-            var options = this.options;
-            var index = options.selectedIndex;
-
-            // resetting html of toTime field
-            var toTimeField = document.querySelector('.projects-dropdown.toTime');
-            toTimeField.innerHTML = "";
-
-            for(var i = index + 1; i < options.length; i++){
-                toTimeField.innerHTML = toTimeField.innerHTML + options[i].outerHTML;
-            }
-        }
-        //onchange event to fromtime dropdown
-        $('.projects-dropdown.fromTime').on('change', fromTimeDropdownChange);
-        // Add the selectedIndex value as the next hour from current hour
-        var newSelectValue = new Date();
-        newSelectValue.setMinutes(Math.ceil(newSelectValue.getMinutes() / 30) * 30);
-        var diffSelectValue = new Date();
-        diffSelectValue.setHours(0);
-        diffSelectValue.setMinutes(0);
-        diffSelectValue.setSeconds(0);
-        var index = Math.floor((newSelectValue.getTime() - diffSelectValue.getTime())  // milliseconds difference
-                    / (30 * 60 * 1000));
-        $('.projects-dropdown.fromTime').get(0).selectedIndex = index;
-        fromTimeDropdownChange.call($('.projects-dropdown.fromTime').get(0));
-        // pre-populate the data if the user is in project page
-        if(Kenseo.current.page == "project-page"){
-            // var data = Kenseo.populate.meeting;
-            var currentProjectPageName = Kenseo.data.projects[Kenseo.page.id].name;
-            $('.project-combobox input[type="text"]').val(currentProjectPageName);
-            // $('.field-section[data-name="meetingArtefact"] input[type="text"]').val(data.artefactName);
-            // $('.field-section[data-name="agenda"] textarea').val(data.agenda);
-            // $('.field-section[data-name="date"] .input-meeting-date').val(sb.timeFormat(data.startTime,true));
-            // $('.field-section[data-name="toTime"] select').val(sb.getHours(data.endTime));
-            // $('.field-section[data-name="fromTime"] select').val(sb.getHours(data.startTime));
-            // $('.field-section[data-name="location"] input[type="text"].meeting-location').val(data.venue);
-        }
+            fromTimeDropdownChange.call($('.projects-dropdown.fromTime').get(0));
+        })
     },
     coverImage: function(){
         var $coverImageInput = $('.image-cover-section .upload-files-input');

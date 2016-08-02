@@ -1,4 +1,27 @@
 Kenseo.popups = (function(){
+	function meeting(payload){
+		return [{
+			"page_name": "createInvite",
+			"title": _.capitalize(payload.populateType.split("-").join(" ")) + " invitation",
+			"buttons": [{
+				"label": "Cancel",
+				"cls": "cancel-btn lnk-btn"
+			},
+			{
+				"label": "Done",
+				"cls": "main-btn done-btn",
+				"disabled": false,
+				'attr': {
+					'data-target-validating-section': '.popup-body'
+				}
+			}],
+			"populateType": payload.populateType,
+			"callbackfunc": function() {
+            	// sb.setPopupData('setMeetingInvitation', 'actionType');
+            	sb.popup.meetingIvite();
+            }
+    	}];
+	}
 	function artefactOne(obj) {
 		return {
 				"page_name": "artefact-one",
@@ -317,48 +340,34 @@ Kenseo.popups = (function(){
 			      }
         	}
         ],
-			"create-meeting" : [{
-				"page_name": "createInvite",
-				"title": "Create meeting invitation",
-				"buttons": [{
-					"label": "Cancel",
-					"cls": "cancel-btn lnk-btn"
-				},
-				{
-					"label": "Done",
-					"cls": "main-btn done-btn",
-					"disabled": false,
-					'attr': {
-						'data-target-validating-section': '.popup-body'
-					}
-				}],
-				"callbackfunc": function() {
-	            	// sb.setPopupData('setMeetingInvitation', 'actionType');
-	            	sb.popup.meetingIvite();
+		"create-meeting" : meeting({
+			"populateType": "create-meeting"
+		}),
+		"edit-meeting": meeting({
+			"populateType": "update-meeting"
+		}),
+        "add-version":[
+        	{
+        		"page_name": "artefact-two",
+        		"title": "Add version",
+        		allow_artefact_selection: false,
+        		single_file_selector: true,
+	            chooseExistingFile: true,
+        		"buttons": [{
+	            	"label": "Cancel",
+	            	"cls": "cancel-btn lnk-btn"
+	            },
+	            {
+	            	"label": "Done",
+	            	"cls": "main-btn done-btn",
+	            	"disabled": true
+	            }],
+	            "callbackfunc": function() {
+	            	// sb.setPopupData('addArtefactVersion', 'actionType');
+	            	sb.popup.createFilePopup();
 	            }
-	    	}],
-    	"add-version":[
-      	{
-      		"page_name": "artefact-two",
-      		"title": "Add version",
-      		allow_artefact_selection: false,
-      		single_file_selector: true,
-            chooseExistingFile: true,
-      		"buttons": [{
-            	"label": "Cancel",
-            	"cls": "cancel-btn lnk-btn"
-            },
-            {
-            	"label": "Done",
-            	"cls": "main-btn done-btn",
-            	"disabled": true
-            }],
-            "callbackfunc": function() {
-            	// sb.setPopupData('addArtefactVersion', 'actionType');
-            	sb.popup.createFilePopup();
-            }
-      	}
-      ],
+        	}
+        ],
         // "share" : [{
         // 	"page_name": "artefact-four",
         // 	"title": "Share an Artefact",

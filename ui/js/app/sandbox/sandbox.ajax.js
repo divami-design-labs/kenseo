@@ -73,7 +73,10 @@ _.extend(sb, {
                           if (!payload.excludeDump) {
                               sb.setDump(response);
                           }
-                          payload.success(response);
+                          // if success callback is present
+                          if(payload.success){
+                              payload.success(response);
+                          }
                       } else {
                           // window.location.assign(DOMAIN_ROOT_URL);
                       }
@@ -92,10 +95,44 @@ _.extend(sb, {
     },
     //unused function
     ajaxCalls: function(payloads, callback){
-        payloads.map(function(payload){
+        $.when.apply($, payloads.map(function(payload){
             return sb.ajaxCall(payload);
+        })).then(function(){
+            var args = arguments;
+            // if arguments are present
+            if(args){
+                // convert arguments to array
+                args = Array.prototype.slice.call(args);
+                // call the callback function with new arguments
+                callback.apply(null, args.map(function(promise){
+                    return sb.successCallback(promise[0]);
+                }));
+            }
+            else{
+                callback();
+            }
         });
-        $.when.apply($, payloads).then(callback);
+    },
+    successCallback: function(response){
+        // try {
+            if(typeof response === "string"){
+                var response = JSON.parse(response);
+            }
+
+            if(response.data && response.data.code === "EXC_AUTH_FAILURE"){
+                // Authenticate the page by redirecting
+                sb.redirectTo('../server');
+            }
+            return response;
+
+        // }
+        // catch(ex){
+        //     // Catching the exception
+        //     sb.log("Below error is in ajax request");
+        //     console.error(ex);
+        //     // Redirecting to the Dashboard
+
+        // }
     },
     //storing the response data
     setDump: function setDump(obj) {
@@ -156,7 +193,7 @@ _.extend(sb, {
                         }
                     }
                     if (p.callbackfunc) {
-                        p.callbackfunc();
+                        p.callbackfunc(obj);
                     }
                 }
             });

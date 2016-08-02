@@ -181,7 +181,7 @@ sb.loadFiles({
         'js/app/config/router.js',
         'js/app/config/init.js',
         'js/app/config/dynamic-events.js',
-        'js/app/config/params.js',
+        // 'js/app/config/params.js',
         'js/app/config/i18n.js',
         'js/app/config/popups.js',
         'js/app/config/overlays.js',

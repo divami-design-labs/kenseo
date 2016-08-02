@@ -38,7 +38,7 @@ var validation = (function(){
 				addErrorSkinning($requiredField);
 				$requiredField.parents(".field-section").find(".field-section-error-messages").children().hide();
 				// displaying input field error message
-				$requiredField.parents(".field-section").find("[trigger ='"+ validatingToken+"']").show();
+				$requiredField.parents(".field-section").find("[trigger ='"+ validatingToken +"']").show();
 				return true;
 			}
 		});

@@ -1,20 +1,40 @@
 [
+	// Projects
 	"project_id",
 	"project_name",
+
+	// Artefacts
 	"artefact_id",
 	"artefact_version_id",
 	"artefact_name",
+	"artefact_type",       // IXD, UID, Persona
+	"artefact_extension",  // MIME type
+
+	// Activities
 	"activity_id",
+
+	// Users
 	"user_id",
 	"user_name",
 	"user_email",
 	"user_designation",
-	"is_artefact_version_owner", 
-	"is_self",
+	"is_artefact_version_owner",  // holds 1 or 0
+	"is_self",             // holds 1 or 0
+
 	// Dates
 	"last_updated_date",
 	"created_date",
-	"updated_date"
+	"updated_date",
+
+	// meeting
+	"meeting_date",
+	"agenda",
+	"venue",
+	"meeting_date",
+	"meeting_date_from_time",
+	"meeting_date_to_time",
+	"participants_user_ids",
+	"participant_user_id"
 ]
 
 // Kenseo.params = (function () {

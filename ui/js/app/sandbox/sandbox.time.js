@@ -109,9 +109,9 @@ _.extend(sb, {
         var minutes = ('0' + fullDate.getMinutes()).slice(-2);
         if (hours > 11) {
             hours = ('0' + (hours - 12)).slice(-2);
-            return hours + ': ' + minutes + ' PM';
+            return hours + ':' + minutes + ' PM';
         } else {
-            return hours + ': ' + minutes + ' AM';
+            return hours + ':' + minutes + ' AM';
         }
     },
     getTimeZone: function getTimeZone() {

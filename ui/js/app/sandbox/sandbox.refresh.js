@@ -191,7 +191,17 @@ sb.refresh = (function(){
 	                },
 	                templateName: 'meetingnotes',
 	                templateHolder: $('.meeting-notes-section'),
-	                callbackfunc: function() {
+	                callbackfunc: function(response) {
+						var data = response.data;
+						// prepare the edit meeting invitation field values
+						sb.setPopulateValue('edit-meeting', 'agenda', data.agenda);
+						sb.setPopulateValue('edit-meeting', 'artefact_name', data.artefactName);
+						sb.setPopulateValue('edit-meeting', 'project_id', data.projectId);
+						sb.setPopulateValue('edit-meeting', 'project_name', data.projectName);
+						sb.setPopulateValue('edit-meeting', 'venue', data.venue);
+						sb.setPopulateValue('edit-meeting', 'meeting_date', data.startTime.split(" ")[0]);
+						sb.setPopulateValue('edit-meeting', 'meeting_date_from_time', data.startTime);
+						sb.setPopulateValue('edit-meeting', 'meeting_date_to_time', data.endTime);
 	                    //since we have the Html ready now we can have the editor in place.
 	                    var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
 	                    sb.meeting.notes();
@@ -226,6 +236,10 @@ sb.refresh = (function(){
 	                success: function success(response) {
 	                    var currentProjectInfo = Kenseo.data.projects[Kenseo.page.id];
 	                    sb.setTitle(currentProjectInfo['name']);
+						// for populating the project id in meeting invitation form
+						sb.setPopulateValue('create-meeting', 'project_id', Kenseo.page.id);
+						// for populating the project name in meeting invitation form
+						sb.setPopulateValue('create-meeting', 'project_name', currentProjectInfo['name']);
 	                    // sb.setPopupData(currentProjectInfo.name, 'project_name');
 	                    sb.setPageData(currentProjectInfo, 'project');
 
