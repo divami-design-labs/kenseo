@@ -202,6 +202,7 @@ sb.refresh = (function(){
 						sb.setPopulateValue('update-meeting', 'meeting_date', data.startTime.split(" ")[0]);
 						sb.setPopulateValue('update-meeting', 'meeting_date_from_time', data.startTime);
 						sb.setPopulateValue('update-meeting', 'meeting_date_to_time', data.endTime);
+						sb.setPopulateValue('update-meeting', 'participants_user_ids', data.participants.map(function(participant){ return participant.id }));
 	                    //since we have the Html ready now we can have the editor in place.
 	                    var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
 	                    sb.meeting.notes();

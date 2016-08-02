@@ -525,19 +525,22 @@ sb.popup = {
                 }
             }
         ], function(projectResponse, peopleResponse){
-            // projects related calculations
-            // checking whether project_id info is present in populating object
-            if(sb.getPopulateValue('create-meeting', 'project_id')){
+            var kebabActionType = _.kebabCase(sb.getPopupData('actionType'));
+            var existingParticipantsIds = [];
+            // if the actionType is create-meeting and the popup is triggered from project page's option
+            if(kebabActionType === 'create-meeting'){
                 // refresh the artefact section with new list according to the passed project id
-                refreshArtefactCombobox(sb.getPopulateValue('create-meeting', 'project_id'));
+                refreshArtefactCombobox(sb.getPopulateValue(kebabActionType, 'project_id'));
             }
 
-            if(sb.getPopulateValue('update-meeting', 'project_id')){
+            if(kebabActionType === 'update-meeting'){
+                // get existing participant ids
+                existingParticipantsIds = sb.getPopulateValue(kebabActionType, 'participants_user_ids');
                 // get the value in artefact combobox's input field
                 var $artefactComboboxInput = $currentPopup.find('.artefact-combobox input');
                 var value = $artefactComboboxInput.val();
                 // refresh the artefact section with new list according to the passed project id
-                refreshArtefactCombobox(sb.getPopulateValue('update-meeting', 'project_id'), function(){
+                refreshArtefactCombobox(sb.getPopulateValue(kebabActionType, 'project_id'), function(){
                     // adding the value again to the artefact combobox's input
                     $artefactComboboxInput.val(value);
                 });
@@ -591,9 +594,13 @@ sb.popup = {
                     var obj = {};
                     obj.text = item.email;
                     obj.attr = {
-                        // selected: ""
+                        value: item.id
                     };
-                    obj.attr.value = item.id;
+                    // add selected attribute if the id of the participant is already present
+                    // This is true for update meeting invitation
+                    if(existingParticipantsIds.indexOf(item.id) > -1){
+                        obj.attr.selected = "";
+                    }
                     // Adding rendered option template to the select element
                     $peopleSelect.append(sb.setTemplate('option', {
                         option: obj
@@ -711,7 +718,7 @@ sb.popup = {
         var $coverImageInput = $('.image-cover-section .upload-files-input');
         if($coverImageInput.length){
             $coverImageInput.on('change', function(){
-                console.dir(this);
+                // console.dir(this);
                 // Link: http://stackoverflow.com/a/3814285/1577396
                 var files = this.files;
 
