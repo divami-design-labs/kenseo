@@ -35,7 +35,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         if (data.type == 'application/pdf') {
             var str = sb.setTemplate('tab-file', {
                 maskedVersionId: maskedVersionId,
-                versionId: data.versionId
+                data: data
             });
             // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
             $('.dv-tab-panel-section').prepend(str);
@@ -73,7 +73,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         else if(data.type.indexOf('image') > -1){
             var str = sb.setTemplate('tab-img', {
                 maskedVersionId: maskedVersionId,
-                versionId: data.versionId
+                data: data
             });
             // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
             $('.dv-tab-panel-section').prepend(str);
@@ -92,6 +92,13 @@ Kenseo.views.DocumentView = Backbone.View.extend({
             bar.style.bottom = -el.scrollTop + "px";
             bar.style.left = el.scrollLeft + "px";
         });
+    },
+    closeTab: function(ele){
+      var $el = ele.parents('.each-tab');
+      //get the current tab item
+      var rel = $el.find('.tab-item').attr('targetRel');
+      $('.outerContainer[rel="pdf_' + rel + '"]').remove();
+      $el.remove();
     }
 });
 

@@ -298,4 +298,20 @@ $(document).on('click', '.tab-item', function (e) {
 
     $('.outerContainer.inView[rel!="pdf_' + rel + '"]').removeClass('inView');
     $('.outerContainer[rel="pdf_' + rel + '"]').addClass('inView');
-});
+})
+//close the tab items
+.on('click', '.close-tab-icon', function (e) {
+	 var close = new Kenseo.views.DocumentView({});
+	 close.closeTab($(this));
+})
+.on('click', '.active-close-icon', function (e) {
+  var $parent = $(this).parents('.pdfs-container');
+	//  var $el = $(this).parents('.outerContainer');
+	 var $el = $('.selectedTab');
+	 var close = new Kenseo.views.DocumentView({});
+	 close.closeTab($el);
+	 //get the first element of tab-items
+	 var rel = $('.each-tab').children('.tab-item').eq(0).addClass('selectedTab').attr('targetRel');
+	 //find the relevent container of tab-item
+	 $parent.children('.outerContainer[rel="pdf_' + rel +'"]').addClass('inView');
+	});

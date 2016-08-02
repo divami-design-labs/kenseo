@@ -1,5 +1,17 @@
-<a href="#documentview/<%= maskedVersionId %>" class="tab-item selectedTab" targetRel="<%= versionId %>">
+<div class="each-tab">
+<a href="#documentview/<%= maskedVersionId %>" class="tab-item selectedTab" targetRel="<%= data.versionId %>">
     <div class= "imageTab">
         <svg><use xlink:href="#img-tab"></use></svg>
     </div>
 </a>
+<div class="tab-artefact-info bar">
+    <div>
+      <div class="close-tab-icon">
+        <svg class="close-tab">
+          <use xlink:href="#tab-close"></use>
+        </svg>
+      </div>
+      <a href="#projectpage/<%= data.projId %>"><%= data.projName  %> > </a><%= data.artTitle  %>
+    </div>
+</div>
+</div>
