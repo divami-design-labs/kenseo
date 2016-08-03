@@ -8,6 +8,9 @@ Kenseo.views.Projects = Backbone.View.extend({
     initialize: function initialize(payload) {
         this.data = payload.data;
         this.templateHolder = payload.templateHolder;
+        if(payload.archivedTemplateHolder){
+          this.archivedTemplateHolder = payload.archivedTemplateHolder;
+        }
         this.render();
     },
     events: {},
@@ -17,20 +20,40 @@ Kenseo.views.Projects = Backbone.View.extend({
 
         // Making sure the element is empty
         _this.templateHolder.html('');
+        if(_this.archivedTemplateHolder){
+          _this.archivedTemplateHolder.html('');
+        }
+
 
         _this.collection.fetch(sb.getStandardData({
             data: _this.data,
             success: function(collection, response){
                 console.log("hello");
                 var data = response.data;
-                data.forEach(function(item){
+                //filter the data to get active projects
+                data.filter(function(item){
+                  return item['is_archive'] === "0"
+                }).forEach(function(item){
+                  appendItems(item, _this.templateHolder);
+                });
+
+                //filter the data to get archived projects
+                data.filter(function(item){
+                  return item['is_archive'] === "1"
+                }).forEach(function(item){
+                  appendItems(item, _this.archivedTemplateHolder);
+                });
+
+
+                function appendItems(item,templateHolder){
                     var view = new Kenseo.views.Project({
                         model: new Kenseo.models.Projects(item),
                         collection: _this.collection,
-                        parent: _this
+                        parent: _this,
+
                     });
-                    _this.templateHolder.append(view.el);
-                });
+                    templateHolder.append(view.el);
+                }
             }
         }));
 
@@ -137,6 +160,8 @@ Kenseo.views.Project = Backbone.View.extend({
                                 // delete the item permanently
 
                             }
+                            //move the archived project to archived projects list
+                            scope.parent.archivedTemplateHolder.prepend(scope.$el);
                         }
                     })
                 }, $popupContainer);
@@ -165,6 +190,8 @@ Kenseo.views.Project = Backbone.View.extend({
                         			    sb.showGlobalMessages(response);
                                 }
                             }
+                            //add the unarchived project to active projects
+                            scope.parent.templateHolder.prepend(scope.$el);
                         }
                     })
                 }, $popupContainer);

@@ -218,7 +218,8 @@ sb.refresh = (function(){
 				// @NEWCODE
 				return new Kenseo.views.Projects({
 					collection: new Kenseo.collections.Projects(),
-					templateHolder: $('.projects-page-wrapper'),
+					templateHolder: $('.active-projects-page-wrapper'),
+					archivedTemplateHolder: $('.archived-projects-page-wrapper'),
 					data: {
 						includeArchives: true,
 						userProjects: true

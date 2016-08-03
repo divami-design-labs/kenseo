@@ -316,7 +316,9 @@
 		+ .tab-artefact-info{
 			display: block;
 		}
-
+	 .imageTab{
+			margin-top: 3px;
+		}
 	}
 	.tab-artefact-info::after{
 		content: "";
@@ -328,9 +330,7 @@
 		bottom: -1px;
 		background-image: linear-gradient(to right,#637097 49px,#414a62 49px);
 	}
-	.imageTab{
-		margin-top: 3px;
-	}
+
 
 }
 .close-tab-icon,.active-close-icon{
