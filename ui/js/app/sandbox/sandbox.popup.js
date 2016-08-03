@@ -26,11 +26,12 @@ sb.popup = {
                 var $currentPopup = Kenseo.current.popup;
                 var container = Kenseo.current.popup.find(".projects-selection-section");
                 $(container).append(sb.setTemplate("project-section-popup",{data:data}));
-                var $selectedElement = $currentPopup.find('.project-selection-block-title');
+                // var $selectedElement = $currentPopup.find('.project-selection-block-title');
                 $('input[type=radio][name=projectSection]').change(function() {
-                  sb.setPopupData($selectedElement.html(), "name");
-                  sb.setPopupData($selectedElement.attr('data-k-project_id'), "id");
-                  $currentPopup.find(".main-btn").prop("disabled", false);
+                    var $selectedElement = $(this).next().find('.project-selection-block-title');
+                    sb.setPopupData($selectedElement.html(), "name");
+                    sb.setPopupData($selectedElement.attr('data-k-project_id'), "id");
+                    $currentPopup.find(".main-btn").prop("disabled", false);
                 });
                 // sb.toolbox.applyComboBox({
                 //     elem: container,

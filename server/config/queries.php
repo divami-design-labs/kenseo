@@ -166,6 +166,13 @@ $AppGlobal['sql']['getNotifications'] = "SELECT nots.notification_id as id, nots
 										 JOIN " . TABLE_USERS . " as notifier on notifier.user_id = nots.notification_by
 										 WHERE nots.user_id = @~~id~~@ ORDER BY nots.notification_date DESC LIMIT @~~limit~~@";
 
+$AppGlobal['sql']['getNotification'] = "SELECT nots.notification_id as id, nots.message as title, nots.notification_type as type, notification_ref_id as refId,
+										 av.masked_artefact_version_id, av.MIME_type, nots.notification_date as time, notifier.name as notifier, nots.notification_by as notifierId
+										 FROM " . TABLE_NOTIFICATIONS . " as nots
+										 LEFT JOIN artefact_versions av ON nots.notification_ref_id = av.artefact_ver_id AND nots.notification_type =  'S'
+										 JOIN " . TABLE_USERS . " as notifier on notifier.user_id = nots.notification_by
+										 WHERE nots.user_id = @~~id~~@ && notification_id = @~~newNotification~~@";
+
 $AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_title as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 
 $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";

@@ -276,10 +276,14 @@ sb.refresh = (function(){
 			Kenseo.data.model = response.data.data;
 			sb.trigger($(window), 'addProject');
 		},
-		addArtefact: function(){
-			refreshSection('dashboard', 'db-artefacts');
-			refreshSection('dashboard', 'db-notifications');
-			refreshSection('project-page', 'pp-artefacts');
+		addArtefact: function(response){
+			// Kenseo.data.model = response.data.artefact;
+			// sb.trigger($(window), 'addArtefact');
+			Kenseo.data.model = response.data.notification;
+			sb.trigger($(window), 'addNotification');
+			// refreshSection('dashboard', 'db-artefacts');
+			// refreshSection('dashboard', 'db-notifications');
+			// refreshSection('project-page', 'pp-artefacts');
 		},
 		// unarchiveProject: function(){
 		// 	refreshSection('projects-page', 'projects-page');

@@ -672,8 +672,14 @@
 					// Add this as notification
 					$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
 					$notificationRowValues = array($userId, $FILES['name'][$f], $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
-					$db->insertSingleRow(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
+					$newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
 
+					$queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
+					$resultObj = $db->singleObjectQuery($queryDetails);
+
+					$dataList = array(
+						notification => $resultObj
+					);
 					// Share to members
 					if(count($data->shared_members)) {
 						$this->shareForTeam($artIds[$f], $artVerId, $data->shared_members, $userId);
@@ -750,7 +756,13 @@
 			// $resultMessage->messages->message = "Successfully added artefact";
 			// $resultMessage->messages->icon = "success";
 			// return $resultMessage;
-			return array();
+			//return array();
+			if(count($dataList)){
+				return $dataList;
+			} else {
+				return false;
+			}
+			
 		}
 
 		public function customImplode($array){
