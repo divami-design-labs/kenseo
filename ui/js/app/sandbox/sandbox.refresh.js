@@ -278,8 +278,9 @@ sb.refresh = (function(){
 			sb.trigger($(window), 'addProject');
 		},
 		addArtefact: function(response){
-			// Kenseo.data.model = response.data.artefact;
-			// sb.trigger($(window), 'addArtefact');
+			Kenseo.data.model = response.data.artefact;
+			sb.trigger($(window), 'addArtefact');
+			
 			Kenseo.data.model = response.data.notification;
 			sb.trigger($(window), 'addNotification');
 			// refreshSection('dashboard', 'db-artefacts');

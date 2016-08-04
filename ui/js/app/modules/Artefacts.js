@@ -72,6 +72,20 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                 }
             }
         }));
+        sb.subscribe($(window), 'addArtefact', function(){
+            var view = new Kenseo.views.Artefact({
+                // Insert global variable data in to the model
+                model: new Kenseo.models.Artefacts(Kenseo.data.model),
+                collection: _this.collection,
+                parent: _this
+            })
+            _this.templateHolder.prepend(view.el);
+
+            // Empty the used global variable
+            Kenseo.data.model = {};
+
+        });
+        return this;
     }
 });
 
@@ -82,7 +96,9 @@ Kenseo.views.Artefact = Backbone.View.extend({
         return sb.setTemplate('artefact', {data: data});
     },
     initialize: function(payload){
-        this.linkedArtefactNo = payload.linkedArtefactNo();
+        if(payload.linkedArtefactNo) {
+            this.linkedArtefactNo = payload.linkedArtefactNo();            
+        }
         this.render();
         return this;//.render();
     },
