@@ -673,31 +673,34 @@
 					$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
 					$notificationRowValues = array($userId, $FILES['name'][$f], $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
 					$newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
+
+					//query to get data of single notification when artefact is added
 					$queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
 					$resultObj = $db->singleObjectQuery($queryDetails);
 
-					// $query = getQuery('getMaskedArtefactVersionId',array('artefactversionid' => $artefactVersionIds[0]));
-					// $maskedArtefactVersion = $db->singleObjectQuery($query);
-					// $maskedArtefactVersionId = $maskedArtefactVersion->{'masked_artefact_version_id'};
-					// $queryParams = array('maskedArtefactVersionId' => $maskedArtefactVersionId);
-
+					//query to get data of single artefact when artefact is added
 					$queryParams = array('userid' => $userId, 'projectid' => $projectId, 'artefactversionid' => $artefactVersionIds[0]);
 					$detailsQuery = getQuery('getProjectArtefact', $queryParams);
 					$artefactObj = $db->singleObjectQuery($detailsQuery);
 
+					//query to get data of single activity when artefact is added
 					$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
 					$activityObj = $db->singleObjectQuery($activityQuery);
 
-
+					//variable to know whether the artefact is shared or not, initially it set to false
+					$artefactObj->share = false;
+					// Share to members
+					if(count($data->shared_members)) {
+						$this->shareForTeam($artIds[$f], $artVerId, $data->shared_members, $userId);
+						//If particular project has members it is set to true means artefact is shared
+						$artefactObj->share = true;
+					}
+					
 					$dataList = array(
 						notification => $resultObj,
 						artefact => $artefactObj,
 						activity => $activityObj
 					);
-					// Share to members
-					if(count($data->shared_members)) {
-						$this->shareForTeam($artIds[$f], $artVerId, $data->shared_members, $userId);
-					}
 				}
 
 				// $db->commitTransaction();

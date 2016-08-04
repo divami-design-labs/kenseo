@@ -279,22 +279,21 @@ sb.refresh = (function(){
 			sb.trigger($(window), 'addProject');
 		},
 		addArtefact: function(response){
+			//triggers an event to add artefact
 			Kenseo.data.model = response.data.artefact;
 			sb.trigger($(window), 'addArtefact');
-
+			//triggers an event to add activity
 			Kenseo.data.model = response.data.activity;
 			sb.trigger($(window), 'addActivity');
-			
+			//triggers an event to adda notification
 			Kenseo.data.model = response.data.notification;
 			sb.trigger($(window), 'addNotification');
-			// refreshSection('dashboard', 'db-artefacts');
-			// refreshSection('dashboard', 'db-notifications');
-			// refreshSection('project-page', 'pp-artefacts');
 		},
 		// unarchiveProject: function(){
 		// 	refreshSection('projects-page', 'projects-page');
 		// },
 		addPeople: function(response){
+			//triggers an event to add people
 			Kenseo.data.model = response.data.people;
 			sb.trigger($(window), 'addPeople');
 			//refreshSection('project-page', 'pp-people');
