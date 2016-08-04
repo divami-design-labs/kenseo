@@ -49,8 +49,7 @@ Kenseo.views.Projects = Backbone.View.extend({
                     var view = new Kenseo.views.Project({
                         model: new Kenseo.models.Projects(item),
                         collection: _this.collection,
-                        parent: _this,
-
+                        parent: _this
                     });
                     templateHolder.append(view.el);
                 }

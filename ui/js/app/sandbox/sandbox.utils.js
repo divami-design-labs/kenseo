@@ -600,7 +600,20 @@ var sb = _.extend(sb, (function () {
             },
             //
             applyComboBox: function applyComboBox(data) {
-                var combobox = new comboBox(data.elem, data.data, data.settings);
+                var newData = data.data;
+
+                // limiting the required values in the combobox
+                if(data.params && typeof data.params === "object"){
+                    var params = data.params;
+                    newData = newData.map(function(item){
+                        var obj = {};
+                        for(var param in params){
+                            obj[param] = item[param];
+                        }
+                        return obj;
+                    })
+                }
+                var combobox = new comboBox(data.elem, newData, data.settings);
                 combobox.onchange = data.onchange;
                 combobox.insertAfter = data.insertAfter;
                 return combobox;

@@ -203,7 +203,13 @@ $AppGlobal['sql']['getNotification'] = "SELECT nots.notification_id as id, nots.
 
 $AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_title as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 
+$AppGlobal['sql']['getMeetingInfoFromId'] = "SELECT * FROM meetings WHERE meeting_id = @~~meetingid~~@";
+
+$AppGlobal['sql']['getParticipantsFromMeetingId'] = "SELECT * FROM meeting_participents WHERE meeting_id = @~~meetingid~~@";
+
 $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
+
+$AppGlobal['sql']['getUsers'] = "SELECT * FROM users WHERE user_id IN (@~~userids~~@)";
 
 $AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_title, artefacts.artefact_title AS matchedString, artefacts.artefact_id AS id
 										FROM " . TABLE_ARTEFACTS . " AS artefacts

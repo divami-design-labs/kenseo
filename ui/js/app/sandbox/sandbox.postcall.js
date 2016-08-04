@@ -18,6 +18,11 @@ sb.postcall = (function(){
 			});
 			return accessType[str];
 		},
+		'data-attributes': function($el){
+			var data = $el.data();
+			data.name = $el.val();
+			return data;
+		},
 		'text': function($el){
 			return $el.val();
 		},
@@ -44,7 +49,7 @@ sb.postcall = (function(){
 			}
 			return shared_members;
 		},
-		// for Project card selection	
+		// for Project card selection
 		'project-selection' : function($el) {
 			var $item = $el.find('.project-selection-block-title');
 			var selected_project = {};

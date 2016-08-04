@@ -199,6 +199,7 @@ sb.refresh = (function(){
 						sb.setPopulateValue('update-meeting', 'project_id', data.projectId);
 						sb.setPopulateValue('update-meeting', 'project_name', data.projectName);
 						sb.setPopulateValue('update-meeting', 'venue', data.venue);
+						sb.setPopulateValue('update-meeting', 'meeting_id', response.params.meetingId);
 						sb.setPopulateValue('update-meeting', 'meeting_date', data.startTime.split(" ")[0]);
 						sb.setPopulateValue('update-meeting', 'meeting_date_from_time', data.startTime);
 						sb.setPopulateValue('update-meeting', 'meeting_date_to_time', data.endTime);

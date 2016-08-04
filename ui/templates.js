@@ -293,67 +293,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['create-artefact'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="popup popup-large">\n\t' +
-((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\n\t<div class="popup-body">\n\t\t<div class="popup-body-wrapper">\n\t\t\t<div class="templates-viewer">\n\t\t\t\t<div class="template-item nav-btn" data-index="1" template-type="Persona"></div>\n\t\t\t\t<!-- <div class="template-item nav-btn" data-index="2" template-type="Document"></div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['persona-templates'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="popup popup-large">\n\t';
- console.dir(data) ;
-__p += '\n\t' +
-((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\n\t<div class="popup-body">\n\t\t<div class="popup-body-wrapper">\n\t\t\t';
- if(data.index > 0){ ;
-__p += '\n\t\t\t<button class="nav-btn" data-index="0">Back</button>\n\t\t\t';
- } ;
-__p += '\n\t\t\t<div class="templates-viewer">\n\t\t\t\t<div class="template-item nav-btn" data-href="#persona/1" template-type="Persona 1"></div>\n\t\t\t\t<!-- <div class="template-item nav-btn" data-href="#persona/2" template-type="Persona 2"></div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div></div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -536,6 +475,67 @@ __p += '\t\t\r\n\t</div>\r\n\t';
 __p += '\r\n';
  } ;
 
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['create-artefact'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="popup popup-large">\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\n\t<div class="popup-body">\n\t\t<div class="popup-body-wrapper">\n\t\t\t<div class="templates-viewer">\n\t\t\t\t<div class="template-item nav-btn" data-index="1" template-type="Persona"></div>\n\t\t\t\t<!-- <div class="template-item nav-btn" data-index="2" template-type="Document"></div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['persona-templates'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="popup popup-large">\n\t';
+ console.dir(data) ;
+__p += '\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\n\t<div class="popup-body">\n\t\t<div class="popup-body-wrapper">\n\t\t\t';
+ if(data.index > 0){ ;
+__p += '\n\t\t\t<button class="nav-btn" data-index="0">Back</button>\n\t\t\t';
+ } ;
+__p += '\n\t\t\t<div class="templates-viewer">\n\t\t\t\t<div class="template-item nav-btn" data-href="#persona/1" template-type="Persona 1"></div>\n\t\t\t\t<!-- <div class="template-item nav-btn" data-href="#persona/2" template-type="Persona 2"></div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div></div>';
 
 }
 return __p
@@ -1168,7 +1168,7 @@ __p += '\n                    <div class="sub-menu-item">\n                     
 ((__t = ( p.masked_artefact_version_id)) == null ? '' : __t) +
 '" class="v-open-icon page-click">\n                                <svg><use xlink:href="#v_open"></use></svg>\n                            </a>\n                        </div>\n                    </div>\n                    ';
  }); ;
-__p += '    \n                </div>\n            </div>\n        </div>\n    </div>\n    <div id="errorWrapper" hidden=\'true\'>\n        <div id="errorMessageLeft">\n            <span id="errorMessage"></span>\n            <button id="errorShowMore" data-l10n-id="error_more_info">\n            More Information\n            </button>\n            <button id="errorShowLess" data-l10n-id="error_less_info" hidden=\'true\'>\n            Less Information\n            </button>\n        </div>\n        <div id="errorMessageRight">\n            <button id="errorClose" data-l10n-id="error_close">\n            Close\n            </button>\n        </div>\n        <div class="clearBoth"></div>\n        <textarea id="errorMoreInfo" hidden=\'true\' readonly="readonly"></textarea>\n    </div>\n    <div class="dv-toolbox">\n        <div class="dvt-item document-info-icon overlay-click" data-url="summary" title="Document summary">\n            <svg><use xlink:href="#document-info"></use></svg>\n        </div>\n        <div class="dvt-item html-click add-comment-icon ';
+__p += '    \n                </div>\n            </div>\n            <div class="active-close-icon active-tab-close-icon">\n        \t\t\t<svg>\n        \t\t\t\t<use xlink:href="#close"></use>\n        \t\t\t</svg>\n        \t\t</div>\n        </div>\n    </div>\n    <div id="errorWrapper" hidden=\'true\'>\n        <div id="errorMessageLeft">\n            <span id="errorMessage"></span>\n            <button id="errorShowMore" data-l10n-id="error_more_info">\n            More Information\n            </button>\n            <button id="errorShowLess" data-l10n-id="error_less_info" hidden=\'true\'>\n            Less Information\n            </button>\n        </div>\n        <div id="errorMessageRight">\n            <button id="errorClose" data-l10n-id="error_close">\n            Close\n            </button>\n        </div>\n        <div class="clearBoth"></div>\n        <textarea id="errorMoreInfo" hidden=\'true\' readonly="readonly"></textarea>\n    </div>\n    <div class="dv-toolbox">\n        <div class="dvt-item document-info-icon overlay-click" data-url="summary" title="Document summary">\n            <svg><use xlink:href="#document-info"></use></svg>\n        </div>\n        <div class="dvt-item html-click add-comment-icon ';
  if(!data.isPdf){ ;
 __p += ' hide ';
  } ;
@@ -1239,11 +1239,17 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<a href="#documentview/' +
+__p += '<div class="each-tab">\n<a href="#documentview/' +
 ((__t = ( maskedVersionId )) == null ? '' : __t) +
 '" class="tab-item selectedTab" targetRel="' +
-((__t = ( versionId )) == null ? '' : __t) +
-'">\n    <div class= "fileTab">\n        <svg><use xlink:href="#file-tab"></use></svg>\n    </div>\n</a>\n';
+((__t = ( data.versionId )) == null ? '' : __t) +
+'">\n    <div class= "fileTab">\n        <svg><use xlink:href="#file-tab"></use></svg>\n    </div>\n</a>\n<div class="tab-artefact-info bar">\n    <div>\n      <div class="close-tab-icon">\n        <svg class="close-tab">\n          <use xlink:href="#tab-close"></use>\n        </svg>\n      </div>\n      <a href="#projectpage/' +
+((__t = ( data.projId )) == null ? '' : __t) +
+'">' +
+((__t = ( data.projName  )) == null ? '' : __t) +
+' >  </a>' +
+((__t = ( data.artTitle  )) == null ? '' : __t) +
+'\n    </div>\n</div>\n</div>\n';
 
 }
 return __p
@@ -1268,11 +1274,17 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<a href="#documentview/' +
+__p += '<div class="each-tab">\n<a href="#documentview/' +
 ((__t = ( maskedVersionId )) == null ? '' : __t) +
 '" class="tab-item selectedTab" targetRel="' +
-((__t = ( versionId )) == null ? '' : __t) +
-'">\n    <div class= "imageTab">\n        <svg><use xlink:href="#img-tab"></use></svg>\n    </div>\n</a>\n';
+((__t = ( data.versionId )) == null ? '' : __t) +
+'">\n    <div class= "imageTab">\n        <svg><use xlink:href="#img-tab"></use></svg>\n    </div>\n</a>\n<div class="tab-artefact-info bar">\n    <div>\n      <div class="close-tab-icon">\n        <svg class="close-tab">\n          <use xlink:href="#tab-close"></use>\n        </svg>\n      </div>\n      <a href="#projectpage/' +
+((__t = ( data.projId )) == null ? '' : __t) +
+'">' +
+((__t = ( data.projName  )) == null ? '' : __t) +
+' > </a>' +
+((__t = ( data.artTitle  )) == null ? '' : __t) +
+'\n    </div>\n</div>\n</div>\n';
 
 }
 return __p
@@ -1539,7 +1551,7 @@ __p += '\r\n\t\t<div class="rr-details ellipsis" title="' +
 ((__t = ( data.version )) == null ? '' : __t) +
 '</span>\r\n\t\t\t\t<div class="rr-other-versions"></div>\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="3">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
+'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
 
 }
 return __p
@@ -1801,11 +1813,11 @@ __p += '\n\t<div class="meta-item">\t\n\t\t<div class="meta-heading">File</div>\
  } ;
 __p += '\n';
  if(data.type){ ;
-__p += '\n\t<div class="meta-item">\t\n\t\t<div class="meta-heading">Type</div>\t\n\t\t';
- if(dump.doctype){ ;
+__p += '\n\t<div class="meta-item">\n\t\t<div class="meta-heading">Type</div>\n\t\t';
+ if(dump.doctype || dump.document_type){ ;
 __p += '\t\t\t\n\t\t<div class="meta-text popup-meta-type title-txt" title="' +
 ((__t = ( metaInfo.getType() )) == null ? '' : __t) +
-'"></div>\t\n\t\t';
+'"></div>\n\t\t';
  } ;
 __p += '\n\t</div>\n';
  } ;
@@ -1923,7 +1935,7 @@ __p += '\r\n\t</div>\r\n\t<span class="share-artefacts-text" title="' +
 ((__t = ( data.name )) == null ? '' : __t) +
 '</span>\r\n\t';
  if(data['is_owner'] != "1"){ ;
-__p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div class="share-artefact-right-panel">\r\n\t\t\t\t<div class="sarp-text">Can Add comments</div>\r\n\t\t\t\t' +
+__p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div class="share-artefact-right-panel">\r\n\t\t\t\t' +
 ((__t = (
 					sb.toolbox.checkbox({
 						class: "add-comments-chk",
@@ -1933,7 +1945,7 @@ __p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div c
 						"data-array": "1"
 					})
 				)) == null ? '' : __t) +
-'\r\n\t\t\t</div>\r\n\t\t\t<div class="share-artefact-right-panel">\r\n\t\t\t\t<div class="sarp-text">Share with others</div>\r\n\t\t\t\t' +
+'\r\n\t\t\t\t<div class="sarp-text">Comment</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="share-artefact-right-panel">\r\n\t\t\t\t' +
 ((__t = (
 					sb.toolbox.checkbox({
 						class: "others-chk",
@@ -1943,15 +1955,7 @@ __p += '\r\n\t\t<div class="share-artefact-people-item-section">\r\n\t\t\t<div c
 						"data-array": "1"
 					})
 				)) == null ? '' : __t) +
-'\r\n\t\t\t</div>\r\n\t\t\t<div class="sarp-checkbox-holder">\r\n\t\t\t\t' +
-((__t = (
-					sb.toolbox.checkbox({
-						class: "apply-to-all",
-						text: "Apply to all users in this group",
-						ignore: 1
-					})
-				)) == null ? '' : __t) +
-'\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t';
+'\r\n\t\t\t\t<div class="sarp-text">Share</div>\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t\t<div class="close-people-icon">\r\n\t\t\t<svg>\r\n\t\t\t\t<use xlink:href="#close"></use>\r\n\t\t\t</svg>\r\n\t\t</div>\r\n\t';
  } ;
 __p += '\r\n</div>\r\n';
 
@@ -1981,13 +1985,13 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  Kenseo.populate.meeting = data ;
-__p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">       \r\n        <div class="projects-heading-icon">\r\n            <svg><use xlink:href="#projects"></use></svg>\r\n        </div>       \r\n        <a href="#projects" class="heading-text-project">Projects &gt; </a>\r\n        <a href="#projectpage/' +
+__p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">\r\n        <div class="projects-heading-icon">\r\n            <svg><use xlink:href="#projects"></use></svg>\r\n        </div>\r\n        <a href="#projects" class="heading-text-project">Projects &gt; </a>\r\n        <a href="#projectpage/' +
 ((__t = ( data.projectId )) == null ? '' : __t) +
 '" class="heading-text-project-name">' +
 ((__t = ( data.projectName )) == null ? '' : __t) +
-'</a>  \r\n        <span class="heading-date">(' +
+'</a>\r\n        <span class="heading-date">(' +
 ((__t = ( sb.timeFormat(data.startTime, true, true) )) == null ? '' : __t) +
-')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="create-meeting">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
+')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="update-meeting" data-others="populate">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
 ((__t = ( data.projectName )) == null ? '' : __t) +
 '</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Artefact</div>\r\n                <div class="meta-text">' +
 ((__t = ( data.artefactName )) == null ? '' : __t) +
@@ -2043,7 +2047,7 @@ __p += '\r\n            \t\t<div class="view-notes" data-user="' +
 ((__t = ( p.notes)) == null ? '' : __t) +
 '\r\n        \t\t\t</div>\r\n            \t';
  }); ;
-__p += '\r\n               \r\n            </div>\r\n            <label class="checkbox">\r\n                <input class="existing-files-chk" type="checkbox">\r\n                <span>Let others see my notes</span>\r\n            </label>\r\n        </div>\r\n    </div>\r\n</div>';
+__p += '\r\n\r\n            </div>\r\n            <label class="checkbox">\r\n                <input class="existing-files-chk" type="checkbox">\r\n                <span>Let others see my notes</span>\r\n            </label>\r\n        </div>\r\n    </div>\r\n</div>\r\n';
 
 }
 return __p
@@ -2454,13 +2458,18 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class="popup popup-add-people k-form">\r\n\t' +
+__p += '<div class="popup popup-large k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body k-field" data-k-project_id="' +
-((__t = ( Kenseo.popup.data.id )) == null ? '' : __t) +
-'">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<div class="add-people-text-project">\r\n\t\t\t\tAdd People under ' +
-((__t = ( Kenseo.popup.data.project_name )) == null ? '' : __t) +
-' Project\r\n\t\t\t</div>\r\n\t\t\t<!-- ' +
+'\r\n\t<div class="popup-body k-field" data-k-project_id = "';
+if(Kenseo.popup.data.id){;
+__p += ' ' +
+((__t = ( Kenseo.popup.data.id )) == null ? '' : __t);
+} else {;
+__p += ' ' +
+((__t = ( Kenseo.page.id )) == null ? '' : __t) +
+' ';
+};
+__p += '">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<!--<div class="add-people-text-project">\r\n\t\t\t\tAdd People\r\n\t\t\t</div>-->\r\n\t\t\t<!--' +
 ((__t = (
 				sb.toolbox.textBox({
 					placeholder: "Enter mail ID. Use comma to add multiple people.",
@@ -2473,11 +2482,11 @@ __p += '<div class="popup popup-add-people k-form">\r\n\t' +
 					}
 				})
 			)) == null ? '' : __t) +
-' -->\r\n\t\t\t' +
+'-->\r\n\t\t\t<!--' +
 ((__t = ( sb.setTemplate('select', {
 				data: {
 					required: true,
-					inputClass: "add-people-to-project k-field",
+					inputClass: "add-people-to-project k-field people-combobox",
 					selectAttr: {
 						multiple: "",
 						"data-xtype": "text",
@@ -2486,13 +2495,35 @@ __p += '<div class="popup popup-add-people k-form">\r\n\t' +
 					}
 				}
 			})	)) == null ? '' : __t) +
-'\r\n\t\t\t<div class="existing-users-section">\r\n\t\t\t\t';
+'-->\r\n\t\t\t';
+
+			var fields = {
+				shareCombo: sb.toolbox.comboBox({
+					"label": "Add People",
+					"class": "xm people-combobox",
+					"dataName": "otherMembers",
+					"placeholder": "Add People"
+				})
+			}
+			;
+__p += '\r\n\t\t\t' +
+((__t = ( fields.shareCombo )) == null ? '' : __t) +
+'\r\n\r\n\t\t\t<div class="existing-users-section">\r\n\t\t\t\t';
  _.each(data.existingUsers, function(u){ ;
 __p += '\r\n\t\t\t\t\t,&nbsp;' +
 ((__t = ( u.mailId )) == null ? '' : __t) +
 '\r\n\t\t\t\t';
  }) ;
-__p += '\r\n\t\t\t</div>\r\n\t\t\t<div class="people-permissions-section">\r\n\t\t\t\t<div class="permissions-header">This Person(s) can</div>\r\n\t\t\t\t<div class="permissions-wrapper k-field" data-xtype="access_type">\r\n\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t<div class="permission-item-text">Add comments</div>\r\n\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t<label class="toggle-checkbox">\r\n\t\t\t\t\t\t\t\t<input type="checkbox" data-subtype="comments"></input><span></span>\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t<div class="permission-item-text">Share with others</div>\r\n\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t<label class="toggle-checkbox">\r\n\t\t\t\t\t\t\t\t<input type="checkbox" data-subtype="share"></input><span></span>\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+__p += '\r\n\t\t\t</div>\r\n\t\t\t<div class="permissions-section">\r\n\t\t\t\t<div class="sarp-checkbox-holder">\r\n\t\t\t' +
+((__t = (
+				sb.toolbox.checkbox({
+					class: "apply-to-all",
+					inputClass: "permissions",
+					text: "Enable group level permission",
+					ignore: 1
+				})
+			)) == null ? '' : __t) +
+'\r\n\t\t</div>\r\n\t\t\t\t<div class="people-permissions-section">\r\n\t\t\t\t\t<div class="permissions-wrapper k-field" data-xtype="access_type">\r\n\t\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t\t<label class="toggle-checkbox" >\r\n\t\t\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" ></input><span></span>\r\n\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class="permission-item-text">comment</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t\t<label class="toggle-checkbox" >\r\n\t\t\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" trigger-chk=".others-chk" data-subtype="share" ></input><span></span>\r\n\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class="permission-item-text">Share</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class="share-artefact-people">\r\n\t\t\t<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="users">\r\n\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>\r\n';
 
@@ -2519,27 +2550,41 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="popup popup-small k-form">\r\n\t' +
+__p += '<div class="popup popup-large k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
 '\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t' +
 ((__t = (
 				sb.toolbox.textBox({
-					placeholder: "Project name",
-					inputClass: "project-input required k-field blur-field",
+					"label": "Project",
+					placeholder: "Enter project name",
+					inputClass: "project-input required k-field blur-field float-none",
 					dataName : "projectName",
 					required: true,
 					attr: {
 						'data-validate-this': 'empty',
 						'data-v-label': 'Project',
 						'data-xtype': 'text',
-						'data-xtype-key': 'projectName'
+						'data-xtype-key': 'project_name'
 					},
 					"fieldSectionErrorMessages": {
 							'empty': ' Please enter project name',
 					}
 				})
 			)) == null ? '' : __t) +
-'\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+'\r\n\t\t\t' +
+((__t = (
+				sb.toolbox.textBox({
+					"label": "Description",
+					placeholder: "Enter project description",
+					textArea: true,
+					dataName: "project_description",
+					"inputClass": "input-project-textarea project-input k-field",
+					'attr': {
+						'data-validate-this': 'empty'
+					}
+				})
+			)) == null ? '' : __t) +
+'\r\n\t\t\t<div class="checkbox-section">\r\n\t\t\t\t<label class="checkbox">\r\n\t\t\t\t\t<input type="checkbox" class="project-page-existing-files-chk"></input>\r\n\t\t\t\t\t<span>Do you like to add an artefact.</span>\r\n\t\t\t\t</label>\r\n\t\t </div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>';
 
@@ -2574,6 +2619,58 @@ __p += '\r\n<div class="popup popup-small">\r\n\t' +
 '\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<select class="projects-dropdown dropdown">\r\n\t\t\t</select>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['artefact-five'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ var dump = sb.getPopupData() ;
+__p += '\r\n<div class="popup popup-large">\r\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\r\n\t<div class="popup-left-section">\r\n\t\t' +
+((__t = (
+			sb.setTemplate('popup-meta-content', {
+				'data': {
+					project: true,
+					'dump': sb.getPopupData()
+				},
+			})
+		)) == null ? '' : __t) +
+'\r\n\t</div>\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper popup-right-section padding-zero">\r\n\t\t\t<div class="share-artefact-container">\r\n\t\t\t\t\t';
+ if(data.chooseExistingFile){ ;
+__p += '\r\n\t\t\t\t\t\t<div class="heading">Artefact</div>\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.comboBox({
+								"class": "xm choose-file-combobox",
+								"dataName": "choose-existing-file"
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t';
+ } ;
+__p += '\r\n\t\t\t\t\t<div class="choose-existing-file-holder"></div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
+'\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p
@@ -2629,7 +2726,16 @@ __p += '\r\n<div class="popup popup-large k-form">\r\n\t' +
 							;
 __p += '\r\n\t\t\t\t\t\t\t' +
 ((__t = ( fields.shareCombo )) == null ? '' : __t) +
-'\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="share-artefact-people">\r\n\t\t\t\t\t\t<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">\r\n\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</form>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+'\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\r\n\r\n\t\t\t\t\t<div class="permissions-section">\r\n\t\t\t\t\t\t<div class="sarp-checkbox-holder">\r\n\t\t\t\t\t' +
+((__t = (
+						sb.toolbox.checkbox({
+							class: "apply-to-all",
+							inputClass: "permissions",
+							text: "Enable group level permission",
+							ignore: 1
+						})
+					)) == null ? '' : __t) +
+'\r\n\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class="people-permissions-section ">\r\n\t\t\t\t\t\t\t<div class="permissions-wrapper k-field" data-xtype="access_type">\r\n\t\t\t\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t\t\t\t<label class="toggle-checkbox" >\r\n\t\t\t\t\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" ></input><span></span>\r\n\t\t\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class="permission-item-text">comment</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t\t\t\t<label class="toggle-checkbox" >\r\n\t\t\t\t\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" trigger-chk=".others-chk" data-subtype="share" ></input><span></span>\r\n\t\t\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class="permission-item-text">Share</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\t\t\t\t\t<div class="share-artefact-people">\r\n\t\t\t\t\t\t<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">\r\n\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</form>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>\r\n';
 
@@ -2656,16 +2762,9 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="popup popup-small">\r\n\t' +
+__p += '<div class="popup popup-large">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t' +
-((__t = ( 
-				sb.toolbox.comboBox({
-					"fieldClass": "flt-none",
-					"class": "projects-dropdown",
-				})
-			)) == null ? '' : __t) +
-'\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="projects-selection-section-wrapper">\r\n\t\t\t<div class="projects-selection-section">\r\n\t\t\t\t<div class="projects-selection-heading">\r\n\t\t\t\t\t<div class="projects-selection-heading-text">Projects</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>';
 
@@ -2779,47 +2878,34 @@ with (obj) {
 __p += '\r\n<div class="popup popup-large">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
 '\r\n\t<div class="popup-left-section">\r\n\t\t' +
-((__t = ( 
+((__t = (
 			sb.setTemplate('popup-meta-content', {
 				'data': {
 					project: true,
+					file: true,
+					type: true,
+					references: true,
+					tags: true,
 					'dump': sb.getPopupData()
 				},
-			}) 
+			})
 		)) == null ? '' : __t) +
-'\r\n\t</div>\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper popup-right-section">\r\n\t\t\t<div class="files-section">\r\n\t\t\t\t<label class="upload-file-section">\r\n\t\t\t\t\t<input type="file" class="upload-files-input" ';
+'\r\n\t</div>\r\n\t<div class="popup-body overflowx-hidden">\r\n\t\t<div class="popup-body-wrapper popup-right-section padding-zero">\r\n\t\t\t<div class="add-artefact-section">\r\n      \t<span>This artefact will be share with the people in this project</span>\r\n      </div>\r\n\t\t\t<div class="files-section" id="drop-zone">\r\n\t\t\t\t<label class="upload-file-section">\r\n\t\t\t\t\t<input type="file" class="upload-files-input" ';
  if(!data.single_file_selector){ ;
 __p += 'multiple=""';
  } ;
-__p += '></input>\r\n\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\tUpload a new file\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="uploader-section">\r\n\t\t\t\t\t\t<div class="uploader-section-img">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#pdfnpng"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</label>\r\n\t\t\t\t<span class="or-btn">Or</span>\r\n\t\t\t\t<div class="create-file-section">\r\n\t\t\t\t\t';
- if(data.chooseExistingFile){ ;
-__p += '\r\n\t\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\t\tChoose an existing file\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t' +
+__p += '></input>\r\n\t\t\t\t\t<div class="uploader-section">\r\n\t\t\t\t\t\t<div class="uploader-section-img">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#pdfnpng"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class="uploader-section-file">\r\n\t\t\t\t\t\t\t<span>Drag & Drop your artefacts here</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</label>\r\n\t\t\t</div>\r\n\t\t\t<div class="uploaded-file-display">\r\n\t\t\t\t<div class="files-list display-none">\r\n\t\t\t\t\t<div class="create-file-item">\r\n\t\t\t\t\t\t<div class="notification-item S-type">\r\n\t\t\t\t\t\t\t<svg class="notification-s-type-icon"><use xlink:href="#file"></use></svg>\r\n\t\t\t\t\t\t\t<div class="notification-title">\r\n\t\t\t\t\t\t\t\tBalfour: Image Share\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class="notification-time">\r\n\t\t\t\t\t\t\t\t@ 11:20 AM by Rakesh\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class="create-file-close-icon">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#close"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t';
+ if(data.allow_artefact_selection){ ;
+__p += '\r\n\t\t\t\t\t<label class="checkbox display-none">\r\n\t\t\t\t\t\t<input type="checkbox" disabled="true" class="existing-files-chk"></input>\r\n\t\t\t\t\t\t<span>This is a new version of an existing file</span>\r\n\t\t\t\t\t</label>\r\n\t\t\t\t\t<div class="artefact-combobox display-none">\r\n\t\t\t\t\t\t' +
 ((__t = (
 							sb.toolbox.comboBox({
-								"class": "xm choose-file-combobox",
-								"dataName": "choose-existing-file"
+								"class": "xm existing-files-combobox",
+								"dataName": "choose-file"
 							})
 						)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t';
- } else{ ;
-__p += '\r\n\t\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\t\tCreate file\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t';
+'\r\n\t\t\t\t\t</div>\r\n\t\t\t\t';
  } ;
-__p += '\r\n\t\t\t\t\t';
- if(data.show_coming_soon){ ;
-__p += '\r\n\t\t\t\t\t\t<div class="coming-soon-text">Coming soon!</div>\r\n\t\t\t\t\t';
- } ;
-__p += '\r\n\t\t\t\t\t<div class="choose-existing-file-holder">\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="files-list">\r\n\t\t\t\t<div class="create-file-item">\r\n\t\t\t\t\t<div class="notification-item S-type">\r\n\t\t\t\t\t\t<svg class="notification-s-type-icon"><use xlink:href="#file"></use></svg>\r\n\t\t\t\t\t\t<div class="notification-title">\r\n\t\t\t\t\t\t\tBalfour: Image Share\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class="notification-time">\r\n\t\t\t\t\t\t\t@ 11:20 AM by Rakesh\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="create-file-close-icon">\r\n\t\t\t\t\t\t<svg><use xlink:href="#close"></use></svg>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t';
- if(data.allow_artefact_selection){ ;
-__p += '\r\n\t\t\t\t<label class="checkbox">\r\n\t\t\t\t\t<input type="checkbox" disabled="true" class="existing-files-chk"></input>\r\n\t\t\t\t\t<span>This is a new version of an existing file</span>\r\n\t\t\t\t</label>\r\n\t\t\t\t' +
-((__t = ( 
-					sb.toolbox.comboBox({
-						"class": "xm existing-files-combobox",
-						"dataName": "choose-file"
-					})
-				)) == null ? '' : __t) +
-'\r\n\t\t\t';
- } ;
-__p += '\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+__p += '\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>';
 
@@ -2880,7 +2966,13 @@ with (obj) {
  var toolbox = sb.toolbox ;
 __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<form class="meeting-invite-form">\r\n\r\n\t\t\t\t' +
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<form class="meeting-invite-form">\n\t\t\t\t';
+ if(data.populateType === "update-meeting"){ ;
+__p += '\n\t\t\t\t\t<input class="k-field" type="hidden" data-xtype="text" data-xtype-key="meeting_id" value="' +
+((__t = ( sb.getPopulateValue(data.populateType, 'meeting_id') )) == null ? '' : __t) +
+'"></input>\r\n\t\t\t\t';
+ } ;
+__p += '\r\n\r\n\t\t\t\t' +
 ((__t = (
 					toolbox.comboBox({
 						"label": "Project",
@@ -2888,8 +2980,11 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 						"class": "xm project-combobox blur-field",
 						"dataName": "meetingProject",
 						"placeholder": "Choose Project",
+						"inputAttr": {
+							"value": sb.getPopulateValue(data.populateType, 'project_name')
+						},
 						"fieldSectionErrorMessages": {
-								'empty': 'Please select project name',
+							'empty': 'Please select project name',
 						}
 					})
 				)) == null ? '' : __t) +
@@ -2901,6 +2996,9 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 						"class": "xm artefact-combobox blur-field",
 						"dataName": "meetingArtefact",
 						"placeholder": "Choose Project",
+						"inputAttr": {
+							"value": sb.getPopulateValue(data.populateType, 'artefact_name')
+						},
 						"fieldSectionErrorMessages": {
 								'empty': 'Please select project name',
 						}
@@ -2917,40 +3015,104 @@ __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 						'attr': {
 							'data-validate-this': 'empty'
 						},
+						'value': sb.getPopulateValue(data.populateType, 'agenda'),
 						"fieldSectionErrorMessages": {
 								'empty': ' Please provide meeting agenda',
 						}
 					})
 				)) == null ? '' : __t) +
-'\r\n\t\t\t\t<div style="clear: both; padding-top: 20px;">\r\n\t\t\t\t\t<div class="field-section in-line" data-name="date" data-ignore="1">\r\n\t\t\t\t\t\t<div class="input-label required">Scheduled on</div>\r\n\t\t\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t\t\t<input type="text" class="input-meeting-date float-left"></input>\r\n\t\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="fromTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">From</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">\r\n\t\t\t\t\t\t\t\t<option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="00:30">12:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="01:30">01:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="02:30">02:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="03:30">03:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="04:30">04:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="05:30">05:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="06:30">06:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="07:30">07:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="08:30">08:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="09:30">09:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="10:30">10:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="11:30">11:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="12:30">12:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="13:30">01:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="14:30">02:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="15:30">03:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="16:30">04:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="17:30">05:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="18:30">06:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="19:30">07:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="20:30">08:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="21:30">09:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="22:30">10:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="23:30">11:30 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="toTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">To</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">\r\n\t\t\t\t\t\t\t    <option value="00:00">12:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="00:30">12:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="01:00">01:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="01:30">01:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="02:00">02:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="02:30">02:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="03:00">03:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="03:30">03:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="04:00">04:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="04:30">04:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="05:00">05:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="05:30">05:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="06:00">06:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="06:30">06:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="07:00">07:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="07:30">07:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="08:00">08:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="08:30">08:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="09:00">09:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="09:30">09:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="10:00">10:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="10:30">10:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="11:00">11:00 AM</option>\r\n\t\t\t\t\t\t\t\t<option value="11:30">11:30 AM</option>\r\n\t\t\t\t\t\t\t    <option value="12:00">12:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="12:30">12:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="13:00">01:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="13:30">01:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="14:00">02:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="14:30">02:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="15:00">03:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="15:30">03:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="16:00">04:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="16:30">04:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="17:00">05:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="17:30">05:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="18:00">06:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="18:30">06:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="19:00">07:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="19:30">07:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="20:00">08:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="20:30">08:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="21:00">09:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="21:30">09:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="22:00">10:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="22:30">10:30 PM</option>\r\n\t\t\t\t\t\t\t    <option value="23:00">11:00 PM</option>\r\n\t\t\t\t\t\t\t\t<option value="23:30">11:30 PM</option>\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t' +
+'\r\n\t\t\t\t<div style="clear: both; padding-top: 20px;">\r\n\t\t\t\t\t<div class="field-section in-line" data-name="date">\r\n\t\t\t\t\t\t';
+
+							var dateValue = sb.getPopulateValue(data.populateType, 'meeting_date');
+							if(dateValue){
+								dateValueTokens = new Date(dateValue).toDateString().split(" ");
+								dateValue = dateValueTokens[2] + " " + dateValueTokens[1] + " " + dateValueTokens[3];
+							}
+							else{
+								dateValue = "";
+							}
+						;
+__p += '\r\n\t\t\t\t\t\t<div class="input-label required">Scheduled on</div>\r\n\t\t\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t\t\t<input type="text" value="' +
+((__t = ( dateValue )) == null ? '' : __t) +
+'" class="input-meeting-date float-left"></input>\r\n\t\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t';
+
+						var timeValues = [
+											"12:30 AM","01:00 AM","01:30 AM","02:00 AM","02:30 AM","03:00 AM",
+											"03:30 AM","04:00 AM","04:30 AM","05:00 AM","05:30 AM","06:00 AM",
+											"06:30 AM","07:00 AM","07:30 AM","08:00 AM","08:30 AM","09:00 AM",
+											"09:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM",
+											"12:30 PM","01:00 PM","01:30 PM","02:00 PM","02:30 PM","03:00 PM",
+											"03:30 PM","04:00 PM","04:30 PM","05:00 PM","05:30 PM","06:00 PM",
+											"06:30 PM","07:00 PM","07:30 PM","08:00 PM","08:30 PM","09:00 PM",
+											"09:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM","11:30 PM"
+										]
+					;
+__p += '\r\n\t\t\t\t\t<div class="field-section in-line" data-name="fromTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">From</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">\r\n\t\t\t\t\t\t\t\t';
+ var fromTime = sb.getPopulateValue(data.populateType, 'meeting_date_from_time') ;
+__p += '\r\n\t\t\t\t\t\t\t\t';
+ var fromTimeSelectIndex = 0 ;
+__p += '\r\n\t\t\t\t\t\t\t\t';
+
+									if(fromTime){
+										fromTimeSelectIndex = timeValues.indexOf(sb.getTime(new Date(fromTime).toString())) + 1;
+									}
+									else{
+										var newSelectValue = new Date();
+										newSelectValue.setMinutes(Math.ceil(newSelectValue.getMinutes() / 30) * 30);
+										var diffSelectValue = new Date();
+										diffSelectValue.setHours(0);
+										diffSelectValue.setMinutes(0);
+										diffSelectValue.setSeconds(0);
+										fromTimeSelectIndex = Math.floor((newSelectValue.getTime() - diffSelectValue.getTime()) / (30 * 60 * 1000));
+									}
+								;
+__p += '\r\n\t\t\t\t\t\t\t\t';
+ _.each(timeValues, function(time, i){ ;
+__p += '\r\n\t\t\t\t\t\t\t\t\t<option ';
+ if(i === fromTimeSelectIndex - 1){ ;
+__p += 'selected';
+ } ;
+__p += ' value="' +
+((__t = ( time.split(' ')[0] )) == null ? '' : __t) +
+'">' +
+((__t = ( time )) == null ? '' : __t) +
+'</option>\r\n\t\t\t\t\t\t\t\t';
+ }) ;
+__p += '\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="toTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">To</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">\r\n\t\t\t\t\t\t\t\t';
+ var toTime = sb.getPopulateValue(data.populateType, 'meeting_date_to_time') ;
+__p += '\r\n\t\t\t\t\t\t\t\t';
+ var toTimeSelectIndex = 0 ;
+__p += '\r\n\t\t\t\t\t\t\t\t';
+
+									if(toTime){
+										toTimeSelectIndex = timeValues.indexOf(sb.getTime(new Date(toTime).toString())) + 1;
+									}
+								;
+__p += '\r\n\t\t\t\t\t\t\t\t';
+ _.each(timeValues, function(time, i){ ;
+__p += '\r\n\t\t\t\t\t\t\t\t\t<option ';
+ if(i === toTimeSelectIndex - 1){ ;
+__p += 'selected';
+ } ;
+__p += ' value="' +
+((__t = ( time.split(' ')[0] )) == null ? '' : __t) +
+'">' +
+((__t = ( time )) == null ? '' : __t) +
+'</option>\r\n\t\t\t\t\t\t\t\t';
+ }) ;
+__p += '\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t' +
 ((__t = (
 					toolbox.textBox({
 						"label": "Venue",
 						inputClass: "meeting-location",
 						dataName: "location",
 						'attr': {
-							'data-validate-this': 'empty'
+							'data-validate-this': 'empty',
+							'value': sb.getPopulateValue(data.populateType, 'venue')
 						}
 					})
 				)) == null ? '' : __t) +
-'\r\n\t\t\t\t';
-
-					toolbox.textBox({
-						"label": "Recipients List",
-						textArea: true,
-						required: true,
-						inputClass: "recipients-meeting-txt-section blur-field",
-						"class": "xm people-name tags-combobox",
-						"dataName": "attendees",
-						'attr': {
-							'data-validate-this': 'empty'
-						},
-						"fieldSectionErrorMessages": {
-							'empty': ' Please select at least one recipient',
-						}
-					})
-				;
-__p += '\r\n\r\n\t\t\t\t' +
+'\r\n\r\n\t\t\t\t' +
 ((__t = (
 					sb.setTemplate('select', {
 						data: {
@@ -3053,6 +3215,46 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['project-section-popup'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="projects-selection-section-content">\r\n  ';
+ if(data){ ;
+__p += '\r\n    ';
+ _.each(data.data, function(p){ ;
+__p += '\r\n      <label class="toggle-project-radio">\r\n        <input type="radio" name="projectSection"></input>\r\n        <div class="project-selection-block">\r\n          <img src="http://placeimg.com/280/200/arch">\r\n          <div class="project-selection-block-overlay">\r\n            <div class="project-selection-block-overlay-wrapper">\r\n              <div class="project-selection-block-title k-field" data-k-project_id="' +
+((__t = ( p.id )) == null ? '' : __t) +
+'" data-xtype="project-selection" data-xtype-key="selected_project">\r\n                ' +
+((__t = ( p.name )) == null ? '' : __t) +
+'\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </label>\r\n    ';
+ }); ;
+__p += '\r\n  ';
+ } else{ ;
+__p += '\r\n    <div class="no-items">No projects to show</div>\r\n  ';
+ } ;
+__p += '\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['activities'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -3111,9 +3313,9 @@ __p += '<div class="project-heading data-holder" data-key="projects" data-id="' 
 ((__t = ( Kenseo.page.id )) == null ? '' : __t) +
 '">\r\n\t<div class="projects-heading-icon">\r\n\t\t<svg><use xlink:href="#projects"></use></svg>\r\n\t</div>\r\n\t<a href="#projects" class="heading-text-project">Projects > </a>\r\n\t<span class="heading-text-project-name">' +
 ((__t = ( Kenseo.page.data.project.name )) == null ? '' : __t) +
-'</span>\r\n\t<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">\r\n\t\t<div class="sub-heading-more-icon">\r\n\t\t\t<svg><use xlink:href="#more"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="sub-menu-holder right-nav bottom-nav">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="create-meeting">Create a Meeting</div>\r\n\t\t\t<div class="sub-menu-item">Share a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click hide">Delete a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-section-content data-holder" data-key="projects" data-id="' +
+'</span>\r\n\t<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">\r\n\t\t<div class="sub-heading-more-icon">\r\n\t\t\t<svg><use xlink:href="#more"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="sub-menu-holder right-nav bottom-nav">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">Create a Meeting</div>\r\n\t\t\t<div class="sub-menu-item">Share a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click hide">Delete a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-section-content data-holder" data-key="projects" data-id="' +
 ((__t = ( Kenseo.page.id )) == null ? '' : __t) +
-'">\r\n\t<div class="artifacts-section review-requests-content sub-section">\r\n\t\t\r\n\t</div>\r\n\r\n\t<div class="activity-section sub-section">\r\n\t\t\r\n\t</div>\r\n\t<div class="people-section sub-section">\r\n\t\t\r\n\t</div>\r\n\r\n</div>\r\n';
+'">\r\n\t<div class="artifacts-section review-requests-content sub-section">\r\n\r\n\t</div>\r\n\r\n\t<div class="activity-section sub-section">\r\n\r\n\t</div>\r\n\t<div class="people-section sub-section">\r\n\r\n\t</div>\r\n\r\n</div>\r\n';
 
 }
 return __p
@@ -3248,7 +3450,9 @@ __p += 'checkbox';
  } ;
 __p += ' ' +
 ((__t = ( data.class )) == null ? '' : __t) +
-'">\r\n\t\t<input type="checkbox"\r\n\t\t\t';
+'">\r\n\t\t<input type="checkbox" class="' +
+((__t = ( data.inputClass)) == null ? '' : __t) +
+'"\r\n\t\t\t';
  if(data.checked == true){ ;
 __p += '\r\n\t\t\t\tchecked\r\n\t\t\t';
  } ;
@@ -3320,7 +3524,9 @@ __p += '>\r\n\t\t<div class="combobox-wrapper field-section-wrapper">\r\n\t\t\t<
  if(data.required){ ;
 __p += 'k-required';
  } ;
-__p += '" type="text" placeholder="' +
+__p += '" ' +
+((__t = ( sb.setTemplate('attributes', {data: data.inputAttr}) )) == null ? '' : __t) +
+' type="text" placeholder="' +
 ((__t = ( data.placeholder )) == null ? '' : __t) +
 '" ';
  if(data.required){ ;
@@ -3334,7 +3540,7 @@ __p += '\r\n\t\t\t\t<div class="hide message-display" trigger="' +
 ((__t = ( data.fieldSectionErrorMessages[key] )) == null ? '' : __t) +
 '</div>\r\n\t\t\t';
  } ;
-__p += '\r\n\t\t</div>\r\n\t</div>\r\n</div>';
+__p += '\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p
@@ -3512,7 +3718,9 @@ __p += '\r\n\t\t\tplaceholder="' +
  } ;
 __p += '\r\n\t\t\t' +
 ((__t = ( sb.setTemplate('attributes', {data: data.attr}) )) == null ? '' : __t) +
-'\r\n\t\t ></textarea>\r\n\t\t';
+'\r\n\t\t >' +
+((__t = ( data.value )) == null ? '' : __t) +
+'</textarea>\r\n\t\t';
  } ;
 __p += '\r\n\t\t<div class="field-section-error-messages">\r\n\t\t\t';
  for(var key in data.fieldSectionErrorMessages) { ;

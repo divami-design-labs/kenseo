@@ -17,34 +17,64 @@ class Authenticator
 	private $userInfo = null;
 
 	public function __construct($project = "App") {
-		global $AppGlobal;
-		
+
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, 'in constructor');
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, $project);
 		// No matter what, we need to authenticating with Google anyway since this is the start of a new session!
 		// So, initialize all the Google auth code first.
-		$this->client = new Google_Client();
-		$this->client->setApplicationName($AppGlobal['googleauth'][$project]['appName']);
-		$this->client->setClientId($AppGlobal['googleauth'][$project]['clientId']);
-		$this->client->setClientSecret($AppGlobal['googleauth'][$project]['clientSecret']);
-		$this->client->setRedirectUri($AppGlobal['googleauth'][$project]['redirectURL']);
-		$this->client->setApprovalPrompt('auto');
-		$this->client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/calendar'));
+		$this->client = $this->getClient();
 
 		$this->oauth2 = new Google_Service_Oauth2($this->client);
-		
+
 		$this->authUrl = $this->client->createAuthUrl();
 
 		// Just check if we got a cookie with the SID.
 		$this->appSID = (isset($_COOKIE['DivamiAppSID']) ? $_COOKIE['DivamiAppSID'] : FALSE);
 		$this->googleAccessToken = (isset($_COOKIE['DivamiAppGAT']) ? $_COOKIE['DivamiAppGAT'] : FALSE);
 	}
-	
-	
+
+	public function getClient(){
+		global $AppGlobal;
+		$project = "App";
+		$client = new Google_Client();
+		$client->setApplicationName($AppGlobal['googleauth'][$project]['appName']);
+		$client->setClientId($AppGlobal['googleauth'][$project]['clientId']);
+		$client->setClientSecret($AppGlobal['googleauth'][$project]['clientSecret']);
+		$client->setRedirectUri($AppGlobal['googleauth'][$project]['redirectURL']);
+		$client->setApprovalPrompt('auto');
+		$client->setAccessType('offline');   // generates refresh token
+		$client->setScopes(array(
+			'https://www.googleapis.com/auth/userinfo.email',
+			'https://www.googleapis.com/auth/userinfo.profile',
+			'https://www.googleapis.com/auth/calendar'
+		));
+
+		return $client;
+	}
+
+	public function getRefreshToken(){
+		$client = $this->client;
+		$accessToken = $_COOKIE['DivamiAppGAT'];
+		//
+		//since we already have the GAT with us we say get AccessToken to get the client authenticated
+		$client->setAccessToken($accessToken);
+		$token = $client->getAccessToken();
+		if($client->isAccessTokenExpired()){
+			Master::getLogManager()->log(DEBUG, MOD_MAIN,"Token expired");
+
+			$refreshToken = json_decode($accessToken)->refresh_token;
+			if(!$refreshToken){
+				Master::getLogManager()->log(DEBUG, MOD_MAIN,"No refresh token");
+			}
+			$client->refreshToken($refreshToken);
+		}
+		return $client;
+	}
+
 	public function getSID() {
 		return $this->appSID;
 	}
-	
+
 	public function getAuthURL() {
 		return $this->authUrl;
 	}
@@ -57,23 +87,23 @@ class Authenticator
 			$this->getUserInfo();
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $this->userInfo);
 		}
-		
+
 		return $this->googleAccessToken;
 	}
-	
+
 	public function getUserInfo() {
 		$this->userInfo = $this->oauth2->userinfo_v2_me->get();
 		$this->userInfo['email'] = filter_var($this->userInfo['email'], FILTER_SANITIZE_EMAIL);
 		$this->userInfo['picture'] = filter_var($this->userInfo['picture'], FILTER_VALIDATE_URL);
 		$this->userInfo['name'] = filter_var($this->userInfo['name'], FILTER_SANITIZE_STRING);
-		
+
 		return $this->userInfo;
 	}
 
 
 	public function invalidateSession() {
 		$this->client->revokeToken();
-		
+
 		// Update DB to invalidate the session.
 		if ($this->appSID) {
 			setcookie("DivamiAppSID", "", -1, "/");
@@ -88,19 +118,19 @@ class Authenticator
 	public function startNewSession() {
 		// start a new session.
 		$this->generateNewSession();
-		
+
 		// @TODO - Store all info in DB, set cookies & redirect to UI.
 		$userId = $this->validateUserInfo();
 		if (!$userId) {
 			return FALSE;
 		}
-		
+
 		// for now, store the access token also in a cookie. @TODO
 		$this->storeSessionInfo($userId);
 		setcookie("DivamiAppUserID", $userId, 0, "/");
 		return $userId;
 	}
-	
+
 	public function generateNewSession() {
 		session_start();
 		session_regenerate_id(TRUE);
@@ -116,22 +146,22 @@ class Authenticator
 		// All is well. Save the session in DB.
 		$expiry = time() + SECONDS_IN_WEEK;
 		$clientId = $_SERVER['REMOTE_ADDR'];
-		
+
 	    $db = Master::getDBConnectionManager();
 		$result = $db->insertSingleRow(DBSchema::$Table_Session, DBSchema::$Table_Session_Cols, array($this->appSID, $userId, $clientId, $expiry));
 
 		if (!$result) {
 			throw new CustomException("Failed to save in DB.");
 		}
-		
+
 		//session will be valid for 7 days.
 		setcookie("DivamiAppSID", $this->appSID, $expiry, "/");
 		setcookie("DivamiAppGAT", $this->googleAccessToken, $expiry, "/");
 
 		$this->setUserInfoCookies();
 	}
-	
-	
+
+
 	public function setUserInfoCookies() {
 		setcookie("DivamiAppUserName", $this->userInfo['name'], 0, "/");
 		setrawcookie("DivamiAppUserEmail", $this->userInfo['email'], 0, "/");
@@ -152,12 +182,12 @@ class Authenticator
 			$this->invalidateSession();
 			return FALSE;
 		}
-		
+
 		// Do we know this user?
 		$userName = $emailParts[0];
 	    $db = Master::getDBConnectionManager();
 	    $userId = $db->singleResultQuery(getQuery('getActiveUserId', array('userName' => $userName, 'email' => $this->userInfo['email'])));
-		
+
 		if (!$userId) {
 			// This user has not been setup in our DB yet. Redirect to a page that informs them of this and allows them to logout of Google.
 			// @TODO - For now, redirect to google.com
@@ -169,10 +199,10 @@ class Authenticator
 			$userInfo = $this->userInfo;
 			$userColumnNames = array("name", "screen_name","email", "designation", "profile_pic_url", "org_id", "login_type");
 			$userColumnValues = array($userInfo['name'], $userInfo['givenName'], $userInfo['email'], 'Staff', $userInfo['picture'], '1', 'G');
-			
+
 			$userId = $db->insertSingleRowAndReturnId(TABLE_USERS, $userColumnNames, $userColumnValues);
 		}
-		
+
 		return $userId;
 	}
 

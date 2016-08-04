@@ -10,6 +10,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
     },
     render: function(){
         var _this = this;
+        // ajax call
         _this.collection.fetch(sb.getStandardData({
             data: _this.data,
             success: function(collection, response){
