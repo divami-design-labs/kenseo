@@ -294,8 +294,10 @@ sb.refresh = (function(){
 		// unarchiveProject: function(){
 		// 	refreshSection('projects-page', 'projects-page');
 		// },
-		addPeople: function(){
-			refreshSection('project-page', 'pp-people');
+		addPeople: function(response){
+			Kenseo.data.model = response.data.people;
+			sb.trigger($(window), 'addPeople');
+			//refreshSection('project-page', 'pp-people');
 		},
 		removePeople: function(){
 			refreshSection('project-page', 'pp-people');

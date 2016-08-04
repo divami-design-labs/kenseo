@@ -95,9 +95,9 @@
 			// for($i=0; $i<$count; $i++) {
 			// 	$users[$i] = "'" . $users[$i] . "'";
 			// }
-      foreach($users as $key => $value) {
-        $userids[] = $value->user_id;
-      }
+              foreach($users as $key => $value) {
+                $userids[] = $value->user_id;
+              }
 
 			// Get DB Connection and start new transaction
 			$db = Master::getDBConnectionManager();
@@ -183,15 +183,29 @@
                 )));
 
                 $this->addUserMail($mailInfo);
-
                 $db->commitTransaction();
-        $resultMessage = new stdClass();
-  			$resultMessage->messages = new stdClass();
-  			$resultMessage->messages->type = "success";
-  			$resultMessage->messages->message = "Successfully added people";
-  			$resultMessage->messages->icon = "message-people";
-  			return $resultMessage;
+                
+      			$resultMessage = new stdClass();
+      			$resultMessage->type = "success";
+      			$resultMessage->message = "Successfully added people";
+      			$resultMessage->icon = "message-people";
+      			//return $resultMessage;
 			}
+
+            $propleQuery = getQuery('getTeamMember',array('projectid' => $projectId, 'userid' => $addedUserIds));
+                $peopleObj = $db->multiObjectQuery($propleQuery);
+
+                $dataList = array(
+                    people => $peopleObj,
+                    messages => $resultMessage
+                );
+
+
+            if(count($dataList)){
+                return $dataList;
+            } else {
+                return false;
+            }
 		}
 
 		public function removePeople($interpreter) {

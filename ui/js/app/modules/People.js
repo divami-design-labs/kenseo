@@ -55,6 +55,23 @@ Kenseo.views.People = Backbone.View.extend({
                 }
             }
         }));
+        sb.subscribe($(window), 'addPeople', function(){
+            Kenseo.data.model.forEach(function(model){
+                var view = new Kenseo.views.Person({
+                    // Insert global variable data in to the model
+                    model: new Kenseo.models.People(model),
+                    collection: _this.collection,
+                    parent: _this
+                })
+                _this.templateHolder.prepend(view.el);
+                
+            })
+
+            // Empty the used global variable
+            Kenseo.data.model = {};
+
+        });
+        return this;
     },
     addPeople: function(e, scope){
         var el = e.currentTarget;

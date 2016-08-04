@@ -228,6 +228,14 @@ $AppGlobal['sql']['getTeamMembersList'] = "SELECT u.user_id as id, m.proj_id, u.
 											INNER JOIN " . TABLE_PROJECTS . " p ON p.project_id = m.proj_id
 											WHERE m.proj_id = @~~projectId~~@";
 
+
+$AppGlobal['sql']['getTeamMember'] = "SELECT u.user_id as id, m.proj_id, u.name, u.email, u.profile_pic_url as picture, m.access_type,
+											IF(p.created_by=u.user_id, 1, 0) as is_owner FROM " . TABLE_PROJECT_MEMBERS . " m
+											INNER JOIN " . TABLE_USERS . " u ON m.user_id = u.user_id
+											INNER JOIN " . TABLE_PROJECTS . " p ON p.project_id = m.proj_id
+											WHERE u.user_id IN (@~~userid~~@) AND m.proj_id = @~~projectid~~@";
+
+
 $AppGlobal['sql']['getArtefactSharedMembersListFromVersionId'] = "SELECT t1.user_id as id, t3.project_id as proj_id, t4.name, t4.email, t4.profile_pic_url as picture, t1.access_type, IF(t2.created_by=t4.user_id, 1, 0) as is_owner
 													FROM artefact_shared_members t1
 													JOIN artefact_versions t2 ON t2.artefact_ver_id = t1.artefact_ver_id
