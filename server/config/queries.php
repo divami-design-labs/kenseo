@@ -322,6 +322,44 @@ $AppGlobal['sql']['getProjectActivity'] = "SELECT p.project_name, pa.logged_time
 											pa.project_id = @~~projectid~~@
 											ORDER BY pa.logged_time DESC";
 
+
+$AppGlobal['sql']['getProjectSingleActivity'] = "SELECT p.project_name, pa.logged_time as time,
+											artefacts.artefact_title as activityName,
+											pa.performed_on as activityOn,
+											pa.activity_id as id,
+											actBy.name as doneBy,
+											CASE activity_type
+												WHEN 'N' THEN 'Added'
+												WHEN 'D' THEN 'Removed'
+												WHEN 'R' THEN 'Replace'
+												WHEN 'U' THEN 'Updated'
+												WHEN 'H' THEN 'Hold'
+												WHEN 'C' THEN 'Comment'
+												WHEN 'S' THEN 'Share'
+											END as activityType,
+											CASE performed_on
+												WHEN 'U' THEN 'User'
+												WHEN 'A' THEN 'Artefact'
+												WHEN 'M' THEN 'Meeting'
+												WHEN 'V' THEN 'Version'
+											END as activityOn,
+											CASE performed_on
+												WHEN 'A' THEN (SELECT arts.artefact_title FROM artefacts AS  arts WHERE arts.artefact_id = pa.performed_on_id)
+												WHEN 'U' THEN (SELECT name FROM users where user_id = pa.performed_on_id)
+												WHEN 'M' THEN (SELECT meeting_title FROM meetings WHERE meeting_id = pa.performed_on_id)
+												WHEN 'V' THEN (SELECT vers.version_label FROM artefact_versions as vers WHERE vers.artefact_ver_id = pa.performed_on_id)
+											END as activityName
+											FROM " .
+											TABLE_PROJECT_ACTIVITY . " as pa
+											JOIN " . TABLE_USERS . " as actBy
+											on
+											actBy.user_id = pa.logged_by
+											join " . TABLE_PROJECTS . " as p on p.project_id = pa.project_id
+											JOIN " . TABLE_ARTEFACTS . " AS artefacts on artefacts.artefact_id = pa.performed_on_id
+											WHERE
+											pa.project_id = @~~projectid~~@ AND pa.activity_id = @~~activityid~~@";
+
+
 $AppGlobal['sql']['getMyRecentActivity'] = "";
 
 $AppGlobal['sql']['getMeetingNotes'] = "SELECT users.user_id as userId, notes.participant_notes as notes, notes.is_public as isPublic, users.profile_pic_url as profilePic, users.name as userName

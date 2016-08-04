@@ -667,7 +667,7 @@
 					// Add this as project activity
 					$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
 					$activityRowValues = array($projectId, $userId, date("Y-m-d H:i:s"), 'A', 'N', $artIds[$f]);
-					$db->insertSingleRow(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
+					$activityId = $db->insertSingleRowAndReturnId(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 
 					// Add this as notification
 					$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
@@ -685,9 +685,14 @@
 					$detailsQuery = getQuery('getProjectArtefact', $queryParams);
 					$artefactObj = $db->singleObjectQuery($detailsQuery);
 
+					$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
+					$activityObj = $db->singleObjectQuery($activityQuery);
+
+
 					$dataList = array(
 						notification => $resultObj,
-						artefact => $artefactObj
+						artefact => $artefactObj,
+						activity => $activityObj
 					);
 					// Share to members
 					if(count($data->shared_members)) {

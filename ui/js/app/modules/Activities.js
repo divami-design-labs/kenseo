@@ -70,7 +70,36 @@ Kenseo.views.Activities = Backbone.View.extend({
                     });
                 }
             }
-        }))
+        }));
+        sb.subscribe($(window), 'addActivity', function(){
+            var content = "";
+            var key = "";
+            var view = new Kenseo.views.Activity({
+                // Insert global variable data in to the model
+                model: new Kenseo.models.Activities(Kenseo.data.model),
+                collection: _this.collection,
+                parent: _this
+            })
+
+            var $date = _this.templateHolder.find('.day-activity-label').eq(0).html().trim();
+            $activityEntryTime = Kenseo.data.model.time;
+            $activityTime = sb.timeFormat($activityEntryTime,true,true);
+
+            if($date == $activityTime) {
+                _this.templateHolder.find('.day-activity-section').prepend(view.el);
+            } else {
+                content = content + view.el.outerHTML;
+                key = $activityTime;
+                _this.templateHolder.prepend(sb.setTemplate('day-wise-item',{data: {
+                    label: key,
+                    content: content
+                    }}));
+            }
+
+            // Empty the used global variable
+            Kenseo.data.model = {};
+
+        });
         return this;
     }
 });

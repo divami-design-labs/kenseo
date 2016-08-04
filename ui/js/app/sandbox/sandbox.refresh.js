@@ -281,6 +281,9 @@ sb.refresh = (function(){
 		addArtefact: function(response){
 			Kenseo.data.model = response.data.artefact;
 			sb.trigger($(window), 'addArtefact');
+
+			Kenseo.data.model = response.data.activity;
+			sb.trigger($(window), 'addActivity');
 			
 			Kenseo.data.model = response.data.notification;
 			sb.trigger($(window), 'addNotification');
