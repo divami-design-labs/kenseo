@@ -1,161 +1,257 @@
 <?php
 	require_once("thirdparty/google-api-php-client/autoload.php");
+	require_once(ROOT . "Application/Includes/Authenticator.php");
     class Meetings {
 		public function setMeetingInvitaion($interpreter) {
-			global $AppGlobal;
 
 			$data = $interpreter->getData()->data;
 			$user = $interpreter->getUser();
 
-			// Create the google client.
-			$client = new Google_Client();
-			$appName = 'App';
-			$client->setApplicationName($AppGlobal['googleauth'][$appName]['appName']);
-			$client->setClientId($AppGlobal['googleauth'][$appName]['clientId']);
-			$client->setClientSecret($AppGlobal['googleauth'][$appName]['clientSecret']);
-			$client->setRedirectUri($AppGlobal['googleauth'][$appName]['redirectURL']);
-			$client->setApprovalPrompt('auto');
-			// $client->setAccessType("offline");
-			$client->setScopes(array('https://www.googleapis.com/auth/calendar'));
-
-			$kenseoGAT = $_COOKIE['DivamiAppGAT'];
-
-			//we need to have a calendar service to create a new calendar meeting invitation
-			$service = new Google_Service_Calendar($client);
-
-			//since we already have the GAT with us we say get AccessToken to get the client authenticated
-			$client->setAccessToken($kenseoGAT);
-			$token = $client->getAccessToken();
-			if($client->isAccessTokenExpired()){
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,"Token expired");
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,$kenseoGAT);
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,$client->isAccessTokenExpired());
-			}
-
+			// get params
+			$params = $this->getMeetingParams($data);
+			$authenticator = new Authenticator();
+			// Get google client info
+			$client = $authenticator->getRefreshToken();
 			// now we need to store these in DB
 			$db = Master::getDBConnectionManager();
-
-			Master::getLogManager()->log(DEBUG, MOD_MAIN,"line 38");
-			// this google event stores the data and this is inserted into the calendar
-			$event = new Google_Service_Calendar_Event();
-			Master::getLogManager()->log(DEBUG, MOD_MAIN,"line 41");
-			$projectId = $data->meetingProject[0]->{'data-id'};
-			$location = $data->location->value;
-			// Converting string to datetime format and then again to string for further operations
-			$date = DateTime::createFromFormat(
-						"d M Y",
-						$data->date->value
-					)->format('Y-m-d');
-			$fromTime = $date . $data->fromTime->value;
-			$toTime = $date . $data->toTime->value;
-
-			$project = $data->meetingProject[0]->name;
-			$feature = $data->meetingArtefact[0]->{'data-id'};
-			$featureName = $data->meetingArtefact[0]->name;
-			$meetingType = "";
-			$description = isset($data->agenda->value) ? $data->agenda->value : "Description";
-			$title = $project ." : " . $featureName;
-
-			$event->setSummary($title);
-			$event->setLocation($location);
-			$event->setDescription($description);
-
-			$start = new Google_Service_Calendar_EventDateTime();
-			$start->setDateTime($fromTime);
-			$event->setStart($start);
-			$end = new Google_Service_Calendar_EventDateTime();
-			$end->setDateTime($toTime);
-			$event->setEnd($end);
-			$event->setVisibility('public');
-
-			//building meeting invitaion attendee list
-			Master::getLogManager()->log(DEBUG, MOD_MAIN,"building meeting invitaion attendee list");
-			$attendee1 = new Google_Service_Calendar_EventAttendee();
-			//$attendee1->setResponseStatus("accepted");
-			$attendee1->setEmail($user->email);
-
-			$attendees = array($attendee1);
-
-			$attendeesUserIds = join(",", $data->attendees->value);
-
-			// $newAttendees = explode(",", $data->attendees->value);
-
-			$newAttendees = array_map(function($row) {
-				return $row->email;
-			}, $db->multiObjectQuery(getQuery('getUsers', array(
-				"@userids" => $attendeesUserIds
-			))));
+			//we need to have a calendar service to create a new calendar meeting invitation
+			$service = new Google_Service_Calendar($client, $user);
 
 
-			for($i = 0; $i < count($newAttendees); $i++) {
-				if($newAttendees[$i]) {
-					Master::getLogManager()->log(DEBUG, MOD_MAIN, "appending attendees");
-					$attendee = new Google_Service_Calendar_EventAttendee();
-					//$attendee->setResponseStatus("accepted");
-					$attendee->setEmail(trim($newAttendees[$i]));
-					array_push($attendees ,$attendee);
-				}
-			}
+			// store params in variables
+			$projectId 			= $params->projectId;
+			$location 			= $params->location;
+			$fromTime 			= $params->fromTime;
+			$toTime 			= $params->toTime;
+			$feature 			= $params->feature;
+			$description 		= $params->description;
+			$summary 			= $params->summary;
+			$start 				= $params->start;
+			$end				= $params->end;
+			$attendeesUserIds 	= $params->attendeesUserIds;
 
-			$event->attendees = $attendees;
+			$eventObj = $this->getMeetingEventParams($db, $params, $user, null);
 
-			//this option if set true will send the mail notifications to attendees
-			$optionaArguments = array("sendNotifications"=>true);
+			// meeting event object
+			$event 			= $eventObj->event;
+			// recipients' email ids in an array
+			$newAttendees	= $eventObj->newAttendees;
+			// All attendess in meeting event object
+			$attendees		= $eventObj->attendees;
+			// 'primary' indicates the the calendar type
+			$createdEvent = $service->events->insert(
+				'primary',  // calendar id
+				$event,
+				array("sendNotifications"=>true)  //this option if set true will send the mail notifications to attendees
+			);
 
-			$createdEvent = $service->events->insert('primary', $event, $optionaArguments);
-
-			$meetingId = $createdEvent->getId();
-
+			$eventId = $createdEvent->getId();
 
 			//insert into meetings
-			$columnnames = array("project_id", "meeting_on_artefact_id", "meeting_time", "meeting_end_time", "meeting_title", "meeting_agenda", "venue","created_by", "google_meeting_ref_id");
-			$rowvals = array($projectId, $feature, $fromTime, $toTime, $title, $description, $location,$user->user_id, $meetingId);
+			$meetingId = $db->insertSingleRowAndReturnId(
+				TABLE_MEETINGS,
+				array(
+					"project_id",
+					"meeting_on_artefact_id",
+					"meeting_time",
+					"meeting_end_time",
+					"meeting_title",
+					"meeting_agenda",
+					"venue",
+					"created_by",
+					"google_meeting_ref_id"
+				), array(
+					$projectId,
+					$feature,
+					$fromTime,
+					$toTime,
+					$summary,
+					$description,
+					$location,$user->user_id,
+					$eventId
+				)
+			);
 
-			$meetId = $db->insertSingleRowAndReturnId(TABLE_MEETINGS, $columnnames, $rowvals);
+			$actId = $db->insertSingleRowAndReturnId(
+				TABLE_NOTIFICATIONS,
+				array(
+					"user_id",
+					"message",
+					"project_id",
+					"notification_by",
+					"notification_date",
+					"notification_type",
+					"notification_ref_id",
+					"notification_state"
+				),
+				array(
+					$user->user_id,
+					$summary,
+					$projectId,
+					$user->user_id,
+					date("Y-m-d H:i:s"),
+					'M',
+					$meetingId,
+					'U'
+				)
+			);
 
-			//insert into meeting participants
-			$partsColumnnames = array("meeting_id", "participent_id", "invitation_date", "invited_by");
-			$notColumnnames = array("user_id", "message","project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
+			// @TODO: I don't know why we are inserting an empty string note in database
+			$db->insertSingleRow(
+				TABLE_MEETING_NOTES,
+				array(
+					"meeting_id",
+					"participant_id",
+					"participant_notes",
+					"created_date",
+					"is_public"
+				),
+				array(
+					$meetingId,
+					$user->user_id,
+					"",
+					date("Y-m-d H:i:s"),
+					0
+				)
+			);
 
 
-			//notify the user itself
-			$notRowvals = array($user->user_id, $title, $projectId, $user->user_id, date("Y-m-d H:i:s"), 'M', $meetId, 'U');
-
-			$actId = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notColumnnames, $notRowvals);
-
-			$notesColumnValues = array("meeting_id","participant_id", "participant_notes", "created_date", "is_public");
-			$notesRowValues = array($meetId,  $user->user_id, "",date("Y-m-d H:i:s"), 0);
-			$db->insertSingleRow(TABLE_MEETING_NOTES, $notesColumnValues, $notesRowValues);
-
-			// TODO: the attendees will come in single string (comma separated) instead of array
-			Master::getLogManager()->log("Venkateshwar1");
-			Master::getLogManager()->log(serialize($newAttendees));
-			Master::getLogManager()->log("Venkateshwar1");
 			for($i = 0; $i < count($newAttendees); $i++) {
 				if($newAttendees[$i]) {
 					$participantId = $this->getUserIdFromEmail($newAttendees[$i]);
 					if($participantId){
-						$partsRowvals = array($meetId, $participantId, date("Y-m-d H:i:s"), $user->user_id);
-						Master::getLogManager()->log(DEBUG, MOD_MAIN, "partsRowvals");
-						Master::getLogManager()->log(DEBUG, MOD_MAIN, $partsRowvals);
-						$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $partsColumnnames, $partsRowvals);
+						$db->insertSingleRow(
+							TABLE_MEETING_PARTICIPENTS,
+							array("meeting_id", "participent_id", "invitation_date", "invited_by"),
+							array($meetingId, $participantId, date("Y-m-d H:i:s"), $user->user_id)
+						);
 					}
 				}
 			}
-			Master::getLogManager()->log("Venkateshwar3");
 
 			//insert into project activity
-			$actColumnnames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
-			$actRowvals = array($projectId, $user->user_id, date("Y-m-d H:i:s"), 'M','N', $meetId);
-
-			$actId = $db->insertSingleRowAndReturnId(TABLE_PROJECT_ACTIVITY, $actColumnnames, $actRowvals);
+			$actId = $db->insertSingleRowAndReturnId(
+				TABLE_PROJECT_ACTIVITY,
+				array(
+					"project_id",
+					"logged_by",
+					"logged_time",
+					"performed_on",
+					"activity_type",
+					"performed_on_id"
+				),
+				array(
+					$projectId,
+					$user->user_id,
+					date("Y-m-d H:i:s"),
+					'M',   // meeting
+					'N',   // new
+					$meetingId
+				)
+			);
 			// $resultMessage = new stdClass();
 			// $resultMessage->messages = new stdClass();
 			// $resultMessage->messages->type = "success";
 			// $resultMessage->messages->message = "Meeting invitation is sent successfully";
 			// $resultMessage->messages->icon = "done";
 			// return $resultMessage;
-			return $meetId;
+			return $meetingId;
+		}
+
+		public function getMeetingEventParams($db, $params, $user, $event){
+			$result = new stdClass();
+			// $event will be present when the meeting is being updated
+			if(!$event){
+				// this google event stores the data and this is inserted into the calendar
+				$event = new Google_Service_Calendar_Event();
+			}
+			// set details in the events
+			$event->setSummary($params->summary);
+			$event->setLocation($params->location);
+			$event->setDescription($params->description);
+			$event->setStart($params->start);
+			$event->setEnd($params->end);
+
+			$event->setVisibility('public');
+
+			//building meeting invitaion attendee list
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "building meeting invitaion attendee list");
+			$eventCreator = new Google_Service_Calendar_EventAttendee();
+			//$eventCreator->setResponseStatus("accepted");
+			$eventCreator->setEmail($user->email);
+
+			// prepare attendees list. Add the event creator as one of the attendees
+			$result->attendees = array($eventCreator);
+
+
+			// $newAttendees = explode(",", $data->attendees->value);
+			// Get the emails of all attendees
+			$result->newAttendees = array_map(
+				function($row) {
+					return $row->email;
+				},
+				$db->multiObjectQuery(
+					getQuery(
+						'getUsers',
+						array(
+							"@userids" => $params->attendeesUserIds
+						)
+					)
+				)
+			);
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "venkateshwar - from time");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $params->fromTime);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $params->toTime);
+
+			for($i = 0; $i < count($result->newAttendees); $i++) {
+				if($result->newAttendees[$i]) {
+					Master::getLogManager()->log(DEBUG, MOD_MAIN, "appending attendees");
+					$attendee = new Google_Service_Calendar_EventAttendee();
+					//$attendee->setResponseStatus("accepted");
+					$attendee->setEmail(trim($result->newAttendees[$i]));
+					// push new attendee to the attendees list
+					array_push($result->attendees, $attendee);
+				}
+			}
+
+			$event->attendees = $result->attendees;
+
+			$result->event = $event;
+
+			return $result;
+		}
+
+		public function getMeetingParams($data){
+			$result = new stdClass();
+
+			// get params
+			$result->projectId = $data->meetingProject[0]->{'data-id'};
+			$result->location = $data->location->value;
+			// Converting string to datetime format and then again to string for further operations
+			$date = DateTime::createFromFormat(
+						"d M Y",
+						$data->date->value
+					)->format('Y-m-d');
+			$result->fromTime = $date . $data->fromTime->value;
+			$result->toTime = $date . $data->toTime->value;
+
+			$project = $data->meetingProject[0]->name;
+			$result->feature = $data->meetingArtefact[0]->{'data-id'};
+			$featureName = $data->meetingArtefact[0]->name;
+			// $meetingType = "";
+			$result->description = isset($data->agenda->value) ? $data->agenda->value : "Description";
+			$result->summary = $project ." : " . $featureName;
+
+			$result->start = new Google_Service_Calendar_EventDateTime();
+			$result->start->setDateTime($result->fromTime);
+
+			$result->end = new Google_Service_Calendar_EventDateTime();
+			$result->end->setDateTime($result->toTime);
+
+			$result->attendeesUserIds = join(",", $data->attendees->value);
+
+			return $result;
 		}
 
 		public function writeMeetingNotes($interpreter) {
@@ -214,6 +310,161 @@
 			catch(Exception $e){
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
 			}
+		}
+
+		public function updateMeeting($interpreter){
+			$result = new stdClass();
+			$data = $interpreter->getData()->data;
+			$params = $this->getMeetingParams($data);
+
+			$user = $interpreter->getUser();
+			$db = Master::getDBConnectionManager();
+			$db->beginTransaction();
+			$authenticator = new Authenticator();
+			$client = $authenticator->getRefreshToken();
+			// params
+			$meetingId = $data->{'meeting_id'};
+			$meetingInfo = $db->singleObjectQuery(getQuery('getMeetingInfoFromId', array(
+				"meetingid" => $meetingId
+			)));
+
+			// get event id from meeting id, from database
+			$eventId = $meetingInfo->{'google_meeting_ref_id'}; // event id
+
+			//we need to have a calendar service to create a new calendar meeting invitation
+			$service = new Google_Service_Calendar($client);
+			$event = $service->events->get('primary', $eventId);
+
+			// store params in variables
+			$projectId 			= $params->projectId;
+			$location 			= $params->location;
+			$fromTime 			= $params->fromTime;
+			$toTime 			= $params->toTime;
+			$feature 			= $params->feature;
+			$description 		= $params->description;
+			$summary 			= $params->summary;
+			$start 				= $params->start;
+			$end				= $params->end;
+			$attendeesUserIds 	= $params->attendeesUserIds;
+
+			$eventObj		= $this->getMeetingEventParams($db, $params, $user, $event);
+			// recipients' email ids in an array
+			$newAttendees	= $eventObj->newAttendees;
+			// All attendess in meeting event object
+			$attendees		= $eventObj->attendees;
+
+			$updatedEvent = $service->events->update(
+				'primary', // calendar id
+				$event->getId(),  // event id
+				$event,    // event object
+				array("sendNotifications" => true)  // query params
+			);
+
+			// Add the same updated info in the database
+			// update into meetings
+			$db->updateTable(
+				TABLE_MEETINGS,
+				array(
+					// "project_id",
+					// "meeting_on_artefact_id",
+					"meeting_time",
+					"meeting_end_time",
+					"meeting_title",
+					"meeting_agenda",
+					"venue",
+					"created_by"
+				),
+				array(
+					// $projectId,
+					// $feature,
+					$fromTime,
+					$toTime,
+					$summary,
+					$description,
+					$location,
+					$user->user_id
+				),
+				"meeting_id = " . $meetingId
+			);
+
+			$db->updateTable(
+				TABLE_NOTIFICATIONS,
+				array(
+					"user_id",
+					"message",
+					"project_id",
+					"notification_by",
+					"notification_date",
+					"notification_type",
+					"notification_state"
+				),
+				array(
+					$user->user_id,
+					$summary,
+					$projectId,
+					$user->user_id,
+					date("Y-m-d H:i:s"),
+					'M',
+					'U'
+				),
+				"notification_ref_id = " . $meetingId
+			);
+
+			$existingParticipantsIds = array_map(
+				function($item) {
+					return $item->{'participent_id'};
+				},
+				$db->multiObjectQuery(
+					getQuery(
+						'getParticipantsFromMeetingId',
+						array(
+							"meetingid" => $meetingId
+						)
+					)
+				)
+			);
+
+			// @TODO: In update process, if recipient(s) are removed then remove there respective rows from database
+
+			//
+			for($i = 0; $i < count($newAttendees); $i++) {
+				if($newAttendees[$i]) {
+					$participantId = $this->getUserIdFromEmail($newAttendees[$i]);
+					// Check if the participant id is present and it is not of an existing participant
+					if($participantId && !in_array($participantId, $existingParticipantsIds)){
+						// insert newly added recipients in the database
+						$db->insertSingleRow(
+							TABLE_MEETING_PARTICIPENTS,
+							array("meeting_id", "participent_id", "invitation_date", "invited_by"),
+							array($meetingId, $participantId, date("Y-m-d H:i:s"), $user->user_id)
+						);
+					}
+				}
+			}
+			//insert into project activity
+			$actId = $db->insertSingleRowAndReturnId(
+				TABLE_PROJECT_ACTIVITY,
+				array(
+					"project_id",
+					"logged_by",
+					"logged_time",
+					"performed_on",
+					"activity_type",
+					"performed_on_id"
+				),
+				array(
+					$projectId,
+					$user->user_id,
+					date("Y-m-d H:i:s"),
+					'M',   // meeting
+					'U',   // update
+					$meetingId
+				)
+			);
+
+			$db->commitTransaction();
+
+			return $result;
 		}
 	}
 ?>

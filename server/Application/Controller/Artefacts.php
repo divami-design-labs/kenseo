@@ -673,12 +673,21 @@
 					$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
 					$notificationRowValues = array($userId, $FILES['name'][$f], $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
 					$newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
-
 					$queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
 					$resultObj = $db->singleObjectQuery($queryDetails);
 
+					// $query = getQuery('getMaskedArtefactVersionId',array('artefactversionid' => $artefactVersionIds[0]));
+					// $maskedArtefactVersion = $db->singleObjectQuery($query);
+					// $maskedArtefactVersionId = $maskedArtefactVersion->{'masked_artefact_version_id'};
+					// $queryParams = array('maskedArtefactVersionId' => $maskedArtefactVersionId);
+
+					$queryParams = array('userid' => $userId, 'projectid' => $projectId, 'artefactversionid' => $artefactVersionIds[0]);
+					$detailsQuery = getQuery('getProjectArtefact', $queryParams);
+					$artefactObj = $db->singleObjectQuery($detailsQuery);
+
 					$dataList = array(
-						notification => $resultObj
+						notification => $resultObj,
+						artefact => $artefactObj
 					);
 					// Share to members
 					if(count($data->shared_members)) {

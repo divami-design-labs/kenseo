@@ -27,14 +27,14 @@
 	"updated_date",
 
 	// meeting
+	"meeting_id",
 	"meeting_date",
 	"agenda",
 	"venue",
 	"meeting_date",
 	"meeting_date_from_time",
 	"meeting_date_to_time",
-	"participants_user_ids",
-	"participant_user_id"
+	"participants_user_ids"
 ]
 
 // Kenseo.params = (function () {

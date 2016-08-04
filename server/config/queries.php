@@ -111,6 +111,34 @@ $AppGlobal['sql']['getProjectArtefacts'] = "SELECT sm.shared_date, a.artefact_id
 											a.replace_ref_id is null
 											AND a.state != 'A' AND a.state != 'D' ORDER BY @~~sortBy~~@";
 
+
+$AppGlobal['sql']['getProjectArtefact'] = "SELECT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
+											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
+											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
+											a.artefact_type as document_type, v.state AS status, v.version_no as version,
+											u.name as person_name, u.profile_pic_url as image, u.user_id as owner_id,
+											(select count(t.comment_thread_id) from ". TABLE_COMMENT_THREADS ." as
+												t WHERE a.latest_version_id = t.artefact_ver_id
+											) as comment_count
+											from " . TABLE_ARTEFACTS . " a
+											inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.latest_version_id = v.artefact_ver_id
+											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
+											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
+											inner join ". TABLE_ARTEFACTS_SHARED_MEMBERS ." sm on sm.artefact_ver_id = a.latest_version_id AND sm.artefact_id = a.artefact_id AND u.user_id = sm.user_id
+											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id
+											where m.user_id = @~~userid~~@ AND p.project_id = @~~projectid~~@ AND
+											v.artefact_ver_id = @~~artefactversionid~~@ AND
+											a.replace_ref_id is null
+											AND a.state != 'A' AND a.state != 'D'";
+
+
+
+
+
+
+
+
+
 $AppGlobal['sql']['getSharedArtefacts'] = "SELECT a.artefact_id as id, a.latest_version_id as artefact_ver_id,
 											a.artefact_title AS title, a.artefact_type AS document_type,
 											v.masked_artefact_version_id, v.state AS status, v.MIME_type,
@@ -175,7 +203,13 @@ $AppGlobal['sql']['getNotification'] = "SELECT nots.notification_id as id, nots.
 
 $AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_title as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 
+$AppGlobal['sql']['getMeetingInfoFromId'] = "SELECT * FROM meetings WHERE meeting_id = @~~meetingid~~@";
+
+$AppGlobal['sql']['getParticipantsFromMeetingId'] = "SELECT * FROM meeting_participents WHERE meeting_id = @~~meetingid~~@";
+
 $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
+
+$AppGlobal['sql']['getUsers'] = "SELECT * FROM users WHERE user_id IN (@~~userids~~@)";
 
 $AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_title, artefacts.artefact_title AS matchedString, artefacts.artefact_id AS id
 										FROM " . TABLE_ARTEFACTS . " AS artefacts

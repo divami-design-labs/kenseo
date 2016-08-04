@@ -343,7 +343,7 @@ Kenseo.popups = (function(){
 		"create-meeting" : meeting({
 			"populateType": "create-meeting"
 		}),
-		"edit-meeting": meeting({
+		"update-meeting": meeting({
 			"populateType": "update-meeting"
 		}),
         "add-version":[

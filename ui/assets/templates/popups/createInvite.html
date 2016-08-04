@@ -4,6 +4,9 @@
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
 			<form class="meeting-invite-form">
+				<% if(data.populateType === "update-meeting"){ %>
+					<input class="k-field" type="hidden" data-xtype="text" data-xtype-key="meeting_id" value="<%= sb.getPopulateValue(data.populateType, 'meeting_id') %>"></input>
+				<% } %>
 
 				<%=
 					toolbox.comboBox({

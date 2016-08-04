@@ -3141,6 +3141,7 @@ input:disabled {
 
 .recipients-meeting {
   width: 382px;
+  height: 80px;
 }
 
 .currentPersonNotes {

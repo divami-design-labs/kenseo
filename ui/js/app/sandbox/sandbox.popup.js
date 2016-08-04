@@ -527,30 +527,15 @@ sb.popup = {
             }
         ], function(projectResponse, peopleResponse){
             var kebabActionType = _.kebabCase(sb.getPopupData('actionType'));
-            var existingParticipantsIds = [];
-            // if the actionType is create-meeting and the popup is triggered from project page's option
-            if(kebabActionType === 'create-meeting'){
-                // refresh the artefact section with new list according to the passed project id
-                refreshArtefactCombobox(sb.getPopulateValue(kebabActionType, 'project_id'));
-            }
-
-            if(kebabActionType === 'update-meeting'){
-                // get existing participant ids
-                existingParticipantsIds = sb.getPopulateValue(kebabActionType, 'participants_user_ids');
-                // get the value in artefact combobox's input field
-                var $artefactComboboxInput = $currentPopup.find('.artefact-combobox input');
-                var value = $artefactComboboxInput.val();
-                // refresh the artefact section with new list according to the passed project id
-                refreshArtefactCombobox(sb.getPopulateValue(kebabActionType, 'project_id'), function(){
-                    // adding the value again to the artefact combobox's input
-                    $artefactComboboxInput.val(value);
-                });
-            }
 
             var container = document.querySelector(".project-combobox");
             var combobox = sb.toolbox.applyComboBox({
                 elem: container,
                 data: projectResponse.data,
+                params: {
+                    id: "id",
+                    name: "name"
+                },
                 settings: {
                     placeholder: "Choose Project",
                     // value: Kenseo.page.data.project && Kenseo.page.data.project.name || ""
@@ -579,6 +564,33 @@ sb.popup = {
                     refreshArtefactCombobox(projectId);
                 }
             });
+
+
+            var existingParticipantsIds = [];
+            // if the actionType is create-meeting and the popup is triggered from project page's option
+            if(kebabActionType === 'create-meeting'){
+                // refresh the artefact section with new list according to the passed project name
+                var projectName = sb.getPopulateValue(kebabActionType, 'project_name');
+                // if project name is present, then the call is for create meeting invitation from project page
+                if(projectName){
+                    combobox.selectValues([projectName]);  // automatically refreshes the artefacts (triggers change event)
+                }
+            }
+
+            if(kebabActionType === 'update-meeting'){
+                combobox.selectValues([sb.getPopulateValue(kebabActionType, 'project_name')]);
+                // get existing participant ids
+                existingParticipantsIds = sb.getPopulateValue(kebabActionType, 'participants_user_ids');
+                // get the value in artefact combobox's input field
+                var $artefactComboboxInput = $currentPopup.find('.artefact-combobox input');
+                var value = $artefactComboboxInput.val();
+                // refresh the artefact section with new list according to the passed project id
+                refreshArtefactCombobox(sb.getPopulateValue(kebabActionType, 'project_id'), function(){
+                    // adding the value again to the artefact combobox's input
+                    // $artefactComboboxInput.val(value);
+                    artefactCombobox.selectValues([value]);
+                });
+            }
 
 
 

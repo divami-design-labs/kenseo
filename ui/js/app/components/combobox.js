@@ -37,6 +37,17 @@ var comboBox = function comboBox(elem, suggestions, values) {
 	$elem.click(function (e) {
 		e.stopPropagation();
 	});
+
+	_this.selectValues = function(values){
+		var $selectedItems = _this.$elem.find('.suggestionsContainer li .selectable').filter(function(i, el){
+			return values.indexOf(el.innerHTML) > -1
+		});
+
+		$selectedItems.each(function(i, el){
+			el.click(); // trigger click
+		});
+	}
+
 	// <-- End of Hide section -->
 	function filterCurrentIteration(obj){
 		if(values.filterData){
@@ -406,7 +417,7 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			if(Array.isArray(newList)){
 				newList.forEach(function(project){
 					if(project){
-						if (!project.excludeParent) {
+						if (!project.excludeParent) {   // @TODO: excludeParent is related to old code
 							var projectHeadingWrapper = document.createElement("div");
 
 							projectHeadingWrapper.className = values.listClass;
