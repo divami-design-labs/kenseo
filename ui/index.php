@@ -1,5 +1,5 @@
 <?php
-    require_once("../main.php");
+    require_once("../server/main.php");
 
     $project = "App";
     $authenticator = new Authenticator($project);
@@ -110,7 +110,10 @@
                             </div>
                             <a class="heading-text-project">Projects</a>
                         </div>
-                        <div class="projects-page-wrapper"></div>
+                        <div class="projects-state">Active projects</div>
+                        <div class="active-projects-page-wrapper"></div>
+                        <div class="projects-state">Archived projects</div>
+                        <div class="archived-projects-page-wrapper"></div>
                     </div>
                 </div>
                 <div class="persona-page-section">
