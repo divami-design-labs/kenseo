@@ -104,7 +104,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
     },
     initialize: function(payload){
         if(payload.linkedArtefactNo) {
-            this.linkedArtefactNo = payload.linkedArtefactNo();            
+            this.linkedArtefactNo = payload.linkedArtefactNo();
         }
         this.render();
         return this;//.render();
@@ -125,7 +125,19 @@ Kenseo.views.Artefact = Backbone.View.extend({
         "click [data-url='archive-artefact']"   :   "archiveArtefact",
         "click [data-url='replace-artefact']"   :   "replaceArtefact",
         "click [data-url='add-version']"        :   "addVersion",
-        "click [data-url='share-artefact']"     :   "shareArtefact"
+        "click [data-url='share-artefact']"     :   "shareArtefact",
+        "click [data-url='create-meeting']"     :   "createMeeting"
+    },
+    createMeeting: function(e){
+        // this click handler runs along with the popup-click handler
+        // the main intention of this click handler is to populate fields differently other than the main popup-click handler functionality
+
+        // populate project name and artefact names
+        var data = this.model.toJSON();
+        sb.setPopulateValue('create-meeting', 'project_name', data['project_name']);
+        sb.setPopulateValue('create-meeting', 'project_id', data['project_id']);
+        sb.setPopulateValue('create-meeting', 'artefact_name', data['title']);
+        sb.setPopulateValue('create-meeting', 'artefact_id', data['id']);
     },
     deleteArtefact: function(e){
         var el = e.currentTarget;

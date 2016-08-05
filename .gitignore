@@ -1,9 +1,8 @@
-References/
-/server/media/
-/server/config/googleauth.php
-/server/config/config.php
-/server/.htaccess
-/ui/node_modules/
-/ui/assets/styles/.sass-cache/
-/ui/local/builds/
-/ui/js/app/config/domain_urls.js
+server/media/
+server/config/googleauth.php
+server/config/config.php
+server/.htaccess
+ui/node_modules/
+ui/assets/styles/.sass-cache/
+ui/local/builds/
+ui/js/app/config/domain_urls.js

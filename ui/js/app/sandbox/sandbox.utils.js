@@ -249,6 +249,9 @@ var sb = _.extend(sb, (function () {
             }
             Kenseo.populate[property][str] = value;
         },
+        resetPopulate: function(property){
+            Kenseo.populate[property] = {};
+        },
         setTitle: function(str){
             var $title = $('title');
             $title.html('Kenseo - ' + str);

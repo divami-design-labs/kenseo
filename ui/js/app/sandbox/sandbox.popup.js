@@ -571,10 +571,24 @@ sb.popup = {
             if(kebabActionType === 'create-meeting'){
                 // refresh the artefact section with new list according to the passed project name
                 var projectName = sb.getPopulateValue(kebabActionType, 'project_name');
+                var projectId = sb.getPopulateValue(kebabActionType, 'project_id');
                 // if project name is present, then the call is for create meeting invitation from project page
                 if(projectName){
                     combobox.selectValues([projectName]);  // automatically refreshes the artefacts (triggers change event)
                 }
+                var artefactName = sb.getPopulateValue(kebabActionType, 'artefact_name');
+                // refresh the artefact section with new list according to the passed project id
+                if(projectId){
+                    refreshArtefactCombobox(projectId, function(){
+                        if(artefactName){ // this is true when the form is triggered from artefact card
+                            // adding the value again to the artefact combobox's input
+                            artefactCombobox.selectValues([artefactName]);
+                        }
+                    });
+                }
+
+                // resetting the populate object
+                sb.resetPopulate(kebabActionType);
             }
 
             if(kebabActionType === 'update-meeting'){
@@ -590,9 +604,10 @@ sb.popup = {
                     // $artefactComboboxInput.val(value);
                     artefactCombobox.selectValues([value]);
                 });
+
+                // resetting the populate object
+                sb.resetPopulate(kebabActionType);
             }
-
-
 
             // people related calculations
             // integrate chosen library

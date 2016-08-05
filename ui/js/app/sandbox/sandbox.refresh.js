@@ -193,17 +193,20 @@ sb.refresh = (function(){
 	                templateHolder: $('.meeting-notes-section'),
 	                callbackfunc: function(response) {
 						var data = response.data;
-						// prepare the edit meeting invitation field values
-						sb.setPopulateValue('update-meeting', 'agenda', data.agenda);
-						sb.setPopulateValue('update-meeting', 'artefact_name', data.artefactName);
-						sb.setPopulateValue('update-meeting', 'project_id', data.projectId);
-						sb.setPopulateValue('update-meeting', 'project_name', data.projectName);
-						sb.setPopulateValue('update-meeting', 'venue', data.venue);
-						sb.setPopulateValue('update-meeting', 'meeting_id', response.params.meetingId);
-						sb.setPopulateValue('update-meeting', 'meeting_date', data.startTime.split(" ")[0]);
-						sb.setPopulateValue('update-meeting', 'meeting_date_from_time', data.startTime);
-						sb.setPopulateValue('update-meeting', 'meeting_date_to_time', data.endTime);
-						sb.setPopulateValue('update-meeting', 'participants_user_ids', data.participants.map(function(participant){ return participant.id }));
+						// registering update button to store data related to popupulating the fields
+						sb.attachIn('click', '.meeting-update-button', function(){
+							// prepare the edit meeting invitation field values
+							sb.setPopulateValue('update-meeting', 'agenda', data.agenda);
+							sb.setPopulateValue('update-meeting', 'artefact_name', data.artefactName);
+							sb.setPopulateValue('update-meeting', 'project_id', data.projectId);
+							sb.setPopulateValue('update-meeting', 'project_name', data.projectName);
+							sb.setPopulateValue('update-meeting', 'venue', data.venue);
+							sb.setPopulateValue('update-meeting', 'meeting_id', response.params.meetingId);
+							sb.setPopulateValue('update-meeting', 'meeting_date', data.startTime.split(" ")[0]);
+							sb.setPopulateValue('update-meeting', 'meeting_date_from_time', data.startTime);
+							sb.setPopulateValue('update-meeting', 'meeting_date_to_time', data.endTime);
+							sb.setPopulateValue('update-meeting', 'participants_user_ids', data.participants.map(function(participant){ return participant.id }));
+						});
 	                    //since we have the Html ready now we can have the editor in place.
 	                    var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
 	                    sb.meeting.notes();
@@ -239,15 +242,18 @@ sb.refresh = (function(){
 	                success: function success(response) {
 	                    var currentProjectInfo = Kenseo.data.projects[Kenseo.page.id];
 	                    sb.setTitle(currentProjectInfo['name']);
-						// for populating the project id in meeting invitation form
-						sb.setPopulateValue('create-meeting', 'project_id', Kenseo.page.id);
-						// for populating the project name in meeting invitation form
-						sb.setPopulateValue('create-meeting', 'project_name', currentProjectInfo['name']);
-	                    // sb.setPopupData(currentProjectInfo.name, 'project_name');
-	                    sb.setPageData(currentProjectInfo, 'project');
+						sb.setPageData(currentProjectInfo, 'project');
 
-	                    sb.refresh.section('header');
-	                    sb.refresh.section('project-page');
+						sb.refresh.section('header');
+						sb.refresh.section('project-page');
+						
+						// registring click event to the create meeting link from project actions to store field populating data
+						sb.attachIn('click', '.main-section-project-icon-holder [data-url="create-meeting"]', function(){
+							// for populating the project id in meeting invitation form
+							sb.setPopulateValue('create-meeting', 'project_id', Kenseo.page.id);
+							// for populating the project name in meeting invitation form
+							sb.setPopulateValue('create-meeting', 'project_name', currentProjectInfo['name']);
+						});
 	                }
 	            });
 			}
