@@ -507,6 +507,7 @@
 		 * Function to add new artefact (with new file upload).
 		 */
 		public function addArtefact($interpreter) {
+			$dataList = array();
 			$userId = $interpreter->getUser()->user_id;
 
 			$data = $interpreter->getData();
@@ -696,11 +697,9 @@
 						$artefactObj->share = true;
 					}
 					
-					$dataList = array(
-						notification => $resultObj,
-						artefact => $artefactObj,
-						activity => $activityObj
-					);
+					$dataList['notification'] = $resultObj;
+					$dataList['artefact'] = $artefactObj;
+					$dataList['activity'] = $activityObj;
 				}
 
 				// $db->commitTransaction();
@@ -767,13 +766,14 @@
 			$this->addArtefactMail($mailInfo);
 
 			$db->commitTransaction();
-			// $resultMessage = new stdClass();
-			// $resultMessage->messages = new stdClass();
-			// $resultMessage->messages->type = "success";
-			// $resultMessage->messages->message = "Successfully added artefact";
-			// $resultMessage->messages->icon = "success";
+			$resultMessage = new stdClass();
+			$resultMessage->type = "success";
+			$resultMessage->message = "Successfully added artefact";
+			$resultMessage->icon = "success";
 			// return $resultMessage;
 			//return array();
+			$dataList['messages'] = $resultMessage;
+
 			if(count($dataList)){
 				return $dataList;
 			} else {
