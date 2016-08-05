@@ -1,7 +1,7 @@
 {
     "svg-grouping": {
         "common":       ["logo", "hamburger", "avatar", "search", "add", "error",
-            "message-archieve", "message-delete", "done", "success","message-people"
+            "message-archieve", "message-delete", "done", "success","message-people","P","U","I"
         ],
         "dashboard":    ["reviewrequest", "projects", "notify", "baloon", "dropdown", "file",
             "calendar", "clock", "artifacts", "adduser", "archive", "calendar", "archive1",

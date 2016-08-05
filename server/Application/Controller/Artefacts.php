@@ -688,13 +688,23 @@
 					$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
 					$activityObj = $db->singleObjectQuery($activityQuery);
 
+					//query used to get no of people in the project
+					$peopleQuery = getQuery('getTeamMembersList',array('projectId' => $projectId));
+					$peopleObj = $db->multiObjectQuery($activityQuery);
+
+					//artefact is shared if the people present in the project 
+					if(count($peopleObj) > 1) {
+						$artefactObj->share = true;
+					} else {
+						$artefactObj->share = false;
+					}
+
+
 					//variable to know whether the artefact is shared or not, initially it set to false
-					$artefactObj->share = false;
 					// Share to members
 					if(count($data->shared_members)) {
 						$this->shareForTeam($artIds[$f], $artVerId, $data->shared_members, $userId);
 						//If particular project has members it is set to true means artefact is shared
-						$artefactObj->share = true;
 					}
 					
 					$dataList['notification'] = $resultObj;

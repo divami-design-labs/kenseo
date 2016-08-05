@@ -1515,12 +1515,21 @@ a {
 }
 
 .rr-status {
+  line-height: 0;
   width: 37px;
   height: 57px;
+  color: #425282;
   font-size: 14px;
-  color: #ffffff;
-  text-align: right;
+  text-align: center;
   padding-right: 3px;
+}
+
+.rr-doc-type {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  -webkit-transform: translate(-75%);
+          transform: translate(-75%);
 }
 
 .rr-title {

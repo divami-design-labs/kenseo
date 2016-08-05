@@ -174,10 +174,18 @@
 	margin-left: 62px;
 }
 .rr-status{
+	line-height: 0;
 	@include dimensions(37px, 57px);
-	@include textFour();
-	text-align: right;
+	color: #425282;
+	font-size: 14px;
+	text-align: center;
 	padding-right: 3px;
+}
+.rr-doc-type {
+	position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translate(-75%);
 }
 .rr-title{
 	@include textFive();

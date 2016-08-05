@@ -10,7 +10,11 @@
             }
         })() %>">
 	<div class="rr-left">
-		<div class="rr-status status-<%= data.status %>"><% if(data['document_type']){  %><%= Kenseo.settings.docTypeShort[data['document_type']] %><% } %></div>
+		<div class="rr-status">
+			<span class="rr-doc-type"><% if(data['document_type']){  %><%= Kenseo.settings.docTypeShort[data['document_type']] %><% } %></span>
+			<!-- based on the type of document svg changes accrodingly.. -->
+			<svg><use xlink:href="#<%=data['document_type']%>"></use></svg>
+		</div>
         <% if(data.image !== "assets/imgs/avatar.svg"){ %>
             <img class="rr-owner-image" title="<%= data['person_name'] %>" src="<%= data.image %>"/>
         <% } else { %>
