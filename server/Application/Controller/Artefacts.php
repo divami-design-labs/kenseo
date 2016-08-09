@@ -994,17 +994,23 @@
 		public function shareArtefact($interpreter) {
 			$info = $interpreter->getData();
 			$data = $info->data;
-			$artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
-			$artId = $data->id;
+			// $artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
+			// $artId = $data->id;
+			$artefactAndVersionIds = $data->{'ids'};
+			$length = count($artefactAndVersionIds);
 			$userId = $interpreter->getUser()->user_id;
-			$this->shareForTeam($artId, $artVerId,$info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
-			// $resultMessage = new stdClass();
-			// $resultMessage->messages = new stdClass();
-			// $resultMessage->messages->type = "success";
-			// $resultMessage->messages->message = "Successfully shared artefact";
-			// $resultMessage->messages->icon = "success";
-			// return $resultMessage;
-			return array();
+			for($i=0; $i<$length; $i++){
+				$artId = $artefactAndVersionIds[$i]->artefact_id;
+				$artVerId = $artefactAndVersionIds[$i]->artefact_version_id;
+				$this->shareForTeam($artId, $artVerId,$info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
+			}
+			$resultMessage = new stdClass();
+			$resultMessage->messages = new stdClass();
+			$resultMessage->messages->type = "success";
+			$resultMessage->messages->message = "Successfully shared artefact";
+			$resultMessage->messages->icon = "success";
+			return $resultMessage;
+			//return array();
 		}
 
 		public function getArtefactDetails($interpreter) {

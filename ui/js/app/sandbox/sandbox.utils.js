@@ -458,6 +458,10 @@ var sb = _.extend(sb, (function () {
                     allPopups: allPopups,
                     currentActionType: currentActionType
                 });
+                if(Kenseo.popup.info[index].popupRefresh){
+                    Kenseo.popup.info[index].popupRefresh();
+                }
+                //if(Kenseo.popup.info[index].)
             }
             else{
                 // resetting the previous flags

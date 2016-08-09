@@ -60,6 +60,22 @@ sb.postcall = (function(){
 				}
 			}
 			return selected_project;
+		},
+		'shareMultipleArtefacts' : function($el) {
+			var ids = [];
+			$items = $el.find('.to-share-file.active');
+			for(var i = 0, len = $items.length; i < len; i++){
+				var $item = $($items.get(i));
+				ids.push({
+					'artefact_id': $item.attr('data-k-id'),
+					'artefact_version_id': $item.attr('data-k-versionid')
+				});
+			}
+			// var ids = $el.find('.to-share-file.active').map(function(){
+			// 		return $(this).attr('data-k-id');
+			// });
+			 return ids;
+
 		}
 	}
 	return {

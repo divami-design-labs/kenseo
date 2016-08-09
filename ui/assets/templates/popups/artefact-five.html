@@ -1,5 +1,5 @@
 <% var dump = sb.getPopupData() %>
-<div class="popup popup-large">
+<div class="popup popup-large k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-left-section">
 		<%=
@@ -16,14 +16,34 @@
 			<div class="share-artefact-container">
 					<% if(data.chooseExistingFile){ %>
 						<div class="heading">Artefact</div>
-						<%=
+						<div class="search-files"><input type="text" class="searchable">
+							<div class="filter-version-type html-click" data-html-class="enable-version-list" data-html-toggle="add">
+								<svg class="filter-list-dropdown">
+									<use xlink:href="#dropdown"></use>
+								</svg>
+								<div class="version-filter-list" >
+									<div><input type="checkbox" file-type="ALL"class ="apply-all-types">Apply To All</div>
+									<div><input type="checkbox" file-type="I">IXD</div>
+									<div><input type="checkbox" file-type="U">UID</div>
+									<div><input type="checkbox" file-type="P">PS</div>
+									<div><input type="checkbox" file-type="IA">IA</div>
+									<div><button>Apply</button></div>
+								</div>
+							</div>
+							<div class="search-file-icon">
+								<svg>
+									<use xlink:href="#search"></use>
+								</svg>
+							</div>
+						</div>
+						<!--<%=
 							sb.toolbox.comboBox({
 								"class": "xm choose-file-combobox",
 								"dataName": "choose-existing-file"
 							})
-						%>
+						%>-->
 					<% } %>
-					<div class="choose-existing-file-holder"></div>
+					<div class="choose-existing-file-holder k-field" data-xtype="shareMultipleArtefacts" data-xtype-key="ids"></div>
 				</div>
 			</div>
 		</div>

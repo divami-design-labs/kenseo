@@ -166,7 +166,8 @@ Kenseo.popups = (function(){
 					"cls": "main-btn",
 					"disabled": true
 				}],
-				"callbackfunc": sb.popup.createFilePopup
+				"callbackfunc": sb.popup.shareArtefactPopup,
+				"popupRefresh": sb.popup.shareArtefactPopup
 		}
 	}
 	var popups = {

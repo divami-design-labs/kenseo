@@ -314,4 +314,16 @@ $(document).on('click', '.tab-item', function (e) {
 	 var rel = $('.each-tab').children('.tab-item').eq(0).addClass('selectedTab').attr('targetRel');
 	 //find the relevent container of tab-item
 	 $parent.children('.outerContainer[rel="pdf_' + rel +'"]').addClass('inView');
-	});
+	
+
+
+})
+.on('click', '.to-share-file', function (e) {
+	$(this).toggleClass('active');
+	if($('.to-share-file.active').length){
+		$('.main-btn').prop("disabled",false);
+	}else{
+		$('.main-btn').prop("disabled",true);
+	}
+	//filterFiles();
+});

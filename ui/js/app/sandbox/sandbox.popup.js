@@ -73,6 +73,95 @@ sb.popup = {
           }
       });
     },
+    shareArtefactPopup: function shareArtefactPopup() {
+        var projectId = sb.getPopupData("id");
+        var $currentPopup = Kenseo.current.popup;
+        var container = $currentPopup.find(".choose-existing-file-holder");
+        container.html("");
+        //get the artefacts related to project
+        sb.ajaxCall({
+            collection: new Kenseo.collections.Artefacts(),
+            container: $('.popup'),
+            data: {
+                projectid: projectId,
+                references: true,
+                ignore: 0
+            },
+            success: function success(response) {
+                Kenseo.globalArtefacts = response.data;
+                Kenseo.globalArtefacts.forEach(function (item){
+                    container.append(sb.setTemplate("share-file", {
+                        data: item
+                    }));
+                });
+
+
+            }
+        });
+        //setting default values
+        var searchStr = "";
+        var selectedtypes = [];
+        $('.filter-list-dropdown').click(function(){
+            $('.apply-all-types').change(function(){
+                $('.version-filter-list input').prop('checked',this.checked);
+            });
+            $('.version-filter-list input').not('.apply-all-types').change(function(){
+                var checkboxs = $('.version-filter-list input').not('.apply-all-types').length
+                var checkedCheckboxs = $('.version-filter-list input:checked').not('.apply-all-types').length;
+                //if individual checkbox is unchecked, make apply-to-all unchecked
+                if(checkedCheckboxs == checkboxs){
+                    $('.apply-all-types').prop('checked',true);
+                }else {
+                    $('.apply-all-types').prop('checked',false);
+                }
+            });
+            //if options are not applied then reset to previous applied options
+            $('.version-filter-list input').prop('checked',false);
+            $checkedElements = $('.version-filter-list input').filter(function(item){
+                var $currentElement = $(this);
+                return Array.prototype.some.call(selectedtypes,function(selectedtype){
+                    return $currentElement.attr('file-type') == selectedtype;
+                });
+            });
+            $checkedElements.prop('checked',true);
+        });
+        $("input").keyup(function(){
+            var matchedElements = $(".choose-existing-file-holder").find(".to-share-filename");
+            searchStr = $(this).val();
+            filterFiles();
+        });
+        //set all chekboxes checked/unchecked when applied to all is selected
+        $('.version-filter-list button').click(function(e){
+            e.stopPropagation();
+            $('.filter-version-type').removeClass("enable-version-list");
+            selectedtypes = $('.version-filter-list input:checked').map(function(){
+                return $(this).attr('file-type');
+            });
+            filterFiles();
+        });
+        //filter the files depending on file-type and search
+        var filterFiles = function(){
+            var allNonActiveElements = $(".choose-existing-file-holder").find(".to-share-file").not(".active");
+            var allElements = allNonActiveElements.find(".to-share-filename");
+            searchableStr = new RegExp('^' + searchStr);
+            if(!selectedtypes.length){
+                selectedtypes = ["I","U","P","IA"];
+            }
+            var matchedElements = allElements.filter(function(item){
+                //retrieving the searched files
+                return searchableStr.test($(this).html()) ;
+            }).filter(function(item){
+                var match = $(this).prev('.to-share-filetype').html();
+                //matching files by selected file type
+                return Array.prototype.slice.call(selectedtypes).indexOf(match) > -1;
+            });
+            matchedElements.parents('.to-share-file').show();
+            matchedElements.parents('.to-share-file').prependTo($('.choose-existing-file-holder'));
+            var notMatchedElements = allElements.not(matchedElements);
+            notMatchedElements.parents('.to-share-file').hide();
+        }
+
+    },
     createFilePopup: function createFilePopup() {
         var $currentPopup = Kenseo.current.popup;
 
