@@ -118,119 +118,364 @@
 		}
 
 		public function replaceArtefact($interpreter) {
-			// => If artefact-a has three versions and artefact-b has three versions
-			// and artefact-a is replaced with artefact-b then information of artefact-a will be deleted
-			// and latest version of artefact-a will be added as initial version of artefact-b.
-			// The latest version of artefact-b remains the same.
-
-			// => when a new file is replaced with artefact-a
-			// then a new artefact is created with the latest version of artefact-a as its initial version
-			// and its latest version will be holding the newly added file.
 
 			$data = $interpreter->getData();
+			$resultMessage = new stdClass();
 			if($data->data != null) {
 				$data = $data->data;
 			}
 
-			$artId = $data->id;
-			$projId = $data->project_id;
-			$newArt = $data->artefact_id;
-			$file = $data->file;
+			$targetArtefactId 	= $data->id;
+			// $targetProjectId	= $data->project_id;
+			$existingArtefactId	= $data->artefact_id;
 
 			$userId = $interpreter->getUser()->user_id;
 			$date = date("Y-m-d H:i:s");
 			$db = Master::getDBConnectionManager();
+			$db->beginTransaction();
 
-			if(isset($data->filesToUpload)) {
+			try{
 
-				$FILES = $data->filesToUpload;
+				// => Get the latest artefact version of the target artefact
+				$targetArtefactId 				= $artId;  // relevant name
+				$targetLatestArtefactVersionId 	= $db->singleObjectQuery(
+					getQuery(
+						'getLatestVerionOfArtefact',
+						array(
+							"artId" => $targetArtefactId
+						)
+					)
+				)->verId;
 
-				//replacing with a new file
-				$uploadFile = $FILES['type'][0];
-				Master::getLogManager()->log(DEBUG, MOD_MAIN,"we have the file with us");
-
-				$data->userId = $interpreter->getUser()->user_id;
-				//get the latest version
-				$queryParams = array('artId' => $newArt);
-				$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
-				$latestVer = $db->singleObjectQuery($dbQuery)->vers;
-
-
-				$sourcePath = $FILES['tmp_name'][0];       // Storing source path of the file in a variable
-				$path = $AppGlobal['gloabl']['storeLocation'] . $projId . "/" . $artId;
-				if(! is_dir($path)) {
-					mkdir($path, 0777, true);
-				}
-				$newVersion = $latestVer+1;
-				$targetPath = $path . "/" .$artId."_".$newVersion; // Target path where file is to be stored
-				move_uploaded_file($sourcePath, $targetPath) ;
-
-				//now store the artefact detail in the tables related to artefacts and versions
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, $AppGlobal['gloabl']['storeLocation']);
-				//create a new version
-				$columnNames = array('artefact_id', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
-				$rowValues = array($artId, $latestVer, $userId, $date, $targetPath, $FILES["type"][0], $FILES["size"][0], 'C', 0);
-				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
-
-				//update the artefact table
-				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
-
-				//share the arrtefact to Owner
-				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
-				$shareRowValues = array($newVer, $artId, $userId, 'S', date("Y-m-d H:i:s"), $userId);
-				$db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
-
-				return true;
-			} else {
-				//control comes here while replacing with an existing artefact
-
-				//first get all the versions of newArt
-				$newArtVers = 	$db->multiObjectQuery(
-									getQuery(
-										'getAllVersionsOfArtefact',
-										array(
-											'artId' => $newArt
-										)
-									)
-								);
-
-				//get the latestVersion of the artefact
-				$latestVer = 	$db->singleObjectQuery(
-									getQuery(
-										'getHighestVersionOfArtefact',
-										array(
-											'artId' => $artId
-										)
-									)
-								)->vers;
-
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, $latestVer);
-
-				//update artefact version Numbers
-				// @TODO: change it to update table function
-				$db->singleResultQuery("UPDATE artefact_versions set version_no = version_no+$latestVer where artefact_id=$newArt");
-				//now change the artefact id
-				$db->updateTable(TABLE_ARTEFACTS_VERSIONS, array("artefact_id"), array($newVer), "artefact_id = " . $artId);
-
-				//update the latest version
-				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
-				//update the new artefact that it is replaced.
-				$db->updateTable(TABLE_ARTEFACTS, array("replace_ref_id"), array($artId), "artefact_id = " . $newArt);
-
-				//add an activity of replacement
-				$db->insertSingleRow(
-					TABLE_PROJECT_ACTIVITY,
-					array('project_id', 'logged_by', 'logged_time', 'performed_on', 'activity_type', 'performed_on_id'),
-					array($projId, $userId, $date, 'A', 'R', $artId)
+				// => Get the target artefacts info from artefact table
+				$targetArtefactInfo 		= $db->singleObjectQuery(
+					getQuery(
+						'getArtefactInfo',
+						array(
+							"artefactid" => $targetArtefactId
+						)
+					)
 				);
 
-				$resultMessage = new stdClass();
-				$resultMessage->messages = new stdClass();
-				$resultMessage->messages->type = "success";
-				$resultMessage->messages->message = "Successfully replaced artefact";
-				$resultMessage->messages->icon = "done";
-				return $resultMessage;
+				$targetArtefactProjectId	= $targetArtefactInfo->{"project_id"};
+
+				if(isset($data->filesToUpload)) {
+
+					// When file is uploaded
+					//
+					// => when a new file is replaced with artefact-a
+					// then a new artefact is created with the latest version of artefact-a as its initial version
+					// and its latest version will be holding the newly added file.
+					//
+					// => Use the above fetched target artefact's info to insert new row in artefact table
+					$newArtefactId	= $db->insertSingleRowAndReturnId(
+						TABLE_ARTEFACTS,
+						array(
+							"project_id",
+							"artefact_title",
+							"description",
+							"latest_version_id",
+							"state",
+							"artefact_type",
+							"replace_ref_id",
+							"linked_id"
+						),
+						array(
+							$targetArtefactProjectId,
+							$targetArtefactInfo->{"artefact_title"},
+							$targetArtefactInfo->{"description"},
+							$targetArtefactInfo->{"latest_version_id"}, // TEMPORARY: In forward code, the exact latest version will be added
+							$targetArtefactInfo->{"state"},
+							$targetArtefactInfo->{"artefact_type"},
+							$targetArtefactInfo->{"replace_ref_id"},
+							$targetArtefactInfo->{"linked_id"}
+						)
+					);
+
+					// => Add the new artefact's id as replace_ref_id in the target artefact's row
+					$db->updateTable(
+						TABLE_ARTEFACTS,
+						array(
+							"replace_ref_id",
+							"state"
+						),
+						array(
+							$newArtefactId,
+							// => delete previous versions of the target artefact
+							"D" // delete artefact
+						),
+						"artefact_id = " . $targetArtefactId
+					);
+
+					// => Replace target artefact id with new artefact id in artefact versions to the latest artefact version id row
+					//    and mention the version_no as 1
+					$db->updateTable(
+						TABLE_ARTEFACTS_VERSIONS,
+						array(
+							"artefact_id",
+							"version_no"
+						),
+						array(
+							$newArtefactId,
+							"1"  // making it as initial version
+						),
+						"artefact_id = " . $targetArtefactId . " and artefact_version_id = " . $targetLatestArtefactVersionId
+					);
+					// => and also insert new row with masked_artefact_version_id and document_path
+					$newArtefactLatestVersionId 	= $db->insertSingleRowAndReturnId(
+						TABLE_ARTEFACTS_VERSIONS,
+						array(
+							"artefact_id",
+							"version_no",
+							// "masked_artefact_version_id",
+							"created_by"
+							// "document_path"
+						),
+						array(
+							$newArtefactId,
+							"2",  // next version (latest version)
+							// $maskedNewArtefactVersionId,
+							$userId
+							// $documentPath					// TODO: to be implemented
+						)
+					);
+					// => update the newly created artefact_version_id as latest version to the new artefact row in artefact table
+					$maskedNewArtefactVersionId 	= getRandomString(12) . $newArtefactId . $newArtefactLatestVersionId;
+					$FILES 	= $data->filesToUpload;
+
+					$org_id = $db->singleObjectQuery(getQuery(
+							'getProjectOrganizationId',
+							array(
+								'project_id' => $targetArtefactProjectId
+							)
+						)
+					)->org_id;
+
+					$documentPath = $this->uploadFile(
+						array(
+							'tmp_name'	=> $FILES['tmp_name'][0],
+							'name'		=> $FILES['name'][0]
+						),
+						$targetArtefactProjectId,
+						$org_id,
+						$newArtefactId,
+						$newArtefactLatestVersionId
+					);
+					// update document path and masked artefact version id to new artefact version id
+					$db->updateTable(
+						TABLE_ARTEFACTS_VERSIONS,
+						array(
+							"masked_artefact_version_id",
+							"document_path"
+						),
+						array(
+							$maskedNewArtefactVersionId,
+							$documentPath
+						),
+						"artefact_version_id = " . $newArtefactLatestVersionId
+					);
+					//
+					$db->updateTable(
+						TABLE_ARTEFACTS,
+						array(
+							"latest_version_id"
+						),
+						array(
+							$newArtefactLatestVersionId
+						),
+						"artefact_id = " . $newArtefactId
+					);
+
+					// => Update the artefact_shared_members of target artefact with newly created artefact's version
+					$db->updateTable(
+						TABLE_ARTEFACTS_SHARED_MEMBERS,
+						array(
+							"artefact_id"
+						),
+						array(
+							$targetArtefactId
+						),
+						"artefact_id = " . $targetArtefactId  // @IMPORTANT: I am not considering artefact_version_id as I need to remove that column from the table
+					);
+
+
+
+
+
+
+
+
+					// $FILES = $data->filesToUpload;
+					//
+					// //replacing with a new file
+					// $uploadFile = $FILES['type'][0];
+					// Master::getLogManager()->log(DEBUG, MOD_MAIN, "we have the file with us");
+					//
+					// // $data->userId = $interpreter->getUser()->user_id;
+					// //get the latest version
+					// $queryParams = array('artId' => $newArt);
+					// $dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
+					// $latestVer = $db->singleObjectQuery($dbQuery)->vers;
+					//
+					//
+					// $sourcePath = $FILES['tmp_name'][0];       // Storing source path of the file in a variable
+					// $path = $AppGlobal['gloabl']['storeLocation'] . $projId . "/" . $artId;
+					// if(! is_dir($path)) {
+					// 	mkdir($path, 0777, true);
+					// }
+					// $newVersion = $latestVer+1;
+					// $targetPath = $path . "/" .$artId."_".$newVersion; // Target path where file is to be stored
+					// move_uploaded_file($sourcePath, $targetPath) ;
+					//
+					// //now store the artefact detail in the tables related to artefacts and versions
+					// Master::getLogManager()->log(DEBUG, MOD_MAIN, $AppGlobal['gloabl']['storeLocation']);
+					// //create a new version
+					// $columnNames = array('artefact_id', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
+					// $rowValues = array($artId, $latestVer, $userId, $date, $targetPath, $FILES["type"][0], $FILES["size"][0], 'C', 0);
+					// $newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
+					//
+					// //update the artefact table
+					// $db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
+					//
+					// //share the arrtefact to Owner
+					// $shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+					// $shareRowValues = array($newVer, $artId, $userId, 'S', date("Y-m-d H:i:s"), $userId);
+					// $db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+					//
+					// return true;
+				} else {
+					// when target artefact is replaced with existing artefact
+					//
+					// => If artefact-a has three versions and artefact-b has three versions
+					// and artefact-a is replaced with artefact-b then information of artefact-a will be deleted
+					// and latest version of artefact-a will be added as initial version of artefact-b.
+					// The latest version of artefact-b remains the same (So, artefact-b will now have four versions)
+					//
+					// => Increment all versions of existing artefact id to 1 in artefact versions table
+					// @TODO: change it to update table function
+					$db->singleResultQuery("UPDATE artefact_versions set version_no = version_no+1 where artefact_id=$existingArtefactId");
+					// => Replace target artefact id with existing artefact id to the latest artefact version of target artefact id in artefact versions table
+					//    and also keep the version_no as 1
+					$db->updateTable(
+						TABLE_ARTEFACTS_VERSIONS,
+						array(
+							"artefact_id",
+							"version_no"
+						),
+						array(
+							$existingArtefactId,
+							"1"		// Initial version
+						),
+						"artefact_ver_id = " . $targetLatestArtefactVersionId
+					);
+					// => Differentiate the target artefact members and existing artefact members
+					//    and add to the existing artefact members
+					$differenceMembers = array();
+					$targetArtefactSharedMembersList 	= $db->multiObjectQuery(getQuery(
+						'getArtefactSharedMembers',
+						array(
+							"artId" => $targetArtefactId
+						)
+					));
+					$existingArtefactSharedMembersList	= $db->multiObjectQuery(getQuery(
+						'getArtefactSharedMembers',
+						array(
+							"artId" => $existingArtefactId
+						)
+					));
+					foreach($targetArtefactSharedMembersList as $key => $item){
+						$inArrayFlag = false;
+						foreach($existingArtefactSharedMembersList as $index => $newItem){
+							if($item->{'user_id'} == $newItem->{'user_id'}){
+								$inArrayFlag = true;
+								break;
+							}
+						}
+
+						if(!$inArrayFlag){
+							$storeObj = new stdClass();
+							// @TODO: @IMPORTANT: need to remove artefact_version_id column from artefat_shared_members table
+							// $storeObj->{"artefact_ver_id"}	= $existingArtefactVersionId;
+							$storeObj->{"artefact_id"}		= $existingArtefactId;
+							$storeObj->{"user_id"}			= $item->{"user_id"};
+							$storeObj->{"access_type"}		= $item->{"access_type"};
+							$storeObj->{"shared_by"}		= $item->{"shared_by"};
+							$storeObj->{"while_creation"} 	= 0; // @TODO: no idea what it does..
+							$differenceMembers[] = $storeObj;
+						}
+					}
+
+					// Add the difference members to the target artefact
+					if(count($differenceMembers)){  // if difference members are available
+						Master::getLogManager()->log(DEBUG, MOD_MAIN, "Replace artefact: existing. difference members");
+						Master::getLogManager()->log(DEBUG, MOD_MAIN, $differenceMembers);
+						$db->insertMultipleRow(
+							TABLE_ARTEFACTS_SHARED_MEMBERS,
+							array(
+								// "artefact_ver_id",
+								"artefact_id",
+								"user_id",
+								"access_type",
+								"shared_by",
+								"while_creation"  // @TODO: no idea what it does..
+							),
+							$differenceMembers
+						);
+					}
+
+					// // first get all the versions of newArt
+					// $newArtVers = 	$db->multiObjectQuery(
+					// 					getQuery(
+					// 						'getAllVersionsOfArtefact',
+					// 						array(
+					// 							'artId' => $newArt
+					// 						)
+					// 					)
+					// 				);
+					//
+					// // get the latestVersion of the artefact
+					// $latestVer = 	$db->singleObjectQuery(
+					// 					getQuery(
+					// 						'getHighestVersionOfArtefact',
+					// 						array(
+					// 							'artId' => $artId
+					// 						)
+					// 					)
+					// 				)->vers;
+					//
+					// Master::getLogManager()->log(DEBUG, MOD_MAIN, $latestVer);
+					//
+					// //update artefact version Numbers
+					// // @TODO: change it to update table function
+					// $db->singleResultQuery("UPDATE artefact_versions set version_no = version_no+$latestVer where artefact_id=$newArt");
+					// //now change the artefact id
+					// $db->updateTable(TABLE_ARTEFACTS_VERSIONS, array("artefact_id"), array($newVer), "artefact_id = " . $artId);
+					//
+					// //update the latest version
+					// $db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
+					// //update the new artefact that it is replaced.
+					// $db->updateTable(TABLE_ARTEFACTS, array("replace_ref_id"), array($artId), "artefact_id = " . $newArt);
+					//
+					// //add an activity of replacement
+					// $db->insertSingleRow(
+					// 	TABLE_PROJECT_ACTIVITY,
+					// 	array('project_id', 'logged_by', 'logged_time', 'performed_on', 'activity_type', 'performed_on_id'),
+					// 	array($projId, $userId, $date, 'A', 'R', $artId)
+					// );
+
+				}
+				$db->commitTransaction();
 			}
+			catch(Exception $e){
+				$db->abortTransaction();
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Replace artefact: error");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
+			}
+			$resultMessage->messages = new stdClass();
+			$resultMessage->messages->type = "success";
+			$resultMessage->messages->message = "Successfully replaced artefact";
+			$resultMessage->messages->icon = "done";
+			return $resultMessage;
 
 		}
 

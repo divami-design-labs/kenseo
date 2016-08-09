@@ -267,6 +267,8 @@ $AppGlobal['sql']['getArtefactsLink'] = "SELECT DISTINCT artefacts.artefact_id,a
 										AND (members.user_id = @~~userid~~@ or members.shared_by = @~~userid~~@)
 										ORDER BY artefacts.linked_id";
 
+$AppGlobal['sql']['getArtefactInfo'] = "SELECT * FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artefactid~~@";
+
 $AppGlobal['sql']['getReferences'] = "SELECT DISTINCT
 				 						artefacts.artefact_id as id,
 										artefacts.artefact_type as type,
@@ -458,6 +460,7 @@ $AppGlobal['sql']['getDocumentLinks'] = "SELECT * FROM " . TABLE_ARTEFACT_LINKS 
 
 $AppGlobal['sql']['getAllVersionsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@";
 
+// @TODO Highest version number is being fetched using count. I think we should use MAX instead of COUNT here.
 $AppGlobal['sql']['getHighestVersionOfArtefact'] = "SELECT count(version_no) as vers FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@";
 
 $AppGlobal['sql']['getProjectOfArtefact'] = "SELECT project_id FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
@@ -624,7 +627,7 @@ $AppGlobal['sql']['getLatestArtefactSharedValue'] = "SELECT shared FROM " . TABL
 														" a on a.latest_version_id = v.artefact_ver_id WHERE a.artefact_id = @~~artId~~@";
 
 
-$AppGlobal['sql']['getArtefactSharedMembers'] = "SELECT u.user_id AS id, u.name, u.email, u.profile_pic_url AS picture, asm.access_type,
+$AppGlobal['sql']['getArtefactSharedMembers'] = "SELECT u.user_id AS id, u.name, u.email, u.profile_pic_url AS picture, asm.access_type, asm.shared_by,
 													IF( p.created_by = u.user_id, 1, 0 ) AS is_owner FROM " . TABLE_ARTEFACTS_SHARED_MEMBERS ." asm
 													INNER JOIN " . TABLE_USERS . " u ON asm.user_id = u.user_id
 													INNER JOIN " . TABLE_ARTEFACTS . " a ON a.artefact_id = asm.artefact_id

@@ -345,6 +345,8 @@ sb.popup = {
                         placeholder: "Choose Files"
                     },
                     onchange: function onchange($input, $selectedEl, bln) {
+                    },
+                    insertAfter: function insertAfter($input, $selectedEl, bln) {
                         if (bln) {
                             sb.setPopupData($selectedEl.data("id"), "artefact_id");
                             sb.setPopupData($selectedEl.html(), "artefactName");
@@ -356,7 +358,7 @@ sb.popup = {
                             var obj = {};
                             var attrs = $selectedEl[0].attributes;
 
-			    // converting nodelist map to an array
+                            // converting nodelist map to an array
                             Array.prototype.forEach.call(attrs, function(attr){
                                 // var attr = attrs[i];
                                 if (attr.name.indexOf("data-") > -1) {
@@ -395,8 +397,6 @@ sb.popup = {
                         } else {
                             toggleStateMainBtn(true);
                         }
-                    },
-                    insertAfter: function insertAfter($input, $selectedEl, bln) {
                         $input.val("");
                     }
                 });
