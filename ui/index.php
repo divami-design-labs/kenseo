@@ -103,7 +103,7 @@
 					</div>
                 </div>
                 <div class="projects-page-section">
-                    <div class="projects-page">
+                    <div class="projects-page" style="display: none">
                         <div class="project-heading">
                             <div class="projects-heading-icon">
                                 <svg><use xlink:href="#projects"></use></svg>

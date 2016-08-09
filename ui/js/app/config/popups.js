@@ -300,7 +300,7 @@ Kenseo.popups = (function(){
         ],
         "replace-artefact": [
         	{
-        		"page_name": "artefact-two",
+        		"page_name": "artefact-six",
         		"title": "Replace an Artefact",
         		allow_artefact_selection: false,
 	            chooseExistingFile: true,
@@ -348,7 +348,7 @@ Kenseo.popups = (function(){
 		}),
         "add-version":[
         	{
-        		"page_name": "artefact-two",
+        		"page_name": "artefact-six",
         		"title": "Add version",
         		allow_artefact_selection: false,
         		single_file_selector: true,

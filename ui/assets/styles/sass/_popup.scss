@@ -133,17 +133,23 @@ $popup-content-space: 175px;
 .file-heading{
 	@include text(16px, $colorTwo);
 	font-family: $boldFont;
+	white-space: nowrap;
 }
 .files-section{
 	@extend .clearFloat;
 	margin-bottom: 10px;
+	display: flex;
 }
 .upload-file-section{
 	@extend .hand;
+	flex: auto;
 	input[type="file"]{
 		opacity: 0;
 		position: absolute;
 	}
+}
+.uploader-img-limited{
+	width: 150px;
 }
 .uploaded-file-display{
 	padding-left: 30px;

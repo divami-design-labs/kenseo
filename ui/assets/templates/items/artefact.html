@@ -26,7 +26,8 @@
         <% if(!data['is_project_page']){ %>
         <div class="rr-project-name ellipsis"><%= data['project_name'] %></div>
         <% } %>
-		<div class="rr-details ellipsis" title="<%= sb.timeFormat(data['artefact_time']) %> by <%= data['person_name'] %>"><%= sb.timeFormat(sb.addTimeZoneToDate(data['artefact_time'])) %> by <%= data['person_name'] %></div>
+        <% var time = sb.timeFormat(sb.addTimeZoneToDate(data['artefact_time'])) %>
+		<div class="rr-details ellipsis" title="<%= time %> by <%= data['person_name'] %>"><%= time %> by <%= data['person_name'] %></div>
 		<div class="rr-state-details">
 			<div class="rr-state">
 				<span class="artefact-cur-version">v<%= data.version %></span>
@@ -66,6 +67,12 @@
 					<svg><use xlink:href="#share"></use></svg>
 				</div>
 				<div class="sub-menu-item-text">Share</div>
+			</div>
+            <div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">
+				<div class="item-icon">
+					<svg><use xlink:href="#share"></use></svg>
+				</div>
+				<div class="sub-menu-item-text">Create a Meeting</div>
 			</div>
 			<div class="sub-menu-item" data-url="delete-artefact">
 				<div class="item-icon">
