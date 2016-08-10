@@ -186,6 +186,9 @@ Kenseo.popups = (function(){
 	    		"title": "Choose a persona template"
 	    	}
 	    ],
+	    "edit-artefact-info": [
+	    	artefactThree({"title":"Edit an Artefact"})
+	    ],
 	    "share-artefact": [
 				artefactOne({"title":"Share an Artefact"}),
 				artefactFive({"title":"Share an Artefact"}),

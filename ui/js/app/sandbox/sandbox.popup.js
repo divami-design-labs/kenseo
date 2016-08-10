@@ -411,47 +411,71 @@ sb.popup = {
         // Keep the .main-btn class button disabled by default
         // (Enable this button when user selects the document type)
         $currentPopup.find('.main-btn').attr('disabled', 'true');
-        var container = document.querySelector(".reference-combobox");
-        Kenseo.combobox.referenceCombobox = sb.toolbox.applyComboBox({
-            elem: container,
-            // data: data.data,
-            data: Kenseo.globalArtefacts,
-            settings: {
-                multiSelect: true,
-                filterData: {
-                    'version_id': Kenseo.popup.data.version_id
-                }
-            }
-        });
+        if(!Kenseo.globalArtefacts) {
+            sb.ajaxCall({
+                collection: new Kenseo.collections.Artefacts(),
+                container: $('.popup'),
+                data: {
+                    "all": true,
+                    "versionId": sb.getPopupData("artefact_ver_id") || sb.getPopupData("version_id"),
+                    "project_id": sb.getPopupData("project_id") || sb.getPopupData("id")
+                },
+                success: function success(resp) {
+                    Kenseo.globalArtefacts = resp.data.artefacts;
+                    successCallback();
+                    Kenseo.combobox.typeCombobox.selectValues(["IXD"]);
 
-        var links = document.querySelector(".links-combobox");
-        Kenseo.combobox.linksCombobox = new sb.toolbox.applyComboBox({
-            elem: links,
-            // data: data.data,
-            data: Kenseo.globalArtefacts,
-            settings: {
-                multiSelect: true,
-                filterData: {
-                    'version_id': Kenseo.popup.data.version_id
                 }
-            }
-        });
+            });
+        } else {
+            successCallback();
+        }
 
-        var documentType = document.querySelector(".doctype-combobox");
-        Kenseo.combobox.typeCombobox = new sb.toolbox.applyComboBox({
-            elem: documentType,
-            // data: data.data,
-            data: Kenseo.settings.doctype,
-            onchange: function($elem, value, bln){
-                if(bln){
-                    $currentPopup.find('.main-btn').removeAttr('disabled');
-                }
-                else{
-                    $currentPopup.find('.main-btn').attr('disabled', 'true');
-                }
-            }
-        });
 
+        function successCallback() {
+            var container = document.querySelector(".reference-combobox");
+            Kenseo.combobox.referenceCombobox = sb.toolbox.applyComboBox({
+                elem: container,
+                // data: data.data,
+                data: Kenseo.globalArtefacts,
+                settings: {
+                    multiSelect: true,
+                    filterData: {
+                        'version_id': Kenseo.popup.data.version_id
+                    }
+                }
+            });
+
+            var links = document.querySelector(".links-combobox");
+            Kenseo.combobox.linksCombobox = new sb.toolbox.applyComboBox({
+                elem: links,
+                // data: data.data,
+                data: Kenseo.globalArtefacts,
+                settings: {
+                    multiSelect: true,
+                    filterData: {
+                        'version_id': Kenseo.popup.data.version_id
+                    }
+                }
+            });
+
+            var documentType = document.querySelector(".doctype-combobox");
+            Kenseo.combobox.typeCombobox = new sb.toolbox.applyComboBox({
+                elem: documentType,
+                // data: data.data,
+                data: Kenseo.settings.doctype,
+                onchange: function($elem, value, bln){
+                    if(bln){
+                        $currentPopup.find('.main-btn').removeAttr('disabled');
+                    }
+                    else{
+                        $currentPopup.find('.main-btn').attr('disabled', 'true');
+                    }
+                }
+            });
+        }
+
+        
         // populating the fields if an existing artefact is selected
         if(Kenseo.popup.info.existingFileSelected){
             sb.popup.populateExistingFileSelectedData();

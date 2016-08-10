@@ -24,8 +24,19 @@
 			}
 			else if($data->projectActivities == "true"){
 				return $this->getProjectActivity($interpreter);
+			}elseif($data->all == "true"){
+				return $this->getProjectInfo($interpreter);
 			}
 			return "something else";
+		}
+
+
+		public function getProjectInfo($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->project_id;
+
+			$resultObj->artefacts = $this->getProjectArtefacts($interpreter);
+			return $resultObj;
 		}
 
 		// @TODO: Move to Projects Class
@@ -1022,14 +1033,26 @@
 						$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $columnNames, $rowValues);
 					}
 
-
-					// Add tags to the artefacts
-					/*$tagsList = json_decode($data->tags);
+					$org_id = $db->singleObjectQuery(getQuery('getProjectOrganizationId', 
+							array('project_id' => $projectId)))->org_id;
+					// Add tags to the artefacts]
+					$tagList = json_decode($data->tags);
+					$tagsList = explode(",", $tagList->value);
 					for($i = 0 ; $i<count($tagsList); $i++) {
+						$tagName = $tagsList[$i];
+						$tagDetails = getQuery('getTagsName',array('tagName'=>$tagName));
+						$tagObj = $db->singleObjectQuery($tagDetails);
+						if($tagObj) {
+							$tagId = $tagObj->id;
+						} else {
+							$tagColumnNames = array("tag_name", "org_id", "created_date");
+							$tagRowValues = array($tagsList[$i], $org_id, date("Y-m-d H:i:s"));
+							$tagId = $db->insertSingleRowAndReturnId(TABLE_TAGS, $tagColumnNames, $tagRowValues);
+						}
 						$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
-						$tagRowValues = array($artIds[$f], $tagsList[$i], date("Y-m-d H:i:s"), $userId );
+						$tagRowValues = array($artIds[$f], $tagId, date("Y-m-d H:i:s"), $userId );
 						$db->insertSingleRow(TABLE_ARTEFACTS_TAGS, $tagColumnNames, $tagRowValues);
-					}*/
+					}
 
 					// Add references to the artefact
 					$refColumnNames = array("artefact_ver_id", "artefact_id", "created_date", "created_by");
@@ -1044,9 +1067,9 @@
 					}
 
 					// Add Links to the artefacts
-					/*if($data->linksIds) {
+					if($data->linksIds) {
 						$links = $this->linkArts($artIds[$f], $data->linksIds);
-					}*/
+					}
 
 					// Add this as project activity
 					$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");

@@ -121,6 +121,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
         return this;
     },
     events: {
+        "click [data-url='edit-artefact-info']" :   "editArtefactInfo",
         "click [data-url='delete-artefact']"    :   "deleteArtefact",
         "click [data-url='archive-artefact']"   :   "archiveArtefact",
         "click [data-url='replace-artefact']"   :   "replaceArtefact",
@@ -194,6 +195,13 @@ Kenseo.views.Artefact = Backbone.View.extend({
         });
     },
     archiveArtefact: function(e){
+        var el = e.currentTarget;
+        sb.newCallPopup({
+            el: el,
+            scope: this
+        });
+    },
+    editArtefactInfo: function(e){
         var el = e.currentTarget;
         sb.newCallPopup({
             el: el,

@@ -131,14 +131,6 @@ $AppGlobal['sql']['getProjectArtefact'] = "SELECT sm.shared_date, a.artefact_id 
 											a.replace_ref_id is null
 											AND a.state != 'A' AND a.state != 'D'";
 
-
-
-
-
-
-
-
-
 $AppGlobal['sql']['getSharedArtefacts'] = "SELECT a.artefact_id as id, a.latest_version_id as artefact_ver_id,
 											a.artefact_title AS title, a.artefact_type AS document_type,
 											v.masked_artefact_version_id, v.state AS status, v.MIME_type,
@@ -167,7 +159,6 @@ $AppGlobal['sql']['getSharedArtefacts'] = "SELECT a.artefact_id as id, a.latest_
 											AND a.state != 'A' AND a.state != 'D' AND p.state = 'A'
 											ORDER BY asm.shared_date DESC
 											LIMIT @~~limit~~@";
-
 
 $AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email,
 											user_id as id from users
@@ -228,6 +219,12 @@ $AppGlobal['sql']['getTeamMembersList'] = "SELECT u.user_id as id, m.proj_id, u.
 											INNER JOIN " . TABLE_PROJECTS . " p ON p.project_id = m.proj_id
 											WHERE m.proj_id = @~~projectId~~@";
 
+$AppGlobal['sql']['getTeamMembers'] = "SELECT u.user_id as id, m.proj_id, u.name, u.email, u.profile_pic_url as picture, 
+										m.access_type FROM " . TABLE_PROJECT_MEMBERS . " m
+											INNER JOIN " . TABLE_USERS . " u ON m.user_id = u.user_id
+											INNER JOIN " . TABLE_PROJECTS . " p ON p.project_id = m.proj_id
+											WHERE m.proj_id = @~~projectId~~@";						
+
 
 $AppGlobal['sql']['getTeamMember'] = "SELECT u.user_id as id, m.proj_id, u.name, u.email, u.profile_pic_url as picture, m.access_type,
 											IF(p.created_by=u.user_id, 1, 0) as is_owner FROM " . TABLE_PROJECT_MEMBERS . " m
@@ -250,6 +247,12 @@ $AppGlobal['sql']['getTagsList'] = "SELECT tags.tag_id as id, tags.tag_name as n
 											INNER JOIN " . TABLE_TAGS . " AS tags ON
 											tags.org_id = organizations.org_id
 											where users.user_id = @~~userId~~@";
+
+$AppGlobal['sql']['getTagsName'] = "SELECT tags.tag_id as id from " . TABLE_TAGS . " AS tags
+											where tags.tag_name = @~~tagName~~@";
+
+
+
 
 $AppGlobal['sql']['getLatestVerionOfArtefact'] = "SELECT latest_version_id AS verId FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
 
