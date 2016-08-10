@@ -1,0 +1,7 @@
+-- 8th August 2016
+
+ALTER TABLE `artefacts` CHANGE `artefact_type` `artefact_type` CHAR(2) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'Type of the document examples.I - IXDU - UIDS - Support DocumentP - Primary DeliverableE - External Document URL';
+
+-- 10th August 2016
+
+ALTER TABLE  artefact_tags DROP PRIMARY KEY
