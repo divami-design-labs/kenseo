@@ -137,5 +137,13 @@ _.extend(sb, {
         } else {
             return false;
         }
+    },
+    getHHTime: function getHHTime(time){
+        // expected format "12:30 AM"
+        var timeTokens = time.split(/[:\s]/).map(function(i){return i.trim();});
+        if(timeTokens[2] === "PM" && +timeTokens[0] !== 12){
+            timeTokens[0] = +timeTokens[0] + 12;
+        }
+        return timeTokens[0] + ":" + timeTokens[1];
     }
 });
