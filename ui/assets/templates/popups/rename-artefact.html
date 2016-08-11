@@ -4,15 +4,15 @@
         <div class="popup-body-wrapper">
             <%=
                 sb.toolbox.textBox({
-                    placeholder: "Rename artefact",
                     inputClass: "project-input required k-field blur-field",
-                    dataName : "projectName",
+                    dataName : "artefactName",
                     required: true,
                     attr: {
                         'data-validate-this': 'empty',
-                        'data-v-label': 'Project',
+                        'data-v-label': 'Artefact',
                         'data-xtype': 'text',
-                        'data-xtype-key': 'project_name'
+                        'data-xtype-key': 'artefact_name',
+                        value: Kenseo.popup.data.title
                     },
                     "fieldSectionErrorMessages": {
                             'empty': ' Please enter artefact name',

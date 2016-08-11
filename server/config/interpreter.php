@@ -21,6 +21,9 @@ $AppGlobal['urlmap']['/getPeople'] = array ('command' => 'getPeople', 'type' => 
 $AppGlobal['cmdmap']['getNotifications'] = array ("class" => "Notifications", "method" => "getNotifications");
 $AppGlobal['urlmap']['/getNotifications'] = array ('command' => 'getNotifications', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['renameArtefact'] = array ("class" => "Artefacts", "method" => "renameArtefact");
+$AppGlobal['urlmap']['/renameArtefact'] = array ('command' => 'renameArtefact', 'type' => 'GET');
+
 $AppGlobal['cmdmap']['search'] = array ("class" => "Common", "method" => "searchAll");
 $AppGlobal['urlmap']['/search'] = array ('command' => 'search', 'type' => 'GET');
 

@@ -306,6 +306,11 @@ sb.refresh = (function(){
 		},
 		removePeople: function(){
 			refreshSection('project-page', 'pp-people');
+		},
+		renameArtefact: function(response) {
+			var newname = response.params.artefact_name;
+			Kenseo.scope.model.set('title', newname);
+			Kenseo.scope = null;
 		}
 	}
 	function refreshSection(sectionName, subSection){

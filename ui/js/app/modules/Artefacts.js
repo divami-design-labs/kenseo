@@ -103,6 +103,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
         return sb.setTemplate('artefact', {data: data});
     },
     initialize: function(payload){
+        this.listenTo(this.model, 'change', this.render);
         if(payload.linkedArtefactNo) {
             this.linkedArtefactNo = payload.linkedArtefactNo();
         }
@@ -210,6 +211,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
         });
     },
     renameArtefact: function(e){
+        Kenseo.scope = this;
         var el = e.currentTarget;
         sb.newCallPopup({
             el: el,

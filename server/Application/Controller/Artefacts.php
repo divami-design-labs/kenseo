@@ -30,6 +30,31 @@
 			return "something else";
 		}
 
+		public function renameArtefact($interpreter) {
+			$data = $interpreter->getData()->data;
+			$id = $data->id;
+			$artefact_name = $data->artefact_name;
+
+			$db = Master::getDBConnectionManager();
+			$resultObj->artefact = $db->updateTable(
+						TABLE_ARTEFACTS,
+						array(
+							"artefact_title"
+						),
+						array(
+							$artefact_name
+						),
+						"artefact_id = " . $id
+					);
+
+			$resultMessage = new stdClass();
+			$resultMessage->type = "success";
+			$resultMessage->message = "Successfully renamed artefact";
+			$resultMessage->icon = "success";
+			$resultObj->messages = $resultMessage;
+
+			return $resultObj;
+		}
 
 		public function getProjectInfo($interpreter) {
 			$data = $interpreter->getData()->data;

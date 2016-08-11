@@ -162,6 +162,11 @@ sb.popup = {
         }
 
     },
+    renameArtefact: function renameArtefact() {
+        var $currentPopup = Kenseo.current.popup;
+        var artefact = Kenseo.popup.data;
+        $atrefactTitle = $currentPopup.find("input").val();
+    },
     createFilePopup: function createFilePopup() {
         var $currentPopup = Kenseo.current.popup;
 
