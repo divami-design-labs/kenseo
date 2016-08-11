@@ -29,6 +29,17 @@ function startPanning(e) {
         'left': left,
         'top': top
     });
+    var panOffset = $panArea.position();
+    var panTop = panOffset.top;
+    var panLeft = panOffset.left;
+    var panWidth = $('.pan-img').width();
+    var panHeight = $('.pan-img').height();
+    var width = panLeft + panWidth - 10;
+    var height = panTop + panHeight - 10
+    $('.resize').css({
+        "top" : height,
+        "left" : width
+    });
     return false;
 }
 

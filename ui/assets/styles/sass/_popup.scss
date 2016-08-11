@@ -464,6 +464,7 @@ input:disabled{
 	    position: relative;
 	    top: 0px;
 		margin-left: 150px;
+		height: 330px;
 	    user-select: none;
 	    -ms-user-select: none;
 	    -moz-user-select: none;
@@ -485,6 +486,14 @@ input:disabled{
 		top: 20px;
 	    max-height: 100%;
 	    max-width: 100%;
+	}
+	.resize{
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		background-color: black;
+		top: 0;
+		left: 0;
 	}
 	.animate {
 	    transition: 0.2s all ease-in-out;
