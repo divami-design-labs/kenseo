@@ -311,6 +311,11 @@ sb.refresh = (function(){
 			var newname = response.params.artefact_name;
 			Kenseo.scope.model.set('title', newname);
 			Kenseo.scope = null;
+		},
+		personPermissions: function(response) {
+			var accessType = response.params.access_type;
+			Kenseo.scope.model.set('access_type', accessType);
+			Kenseo.scope = null;
 		}
 	}
 	function refreshSection(sectionName, subSection){

@@ -236,7 +236,11 @@
 }
 .sub-menu-item-text{
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
+}
+.sub-menu-checkbox {
+    display: inline-block;
+    float: right;
 }
 .no-items{
     @include text(14px, $colorOne);

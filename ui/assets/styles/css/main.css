@@ -328,7 +328,7 @@
 }
 
 .sub-menu-item {
-  padding: 10px 20px;
+  padding: 10px;
   font-size: 14px;
   color: #efeff0;
   white-space: nowrap;
@@ -748,6 +748,7 @@ a {
 
 .sub-menu-item {
   display: block;
+  min-width: 115px;
 }
 
 .search-section {
@@ -2100,7 +2101,12 @@ a {
 
 .sub-menu-item-text {
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
+}
+
+.sub-menu-checkbox {
+  display: inline-block;
+  float: right;
 }
 
 .no-items {

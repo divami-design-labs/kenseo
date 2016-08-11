@@ -233,13 +233,35 @@
                 $db->abortTransaction();
             }
 
-      $resultMessage = new stdClass();
-      $resultMessage->messages = new stdClass();
-      $resultMessage->messages->type = "success";
-      $resultMessage->messages->message = "Successfully removed people";
-      $resultMessage->messages->icon = "message-people";
-      return $resultMessage;
+              $resultMessage = new stdClass();
+              $resultMessage->messages = new stdClass();
+              $resultMessage->messages->type = "success";
+              $resultMessage->messages->message = "Successfully removed people";
+              $resultMessage->messages->icon = "message-people";
+              return $resultMessage;
 		}
+
+        public function personPermissions($interpreter) {
+            $data = $interpreter->getData()->data;
+            $accessType = $data->access_type;
+            $projectId = $data->project_id;
+            $person_id = $data->user_id;  // This is people id
+            $db = Master::getDBConnectionManager();
+            $db->beginTransaction();
+            $resultObj = $db->updateTable(
+            TABLE_PROJECT_MEMBERS,
+            array(
+                "access_type"
+            ),
+            array(
+                $accessType
+            ),
+            "user_id = " . $person_id . " and proj_id = " . $projectId
+            );
+            $db->commitTransaction();
+
+             return $resultObj;
+        }
 
 		public function getOthersAndProjectPeople($interpreter) {
 			$data = $interpreter->getData()->data;

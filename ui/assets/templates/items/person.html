@@ -13,20 +13,27 @@
 				<svg><use xlink:href="#dropdown"></use></svg>
 			</div>
 			<div class="sub-menu-holder left-nav bottom-nav">
+				<div class="sub-menu-item">
+					<div class="sub-menu-item-text">Share</div>
+					<div class="checkbox-holder sub-menu-checkbox">
+						<label class="toggle-checkbox" >
+							<input type="checkbox" class="global-permissions" person-permissions="share-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" ></input><span></span>
+						</label>
+					</div>
+				</div>
+				<div class="sub-menu-item">
+					<div class="sub-menu-item-text">Comment</div>
+					<div class="checkbox-holder sub-menu-checkbox">
+						<label class="toggle-checkbox" >
+							<input type="checkbox" class="global-permissions" person-permissions="comment-permissions" trigger-chk=".others-chk" data-subtype="share" ></input><span></span>
+						</label>
+					</div>
+				</div>
 				<% if(data['is_owner'] != "1") {%>
 				<div class="sub-menu-item" data-url="removePeople" data-id="<%= data.id %>" >
-					<div class="people-remove-icon">
-						<svg><use xlink:href="#delete"></use></svg>
-					</div>
 					<div class="sub-menu-item-text">Remove</div>
 				</div>
 				<%}%>
-				<div class="sub-menu-item">
-					<div class="people-manage-icon">
-						<svg><use xlink:href="#lock1"></use></svg>
-					</div>
-					<div class="sub-menu-item-text">Manage Permissions</div>
-				</div>
 			</div>
 		</div>
 	</div>

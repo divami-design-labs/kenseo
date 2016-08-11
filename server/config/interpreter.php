@@ -96,6 +96,9 @@ $AppGlobal['urlmap']['/getOtherProjectMembers'] = array ('command' => 'getOtherP
 $AppGlobal['cmdmap']['removePeople'] = array ("class" => "People", "method" => "removePeople");
 $AppGlobal['urlmap']['/removePeople'] = array ('command' => 'removePeople', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['personPermissions'] = array ("class" => "People", "method" => "personPermissions");
+$AppGlobal['urlmap']['/personPermissions'] = array ('command' => 'personPermissions', 'type' => 'GET');
+
 $AppGlobal['cmdmap']['getProjectActivity'] = array ("class" => "Projects", "method" => "getProjectActivity");
 $AppGlobal['urlmap']['/getProjectActivity'] = array ('command' => 'getProjectActivity', 'type' => 'GET');
 
