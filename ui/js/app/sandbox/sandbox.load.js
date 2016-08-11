@@ -194,7 +194,8 @@ sb.loadFiles({
         'js/app/components/texteditor.js',
         'js/app/components/annotator.js',
         'js/app/components/persona-builder.js',
-        'js/app/components/sliderComponent.js'
+        'js/app/components/sliderComponent.js',
+        'js/app/components/custom-panning.js'
     ],
     modules: [
         'Header', 'Artefacts', 'Activities',
