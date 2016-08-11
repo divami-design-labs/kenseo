@@ -272,7 +272,6 @@ input[type="text"].xm{
 	padding: 0px;
 }
 .share-artefact-container {
-	padding: 20px 0 0 15px;
 	.search-files{
 		position: relative;
 		.searchable{
@@ -284,44 +283,52 @@ input[type="text"].xm{
 			height: 15px;
 		    width: 15px;
 		    position: absolute;
-		    top: 6px;
-		    left: 5px;
+		    top: 27px;
+		    left: 36px;
 		}
 		.filter-version-type{
-			height: 20px;
-		    width: 20px;
-			display: inline-block;
-			vertical-align: text-top;
+			height: 30px;
+		    width: 25px;
+		    display: inline-block;
+		    padding-left: 5px;
+		    vertical-align: top;
 		}
 	}
+}
+.share-artefact-header {
+	padding: 20px 0 0 30px;
 }
 .filter-version-type{
 	position: relative;
 	svg{
 		width: 15px;
 	    padding-left: 2px;
-	    padding-top: 2px;
+	    padding-top: 6px;
 	    height: 15px;
 	}
 	.version-filter-list{
 		display: none;
-		background-color: #c1dafd;
+		color: #efeff0;
+    	font-size: 14px;
+    	white-space: nowrap;
+		background-color: #566277;
 	}
 }
 .enable-version-list{
-	background-color: #c1dafd;
+	background-color: #566277;
 	.version-filter-list{
 		display: block;
-		background-color: #c1dafd;
+		background-color: #566277;
 	}
 }
 .version-filter-list{
-	width: 200px;
+	padding: 5px 0 5px 0;
+	width: 170px;
 	position: absolute;
-	top: 20px;
+	top: 30px;
 	right: 0px;
 	div{
-		padding-left: 5px;
+		padding: 5px 0 0 5px;
 	}
 }
 .heading {

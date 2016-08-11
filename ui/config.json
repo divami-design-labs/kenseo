@@ -1,16 +1,16 @@
 {
     "svg-grouping": {
         "common":       ["logo", "hamburger", "avatar", "search", "add", "error",
-            "message-archieve", "message-delete", "done", "success","message-people","P","U","I"
+            "message-archieve", "message-delete", "done", "success","message-people","P","U","I","IA"
         ],
-        "dashboard":    ["reviewrequest", "projects", "notify", "baloon", "dropdown", "file",
+        "dashboard":    ["reviewrequest", "projects", "notify", "baloon", "dropdown", "file", "filter",
             "calendar", "clock", "artifacts", "adduser", "archive", "calendar", "archive1",
-            "replace", "addversion", "share", "delete", "editartifact"
+            "replace", "addversion", "share", "delete", "editartifact", "renameartifact"
         ],
         "popups":       ["close", "pdfnpng", "archive-icn", "submit", "baloon", "delete", "calendar"],
         "search":       ["search-folder", "search-file"],
         "projectpage":  ["addfile", "projects", "more","baloon", "icon4",
-            "delete","lock1", "dropdown", "archive1", "replace", "addversion", "share", "delete", "editartifact"
+            "delete","lock1", "dropdown", "archive1", "replace", "addversion", "share", "delete", "editartifact","renameartifact"
         ],
         "projects":     ["artifacts", "adduser", "archive", "calendar", "projects"],
         "meetingnotes": ["projects"],

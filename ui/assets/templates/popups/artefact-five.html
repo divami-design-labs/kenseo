@@ -15,18 +15,18 @@
 		<div class="popup-body-wrapper popup-right-section padding-zero">
 			<div class="share-artefact-container">
 					<% if(data.chooseExistingFile){ %>
-						<div class="heading">Artefact</div>
-						<div class="search-files"><input type="text" class="searchable">
+						<div class="share-artefact-header heading">Artefact</div>
+						<div class="share-artefact-header search-files"><input type="text" class="searchable">
 							<div class="filter-version-type html-click" data-html-class="enable-version-list" data-html-toggle="add">
 								<svg class="filter-list-dropdown">
-									<use xlink:href="#dropdown"></use>
+									<use xlink:href="#filter"></use>
 								</svg>
 								<div class="version-filter-list" >
-									<div><input type="checkbox" file-type="ALL"class ="apply-all-types">Apply To All</div>
-									<div><input type="checkbox" file-type="I">IXD</div>
-									<div><input type="checkbox" file-type="U">UID</div>
-									<div><input type="checkbox" file-type="P">PS</div>
-									<div><input type="checkbox" file-type="IA">IA</div>
+									<div class="version-filter-data"><input type="checkbox" file-type="ALL"class ="apply-all-types">Apply To All</div>
+									<div class="version-filter-data"><input type="checkbox" file-type="IXD">IXD</div>
+									<div class="version-filter-data"><input type="checkbox" file-type="UID">UID</div>
+									<div class="version-filter-data"><input type="checkbox" file-type="P">PS</div>
+									<div class="version-filter-data"><input type="checkbox" file-type="IA">IA</div>
 									<div><button>Apply</button></div>
 								</div>
 							</div>
@@ -43,7 +43,7 @@
 							})
 						%>-->
 					<% } %>
-					<div class="choose-existing-file-holder k-field" data-xtype="shareMultipleArtefacts" data-xtype-key="ids"></div>
+					<div class="choose-existing-file-holder k-field" data-xtype="shareMultipleArtefacts,shareartefacts" data-xtype-key="ids,artefactName"></div>
 				</div>
 			</div>
 		</div>

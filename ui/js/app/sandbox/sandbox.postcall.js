@@ -68,6 +68,7 @@ sb.postcall = (function(){
 				var $item = $($items.get(i));
 				ids.push({
 					'artefact_id': $item.attr('data-k-id'),
+					'artefact_name': $item.attr('data-k-artafactname'),
 					'artefact_version_id': $item.attr('data-k-versionid')
 				});
 			}
@@ -76,7 +77,29 @@ sb.postcall = (function(){
 			// });
 			 return ids;
 
+		},
+		'shareartefacts': function($el){
+			$items = $el.find('.to-share-file.active').find('.to-share-filename');
+			var html = $items.map(function(){
+				return $(this).html()
+			});
+			return Array.prototype.slice.call(html);
+		} 
+	};
+
+	function getKeys($field, type, typeKey){
+		var func = getFieldTypes[type];
+		if(func){ // if k-xtype field's functionality is present in fieldTypes variable above
+			// data[typeKey] = func($field);
+			Kenseo.popup.data[typeKey] = func($field); // temporary fix
 		}
+
+		// Checking for "data-k-" prefix attributes in k-field element
+		sb.loopAttributes($field.get(0), 'data-k-', function(key, value){
+			// Store in the data variable
+			// data[key.substr(7)] = value;
+			Kenseo.popup.data[key] = value; // temporary fix
+		});
 	}
 	return {
 		getPostObj: function($el){
@@ -95,18 +118,11 @@ sb.postcall = (function(){
 				// Get the type of functionality/implementation to be done to fetch the attached data
 				var type = $field.attr('data-xtype');
 				var typeKey = $field.attr('data-xtype-key') || type; // Applying provided xtype as key when no key is provided
-				var func = getFieldTypes[type];
-				if(func){ // if k-xtype field's functionality is present in fieldTypes variable above
-					// data[typeKey] = func($field);
-					Kenseo.popup.data[typeKey] = func($field); // temporary fix
+				var typeTokens = type.split(",");
+				var typeKeyTokens = typeKey.split(",");
+				for(var i = 0, ilen = typeTokens.length; i < ilen; i++){
+					getKeys($field, typeTokens[i], typeKeyTokens[i]);
 				}
-
-				// Checking for "data-k-" prefix attributes in k-field element
-				sb.loopAttributes($field.get(0), 'data-k-', function(key, value){
-					// Store in the data variable
-					// data[key.substr(7)] = value;
-					Kenseo.popup.data[key] = value; // temporary fix
-				});
 			}
 
 

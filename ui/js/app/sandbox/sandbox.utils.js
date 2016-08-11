@@ -412,24 +412,30 @@ var sb = _.extend(sb, (function () {
                     }
                 },
                 getFileName: function(){
-                    try{
-                        if(dump.files && dump.files.length == 1){
-                            return dump.files[0].name;
+                    function getAFileName(){
+                        try{
+                            if(dump.files && dump.files.length == 1){
+                                return dump.files[0].name;
+                            }
+                            else if(dump.files && dump.files.length > 1){
+                                return "Multiple files";
+                            }
+                            else if(dump.artefactName){
+                                return dump.artefactName;
+                            }
+                            else{
+                                return dump.title;
+                            }
                         }
-                        else if(dump.files && dump.files.length > 1){
-                            return "Multiple files";
+                        catch(ex){
+                            sb.log(ex);
                         }
-                        else if(dump.artefactName){
-                            return dump.artefactName;
-                        }
-                        else{
-                            return dump.title;
-                        }
-                    }
-                    catch(ex){
-                        sb.log(ex);
-                    }
+                   }
+                   var file = getAFileName();
+
+                   return Array.isArray(file)? file.join(","): file;
                 },
+                
                 getType: function(){
                   if(dump.document_type) {
                     return Kenseo.settings.doctype[dump.document_type];

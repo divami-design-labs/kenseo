@@ -1,0 +1,29 @@
+<div class="popup popup-small k-form">
+    <%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
+    <div class="popup-body">
+        <div class="popup-body-wrapper">
+            <%=
+                sb.toolbox.textBox({
+                    placeholder: "Rename artefact",
+                    inputClass: "project-input required k-field blur-field",
+                    dataName : "projectName",
+                    required: true,
+                    attr: {
+                        'data-validate-this': 'empty',
+                        'data-v-label': 'Project',
+                        'data-xtype': 'text',
+                        'data-xtype-key': 'project_name'
+                    },
+                    "fieldSectionErrorMessages": {
+                            'empty': ' Please enter artefact name',
+                    }
+                })
+            %>
+        </div>
+    </div>
+    <div class="buttons-section">
+    	<%= sb.toolbox.buttons({"data": data}) %>
+	</div>
+</div>
+
+

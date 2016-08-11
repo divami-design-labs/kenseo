@@ -415,27 +415,8 @@ input:disabled{
 	.notification-title{
 		margin-right: 15px;
 	}
-	.active::after{
-		content: "";
-		width: 12px;
-		height: 6px;
-		border-left: 3px solid white;
-		border-bottom: 3px solid white;
-		display: block;
-		transform: rotate(-45deg);
-		position: absolute;
-		right: 10px;
-		margin-top: -2px;
-	}
-	.active::before{
-		content: "";
-		width: 20px;
-		height: 20px;
-		background-color: green;
-		border-radius: 50%;
-		display: block;
-		position: absolute;
-		right: 7px;
+	.active{
+		background-color: #d1e5fe;
 	}
 }
 
@@ -645,15 +626,19 @@ input:disabled{
 	overflow-x: hidden;
 }
 .to-share-file{
-	margin: 10px;
+	margin-bottom: 3px;
+	height: 40px;
 	display: flex;
   align-items: center;
   padding-right: 35px;
-	background-color: #f5f5f6;
+  padding-left: 30px;
 	.to-share-filetype{
 		float: left;
-		width: 50px;
-		background-color: #ececed;
+	    width: 50px;
+	    text-align: center;
+	    background-color: #9db0c0;
+	    margin-right: 5px;
+	    border-radius: 2px;
 	}
 	.to-share-filename{
 		width: 100%;
@@ -666,6 +651,9 @@ input:disabled{
 	}
 	
 
+}
+.version-filter-data:hover{
+	background-color: #293447;
 }
 .mouse-over {
 	background-color : #63a0ec;

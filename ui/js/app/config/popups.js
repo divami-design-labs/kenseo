@@ -147,6 +147,25 @@ Kenseo.popups = (function(){
 				"callbackfunc": sb.popup.addNewProject
 		}
 	}
+	function renameArtefact(obj) {
+		return {
+			"page_name": "rename-artefact",
+			title: obj.title,
+			"buttons": [{
+					"label": "Cancel",
+					"cls": "cancel-btn lnk-btn"
+				},
+				{
+					"label": "Done",
+					"cls": "main-btn share-btn done-btn",
+					"disabled": false,
+					"attr": {
+						"data-target-validating-section": ".popup-body"
+					}
+				}],
+				"callbackfunc": sb.popup.renameArtefact
+		}
+	}
 	function artefactFive(obj) {
 		return {
 				"page_name": "artefact-five",
@@ -389,6 +408,9 @@ Kenseo.popups = (function(){
         //     	sb.popup.shareWithPeoplePopup()
         //     }
         // }],
+    	"rename-artefact": [
+			renameArtefact({"title":"Rename Artefact"}),
+		],
       "add-project": [
 				addProject({"title":"Add a project"}),
 				artefactTwo({"title":"Add a project"}),

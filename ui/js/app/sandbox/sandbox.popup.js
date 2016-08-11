@@ -145,7 +145,7 @@ sb.popup = {
             var allElements = allNonActiveElements.find(".to-share-filename");
             searchableStr = new RegExp('^' + searchStr);
             if(!selectedtypes.length){
-                selectedtypes = ["I","U","P","IA"];
+                selectedtypes = ["IXD","UID","P","IA","ALL"];
             }
             var matchedElements = allElements.filter(function(item){
                 //retrieving the searched files
@@ -153,7 +153,7 @@ sb.popup = {
             }).filter(function(item){
                 var match = $(this).prev('.to-share-filetype').html();
                 //matching files by selected file type
-                return Array.prototype.slice.call(selectedtypes).indexOf(match) > -1;
+                return Array.prototype.slice.call(selectedtypes).indexOf(match.trim()) > -1;
             });
             matchedElements.parents('.to-share-file').show();
             matchedElements.parents('.to-share-file').prependTo($('.choose-existing-file-holder'));
