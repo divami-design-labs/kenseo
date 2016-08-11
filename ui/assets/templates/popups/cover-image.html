@@ -1,12 +1,12 @@
-<div class="popup popup-large">
+<div class="popup popup-large k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
-			<div class="image-cover-section">
+			<div class="image-cover-section" id="drop-zone">
 				<label class="upload-file-section">
 					<input type="file" class="upload-files-input" accept="image/*"></input>
 					<div class="file-heading">
-						Click to upload image
+						upload file
 					</div>
 					<div class="uploader-section">
 						<div class="uploader-section-img">
@@ -15,9 +15,10 @@
 					</div>
 				</label>
 			</div>
-			<div class="cover-image-viewer">
+			<div class="cover-image-viewer k-field" data-xtype="coverImage" data-xtype-key="dimensions">
+				<div class="use-full-img"><input type="checkbox">Use full image</div>
 			    <div class="img-wrapper">
-				    <img class="img-content" src="" />
+				    <img class="img-content"  src="" />
 				    <img class="pan-img" src="assets/imgs/blank.png" />
 				</div>
 			</div>

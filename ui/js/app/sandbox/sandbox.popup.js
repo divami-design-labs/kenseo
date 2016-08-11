@@ -862,6 +862,8 @@ sb.popup = {
     },
     coverImage: function(){
         var $coverImageInput = $('.image-cover-section .upload-files-input');
+        $('#drop-zone').dropZone();
+
         if($coverImageInput.length){
             $coverImageInput.on('change', function(){
                 // console.dir(this);
@@ -871,12 +873,25 @@ sb.popup = {
                 // FileReader support
                 if (FileReader && files && files.length) {
                     var fr = new FileReader();
+                    sb.setPopupData(files[0], "files");
                     fr.onload = function () {
                         // document.getElementById(outImage).src = fr.result;
                         $('.cover-image-viewer .img-content').attr("src", fr.result);
                         $('.cover-image-viewer').show();
-                        $('.image-cover-section').hide();
-                        setPanningDimensions();
+                        $('.uploader-section').hide();
+                        var dimensions = setPanningDimensions();
+                        $('.use-full-img input').change(function(){
+
+                            if(this.checked){
+                                $('.pan-img').css({
+                                    "left" : "0",
+                                    "top" : "0",
+                                    "width" : "auto",
+                                    "height" : "auto"
+
+                                });
+                            }
+                        });
                     }
                     fr.readAsDataURL(files[0]);
                 }

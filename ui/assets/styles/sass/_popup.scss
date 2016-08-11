@@ -432,7 +432,7 @@ input:disabled{
 }
 
 .image-cover-section {
-	text-align: center;
+	//text-align: center;
 	.upload-file-section{
 		float: none;
 		display: inline-block;
@@ -443,27 +443,27 @@ input:disabled{
 	}
 }
 .cover-image-viewer{
-	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	text-align: center;
-	background-color: skyblue;
 	display: none;
-	padding: 10px;
+	padding-top: 20px;
+
 	.cover-image{
 		display: inline-block;
 		max-width: 100%;
 		max-height: 100%;
 	}
+	.use-full-img{
+		white-space: nowrap;
+		width: 150px;
+		float: left;
+	}
 	.img-wrapper {
-	    background-color: skyblue;
-	    position: absolute;
-	    top: 20px;
-	    left: 20px;
-	    right: 20px;
-	    bottom: 20px;
+	    position: relative;
+	    top: 0px;
+		margin-left: 150px;
 	    user-select: none;
 	    -ms-user-select: none;
 	    -moz-user-select: none;
@@ -474,15 +474,15 @@ input:disabled{
 	.img-content {
 	    max-width: 100%;
 	    max-height: 100%;
-	    transform: translate(50%, 50%);
-	    position: absolute;
-	    bottom: 50%;
-	    right: 50%;
 	}
 	.pan-img {
-	    box-shadow: 0 0 0 1500px rgba(50, 50, 50, 0.7), inset 0px 0px 0px 2px #acacac;
+	    box-shadow: 0 0 0 1500px rgba(255, 255, 255, 0.8), inset 0px 0px 0px 0px rgba(255,255,255,0.8);
 	    position: absolute;
 	    cursor: pointer;
+		width: 280px;
+    	height: 200px;
+		left: 20px;
+		top: 20px;
 	    max-height: 100%;
 	    max-width: 100%;
 	}

@@ -78,6 +78,10 @@ sb.postcall = (function(){
 			 return ids;
 
 		},
+    'coverImage' : function($el) {
+			var dimensions = setPanningDimensions();
+			return dimensions;
+		},
 		'shareartefacts': function($el){
 			$items = $el.find('.to-share-file.active').find('.to-share-filename');
 			var html = $items.map(function(){

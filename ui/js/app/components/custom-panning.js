@@ -36,7 +36,7 @@ function endPanning(e) {
     $(window).off('mousemove', startPanning);
     $(window).off('mouseup', endPanning);
 
-    setPanningDimensions();
+    var dimensions = setPanningDimensions();
 }
 $(document).on('mousedown', '.pan-img', beginPanning);
 
@@ -96,6 +96,13 @@ function setPanningDimensions() {
             'top': thresholdTop + Math.abs(imgHeight - panHeight)
         });
     }
+    var dimensions = {
+        x : (currentLeft / imgWidth) * 100 ,
+        y : (currentTop / imgHeight) * 100,
+        width : (panWidth / imgWidth) * 100,
+        height : (panHeight / imgHeight) * 100
+    }
+    return dimensions;
 }
 // setPanningDimensions();
 window.addEventListener('resize', setPanningDimensions, true);
