@@ -130,7 +130,6 @@ Kenseo.views.Project = Backbone.View.extend({
             el: el,
             scope: this,
             afterRender: function($popupContainer, scope){
-                $popupContainer.off('click', '.ok-btn');  // BUGFIX: the below code sb.attachIn is failing to unbind an event
                 sb.attachIn('click', '.ok-btn', function(){
                     var includeArchives = scope.parent.data.includeArchives;
                     if(!includeArchives){  // if includeArchives is true, the user is in projects page
@@ -174,7 +173,6 @@ Kenseo.views.Project = Backbone.View.extend({
             el: el,
             scope: this,
             afterRender: function($popupContainer, scope){
-                $popupContainer.off('click', '.ok-btn'); // BUGFIX: the below code sb.attachIn is failing to unbind an event
                 sb.attachIn('click', '.ok-btn', function(){
                     var isArchive = scope.model.get('is_archive');
                     scope.model.set('is_archive', "0");

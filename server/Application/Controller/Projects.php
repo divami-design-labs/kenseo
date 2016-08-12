@@ -74,7 +74,7 @@
 			$resultMessage = new stdClass();
 			$resultMessage->messages = new stdClass();
 			$resultMessage->messages->type = "success";
-			$resultMessage->messages->message = "Successfully archieved project";
+			$resultMessage->messages->message = "Successfully archived project";
 			$resultMessage->messages->icon = "message-archieve";
 			return $resultMessage;
 		}
@@ -103,7 +103,7 @@
 			$resultMessage = new stdClass();
 			$resultMessage->messages = new stdClass();
 			$resultMessage->messages->type = "success";
-			$resultMessage->messages->message = "Successfully unarchieved project";
+			$resultMessage->messages->message = "Successfully unarchived project";
 			$resultMessage->messages->icon = "message-archieve";
 			return $resultMessage;
 		}

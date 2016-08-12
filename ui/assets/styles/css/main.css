@@ -2735,6 +2735,7 @@ input:disabled {
   position: relative;
   top: 0px;
   margin-left: 150px;
+  height: 330px;
   user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
@@ -2758,6 +2759,15 @@ input:disabled {
   top: 20px;
   max-height: 100%;
   max-width: 100%;
+}
+
+.cover-image-viewer .resize {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  top: 0;
+  left: 0;
 }
 
 .cover-image-viewer .animate {
@@ -4253,6 +4263,10 @@ input[type="text"].xm {
 
 .padding-zero {
   padding: 0px;
+}
+
+.share-artefact-container {
+  padding: 20px 0 0 15px;
 }
 
 .share-artefact-container .search-files {

@@ -24,7 +24,7 @@ var sb = _.extend(sb, (function () {
             if(!$inElement) $inElement = $(document.body);
 
             // @TODO: off is not unbinding the events
-            $inElement.off(eventName, selector, func);
+            $inElement.off(eventName, selector);
             $inElement.on(eventName, selector, func);
         },
         subscribe: function(element, eventType, callbackFunc){
