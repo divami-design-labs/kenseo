@@ -12,12 +12,20 @@
 			<div class="requests-dropdown-icon">
 				<svg><use xlink:href="#dropdown"></use></svg>
 			</div>
+			<% var key;
+			   for (var k in Kenseo.settings.accesstype) {
+				    if (Kenseo.settings.accesstype[k] == data.access_type) {
+	                    key = k;
+	                }
+	            }
+            var permission = key.split(""); %>
+
 			<div class="sub-menu-holder left-nav bottom-nav">
 				<div class="sub-menu-item">
 					<div class="sub-menu-item-text">Share</div>
 					<div class="checkbox-holder sub-menu-checkbox">
 						<label class="toggle-checkbox" >
-							<input type="checkbox" class="global-permissions" person-permissions="share-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" ></input><span></span>
+							<input type="checkbox" class="global-permissions" person-permissions="share-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" <% if(permission[1] == 1){%> checked <%}%> ></input><span></span>
 						</label>
 					</div>
 				</div>
@@ -25,7 +33,7 @@
 					<div class="sub-menu-item-text">Comment</div>
 					<div class="checkbox-holder sub-menu-checkbox">
 						<label class="toggle-checkbox" >
-							<input type="checkbox" class="global-permissions" person-permissions="comment-permissions" trigger-chk=".others-chk" data-subtype="share" ></input><span></span>
+							<input type="checkbox" class="global-permissions" person-permissions="comment-permissions" trigger-chk=".others-chk" data-subtype="share" <% if(permission[0] == 1){%> checked <%}%> ></input><span></span>
 						</label>
 					</div>
 				</div>
@@ -38,6 +46,6 @@
 		</div>
 	</div>
 	<div class="people-access-text"><% if(data['access_type']=="X"){%>
-	Can Edit & Share <%} else if(data['access_type']=='S'){%>
+	Can Edit &amp; Share <%} else if(data['access_type']=='S'){%>
 	Can Share <%} else {%> Can Edit<%}%></div>
 </div>

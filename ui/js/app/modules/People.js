@@ -182,33 +182,23 @@ Kenseo.views.Person = Backbone.View.extend({
     changePermissions: function(e) {
         Kenseo.scope = this;
         var el = e.currentTarget;
-
-        //sb.newCallPopup({
-           // el: el,
-           // scope: this,
-           // afterRender: function(scope){
-                var $c = this.$el.find('[person-permissions="comment-permissions"]').prop('checked');
-                var $s = this.$el.find('[person-permissions="share-permissions"]').prop('checked')
-                sb.ajaxCall({
-                    url: sb.getRelativePath('personPermissions'),
-                    data: {
-                        user_id: this.model.get('id'),
-                        project_id: Kenseo.page.id,
-                        access_type: Kenseo.settings.accesstype[$c * 1 + "" + $s * 1]
-                    },
-                    success: function(response){
-                        sb.refresh.type("personPermissions", response);
-                        if(response.data.messages) {
-                            sb.showGlobalMessages(response);
-                        }
-                        // $data = response.params.access_type.split("");
-                        // if(){
-
-                        // }
-                    }
-                });
-            //}
-        //});
+        var that = this;
+        var $c = this.$el.find('[person-permissions="comment-permissions"]').prop('checked');
+        var $s = this.$el.find('[person-permissions="share-permissions"]').prop('checked');
+        sb.ajaxCall({
+            url: sb.getRelativePath('personPermissions'),
+            data: {
+                user_id: this.model.get('id'),
+                project_id: Kenseo.page.id,
+                access_type: Kenseo.settings.accesstype[$c * 1 + "" + $s * 1]
+            },
+            success: function(response){
+                sb.refresh.type("personPermissions", response);
+                if(response.data.messages) {
+                    sb.showGlobalMessages(response);
+                }
+            }
+        });
     },
     removePerson: function(e){
         var el = e.currentTarget;
