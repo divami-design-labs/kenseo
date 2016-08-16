@@ -2966,6 +2966,12 @@ input:disabled {
   opacity: 0.6;
 }
 
+.apply-button {
+  background-color: white;
+  border: none;
+  color: gray;
+}
+
 .input-meeting-text {
   width: 366px;
   height: 18px;
