@@ -464,7 +464,7 @@ input:disabled{
 	    position: relative;
 	    top: 0px;
 		margin-left: 150px;
-		height: 330px;
+		max-height: 330px;
 	    user-select: none;
 	    -ms-user-select: none;
 	    -moz-user-select: none;
@@ -475,28 +475,34 @@ input:disabled{
 	.img-content {
 	    max-width: 100%;
 	    max-height: 100%;
+		display: block;
 	}
 	.pan-img {
 	    box-shadow: 0 0 0 1500px rgba(255, 255, 255, 0.8), inset 0px 0px 0px 0px rgba(255,255,255,0.8);
 	    position: absolute;
 	    cursor: pointer;
-		width: 280px;
-    	height: 200px;
-		left: 20px;
-		top: 20px;
+		max-width: 280px;
+    	//height: 200px;
+		left: 0px;
+		top: 0px;
 	    max-height: 100%;
-	    max-width: 100%;
+	    //max-width: 100%;
+		display: block;
 	}
 	.resize{
 		position: absolute;
 		width: 10px;
 		height: 10px;
-		background-color: black;
+		//background-color: black;
 		top: 0;
 		left: 0;
 	}
 	.animate {
-	    transition: 0.2s all ease-in-out;
+	    transition: 0.2s left ease-in-out;
+		transition: 0.2s top ease-in-out;
+	}
+	.pan-img:hover + .resize,.resize:hover{
+		background-color: black;
 	}
 }
 // .dummy-image{

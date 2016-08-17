@@ -886,30 +886,14 @@ sb.popup = {
                                 $('.pan-img').css({
                                     "left" : "0",
                                     "top" : "0",
-                                    "width" : "auto",
-                                    "height" : "auto"
+                                    "max-width" : "inherit",
+                                    "max-height" : "inherit"
 
                                 });
+                                $('.resize').remove();
                             }
                         });
-                        $('.pan-img').mouseenter(function(e){
-                            var el = document.createElement('div');
-                            $(el).addClass('resize').appendTo($('.img-wrapper'));
-                            var panOffset = $('.pan-img').position();
-                            var panTop = panOffset.top;
-                            var panLeft = panOffset.left;
-                            var panWidth = $('.pan-img').width();
-                            var panHeight = $('.pan-img').height();
-                            var width = panLeft + panWidth - 10;
-                            var height = panTop + panHeight - 10
-                            $(el).css({
-                                "top" : height,
-                                "left" : width
-                            });
-                        })
-                        .mouseleave(function(){
-                            $('.resize').remove();
-                        });
+
                     }
                     fr.readAsDataURL(files[0]);
                 }
