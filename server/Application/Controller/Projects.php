@@ -1,5 +1,8 @@
 <?php
 	require_once('Email.php');
+	require_once('Uploader.php');
+	require_once('Image.php');
+
 	class Projects {
 		public function getProjects($interpreter) {
 			$data = $interpreter->getData()->data;
@@ -222,6 +225,98 @@
 
 			$resultObj = $db->multiObjectQuery($dbQuery);
 
+		}
+
+		public function coverImage($interpreter){
+			$result = new stdClass();
+			$data = $interpreter->getData();
+
+			if($data->data) {
+				$data = $data->data;
+			} else{
+				$interpreter->getData()->data = $data;
+			}
+			$userId = $interpreter->getUser()->user_id;
+
+			$db = Master::getDBConnectionManager();
+			$db->beginTransaction();
+			try{
+				// @TODO: Check whether the user has permissions to do this action
+				// => get params from frontend
+				$dimensions 			= json_decode($data->dimensions);
+				$widthInPercentage		= $dimensions->width;
+				$heightInPercentage		= $dimensions->height;
+				$leftCropInPercentage	= $dimensions->x;
+				$topCropInPercentage	= $dimensions->y;
+				$projectId				= $data->id;
+
+				// => Get the image
+
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
+				$FILES 	= $data->files;
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "image dimensions");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $dimensions);
+
+
+				$imagePath = $FILES['tmp_name'];
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $imagePath);
+
+				$originalImage		= Image::getImage($imagePath);
+
+				// => Get size of the image
+				$imageDimensions 	= getimagesize($imagePath);
+
+				$imageWidth 		= $imageDimensions[0];   // width
+				$imageHeight		= $imageDimensions[1];   // height
+
+				// => Crop the image based on the provided dimensions and crop values
+				$croppedImage		= imagecrop($originalImage, array(
+					"x" 		=> $leftCropInPercentage 	* $imageWidth	/ 100,
+					"y" 		=> $topCropInPercentage  	* $imageHeight	/ 100,
+					"width"		=> $widthInPercentage		* $imageWidth	/ 100,
+					"height"	=> $heightInPercentage		* $imageHeight	/ 100
+				));
+
+				$resizedCroppedImage		= Image::resizeImage($croppedImage, array(
+					'rs_width'		=> 560,
+					'rs_height'		=> 400,
+					'actual_width'  => $widthInPercentage		* $imageWidth	/ 100,
+					'actual_height'	=> $heightInPercentage		* $imageHeight	/ 100
+				));
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "image dimensions");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $imageDimensions);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "cropped image");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $croppedImage);
+
+				// => base64 the cropped image
+				$base64Image	= Image::getBase64Image($resizedCroppedImage, $imageDimensions['mime']);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "base64 image");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $base64Image);
+
+				// => insert the new details in the project table
+				$db->updateTable(
+					TABLE_PROJECTS,
+					array(
+						"intro_image_url"
+					),
+					array(
+						$base64Image
+					),
+					"project_id = " . $projectId
+				);
+				$db->commitTransaction();
+			}
+			catch(Exception $e){
+				$db->abortTransaction();
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "cover image error");
+			}
+
+			return $result;
 		}
 	}
 ?>

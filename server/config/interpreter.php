@@ -102,6 +102,9 @@ $AppGlobal['urlmap']['/personPermissions'] = array ('command' => 'personPermissi
 $AppGlobal['cmdmap']['getProjectActivity'] = array ("class" => "Projects", "method" => "getProjectActivity");
 $AppGlobal['urlmap']['/getProjectActivity'] = array ('command' => 'getProjectActivity', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['coverImage'] = array ("class" => "Projects", "method" => "coverImage");
+$AppGlobal['urlmap']['/coverImage'] = array ('command' => 'coverImage', 'type' => 'GET');
+
 $AppGlobal['cmdmap']['createMeeting'] = array ("class" => "Meetings", "method" => "setMeetingInvitaion");
 $AppGlobal['urlmap']['/createMeeting'] = array ('command' => 'createMeeting', 'type' => 'GET');
 

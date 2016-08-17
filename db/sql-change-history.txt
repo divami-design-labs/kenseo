@@ -10,3 +10,4 @@ ALTER TABLE  artefact_tags DROP PRIMARY KEY
 
 ALTER TABLE projects MODIFY COLUMN description text
 
+ALTER TABLE `projects` CHANGE `intro_image_url` `intro_image_url` LONGTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;

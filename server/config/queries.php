@@ -19,7 +19,7 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 $AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, screen_name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
 
 // Get Projects
-$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name as name, description as description, 													last_updated_date as last_updated_date, intro_image_url,
+$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name as name, description, 													last_updated_date as last_updated_date, intro_image_url,
 											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . "
 											WHERE project_id IN (SELECT proj_id
@@ -31,14 +31,14 @@ $AppGlobal['sql']['getAProject'] = "SELECT project_id as id, project_name as nam
 											FROM " . TABLE_PROJECTS . "
 											WHERE project_id = @~~projectid~~@ AND state = 'A' ORDER BY last_updated_date DESC";
 
-$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_name as name, description as description, 												last_updated_date as last_updated_date, intro_image_url,
+$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_name as name, description, 												last_updated_date as last_updated_date, intro_image_url,
 											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . "
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . "
 											WHERE user_id = @~~userid~~@) AND state = 'A' ORDER BY last_updated_date DESC";
 
-$AppGlobal['sql']['getMyProjectsWithArchive'] = "SELECT project_id as id, project_name as name, description as description, 											last_updated_date as last_updated_date, intro_image_url,
+$AppGlobal['sql']['getMyProjectsWithArchive'] = "SELECT project_id as id, project_name as name, description, 											last_updated_date as last_updated_date, intro_image_url,
 											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . "
 											WHERE project_id IN (SELECT proj_id
