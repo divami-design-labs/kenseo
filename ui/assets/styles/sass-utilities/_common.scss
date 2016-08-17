@@ -79,7 +79,7 @@
 	}
 }
 .sub-menu-item{
-	padding: 10px;
+	padding: 10px 20px;
 	@include text(14px, $color2);
 	white-space: nowrap;
 	&:hover{
@@ -91,6 +91,13 @@
 	// &:last-child{
 	// 	padding-bottom: 15px;
 	// }
+}
+.people-request-holder {
+	.sub-menu-holder {
+		.sub-menu-item {
+			padding: 10px;
+		}
+	}
 }
 .active .sub-menu-holder{
 	display: block;

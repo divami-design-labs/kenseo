@@ -5,3 +5,8 @@ ALTER TABLE `artefacts` CHANGE `artefact_type` `artefact_type` CHAR(2) CHARACTER
 -- 10th August 2016
 
 ALTER TABLE  artefact_tags DROP PRIMARY KEY
+
+-- 17th August 2016
+
+ALTER TABLE projects MODIFY COLUMN description text
+

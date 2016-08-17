@@ -328,7 +328,7 @@
 }
 
 .sub-menu-item {
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 14px;
   color: #efeff0;
   white-space: nowrap;
@@ -336,6 +336,10 @@
 
 .sub-menu-item:hover {
   background-color: #293447;
+}
+
+.people-request-holder .sub-menu-holder .sub-menu-item {
+  padding: 10px;
 }
 
 .active .sub-menu-holder {
@@ -4350,6 +4354,13 @@ input[type="text"].xm {
   font-family: "OpenSansRegular";
   color: #3e4354;
   padding-bottom: 5px;
+}
+
+.project-description {
+  padding: 25px 0 5px 0;
+  font-size: 14px;
+  color: #6f7588;
+  word-wrap: break-word;
 }
 
 .fixed-header.header {

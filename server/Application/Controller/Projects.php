@@ -151,6 +151,7 @@
 			$data = $interpreter->getData()->data;
 			// $projectName = $data->projectName->value;
 			$projectName = $data->project_name;
+			$projectDescription = $data->project_description->value;
 			$userId = $interpreter->getUser()->user_id;
 			$date = date("Y-m-d H:i:s");
 
@@ -164,8 +165,8 @@
 
 			// Add project
 			$projId = $db->insertSingleRowAndReturnId(TABLE_PROJECTS,
-				array("project_name", "state", "org_id", "created_by", "last_updated_date"),
-				array("$projectName", "A", $org_id, $userId, "$date")
+				array("project_name", "description", "state", "org_id", "created_by", "last_updated_date"),
+				array("$projectName", "$projectDescription", "A", $org_id, $userId, "$date")
 			);
 
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $projId);
