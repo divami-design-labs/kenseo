@@ -2758,7 +2758,7 @@ input:disabled {
   box-shadow: 0 0 0 1500px rgba(255, 255, 255, 0.8), inset 0px 0px 0px 0px rgba(255, 255, 255, 0.8);
   position: absolute;
   cursor: pointer;
-  max-width: 280px;
+  max-width: 100%;
   left: 0px;
   top: 0px;
   max-height: 100%;
@@ -2774,10 +2774,8 @@ input:disabled {
 }
 
 .cover-image-viewer .animate {
-  -webkit-transition: 0.2s left ease-in-out;
-  transition: 0.2s left ease-in-out;
-  -webkit-transition: 0.2s top ease-in-out;
-  transition: 0.2s top ease-in-out;
+  -webkit-transition: 0.2s left ease-in-out, 0.2s top ease-in-out;
+  transition: 0.2s left ease-in-out, 0.2s top ease-in-out;
 }
 
 .cover-image-viewer .pan-img:hover + .resize, .cover-image-viewer .resize:hover {

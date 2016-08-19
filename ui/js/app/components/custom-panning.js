@@ -61,12 +61,12 @@ function startResizing(e) {
         resizedHeight = e.pageY - initialPageY + panHeight;
         if(resizedHeight > imgHeight){
             $('.pan-img').css({
-                'max-width': 'inherit',
+                'max-width': '',
                 'max-height': imgHeight
             });
         }else{
             $('.pan-img').css({
-                'max-width': 'inherit',
+                'max-width': '',
                 'max-height': resizedHeight
             });
         }
@@ -76,12 +76,12 @@ function startResizing(e) {
         if(resizedWidth > imgWidth){
             $('.pan-img').css({
                 'max-width': imgWidth,
-                'max-height': 'inherit'
+                'max-height': ''
             });
         }else{
             $('.pan-img').css({
                 'max-width': resizedWidth,
-                'max-height': 'inherit'
+                'max-height': ''
             });
         }
 

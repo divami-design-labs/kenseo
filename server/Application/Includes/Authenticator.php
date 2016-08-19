@@ -41,7 +41,7 @@ class Authenticator
 		$client->setClientId($AppGlobal['googleauth'][$project]['clientId']);
 		$client->setClientSecret($AppGlobal['googleauth'][$project]['clientSecret']);
 		$client->setRedirectUri($AppGlobal['googleauth'][$project]['redirectURL']);
-		$client->setApprovalPrompt('auto');
+		$client->setApprovalPrompt('force');
 		$client->setAccessType('offline');   // generates refresh token
 		$client->setScopes(array(
 			'https://www.googleapis.com/auth/userinfo.email',

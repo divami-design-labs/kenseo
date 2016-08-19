@@ -11,3 +11,7 @@ ALTER TABLE  artefact_tags DROP PRIMARY KEY;
 ALTER TABLE projects MODIFY COLUMN description text;
 
 ALTER TABLE `projects` CHANGE `intro_image_url` `intro_image_url` LONGTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+-- 19th August 2016
+
+ALTER TABLE `users` ADD `user_access_type` CHAR(1) NOT NULL DEFAULT 'O' COMMENT 'A - Super Admin, E - Employee, O - Other users eg. clients or outsiders' AFTER `profile_pic_url`;

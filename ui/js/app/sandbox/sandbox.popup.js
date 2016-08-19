@@ -480,7 +480,7 @@ sb.popup = {
             });
         }
 
-        
+
         // populating the fields if an existing artefact is selected
         if(Kenseo.popup.info.existingFileSelected){
             sb.popup.populateExistingFileSelectedData();
@@ -886,8 +886,8 @@ sb.popup = {
                                 $('.pan-img').css({
                                     "left" : "0",
                                     "top" : "0",
-                                    "max-width" : "inherit",
-                                    "max-height" : "inherit"
+                                    "max-width" : "",
+                                    "max-height" : ""
 
                                 });
                                 $('.resize').remove();

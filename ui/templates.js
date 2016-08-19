@@ -713,7 +713,11 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<img src="http://placeimg.com/280/200/arch" />\r\n<div class="project-block-overlay">\r\n\t<div class="project-block-overlay-wrapper">\r\n\t\t<div class="project-block-title">\r\n\t\t\t' +
+
+ var dummyImage = "http://placeimg.com/280/200/arch" ;
+__p += '\r\n<img src="' +
+((__t = ( data['intro_image_url'] || dummyImage )) == null ? '' : __t) +
+'" />\r\n<div class="project-block-overlay">\r\n\t<div class="project-block-overlay-wrapper">\r\n\t\t<div class="project-block-title">\r\n\t\t\t' +
 ((__t = ( data.name )) == null ? '' : __t) +
 '\r\n\t\t</div>\r\n\t\t<div class="project-block-details">\r\n\t\t\t<div class="project-block-details-icon">\r\n\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="project-block-details-text ellipsis">Last Updated ' +
 ((__t = ( sb.timeFormat(sb.addTimeZoneToDate(data.last_updated_date)) )) == null ? '' : __t) +
@@ -1507,14 +1511,14 @@ __p += ' data-pass="';
                 return 0;
             }
         })() ;
-__p += '">\r\n\t<div class="rr-left">\r\n\t\t<div class="rr-status status-' +
-((__t = ( data.status )) == null ? '' : __t) +
-'">';
+__p += '">\r\n\t<div class="rr-left">\r\n\t\t<div class="rr-status">\r\n\t\t\t<span class="rr-doc-type">';
  if(data['document_type']){  ;
 __p +=
 ((__t = ( Kenseo.settings.docTypeShort[data['document_type']] )) == null ? '' : __t);
  } ;
-__p += '</div>\r\n        ';
+__p += '</span>\r\n\t\t\t<!-- based on the type of document svg changes accrodingly.. -->\r\n\t\t\t<svg><use xlink:href="#' +
+((__t = (data['document_type'])) == null ? '' : __t) +
+'"></use></svg>\r\n\t\t</div>\r\n        ';
  if(data.image !== "assets/imgs/avatar.svg"){ ;
 __p += '\r\n            <img class="rr-owner-image" title="' +
 ((__t = ( data['person_name'] )) == null ? '' : __t) +
@@ -1539,19 +1543,21 @@ __p += '\r\n        <div class="rr-project-name ellipsis">' +
 ((__t = ( data['project_name'] )) == null ? '' : __t) +
 '</div>\r\n        ';
  } ;
+__p += '\r\n        ';
+ var time = sb.timeFormat(sb.addTimeZoneToDate(data['artefact_time'])) ;
 __p += '\r\n\t\t<div class="rr-details ellipsis" title="' +
-((__t = ( sb.timeFormat(data['artefact_time']) )) == null ? '' : __t) +
+((__t = ( time )) == null ? '' : __t) +
 ' by ' +
 ((__t = ( data['person_name'] )) == null ? '' : __t) +
 '">' +
-((__t = ( sb.timeFormat(sb.addTimeZoneToDate(data['artefact_time'])) )) == null ? '' : __t) +
+((__t = ( time )) == null ? '' : __t) +
 ' by ' +
 ((__t = ( data['person_name'] )) == null ? '' : __t) +
 '</div>\r\n\t\t<div class="rr-state-details">\r\n\t\t\t<div class="rr-state">\r\n\t\t\t\t<span class="artefact-cur-version">v' +
 ((__t = ( data.version )) == null ? '' : __t) +
 '</span>\r\n\t\t\t\t<div class="rr-other-versions"></div>\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
+'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n            <div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Create a Meeting</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="edit-artefact-info">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#editartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Edit Info</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="rename-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Rename</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
 
 }
 return __p
@@ -1609,7 +1615,7 @@ __p += ' - Unsupported format';
 __p += '">\n        ' +
 ((__t = ( data.title )) == null ? '' : __t) +
 '\n    </div>\n    <div class="notification-time">\n        ' +
-((__t = ( sb.timeFormat(data.time) )) == null ? '' : __t) +
+((__t = ( sb.timeFormat(sb.addTimeZoneToDate(data.time)) )) == null ? '' : __t) +
 ' by ' +
 ((__t = ( data.notifier )) == null ? '' : __t) +
 '\n    </div>\n    ';
@@ -1755,15 +1761,31 @@ __p += '\r\n</div>\r\n<div class="people-item-right">\r\n\t<div class="people-na
 ((__t = ( data.id )) == null ? '' : __t) +
 '">\r\n\t\t<div class="people-name inlineBlockTop">' +
 ((__t = ( data.name )) == null ? '' : __t) +
-'</div>\r\n\t\t<div class="people-request-holder html-click sub-menu-nav inlineBlockTop">\r\n\t\t\t<div class="requests-dropdown-icon">\r\n\t\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t';
+'</div>\r\n\t\t<div class="people-request-holder html-click sub-menu-nav inlineBlockTop">\r\n\t\t\t<div class="requests-dropdown-icon">\r\n\t\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t\t</div>\r\n\t\t\t';
+ var key;
+			   for (var k in Kenseo.settings.accesstype) {
+				    if (Kenseo.settings.accesstype[k] == data.access_type) {
+	                    key = k;
+	                }
+	            }
+            var permission = key.split(""); ;
+__p += '\r\n\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item">\r\n\t\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t\t\t<div class="checkbox-holder sub-menu-checkbox">\r\n\t\t\t\t\t\t<label class="toggle-checkbox" >\r\n\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" person-permissions="share-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" ';
+ if(permission[1] == 1){;
+__p += ' checked ';
+};
+__p += ' ></input><span></span>\r\n\t\t\t\t\t\t</label>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item">\r\n\t\t\t\t\t<div class="sub-menu-item-text">Comment</div>\r\n\t\t\t\t\t<div class="checkbox-holder sub-menu-checkbox">\r\n\t\t\t\t\t\t<label class="toggle-checkbox" >\r\n\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" person-permissions="comment-permissions" trigger-chk=".others-chk" data-subtype="share" ';
+ if(permission[0] == 1){;
+__p += ' checked ';
+};
+__p += ' ></input><span></span>\r\n\t\t\t\t\t\t</label>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t';
  if(data['is_owner'] != "1") {;
 __p += '\r\n\t\t\t\t<div class="sub-menu-item" data-url="removePeople" data-id="' +
 ((__t = ( data.id )) == null ? '' : __t) +
-'" >\r\n\t\t\t\t\t<div class="people-remove-icon">\r\n\t\t\t\t\t\t<svg><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="sub-menu-item-text">Remove</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t';
+'" >\r\n\t\t\t\t\t<div class="sub-menu-item-text">Remove</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t';
 };
-__p += '\r\n\t\t\t\t<div class="sub-menu-item">\r\n\t\t\t\t\t<div class="people-manage-icon">\r\n\t\t\t\t\t\t<svg><use xlink:href="#lock1"></use></svg>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="sub-menu-item-text">Manage Permissions</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="people-access-text">';
+__p += '\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="people-access-text">';
  if(data['access_type']=="X"){;
-__p += '\r\n\tCan Edit & Share ';
+__p += '\r\n\tCan Edit &amp; Share ';
 } else if(data['access_type']=='S'){;
 __p += '\r\n\tCan Share ';
 } else {;
@@ -1888,6 +1910,52 @@ __p += ' >\r\n\t' +
 '\r\n</div>\r\n';
  }); ;
 
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['share-file'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="to-share-file" data-k-id ="' +
+((__t = ( data.id )) == null ? '' : __t) +
+'" data-k-versionid ="' +
+((__t = ( data.version_id )) == null ? '' : __t) +
+'" data-k-artafactname ="' +
+((__t = ( data.name )) == null ? '' : __t) +
+'" data-html-outside-click="false">\n\t<div class="to-share-filetype" >';
+if(data.type == 'U'){;
+__p += ' UID ';
+} else if(data.type == 'I') {;
+__p += ' IXD ';
+} else if(data.type == 'P') {;
+__p += ' P ';
+} else if(data.type == 'IA') {;
+__p += ' IA ';
+};
+__p += ' </div>\n\t<div class="to-share-filename">' +
+((__t = ( data.name )) == null ? '' : __t) +
+'</div>\n\t<div class="to-share-fileversion version-num">v' +
+((__t = ( data.version_no)) == null ? '' : __t) +
+'</div>\n\t<div><input type="checkbox" class="is-shared"></div>\n</div>\n';
 
 }
 return __p
@@ -2646,7 +2714,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  var dump = sb.getPopupData() ;
-__p += '\r\n<div class="popup popup-large">\r\n\t' +
+__p += '\r\n<div class="popup popup-large k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
 '\r\n\t<div class="popup-left-section">\r\n\t\t' +
 ((__t = (
@@ -2659,16 +2727,16 @@ __p += '\r\n<div class="popup popup-large">\r\n\t' +
 		)) == null ? '' : __t) +
 '\r\n\t</div>\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper popup-right-section padding-zero">\r\n\t\t\t<div class="share-artefact-container">\r\n\t\t\t\t\t';
  if(data.chooseExistingFile){ ;
-__p += '\r\n\t\t\t\t\t\t<div class="heading">Artefact</div>\r\n\t\t\t\t\t\t' +
+__p += '\r\n\t\t\t\t\t\t<div class="share-artefact-header heading">Artefact</div>\r\n\t\t\t\t\t\t<div class="share-artefact-header search-files"><input type="text" class="searchable">\r\n\t\t\t\t\t\t\t<div class="filter-version-type html-click" data-html-class="enable-version-list" data-html-toggle="add">\r\n\t\t\t\t\t\t\t\t<svg class="filter-list-dropdown">\r\n\t\t\t\t\t\t\t\t\t<use xlink:href="#filter"></use>\r\n\t\t\t\t\t\t\t\t</svg>\r\n\t\t\t\t\t\t\t\t<div class="version-filter-list" >\r\n\t\t\t\t\t\t\t\t\t<div class="version-filter-data"><input type="checkbox" file-type="ALL"class ="apply-all-types">Apply To All</div>\r\n\t\t\t\t\t\t\t\t\t<div class="version-filter-data"><input type="checkbox" file-type="IXD">IXD</div>\r\n\t\t\t\t\t\t\t\t\t<div class="version-filter-data"><input type="checkbox" file-type="UID">UID</div>\r\n\t\t\t\t\t\t\t\t\t<div class="version-filter-data"><input type="checkbox" file-type="P">PS</div>\r\n\t\t\t\t\t\t\t\t\t<div class="version-filter-data"><input type="checkbox" file-type="IA">IA</div>\r\n\t\t\t\t\t\t\t\t\t<div><button>Apply</button></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class="search-file-icon">\r\n\t\t\t\t\t\t\t\t<svg>\r\n\t\t\t\t\t\t\t\t\t<use xlink:href="#search"></use>\r\n\t\t\t\t\t\t\t\t</svg>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--' +
 ((__t = (
 							sb.toolbox.comboBox({
 								"class": "xm choose-file-combobox",
 								"dataName": "choose-existing-file"
 							})
 						)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t';
+'-->\r\n\t\t\t\t\t';
  } ;
-__p += '\r\n\t\t\t\t\t<div class="choose-existing-file-holder"></div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+__p += '\r\n\t\t\t\t\t<div class="choose-existing-file-holder k-field" data-xtype="shareMultipleArtefacts,shareartefacts" data-xtype-key="ids,artefactName"></div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>\r\n';
 
@@ -2767,6 +2835,84 @@ __p += '<div class="popup popup-large">\r\n\t' +
 '\r\n\t<div class="popup-body">\r\n\t\t<div class="projects-selection-section-wrapper">\r\n\t\t\t<div class="projects-selection-section">\r\n\t\t\t\t<div class="projects-selection-heading">\r\n\t\t\t\t\t<div class="projects-selection-heading-text">Projects</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['artefact-six'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ var dump = sb.getPopupData() ;
+__p += '\r\n<div class="popup popup-large">\r\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\r\n\t<div class="popup-left-section">\r\n\t\t' +
+((__t = (
+			sb.setTemplate('popup-meta-content', {
+				'data': {
+					project: true,
+					file: true,
+					type: true,
+					references: true,
+					tags: true,
+					show_coming_soon: true,
+					'dump': sb.getPopupData()
+				},
+			})
+		)) == null ? '' : __t) +
+'\r\n\t</div>\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper popup-right-section">\r\n\t\t\t<div class="files-section" id="drop-zone">\r\n\t\t\t\t<label class="upload-file-section">\r\n\t\t\t\t\t<input type="file" class="upload-files-input" ';
+ if(!data.single_file_selector){ ;
+__p += 'multiple=""';
+ } ;
+__p += '></input>\r\n\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\tUpload a new file\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="uploader-section">\r\n\t\t\t\t\t\t<div class="uploader-section-img uploader-img-limited">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#pdfnpng"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</label>\r\n\t\t\t\t<span class="or-btn">Or</span>\r\n\t\t\t\t<div class="create-file-section">\r\n\t\t\t\t\t';
+ if(data.chooseExistingFile){ ;
+__p += '\r\n\t\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\t\tChoose an existing file\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.comboBox({
+								"class": "choose-file-combobox",
+								"dataName": "choose-existing-file"
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t';
+ } else{ ;
+__p += '\r\n\t\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\t\tCreate file\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t';
+ } ;
+__p += '\r\n\t\t\t\t\t';
+ if(data.show_coming_soon){ ;
+__p += '\r\n\t\t\t\t\t\t<div class="coming-soon-text">Coming soon!</div>\r\n\t\t\t\t\t';
+ } ;
+__p += '\r\n\t\t\t\t\t<div class="choose-existing-file-holder">\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="uploaded-file-display">\r\n\t\t\t\t<div class="files-list" style="display: none">\r\n\t\t\t\t\t<div class="create-file-item">\r\n\t\t\t\t\t\t<div class="notification-item S-type ">\r\n\t\t\t\t\t\t\t<svg class="notification-s-type-icon"><use xlink:href="#file"></use></svg>\r\n\t\t\t\t\t\t\t<div class="notification-title">\r\n\t\t\t\t\t\t\t\tBalfour: Image Share\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class="notification-time">\r\n\t\t\t\t\t\t\t\t@ 11:20 AM by Rakesh\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class="create-file-close-icon">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#close"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t';
+ if(data.allow_artefact_selection){ ;
+__p += '\r\n\t\t\t\t<label class="checkbox">\r\n\t\t\t\t\t<input type="checkbox" disabled="true" class="existing-files-chk"></input>\r\n\t\t\t\t\t<span>This is a new version of an existing file</span>\r\n\t\t\t\t</label>\r\n\t\t\t\t' +
+((__t = (
+					sb.toolbox.comboBox({
+						"class": "xm existing-files-combobox",
+						"dataName": "choose-file"
+					})
+				)) == null ? '' : __t) +
+'\r\n\t\t\t';
+ } ;
+__p += '\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
+'\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p
@@ -2932,9 +3078,9 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="popup popup-large">\r\n\t' +
+__p += '<div class="popup popup-large k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<div class="image-cover-section">\r\n\t\t\t\t<label class="upload-file-section">\r\n\t\t\t\t\t<input type="file" class="upload-files-input" accept="image/*"></input>\r\n\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\tClick to upload image\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="uploader-section">\r\n\t\t\t\t\t\t<div class="uploader-section-img">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#pdfnpng"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</label>\r\n\t\t\t</div>\r\n\t\t\t<div class="cover-image-viewer">\r\n\t\t\t    <div class="img-wrapper">\r\n\t\t\t\t    <img class="img-content" src="" />\r\n\t\t\t\t    <img class="pan-img" src="assets/imgs/blank.png" />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<div class="image-cover-section" id="drop-zone">\r\n\t\t\t\t<label class="upload-file-section">\r\n\t\t\t\t\t<input type="file" class="upload-files-input" accept="image/*"></input>\r\n\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\tupload file\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="uploader-section">\r\n\t\t\t\t\t\t<div class="uploader-section-img">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#pdfnpng"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</label>\r\n\t\t\t</div>\r\n\t\t\t<div class="cover-image-viewer k-field" data-xtype="coverImage" data-xtype-key="dimensions">\r\n\t\t\t\t<div class="use-full-img"><input type="checkbox">Use full image</div>\r\n\t\t\t    <div class="img-wrapper">\r\n\t\t\t\t    <img class="img-content"  src="" />\r\n\t\t\t\t    <img class="pan-img" src="assets/imgs/blank.png" />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>';
 
@@ -3073,7 +3219,7 @@ __p += '\r\n\t\t\t\t\t\t\t\t\t<option ';
 __p += 'selected';
  } ;
 __p += ' value="' +
-((__t = ( time.split(' ')[0] )) == null ? '' : __t) +
+((__t = ( sb.getHHTime(time) )) == null ? '' : __t) +
 '">' +
 ((__t = ( time )) == null ? '' : __t) +
 '</option>\r\n\t\t\t\t\t\t\t\t';
@@ -3095,7 +3241,7 @@ __p += '\r\n\t\t\t\t\t\t\t\t\t<option ';
 __p += 'selected';
  } ;
 __p += ' value="' +
-((__t = ( time.split(' ')[0] )) == null ? '' : __t) +
+((__t = ( sb.getHHTime(time) )) == null ? '' : __t) +
 '">' +
 ((__t = ( time )) == null ? '' : __t) +
 '</option>\r\n\t\t\t\t\t\t\t\t';
@@ -3255,6 +3401,53 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['rename-artefact'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="popup popup-small k-form">\n    ' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\n    <div class="popup-body">\n        <div class="popup-body-wrapper">\n            ' +
+((__t = (
+                sb.toolbox.textBox({
+                    inputClass: "project-input required k-field blur-field",
+                    dataName : "artefactName",
+                    required: true,
+                    attr: {
+                        'data-validate-this': 'empty',
+                        'data-v-label': 'Artefact',
+                        'data-xtype': 'text',
+                        'data-xtype-key': 'artefact_name',
+                        value: Kenseo.popup.data.title
+                    },
+                    "fieldSectionErrorMessages": {
+                            'empty': ' Please enter artefact name',
+                    }
+                })
+            )) == null ? '' : __t) +
+'\n        </div>\n    </div>\n    <div class="buttons-section">\n    \t' +
+((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
+'\n\t</div>\n</div>\n\n\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['activities'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -3313,7 +3506,9 @@ __p += '<div class="project-heading data-holder" data-key="projects" data-id="' 
 ((__t = ( Kenseo.page.id )) == null ? '' : __t) +
 '">\r\n\t<div class="projects-heading-icon">\r\n\t\t<svg><use xlink:href="#projects"></use></svg>\r\n\t</div>\r\n\t<a href="#projects" class="heading-text-project">Projects > </a>\r\n\t<span class="heading-text-project-name">' +
 ((__t = ( Kenseo.page.data.project.name )) == null ? '' : __t) +
-'</span>\r\n\t<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">\r\n\t\t<div class="sub-heading-more-icon">\r\n\t\t\t<svg><use xlink:href="#more"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="sub-menu-holder right-nav bottom-nav">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">Create a Meeting</div>\r\n\t\t\t<div class="sub-menu-item">Share a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click hide">Delete a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-section-content data-holder" data-key="projects" data-id="' +
+'</span>\r\n\t<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">\r\n\t\t<div class="sub-heading-more-icon">\r\n\t\t\t<svg><use xlink:href="#more"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="sub-menu-holder right-nav bottom-nav">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">Create a Meeting</div>\r\n\t\t\t<div class="sub-menu-item">Share a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click hide">Delete a Project</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-description"> ' +
+((__t = ( Kenseo.page.data.project.description )) == null ? '' : __t) +
+' </div>\r\n<div class="project-section-content data-holder" data-key="projects" data-id="' +
 ((__t = ( Kenseo.page.id )) == null ? '' : __t) +
 '">\r\n\t<div class="artifacts-section review-requests-content sub-section">\r\n\r\n\t</div>\r\n\r\n\t<div class="activity-section sub-section">\r\n\r\n\t</div>\r\n\t<div class="people-section sub-section">\r\n\r\n\t</div>\r\n\r\n</div>\r\n';
 

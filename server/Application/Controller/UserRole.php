@@ -1,25 +1,30 @@
 <?php
 Class UserRole{
     // variables
-    private $userId = null;
-    private $db     = null;
-    private $params = null;
-    // constructor
-    public __construct($userId, $db, $params){
-        $this->userId   = $userId;
-        $this->db       = $db;
-        $this->params   = $params;
-    }
+    // private $userId = null;
+    // private $db     = null;
+    // private $params = null;
+    // // constructor
+    // public __construct($userId, $db, $params){
+    //     $this->userId   = $userId;
+    //     $this->db       = $db;
+    //     $this->params   = $params;
+    // }
     //
     // Common functions
     //
-    public function isSuperAdmin(){
+    public function isSuperAdmin($userId){
         // This user has all privileges
 
     }
 
+    public function isJustAMember($userId){
+        return !$this->isSuperAdmin($userId);
+    }
+
     public function isEmployee(){
         // The user is employee of the company
+        
     }
 
     public function isOutsider(){
@@ -103,6 +108,6 @@ Class UserRole{
     }
 
     public function canDownloadProjectArtefacts(){
-        
+
     }
 }

@@ -481,7 +481,7 @@ input:disabled{
 	    box-shadow: 0 0 0 1500px rgba(255, 255, 255, 0.8), inset 0px 0px 0px 0px rgba(255,255,255,0.8);
 	    position: absolute;
 	    cursor: pointer;
-		max-width: 280px;
+		max-width: 100%;
     	//height: 200px;
 		left: 0px;
 		top: 0px;
@@ -498,8 +498,7 @@ input:disabled{
 		left: 0;
 	}
 	.animate {
-	    transition: 0.2s left ease-in-out;
-		transition: 0.2s top ease-in-out;
+	    transition: 0.2s left ease-in-out, 0.2s top ease-in-out;
 	}
 	.pan-img:hover + .resize,.resize:hover{
 		background-color: black;
@@ -664,7 +663,7 @@ input:disabled{
 	.is-shared{
 		visibility: hidden;
 	}
-	
+
 
 }
 .version-filter-data:hover{
