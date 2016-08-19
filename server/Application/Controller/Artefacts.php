@@ -56,6 +56,37 @@
 			return $resultObj;
 		}
 
+		public function downloadArtefact($interpreter) {
+			$data = $interpreter->getData()->data;
+			$artefactId = $data->artefact_id;
+			$projectId = $data->project_id;
+
+			$db = Master::getDBConnectionManager();
+			$queryParams = array('artefactid' => $artefactId);
+
+			$dbQuery = getQuery('getDownloadArtefact',$queryParams);
+
+			$resultObj = $db->singleObjectQuery($dbQuery);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "navyasree");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $resultObj);
+
+
+			$filename = $resultObj->document_path;
+
+			
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $filename);
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "navyasree");
+
+			header("Content-Length: " . filesize($filename));
+			header('Content-Type: ' . $resultObj->MIME_type);
+			header('Content-Disposition: attachment; filename=' .$resultObj->document_path);
+
+			readfile($filename);
+
+			return $resultObj;
+		}
+
 		public function getProjectInfo($interpreter) {
 			$data = $interpreter->getData()->data;
 			$projectId = $data->project_id;

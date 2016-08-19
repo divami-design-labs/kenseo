@@ -111,6 +111,8 @@ $AppGlobal['sql']['getProjectArtefacts'] = "SELECT sm.shared_date, a.artefact_id
 											a.replace_ref_id is null
 											AND a.state != 'A' AND a.state != 'D' ORDER BY @~~sortBy~~@";
 
+$AppGlobal['sql']['getDownloadArtefact'] = "SELECT * from ". TABLE_ARTEFACTS_VERSIONS."
+											where artefact_id = @~~artefactid~~@";
 
 $AppGlobal['sql']['getProjectArtefact'] = "SELECT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
 											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,

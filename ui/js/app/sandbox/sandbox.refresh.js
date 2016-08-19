@@ -316,6 +316,9 @@ sb.refresh = (function(){
 			var accessType = response.params.access_type;
 			Kenseo.scope.model.set('access_type', accessType);
 			Kenseo.scope = null;
+		},
+		downloadArtefact: function(response) {
+			var artefact = response.params.artefact_name;
 		}
 	}
 	function refreshSection(sectionName, subSection){

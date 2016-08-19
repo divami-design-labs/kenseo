@@ -5,12 +5,13 @@
         ],
         "dashboard":    ["reviewrequest", "projects", "notify", "baloon", "dropdown", "file", "filter",
             "calendar", "clock", "artifacts", "adduser", "archive", "calendar", "archive1",
-            "replace", "addversion", "share", "delete", "editartifact", "renameartifact"
+            "replace", "addversion", "share", "delete", "editartifact", "renameartifact", "meeting"
         ],
         "popups":       ["close", "pdfnpng", "archive-icn", "submit", "baloon", "delete", "calendar"],
         "search":       ["search-folder", "search-file"],
         "projectpage":  ["addfile", "projects", "more","baloon", "icon4",
-            "delete","lock1", "dropdown", "archive1", "replace", "addversion", "share", "delete", "editartifact","renameartifact"
+            "delete","lock1", "dropdown", "archive1", "replace", "addversion", "share", "delete", "editartifact",
+            "renameartifact", "meeting"
         ],
         "projects":     ["artifacts", "adduser", "archive", "calendar", "projects"],
         "meetingnotes": ["projects"],
