@@ -20,7 +20,7 @@ try
 	foreach ($_FILES as $key => $value) {
 	    $req->data->$key = $value;
 	}
-	$req->command = $req->data->command;
+	$req->command = $req->data->command? $req->data->command: $req->data->actionType;
 	Master::getLogManager()->log(DEBUG, MOD_MAIN, $req->data);
 	
 	$cmd = new CommandInterpreter($req);
