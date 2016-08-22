@@ -10,16 +10,30 @@ require_once("main.php");
 try
 {
 	Master::getLogManager()->log(DEBUG, MOD_MAIN, "~~~~~~~~~~~~~~In DOWNLOAD~~~~~~~~~~~~~~~~");
-	$req = $HTTP_RAW_POST_DATA;
-	Master::getLogManager()->log(DEBUG, MOD_MAIN, $req);
-	
-	$cmd = new CommandInterpreter($req);
-	$result = $cmd->execute();
-	$data = $result->data();
+	$req = $HTTP_RAW_POST_DATA? $HTTP_RAW_POST_DATA: $_GET;
 
+	$req2 = new stdClass();
+
+	foreach($req as $key => $value){
+		$req2->{$key} = $value;
+	}
+	$req2->data = $req2;
+	Master::getLogManager()->log(DEBUG, MOD_MAIN, "req2");
+	Master::getLogManager()->log(DEBUG, MOD_MAIN, $req2);
+	// $req2->command = $req['command'];
+	// $req2->data = $req;
+
+	$cmd = new CommandInterpreter($req2);
+	$result = $cmd->execute();
+
+	$reflector = new ReflectionObject($result);
+	$nodes = $reflector->getProperty('data');
+	$nodes->setAccessible(true);
+	$data = $nodes->getValue($result);
+	// $data = $result->data;
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename=' . $data->name);
+    header('Content-Disposition: attachment; filename='.$data->title );
     header('Content-Transfer-Encoding: binary');
     header('Expires: 0');
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

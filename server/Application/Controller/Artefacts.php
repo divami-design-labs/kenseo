@@ -56,34 +56,23 @@
 			return $resultObj;
 		}
 
-		public function downloadArtefact($interpreter) {
-			$data = $interpreter->getData()->data;
-			$artefactId = $data->artefact_id;
-			$projectId = $data->project_id;
-
-			$db = Master::getDBConnectionManager();
-			$queryParams = array('artefactid' => $artefactId);
-
-			$dbQuery = getQuery('getDownloadArtefact',$queryParams);
-
-			$resultObj = $db->singleObjectQuery($dbQuery);
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "navyasree");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $resultObj);
-
-
-			$filename = $resultObj->document_path;
-
-			
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $filename);
-
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "navyasree");
-
-			header("Content-Length: " . filesize($filename));
-			header('Content-Type: ' . $resultObj->MIME_type);
-			header('Content-Disposition: attachment; filename=' .$resultObj->document_path);
-
-			readfile($filename);
-
+		public function downloadArtefact($req) {
+			//  data required to download the artefact
+			$artefactId 	= $req->getData()->{'artefact_id'};
+			$db 			= Master::getDBConnectionManager();
+			$queryParams 	= array('artefactid' => $artefactId);
+			$dbQuery 		= getQuery('getDownloadArtefact',$queryParams);
+			$resultObj 		= $db->singleObjectQuery($dbQuery);
+			$filename 		= $resultObj->document_path;
+			$filetitle 		= $resultObj->artefact_title;
+			$this->filename = $filename;
+			// $resultData = new stdClass();
+			// retrieving file title,size and content to download the file in same format with same name
+			$resultObj->name 	= $filename;
+			$resultObj->title 	= $filetitle;
+			$resultObj->size 	= filesize($filename);
+			$resultObj->content = file_get_contents($filename);
+			// $resultObj->data = $resultData;
 			return $resultObj;
 		}
 

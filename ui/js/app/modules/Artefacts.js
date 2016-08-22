@@ -122,7 +122,6 @@ Kenseo.views.Artefact = Backbone.View.extend({
         return this;
     },
     events: {
-        "click [data-url='download-artefact']"  :   "downloadArtefact",
         "click [data-url='rename-artefact']"    :   "renameArtefact",
         "click [data-url='edit-artefact-info']" :   "editArtefactInfo",
         "click [data-url='delete-artefact']"    :   "deleteArtefact",
@@ -217,26 +216,6 @@ Kenseo.views.Artefact = Backbone.View.extend({
         sb.newCallPopup({
             el: el,
             scope: this
-        });
-    },
-    downloadArtefact: function(e){
-        Kenseo.scope = this;
-        var el = e.currentTarget;
-        sb.ajaxCall({
-            url: sb.getRelativePath('downloadArtefact'),
-            data: {
-                artefact_id: this.model.get('id'),
-                project_id: this.model.get('project_id') || Kenseo.page.id
-            },
-            success: function(response){
-                sb.refresh.type("downloadArtefact", response);
-                // if(response.data.messages) {
-                //     sb.showGlobalMessages(response);
-                // }
-            },
-            error: function(err) {
-                console.log(err)
-            }
         });
     }
 });

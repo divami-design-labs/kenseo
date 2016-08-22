@@ -4278,10 +4278,6 @@ input[type="text"].xm {
   padding: 0px;
 }
 
-.share-artefact-container {
-  padding: 20px 0 0 15px;
-}
-
 .share-artefact-container .search-files {
   position: relative;
 }
@@ -4364,6 +4360,10 @@ input[type="text"].xm {
   font-size: 14px;
   color: #6f7588;
   word-wrap: break-word;
+}
+
+a {
+  color: inherit;
 }
 
 .fixed-header.header {
