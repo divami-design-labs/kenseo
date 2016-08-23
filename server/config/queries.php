@@ -115,6 +115,11 @@ $AppGlobal['sql']['getDownloadArtefact'] = "SELECT v.*, a.artefact_title from ".
 											" .TABLE_ARTEFACTS. " as a ON v.artefact_id = a.artefact_id
 											where v.artefact_id = @~~artefactid~~@";
 
+$AppGlobal['sql']['getDownloadProject'] = "SELECT v.*, a.artefact_title, p.project_name from ". TABLE_ARTEFACTS_VERSIONS." as v 
+											JOIN " .TABLE_ARTEFACTS. " as a ON v.artefact_id = a.artefact_id
+											JOIN " .TABLE_PROJECTS. " as p ON a.project_id = p.project_id
+											where a.project_id = @~~projectid~~@";										
+
 $AppGlobal['sql']['getProjectArtefact'] = "SELECT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
 											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
 											a.artefact_title as title, a.artefact_title as name, v.MIME_type,

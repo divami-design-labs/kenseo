@@ -39,6 +39,16 @@
 			return $resultObj;
 		}
 
+		public function downloadProject($req) {
+			//  data required to download the project
+			$ProjectId 		= $req->getData()->{'project_id'};
+			$db 			= Master::getDBConnectionManager();
+			$queryParams 	= array('projectid' => $ProjectId);
+			$dbQuery 		= getQuery('getDownloadProject',$queryParams);
+			$resultObj 		= $db->multiObjectQuery($dbQuery);
+			return $resultObj;
+		}
+
 		public function deleteProject($interpreter) {
 			$data = $interpreter->getData()->data;
 			$projectId = $data->projectId;

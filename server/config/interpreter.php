@@ -27,6 +27,9 @@ $AppGlobal['urlmap']['/renameArtefact'] = array ('command' => 'renameArtefact', 
 $AppGlobal['cmdmap']['downloadArtefact'] = array ("class" => "Artefacts", "method" => "downloadArtefact");
 $AppGlobal['urlmap']['/downloadArtefact'] = array ('command' => 'downloadArtefact', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['downloadProject'] = array ("class" => "Projects", "method" => "downloadProject");
+$AppGlobal['urlmap']['/downloadProject'] = array ('command' => 'downloadProject', 'type' => 'GET');
+
 $AppGlobal['cmdmap']['search'] = array ("class" => "Common", "method" => "searchAll");
 $AppGlobal['urlmap']['/search'] = array ('command' => 'search', 'type' => 'GET');
 
