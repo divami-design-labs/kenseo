@@ -252,7 +252,7 @@
   vertical-align: middle;
 }
 
-.inlineBlockTop, .heading-text, .summary-section-overlay .rr-comment, .secondary-status-rr {
+.inlineBlockTop, .heading-text, .sliders .rr-comment, .secondary-status-rr {
   display: inline-block;
   vertical-align: top;
 }
@@ -3290,18 +3290,38 @@ input:disabled {
 }
 
 .summary-section-overlay {
-  width: 85%;
-  height: 614px;
-  min-width: 1000px;
-  max-height: 100%;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   background-color: white;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  height: 614px;
+  max-height: 100%;
+  width: 1000px;
+}
+
+.sliders {
+  position: relative;
+  -webkit-transform: translate(-100%, 0);
+          transform: translate(-100%, 0);
+  -webkit-transition: margin 1s,-webkit-transform 1s;
+  transition: margin 1s,-webkit-transform 1s;
+  transition: transform 1s,margin 1s;
+  transition: transform 1s,margin 1s,-webkit-transform 1s;
+  height: 100%;
+  padding-left: 80px;
+  top: 80px;
+}
+
+.sliders.slider-large {
+  min-width: 1000px;
+}
+
+.sliders.slider-medium {
+  min-width: 440px;
+}
+
+.slider-container {
+  -webkit-transition: margin 1s,-webkit-transform 1s;
+  transition: margin 1s,-webkit-transform 1s;
+  transition: transform 1s,margin 1s;
+  transition: transform 1s,margin 1s,-webkit-transform 1s;
 }
 
 .secondary-status-rr {
@@ -3637,6 +3657,7 @@ input:disabled {
 .summary-section-below-content {
   display: none;
   overflow: auto;
+  white-space: nowrap;
 }
 
 .summary-section-overlay.view .summary-section-header {
@@ -3804,7 +3825,7 @@ input:disabled {
 
 .cv-comments-section {
   position: absolute;
-  left: 0;
+  left: 80px;
   right: 0;
   bottom: 0;
   top: 345px;
@@ -5121,7 +5142,9 @@ a {
 }
 
 .outerContainer.inView {
-  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 #sidebarContainer {
@@ -5168,7 +5191,6 @@ a {
 .comments-view-holder {
   background-color: #FCF8F8;
   /*display: none;*/
-  visibility: hidden;
   transition: visibility 1s ease-in-out;
   -webkit-transition: visibility 1s ease-in-out;
   -moz-transition: visibility 1s ease-in-out;
@@ -5177,10 +5199,6 @@ a {
   width: 440px;
   min-height: 450px;
   /*transition: width 1s ease-in-out;*/
-  top: 80px;
-  position: fixed;
-  bottom: 55px;
-  left: 80px;
   border: 1px solid #DAD7D7;
 }
 
@@ -5196,18 +5214,14 @@ a {
 #viewerContainer {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  position: fixed;
-  top: 0px;
-  right: 0;
-  bottom: 55px;
-  left: 0;
+  min-width: 100%;
   text-align: center;
   outline: none;
-  transition: left 1s ease-in-out;
-  -webkit-transition: left 1s ease-in-out;
-  -moz-transition: left 1s ease-in-out;
-  -o-transition: left 1s ease-in-out;
-  -ms-transition: left 1s ease-in-out;
+  transition: left 2s ease-in-out;
+  -webkit-transition: left 2s ease-in-out;
+  -moz-transition: left 2s ease-in-out;
+  -o-transition: left 2s ease-in-out;
+  -ms-transition: left 2s ease-in-out;
 }
 
 .toolbar {

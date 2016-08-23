@@ -2,16 +2,34 @@
 	border: 1px solid $colorTwo;
 }
 .summary-section-overlay{
-	width: 85%;
-	height: 614px;
-	min-width: 1000px;
-	max-height: 100%;
-	flex-direction: column;
 	background-color: white;
-	display: inline-flex;
+	height: 614px;
+	max-height: 100%;
+	width: 1000px;
+}
+.sliders{
 	.rr-comment{
 		@extend .inlineBlockTop;
 	}
+	&.slider-large{
+		min-width: 1000px;
+
+	}
+	&.slider-medium{
+		min-width: 440px;
+	}
+	position: relative;
+	transform: translate(-100%,0);
+	transition: transform 1s,margin 1s;
+	height: 100%;
+	//left: 80px;
+	padding-left: 80px;
+	top: 80px;
+	}
+.slider-container{
+	// padding-left: 80px;
+	// padding-top: : 80px;
+	 transition: transform 1s,margin 1s;
 }
 .secondary-status-rr{
 	padding: 10px;
@@ -255,6 +273,7 @@
 .summary-section-below-content{
 	display: none;
 	overflow: auto;
+	white-space: nowrap;
 }
 .summary-section-overlay.view{
 	.summary-section-header{
@@ -378,7 +397,7 @@
 }
 .cv-comments-section{
 	position: absolute;
-	left: 0;
+	left: 80px;
 	right: 0;
 	bottom: 0;
 	top: 345px;

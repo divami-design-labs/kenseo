@@ -277,7 +277,7 @@
 }
 
 .outerContainer.inView {
-	display: block;
+	display: flex;
 }
 
 #sidebarContainer {
@@ -326,15 +326,11 @@
   background-color: $colorNineteen;
   // width: 0px;
   /*display: none;*/
-  visibility: hidden;
+ // visibility: hidden;
   @include transition(visibility 1s ease-in-out);
   width: 440px;
   min-height: 450px;
   /*transition: width 1s ease-in-out;*/
-  top: 80px;
-  position: fixed;
-  bottom: 55px;
-  left: 80px;
   border: 1px solid $colorEighteen;
   &.active{
     /*display: block;*/
@@ -347,14 +343,10 @@
 #viewerContainer {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  position: fixed;
-  top: 0px;
-  right: 0;
-  bottom: 55px;
-  left: 0;
+  min-width: 100%;
   text-align: center;
   outline: none;
-  @include transition(left 1s ease-in-out);
+  @include transition(left 2s ease-in-out);
 }
 .toolbar {
   position: fixed;

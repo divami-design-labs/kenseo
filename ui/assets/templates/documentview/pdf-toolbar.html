@@ -106,12 +106,12 @@
             </div>
         </div>
     </div>
-    <%= sb.setTemplate('comments-viewer') %>
+    <div class="slider-container"></div>
     <div id="viewerContainer" class="parent viewerContainer" tabindex="0">
         <div class="annotate-wrapper">
             <% if(data.isPdf) { %>
             <div id="viewer" class="pdfViewer"></div>
-            <% } else { %> 
+            <% } else { %>
             <img class="image-viewer" src="<%= sb.getRelativePath(data.documentPath) %>"/>
             <% } %>
         </div>
@@ -167,7 +167,7 @@
         <textarea id="errorMoreInfo" hidden='true' readonly="readonly"></textarea>
     </div>
     <div class="dv-toolbox">
-        <div class="dvt-item document-info-icon overlay-click" data-url="summary" title="Document summary">
+        <div class="dvt-item document-info-icon slider-click" data-url="document-summary" title="Document summary">
             <svg><use xlink:href="#document-info"></use></svg>
         </div>
         <div class="dvt-item html-click add-comment-icon <% if(!data.isPdf){ %> hide <% } %>" data-value="rectangle" title="Add comment" data-html-outside-click="false">
@@ -176,7 +176,7 @@
         <div class="dvt-item html-click toggle-annotations-icon <% if(!data.isPdf){ %> hide <% } %>" title="Toggle Comment view" data-html-outside-click="false">
             <svg><use xlink:href="#toggle-annotations"></use></svg>
         </div>
-        <div class="dvt-item hide comment-summary-icon<% if(!data.isPdf){ %> hide <% } %>" title="Comment summary">
+        <div class="dvt-item comment-summary-icon slider-click<% if(!data.isPdf){ %> hide <% } %>" data-url="comment-summary" title="Comment summary">
             <svg><use xlink:href="#comment-summary"></use></svg>
         </div>
         <div class="dvt-item share-artefact-icon popup-click" data-url="share-artefact" data-index="3" title="Share this artefact">

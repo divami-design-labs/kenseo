@@ -174,6 +174,7 @@ sb.loadFiles({
         'js/app/sandbox/sandbox.popup.js',
         'js/app/sandbox/sandbox.router.js',
         'js/app/sandbox/sandbox.overlay.js',
+        'js/app/sandbox/sandbox.slider.js',
         'js/app/sandbox/sandbox.refresh.js',
         'js/app/sandbox/sandbox.postcall.js',
         'js/app/sandbox/sandbox.meeting.js',
@@ -184,6 +185,7 @@ sb.loadFiles({
         // 'js/app/config/params.js',
         'js/app/config/i18n.js',
         'js/app/config/popups.js',
+        'js/app/config/slider.js',
         'js/app/config/overlays.js',
 
         'templates.js',

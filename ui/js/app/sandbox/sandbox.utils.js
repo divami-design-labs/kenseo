@@ -217,6 +217,9 @@ var sb = _.extend(sb, (function () {
         getOverlaysInfo: function getOverlaysInfo(info) {
             return Kenseo.overlays.getOverlaysInfo(info);
         },
+        getSlidersInfo: function getSlidersInfo(info) {
+            return Kenseo.sliders.getSlidersInfo(info);
+        },
         //unused function
         getDynamicData: function getDynamicData(str, id) {
             var key = Kenseo.data[str];
@@ -376,7 +379,11 @@ var sb = _.extend(sb, (function () {
 
             var $self = $(el);
             var index = $self.data('index') || 0;
-            $('.popup-container').show();
+            if(str != 'Slider'){
+                $('.popup-container').show();
+            }else{
+                $('.slider-container').show();
+            }
             var actionType = $self.data('url');
             // get other settings like populating the fields by default
             var otherSettings = $self.data('others') || "";
@@ -589,6 +596,14 @@ var sb = _.extend(sb, (function () {
                     info.callbackfunc();
                 }
             }
+        },
+        callSlider: function callSlider(index) {
+                var info = Kenseo.popup.info[index];
+                 if (info.callbackfunc) {
+                    info.callbackfunc(Kenseo.popup.data.actionType);
+                }
+            // }
+
         },
         toolbox: {
             //common functionality for rendering textbox
