@@ -278,6 +278,11 @@
 
 .outerContainer.inView {
 	display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 #sidebarContainer {
@@ -342,6 +347,8 @@
 }
 #viewerContainer {
   overflow: auto;
+  position: relative;
+  z-index: 1;
   -webkit-overflow-scrolling: touch;
   min-width: 100%;
   text-align: center;

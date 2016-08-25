@@ -243,9 +243,10 @@
 	float: left;
 }
 .current-artefact-info{
-	position: absolute;
+	position: fixed;
 	left: 0;
-	bottom: 0;
+	bottom: 55px !important;
+	z-index: 3;
 	// height: 35px;
 	display: flex;
 	align-items: center;

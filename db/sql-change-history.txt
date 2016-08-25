@@ -15,3 +15,5 @@ ALTER TABLE `projects` CHANGE `intro_image_url` `intro_image_url` LONGTEXT CHARA
 -- 19th August 2016
 
 ALTER TABLE `users` ADD `user_access_type` CHAR(1) NOT NULL DEFAULT 'O' COMMENT 'A - Super Admin, E - Employee, O - Other users eg. clients or outsiders' AFTER `profile_pic_url`;
+
+ALTER TABLE `artefact_comments` ADD `is_submitted` INT(1) NOT NULL DEFAULT '0' COMMENT '0 - not submitted, 1 - submitted' AFTER `description`;

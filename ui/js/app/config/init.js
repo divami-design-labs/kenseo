@@ -23,17 +23,17 @@ var Kenseo = {
         }
     },
     init: function init() {
-        /*sb.ajaxCall({
-            'url': 'settings.json',
-            excludeDump: true,
-            processData: false,
-            'success': function(response){
-                Kenseo.settings = response.settings;
-                sb.viewPortSwitch(function () {
-                    var router = new Router();
-                });
-            }
-        });*/
+        // sb.ajaxCall({
+        //     'url': 'settings.json',
+        //     excludeDump: true,
+        //     processData: false,
+        //     'success': function(response){
+        //         Kenseo.settings = response.settings;
+        //         sb.viewPortSwitch(function () {
+        //             var router = new Router();
+        //         });
+        //     }
+        // });
         $.ajax({
             "url": "settings.json",
             "type": "GET",

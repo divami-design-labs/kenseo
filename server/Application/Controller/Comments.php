@@ -118,16 +118,21 @@
 			return $result;
 		}
 
-		public static function getThreadComments($db, $artefactVerId, $commentThreads) {
+		// @TODO: the below function is made static to access from other classes.  Not sure whether this is the right thing.
+		public static function getThreadComments($db, $data, $commentThreads) {
 			// Create threads object
 			$commentThreadsData = new stdClass();
+			if($data){
+				$artefactVerId 	= $data->artefactVerId;
+				$userId 		= $data->userId;
 
-			if($artefactVerId) {
-				$queryParams = array('artefactVerId' => $artefactVerId);
+				if($artefactVerId) {
+					$queryParams = array('artefactVerId' => $artefactVerId, 'userid' => $userId);
 
-				// Get all comment threads of artefact version id
-				$commentThreadQuery = getQuery('getArtefactCommentThreads', $queryParams);
-				$commentThreads = $db->multiObjectQuery($commentThreadQuery);
+					// Get all comment threads of artefact version id
+					$commentThreadQuery = getQuery('getArtefactCommentThreads', $queryParams);
+					$commentThreads = $db->multiObjectQuery($commentThreadQuery);
+				}
 			}
 
 			// Generate an array of comment thread ids

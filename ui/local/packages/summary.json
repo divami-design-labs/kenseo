@@ -5,7 +5,7 @@
 			"title" : "Conflux:Mapping Editor Doc",
 			"version" : 3,
 			"commetCount" : 122,
-			"status" : 'c',
+			"status" : "c",
 			"createdBy" : "Prakash",
 			"creatorId" : 4,
 			"reatorPic" : "url"
@@ -17,7 +17,7 @@
 			"profilePic" : "url",
 			"permission" : "S",
 			"commentcount" : 10,
-			"state" : 'c'
+			"state" : "c"
 		},{
 			"id" : 1,
 			"name" : "Vasu",
@@ -25,7 +25,7 @@
 			"profilePic" : "url",
 			"permission" : "C",
 			"commentCount" : 19,
-			"State" : 'c'
+			"State" : "c"
 		}],
 		"versions" : [{
 			"title" : "Conflux:Mapping Editor Doc",
@@ -59,7 +59,7 @@
 			"name": "name"
 		}],
 		"timeline" : [{
-		
+
 		}]
 	}
 }

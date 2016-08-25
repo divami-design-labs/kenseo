@@ -1360,8 +1360,11 @@
 
 			// Get comments of current artefact version Id
 			if($data->withComments) {
+				$resObj = new stdClass();
+				$resObj->artefactVerId 	= $artefactVerId;
+				$resObj->userId 		= $userId;
 				// Get all comments based on generated comment thread ids
-				$artefactObj->threads = Comments::getThreadComments($db, $artefactVerId);
+				$artefactObj->threads = Comments::getThreadComments($db, $resObj);
 			}
 
 			return $artefactObj;

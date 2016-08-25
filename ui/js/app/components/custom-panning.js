@@ -118,6 +118,9 @@ function setPanningDimensions() {
 
 
     var imgOffset = $img.offset();
+    if(!imgOffset){
+        return false;
+    }
     var imgWrapperOffset = $imgWrapper.offset();
     var panOffset = $panImg.offset();
 
