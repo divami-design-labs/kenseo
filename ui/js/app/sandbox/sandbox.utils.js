@@ -140,6 +140,36 @@ var sb = _.extend(sb, (function () {
             // No match found
             return false;
         },
+        getUrlParams: function(str){
+            var startIndexOfParam = str.lastIndexOf("?");
+            var url = str.substring(0, startIndexOfParam === -1? str.length : startIndexOfParam);
+            var data = {};
+            if(startIndexOfParam > -1){
+                var params = str.substr(startIndexOfParam + 1);
+                data = this.getParams(params);
+            }
+            return {
+                url: url,
+                data: data
+            };
+        },
+        getParams: function(params, delimiter, encoded){
+            delimiter = delimiter || ",";
+            var data = {};
+            var paramTokens = params.split(delimiter);
+            // Initializing object to store the params
+            for(var i = 0, plen = paramTokens.length; i < plen; i++){
+                var param = paramTokens[i];
+                var paramToken = param.split("=");
+                if(encoded){
+                    data[paramToken[0]] = decodeURIComponent(paramToken[1]).split("+").join(" ");
+                }
+                else{
+                    data[paramToken[0]] = paramToken[1];
+                }
+            }
+            return data;
+        },
         //unused funtion
         // renderXTemplate: function renderXTemplate(_this, payload) {
         //     // debugger;
@@ -384,7 +414,11 @@ var sb = _.extend(sb, (function () {
             }else{
                 $('.slider-container').show();
             }
-            var actionType = $self.data('url');
+            var urlParams = sb.getUrlParams($self.data('url'));
+            var actionType = urlParams.url;
+            // merging two objects
+            Kenseo.popup.data = _.extend(Kenseo.popup.data, urlParams.data);
+
             // get other settings like populating the fields by default
             var otherSettings = $self.data('others') || "";
             // Activate settings for the current rendering

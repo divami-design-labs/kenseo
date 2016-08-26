@@ -1289,19 +1289,27 @@
 
 		public function shareForTeam($artId, $artVerId, $team, $sharedBy) {
 			$db = Master::getDBConnectionManager();
-			$team = is_array($team)? $team: json_decode($team);
+			$db->beginTransaction();
+			try{
+				$team = is_array($team)? $team: json_decode($team);
 
-			$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
-			$shareRowValues = array();
-			for($i=0, $iLen=count($team); $i<$iLen; $i++) {
-				$shareRowValues[] = array($artVerId, $artId, $team[$i]->user_id, $team[$i]->access_type , date("Y-m-d H:i:s"), $sharedBy);
+				$shareColumnNames = array("artefact_ver_id", "artefact_id", "user_id", "access_type", "shared_date", "shared_by");
+				$shareRowValues = array();
+				for($i=0, $iLen=count($team); $i<$iLen; $i++) {
+					$shareRowValues[] = array($artVerId, $artId, $team[$i]->user_id, $team[$i]->access_type , date("Y-m-d H:i:s"), $sharedBy);
+				}
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "shareForTeam");
+				// Insert or replace all shared members of this artefact.
+				$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
+
+				// Update artefact version as shared.
+				$db->updateTable(TABLE_ARTEFACTS_VERSIONS, array('shared'), array(1), "artefact_ver_id = $artVerId");
+				$db->commitTransaction();
 			}
-
-			// Insert or replace all shared members of this artefact.
-			$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
-
-			// Update artefact version as shared.
-			$db->updateTable(TABLE_ARTEFACTS_VERSIONS, array('shared'), array(1), "artefact_ver_id = $artVerId");
+			catch(Exception $e){
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "ERROR: share for team");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
+			}
 		}
 
 		public function shareArtefact($interpreter) {
@@ -1310,12 +1318,25 @@
 			// $artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
 			// $artId = $data->id;
 			$artefactAndVersionIds = $data->{'ids'};
+
+			// if multiple artefact version ids' are not mentioned 
+			// then safely we can assume only one artefact version id is being passed
+			if(!$artefactAndVersionIds){
+				$artefactAndVersionIds = array();
+				$artefactVersionIdHolder = new stdClass();
+				$artefactVersionIdHolder->{'artefact_version_id'} = $data->artefact_ver_id;
+				$artefactVersionIdHolder->{'artefact_id'} = $data->id;
+
+				$artefactAndVersionIds[] = $artefactVersionIdHolder;
+			}
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "share artefact version id");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $artefactAndVersionIds);
 			$length = count($artefactAndVersionIds);
 			$userId = $interpreter->getUser()->user_id;
 			for($i=0; $i<$length; $i++){
 				$artId = $artefactAndVersionIds[$i]->artefact_id;
 				$artVerId = $artefactAndVersionIds[$i]->artefact_version_id;
-				$this->shareForTeam($artId, $artVerId,$info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
+				$this->shareForTeam($artId, $artVerId, $info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
 			}
 			$resultMessage = new stdClass();
 			$resultMessage->messages = new stdClass();
@@ -1334,7 +1355,7 @@
 			$db = Master::getDBConnectionManager();
 
 			// Get current artefact version details
-			$queryParams = array('maskedArtefactVersionId' => $maskedArtefactVersionId);
+			$queryParams = array('maskedArtefactVersionId' => $maskedArtefactVersionId, "userid" => $userId);
 			$detailsQuery = getQuery('getArtefactDetails', $queryParams);
 			$artefactObj = $db->singleObjectQuery($detailsQuery);
 			$artefactVerId = $artefactObj->artefact_ver_id;
@@ -1543,6 +1564,56 @@
 				'teamMembers' => $sharedMembers,
 				'docType' => $docType
 			);
+
+			return $result;
+		}
+
+		public function submitArtefact($interpreter){
+			$result = new stdClass();
+			$result->messages = new stdClass();
+			$data = $interpreter->getData()->data;
+
+			// needed params
+			// @artefact version id
+			// @user id
+			// 
+			// prepare params
+			$userId 			= $interpreter->getUser()->user_id;
+			$artefactVersionId 	= $data->artefactVersionId;
+			//
+			$db 	= Master::getDBConnectionManager();
+			$db->beginTransaction();
+
+			try {
+				// get owner of the aretefact
+				$artefactVersionInfo = $db->singleObjectQuery(getQuery('getArtefactVersionInfo', array(
+					"artefactversionid" => $artefactVersionId
+				)));
+
+				$db->multiObjectQuery(getQuery('submitComments', array(
+					"userid"			=> $userId,
+					"artefactversionid"	=> $artefactVersionId
+				)));
+
+				$db->commitTransaction();
+
+				// @TODO
+				//=> send mail to the artefact owner
+				// $mailData = 
+				// $this->submitArtefactMail($mailData);
+				// get artefact owner information
+				$result->messages->type = "success";
+				$result->messages->message = "Successfully submitted the artefact";
+				$result->messages->icon = "success";
+			}
+			catch (Exception $e) {
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "submit artefact");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
+				$db->abortTransaction();
+				$result->messages->type = "error";
+				$result->messages->message = "Failed to submit the artefact";
+				$result->messages->icon = "error";
+			}
 
 			return $result;
 		}

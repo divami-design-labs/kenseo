@@ -29,7 +29,8 @@
 .slider-container{
 	// padding-left: 80px;
 	// padding-top: : 80px;
-	 transition: transform 1s,margin 1s;
+	 transition: transform .5s,margin .5s;
+	 transition-timing-function: linear;
 }
 .secondary-status-rr{
 	padding: 10px;

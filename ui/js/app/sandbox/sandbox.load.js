@@ -202,7 +202,8 @@ sb.loadFiles({
     modules: [
         'Header', 'Artefacts', 'Activities',
         'Projects', 'Notifications', 'People',
-        'Search', 'Tags', 'DocumentView'
+        'Search', 'Tags', 'DocumentView', 
+        'Comments', 'Threads'
     ]
 }, function(){
     Kenseo.init();

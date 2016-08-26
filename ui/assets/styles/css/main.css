@@ -3318,10 +3318,12 @@ input:disabled {
 }
 
 .slider-container {
-  -webkit-transition: margin 1s,-webkit-transform 1s;
-  transition: margin 1s,-webkit-transform 1s;
-  transition: transform 1s,margin 1s;
-  transition: transform 1s,margin 1s,-webkit-transform 1s;
+  -webkit-transition: margin .5s,-webkit-transform .5s;
+  transition: margin .5s,-webkit-transform .5s;
+  transition: transform .5s,margin .5s;
+  transition: transform .5s,margin .5s,-webkit-transform .5s;
+  -webkit-transition-timing-function: linear;
+          transition-timing-function: linear;
 }
 
 .secondary-status-rr {
@@ -4684,9 +4686,10 @@ a {
 }
 
 .current-artefact-info {
-  position: absolute;
+  position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: 55px !important;
+  z-index: 3;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5145,6 +5148,11 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 #sidebarContainer {
@@ -5213,6 +5221,8 @@ a {
 
 #viewerContainer {
   overflow: auto;
+  position: relative;
+  z-index: 1;
   -webkit-overflow-scrolling: touch;
   min-width: 100%;
   text-align: center;

@@ -18,7 +18,7 @@
         "documentview": [
             "right-slider","left-slider","file-tab", "img-tab", "tab-close", "close", "previous-page-icon", "next-page-icon",
             "document-info", "add-comment", "toggle-annotations", "share-artefact", "submit-review",
-            "more-menu", "up-drpdwn", "v_open", "v_compare", "severity-drpdwn-icn", "zoom-in", "zoom-out"
+            "more-menu", "up-drpdwn", "v_open", "v_compare", "severity-drpdwn-icn", "zoom-in", "zoom-out", "comment-summary"
         ],
         "persona":      ["add", "close"]
     }

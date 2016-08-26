@@ -451,19 +451,35 @@ Kenseo.popups = (function(){
       ],
       "removePeople": [{
       	"page_name": "message",
-  			"title": "Confirmation",
-  			"message": function() {
-  				return "Do you want to remove this person?";
-  			},
+		"title": "Confirmation",
+		"message": function() {
+			return "Do you want to remove this person?";
+		},
       	"buttons": [{
-          	"label": "Yes",
-          	"cls": "main-btn ok-btn",
-          },{
-          	"label": "No",
-          	"cls": "main-btn cancel-btn"
-          }],
-          "callbackfunc": sb.popup.removePeople
-      }]
+			"label": "Yes",
+			"cls": "main-btn ok-btn",
+		},{
+			"label": "No",
+			"cls": "main-btn cancel-btn"
+		}],
+		"callbackfunc": sb.popup.removePeople
+      }],
+	  "submit-artefact": [
+			{
+				"page_name": "message",
+				"title": "Confirmation",
+				"message": function() {
+					return "Do you want to submit this artefact?";
+				},
+				"buttons": [{
+					"label": "Yes",
+					"cls": "main-btn done-btn",
+				},{
+					"label": "No",
+					"cls": "main-btn cancel-btn"
+				}]
+			}
+	  ]
 	};
 
 	return {

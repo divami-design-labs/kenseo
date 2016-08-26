@@ -78,6 +78,9 @@ sb.postcall = (function(){
 			 return ids;
 
 		},
+		"get-project-id": function($el){
+			return $el.prop('data-k-project_id');
+		},
     'coverImage' : function($el) {
 			var dimensions = setPanningDimensions();
 			return dimensions;
@@ -122,10 +125,12 @@ sb.postcall = (function(){
 				// Get the type of functionality/implementation to be done to fetch the attached data
 				var type = $field.attr('data-xtype');
 				var typeKey = $field.attr('data-xtype-key') || type; // Applying provided xtype as key when no key is provided
-				var typeTokens = type.split(",");
-				var typeKeyTokens = typeKey.split(",");
-				for(var i = 0, ilen = typeTokens.length; i < ilen; i++){
-					getKeys($field, typeTokens[i], typeKeyTokens[i]);
+				if(type){
+					var typeTokens = type.split(",");
+					var typeKeyTokens = typeKey.split(",");
+					for(var j = 0, jlen = typeTokens.length; j < jlen; j++){
+						getKeys($field, typeTokens[j], typeKeyTokens[j]);
+					}
 				}
 			}
 

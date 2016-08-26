@@ -505,7 +505,7 @@ $AppGlobal['sql']['getAllPeopleSpecificToAProject'] = "SELECT
 														FROM
 															users AS users";
 
-$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, proj.project_id as projId, arts.artefact_title as artTitle, vers.artefact_ver_id, vers.masked_artefact_version_id, arts.artefact_id as artefactId, arts.description as description,vers.version_no as versionCount
+$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, proj.project_id as projId, arts.artefact_title as artTitle, vers.artefact_ver_id, vers.masked_artefact_version_id, arts.artefact_id as artefactId, arts.description as description,vers.version_no as versionCount, IF(vers.created_by = @~~userid~~@, 1, 0) as is_owner
 											FROM " . TABLE_ARTEFACTS . " AS arts
 											JOIN " . TABLE_PROJECTS . " AS proj ON
 											proj.project_id = arts.project_id
@@ -599,8 +599,25 @@ $AppGlobal['sql']['getUserOrganizationId'] = "SELECT org_id FROM " . TABLE_USERS
 $AppGlobal['sql']['getProjectOrganizationId'] = "SELECT org_id FROM " . TABLE_PROJECTS . " WHERE project_id = @~~project_id~~@";
 
 // Get comment threads from artefact version
-$AppGlobal['sql']['getArtefactCommentThreads'] = "SELECT comment_thread_id, posx, posy, page_no, severity, category, is_private, state FROM " . TABLE_COMMENT_THREADS .
-													" WHERE artefact_ver_id = @~~artefactVerId~~@";
+$AppGlobal['sql']['getArtefactCommentThreads'] = "SELECT
+														comment_thread_id,
+														posx,
+														posy, 
+														page_no,
+														severity,
+														category,
+														is_private,
+														t1.state
+													FROM
+														" . TABLE_COMMENT_THREADS . " t1
+													JOIN artefact_versions t2 ON t2.artefact_ver_id = t1.artefact_ver_id
+													WHERE
+														t1.artefact_ver_id = @~~artefactVerId~~@
+														AND (
+															is_private = 0
+															OR comment_thread_by = @~~userid~~@
+													        OR t2.created_by = @~~userid~~@
+														)";
 
 // Get comments from comment thread ids
 $AppGlobal['sql']['getComments'] = "SELECT comment_id, comment_thread_id, u.name as user, created_at as time, description FROM ". TABLE_COMMENTS .
@@ -649,6 +666,12 @@ $AppGlobal['sql']['getArtefactSharedMembers'] = "SELECT u.user_id AS id, u.name,
 $AppGlobal['sql']['getArtefactType'] = "SELECT artefact_type FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
 
 $AppGlobal['sql']['getUserIdFromEmail'] = "SELECT user_id, email FROM " . TABLE_USERS . " WHERE email = @~~email~~@";
+
+$AppGlobal['sql']['submitComments'] = "UPDATE artefact_comments t1
+JOIN artefact_comment_threads t2 ON t1.comment_thread_id = t2.comment_thread_id
+SET t1.is_submitted = 1
+WHERE t2.artefact_ver_id = @~~artefactversionid~~@ AND t1.comment_by = @~~userid~~@";
+
 
 
 /** Mail activities **/
