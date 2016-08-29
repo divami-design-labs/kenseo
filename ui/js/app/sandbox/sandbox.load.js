@@ -163,6 +163,9 @@ sb.loadFiles({
         'js/libs/backbone.js',
         'js/libs/cookie.js',
         'js/libs/zebra_datepicker.src.js',
+        'js/libs/moment.js',
+        'js/libs/jquery.daterangepicker.js',
+
         'js/libs/pdfjs/pdf.js',
         'js/libs/pdfjs/pdf.worker.js',
         'js/libs/pdfjs/viewer.js',
@@ -197,6 +200,7 @@ sb.loadFiles({
         'js/app/components/annotator.js',
         'js/app/components/persona-builder.js',
         'js/app/components/sliderComponent.js',
+        'js/app/components/filter.js',
         'js/app/components/custom-panning.js'
     ],
     modules: [

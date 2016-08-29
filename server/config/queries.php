@@ -563,7 +563,7 @@ $AppGlobal['sql']['getArtefactSharedMembersList'] = "SELECT DISTINCT user.user_i
 													WHERE membs.artefact_id =
 													(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@) and user.user_id!=@~~userId~~@";
 
-$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title, vers.version_no as versionNo, user.name as authorName, user.profile_pic_url as authorImage,
+$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title, arts.project_id as projectId,vers.version_no as versionNo,vers.artefact_ver_id as versionId, user.name as authorName, user.profile_pic_url as authorImage,
 											(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
 											WHERE
 											thread.artefact_ver_id IN (select artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = @~~maskedVerId~~@)) as comment_count, vers.state as status
@@ -631,7 +631,15 @@ $AppGlobal['sql']['getArtefactCommentThread'] = "SELECT comment_thread_id, posx,
 $AppGlobal['sql']['getCommentThread'] = "SELECT * FROM " . TABLE_COMMENT_THREADS . " t inner join " . TABLE_ARTEFACTS_VERSIONS .
 											" v on t.artefact_ver_id = v.artefact_ver_id where t.artefact_ver_id = @~~artefactVerId~~@ AND t.comment_thread_id = @~~commentThreadId~~@";
 
-
+$AppGlobal['sql']['getCommentSummary'] = "SELECT ct.comment_thread_id as commentThreadId,ct.category as category,ct.severity as severity,
+										     ct.state as commentState,c.created_at as date ,c.description as description ,u.name as user ,u.profile_pic_url as profilePic
+											 FROM artefact_comment_threads ct
+											 JOIN artefact_comments c ON ct.comment_thread_id = c.comment_thread_id
+											 JOIN users u ON ct.comment_thread_by = u.user_id
+											 WHERE artefact_ver_id = @~~versionId~~@";
+$AppGlobal['sql']['getCommentedMembers'] = "SELECT DISTINCT u.name FROM artefact_comment_threads ct
+											JOIN users u ON ct.comment_thread_by = u.user_id
+											 WHERE artefact_ver_id = @~~versionId~~@";
 // Get users from emails
 $AppGlobal['sql']['getUserIdsFromEmails'] = "SELECT user_id FROM " . TABLE_USERS . " WHERE email in (@~~emailIds~~@)";
 

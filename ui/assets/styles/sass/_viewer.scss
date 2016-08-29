@@ -317,6 +317,7 @@
 }
 .comments-viewer-header{
   @extend .popup-header;
+  height: 50px;
 }
 #sidebarContent {
   top: 32px;

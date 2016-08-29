@@ -24,7 +24,7 @@
 	height: 100%;
 	//left: 80px;
 	padding-left: 80px;
-	top: 80px;
+	top: 25px;
 	}
 .slider-container{
 	// padding-left: 80px;
@@ -377,31 +377,117 @@
 	max-height: 40px;
 	overflow: hidden;
 }
+.filter-icon{
+	position: absolute;
+	width: 45px;
+	height: 50px;
+	top: 1px;
+	right: -1px;
+	.filter-list-dropdown{
+		width: 22px;
+		height: 22px;
+		position: absolute;
+		top: 17px;
+		right: 12px
+	}
+	&.enable-filter-list{
+		background-color: #e8e8e9;
+	}
+}
+.comments-view-filter-section{
+	position: absolute;
+	background: #e8e8e9;
+	display: none;
+	width: 420px;
+	top: 50px;
+	//white-space: nowrap;
+	right: 0;
+	.apply-filter-btn{
+		margin-top: 30px;
+	    margin-bottom: 20px;
+	    float: right;
+	    margin-right: 20px;
+		.main-btn{
+			border: none;
+		}
+	}
+	.field-section{
+		float: none;
+	}
 
+}
+.enable-filter-list{
+	.comments-view-filter-section{
+		display: block;
+	}
+}
 .filter-checkboxes{
-	display: table-cell;
-	padding: 15px;
+	//display: table-cell;
+	padding-left: 20px;
+	padding-top: 20px;
 	.filter-checkboxes-heading{
 		margin-bottom: 10px;
 	}
-	.field-section + .field-section{
-		margin-top: 5px;
+	.field-section {
+		float: left;
+		clear: none;
+		width: 126px;
+		padding-bottom: 10px;
+	}
+	& ~ .filter-checkboxes{
+		padding-top: 10px;
+	}
+	.field-section ~ .field-section{
+		padding-top: 0px;
+	}
+	.checkbox:after{
+		background-color: white;
+	}
+	span:after{
+		z-index: 1;
 	}
 }
 .filter-checkboxes-heading{
 	@include text(16px, $color7);
 	font-family: $semiBoldFont;
 }
-.comments-view-filter-section{
-	position: relative;
-	padding-bottom: 70px;
+.filter-checkboxes-content{
+	overflow: auto;
+}
+.comment-members-list{
+	padding-left: 20px;
+	padding-top: 10px;
+	.input-label,.comment-dates-heading{
+		font-size: 16px;
+		color: #464c5f;
+		font-family: "OpenSansSemibold";
+	}
+}
+.comment-dates{
+	padding-top: 10px;
+	padding-left: 20px;
+	overflow: auto;
+	.comment-dates-heading{
+		padding-bottom: 10px;
+	}
+	.input-wrapper{
+		width: 350px;
+	}
+}
+.input-comments-date{
+	width: 220px;
+	height: 30px;
+}
+.comment-members{
+	& ~ .chosen-container{
+		.chosen-choices,.chosen-drop{
+			width: 350px;
+		}
+
+	}
 }
 .cv-comments-section{
-	position: absolute;
-	left: 80px;
-	right: 0;
-	bottom: 0;
-	top: 345px;
+	padding-top: 25px;
 	overflow: auto;
 	padding-left: 20px;
 }

@@ -168,5 +168,33 @@
 
 			return $commentThreadsData;
 		}
+		public function getCommentSummary($interpreter) {
+			$data = $interpreter->getData()->data;
+			$maskedVerId = $data->maskedVerId;
+
+			//get the basic details of the artefact based on the artefact version.
+			$db = Master::getDBConnectionManager();
+			$queryParams = array('maskedVerId' => $maskedVerId, userId=>$userId);
+
+			$basicDetailsQuery = getQuery('artefactBasicDetails', $queryParams);
+			$basicDetails = $db->singleObjectQuery($basicDetailsQuery);
+
+			$versionId = $basicDetails->versionId;
+			$queryParams = array('versionId' => $versionId);
+			$commentDetailsQuery = getQuery('getCommentSummary', $queryParams);
+			$commentDetails = $db->multiObjectQuery($commentDetailsQuery);
+
+
+			$dbQuery = getQuery('getCommentedMembers',$queryParams);
+
+			$commentMembers = $db->multiObjectQuery($dbQuery);
+			$resultObj = array(
+				commentDetails => $commentDetails,
+				commentMembers => $commentMembers
+			);
+
+			return $resultObj;
+		}
+
 	}
 ?>

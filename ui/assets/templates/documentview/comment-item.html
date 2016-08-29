@@ -1,14 +1,17 @@
-<% var data = arguments[0] %>
 <div class="cv-comments-item">
 	<div class="cv-main-person">
 		<div class="cv-person-left">
-			<svg class="profile-image-comment"><use xlink:href="#avatar"></use></svg>
+			<% if(data.profilePic && data.profilePic !== "assets/imgs/avatar.svg"){ %>
+				<img class="profile-image-black" src="<%= data.profilePic %>"/>
+			<% } else { %>
+				<svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>
+			<% } %>
 		</div>
 		<div class="cv-person-right">
 			<div class="cv-person-right-top">
 				<div class="cv-person-name-holder">
 					<span class="cv-person-name"><%= data.user %></span>
-					<span class="cv-person-time"><%= sb.timeFormat(data.time) %></span>
+
 				</div>
 				<% if(data.metaInfo){ %>
 				<div class="cv-person-meta">
