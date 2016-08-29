@@ -4217,7 +4217,7 @@ input[type="text"].xm {
   position: absolute;
   left: 16px;
   top: 8px;
-  z-index: 1;
+  z-index: 2;
   /*background-image: url("../../imgs/severity-drpdwn-icn.svg");
     background-size: contain;
     background-repeat: no-repeat;*/
@@ -6629,9 +6629,17 @@ select {
   margin-left: 8px;
 }
 
+.drpdwn--category {
+  z-index: 1;
+}
+
 .drpdwn--category .drpdwn-selected-text {
   color: #e18502;
   font-size: 14px;
+}
+
+.drpdwn--status {
+  z-index: 1;
 }
 
 .drpdwn--status .drpdwn-selected-text {
@@ -6647,6 +6655,40 @@ select {
 
 img.image-viewer {
   padding: 90px 0px;
+}
+
+.cv-person-right-top {
+  position: relative;
+}
+
+.cv-comments-item:hover .cv-comment-actions {
+  visibility: visible;
+}
+
+.cv-comment-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+  -webkit-transform: translate(0, 50%);
+          transform: translate(0, 50%);
+  width: 40px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.cv-comment-edit, .cv-comment-delete {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  fill: #ccc;
+}
+
+.cv-comment-edit:hover, .cv-comment-delete:hover {
+  fill: #333;
 }
 
 .messages-wrapper {

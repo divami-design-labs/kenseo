@@ -136,12 +136,14 @@
     margin-left: 8px;
 }
 .drpdwn--category{
+    z-index: 1;
     .drpdwn-selected-text{
         color: #e18502;
         font-size: 14px;
     }
 }
 .drpdwn--status{
+    z-index: 1;
     .drpdwn-selected-text{
         color: #3e4354;
         font-size: 14px;
@@ -157,4 +159,36 @@
 }
 img.image-viewer {
     padding: 90px 0px;
+}
+
+.cv-person-right-top{
+    position: relative;
+}
+
+.cv-comments-item{
+    &:hover{
+        .cv-comment-actions{
+            visibility: visible;
+        }
+    }
+}
+.cv-comment-actions{
+    display: flex;
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    bottom: 50%;
+    transform: translate(0, 50%);
+    width: 40px;
+    justify-content: space-around;
+}
+
+.cv-comment-edit, .cv-comment-delete{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    fill: #ccc;
+    &:hover{
+        fill: #333;
+    }
 }

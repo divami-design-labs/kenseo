@@ -46,7 +46,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
                 container: $('.outerContainer.inView').get(0),
                 targetId: data.versionId,
                 versionId: data.artefactId,
-
+                documentView: this
             });
 
             //now get the version details of this version and show shared details
@@ -67,7 +67,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
             // flag
             threads.noChangesDetected = true;
             sb.setCurrentDocumentData(data.versionId, threads);
-            annotator.init();
+            // annotator.init();
         }
         // Image viewer
         else if(data.type.indexOf('image') > -1){
@@ -84,6 +84,29 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         var parent = document.querySelector('.outerContainer.inView .viewerContainer.parent');
         _this.stickToBottom(parent);
     },
+    events: {
+        "click .new-textlayer": "handleDocumentLayerClick",
+        "click .dvt-item.toggle-annotations-icon": "handleToggleAnnotations"
+    },
+    handleToggleAnnotations: function(e){
+        var $self = $(e.currentTarget);
+        var $outerContainer = $self.parents('.outerContainer');
+        if($self.hasClass('active')){
+            $outerContainer.find('.shape').addClass('hide-comment-section');
+        }
+        else{
+            $outerContainer.find('.shape').removeClass('hide-comment-section');	
+        }
+    },
+    handleDocumentLayerClick: function(e){
+        var $self = $(e.currentTarget);
+        var $outerContainer = $self.parents('.outerContainer');
+        var $annotateIcon = $outerContainer.find('.dvt-item.add-comment-icon');
+        // Do annotate if the annotate icon is active
+        if($annotateIcon.hasClass('active')){
+            this.annotate(e);
+        }
+    },
     stickToBottom: function (parent) {
         var bar = parent.querySelector('.bar');
         var top = bar.offsetTop;
@@ -99,11 +122,86 @@ Kenseo.views.DocumentView = Backbone.View.extend({
       var rel = $el.find('.tab-item').attr('targetRel');
       $('.outerContainer[rel="pdf_' + rel + '"]').remove();
       $el.remove();
+    },
+    annotate: function(e){
+        var $target = $(e.target);
+        if(sb.hasInheritClass($target, ['comment-container', 'current-artefact-info'])){
+            // bringToFront();
+            var $currentCommentContainer = $target.hasClass('comment-container')? $target: $target.parents('.comment-container');
+            annotator.bringCommentToFront($currentCommentContainer);
+            return;
+        }
+        var $el = $(e.currentTarget);
+
+        var threadModel = new Kenseo.models.Thread({
+            isNewComment: true
+        });
+
+        var threadView = new Kenseo.views.Thread({
+            "e": e,
+            model: threadModel,
+            "version_id": annotator.getCurrentVersionId($el)
+        });
+
+        // add the model to collection
+        this.threadsCollection.add(threadModel);
+
+        threadView.render();
+    },
+    paintExistingAnnotations: function(currentContainerVersionID){
+        // Removing all the already painted comment sections
+        $('.comment-container.isStoredLocally').remove();
+        // Get the current container
+        // -- For now, assume the current container as "158"
+        // var currentContainerVersionID = 3;
+        var currentVersionIdData = sb.getCurrentDocumentData(currentContainerVersionID);
+        if(currentVersionIdData && currentVersionIdData.noChangesDetected){
+            // if data is present and not changed, don't call for ajax.. use the existing data
+            // insertCommentWrapper(currentContainerVersionID, currentVersionIdData);
+            // var threadsView = new Kenseo.views.Threads({
+            // 	currentArtefactId: currentContainerVersionID,
+            // 	model: new Kenseo.models.Threads(currentVersionIdData)
+            // });
+
+            this.threadsCollection = new Kenseo.collections.Threads(_.values(currentVersionIdData));
+
+            var threadsView = new Kenseo.views.Threads({
+                currentArtefactId: currentContainerVersionID,
+                collection: this.threadsCollection,
+                documentViewScope: this
+            });
+
+            threadsView.render();
+        }
+        else{
+            // get the calling url from paintPdf function
+            sb.ajaxCall({
+                url: sb.getRelativePath('getArtefactDetails'),
+                // flag to say not to store the response data in Kenseo.data global variable
+                excludeDump: true,
+                data: {
+                    artefactVersionId: Kenseo.data.artefact.id,
+                    withVersions: true,
+                    withComments: true
+                },
+                success: function(response){
+                    var data = response.data;
+                    // Store the current artefact version related data in a global variable
+                    var threads = data.threads;
+                    // flag
+                    threads.noChangesDetected = true;
+                    sb.setCurrentDocumentData(data.artefactId, threads);
+
+
+                    insertCommentWrapper(currentArtefactId, data);
+                }
+            });
+            // -- end of ajax call
+        }
     }
 });
 
 Kenseo.models.DocumentView = Backbone.Model.extend({
-    urlRoot: 'hey',
     defaults: {
 
     }

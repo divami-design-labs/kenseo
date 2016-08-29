@@ -132,6 +132,9 @@ $AppGlobal['urlmap']['/writeMeetingNotes'] = array ('command' => 'writeMeetingNo
 $AppGlobal['cmdmap']['getDocumentSummary'] = array ("class" => "Artefacts", "method" => "getDocumentSummary");
 $AppGlobal['urlmap']['/getDocumentSummary'] = array ('command' => 'getDocumentSummary', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['submitArtefact'] = array ("class" => "Artefacts", "method" => "submitArtefact");
+$AppGlobal['urlmap']['/submitArtefact'] = array ('command' => 'submitArtefact', 'type' => 'GET');
+
 // Document Comments Section
 $AppGlobal['cmdmap']['createComment'] = array ("class" => "Comments", "method" => "createComment");
 $AppGlobal['urlmap']['/createComment'] = array ('command' => 'createComment', 'type' => 'POST');

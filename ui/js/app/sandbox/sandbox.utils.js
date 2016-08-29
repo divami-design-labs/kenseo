@@ -639,6 +639,20 @@ var sb = _.extend(sb, (function () {
             // }
 
         },
+        fragmentFromString: function (strHTML) {
+            var range = document.createRange();
+            if(range.createContextualFragment){
+                // Doesn't work in Safari 9 and 9.1
+                return range.createContextualFragment(strHTML);
+            }
+            else{
+                // For Safari
+                // Link: http://stackoverflow.com/a/25214113/1577396
+                var temp = document.createElement('template');
+                temp.innerHTML = strHTML;
+                return temp.content;
+            }
+        },
         toolbox: {
             //common functionality for rendering textbox
             textBox: function textBox(data) {

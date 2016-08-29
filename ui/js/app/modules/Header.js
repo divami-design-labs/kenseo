@@ -14,15 +14,20 @@ Kenseo.views.Header = Backbone.View.extend({
     // },
     // Renders the view's template to the UI
     render: function render() {
-        sb.renderTemplate({ "templateName": "header", "templateHolder": $(".profile-pic-holder"), "model": this.model, "callbackfunc": this.headerAttachEvents.bind(this) });
+        sb.renderTemplate({ 
+            "templateName":     "header", 
+            "templateHolder":   $(".profile-pic-holder"), 
+            "model":            this.model, 
+            "callbackfunc":     this.headerAttachEvents.bind(this) 
+        });
         // Maintains chainability
         return this;
     },
     headerAttachEvents: function headerAttachEvents() {
-        $(".hamburger").on("click", this.menuClick);
-        $(".menu").on("click", this.stopMenuClick);
-        $(".search-icon").on("click", this.showSearchBox);
-        $(".popup-container").on("keyup", ".search-field", this.validateSearch);
+        $(".hamburger")         .on("click", this.menuClick);
+        $(".menu")              .on("click", this.stopMenuClick);
+        $(".search-icon")       .on("click", this.showSearchBox);
+        $(".popup-container")   .on("keyup", ".search-field", this.validateSearch);
     },
     menuClick: function menuClick(e) {
         if (!$(".menu").html().length) {

@@ -81,7 +81,10 @@ Kenseo.views.Activities = Backbone.View.extend({
                 parent: _this
             })
 
-            var $date = _this.templateHolder.find('.day-activity-label').eq(0).html().trim();
+            var $date = _this.templateHolder.find('.day-activity-label').eq(0).html();
+            if($date){
+                $date = $date.trim();
+            }
             $activityEntryTime = Kenseo.data.model.time;
             $activityTime = sb.timeFormat($activityEntryTime,true,true);
 

@@ -1,6 +1,6 @@
 <div class="popup popup-large k-form">
 	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
-	<div class="popup-body k-field" data-k-project_id = "<%if(Kenseo.popup.data.id){%> <%= Kenseo.popup.data.id %><%} else {%> <%= Kenseo.page.id %> <%}%>">
+	<div class="popup-body k-field" data-k-project_id="<%if(Kenseo.popup.data.id){%><%= Kenseo.popup.data.id %><%} else {%><%= Kenseo.page.id %><%}%>" data-xtype="get-project-id" data-xtype-key="project-id">
 		<div class="popup-body-wrapper">
 			<!--<div class="add-people-text-project">
 				Add People

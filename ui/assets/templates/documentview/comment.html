@@ -50,9 +50,7 @@
 	</div>
 	<div class="comment-section-body">
 		<div class="comment-sec-wrapper">
-			<% for(var key in data.comments){ %>
-			<%= sb.setTemplate('comment-item', {data: data.comments[key]}) %>
-			<% } %>
+			
 		</div>
 		<div class="write-comment-section">
 			<textarea class="write-comment" placeholder="Type your comment here"></textarea>

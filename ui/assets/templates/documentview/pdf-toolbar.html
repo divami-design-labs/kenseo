@@ -182,7 +182,7 @@
         <div class="dvt-item share-artefact-icon popup-click" data-url="share-artefact" data-index="3" title="Share this artefact">
             <svg><use xlink:href="#share-artefact"></use></svg>
         </div>
-        <div class="dvt-item submit-review-icon<% if(!data.isPdf){ %> hide <% } %>" title="Submit this document for review">
+        <div class="dvt-item submit-review-icon popup-click<% if(!data.isPdf){ %> hide <% } %>" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=<%= data.artefact_ver_id %>">
             <svg><use xlink:href="#submit-review"></use></svg>
         </div>
         <div class="dvt-item more-menu-icon" title="more options">
