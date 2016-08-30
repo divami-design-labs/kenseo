@@ -335,7 +335,7 @@
  // visibility: hidden;
   @include transition(visibility 1s ease-in-out);
   width: 440px;
-  min-height: 450px;
+  min-height: 650px;
   /*transition: width 1s ease-in-out;*/
   border: 1px solid $colorEighteen;
   &.active{

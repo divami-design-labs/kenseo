@@ -3801,17 +3801,85 @@ input:disabled {
   height: 18px;
 }
 
+.filter-icon {
+  position: absolute;
+  width: 45px;
+  height: 50px;
+  top: 1px;
+  right: -1px;
+}
+
+.filter-icon .filter-list-dropdown {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 17px;
+  right: 12px;
+}
+
+.filter-icon.enable-filter-list {
+  background-color: #e8e8e9;
+}
+
+.comments-view-filter-section {
+  position: absolute;
+  background: #e8e8e9;
+  display: none;
+  width: 420px;
+  top: 50px;
+  right: 0;
+  z-index: 1;
+}
+
+.comments-view-filter-section .apply-filter-btn {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  float: right;
+  margin-right: 20px;
+}
+
+.comments-view-filter-section .apply-filter-btn .main-btn {
+  border: none;
+}
+
+.comments-view-filter-section .field-section {
+  float: none;
+}
+
+.enable-filter-list .comments-view-filter-section {
+  display: block;
+}
+
 .filter-checkboxes {
-  display: table-cell;
-  padding: 15px;
+  padding-left: 20px;
+  padding-top: 20px;
 }
 
 .filter-checkboxes .filter-checkboxes-heading {
   margin-bottom: 10px;
 }
 
-.filter-checkboxes .field-section + .field-section {
-  margin-top: 5px;
+.filter-checkboxes .field-section {
+  float: left;
+  clear: none;
+  width: 126px;
+  padding-bottom: 10px;
+}
+
+.filter-checkboxes ~ .filter-checkboxes {
+  padding-top: 10px;
+}
+
+.filter-checkboxes .field-section ~ .field-section {
+  padding-top: 0px;
+}
+
+.filter-checkboxes .checkbox:after {
+  background-color: white;
+}
+
+.filter-checkboxes span:after {
+  z-index: 1;
 }
 
 .filter-checkboxes-heading {
@@ -3820,17 +3888,46 @@ input:disabled {
   font-family: "OpenSansSemibold";
 }
 
-.comments-view-filter-section {
-  position: relative;
-  padding-bottom: 70px;
+.filter-checkboxes-content {
+  overflow: auto;
+}
+
+.comment-members-list {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.comment-members-list .input-label, .comment-members-list .comment-dates-heading {
+  font-size: 16px;
+  color: #464c5f;
+  font-family: "OpenSansSemibold";
+}
+
+.comment-dates {
+  padding-top: 10px;
+  padding-left: 20px;
+  overflow: auto;
+}
+
+.comment-dates .comment-dates-heading {
+  padding-bottom: 10px;
+}
+
+.comment-dates .input-wrapper {
+  width: 350px;
+}
+
+.input-comments-date {
+  width: 220px;
+  height: 30px;
+}
+
+.comment-members ~ .chosen-container .chosen-choices, .comment-members ~ .chosen-container .chosen-drop {
+  width: 350px;
 }
 
 .cv-comments-section {
-  position: absolute;
-  left: 80px;
-  right: 0;
-  bottom: 0;
-  top: 345px;
+  padding-top: 25px;
   overflow: auto;
   padding-left: 20px;
 }
@@ -4776,7 +4873,7 @@ a {
   display: block;
 }
 
-.each-tab:hover .tab-item:not(.selectedTab) .imageTab {
+.each-tab:hover .tab-item:not(.selectedTab) .imageTab, .each-tab:hover .tab-item:not(.selectedTab) .fileTab {
   margin-top: 3px;
 }
 
@@ -5186,6 +5283,10 @@ a {
   background-color: #E8E8E9;
 }
 
+.comments-viewer-header {
+  height: 50px;
+}
+
 #sidebarContent {
   top: 32px;
   bottom: 0;
@@ -5205,7 +5306,7 @@ a {
   -o-transition: visibility 1s ease-in-out;
   -ms-transition: visibility 1s ease-in-out;
   width: 440px;
-  min-height: 450px;
+  min-height: 650px;
   /*transition: width 1s ease-in-out;*/
   border: 1px solid #DAD7D7;
 }

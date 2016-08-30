@@ -28,7 +28,7 @@ Kenseo.views.Comment = Backbone.View.extend({
     render: function(){
         var _this = this;
 
-        _this.$el.html(sb.setTemplate('comment-item', _this.model.toJSON()));
+        _this.$el.html(sb.setTemplate('comment-item', {data : _this.model.toJSON()}));
         return _this;
     },
     events: {

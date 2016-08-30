@@ -110,7 +110,7 @@ sb.sliders = {
 		var Dates = ($(".input-comments-date").val()).split(" to ");
 		var startDate = (new Date(Dates[0])).getTime();
 		var endDate = (new Date(Dates[1] + ' 23:59:59')).getTime();
-		var commentDate = (new Date(currentElement.date )).getTime();
+		var commentDate = (new Date(currentElement.time )).getTime();
 		if(startDate <= commentDate && commentDate <=endDate){
 			return true;
 		}else{

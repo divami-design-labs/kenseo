@@ -193,7 +193,9 @@
 		<div class="cv-comments-section">
 			<% if(data.commentDetails.length){ %>
 				<% _.each(data.commentDetails, function(p){ %>
+					<div class="cv-comments-item">
 						<%=sb.setTemplate('comment-item',{data: p})%>
+					</div>
 			<% }); %>
 			<% } else{ %>
 				<div class="no-items">

@@ -632,7 +632,7 @@ $AppGlobal['sql']['getCommentThread'] = "SELECT * FROM " . TABLE_COMMENT_THREADS
 											" v on t.artefact_ver_id = v.artefact_ver_id where t.artefact_ver_id = @~~artefactVerId~~@ AND t.comment_thread_id = @~~commentThreadId~~@";
 
 $AppGlobal['sql']['getCommentSummary'] = "SELECT ct.comment_thread_id as commentThreadId,ct.category as category,ct.severity as severity,
-										     ct.state as commentState,c.created_at as date ,c.description as description ,u.name as user ,u.profile_pic_url as profilePic
+										     ct.state as commentState,c.created_at as time ,c.description as description ,u.name as user ,u.profile_pic_url as profilePic
 											 FROM artefact_comment_threads ct
 											 JOIN artefact_comments c ON ct.comment_thread_id = c.comment_thread_id
 											 JOIN users u ON ct.comment_thread_by = u.user_id

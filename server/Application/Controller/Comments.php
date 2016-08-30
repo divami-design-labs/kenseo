@@ -188,11 +188,8 @@
 			$dbQuery = getQuery('getCommentedMembers',$queryParams);
 
 			$commentMembers = $db->multiObjectQuery($dbQuery);
-			$resultObj = array(
-				commentDetails => $commentDetails,
-				commentMembers => $commentMembers
-			);
-
+			$resultObj->commentDetails = $commentDetails;
+			$resultObj->commentMembers = $commentMembers;
 			return $resultObj;
 		}
 
