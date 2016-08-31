@@ -85,8 +85,16 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         _this.stickToBottom(parent);
     },
     events: {
-        "click .new-textlayer": "handleDocumentLayerClick",
-        "click .dvt-item.toggle-annotations-icon": "handleToggleAnnotations"
+        "click .new-textlayer":                     "handleDocumentLayerClick",
+        "click .dvt-item.toggle-annotations-icon":  "handleToggleAnnotations",
+        "click [data-url='private-message']":       "handleGlobalPrivateMessage"
+    },
+    handleGlobalPrivateMessage: function(e){
+        var el = e.currentTarget;
+        sb.newCallPopup({
+            el: el,
+            scope: this
+        });
     },
     handleToggleAnnotations: function(e){
         var $self = $(e.currentTarget);

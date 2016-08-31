@@ -104,10 +104,14 @@
 	@include verticalMiddle();
 	left: 0;
 	z-index: 1;
+	display: flex;
+    flex-direction: column;
+    height: 320px;
+    justify-content: space-around;
 }
 .dvt-item{
 	@include square(27px);
-	margin: 15px 0px;
+	// margin: 15px 0px;
 	cursor: pointer;
 	fill: #7E878E;
 	&.active{
@@ -135,6 +139,10 @@
 .more-menu-icon{
 	@include backgroundImage('more-menu.svg');
 }*/
+.more-menu-icon{
+	width: 33px;
+	height: 33px;
+}
 .pagination-section{
 	position: relative;
 	height: 100%;

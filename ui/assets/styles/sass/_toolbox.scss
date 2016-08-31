@@ -119,6 +119,15 @@
 	position: relative;
 	float: left;
 	clear: both;
+	&--stretch{
+		float: none;
+		& .input-wrapper{
+			display: flex;
+			& input, & textarea, & select {
+				flex: auto;
+			}
+		}
+	}
 }
 .checkbox-section{
 	float: left;

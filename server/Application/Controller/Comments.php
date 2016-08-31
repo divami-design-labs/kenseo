@@ -169,6 +169,7 @@
 			return $commentThreadsData;
 		}
 		public function getCommentSummary($interpreter) {
+      $resultObj = new stdClass();
 			$data = $interpreter->getData()->data;
 			$maskedVerId = $data->maskedVerId;
 

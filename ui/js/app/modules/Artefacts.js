@@ -129,7 +129,15 @@ Kenseo.views.Artefact = Backbone.View.extend({
         "click [data-url='replace-artefact']"   :   "replaceArtefact",
         "click [data-url='add-version']"        :   "addVersion",
         "click [data-url='share-artefact']"     :   "shareArtefact",
-        "click [data-url='create-meeting']"     :   "createMeeting"
+        "click [data-url='create-meeting']"     :   "createMeeting",
+        "click [data-url='private-message']"    :   "sendPrivateMessage"
+    },
+    sendPrivateMessage: function(e){
+        var el = e.currentTarget;
+        sb.newCallPopup({
+            el: el,
+            scope: this
+        });
     },
     createMeeting: function(e){
         // this click handler runs along with the popup-click handler

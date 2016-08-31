@@ -632,12 +632,10 @@ var sb = _.extend(sb, (function () {
             }
         },
         callSlider: function callSlider(index) {
-                var info = Kenseo.popup.info[index];
-                 if (info.callbackfunc) {
-                    info.callbackfunc(Kenseo.popup.data.actionType);
-                }
-            // }
-
+            var info = Kenseo.popup.info[index];
+            if (info.callbackfunc) {
+                info.callbackfunc(Kenseo.popup.data.actionType);
+            }
         },
         fragmentFromString: function (strHTML) {
             var range = document.createRange();

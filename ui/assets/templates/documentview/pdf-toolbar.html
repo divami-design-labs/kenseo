@@ -106,8 +106,8 @@
             </div>
         </div>
     </div>
-    <div class="slider-container"></div>
     <div id="viewerContainer" class="parent viewerContainer" tabindex="0">
+        <div class="slider-container"></div>
         <div class="annotate-wrapper">
             <% if(data.isPdf) { %>
             <div id="viewer" class="pdfViewer"></div>
@@ -185,7 +185,12 @@
         <div class="dvt-item submit-review-icon popup-click<% if(!data.isPdf){ %> hide <% } %>" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=<%= data.artefact_ver_id %>">
             <svg><use xlink:href="#submit-review"></use></svg>
         </div>
-        <div class="dvt-item more-menu-icon" title="more options">
+        <div class="dvt-item html-click sub-menu-nav more-menu-icon" title="more options">
             <svg><use xlink:href="#more-menu"></use></svg>
+            <div class="sub-menu-holder top-right-nav">
+                <div class="sub-menu-item" data-url="add-version">Add Version</div>
+                <div class="sub-menu-item" data-url="replace">Replace</div>
+                <div class="sub-menu-item" data-url="private-message">Send Private Message</div>
+            </div>
         </div>
     </div>

@@ -11,19 +11,6 @@ $(function () {
 	// Events
 
 	$(document)
-	// .on('click', function (e) {
-	// 	var $el = $(e.target);
-	// 	var bln = $el.hasClass('.toggle-click') || $el.parents('.toggle-click').length;
-		// var bln = 	$el.hasClass('popup-click')
-		// 			|| $el.hasClass('page-click')
-		// 			|| $el.hasClass('toggle-click')
-		// 			|| $el.parents('.popup-click').length
-		// 			|| $el.parents('page-click').length
-		// 			|| $el.parents('.toggle-click').length;
-		// if (!bln) {
-		// 	$('.toggle-click').removeClass('active');
-		// }
-	// })
 	.on('click', '.prevent-default', function(e){
 		//stops default action of click event
 		e.preventDefault();
@@ -62,18 +49,6 @@ $(function () {
 			sb.callPopup(nextIndex, currentIndex);
 		}
 	})
-	// .on('click', '.toggle-click', function (e) {
-	// 	// e.stopPropagation();
-	// 	e.preventDefault();
-	// 	if ($(e.target).hasClass('active') || $(e.target).parents('.active').length) {
-	// 		if ($(e.target).hasClass('anti-toggle-click') || $(e.target).parents('.anti-toggle-click').length) {
-	// 			return false;
-	// 		}
-	// 	}
-	// 	var $this = $(this);
-	// 	$('.active').not($this).removeClass('active');
-	// 	$this.toggleClass('active');
-	// })
 	.on('click', '.popup-click', function () {
 		var $self = $(this);
 		var $dataHolder = $self.closest('.data-holder');
@@ -87,61 +62,111 @@ $(function () {
 			sb.log("Didn't provide data-holder class to the element or its parent");
 		}
 
-		// var key = $(this).data('key');
-		// var id = $(this).data('id');
-		// if(key && id){
-		// 	Kenseo.popup.data = Kenseo.data[key][id];
-		// }
-
-
 		sb.navigate('popup', this);
 	}).on('click', '.overlay-click', function () {
 		sb.navigate('overlay', this);
 	}).on('click', '.slider-click', function (e){
-		var sliderContainer = $('.slider-container').find('.sliders');
-		if(sliderContainer.length){
-			$('.sliders').css({
-				'display' : 'none'
-			});
-			var slider = document.querySelector('.slider-container');
-			slider.style.marginLeft = null;
-		}
-		sb.navigate('slider', this);
-		$(e.currentTarget).removeClass('slider-click');
-		$('.toggle-click.opened').removeClass('opened');
-		$(e.currentTarget).addClass('toggle-click opened');
-	}).on('click', '.toggle-click', function (e) {
+		var _this 				= this;
+		var $el 				= $(e.currentTarget);
+		var $outerContainer 	= $el.parents('.outerContainer');
+		var $sliderContainer 	= getSliderContainer();
+		var $viewerContainer 	= $outerContainer.find('#viewerContainer');
+		var $annotatorWrapper	= $outerContainer.find('.annotate-wrapper');
+		// get the action type
+		var actionType 			= _.camelCase($el.data('url'));
+		var $existingSlider 	= getExistingSlider();
+		var scrollTop 			= 0; // Initializing
 
-		var target = e.currentTarget;
-		//set the state of slider
-		$(target).toggleClass('opened');
-		var actionType = _.camelCase($(target).attr('data-url'));
-		var currentSlider = $('.sliders[data-url = "'+actionType+'"]');
-		var width = currentSlider.outerWidth();
+		toggleSlider();
 
-		var slider = document.querySelector('.slider-container');
-  		slider.style.marginLeft = slider.style.marginLeft?"":-slider.offsetWidth + "px";
 
-		var openedSliders = $('.toggle-click.opened').not($(target));
-			if(openedSliders.length){
-				//close previously opened sliders
-				setTimeout(function() {
-					$('.slider-container').css({
-						'min-width' : width
-					});
-					$('.sliders').hide();
-					$('.sliders[data-url = "'+actionType+'"]').show();
-					$(openedSliders).removeClass('opened');
-					slider.style.marginLeft = slider.style.marginLeft?"":-slider.offsetWidth + "px";
-					$(target).addClass('opened');
-				},1000);
-			}else{
-				$('.slider-container').css({
-					'min-width' : width
-				});
-				$('.sliders').hide();
-				$('.sliders[data-url = "'+actionType+'"]').show();
+		function toggleSlider(){
+			var $currentSlider = getCurrentSlider();
+			// if no slider is opened, directly open the existing slider
+			if(typeof $currentSlider.data('url') === "undefined"){
+				renderSlider();
+				showSliderContainer();
+			} 
+			// if the existing slider is already opened, hide it
+			else if($currentSlider.data('url') === $existingSlider.data('url')){
+				hideSliderContainer();
+				hideAllSliders();
 			}
+			// if other slider is opened, hide the current slider and show the existing slider
+			else{
+				hideSliderContainer();
+				hideAllSliders();
+				renderSlider();  // ajax call
+				showSliderContainer();
+			}
+		}
+
+		function checkAvailability($elem){
+			return $elem.length?$elem:$(null);
+		}
+		function getCurrentSlider(){
+			return checkAvailability($sliderContainer.find('.sliders').filter(':visible'));
+		}
+		function getSliderContainer(){
+			return $outerContainer.find('.slider-container');
+		}
+		function getExistingSlider(){
+			return checkAvailability($sliderContainer.find('.sliders[data-url=' + actionType + ']'));
+		}
+		function hideSliderContainer(){
+			deActivateCurrentButton();
+			$sliderContainer.css({
+				'width'		: '0',
+				'min-width'	: '0'
+			});
+
+			scrollTop = $annotatorWrapper.scrollTop();
+			// enable scroll of annotate wrapper
+			toggleDocumentView('');
+		}
+		function showSliderContainer(){
+			activateCurrentButton();
+			$sliderContainer.css({
+				'min-width': $existingSlider.outerWidth() + 80
+			});
+			scrollTop = $viewerContainer.scrollTop();
+			// Disable scroll of the document view
+			toggleDocumentView('hidden');
+		}
+		function hideAllSliders(){
+			$outerContainer.find('.sliders').css({'display': 'none'});
+		}
+		function renderSlider(){
+			if(!$existingSlider.length){
+				// if the existing slider isn't rendered, render it
+				sb.navigate('slider', _this);
+				// update existing slider variable
+				$existingSlider = getExistingSlider();
+			}
+
+			$existingSlider.css({'display': 'block'});
+		}
+
+		function activateCurrentButton(){
+			// make sure other slider click buttons are deactivated
+			$outerContainer.find('.slider-click').removeClass('active');
+			// Activate button 
+			$el.addClass('active');
+		}
+
+		function deActivateCurrentButton(){
+			// deactivate button 
+			$el.removeClass('active');
+		}
+
+		function toggleDocumentView(str){
+			$annotatorWrapper.css({
+				'overflow': str
+			}).scrollTop(scrollTop);
+			$viewerContainer.css({
+				'overflow': str
+			}).scrollTop(scrollTop);
+		}
 	}).on('click', '.page-click', function (e) {
 		// To avoid default behaviour of the anchor element
 		e.preventDefault();

@@ -68,7 +68,7 @@
 }
 .sub-menu-holder.small .sub-menu-item{
 	white-space: nowrap;
-	/*padding-left: 35px;*/
+	padding-left: 10px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-right: 10px;
@@ -114,6 +114,11 @@
 }
 .top-nav{
 	bottom: 100%;
+}
+
+.top-right-nav{
+	top: 0px;
+	left: 100%;
 }
 
 // Separator

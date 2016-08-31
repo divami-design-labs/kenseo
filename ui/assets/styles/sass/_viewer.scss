@@ -330,12 +330,14 @@
 }
 .comments-view-holder{
   background-color: $colorNineteen;
+  text-align: left;
   // width: 0px;
   /*display: none;*/
  // visibility: hidden;
   @include transition(visibility 1s ease-in-out);
   width: 440px;
-  min-height: 650px;
+  // min-height: 650px;
+  height: 100%;
   /*transition: width 1s ease-in-out;*/
   border: 1px solid $colorEighteen;
   &.active{
@@ -346,7 +348,12 @@
     left: 550px;
   }
 }
+.comments-view-section{
+  height: calc(100% - 50px);
+  overflow: auto;
+}
 #viewerContainer {
+  display: flex;
   overflow: auto;
   position: relative;
   z-index: 1;
@@ -1529,7 +1536,8 @@ select {
 .annotate-wrapper{
   display: inline-block;
   position: relative;
-  text-align: left;
+  text-align: center;
+  min-width: 100%;
 }
 #viewer{
   background-color: rgb(232, 232, 233);
