@@ -1,207 +1,199 @@
 <div class="comments-view-holder toolbar-slider">
-	<div class="comments-viewer-header">
-		Comments Summary
+	<div class="comments-view-header">
+		<div class="comments-viewer-header">
+			Comments Summary
 
-	</div>
-	<div class="filter-icon html-click" data-html-class="enable-filter-list">
-		<svg class="filter-list-dropdown">
-			<use xlink:href="#filter"></use>
-		</svg>
+		</div>
+		<div class="filter-icon html-click" data-html-class="enable-filter-list">
+			<svg class="filter-list-dropdown">
+				<use xlink:href="#filter"></use>
+			</svg>
 
 
-		<form class="comments-view-filter-section">
-			<div class="filter-checkboxes severity">
-				<div class="filter-checkboxes-heading">Severities</div>
-				<div class="filter-checkboxes-content">
-					<%var severities = Kenseo.settings.severities %>
-					<%=
-						sb.toolbox.checkbox({
-							text: "All Severities",
-							attr: {
-								'name': 'severities',
-								'data-all': true
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "High",
-							attr: {
-								'name': 'High'
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "Medium",
-							attr: {
-								'name': 'Medium'
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "Low",
-							attr: {
-								'name': 'Low'
-							}
-						})
-					%>
+			<form class="comments-view-filter-section">
+				<div class="filter-checkboxes severity">
+					<div class="filter-checkboxes-heading">Severities</div>
+					<div class="filter-checkboxes-content">
+						<%var severities = Kenseo.settings.severities %>
+						<%=
+							sb.toolbox.checkbox({
+								text: "All Severities",
+								attr: {
+									'name': 'severities',
+									'data-all': true
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "High",
+								attr: {
+									'name': 'High'
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Medium",
+								attr: {
+									'name': 'Medium'
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Low",
+								attr: {
+									'name': 'Low'
+								}
+							})
+						%>
+					</div>
 				</div>
-			</div>
-			<div class="filter-checkboxes category">
-				<div class="filter-checkboxes-heading">Categories</div>
-				<div class="filter-checkboxes-content">
-						<%var categories = Kenseo.settings.categories%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "All Categories",
-							attr: {
-								'name': 'categories',
-								'data-all': true
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "Typo",
-							attr: {
-								'name': 'Typo'
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "IxD",
-							attr: {
-								'name': 'IxD'
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "UID",
-							attr: {
-								'name': 'UID'
-							}
-						})
-					%>
+				<div class="filter-checkboxes category">
+					<div class="filter-checkboxes-heading">Categories</div>
+					<div class="filter-checkboxes-content">
+							<%var categories = Kenseo.settings.categories%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "All Categories",
+								attr: {
+									'name': 'categories',
+									'data-all': true
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Typo",
+								attr: {
+									'name': 'Typo'
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "IxD",
+								attr: {
+									'name': 'IxD'
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "UID",
+								attr: {
+									'name': 'UID'
+								}
+							})
+						%>
 
-					<%=
-						sb.toolbox.checkbox({
-							text: "Persona",
-							attr: {
-								'name': 'Persona'
-							}
-						})
-					%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Persona",
+								attr: {
+									'name': 'Persona'
+								}
+							})
+						%>
+					</div>
 				</div>
-			</div>
-			<div class="filter-checkboxes status">
-				<div class="filter-checkboxes-heading">Status</div>
-				<div class="filter-checkboxes-content">
-					<%var status = Kenseo.settings.status%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "All Statuses",
-							attr: {
-								'name': 'status',
-								'data-all': true
-							}
-						})
-					%>
+				<div class="filter-checkboxes status">
+					<div class="filter-checkboxes-heading">Status</div>
+					<div class="filter-checkboxes-content">
+						<%var status = Kenseo.settings.status%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "All Statuses",
+								attr: {
+									'name': 'status',
+									'data-all': true
+								}
+							})
+						%>
 
-					<%=
-						sb.toolbox.checkbox({
-							text: "Open",
-							attr: {
-								'name': 'Open'
-							}
-						})
-					%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Open",
+								attr: {
+									'name': 'Open'
+								}
+							})
+						%>
 
-					<%=
-						sb.toolbox.checkbox({
-							text: "Close",
-							attr: {
-								'name': 'Close'
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "Resolved",
-							attr: {
-								'name': 'Resolved'
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "Reopen",
-							attr: {
-								'name': 'Reopen'
-							}
-						})
-					%>
-					<%=
-						sb.toolbox.checkbox({
-							text: "Deferred",
-							attr: {
-								'name': 'Deferred'
-							}
-						})
-					%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Close",
+								attr: {
+									'name': 'Close'
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Resolved",
+								attr: {
+									'name': 'Resolved'
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Reopen",
+								attr: {
+									'name': 'Reopen'
+								}
+							})
+						%>
+						<%=
+							sb.toolbox.checkbox({
+								text: "Deferred",
+								attr: {
+									'name': 'Deferred'
+								}
+							})
+						%>
+					</div>
 				</div>
-			</div>
-			<div class="comment-members-list">
-			<%=
-				sb.setTemplate('select', {
-					data: {
-						"label": "Users",
-						inputClass: "comment-members",
-						"selectAttr": {
-							"multiple": ""
+				<div class="comment-members-list">
+				<%=
+					sb.setTemplate('select', {
+						data: {
+							"label": "Users",
+							inputClass: "comment-members",
+							"selectAttr": {
+								"multiple": ""
+							}
 						}
-					}
-				})
-			%>
-			</div>
-			<div class="comment-dates">
-				<div class="comment-dates-heading">Date</div>
-				<div class="input-wrapper float-left mini-datepicker">
-					<input type="text"  class="input-comments-date float-left"></input>
-					<div class="datepicker-icon-holder float-left">
-						<div class="datepicker-icon">
-							<svg><use xlink:href="#calendar"></use></svg>
+					})
+				%>
+				</div>
+				<div class="comment-dates">
+					<div class="comment-dates-heading">Date</div>
+					<div class="input-wrapper float-left mini-datepicker">
+						<input type="text"  class="input-comments-date float-left"></input>
+						<div class="datepicker-icon-holder float-left">
+							<div class="datepicker-icon">
+								<svg><use xlink:href="#calendar"></use></svg>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="apply-filter-btn ">
-				<%= sb.toolbox.button({
-					data: {
-						cls: "main-btn",
-						"label": "Apply Filters"
-					}
-				}) %>
-			</div>
+				<div class="apply-filter-btn ">
+					<%= sb.toolbox.button({
+						data: {
+							cls: "main-btn",
+							"label": "Apply Filters"
+						}
+					}) %>
+				</div>
 
-		</form>
+			</form>
+		</div>
 	</div>
 	<div class="comments-view-section">
 		<div class="cv-comments-section">
-			<% if(data.commentDetails.length){ %>
-				<% _.each(data.commentDetails, function(p){ %>
-					<div class="cv-comments-item">
-						<%=sb.setTemplate('comment-item',{data: p})%>
-					</div>
-			<% }); %>
-			<% } else{ %>
-				<div class="no-items">
-					No comments to show
-				</div>
-			<% } %>
+			
 		</div>
 	</div>
 </div>

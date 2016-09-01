@@ -43,6 +43,14 @@ sb.sliders = {
 		
 	},
 	setUsers : function(response){
+		var data = response.data;
+		var threadViews = new Kenseo.views.Threads(_.assignIn({
+			collection: 		new Kenseo.collections.Threads(data.commentDetails),
+			isCommentViewers: 	true
+		}, Kenseo._globalData_));
+		// render threads in view
+		threadViews.render();
+
 		var users = response.data.commentMembers;
 		var $peopleSelect = $(".comment-members");
 		// reset

@@ -318,6 +318,7 @@
 .comments-viewer-header{
   @extend .popup-header;
   height: 50px;
+  flex: auto;
 }
 #sidebarContent {
   top: 32px;
@@ -347,6 +348,10 @@
   &.active + #viewerContainer{
     left: 550px;
   }
+}
+.comments-view-header{
+  display: flex;
+  background-color: #ececed;
 }
 .comments-view-section{
   height: calc(100% - 50px);

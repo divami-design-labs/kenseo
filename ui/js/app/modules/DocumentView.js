@@ -20,9 +20,6 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         _this.$el.attr({
             'rel': 'pdf_' + data.versionId
         });
-        // var params = response.params;
-        // var maskedVersionId = params.maskedArtefactVersionId;
-
 
         // Before painting the new doc lets hide all the existing docs
         $('.outerContainer.inView').removeClass('inView');
@@ -87,7 +84,120 @@ Kenseo.views.DocumentView = Backbone.View.extend({
     events: {
         "click .new-textlayer":                     "handleDocumentLayerClick",
         "click .dvt-item.toggle-annotations-icon":  "handleToggleAnnotations",
-        "click [data-url='private-message']":       "handleGlobalPrivateMessage"
+        "click [data-url='private-message']":       "handleGlobalPrivateMessage",
+        "click .dvt-item.slider-click":             "handleSliderClick"
+    },
+    handleSliderClick: function(e){
+        var _this               = this;
+        var el 				    = e.currentTarget;
+		var $el 				= $(el);
+		var $outerContainer 	= $el.parents('.outerContainer');
+		var $sliderContainer 	= getSliderContainer();
+		var $viewerContainer 	= $outerContainer.find('#viewerContainer');
+		var $annotatorWrapper	= $outerContainer.find('.annotate-wrapper');
+		// get the action type
+		var actionType 			= _.camelCase($el.data('url'));
+		var $existingSlider 	= getExistingSlider();
+		var scrollTop 			= 0; // Initializing
+
+		toggleSlider();
+
+
+		function toggleSlider(){
+			var $currentSlider = getCurrentSlider();
+			// if no slider is opened, directly open the existing slider
+			if(typeof $currentSlider.data('url') === "undefined"){
+				renderSlider();
+				showSliderContainer();
+			} 
+			// if the existing slider is already opened, hide it
+			else if($currentSlider.data('url') === $existingSlider.data('url')){
+				hideSliderContainer();
+				hideAllSliders();
+			}
+			// if other slider is opened, hide the current slider and show the existing slider
+			else{
+				hideSliderContainer();
+				hideAllSliders();
+				renderSlider();  // ajax call
+				showSliderContainer();
+			}
+		}
+
+		function checkAvailability($elem){
+			return $elem.length?$elem:$(null);
+		}
+		function getCurrentSlider(){
+			return checkAvailability($sliderContainer.find('.sliders').filter(':visible'));
+		}
+		function getSliderContainer(){
+			return $outerContainer.find('.slider-container');
+		}
+		function getExistingSlider(){
+			return checkAvailability($sliderContainer.find('.sliders[data-url=' + actionType + ']'));
+		}
+		function hideSliderContainer(){
+			deActivateCurrentButton();
+			$sliderContainer.css({
+				'width'		: '0',
+				'min-width'	: '0'
+			});
+
+			scrollTop = $annotatorWrapper.scrollTop();
+			// enable scroll of annotate wrapper
+			toggleDocumentView('');
+		}
+		function showSliderContainer(){
+			activateCurrentButton();
+			$sliderContainer.css({
+				'min-width': $existingSlider.outerWidth() + 80
+			});
+			scrollTop = $viewerContainer.scrollTop();
+			// Disable scroll of the document view
+			toggleDocumentView('hidden');
+		}
+		function hideAllSliders(){
+			$outerContainer.find('.sliders').css({'display': 'none'});
+		}
+		function renderSlider(){
+			if(!$existingSlider.length){
+				// if the existing slider isn't rendered, render it
+				sb.navigate('slider', el);
+                if(actionType === "commentSummary"){
+                    // preparing global data which is useful to render backbone view
+                    var data = _this.model.toJSON();
+                    Kenseo._globalData_ = {
+                        currentArtefactId: data['artefact_ver_id'],
+                        documentViewScope: _this
+                    }
+                }
+				// update existing slider variable
+				$existingSlider = getExistingSlider();
+			}
+
+			$existingSlider.css({'display': 'block'});
+		}
+
+		function activateCurrentButton(){
+			// make sure other slider click buttons are deactivated
+			$outerContainer.find('.slider-click').removeClass('active');
+			// Activate button 
+			$el.addClass('active');
+		}
+
+		function deActivateCurrentButton(){
+			// deactivate button 
+			$el.removeClass('active');
+		}
+
+		function toggleDocumentView(str){
+			$annotatorWrapper.css({
+				'overflow': str
+			}).scrollTop(scrollTop);
+			$viewerContainer.css({
+				'overflow': str
+			}).scrollTop(scrollTop);
+		}
     },
     handleGlobalPrivateMessage: function(e){
         var el = e.currentTarget;

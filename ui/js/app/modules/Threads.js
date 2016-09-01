@@ -31,37 +31,31 @@ Kenseo.views.Threads = Backbone.View.extend({
 
         _this.collection.each(function(model, modelId, models){
             var d = model.toJSON();
-            var $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
+            // Initializing
+            var $el = null; 
+            var templateName = null;
+            if(payload.isCommentViewers){
+                $el = $pdfDocContainer.find('.comments-view-holder .cv-comments-section');
+                templateName = "comment";
+            }
+            else{
+                $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
+                templateName = "comment";
+            }
             if($el.length){
                 var threadView = new Kenseo.views.Thread({
-                	"$el": $el, 
+                    "$el": $el, 
                     parentScope: _this,
-                	"model": model,
-                	"thread_id": d['comment_thread_id'],
-                	"version_id": currentArtefactId
+                    "model": model,
+                    "thread_id": d['comment_thread_id'],
+                    "version_id": currentArtefactId,
+                    templateName: templateName
                 });
 
-                threadView.render();
+                $el.append(threadView.render().$el);
                 // @TODO: Insert the above created thread view in document
             }
         });
-
-        // for(var key in data){
-        // 	var d = data[key];
-        // 	var $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
-        //     if($el.length){
-        //         var threadView = new Kenseo.views.Thread({
-        //         	"$el": $el, 
-        //             parentScope: _this,
-        //         	"model": new Kenseo.models.Thread(d),
-        //         	"thread_id": key,
-        //         	"version_id": currentArtefactId
-        //         });
-
-        //         threadView.render();
-        //         // @TODO: Insert the above created thread view in document
-        //     }
-        // }
     }
 });
 
@@ -69,7 +63,7 @@ Kenseo.views.Thread = Backbone.View.extend({
     tagName: 'div',
     className: 'comment-container',
     template: function(data){
-        return sb.setTemplate('comment', {data: data});
+        return sb.setTemplate(this.payload.templateName, {data: data});
     },
     initialize: function(payload){
         this.payload = payload;
@@ -103,20 +97,6 @@ Kenseo.views.Thread = Backbone.View.extend({
 
         commentsSection.appendChild(commentsView.el);
 
-        // Add comment list to the thread
-        // for(var key in data.comments){
-        //     // var commentElement = document.createDocumentFragment();
-		// 	// commentElement.appendChild(sb.fragmentFromString(sb.setTemplate('comment-item', data.comments[key])));
-
-        //     var commentView = new Kenseo.views.Comment({
-        //         model: new Kenseo.models.Comment(data.comments[key]),
-        //         collection: new Kenseo.collections.Comment(data.comments)
-        //     });
-
-        //     commentView.render();
-        //     commentsSection.appendChild(commentView.$el.get(0));
-
-		// }
         $commentContainer.children().remove();
         $commentContainer.get(0).appendChild(threadElement);
 
@@ -141,7 +121,7 @@ Kenseo.views.Thread = Backbone.View.extend({
 			$commentContainer.attr('data-k-comment_thread_id', "-1");
 
 			// get current page number
-			var $currentPage = $el.parents('.page');
+			var $currentPage     = $el.parents('.page');
 			var currentPageIndex = $currentPage.index() + 1;
 			// console.log(currentPageIndex);
 			// Add this new comments data inside the stored data
@@ -189,10 +169,12 @@ Kenseo.views.Thread = Backbone.View.extend({
 	    // set flag to say that the content of this comment
 	    $commentContainer.addClass('isStoredLocally');
         // $commentContainer.append($shape);
-        $el.append($commentContainer);
+        // $el.append($commentContainer);
 
         // After inserting the comment on the document, the current comment section will become previous comment section
         annotator.$previousCommentSection = $commentContainer;
+
+        return _this;
     },
     events: {
         "click .drpdwn-item":       "handleDropdownItemClick",
