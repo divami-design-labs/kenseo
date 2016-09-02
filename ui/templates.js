@@ -757,9 +757,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-
- var data = arguments[0] ;
-__p += '\r\n<div class="cv-main-person">\r\n\t<div class="cv-person-left">\r\n      ';
+__p += '<div class="cv-main-person">\r\n\t<div class="cv-person-left">\r\n      ';
  if(data.profilePic && data.profilePic !== "assets/imgs/avatar.svg"){ ;
 __p += '\r\n        <img class="profile-image-black" src="' +
 ((__t = ( data.profilePic )) == null ? '' : __t) +
@@ -929,182 +927,170 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class="comments-view-holder toolbar-slider">\r\n\t<div class="comments-viewer-header">\r\n\t\tComments Summary\r\n\r\n\t</div>\r\n\t<div class="filter-icon html-click" data-html-class="enable-filter-list" data-html-toggle="add">\r\n\t\t<svg class="filter-list-dropdown">\r\n\t\t\t<use xlink:href="#filter"></use>\r\n\t\t</svg>\r\n\r\n\r\n\t\t<form class="comments-view-filter-section">\r\n\t\t\t<div class="filter-checkboxes severity">\r\n\t\t\t\t<div class="filter-checkboxes-heading">Severities</div>\r\n\t\t\t\t<div class="filter-checkboxes-content">\r\n\t\t\t\t\t';
+__p += '<div class="comments-view-holder toolbar-slider">\r\n\t<div class="comments-view-header">\r\n\t\t<div class="comments-viewer-header">\r\n\t\t\tComments Summary\r\n\r\n\t\t</div>\r\n\t\t<div class="filter-icon html-click" data-html-class="enable-filter-list">\r\n\t\t\t<svg class="filter-list-dropdown">\r\n\t\t\t\t<use xlink:href="#filter"></use>\r\n\t\t\t</svg>\r\n\r\n\r\n\t\t\t<form class="comments-view-filter-section">\r\n\t\t\t\t<div class="filter-checkboxes severity">\r\n\t\t\t\t\t<div class="filter-checkboxes-heading">Severities</div>\r\n\t\t\t\t\t<div class="filter-checkboxes-content">\r\n\t\t\t\t\t\t';
 var severities = Kenseo.settings.severities ;
-__p += '\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "All Severities",
-							attr: {
-								'name': 'severities',
-								'data-all': true
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "High",
-							attr: {
-								'name': 'High'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Medium",
-							attr: {
-								'name': 'Medium'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Low",
-							attr: {
-								'name': 'Low'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="filter-checkboxes category">\r\n\t\t\t\t<div class="filter-checkboxes-heading">Categories</div>\r\n\t\t\t\t<div class="filter-checkboxes-content">\r\n\t\t\t\t\t\t';
-var categories = Kenseo.settings.categories;
-__p += '\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "All Categories",
-							attr: {
-								'name': 'categories',
-								'data-all': true
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Typo",
-							attr: {
-								'name': 'Typo'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "IxD",
-							attr: {
-								'name': 'IxD'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "UID",
-							attr: {
-								'name': 'UID'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Persona",
-							attr: {
-								'name': 'Persona'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="filter-checkboxes status">\r\n\t\t\t\t<div class="filter-checkboxes-heading">Status</div>\r\n\t\t\t\t<div class="filter-checkboxes-content">\r\n\t\t\t\t\t';
-var status = Kenseo.settings.status;
-__p += '\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "All Statuses",
-							attr: {
-								'name': 'status',
-								'data-all': true
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Open",
-							attr: {
-								'name': 'Open'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Close",
-							attr: {
-								'name': 'Close'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Resolved",
-							attr: {
-								'name': 'Resolved'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Reopen",
-							attr: {
-								'name': 'Reopen'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t' +
-((__t = (
-						sb.toolbox.checkbox({
-							text: "Deferred",
-							attr: {
-								'name': 'Deferred'
-							}
-						})
-					)) == null ? '' : __t) +
-'\r\n\t\t\t\t</div>\r\n\t\t\t</div>\n\t\t\t<div class="comment-members-list">\n\t\t\t' +
-((__t = (
-				sb.setTemplate('select', {
-					data: {
-						"label": "Users",
-						inputClass: "comment-members",
-						"selectAttr": {
-							"multiple": ""
-						}
-					}
-				})
-			)) == null ? '' : __t) +
-'\r\n\t\t\t</div>\r\n\t\t\t<div class="comment-dates">\r\n\t\t\t\t<div class="comment-dates-heading">Date</div>\r\n\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t<input type="text"  class="input-comments-date float-left"></input>\r\n\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="apply-filter-btn ">\r\n\t\t\t\t' +
-((__t = ( sb.toolbox.button({
-					data: {
-						cls: "main-btn",
-						"label": "Apply Filters"
-					}
-				}) )) == null ? '' : __t) +
-'\r\n\t\t\t</div>\r\n\r\n\t\t</form>\r\n\t</div>\r\n\t<div class="comments-view-section">\r\n\t\t<div class="cv-comments-section">\n\t\t\t';
- if(data.commentDetails.length){ ;
-__p += '\r\n\t\t\t\t';
- _.each(data.commentDetails, function(p){ ;
 __p += '\r\n\t\t\t\t\t\t' +
-((__t = (sb.setTemplate('comment-item',{data: p}))) == null ? '' : __t) +
-'\r\n\t\t\t';
- }); ;
-__p += '\r\n\t\t\t';
- } else{ ;
-__p += '\r\n\t\t\t\t<div class="no-items">\r\n\t\t\t\t\tNo comments to show\r\n\t\t\t\t</div>\r\n\t\t\t';
- } ;
-__p += '\n\t\t</div>\r\n\t</div>\r\n</div>\r\n';
+((__t = (
+							sb.toolbox.checkbox({
+								text: "All Severities",
+								attr: {
+									'name': 'severities',
+									'data-all': true
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "High",
+								attr: {
+									'name': 'High'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Medium",
+								attr: {
+									'name': 'Medium'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Low",
+								attr: {
+									'name': 'Low'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="filter-checkboxes category">\r\n\t\t\t\t\t<div class="filter-checkboxes-heading">Categories</div>\r\n\t\t\t\t\t<div class="filter-checkboxes-content">\r\n\t\t\t\t\t\t\t';
+var categories = Kenseo.settings.categories;
+__p += '\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "All Categories",
+								attr: {
+									'name': 'categories',
+									'data-all': true
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Typo",
+								attr: {
+									'name': 'Typo'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "IxD",
+								attr: {
+									'name': 'IxD'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "UID",
+								attr: {
+									'name': 'UID'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Persona",
+								attr: {
+									'name': 'Persona'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="filter-checkboxes status">\r\n\t\t\t\t\t<div class="filter-checkboxes-heading">Status</div>\r\n\t\t\t\t\t<div class="filter-checkboxes-content">\r\n\t\t\t\t\t\t';
+var status = Kenseo.settings.status;
+__p += '\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "All Statuses",
+								attr: {
+									'name': 'status',
+									'data-all': true
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Open",
+								attr: {
+									'name': 'Open'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Close",
+								attr: {
+									'name': 'Close'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Resolved",
+								attr: {
+									'name': 'Resolved'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Reopen",
+								attr: {
+									'name': 'Reopen'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t' +
+((__t = (
+							sb.toolbox.checkbox({
+								text: "Deferred",
+								attr: {
+									'name': 'Deferred'
+								}
+							})
+						)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="comment-members-list">\r\n\t\t\t\t' +
+((__t = (
+					sb.setTemplate('select', {
+						data: {
+							"label": "Users",
+							inputClass: "comment-members",
+							"selectAttr": {
+								"multiple": ""
+							}
+						}
+					})
+				)) == null ? '' : __t) +
+'\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="comment-dates">\r\n\t\t\t\t\t<div class="comment-dates-heading">Date</div>\r\n\t\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t\t<input type="text"  class="input-comments-date float-left"></input>\r\n\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="apply-filter-btn ">\r\n\t\t\t\t\t' +
+((__t = ( sb.toolbox.button({
+						data: {
+							cls: "main-btn",
+							"label": "Apply Filters"
+						}
+					}) )) == null ? '' : __t) +
+'\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</form>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="comments-view-section">\r\n\t\t<div class="cv-comments-section">\r\n\t\t\t\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p
@@ -1180,7 +1166,7 @@ __p += '<!-- sidebarContainer -->\n    <div id="mainContainer">\n        <div cl
  if(data.isPdf) { ;
 __p += '\n                    <div id="toolbarViewerRight">\n                        <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="21" data-l10n-id="zoom_out">\n                            <svg><use xlink:href="#zoom-out"></use></svg>\n                            <span data-l10n-id="zoom_out_label">Zoom Out</span>\n                        </button>\n                        <div class="slider">\n                            <div class="thumb"></div>\n                        </div>\n                        <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="22" data-l10n-id="zoom_in">\n                            <svg><use xlink:href="#zoom-in"></use></svg>\n                            <span data-l10n-id="zoom_in_label">Zoom In</span>\n                        </button>\n                        <button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="13" data-l10n-id="previous">\n                            <svg><use xlink:href="#previous-page-icon"></use></svg>\n                            <span data-l10n-id="previous_label">Previous</span>\n                        </button>\n                        <input type="text" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="15">\n                        <span id="numPages" class="toolbarLabel"></span>\n                        <button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="14" data-l10n-id="next">\n                            <svg><use xlink:href="#next-page-icon"></use></svg>\n                            <span data-l10n-id="next_label">Next</span>\n                        </button>\n                    </div>\n                    <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">\n                    <span data-l10n-id="presentation_mode_label">Presentation Mode</span>\n                    </button>\n                    ';
  } ;
-__p += '\n                </div>\n            </div>\n            <div id="loadingBar">\n                <div class="progress">\n                    <div class="glimmer">\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class="slider-container"></div>\n    <div id="viewerContainer" class="parent viewerContainer" tabindex="0">\n        <div class="annotate-wrapper">\n            ';
+__p += '\n                </div>\n            </div>\n            <div id="loadingBar">\n                <div class="progress">\n                    <div class="glimmer">\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div id="viewerContainer" class="parent viewerContainer" tabindex="0">\n        <div class="slider-container"></div>\n        <div class="annotate-wrapper">\n            ';
  if(data.isPdf) { ;
 __p += '\n            <div id="viewer" class="pdfViewer"></div>\n            ';
  } else { ;
@@ -1218,13 +1204,13 @@ __p += '" title="Toggle Comment view" data-html-outside-click="false">\n        
  if(!data.isPdf){ ;
 __p += ' hide ';
  } ;
-__p += '" data-url="comment-summary" title="Comment summary">\n            <svg><use xlink:href="#comment-summary"></use></svg>\n        </div>\n        <div class="dvt-item share-artefact-icon popup-click" data-url="share-artefact" data-index="3" title="Share this artefact">\n            <svg><use xlink:href="#share-artefact"></use></svg>\n        </div>\n        <div class="dvt-item submit-review-icon popup-click';
+__p += '" data-url="comment-summary" title="Comment summary">\n            <svg><use xlink:href="#comment-summary"></use></svg>\n        </div>\n        <div class="dvt-item share-artefact-icon" data-url="share-artefact" data-index="2" title="Share this artefact">\n            <svg><use xlink:href="#share-artefact"></use></svg>\n        </div>\n        <div class="dvt-item submit-review-icon popup-click';
  if(!data.isPdf){ ;
 __p += ' hide ';
  } ;
 __p += '" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=' +
 ((__t = ( data.artefact_ver_id )) == null ? '' : __t) +
-'">\n            <svg><use xlink:href="#submit-review"></use></svg>\n        </div>\n        <div class="dvt-item more-menu-icon" title="more options">\n            <svg><use xlink:href="#more-menu"></use></svg>\n        </div>\n    </div>';
+'">\n            <svg><use xlink:href="#submit-review"></use></svg>\n        </div>\n        <div class="dvt-item html-click sub-menu-nav more-menu-icon" title="more options">\n            <svg><use xlink:href="#more-menu"></use></svg>\n            <div class="sub-menu-holder top-right-nav">\n                <div class="sub-menu-item" data-url="add-version">Add Version</div>\n                <div class="sub-menu-item" data-url="replace-artefact">Replace</div>\n                <div class="sub-menu-item" data-url="private-message">Send Private Message</div>\n            </div>\n        </div>\n    </div>';
 
 }
 return __p
@@ -1547,7 +1533,9 @@ __p += ' data-pass="';
                 return 0;
             }
         })() ;
-__p += '">\r\n\t<div class="rr-left">\r\n\t\t<div class="rr-status">\r\n\t\t\t<span class="rr-doc-type">';
+__p += '">\r\n\t<div class="rr-left">\r\n\t\t<div class="rr-status rr-status-' +
+((__t = ( data.status )) == null ? '' : __t) +
+'">\r\n\t\t\t<span class="rr-doc-type">';
  if(data['document_type']){  ;
 __p +=
 ((__t = ( Kenseo.settings.docTypeShort[data['document_type']] )) == null ? '' : __t);
@@ -1593,7 +1581,7 @@ __p += '\r\n\t\t<div class="rr-details ellipsis" title="' +
 ((__t = ( data.version )) == null ? '' : __t) +
 '</span>\r\n\t\t\t\t<div class="rr-other-versions"></div>\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n            <div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Create a Meeting</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="edit-artefact-info">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#editartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Edit Info</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="rename-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Rename</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="download-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text"> <a class="stop-propagate" href="' +
+'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="review-comments">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#submit-review"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Submit Review Comments</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="private-message">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Send Private Message</div>\r\n\t\t\t</div>\r\n            <div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Create a Meeting</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="edit-artefact-info">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#editartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Edit Info</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="rename-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Rename</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="download-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text"> <a class="stop-propagate" href="' +
 ((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.id))) == null ? '' : __t) +
 '" target="_blank" > Download </a> </div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
 
@@ -3398,6 +3386,46 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['private-message'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="popup popup-small">\r\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t' +
+((__t = ( sb.setTemplate('textbox', {
+                data: {
+                    fieldClass: "field-section--stretch",
+                    attr: {
+                        "data-xtype": "getData",
+                        "data-xtype-key": "message"
+                    },
+                    textArea: true
+                }
+            }) )) == null ? '' : __t) +
+'\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
+'\r\n\t</div>\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['project-section-popup'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -3891,7 +3919,9 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class="field-section" ';
+__p += '<div class="field-section ' +
+((__t = ( data.fieldClass )) == null ? '' : __t) +
+'" ';
  if(data.dataName){ ;
 __p += ' data-name="' +
 ((__t = ( data.dataName )) == null ? '' : __t) +

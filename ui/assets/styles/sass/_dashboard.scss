@@ -180,6 +180,15 @@
 	font-size: 14px;
 	text-align: center;
 	padding-right: 3px;
+	&-N{  /* New artefact */
+		fill: #9db0c0;
+	}
+	&-R{  /* Artefact under review */
+		fill: #f68d3d;  
+	}
+	&-O{  /* Artefact review over */
+		fill: #415081; 
+	}
 }
 .rr-doc-type {
 	position: absolute;

@@ -70,7 +70,7 @@
                         <div class="create-plus-icon"><svg><use xlink:href="#add"></use></svg></div>
                         <div class="sub-menu-holder bottom-nav right-nav">
                             <div class="sub-menu-item popup-click" data-url="add-project">Add a Project</div>
-                            <div class="popup-click sub-menu-item" data-url="create-artefact">Create an Artefact</div>
+                            <a class="sub-menu-item" href="#persona/1">Create a Persona</a>
                             <div class="popup-click sub-menu-item" data-url="add-artefact">Add an Artefact</div>
                             <div class="popup-click sub-menu-item" data-url="share-artefact">Share an Artefact</div>
                             <div class="popup-click sub-menu-item" data-url="create-meeting">Create a Meeting</div>

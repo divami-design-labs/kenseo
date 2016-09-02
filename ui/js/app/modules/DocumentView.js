@@ -79,13 +79,41 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         }
         sb.setVersionIdForMaskedId(maskedVersionId, data.versionId);
         var parent = document.querySelector('.outerContainer.inView .viewerContainer.parent');
-        _this.stickToBottom(parent);
+        // _this.stickToBottom(parent);
     },
     events: {
         "click .new-textlayer":                     "handleDocumentLayerClick",
         "click .dvt-item.toggle-annotations-icon":  "handleToggleAnnotations",
         "click [data-url='private-message']":       "handleGlobalPrivateMessage",
-        "click .dvt-item.slider-click":             "handleSliderClick"
+        "click .dvt-item.slider-click":             "handleSliderClick",
+        "click [data-url='add-version']":           "handleAddVersion",
+        "click [data-url='replace-artefact']":      "handleReplaceArtefact",
+        "click [data-url='share-artefact']":        "handleShareArtefact"
+    },
+    handleShareArtefact: function(e){
+        var el = e.currentTarget;
+        sb.newCallPopup({
+            el: el,
+            scope: this,
+            beforeRender: function(){
+                Kenseo.popup.info.projectComboboxValueChanged = false;
+            }
+        });
+    },
+    handleReplaceArtefact: function(e){
+        var el = e.currentTarget;
+        sb.newCallPopup({
+            el: el,
+            scope: this
+        });
+    },
+    handleAddVersion: function(e){
+        // @TODO: This code is already available in Artefacts.js. Look for a way to reuse the same code here
+        var el = e.currentTarget;
+        sb.newCallPopup({
+            el: el,
+            scope: this
+        });
     },
     handleSliderClick: function(e){
         var _this               = this;
@@ -225,15 +253,15 @@ Kenseo.views.DocumentView = Backbone.View.extend({
             this.annotate(e);
         }
     },
-    stickToBottom: function (parent) {
-        var bar = parent.querySelector('.bar');
-        var top = bar.offsetTop;
-        parent.addEventListener('scroll', function (e) {
-            var el = e.currentTarget;
-            bar.style.bottom = -el.scrollTop + "px";
-            bar.style.left = el.scrollLeft + "px";
-        });
-    },
+    // stickToBottom: function (parent) {
+    //     var bar = parent.querySelector('.bar');
+    //     var top = bar.offsetTop;
+    //     parent.addEventListener('scroll', function (e) {
+    //         var el = e.currentTarget;
+    //         bar.style.bottom = -el.scrollTop + "px";
+    //         bar.style.left = el.scrollLeft + "px";
+    //     });
+    // },
     closeTab: function(ele){
       var $el = ele.parents('.each-tab');
       //get the current tab item
@@ -264,7 +292,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         // add the model to collection
         this.threadsCollection.add(threadModel);
 
-        threadView.render();
+        $el.append(threadView.render().$el);
     },
     paintExistingAnnotations: function(currentContainerVersionID){
         // Removing all the already painted comment sections

@@ -153,12 +153,18 @@ sb.router = (function(){
 
             sb.refresh.section('header');
             sb.loadCss('assets/styles/css/persona.css');
+
+            var $personaPageSection = $('.persona-page-section');
             // Show persona page
-            $('.persona-page-section').show()
+            $personaPageSection.show()
                 .html(sb.setTemplate('persona'));
 
             // After filling the html template, apply persona related interactions
             var persona = new Persona();
+
+            $personaPageSection.find('.current-artefact-info').css({
+                'bottom': 0
+            });
         }
     };
 })()

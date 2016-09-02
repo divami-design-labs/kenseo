@@ -168,25 +168,25 @@ Kenseo.popups = (function(){
 	}
 	function artefactFive(obj) {
 		return {
-				"page_name": "artefact-five",
-				"title": obj.title,
-				"show_coming_soon": true,
-				"allow_artefact_selection": true,
-				chooseExistingFile: true,
-				"buttons": [{
-					"label": "Back",
-					"cls": "lnk-btn"
-				},{
-					"label": "Cancel",
-					"cls": "cancel-btn lnk-btn"
-				},
-				{
-					"label": "Proceed",
-					"cls": "main-btn",
-					"disabled": true
-				}],
-				"callbackfunc": sb.popup.shareArtefactPopup,
-				"popupRefresh": sb.popup.shareArtefactPopup
+			"page_name": "artefact-five",
+			"title": obj.title,
+			"show_coming_soon": true,
+			"allow_artefact_selection": true,
+			chooseExistingFile: true,
+			"buttons": [{
+				"label": "Back",
+				"cls": "lnk-btn"
+			},{
+				"label": "Cancel",
+				"cls": "cancel-btn lnk-btn"
+			},
+			{
+				"label": "Proceed",
+				"cls": "main-btn",
+				"disabled": true
+			}],
+			"callbackfunc": sb.popup.shareArtefactPopup,
+			"popupRefresh": sb.popup.shareArtefactPopup
 		}
 	}
 	var popups = {
@@ -391,80 +391,76 @@ Kenseo.popups = (function(){
 	            }
         	}
         ],
-        // "share" : [{
-        // 	"page_name": "artefact-four",
-        // 	"title": "Share an Artefact",
-        // 	"buttons": [{
-        //     	"label": "Cancel",
-        //     	"cls": "cancel-btn lnk-btn"
-        //     },
-        //     {
-        //     	"label": "Done",
-        //     	"cls": "main-btn share-btn done-btn",
-        //     	"disabled": false
-        //     }],
-        //     "callbackfunc": function() {
-        //     	sb.setPopupData('shareArtefact', 'actionType');
-        //     	sb.popup.shareWithPeoplePopup()
-        //     }
-        // }],
-    	"rename-artefact": [
+		"private-message": [
+			{
+				"page_name": "private-message",
+				"title": "Private Message",
+				"buttons": [{
+					"label": "Cancel",
+					"cls": "lnk-btn cancel-btn"
+				},{
+					"label": "Save Message",
+					"cls": "main-btn done-btn",
+				}]
+			}
+		],
+		"rename-artefact": [
 			renameArtefact({"title":"Rename Artefact"}),
 		],
-      "add-project": [
+		"add-project": [
 				addProject({"title":"Add a project"}),
 				artefactTwo({"title":"Add a project"}),
 				artefactThree({"title":"Add a project"})
 			],
-      "delete-project": [
-      	{
-      		"page_name": "message",
-      		"title": "Delete a Project",
-      		"message": function(){
-      			return 'Do you want to Delete "' + sb.getPopupData('name') + '" project?';
-      		},
-        	"buttons": [{
-            	"label": "Yes",
-            	"cls": "main-btn done-btn",
-            },{
-            	"label": "No",
-            	"cls": "main-btn cancel-btn"
-            }],
-            "callbackfunc": function() {
-            	sb.setPopupData('deleteProject', 'actionType');
-            }
-      	}
-      ],
-      "cover-image": [
-      	{
-      		"page_name": "cover-image",
-      		"title": "Add Cover Image to this Project",
-      		"buttons": [{
-            	"label": "Cancel",
-            	"cls": "lnk-btn cancel-btn"
-            },{
-            	"label": "Add",
-            	"cls": "main-btn done-btn",
-            }],
-            "callbackfunc": sb.popup.coverImage
-      	}
-      ],
-      "removePeople": [{
-      	"page_name": "message",
-		"title": "Confirmation",
-		"message": function() {
-			return "Do you want to remove this person?";
-		},
-      	"buttons": [{
-			"label": "Yes",
-			"cls": "main-btn ok-btn",
-		},{
-			"label": "No",
-			"cls": "main-btn cancel-btn"
+		"delete-project": [
+		{
+			"page_name": "message",
+			"title": "Delete a Project",
+			"message": function(){
+				return 'Do you want to Delete "' + sb.getPopupData('name') + '" project?';
+			},
+			"buttons": [{
+				"label": "Yes",
+				"cls": "main-btn done-btn",
+			},{
+				"label": "No",
+				"cls": "main-btn cancel-btn"
+			}],
+			"callbackfunc": function() {
+				sb.setPopupData('deleteProject', 'actionType');
+			}
+		}
+		],
+		"cover-image": [
+		{
+			"page_name": "cover-image",
+			"title": "Add Cover Image to this Project",
+			"buttons": [{
+				"label": "Cancel",
+				"cls": "lnk-btn cancel-btn"
+			},{
+				"label": "Add",
+				"cls": "main-btn done-btn",
+			}],
+			"callbackfunc": sb.popup.coverImage
+		}
+		],
+		"removePeople": [{
+			"page_name": "message",
+			"title": "Confirmation",
+			"message": function() {
+				return "Do you want to remove this person?";
+			},
+			"buttons": [{
+				"label": "Yes",
+				"cls": "main-btn ok-btn",
+			},{
+				"label": "No",
+				"cls": "main-btn cancel-btn"
+			}],
+			"callbackfunc": sb.popup.removePeople
 		}],
-		"callbackfunc": sb.popup.removePeople
-      }],
-	  "submit-artefact": [
+		"submit-artefact": [
 			{
 				"page_name": "message",
 				"title": "Confirmation",
@@ -479,7 +475,7 @@ Kenseo.popups = (function(){
 					"cls": "main-btn cancel-btn"
 				}]
 			}
-	  ]
+		]
 	};
 
 	return {
