@@ -505,7 +505,7 @@ $AppGlobal['sql']['getAllPeopleSpecificToAProject'] = "SELECT
 														FROM
 															users AS users";
 
-$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, proj.project_id as projId, arts.artefact_title as artTitle, vers.artefact_ver_id, vers.masked_artefact_version_id, arts.artefact_id as artefactId, arts.description as description,vers.version_no as versionCount, IF(vers.created_by = @~~userid~~@, 1, 0) as is_owner
+$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, proj.project_id as projId, arts.artefact_title as artTitle, vers.artefact_ver_id, vers.masked_artefact_version_id, arts.artefact_id as artefactId, arts.description as description,arts.artefact_type as document_type,vers.version_no as versionCount, IF(vers.created_by = @~~userid~~@, 1, 0) as is_owner
 											FROM " . TABLE_ARTEFACTS . " AS arts
 											JOIN " . TABLE_PROJECTS . " AS proj ON
 											proj.project_id = arts.project_id
@@ -549,6 +549,11 @@ $AppGlobal['sql']['getReferenceArtefactList'] = "SELECT DISTINCT arts.artefact_t
 											(SELECT artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id =
 											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@))";
 
+
+$AppGlobal['sql']['getArtefactTagList'] = "SELECT artTags.tag_id as tag_id, tag.tag_name as tag_name FROM artefact_tags artTags
+											JOIN tags as tag ON artTags.tag_id = tag.tag_id WHERE artefact_id = @~~artefactId~~@";
+
+
 $AppGlobal['sql']['getArtefactVersionsList'] = "SELECT DISTINCT * from " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id =
 											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@)";
 
@@ -563,7 +568,7 @@ $AppGlobal['sql']['getArtefactSharedMembersList'] = "SELECT DISTINCT user.user_i
 													WHERE membs.artefact_id =
 													(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@) and user.user_id!=@~~userId~~@";
 
-$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title, arts.project_id as projectId,vers.version_no as versionNo,vers.artefact_ver_id as versionId, user.name as authorName, user.profile_pic_url as authorImage,
+$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title,arts.artefact_id as artefactId, arts.project_id as projectId,arts.artefact_type as artefact_type,vers.version_no as versionNo,vers.artefact_ver_id as versionId, user.name as authorName, user.profile_pic_url as authorImage,
 											(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
 											WHERE
 											thread.artefact_ver_id IN (select artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = @~~maskedVerId~~@)) as comment_count, vers.state as status

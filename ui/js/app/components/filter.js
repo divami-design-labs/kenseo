@@ -22,6 +22,7 @@ var doFilter = function doFilter($container, templateName, realElements){
                 }
             });
         }
-        _this.renderTemplate();
+        return _this.realElements;
+        //_this.renderTemplate();
     }
 }

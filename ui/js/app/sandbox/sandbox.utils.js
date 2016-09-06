@@ -444,6 +444,8 @@ var sb = _.extend(sb, (function () {
                             return dump.project_name;
                         } else if(dump.name){
                             return dump.name
+                        }else if(dump.projName){
+                            return dump.projName
                         }else{
                             return Kenseo.page.data.project.name;
                         }
@@ -463,8 +465,10 @@ var sb = _.extend(sb, (function () {
                             }
                             else if(dump.artefactName){
                                 return dump.artefactName;
-                            }
-                            else{
+                            }else if(dump.artTitle){
+                                return dump.artTitle;
+
+                            }else{
                                 return dump.title;
                             }
                         }
@@ -476,7 +480,7 @@ var sb = _.extend(sb, (function () {
 
                    return Array.isArray(file)? file.join(","): file;
                 },
-                
+
                 getType: function(){
                   if(dump.document_type) {
                     return Kenseo.settings.doctype[dump.document_type];

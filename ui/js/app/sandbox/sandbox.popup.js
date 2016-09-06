@@ -289,7 +289,7 @@ sb.popup = {
 
         var projectId;
         if(Kenseo.popup.data.actionType === "addVersion" || Kenseo.popup.data.actionType === "replaceArtefact") {
-            projectId = sb.getPopupData("project_id");
+            projectId = sb.getPopupData("project_id") || sb.getPopupData("projId");
         } else {
             projectId = sb.getPopupData("id");
         }

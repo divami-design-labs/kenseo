@@ -28,6 +28,7 @@
 
         <link rel="resource" type="application/l10n" href="locale/locale.properties"/>
 		<link href="assets/styles/css/zebra-default.css" type="text/css" rel="stylesheet"/>
+        <link href="assets/styles/css/daterangepicker.css" type="text/css" rel="stylesheet"/>
     </head>
     <body>
         <div class="splash-screen-container">

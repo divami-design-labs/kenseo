@@ -10,6 +10,7 @@ var Kenseo = {
     populate: {},
     alreadyLoadedSVGs: [],
     overlays: { "info": {}, "data": {} },
+    sliders: {"data":{}},
     page: { "info": {}, "data": {} },
     current: {
         page: "",

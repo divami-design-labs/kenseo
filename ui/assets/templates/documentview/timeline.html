@@ -1,0 +1,47 @@
+<% for(var v in data.timeline){ %>
+    <%if(data.timeline[v].length){%>
+        <div class="time-frame-holder mg-holder">
+            <div class="time-frame-item mg-item">
+                <div class="time-frame">
+                    <%_.each(data.timeline[v], function(item) {%>
+                            <% if(item.type === "links") {%>
+                                 <div class="file-type top-viewer">
+                            <% } else if(item.type === "shared") {%>
+                                <div class="user-type top-viewer">
+                                <div class="user-type-viewer top-hover-viewer">
+                                    <div class="user-type-content">
+                                        <div class="tf-images">
+                                            <% if(item.profPic !== "assets/imgs/avatar.svg"){ %>
+                                                <img src=<%= item.profPic %> />
+                                            <% } else { %>
+                                                <svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>
+                                            <% } %>
+                                        </div>
+                                        <div class="tf-more-people"><%= sb.timeFormat(item.shared_date,true,true)%> @<%= sb.getTime(item.shared_date) %></div>
+                                    </div>
+                                </div>
+                            <% } else if(item.type === "versions") {%>
+                                <div class="version-type top-viewer">v <%= item.version_no %>
+                            <% } else if(item.type === "meetings") {%>
+                                <div class="meeting-type top-viewer">
+                            <% } else if(item.type === "references") {%>
+                                 <div class="file-type top-viewer">
+                            <% } else if(item.type === "replaced") {%>
+                                 <div class="file-replaced top-viewer">
+                            <% } else if(item.type === "userAdded") {%>
+                                 <div class="user-type top-viewer">
+                            <% } else if(item.type === "userRemoved") {%>
+                                 <div class="user-type top-viewer">
+                            <% } else if(item.type === "comments") {%>
+                            <div class="comment-type top-viewer">
+                            <% }%>
+                        <% }) %></%>
+                    <%_.each(data.timeline[v], function(item) {%>
+                        </div>
+                    <% }) %></%>
+                    <div class="time-frame-date"><%= sb.timeFormat(v+" 00:00:00", true, true)%></div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+<% } %>

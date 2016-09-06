@@ -3,7 +3,8 @@
         <div class="summary-header-left">
             <div class="review-request-item" >
                 <div class="rr-left">
-                    <div class="rr-status status-<%= data.basicDetails.status %>">IXD</div>
+                    <%var categories = Kenseo.settings.categories %>
+                    <div class="rr-status ellipsis status-<%= data.basicDetails.status %>"><%=categories[data.basicDetails.artefact_type]%></div>
                     <img class="rr-owner-image" title="<%=data.basicDetails.authorName %>" src="<%= data.basicDetails.authorImage %>"/>
                 </div>
                 <div class="rr-right">
@@ -42,46 +43,7 @@
         <div class="close-icon"><svg><use xlink:href="#close"></use></svg></div>
         <div class="time-frame-section">
             <div class="time-frame-extended mg-parent">
-            	<% for(var v in data.timeline){ %>
-	                <div class="time-frame-holder mg-holder">
-	                    <div class="time-frame-item mg-item">
-	                        <div class="time-frame">
-	                            <%_.each(data.timeline[v], function(item) {%>
-
-                            			<% if(item.type === "links") {%>
-                        					 <div class="file-type top-viewer">
-                        				<% } else if(item.type === "shared") {%>
-                        					<div class="user-type top-viewer">
-                        					<div class="user-type-viewer top-hover-viewer">
-			                                    <div class="user-type-content">
-			                                        <div class="tf-images">
-                                                        <% if(item.profPic !== "assets/imgs/avatar.svg"){ %>
-                                                            <img src=<%= item.profPic %> />
-                                                		<% } else { %>
-                                                			<svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>
-                                                		<% } %>
-			                                        </div>
-			                                        <div class="tf-more-people"><%= sb.timeFormat(item.shared_date,true,true)%> @<%= sb.getTime(item.shared_date) %></div>
-			                                    </div>
-		                                    </div>
-                        				<% } else if(item.type === "versions") {%>
-                        					<div class="version-type top-viewer">v <%= item.version_no %>
-                        				<% } else if(item.type === "meetings") {%>
-                        					<div class="meeting-type top-viewer">
-                        				<% } else if(item.type === "references") {%>
-                        					 <div class="file-type top-viewer">
-                					 	<% } else if(item.type === "comments") {%>
-                        				<div class="comment-type top-viewer">
-                        				<% }%>
-                            		<% }) %></%>
-                            	<%_.each(data.timeline[v], function(item) {%>
-                            		</div>
-                            	<% }) %></%>
-	                            <div class="time-frame-date"><%= sb.timeFormat(v+" 00:00:00", true, true)%></div>
-	                        </div>
-	                    </div>
-	                </div>
-                <% } %>
+                <%=sb.setTemplate('timeline',{data: data})%>
             </div>
             <div class="time-frame-selector mg-parent">
                 <% _.each(data.versions, function(v){ %>
@@ -112,119 +74,143 @@
         </div>
     </div>
     <div class="summary-section-footer">
-        <div class="summary-footer-item">Summary</div>
+        <div class="summary-footer-item selected-tab">Summary</div>
         <div class="summary-footer-item">Notes</div>
     </div>
 
 
-
-    <div class="summary-section-below-content">
-        <div class="summary-people-section">
-            <div class="sub-heading-section">
-                <div class="artifacts-heading sub-heading">
-                    <div class="sub-heading-label">Shared with</div>
-                    <div class="sub-heading-add-wrapper">
-                        <div class="sub-heading-add-icon">
-                            <svg><use xlink:href="#add"></use></svg>
+    <div class="summary-and-notes-section">
+        <div class="summary-section-below-content  data-holder" data-url= "Summary">
+            <div class="summary-people-section">
+                <div class="sub-heading-section">
+                    <div class="artifacts-heading sub-heading">
+                        <div class="sub-heading-label">Shared with</div>
+                        <div class="sub-heading-add-wrapper">
+                            <div class="sub-heading-add-icon" data-url="share-artefact" data-index="2">
+                                <svg><use xlink:href="#add"></use></svg>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="sub-section-content">
+                     <% _.each(data.sharedTo, function(d){ %>
+    	                 <div class="summary-people-item">
+    	                    <div class="sp-left">
+                                <% if(d.userImage !== "assets/imgs/avatar.svg"){ %>
+                                    <img title="<%= d.name%>" src="<%= d.userImage %>" />
+                        		<% } else { %>
+                        			<svg><use xlink:href="#avatar"></use></svg>
+                        		<% } %>
+    	                    </div>
+    	                    <div class="sp-right">
+    	                        <div class="sp-name ellipsis" title"<%= d.name%>"><%= d.name%></div>
+    	                        <div class="sp-below-section">
+    	                            <div class="rr-comment">
+                                        <svg><use xlink:href="#baloon"></use></svg>
+                                        <div class="rr-comment-count"><%= d['comment_count'] %></div>
+                                    </div>
+    	                            <div class="status-c secondary-status-rr"></div>
+    	                        </div>
+    	                    </div>
+    	                </div>
+                    <% }); %>
+                </div>
             </div>
-            <div class="sub-section-content">
-                 <% _.each(data.sharedTo, function(d){ %>
-	                 <div class="summary-people-item">
-	                    <div class="sp-left">
-                            <% if(d.userImage !== "assets/imgs/avatar.svg"){ %>
-                                <img title="<%= d.name%>" src="<%= d.userImage %>" />
-                    		<% } else { %>
-                    			<svg><use xlink:href="#avatar"></use></svg>
-                    		<% } %>
-	                    </div>
-	                    <div class="sp-right">
-	                        <div class="sp-name ellipsis" title"<%= d.name%>"><%= d.name%></div>
-	                        <div class="sp-below-section">
-	                            <div class="rr-comment">
-                                    <svg><use xlink:href="#baloon"></use></svg>
-                                    <div class="rr-comment-count"><%= d['comment_count'] %></div>
+            <div class="summary-versions-section">
+                <div class="sub-heading-section">
+                    <div class="sub-heading">
+                        <div class="sub-heading-label">Versions</div>
+                        <div class="sub-heading-add-wrapper">
+                            <div class="sub-heading-add-icon " data-url="add-version">
+                                <svg><use xlink:href="#add"></use></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-section-content">
+                    <a class="summary-compare-btn" href="">Compare selected</a>
+
+                    <% _.each(data.versions, function(d){ %>
+                        <% if(d.artefact_ver_id !== data.basicDetails.versionId){ %>
+    	                <div class="summary-version-item">
+    	                    <label class="checkbox">
+    	                        <input type="checkbox"></input>
+    	                        <span>
+    	                            <span class="version-type">v<%=d.version_no %></span>
+    	                            <div class="doc-type" title="<%= data.basicDetails.title %>"><%= data.basicDetails.title %></div>
+    	                        </span>
+    	                    </label>
+    	                    <div class="summary-version-date">
+                                <span><%= sb.timeFormat(d.created_date, true)%></span>
+                                <a class="page-click" href="#documentview/<%= d['masked_artefact_version_id'] %>">Open</a>
+                            </div>
+    	                </div>
+                        <% } %>
+             		<% }); %>
+                </div>
+            </div>
+            <div class="summary-references-section">
+                <div class="sub-heading-section">
+                    <div class="sub-heading">
+                        <div class="sub-heading-label">References</div>
+                        <div class="sub-heading-add-wrapper">
+                            <div class="sub-heading-add-icon " data-url="edit-artefact-info">
+                                <svg><use xlink:href="#add"></use></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-section-content">
+                	<% _.each(data.references, function(d){ %>
+    	                <div class="summary-reference-item ellipsis" title="<%= d.title %>">
+                            <svg class="ref-item-icon"><use xlink:href="#refFile"></use></svg>
+    	                    <%= d.title %>
+    	                </div>
+                    <% }); %>
+                </div>
+                <div class="summary-linked-artefacts-section">
+                    <div class="sub-heading-section">
+                        <div class="sub-heading">
+                            <div class="sub-heading-label">Linked Artefacts</div>
+                            <div class="sub-heading-add-wrapper">
+                                <div class="sub-heading-add-icon" data-url="edit-artefact-info">
+                                    <svg><use xlink:href="#add"></use></svg>
                                 </div>
-	                            <div class="status-c secondary-status-rr"></div>
-	                        </div>
-	                    </div>
-	                </div>
-                <% }); %>
-            </div>
-        </div>
-        <div class="summary-versions-section">
-            <div class="sub-heading-section">
-                <div class="sub-heading">
-                    <div class="sub-heading-label">Versions</div>
-                    <div class="sub-heading-add-wrapper">
-                        <div class="sub-heading-add-icon">
-                            <svg><use xlink:href="#add"></use></svg>
+                            </div>
+                            <div class="sub-section-content">
+                                <% _.each(data.links, function(d){ %>
+        			                <div class="linked-item" title="<%= d.artefact_title %>">
+                                        <svg class="linked-item-icon"><use xlink:href="#linkIcon"></use></svg>
+        			                    <%= d.artefact_title %>
+        			                </div>
+        		                <% }); %>
+        	                </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="sub-section-content">
-                <a class="summary-compare-btn" href="">Compare selected</a>
-
-                <% _.each(data.versions, function(d){ %>
-                    <% if(d.artefact_ver_id !== data.basicDetails.versionId){ %>
-	                <div class="summary-version-item">
-	                    <label class="checkbox">
-	                        <input type="checkbox"></input>
-	                        <span>
-	                            <span class="version-type">v<%=d.version_no %></span>
-	                            <div class="doc-type" title="<%= data.basicDetails.title %>"><%= data.basicDetails.title %></div>
-	                        </span>
-	                    </label>
-	                    <div class="summary-version-date">
-                            <span><%= sb.timeFormat(d.created_date, true)%></span>
-                            <a class="page-click" href="#documentview/<%= d['masked_artefact_version_id'] %>">Open</a>
+            <div class="summary-tags-section">
+                <div class="sub-heading-section">
+                    <div class="sub-heading">
+                        <div class="sub-heading-label">Tags</div>
+                        <div class="sub-heading-add-wrapper">
+                            <div class="sub-heading-add-icon" data-url="edit-artefact-info">
+                                <svg><use xlink:href="#add"></use></svg>
+                            </div>
                         </div>
-	                </div>
-                    <% } %>
-         		<% }); %>
-            </div>
-        </div>
-        <div class="summary-references-section">
-            <div class="sub-heading-section">
-                <div class="sub-heading">
-                    <div class="sub-heading-label">References</div>
-                    <div class="sub-heading-add-wrapper">
-                        <div class="sub-heading-add-icon">
-                            <svg><use xlink:href="#add"></use></svg>
+                        <div class="sub-section-content">
+                            <% _.each(data.tags, function(d){ %>
+                                <div class="tag-item" title="<%= d.tag_name %>">
+                                    <%= d.tag_name %>
+                                </div>
+                            <% }); %>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="sub-section-content">
-            	<% _.each(data.references, function(d){ %>
-	                <div class="summary-reference-item ellipsis" title="<%= d.title %>">
-	                    <%= d.title %>
-	                </div>
-                <% }); %>
-            </div>
         </div>
-        <div class="summary-linked-artefacts-section">
-            <div class="sub-heading-section">
-                <div class="sub-heading">
-                    <div class="sub-heading-label">Linked Artefacts</div>
-                    <div class="sub-heading-add-wrapper">
-                        <div class="sub-heading-add-icon">
-                            <svg><use xlink:href="#add"></use></svg>
-                        </div>
-                    </div>
-                    <div class="sub-section-content">
-                        <% _.each(data.links, function(d){ %>
-			                <div class="linked-item" title="<%= d.artefact_title %>">
-                                <svg class="linked-item-icon"><use xlink:href="#linkIcon"></use></svg>
-			                    <%= d.artefact_title %>
-			                </div>
-		                <% }); %>
-	                </div>
-                </div>
-            </div>
+        <div class="Notes" data-url="Notes">
+            No notes to show
         </div>
     </div>
 </div>

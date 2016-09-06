@@ -16,10 +16,10 @@
         "projects":     ["artifacts", "adduser", "archive", "calendar", "projects"],
         "meetingnotes": ["projects"],
         "documentview": [
-            "right-slider","left-slider","file-tab", "filter","img-tab", "tab-close", "close", "previous-page-icon", "next-page-icon",
+            "right-slider","left-slider","file-tab", "filter","img-tab", "linkIcon", "tab-close", "close", "previous-page-icon", "next-page-icon",
             "document-info", "add-comment", "toggle-annotations", "share-artefact",
             "more-menu", "up-drpdwn", "v_open", "v_compare", "severity-drpdwn-icn", "zoom-in", "zoom-out", "comment-summary",
-            "edit", "delete"
+            "edit", "delete", "refFile"
         ],
         "persona":      ["add", "close"]
     }

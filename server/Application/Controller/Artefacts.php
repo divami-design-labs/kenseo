@@ -733,7 +733,13 @@
 
 			// params
 			$projectId = $data->project_id;
+			if($data->projId){
+				$projectId = $data->projId;
+			}
 			$previousArtefactid = $data->id;
+			if($data->artefactId){
+				$previousArtefactid = $data->artefactId;
+			}
 
 			$db = Master::getDBConnectionManager();
 			$db->beginTransaction();
@@ -1326,7 +1332,9 @@
 				$artefactVersionIdHolder = new stdClass();
 				$artefactVersionIdHolder->{'artefact_version_id'} = $data->artefact_ver_id;
 				$artefactVersionIdHolder->{'artefact_id'} = $data->id;
-
+				if($data->artefactId){
+					$artefactVersionIdHolder->{'artefact_id'} = $data->artefactId;
+				}
 				$artefactAndVersionIds[] = $artefactVersionIdHolder;
 			}
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "share artefact version id");
@@ -1439,6 +1447,9 @@
 			$refArtefactQuery = getQuery('getReferenceArtefactList', $queryParams);
 			$referenceArtefacts = $db->multiObjectQuery($refArtefactQuery);
 
+			$tagQueryParams = array('artefactId' => $basicDetails->artefactId);
+			$artefactTagsQuery = getQuery('getArtefactTagList', $tagQueryParams);
+			$artefacttags = $db->multiObjectQuery($artefactTagsQuery);
 			//get versions of the artefact.
 			$artefactVersionQuery = getQuery('getArtefactVersionsList', $queryParams);
 			$artefactVersions = $db->multiObjectQuery($artefactVersionQuery);
@@ -1535,7 +1546,8 @@
 				references => $referenceArtefacts,
 				versions => $artefactVersions,
 				sharedTo => $artefactSharedMemebers,
-				timeline => $timeline
+				timeline => $timeline,
+				tags => $artefacttags
 			);
 
 			return $resultObj;
