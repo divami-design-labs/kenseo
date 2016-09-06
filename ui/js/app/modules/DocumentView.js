@@ -88,6 +88,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         "click .dvt-item.slider-click":             "handleSliderClick",
         "click [data-url='add-version']":           "handleAddVersion",
         "click [data-url='replace-artefact']":      "handleReplaceArtefact",
+        "click [data-url='edit-artefact-info']":    "editArtefactInfo",
         "click [data-url='share-artefact']":        "handleShareArtefact"
     },
     handleShareArtefact: function(e){
@@ -109,6 +110,13 @@ Kenseo.views.DocumentView = Backbone.View.extend({
     },
     handleAddVersion: function(e){
         // @TODO: This code is already available in Artefacts.js. Look for a way to reuse the same code here
+        var el = e.currentTarget;
+        sb.newCallPopup({
+            el: el,
+            scope: this
+        });
+    },
+    editArtefactInfo: function(e){
         var el = e.currentTarget;
         sb.newCallPopup({
             el: el,
