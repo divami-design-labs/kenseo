@@ -155,8 +155,11 @@ Kenseo.views.DocumentView = Backbone.View.extend({
 			else{
 				hideSliderContainer();
 				hideAllSliders();
-				renderSlider();  // ajax call
-				showSliderContainer();
+                // wait for the closing transition to finish, before running the opening transition
+                setTimeout(function() {
+                    renderSlider();  // ajax call
+                    showSliderContainer();
+                }, 800);
 			}
 		}
 
