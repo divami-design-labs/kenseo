@@ -262,6 +262,8 @@
 	border: 2px solid $colorTwo;
   	z-index: 3;
   	background-color: rgba(255, 255, 255, 0.6);
+    transition: left 0.5s linear;
+    white-space: nowrap;
   	@include text(18px, $colorOne);
   	a{
   		color: inherit;

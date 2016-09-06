@@ -4869,6 +4869,9 @@ a {
   border: 2px solid #3e4354;
   z-index: 3;
   background-color: rgba(255, 255, 255, 0.6);
+  -webkit-transition: left 0.5s linear;
+  transition: left 0.5s linear;
+  white-space: nowrap;
   font-size: 18px;
   color: #464c5f;
 }

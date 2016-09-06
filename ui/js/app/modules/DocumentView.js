@@ -137,19 +137,20 @@ Kenseo.views.DocumentView = Backbone.View.extend({
 		var scrollTop 			= 0; // Initializing
 
 		toggleSlider();
-
-
+        
 		function toggleSlider(){
 			var $currentSlider = getCurrentSlider();
 			// if no slider is opened, directly open the existing slider
 			if(typeof $currentSlider.data('url') === "undefined"){
 				renderSlider();
 				showSliderContainer();
+                $('.current-artefact-info').css('left', $existingSlider.outerWidth() + 80);
 			} 
 			// if the existing slider is already opened, hide it
 			else if($currentSlider.data('url') === $existingSlider.data('url')){
 				hideSliderContainer();
 				hideAllSliders();
+                $('.current-artefact-info').css('left', 0);
 			}
 			// if other slider is opened, hide the current slider and show the existing slider
 			else{
@@ -159,7 +160,9 @@ Kenseo.views.DocumentView = Backbone.View.extend({
                 setTimeout(function() {
                     renderSlider();  // ajax call
                     showSliderContainer();
+                    $('.current-artefact-info').css('left', $existingSlider.outerWidth() + 80);
                 }, 800);
+                $('.current-artefact-info').css('left', 0);
 			}
 		}
 
