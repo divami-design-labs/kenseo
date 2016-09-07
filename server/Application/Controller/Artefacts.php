@@ -1146,11 +1146,11 @@
 					$activityObj = $db->singleObjectQuery($activityQuery);
 
 					//query used to get no of people in the project
-					$peopleQuery = getQuery('getTeamMembersList',array('projectId' => $projectId));
-					$peopleObj = $db->multiObjectQuery($activityQuery);
+					$peopleQuery = getQuery('getTeamMembers',array('projectId' => $projectId));
+					$peopleObj = $db->multiObjectQuery($peopleQuery);
 
 					//artefact is shared if the people present in the project
-					if(count($peopleObj) > 1) {
+ 					if(count($peopleObj) > 1) {
 						$artefactObj->share = true;
 					} else {
 						$artefactObj->share = false;
@@ -1240,7 +1240,7 @@
 			// return $resultMessage;
 			//return array();
 			$dataList['messages'] = $resultMessage;
-
+            
 			if(count($dataList)){
 				return $dataList;
 			} else {
