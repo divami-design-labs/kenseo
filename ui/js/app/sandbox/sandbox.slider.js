@@ -4,7 +4,7 @@ sb.sliders = {
 		//fetch the document version ID from URL
 		var maskedVerId = window.location.hash.split('/')[1];
 		var sliderElement = document.createElement('div');
-		$(sliderElement).addClass('sliders slider-large').appendTo($('.slider-container')).attr("data-url",actionType);
+		$(sliderElement).addClass('sliders slider-large').appendTo($('.outerContainer.inView').find('.slider-container')).attr("data-url",actionType);
 		// var width = $('.slider-large').css('min-width');
 		// sb.sliders.setSliderDimensions(width);
 		// $('.sliders').css({
@@ -17,7 +17,7 @@ sb.sliders = {
                 maskedVerId: maskedVerId
             },
             templateName: 'summary',
-            templateHolder: $('.slider-large'),
+            templateHolder: $('.outerContainer.inView').find('.slider-large'),
 			container: $('.slider-container'),
 			callbackfunc: function(response){
 				// Initializing slider component
@@ -52,7 +52,7 @@ sb.sliders = {
 	commentSummary : function(actionType) {
 		var maskedVerId = window.location.hash.split('/')[1];
 		var sliderElement = document.createElement('div');
-		$(sliderElement).addClass('sliders slider-medium').appendTo($('.slider-container')).attr("data-url",actionType);
+		$(sliderElement).addClass('sliders slider-medium').appendTo($('.outerContainer.inView').find('.slider-container')).attr("data-url",actionType);
 		// var width = $('.slider-medium').css('min-width');
 		// sb.sliders.setSliderDimensions(width);
 		// $('.sliders').css({
@@ -64,11 +64,11 @@ sb.sliders = {
                 maskedVerId: maskedVerId
             },
             templateName: 'comments-viewer',
-            templateHolder: $('.slider-medium'),
+            templateHolder: $('.outerContainer.inView').find('.slider-medium'),
 			container: $('.slider-container'),
 			callbackfunc: sb.sliders.setUsers
         });
-		
+
 	},
 	setUsers : function(response){
 		var data = response.data;
