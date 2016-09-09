@@ -45,13 +45,18 @@ Kenseo.views.Header = Backbone.View.extend({
     validateSearch: function validateSearch(e) {
         var searchString = this.value;
         if (searchString.length > 2) {
-            sb.renderTemplate({ "templateName": "search-results", "templateHolder": $(".search-section").find(".search-results"), "collection": new Kenseo.collections.Search(), "callbackfunc": function callbackfunc() {
+            sb.renderTemplate({
+                "templateName": "search-results",
+                "templateHolder": $(".search-section").find(".search-results"),
+                "collection": new Kenseo.collections.Search(),
+                "callbackfunc": function callbackfunc() {
                     if ($(".search-results").children().length) {
                         $(".search-results").show();
                     } else {
                         $(".search-results").hide();
                     }
-                }, "data": {
+                },
+                "data": {
                     "string": searchString
                 }
             });
