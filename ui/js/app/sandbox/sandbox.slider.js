@@ -18,7 +18,7 @@ sb.sliders = {
             },
             templateName: 'summary',
             templateHolder: $('.slider-large'),
-			container: $('.sliders'),
+			container: $('.slider-container'),
 			callbackfunc: function(response){
 				// Initializing slider component
 				 Kenseo.sliders.data = _.cloneDeep(response.data);
@@ -65,20 +65,53 @@ sb.sliders = {
             },
             templateName: 'comments-viewer',
             templateHolder: $('.slider-medium'),
-			container: $('.sliders'),
+			container: $('.slider-container'),
 			callbackfunc: sb.sliders.setUsers
         });
 		
 	},
 	setUsers : function(response){
 		var data = response.data;
-		var threadViews = new Kenseo.views.Threads(_.assignIn({
-			collection: 		new Kenseo.collections.Threads(data.commentDetails),
-			isCommentViewers: 	true
-		}, Kenseo._globalData_));
-		// render threads in view
-		threadViews.render();
+		var checkThreadsLength = function(){
+			var threads = Array.prototype.slice.call($('.comments-view-holder').find('.comment-container'));
+			threads.forEach(function(item){
+				var comments = $(item).find('.cv-comments-item');
+				if(comments.length > 1){
+					$(comments).hide();
+					$(comments[0]).show();
+					if($(item).find('.more-comments').length){
+						$('.more-comments').show();
+					}else{
+						$(comments[0]).find('.cv-person-right').append('<div class="more-comments">+ '+ (comments.length - 1) +' more</div>')
+					}
+					var hider = $(item).find('.hide-comments');
+					if(!hider.length){
+						$(item).find('.comment-sec-wrapper').append('<button class="hide-comments">Hide</button>');
+					}
+				}
+			});
+		};
+		var renderThreads = function(threads){
+			var threadViews = new Kenseo.views.Threads(_.assignIn({
+				collection: 		new Kenseo.collections.Threads(threads),
+				isCommentViewers: 	true,
+				templateName: 'comments-description',
+			}, Kenseo._globalData_));
+			// render threads in view
+			threadViews.render();
+			checkThreadsLength();
 
+			$('.more-comments').click(function(e){
+				$(this).parents('.comment-container').find('.cv-comments-item').show();
+				$(this).hide();
+				var threadSection = $(this).parents('.comment-sec-wrapper');
+					$(threadSection).find('.hide-comments').show();
+			});
+			$('.hide-comments').click(function(e){
+				checkThreadsLength();
+				$(this).hide();
+			});
+		};
 		var users = response.data.commentMembers;
 		var $peopleSelect = $(".comment-members");
 		// reset
@@ -106,15 +139,33 @@ sb.sliders = {
 			yesterdayDate.setDate(yesterdayDate.getDate() - 1);
 			$inputCommentsDate.val(sb.timeFormat(yesterdayDate, true, true, true) + ' to ' + sb.timeFormat(new Date(), true, true, true));
 		}
-		var commentsData = _.cloneDeep(response.data.commentDetails);
+		var commentsData = _.cloneDeep(response.data.threads);
 		commentsData.forEach(function(item){
 			item.category = Kenseo.settings.categories[item.category];
 			item.severity = Kenseo.settings.severities[item.severity];
-			item.commentState = Kenseo.settings.states[item.commentState];
+			item.state = Kenseo.settings.states[item.state];
 		});
-		var filter = new doFilter($('.cv-comments-section'),'comment-item',commentsData);
+		renderThreads(commentsData);
+		var filter = new doFilter(commentsData);
+		var selectedOptions = [];
+		$('.comments-view-filter-section').click(function(e){
+			e.stopPropagation();
+		});
+		$('.filter-commentList-dropdown').click(function(){
+			$('comments-view-filter-section').find('input:checked').prop('checked',false);
+			PreviousCheckedElements = $('comments-view-filter-section').find('input:checked').filter(function(item){
+				var $currentElement = $(this);
+				return Array.prototype.some.call(selectedOptions,function(selectedOption){
+					return $currentElement.attr('name') == selectedOption;
+				});
+			});
+			PreviousCheckedElements.prop('checked',true);
+		});
 		$('.apply-filter-btn button').click(function(e){
 			e.stopPropagation();
+			selectedOptions = $('comments-view-filter-section').find('input:checked').map(function(){
+				return $(this).attr('name');
+			});
 			$('.filter-icon').removeClass('enable-filter-list');
 			var getCheckedOptions = function($el){
 				var options = $el.find('input:checked').map(function(){
@@ -126,19 +177,30 @@ sb.sliders = {
 			var getRegularExpression = function(options) {
 				return new RegExp(Array.prototype.slice.call(options).join("|"))
 			};
-			var users = $('.comment-members-list').find('span').map(function(){
-				 return $(this).html();
-            });
+
+			var checkUsers = function(currentElement){
+				var users = $('.comment-members-list').find('span').map(function(){
+					 return $(this).html();
+	            });
+				var userFilter = new doFilter(currentElement.comments);
+				currentElement.comments = userFilter.refresh(
+					{
+					 	user : getRegularExpression(users)
+					}
+				);
+				return currentElement;
+			};
 			var filteredElements = filter.refresh(
 				{
 					severity : getCheckedOptions($('.severity')),
 					category : getCheckedOptions($('.category')),
-					commentState : getCheckedOptions($('.status')),
-					user : getRegularExpression(users),
-					callbackfunc : sb.sliders.checkDateRange
+					state : getCheckedOptions($('.status')),
+					checkUsers : checkUsers,
+					checkDateRange : sb.sliders.checkDateRange
 				}
 			);
-			filter.renderTemplate();
+			$('.comments-view-section').find('.cv-comments-section').html('');
+			renderThreads(filteredElements);
 		});
 
 	},
@@ -146,12 +208,15 @@ sb.sliders = {
 		var Dates = ($(".input-comments-date").val()).split(" to ");
 		var startDate = (new Date(Dates[0])).getTime();
 		var endDate = (new Date(Dates[1] + ' 23:59:59')).getTime();
-		var commentDate = (new Date(currentElement.time )).getTime();
-		if(startDate <= commentDate && commentDate <=endDate){
-			return true;
-		}else{
-			return false;
-		}
+		currentElement.comments = currentElement.comments.filter(function(item){
+			var commentDate = (new Date(item.time )).getTime();
+			if(startDate <= commentDate && commentDate <=endDate){
+				return true;
+			}else{
+				return false;
+			}
+		});
+		return currentElement;
 	},
 	setSliderDimensions : function(width) {
 		// $('.slider-container').css({

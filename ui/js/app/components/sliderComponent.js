@@ -115,8 +115,9 @@ var sliderComponent = function sliderComponent(){
 					}
 					var timelineData = _.cloneDeep(Kenseo.sliders.data);
 					for(var key in timelineData.timeline){
-						var timelineFilter = new doFilter($('.summary-section-body'),'summary',Kenseo.sliders.data.timeline[key]);
+						var timelineFilter = new doFilter(Kenseo.sliders.data.timeline[key]);
 						var checkDates = function(currentElement){
+							//@TODO :Temporarily hardcoded, need to get data
 							var startDate = (new Date("04 AUG 2016")).getTime();
 							var endDate = (new Date('16 AUG 2016' + ' 23:59:59')).getTime();
 							var createdDate = (new Date(currentElement.created_date )).getTime();

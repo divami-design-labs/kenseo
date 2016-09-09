@@ -38,10 +38,7 @@
         @include transform(rotate(17deg));
     }
 }
-.comment-container{
-    position: absolute;
-    z-index: 1;
-}
+
 .comment-section{
     background-color: white;
     border: 1px solid #ACACAC;
@@ -54,15 +51,7 @@
 .comment-section-header{
     @extend .popup-header;
 }
-.comment-section-body{
-    padding: 20px;
-    padding-bottom: 70px;
-    .buttons-section{
-        bottom: 20px;
-        left: 20px;
-        right: 20px;
-    }
-}
+
 .replies-section{
 }
 .write-comment-section{
@@ -102,6 +91,69 @@
     right: 0;
     bottom: 0;
     margin: 0 auto;
+    .comment-container{
+        position: absolute;
+        z-index: 1;
+    }
+    .comment-section-body{
+        padding: 20px;
+        padding-bottom: 70px;
+        .buttons-section{
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+        }
+    }
+    .cv-comments-item{
+        &:hover{
+            .cv-comment-actions{
+                visibility: visible;
+            }
+        }
+    }
+}
+.type-and-state{
+    position: absolute;
+    right: 15px;
+    font-size: 14px;
+    div{
+        display: inline-block;
+    }
+}
+.more-comments{
+    font-size: 14px;
+    color: tomato;
+    cursor: pointer;
+}
+.comment-category{
+    padding-right: 5px;
+    border-right: 2px solid #546879;
+}
+.comment-severity{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+}
+.severity-High{
+    background-color: tomato;
+}
+.severity-Medium{
+    background-color: $colorTwenty;
+}
+.severity-Low{
+    background-color: green;
+}
+.hide-comments{
+    float: right;
+    margin-right: 15px;
+    background-color: #435383;
+    border: none;
+    color: white;
+    width: 60px;
+    display: none;
 }
 .hide-comment-section{
     & ~ div{
@@ -156,6 +208,7 @@
     max-height: 260px;
     overflow: auto;
     margin-bottom: 10px;
+    position: relative;
 }
 img.image-viewer {
     padding: 90px 0px;
@@ -165,13 +218,7 @@ img.image-viewer {
     position: relative;
 }
 
-.cv-comments-item{
-    &:hover{
-        .cv-comment-actions{
-            visibility: visible;
-        }
-    }
-}
+
 .cv-comment-actions{
     display: flex;
     visibility: hidden;

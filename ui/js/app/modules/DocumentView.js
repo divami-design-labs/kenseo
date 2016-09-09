@@ -328,8 +328,9 @@ Kenseo.views.DocumentView = Backbone.View.extend({
             var threadsView = new Kenseo.views.Threads({
                 currentArtefactId: currentContainerVersionID,
                 collection: this.threadsCollection,
-                documentViewScope: this
-            });
+                documentViewScope: this,
+                templateName: 'comment',
+             });
 
             threadsView.render();
         }

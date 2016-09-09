@@ -172,7 +172,7 @@
       $resultObj = new stdClass();
 			$data = $interpreter->getData()->data;
 			$maskedVerId = $data->maskedVerId;
-
+			$userId = $interpreter->getUser()->user_id;
 			//get the basic details of the artefact based on the artefact version.
 			$db = Master::getDBConnectionManager();
 			$queryParams = array('maskedVerId' => $maskedVerId, userId=>$userId);
@@ -181,15 +181,28 @@
 			$basicDetails = $db->singleObjectQuery($basicDetailsQuery);
 
 			$versionId = $basicDetails->versionId;
-			$queryParams = array('versionId' => $versionId);
-			$commentDetailsQuery = getQuery('getCommentSummary', $queryParams);
-			$commentDetails = $db->multiObjectQuery($commentDetailsQuery);
+			$queryParams = array('artefactVerId' => $versionId, userid=>$userId);
+
+			$commentThreads = new stdClass();
+			$commentThreadQuery = getQuery('getArtefactCommentThreads', $queryParams);
+			$commentThreads = $db->multiObjectQuery($commentThreadQuery);
 
 
+			$threadCount = count($commentThreads);
+			for($i=0; $i<$threadCount; $i++) {
+				$threadId = $commentThreads[$i]->comment_thread_id;
+				$queryParams = array('@commentThreadIds' => $threadId);
+				$commentsQuery = getQuery('getComments', $queryParams);
+				$comments = $db->multiObjectQuery($commentsQuery);
+				$commentThreads[$i]->comments = $comments;
+			}
+
+			$queryParams = array('versionId' => $versionId, userId=>$userId);
 			$dbQuery = getQuery('getCommentedMembers',$queryParams);
 
 			$commentMembers = $db->multiObjectQuery($dbQuery);
-			$resultObj->commentDetails = $commentDetails;
+
+			$resultObj->threads = $commentThreads;
 			$resultObj->commentMembers = $commentMembers;
 			return $resultObj;
 		}

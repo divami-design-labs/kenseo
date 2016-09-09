@@ -10,7 +10,7 @@ Kenseo.views.Threads = Backbone.View.extend({
         var _this   = this;
         var payload = _this.payload;
         // var data    = _this.model.toJSON();
-
+        var templateName = this.payload.templateName;
         var currentArtefactId   = payload.currentArtefactId;
         var $pdfDocContainer    = annotator.getDocContainer(currentArtefactId);
 
@@ -32,24 +32,24 @@ Kenseo.views.Threads = Backbone.View.extend({
         _this.collection.each(function(model, modelId, models){
             var d = model.toJSON();
             // Initializing
-            var $el = null; 
-            var templateName = null;
+            var $el = null;
+            //var templateName = null;
             if(payload.isCommentViewers){
                 $el = $pdfDocContainer.find('.comments-view-holder .cv-comments-section');
-                templateName = "comment";
+                //templateName = "comment";
             }
             else{
                 $el = $textLayers.eq(+d.page_no-1).find('.new-textlayer');
-                templateName = "comment";
+                //templateName = "comment";
             }
             if($el.length){
                 var threadView = new Kenseo.views.Thread({
-                    "$el": $el, 
+                    "$el": $el,
                     parentScope: _this,
                     "model": model,
                     "thread_id": d['comment_thread_id'],
                     "version_id": currentArtefactId,
-                    templateName: templateName
+                    templateName: templateName,
                 });
 
                 $el.append(threadView.render().$el);
@@ -72,7 +72,7 @@ Kenseo.views.Thread = Backbone.View.extend({
     render: function(){
         var _this = this;
         var payload = _this.payload;
-
+        var templateName = this.payload.templateName;
         // Sometimes the current wrapper's jquery element is provided or we need to extract from passed event variable 'e'
 		var $el = payload.$el || $(payload.e.currentTarget);
         // payload.model will be available when already entered comments are being rendered
@@ -84,7 +84,7 @@ Kenseo.views.Thread = Backbone.View.extend({
         $commentContainer.addClass('comment-container');
         // Adding the comment section template (should be done before applying styles to move the section)
         var threadElement = document.createDocumentFragment();
-        threadElement.appendChild(sb.fragmentFromString(sb.setTemplate('comment', {data: data})));
+        threadElement.appendChild(sb.fragmentFromString(sb.setTemplate(templateName, {data: data})));
         var commentsSection = threadElement.querySelector('.comment-sec-wrapper');
 
         var commentsView = new Kenseo.views.Comments({
@@ -108,13 +108,16 @@ Kenseo.views.Thread = Backbone.View.extend({
 					annotator.$previousCommentSection.remove();
 				}
 			}
-        	var e = payload.e;
-        	var posx = ($el.scrollLeft() + e.pageX - $el.offset().left)/($el.outerWidth())  * 100;
-        	var posy = ($el.scrollTop()  + e.pageY - $el.offset().top )/($el.outerHeight()) * 100;
-        	$commentContainer.css({
-				left: posx + "%",
-				top:  posy + "%"
-			});
+
+            var e = payload.e;
+            var posx = ($el.scrollLeft() + e.pageX - $el.offset().left)/($el.outerWidth())  * 100;
+            var posy = ($el.scrollTop()  + e.pageY - $el.offset().top )/($el.outerHeight()) * 100;
+            $commentContainer.css({
+                left: posx + "%",
+                top:  posy + "%"
+            });
+
+
 			// Bring the new comment to front
 			annotator.bringCommentToFront($commentContainer);
 			// Adding a dummy comment id to newly added comment for further manipulations
