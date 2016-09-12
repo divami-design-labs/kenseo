@@ -3,7 +3,7 @@
 }
 .summary-section-overlay{
 	background-color: white;
-	min-height: 614px;
+	height: 614px;
 	max-height: 100%;
 	width: 1000px;
 }
@@ -23,7 +23,13 @@
 		min-width: 440px;
 		max-height: 620px;
 	}
+	position: relative;
+	// transform: translate(-100%,0);
+	// transition: transform 1s,margin 1s;
+	height: 100%;
+	//left: 80px;
 	padding-left: 80px;
+	top: 80px;
 }
 .slider-container{
 	// padding-left: 80px;

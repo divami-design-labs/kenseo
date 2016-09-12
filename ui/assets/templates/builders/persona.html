@@ -1,89 +1,91 @@
 <div class="persona-template">
 	<%= sb.setTemplate('add-persona-widget') %>
-	<div class="persona-template-header">
-		<div class="persona-personal-details-top">
-			<span class="persona-name caps editable">full name, </span>
-			<span class="persona-age caps editable">age</span>
-		</div>
-		<div class="persona-project-name editable">Project</div>
-	</div>
-	<div class="persona-cards-holder">
-		<div class="persona-cards-holder--left">
-			<div class="persona-personal-details persona-card template-section persona-card--no-highlight">
-				<!-- <div class="persona-card--close template-section--close">
-					<svg><use xlink:href="#close"></use></svg>
-				</div> -->
-				<div class="persona-image">
-					<label class="persona--img-uploader">
-						<svg><use xlink:href="#dropdown"></use></svg>
-						<input class="input-hidden persona-img-uploader-input" type="file"></input>
-					</label>
-					<img class="persona-img" src="http://dummyimage.com/310x205" alt="persona image" />
-				</div>
-				<div class="persona-personal-details-bottom">
-					<div class="persona-caption editable">Persona Caption</div>
-					<div class="persona-occupation editable">Occupation: Job Title</div>
-					<div class="persona-location editable">Location: City, State</div>
-				</div>
+	<div class="persona-template-capture">
+		<div class="persona-template-header">
+			<div class="persona-personal-details-top">
+				<span class="persona-name caps editable">full name, </span>
+				<span class="persona-age caps editable">age</span>
 			</div>
-			<div class="persona-description persona-card template-section persona-card--no-highlight">
-				<!-- <div class="persona-card--close template-section--close">
-					<svg><use xlink:href="#close"></use></svg>
-				</div> -->
-				<div class="editable">A short biographical description of the persona that provides a quick insight into the lifestyle, personality and professional traits of the persona that would be helpful while coming up with designs. Make sure these details are related to the primary use case of the product so that all the details are covered within the given context.</div>
-			</div>
-			<%= sb.setTemplate('widget-persona-tags') %>
+			<div class="persona-project-name editable">Project</div>
 		</div>
-		<div class="persona-cards-holder--mid">
+		<div class="persona-cards-holder">
+			<div class="persona-cards-holder--left">
+				<div class="persona-personal-details persona-card template-section persona-card--no-highlight">
+					<!-- <div class="persona-card--close template-section--close">
+						<svg><use xlink:href="#close"></use></svg>
+					</div> -->
+					<div class="persona-image">
+						<label class="persona--img-uploader">
+							<svg><use xlink:href="#dropdown"></use></svg>
+							<input class="input-hidden persona-img-uploader-input" type="file"></input>
+						</label>
+						<img class="persona-img" src="http://dummyimage.com/310x205" alt="persona image" />
+					</div>
+					<div class="persona-personal-details-bottom">
+						<div class="persona-caption editable">Persona Caption</div>
+						<div class="persona-occupation editable">Occupation: Job Title</div>
+						<div class="persona-location editable">Location: City, State</div>
+					</div>
+				</div>
+				<div class="persona-description persona-card template-section persona-card--no-highlight">
+					<!-- <div class="persona-card--close template-section--close">
+						<svg><use xlink:href="#close"></use></svg>
+					</div> -->
+					<div class="editable">A short biographical description of the persona that provides a quick insight into the lifestyle, personality and professional traits of the persona that would be helpful while coming up with designs. Make sure these details are related to the primary use case of the product so that all the details are covered within the given context.</div>
+				</div>
+				<%= sb.setTemplate('widget-persona-tags') %>
+			</div>
+			<div class="persona-cards-holder--mid">
 
-			<%= sb.setTemplate('widget-persona-list-items', {
-				heading: "PERSONA DIFFERENTIATORS",
-				items: [
-					"Student, part-time copywriter with a fair amount of financial independence",
-					"Busy youngster, juggling between college, work, friends and personal interests",
-					"A true Tennis fan and a player himself",
-					"Active on Social Networking sites. Keeps in touch with friends. Got registered from his mobile as well",
-					"Loves to try new trends in technology and gadgets"
-				]
-			}) %>
-
-			<%= sb.setTemplate('widget-persona-list-items', {
-				heading: "GOALS",
-				items: [
-					"Need a computer to get help in academics in planning and scheduling his tasks, prepare assignments etc.",
-					"Handle official work from home - OSen prefers to work and submit his work from home.",
-					"Stay up-to-date on social and other events",
-					"Stay in touch with Family and Friends"
-				]
-			}) %>
-
-			<%= 
-				sb.setTemplate('widget-persona-list-items', {
-					heading: "PAIN POINTS",
+				<%= sb.setTemplate('widget-persona-list-items', {
+					heading: "PERSONA DIFFERENTIATORS",
 					items: [
-						"Manage college admission applications on the go - As he spends most of his time outside his home during weekends, he expects to take help from a handy computer that he could use from anywhere",
-						"Efficient Work Management - A handicap of not having a computer forces him to stay at office to get his work done. A personal computer solves his problems to a great extent",
-						"Manage Music files - As a music aficionado, he expects to have a personal computer that he could use to manage his music files.",
-						"Work on the move"
+						"Student, part-time copywriter with a fair amount of financial independence",
+						"Busy youngster, juggling between college, work, friends and personal interests",
+						"A true Tennis fan and a player himself",
+						"Active on Social Networking sites. Keeps in touch with friends. Got registered from his mobile as well",
+						"Loves to try new trends in technology and gadgets"
 					]
-				})
-			%>
-		</div>
-		<div class="persona-cards-holder--right">
-			<%= sb.setTemplate('widget-progress-indicators', {
-				indicators: [{
-					heading: 'Communication',
-					caption: 'Stay in touch with family and friends',
-					percentage: 45
-				},{
-					heading: 'Work',
-					caption: 'Accomplish his tasks',
-					percentage: 70
-				},{
-					heading: 'Entertainment',
-					caption: 'Sports, Music etc.'
-				}]
-			}) %>
+				}) %>
+
+				<%= sb.setTemplate('widget-persona-list-items', {
+					heading: "GOALS",
+					items: [
+						"Need a computer to get help in academics in planning and scheduling his tasks, prepare assignments etc.",
+						"Handle official work from home - OSen prefers to work and submit his work from home.",
+						"Stay up-to-date on social and other events",
+						"Stay in touch with Family and Friends"
+					]
+				}) %>
+
+				<%= 
+					sb.setTemplate('widget-persona-list-items', {
+						heading: "PAIN POINTS",
+						items: [
+							"Manage college admission applications on the go - As he spends most of his time outside his home during weekends, he expects to take help from a handy computer that he could use from anywhere",
+							"Efficient Work Management - A handicap of not having a computer forces him to stay at office to get his work done. A personal computer solves his problems to a great extent",
+							"Manage Music files - As a music aficionado, he expects to have a personal computer that he could use to manage his music files.",
+							"Work on the move"
+						]
+					})
+				%>
+			</div>
+			<div class="persona-cards-holder--right">
+				<%= sb.setTemplate('widget-progress-indicators', {
+					indicators: [{
+						heading: 'Communication',
+						caption: 'Stay in touch with family and friends',
+						percentage: 45
+					},{
+						heading: 'Work',
+						caption: 'Accomplish his tasks',
+						percentage: 70
+					},{
+						heading: 'Entertainment',
+						caption: 'Sports, Music etc.'
+					}]
+				}) %>
+			</div>
 		</div>
 	</div>
 	<div class="current-artefact-info fixed-bar">
@@ -91,4 +93,5 @@
             <a class="popup-click" data-url="create-artefact">Create Artefacts > </a><a class="popup-click" data-url="create-artefact" data-index="1">Persona Templates >  </a>
             Persona template 1 
         </div>
-    </div></div>
+    </div>
+</div>

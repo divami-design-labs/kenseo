@@ -413,23 +413,55 @@ Kenseo.popups = (function(){
 				artefactThree({"title":"Add a project"})
 			],
 		"delete-project": [
-		{
-			"page_name": "message",
-			"title": "Delete a Project",
-			"message": function(){
-				return 'Do you want to Delete "' + sb.getPopupData('name') + '" project?';
-			},
-			"buttons": [{
-				"label": "Yes",
-				"cls": "main-btn done-btn",
-			},{
-				"label": "No",
-				"cls": "main-btn cancel-btn"
-			}],
-			"callbackfunc": function() {
-				sb.setPopupData('deleteProject', 'actionType');
+			{
+				"page_name": "message",
+				"title": "Delete a Project",
+				"message": function(){
+					return 'Do you want to Delete "' + sb.getPopupData('name') + '" project?';
+				},
+				"buttons": [{
+					"label": "Yes",
+					"cls": "main-btn done-btn",
+				},{
+					"label": "No",
+					"cls": "main-btn cancel-btn"
+				}],
+				"callbackfunc": function() {
+					sb.setPopupData('deleteProject', 'actionType');
+				}
 			}
-		}
+		],
+		"download-persona": [
+			{
+				"page_name": "message",
+				"title": "Delete a Project",
+				"message": function(){
+					return 'Do you want to Download this persona?';
+				},
+				"buttons": [{
+					"label": "Yes",
+					"cls": "main-btn yes-btn",
+				},{
+					"label": "No",
+					"cls": "main-btn cancel-btn"
+				}],
+				"callbackfunc": function() {
+					var $popup = Kenseo.current.popup;
+					$popup.on('click', '.yes-btn', function(){
+						var $personaHolder  = $('.persona-template-capture');
+						html2canvas($personaHolder.get(0), {
+							onrendered: function(canvas) {
+								var imgData = canvas.toDataURL('image/png');              
+								var pdf = new jsPDF('p', 'px', 'a2');
+								pdf.addImage(imgData, 'PNG', 10, 10);
+								pdf.save('persona.pdf');
+							}
+						});
+
+						sb.popupCloser($popup.parents('.popup-container'));
+					});
+				}
+			}
 		],
 		"cover-image": [
 		{

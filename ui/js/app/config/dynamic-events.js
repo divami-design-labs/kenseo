@@ -3,9 +3,7 @@ $(function () {
 	    closePopupIcon = '.popup-close-icon';
   //close the current popup and store the data
 	function popupCloser($el) {
-		$el.hide();
-		$el.children().remove();
-		sb.popup.resetPopupData();
+		sb.popupCloser($el);
 	}
 
 	// Events

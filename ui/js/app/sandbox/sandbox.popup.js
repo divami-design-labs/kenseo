@@ -33,30 +33,6 @@ sb.popup = {
                     sb.setPopupData($selectedElement.attr('data-k-project_id'), "id");
                     $currentPopup.find(".main-btn").prop("disabled", false);
                 });
-                // sb.toolbox.applyComboBox({
-                //     elem: container,
-                //     data: data.data,
-                //     settings: {
-                //         placeholder: "Choose Project"
-                //     },
-                //     onchange: function onchange($input, $selectedEl, bln) {
-                //         if (bln) {
-                //             sb.setPopupData($selectedEl.html(), "name");
-                //             sb.setPopupData($selectedEl.data("id"), "id");
-                //             $currentPopup.find(".main-btn").prop("disabled", false);
-                //
-                //         } else {
-                //             $currentPopup.find(".main-btn").prop("disabled", true);
-                //         }
-                //         // set a global variable that the project dropdown value has changed
-                //         Kenseo.popup.info.projectComboboxValueChanged = bln;
-                //     }
-                // });
-                // var popupData = sb.getPopupData();
-                // if (popupData && popupData["project_name"]) {
-                //     $(container).find("input").val(popupData["project_name"]);
-                //     $currentPopup.find(".main-btn").prop("disabled", false);
-                // }
             }
         });
     },

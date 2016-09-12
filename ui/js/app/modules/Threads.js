@@ -49,7 +49,7 @@ Kenseo.views.Threads = Backbone.View.extend({
                     "model": model,
                     "thread_id": d['comment_thread_id'],
                     "version_id": currentArtefactId,
-                    templateName: templateName,
+                    templateName: templateName
                 });
 
                 $el.append(threadView.render().$el);

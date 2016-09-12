@@ -966,6 +966,7 @@
 			if(!$projectId) {
 				require_once('Projects.php');
 				$newdata = Projects::addProject($interpreter);
+				// Get the newly added project's id
 				$data->project_id = $newdata->projectid;
 				$projectId = $data->project_id;
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->project_name);
@@ -1046,8 +1047,8 @@
 				$targetPaths = array();
 				for($f=0; $f<$filesCount; $f++) {
 					$targetPaths[] = $this->uploadFile(array(
-						'tmp_name'=> $FILES['tmp_name'][$f],
-						'name'=> $FILES['name'][$f]
+						'tmp_name'	=> $FILES['tmp_name'][$f],
+						'name'		  => $FILES['name'][$f]
 					), $projectId, $org_id, $artIds[$f], $masked_artefact_versions[$f]);
 				}
 

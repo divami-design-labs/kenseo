@@ -513,6 +513,8 @@ $AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName,
 											arts.artefact_id = vers.artefact_id
 											WHERE vers.masked_artefact_version_id = @~~maskedArtefactVersionId~~@";
 
+$AppGlobal['sql']['getArtefactFromVersionId'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~artefactversionid~~@";
+
 $AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as versionId, vers.masked_artefact_version_id, vers.version_no as versionNo, vers.document_path as documentPath, vers.MIME_type as type,
 												 vers.version_label as label, vers.created_by as authorId, user.name as authorName, shared,
 												(SELECT COUNT(comment_thread_id) FROM " . TABLE_COMMENT_THREADS . " as thread where

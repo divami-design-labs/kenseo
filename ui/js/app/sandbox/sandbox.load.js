@@ -171,6 +171,17 @@ sb.loadFiles({
         'js/libs/pdfjs/viewer.js',
         'js/libs/chosen.jquery.min.js',
 
+        'js/libs/html2canvas.js',
+        'js/libs/jspdf/jspdf.js',
+        'js/libs/jspdf/from_html.js',
+        'js/libs/jspdf/add_image.js',
+        'js/libs/jspdf/png_support.js',
+        'js/libs/jspdf/png_support/png.js',
+        'js/libs/jspdf/png_support/zlib.js',
+        'js/libs/jspdf/split_text_to_size.js',
+        'js/libs/jspdf/standard_fonts_metrics.js',
+        'js/libs/jspdf/FileSaver.js',
+
         'js/app/sandbox/sandbox.utils.js',
         'js/app/sandbox/sandbox.ajax.js',
         'js/app/sandbox/sandbox.time.js',
