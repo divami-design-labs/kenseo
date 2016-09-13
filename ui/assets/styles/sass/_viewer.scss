@@ -356,7 +356,6 @@
 .comments-view-section{
   height: calc(100% - 50px);
   overflow: auto;
-  min-height: 600px;
 }
 #viewerContainer {
   display: flex;
@@ -1620,6 +1619,7 @@ select {
 	@include dimensions(24px, 24px);
 	margin: 13px 13px;
   fill: #E8E8E9;
+  transition: margin .3s;
 }
 .tab-item.selectedTab > .fileTab {
 	/*@include backgroundImage('fileTabActive.svg');*/

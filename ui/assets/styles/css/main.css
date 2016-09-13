@@ -3311,13 +3311,23 @@ input:disabled {
 
 .summary-section-overlay {
   background-color: white;
-  min-height: 614px;
+  height: 614px;
   max-height: 100%;
   width: 1000px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .sliders {
+  position: relative;
+  height: 100%;
   padding-left: 80px;
+  top: 80px;
 }
 
 .sliders .rr-status {
@@ -3721,6 +3731,13 @@ input:disabled {
   display: block;
 }
 
+.summary-and-notes-section {
+  overflow: auto;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
 .summary-and-notes-section .Notes {
   display: none;
   margin-left: 30px;
@@ -4003,12 +4020,18 @@ input:disabled {
 
 .cv-person-name-holder {
   width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
 }
 
 .cv-person-name {
   font-size: 16px;
   color: #464c5f;
   font-family: "OpenSansSemibold";
+  max-width: 150px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .cv-comment-detail {
@@ -5408,7 +5431,6 @@ a {
 .comments-view-section {
   height: calc(100% - 50px);
   overflow: auto;
-  min-height: 600px;
 }
 
 #viewerContainer {
@@ -6632,6 +6654,8 @@ select {
   height: 24px;
   margin: 13px 13px;
   fill: #E8E8E9;
+  -webkit-transition: margin .3s;
+  transition: margin .3s;
 }
 
 .tab-item.selectedTab > .fileTab {
@@ -6799,6 +6823,7 @@ select {
   position: absolute;
   right: 15px;
   font-size: 14px;
+  top: 4px;
 }
 
 .type-and-state div {
@@ -6912,6 +6937,9 @@ img.image-viewer {
 
 .cv-person-right-top {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .cv-comment-actions {

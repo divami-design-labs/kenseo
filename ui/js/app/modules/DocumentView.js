@@ -89,7 +89,11 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         "click [data-url='add-version']":           "handleAddVersion",
         "click [data-url='replace-artefact']":      "handleReplaceArtefact",
         "click [data-url='edit-artefact-info']":    "editArtefactInfo",
-        "click [data-url='share-artefact']":        "handleShareArtefact"
+        "click [data-url='share-artefact']":        "handleShareArtefact",
+        "click [data-url='toggle-all-annotations']":"handleToggleAllAnnotations"
+    },
+    handleToggleAllAnnotations: function(e){
+        this.$el.find('.comment-container').toggle();
     },
     handleShareArtefact: function(e){
         var el = e.currentTarget;
@@ -135,6 +139,8 @@ Kenseo.views.DocumentView = Backbone.View.extend({
 		var actionType 			= _.camelCase($el.data('url'));
 		var $existingSlider 	= getExistingSlider();
 		var scrollTop 			= 0; // Initializing
+        var $currentArtefactBar = $outerContainer.find('.current-artefact-info');
+        var duration            = 800;
 
 		toggleSlider();
         
@@ -144,25 +150,27 @@ Kenseo.views.DocumentView = Backbone.View.extend({
 			if(typeof $currentSlider.data('url') === "undefined"){
 				renderSlider();
 				showSliderContainer();
-                $('.current-artefact-info').css('left', $existingSlider.outerWidth() + 80);
+                $currentArtefactBar.css('left', $existingSlider.outerWidth() + 80);
 			} 
 			// if the existing slider is already opened, hide it
 			else if($currentSlider.data('url') === $existingSlider.data('url')){
 				hideSliderContainer();
-				hideAllSliders();
-                $('.current-artefact-info').css('left', 0);
+                setTimeout(function() {
+				    hideAllSliders();
+                }, duration);
+                $currentArtefactBar.css('left', 0);
 			}
 			// if other slider is opened, hide the current slider and show the existing slider
 			else{
-				hideSliderContainer();
-				hideAllSliders();
                 // wait for the closing transition to finish, before running the opening transition
+                hideSliderContainer();
                 setTimeout(function() {
+                    hideAllSliders();
                     renderSlider();  // ajax call
                     showSliderContainer();
-                    $('.current-artefact-info').css('left', $existingSlider.outerWidth() + 80);
-                }, 800);
-                $('.current-artefact-info').css('left', 0);
+                    $currentArtefactBar.css('left', $existingSlider.outerWidth() + 80);
+                }, duration);
+                $currentArtefactBar.css('left', 0);
 			}
 		}
 
@@ -300,7 +308,8 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         var threadView = new Kenseo.views.Thread({
             "e": e,
             model: threadModel,
-            "version_id": annotator.getCurrentVersionId($el)
+            "version_id": annotator.getCurrentVersionId($el),
+            templateName: 'comment'
         });
 
         // add the model to collection

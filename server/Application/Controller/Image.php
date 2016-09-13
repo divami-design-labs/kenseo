@@ -1,5 +1,5 @@
 <?php
-    class Image{
+    class KenseoImage{
         public function getImage($path){
             // if jpg
             return imagecreatefromjpeg($path);

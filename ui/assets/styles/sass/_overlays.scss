@@ -6,6 +6,8 @@
 	height: 614px;
 	max-height: 100%;
 	width: 1000px;
+	display: flex;
+	flex-direction: column;
 }
 .sliders{
 	.rr-comment{
@@ -330,6 +332,8 @@
 	}
 }
 .summary-and-notes-section{
+	overflow: auto;
+	flex: auto;
 	.Notes{
 		display: none;
 		margin-left: 30px;
@@ -567,10 +571,14 @@
 }
 .cv-person-name-holder{
 	width: 100%;
+	flex: auto;
 }
 .cv-person-name{
 	@include text(16px, $color7);
 	font-family: $semiBoldFont;
+	max-width: 150px;
+    display: inline-block;
+    vertical-align: top;
 }
 .cv-comment-detail{
 	@include text(14px, $colorTwo);

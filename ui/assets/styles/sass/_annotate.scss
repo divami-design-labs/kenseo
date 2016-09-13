@@ -116,6 +116,7 @@
     position: absolute;
     right: 15px;
     font-size: 14px;
+    top: 4px;
     div{
         display: inline-block;
     }
@@ -216,6 +217,7 @@ img.image-viewer {
 
 .cv-person-right-top{
     position: relative;
+    display: flex;
 }
 
 
