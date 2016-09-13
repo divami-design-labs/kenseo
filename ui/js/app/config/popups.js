@@ -98,7 +98,7 @@ Kenseo.popups = (function(){
 					"cls": "main-btn done-btn",
 					"disabled": false
 				}],
-				"callbackfunc": sb.popup.teamPopup
+				"callbackfunc": obj.callbackfunc
 		}
 	}
 	function artefactFour(obj) {
@@ -193,7 +193,7 @@ Kenseo.popups = (function(){
 	    "add-artefact": [
 	        artefactOne({"title":"Add an Artefact"}),
 					artefactTwo({"title":"Add an Artefact"}),
-					artefactThree({"title":"Add an Artefact"})
+					artefactThree({"title":"Add an Artefact","callbackfunc" : sb.popup.teamPopup})
 	    ],
 	    "create-artefact": [
 	    	{
@@ -206,7 +206,7 @@ Kenseo.popups = (function(){
 	    	}
 	    ],
 	    "edit-artefact-info": [
-	    	artefactThree({"title":"Edit an Artefact"})
+	    	artefactThree({"title":"Edit an Artefact","callbackfunc" : sb.popup.editArtefactPopup})
 	    ],
 	    "share-artefact": [
 				artefactOne({"title":"Share an Artefact"}),
@@ -410,7 +410,7 @@ Kenseo.popups = (function(){
 		"add-project": [
 				addProject({"title":"Add a project"}),
 				artefactTwo({"title":"Add a project"}),
-				artefactThree({"title":"Add a project"})
+				artefactThree({"title":"Add a project","callbackfunc" : sb.popup.teamPopup})
 			],
 		"delete-project": [
 			{

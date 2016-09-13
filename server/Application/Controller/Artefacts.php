@@ -26,6 +26,10 @@
 				return $this->getProjectActivity($interpreter);
 			}elseif($data->all == "true"){
 				return $this->getProjectInfo($interpreter);
+			}elseif ($data->nonreferences == "true") {
+				return $this->getNonreferenceFiles($interpreter);
+			}elseif ($data->nonlinkedfiles == "true") {
+				return $this->getNonLinkedFiles($interpreter);
 			}
 			return "something else";
 		}
@@ -74,6 +78,128 @@
 			$resultObj->content = file_get_contents($filename);
 			// $resultObj->data = $resultData;
 			return $resultObj;
+		}
+
+		public function getNonreferenceFiles($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->project_id;
+			$versionId = $data->versionId;
+	
+			$db = Master::getDBConnectionManager();
+			$queryParams = array('projectId' => $projectId, 'versionId' => $versionId);
+
+			$dbQuery = getQuery('getNonReferenceFiles',$queryParams);
+
+			$resultObj = $db->multiObjectQuery($dbQuery);
+			return $resultObj;
+		}
+
+		public function getNonLinkedFiles($interpreter) {
+			$data = $interpreter->getData()->data;
+			$projectId = $data->project_id;
+			$artefactId = $data->artefactId;
+
+			$db = Master::getDBConnectionManager();
+			$queryParams = array('projectId' => $projectId, 'artefactId' => $artefactId);
+
+			$dbQuery = getQuery('getNonLinkedFiles',$queryParams);
+
+			$resultObj = $db->multiObjectQuery($dbQuery);
+			return $resultObj;
+		}
+
+		public function editArtefact($interpreter){
+			$data = $interpreter->getData()->data;
+			$userId = $interpreter->getUser()->user_id;
+			$projectId = $data->project_id;
+			if($data->projId){
+				$projectId = $data->projId;
+			}
+			$artId = $data->id;
+			if($data->artefactId){
+				 $artId = $data->artefactId;
+			}
+			$artVerId = $data->artefact_ver_id;
+			$fileName = $data->title;
+			if($data->artTitle){
+				$fileName = $data->artTitle;
+			}
+			$type = $data->doctype[0]->{"data-name"};
+
+			$db = Master::getDBConnectionManager();
+
+			$db->updateTable(TABLE_ARTEFACTS,array("artefact_type"),array($type),"artefact_id = " . $artId);
+			$tagList = $data->tags;
+
+			$tagsList = explode(",", $tagList->value);
+			for($i = 0 ; $i<count($tagsList); $i++) {
+				$tagName = $tagsList[$i];
+				$tagDetails = getQuery('getTagsName',array('tagName'=>$tagName));
+				$tagObj = $db->singleObjectQuery($tagDetails);
+				if($tagObj) {
+					$tagId = $tagObj->id;
+				} else {
+					$tagColumnNames = array("tag_name", "org_id", "created_date");
+					$tagRowValues = array($tagsList[$i], $org_id, date("Y-m-d H:i:s"));
+					$tagId = $db->insertSingleRowAndReturnId(TABLE_TAGS, $tagColumnNames, $tagRowValues);
+				}
+				$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
+				$tagRowValues = array($artId, $tagId, date("Y-m-d H:i:s"), $userId );
+				$db->insertSingleRow(TABLE_ARTEFACTS_TAGS, $tagColumnNames, $tagRowValues);
+			}
+
+			// Add references to the artefact
+			$refColumnNames = array("artefact_ver_id", "artefact_id", "created_date", "created_by");
+			$refRowValues = array();
+			$refDocs = $data->referencesIds;
+			for($i = 0 ; $i< count($refDocs); $i++) {
+				$refRowValues[] = array($artVerId, $refDocs[$i], date("Y-m-d H:i:s"), $userId);
+			}
+
+			if(count($refDocs)) {
+				$db->insertMultipleRow(TABLE_ARTEFACT_REFS, $refColumnNames, $refRowValues);
+			}
+
+			// Add Links to the artefacts
+
+			if($data->linksIds) {
+				$links = $this->linkArts($artId, $data->linksIds);
+			}
+
+			// Add this as project activity
+			$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
+			$activityRowValues = array($projectId, $userId, date("Y-m-d H:i:s"), 'A', 'U', $artId);
+			$activityId = $db->insertSingleRowAndReturnId(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
+
+			// Add this as notification
+			$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
+			$notificationRowValues = array($userId, $fileName, $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
+			$newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
+
+			//query to get data of single notification when artefact is updated
+			$queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
+			$resultObj = $db->singleObjectQuery($queryDetails);
+
+			//query to get data of single artefact when artefact is updated
+			$queryParams = array('userid' => $userId, 'projectid' => $projectId, 'artefactversionid' => $artVerId);
+			$detailsQuery = getQuery('getProjectArtefact', $queryParams);
+			$artefactObj = $db->singleObjectQuery($detailsQuery);
+
+			//query to get data of single activity when artefact is updated
+			$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
+			$activityObj = $db->singleObjectQuery($activityQuery);
+
+			$dataList['notification'] = $resultObj;
+			$dataList['artefact'] = $artefactObj;
+			$dataList['activity'] = $activityObj;
+
+			$resultMessage = new stdClass();
+			$resultMessage->type = "success";
+			$resultMessage->message = "Successfully updated artefact";
+			$resultMessage->icon = "success";
+
+			$dataList['messages'] = $resultMessage;
+			return $dataList;
 		}
 
 		public function getProjectInfo($interpreter) {
@@ -627,7 +753,6 @@
 		}
 
 		public function linkArts ($artefactId, $linkArtefacts) {
-			$linkArtefacts = json_decode($linkArtefacts);
 			$date = date("Y-m-d H:i:s");
 
 			$db = Master::getDBConnectionManager();
@@ -972,7 +1097,6 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->project_name);
 			}
 
-
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
 
 			// @TODO: Write all required params here
@@ -1119,8 +1243,9 @@
 					}
 
 					// Add Links to the artefacts
+					$linksIds = json_decode($data->linksIds);
 					if($data->linksIds) {
-						$links = $this->linkArts($artIds[$f], $data->linksIds);
+						$links = $this->linkArts($artIds[$f], $linksIds);
 					}
 
 					// Add this as project activity

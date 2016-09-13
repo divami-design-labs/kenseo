@@ -93,6 +93,30 @@ $AppGlobal['sql']['getProjectArtefactsWithSharePermission'] = "SELECT arts.* FRO
 																JOIN " . TABLE_USERS . " AS user on memb.user_id = user.user_id
 																WHERE memb.user_id = @~~userid~~@ AND arts.project_id = @~~projectid~~@";
 
+$AppGlobal['sql']['getNonReferenceFiles'] = "SELECT DISTINCT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
+											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
+											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
+											a.artefact_type as document_type, v.state AS status, v.version_no as version,
+											u.name as person_name, u.user_id as owner_id from " . TABLE_ARTEFACTS . " a
+											inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.latest_version_id = v.artefact_ver_id
+											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
+											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
+											inner join ". TABLE_ARTEFACTS_SHARED_MEMBERS ." sm on sm.artefact_ver_id = a.latest_version_id AND sm.artefact_id = a.artefact_id AND u.user_id = sm.user_id
+											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id WHERE a.project_id = @~~projectId~~@ AND a.artefact_id
+											NOT IN (SELECT artefact_id FROM artefact_ref_docs WHERE artefact_ver_id = @~~versionId~~@) AND a.latest_version_id !=@~~versionId~~@ ";
+
+$AppGlobal['sql']['getNonLinkedFiles'] = "SELECT DISTINCT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
+											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
+											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
+											a.artefact_type as document_type, v.state AS status, v.version_no as version,
+											u.name as person_name, u.user_id as owner_id from " . TABLE_ARTEFACTS . " a
+											inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.latest_version_id = v.artefact_ver_id
+											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
+											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
+											inner join ". TABLE_ARTEFACTS_SHARED_MEMBERS ." sm on sm.artefact_ver_id = a.latest_version_id AND sm.artefact_id = a.artefact_id AND u.user_id = sm.user_id
+											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id WHERE a.project_id = @~~projectId~~@ AND a.artefact_id
+											NOT IN (SELECT linked_to_id FROM artefact_links WHERE linked_from_id = @~~artefactId~~@ ) AND a.artefact_id NOT IN (SELECT linked_from_id FROM artefact_links WHERE linked_to_id = @~~artefactId~~@) AND a.artefact_id !=@~~artefactId~~@ ";
+
 $AppGlobal['sql']['getProjectArtefacts'] = "SELECT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
 											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
 											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
