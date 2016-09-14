@@ -193,6 +193,16 @@
 			$dataList['artefact'] = $artefactObj;
 			$dataList['activity'] = $activityObj;
 
+
+			$mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
+				"@artefactversionids" => $artVerId,
+				"activitydoneuser" => $userId
+			)));
+			$actiontype = "updated";
+
+			// prepare mail
+			$this->addArtefactMail($mailInfo, $actiontype);
+
 			$resultMessage = new stdClass();
 			$resultMessage->type = "success";
 			$resultMessage->message = "Successfully updated artefact";
@@ -1354,9 +1364,9 @@
 				"@artefactversionids" => join(",", $artefactVersionIds),
 				"activitydoneuser" => $userId
 			)));
-
+			$actiontype = "shared";
 			// prepare mail
-			$this->addArtefactMail($mailInfo);
+			$this->addArtefactMail($mailInfo, $actiontype);
 
 			$db->commitTransaction();
 			$resultMessage = new stdClass();
@@ -1379,7 +1389,7 @@
 			return join(' and ', array_filter(array_merge(array(join(', ', array_slice($array, 0, -1))), array_slice($array, -1)), 'strlen'));
 		}
 
-		public function addArtefactMail($infos){
+		public function addArtefactMail($infos, $actionType){
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "mail info");
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $infos);
 			$mailData = new stdClass();
@@ -1399,16 +1409,22 @@
 					}, array_filter($infos, function($a){
 						return ($a->{'email'} != $a->{'activity_done_user_mail'});
 					}));
-					$mailData->subject = "$projectName: An artefact '$artefactTitle' is shared by you";
+					$mailData->subject = "$projectName: An artefact '$artefactTitle' is $actionType by you";
 
-					$mailData->message = "Artefact '$artefactTitle' in $projectName is shared by you";
-					if(count($sharedWithUsers) > 0){
+					$mailData->message = "Artefact '$artefactTitle' in $projectName is $actionType by you";
+					if(count($sharedWithUsers) > 0 && $actionType!="updated"){
 						$mailData->message = $mailData->message . " with " . $this->customImplode($sharedWithUsers);
 					}
 				}
 				else{
-					$mailData->subject = "$projectName: An artefact '$artefactTitle' is shared with you";
-					$mailData->message = "Artefact '$artefactTitle' in $projectName is shared with you by $activityDoneUser.";
+					if($actionType == "updated"){
+						$mailData->subject = "$projectName: An artefact '$artefactTitle' is $actionType";
+						$mailData->message = "Artefact '$artefactTitle' in $projectName is $actionType by $activityDoneUser.";
+					}else{
+						$mailData->subject = "$projectName: An artefact '$artefactTitle' is shared with you";
+						$mailData->message = "Artefact '$artefactTitle' in $projectName is shared with you by $activityDoneUser.";
+					}
+
 				}
 
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "add artefact mail");
