@@ -15,6 +15,7 @@ Kenseo.views.SearchResults = Backbone.View.extend({
 
 Kenseo.views.searchResult = Backbone.View.extend({
     tagName: 'div',
+    className: 'search-result',
     template: function(data) {
        return sb.setTemplate('search-result', {data: data}); 
     },
