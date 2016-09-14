@@ -12,22 +12,30 @@
 			
 			$db = Master::getDBConnectionManager();
 			 
-			/* $userQueryDetails = getQuery('matchUsers',array('string'=>$searchString)); */
-			$artefactQueryDetails = getQuery('matchArtefacts',array('string'=>$searchString));
+			$userQueryDetails = getQuery('matchUsers',array('string'=>$searchString));
+			/* $artefactQueryDetails = getQuery('matchArtefacts',array('string'=>$searchString)); */
 			$tagQueryDetails = getQuery('matchTags',array('string'=>$searchString));
 			/* $projectQueryDetails = getQuery('matchProjects',array('string'=>$searchString)); */
 			
-			/* $userResultObj = $db->multiObjectQuery($userQueryDetails); */
-			$artefactResultObj = $db->multiObjectQuery($artefactQueryDetails);
+			$userResultObj = $db->multiObjectQuery($userQueryDetails);
+			/* $artefactResultObj = $db->multiObjectQuery($artefactQueryDetails); */
 			/* $projectResultObj = $db->multiObjectQuery($projectQueryDetails); */
 			$tagArtefactResultObj = $db->multiObjectQuery($tagQueryDetails);
+
+            foreach($userResultObj as $user) {
+                $user -> type = 'user';
+            }
 			
-			$resultObj = new stdClass();
+            foreach($tagArtefactResultObj as $artefact) {
+                $artefact -> type = 'artefact';
+            }
 			
+            $resultObj = array_merge($userResultObj, $tagArtefactResultObj);
+
 			/* $resultObj->users = $userResultObj; */
-			$resultObj->artefacts = $artefactResultObj;
+			/* $resultObj->artefacts = $artefactResultObj; */
 			/* $resultObj->projects = $projectResultObj; */
-			$resultObj->tagArtefacts = $tagArtefactResultObj;
+			/* $resultObj->tagArtefacts = $tagArtefactResultObj; */
 
 			Master::getLogManager()->log(DEBUG, MOD_DB, "VK");
 			Master::getLogManager()->log(DEBUG, MOD_DB, $resultObj);

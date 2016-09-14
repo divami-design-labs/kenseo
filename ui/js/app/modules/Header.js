@@ -27,7 +27,7 @@ Kenseo.views.Header = Backbone.View.extend({
         $(".hamburger")         .on("click", this.menuClick);
         $(".menu")              .on("click", this.stopMenuClick);
         $(".search-icon")       .on("click", this.showSearchBox);
-        $(".popup-container")   .on("keyup", ".search-field", this.validateSearch);
+        $(".popup-container")   .on("keyup", ".custom-search-field", this.validateSearch);
     },
     menuClick: function menuClick(e) {
         if (!$(".menu").html().length) {
@@ -44,25 +44,51 @@ Kenseo.views.Header = Backbone.View.extend({
     },
     validateSearch: function validateSearch(e) {
         var searchString = this.value;
-        if (searchString.length > 2) {
-            sb.renderTemplate({
-                "templateName": "search-results",
-                "templateHolder": $(".search-section").find(".search-results"),
-                "collection": new Kenseo.collections.Search(),
-                "callbackfunc": function callbackfunc() {
-                    if ($(".search-results").children().length) {
-                        $(".search-results").show();
-                    } else {
-                        $(".search-results").hide();
-                    }
-                },
-                "data": {
-                    "string": searchString
-                }
-            });
-        } else {
+        if (searchString.length <= 2) {
             $(".search-results").hide();
+            return;
         }
+        $(".search-results").show();
+        // var searchResults = new Kenseo.collections.SearchResults([
+        //     new Kenseo.models.SearchResult({id: 1, title: 'Hello World'}),
+        //     new Kenseo.models.SearchResult({id: 2, title: 'Bye World'})
+        // ]);
+        // var resultsView = new Kenseo.views.SearchResults({
+        //     collection: searchResults
+        // });
+        // resultsView.render();
+        sb.ajaxCall({
+            url: sb.getRelativePath('search'),
+            data: {
+                searchKey: searchString
+            },
+            success: function(response) {
+                console.log('Backend Response', response);
+                var data = response.data || [];
+                var resultsCollection = new Kenseo.collections.SearchResults(data);
+                console.log('Result Collecton', resultsCollection);
+                var searchResultsView = new Kenseo.views.SearchResults({
+                    collection: resultsCollection
+                });
+                console.log('Results View', searchResultsView.render());
+                $('.search-results').html(searchResultsView.$el[0].outerHTML)
+            }
+        })
+        // sb.renderTemplate({
+        //     "templateName": "search-results",
+        //     "templateHolder": $(".search-section").find(".search-results"),
+        //     "collection": searchResults,
+        //     "callbackfunc": function callbackfunc() {
+        //         if ($(".search-results").children().length) {
+        //             $(".search-results").show();
+        //         } else {
+        //             $(".search-results").hide();
+        //         }
+        //     },
+        //     "data": {
+        //         "string": searchString
+        //     }
+        // });
     }
 });
 

@@ -230,7 +230,7 @@ $AppGlobal['sql']['getMeetingInfoFromId'] = "SELECT * FROM meetings WHERE meetin
 
 $AppGlobal['sql']['getParticipantsFromMeetingId'] = "SELECT * FROM meeting_participents WHERE meeting_id = @~~meetingid~~@";
 
-$AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
+$AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS title, user_id AS id FROM " . TABLE_USERS . " WHERE screen_name LIKE @~~string~~@";
 
 $AppGlobal['sql']['getUsers'] = "SELECT * FROM users WHERE user_id IN (@~~userids~~@)";
 
@@ -284,7 +284,7 @@ $AppGlobal['sql']['getTagsName'] = "SELECT tags.tag_id as id from " . TABLE_TAGS
 											where tags.tag_name = @~~tagName~~@";
 
 
-$AppGlobal['sql']['matchTags'] = "SELECT artefacts.artefact_id AS id, artefacts.artefact_title FROM artefacts, artefact_tags, tags
+$AppGlobal['sql']['matchTags'] = "SELECT artefacts.artefact_id AS id, artefacts.artefact_title AS title FROM artefacts, artefact_tags, tags
                                         WHERE artefacts.artefact_id = artefact_tags.artefact_id AND artefact_tags.tag_id= tags.tag_id AND tags.tag_name LIKE @~~string~~@";
 
 
