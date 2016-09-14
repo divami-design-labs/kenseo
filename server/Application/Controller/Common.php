@@ -1,24 +1,33 @@
 <?php
     class Common {
     	public function searchAll($interpreter) {
-    		$data = $interpreter->getData()->data;
-			$searchString = "%". $data->string ."%";
+    		$data = $interpreter->getData();
+
+			Master::getLogManager()->log(DEBUG, MOD_DB, "STK");
+			Master::getLogManager()->log(DEBUG, MOD_DB, $data);
+
+            $searchKey = $data -> searchKey;
+			$searchString = "%" . $searchKey . "%";
+			/* $searchString = "%vest%"; */
 			
 			$db = Master::getDBConnectionManager();
 			 
-			$userQueryDetails = getQuery('matchUsers',array('string'=>$searchString));
+			/* $userQueryDetails = getQuery('matchUsers',array('string'=>$searchString)); */
 			$artefactQueryDetails = getQuery('matchArtefacts',array('string'=>$searchString));
-			$projectQueryDetails = getQuery('matchProjects',array('string'=>$searchString));
+			$tagQueryDetails = getQuery('matchTags',array('string'=>$searchString));
+			/* $projectQueryDetails = getQuery('matchProjects',array('string'=>$searchString)); */
 			
-			$userResultObj = $db->multiObjectQuery($userQueryDetails);
+			/* $userResultObj = $db->multiObjectQuery($userQueryDetails); */
 			$artefactResultObj = $db->multiObjectQuery($artefactQueryDetails);
-			$projectResultObj = $db->multiObjectQuery($projectQueryDetails);
+			/* $projectResultObj = $db->multiObjectQuery($projectQueryDetails); */
+			$tagArtefactResultObj = $db->multiObjectQuery($tagQueryDetails);
 			
 			$resultObj = new stdClass();
 			
-			$resultObj->users = $userResultObj;
+			/* $resultObj->users = $userResultObj; */
 			$resultObj->artefacts = $artefactResultObj;
-			$resultObj->projects = $projectResultObj;
+			/* $resultObj->projects = $projectResultObj; */
+			$resultObj->tagArtefacts = $tagArtefactResultObj;
 
 			Master::getLogManager()->log(DEBUG, MOD_DB, "VK");
 			Master::getLogManager()->log(DEBUG, MOD_DB, $resultObj);

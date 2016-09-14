@@ -234,7 +234,7 @@ $AppGlobal['sql']['matchUsers'] = "SELECT screen_name AS matchedString, user_id 
 
 $AppGlobal['sql']['getUsers'] = "SELECT * FROM users WHERE user_id IN (@~~userids~~@)";
 
-$AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_title, artefacts.artefact_title AS matchedString, artefacts.artefact_id AS id
+$AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_id AS id, artefacts.artefact_title
 										FROM " . TABLE_ARTEFACTS . " AS artefacts
 										INNER JOIN " . TABLE_ARTEFACTS_VERSIONS . " AS versions ON
 										artefacts.latest_version_id = versions.artefact_ver_id
@@ -284,6 +284,8 @@ $AppGlobal['sql']['getTagsName'] = "SELECT tags.tag_id as id from " . TABLE_TAGS
 											where tags.tag_name = @~~tagName~~@";
 
 
+$AppGlobal['sql']['matchTags'] = "SELECT artefacts.artefact_id AS id, artefacts.artefact_title FROM artefacts, artefact_tags, tags
+                                        WHERE artefacts.artefact_id = artefact_tags.artefact_id AND artefact_tags.tag_id= tags.tag_id AND tags.tag_name LIKE @~~string~~@";
 
 
 $AppGlobal['sql']['getLatestVerionOfArtefact'] = "SELECT latest_version_id AS verId FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
