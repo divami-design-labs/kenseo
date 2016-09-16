@@ -6,7 +6,7 @@
 			Master::getLogManager()->log(DEBUG, MOD_DB, "STK");
 			Master::getLogManager()->log(DEBUG, MOD_DB, $data);
 
-            $searchKey = $data -> searchKey;
+            $searchKey = $data -> data -> searchKey;
 			$searchString = "%" . $searchKey . "%";
 			/* $searchString = "%vest%"; */
 			
