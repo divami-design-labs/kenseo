@@ -23,3 +23,7 @@ ALTER TABLE `artefact_comments` ADD `is_submitted` INT(1) NOT NULL DEFAULT '0' C
 ALTER TABLE `artefacts` CHANGE `description` `description` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 
 ALTER TABLE `artefacts` CHANGE `artefact_title` `artefact_title` TEXT NULL DEFAULT NULL;
+
+-- 12th September 2016
+
+ALTER TABLE `artefact_tags` DROP PRIMARY KEY, ADD PRIMARY KEY(artefact_id, tag_id);
