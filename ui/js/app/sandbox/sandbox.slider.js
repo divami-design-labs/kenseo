@@ -22,7 +22,7 @@ sb.sliders = {
 			callbackfunc: function(response){
 				// Initializing slider component
 				 Kenseo.sliders.data = _.cloneDeep(response.data);
-				 new sliderComponent();
+				 new sliderComponent(Kenseo.sliders.data);
 
 				// Attaching events
 				var $summarSectionBody = $('.summary-section-body'),
