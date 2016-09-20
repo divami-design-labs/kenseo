@@ -8,7 +8,8 @@ Kenseo.views.Comments = Backbone.View.extend({
         var _this = this;
         _this.collection.each(function(model, modelIndex, models){
             var commentView = new Kenseo.views.Comment({
-                model: model
+                model: model,
+                threadScope: _this.payload.parentScope
             });
 
             _this.el.appendChild(commentView.render().el);
@@ -23,6 +24,13 @@ Kenseo.views.Comment = Backbone.View.extend({
     className: "cv-comments-item",
     initialize: function(payload){
         this.payload = payload;
+
+        var thread = payload.threadScope;
+        thread.comments.push(this);
+
+        // bind events
+        this.listenTo(this.model, 'change', this.render);
+
         return this;
     },
     render: function(){

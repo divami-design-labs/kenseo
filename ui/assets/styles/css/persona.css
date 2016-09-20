@@ -34,7 +34,7 @@
 /*@import "../sass-utilities/icons";*/
 .persona-template {
   font-size: 13px;
-  padding: 80px 30px;
+  padding: 80px 10px;
   text-align: right;
   /* to show widget adder on right */
   position: absolute;
@@ -137,6 +137,12 @@
 .persona-card--close {
   width: 14px;
   height: 14px;
+}
+
+.persona-template-capture {
+  max-width: 1200px;
+  padding: 0px 10px;
+  box-sizing: border-box;
 }
 
 .persona-card-heading {
@@ -332,24 +338,31 @@
   transition: .6s max-height;
   overflow: hidden;
   background-color: #D4D4D4;
-  left: 10px;
-  right: 10px;
+  left: 0px;
+  right: 0px;
   position: absolute;
-  margin-top: -10px;
   top: 100%;
   z-index: 1;
+  text-align: left;
 }
 
 .add-widget-section {
-  width: 200px;
   padding: 10px;
-  text-align: left;
+  text-align: center;
   position: fixed;
   top: 30px;
   z-index: 12;
   left: 0;
   right: 0;
   margin: auto;
+  width: 350px;
+}
+
+.add-widget-btn-section {
+  width: 200px;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .persona-action-buttons {

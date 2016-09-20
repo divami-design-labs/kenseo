@@ -3,7 +3,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
     className: 'outerContainer inView',
     initialize: function(payload){
         this.payload = payload.payload;
-
+        this.threads = []; // Initializing
 
         return this;
     },
@@ -90,7 +90,13 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         "click [data-url='replace-artefact']":      "handleReplaceArtefact",
         "click [data-url='edit-artefact-info']":    "editArtefactInfo",
         "click [data-url='share-artefact']":        "handleShareArtefact",
-        "click [data-url='toggle-all-annotations']":"handleToggleAllAnnotations"
+        "click [data-url='toggle-all-annotations']":"handleToggleAllAnnotations",
+        "click [data-url^='submit-artefact']":       "handleSubmitArtefact"
+    },
+    handleSubmitArtefact: function(e){
+        // handling submit artefact is done globally in popup-click event
+        // Here only required objects are prepared
+        Kenseo.scope = this;
     },
     handleToggleAllAnnotations: function(e){
         this.$el.find('.comment-container').toggle();
@@ -309,8 +315,11 @@ Kenseo.views.DocumentView = Backbone.View.extend({
             "e": e,
             model: threadModel,
             "version_id": annotator.getCurrentVersionId($el),
-            templateName: 'comment'
+            templateName: 'comment',
+            documentViewScope: this
         });
+
+        this.threads.push(threadView);  // storing new view in record
 
         // add the model to collection
         this.threadsCollection.add(threadModel);
@@ -339,7 +348,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
                 collection: this.threadsCollection,
                 documentViewScope: this,
                 templateName: 'comment',
-             });
+            });
 
             threadsView.render();
         }

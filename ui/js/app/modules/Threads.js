@@ -7,10 +7,10 @@ Kenseo.views.Threads = Backbone.View.extend({
         return this;
     },
     render: function(){
-        var _this   = this;
-        var payload = _this.payload;
-        // var data    = _this.model.toJSON();
-        var templateName = this.payload.templateName;
+        var _this               = this;
+        var payload             = _this.payload;
+        // var data             = _this.model.toJSON();
+        var templateName        = this.payload.templateName;
         var currentArtefactId   = payload.currentArtefactId;
         var $pdfDocContainer    = annotator.getDocContainer(currentArtefactId);
 
@@ -49,7 +49,8 @@ Kenseo.views.Threads = Backbone.View.extend({
                     "model": model,
                     "thread_id": d['comment_thread_id'],
                     "version_id": currentArtefactId,
-                    templateName: templateName
+                    templateName: templateName,
+                    documentViewScope: payload.documentViewScope
                 });
 
                 $el.append(threadView.render().$el);
@@ -67,6 +68,13 @@ Kenseo.views.Thread = Backbone.View.extend({
     },
     initialize: function(payload){
         this.payload = payload;
+
+        this.comments = this.comments || []; // Initializing
+
+        // get document view scope and store the thread views in it
+        var documentViewScope = this.payload.documentViewScope;
+        documentViewScope.threads.push(this);
+
         return this;
     },
     render: function(){
@@ -90,7 +98,8 @@ Kenseo.views.Thread = Backbone.View.extend({
         var commentsView = new Kenseo.views.Comments({
             collection: new Kenseo.collections.Comment(
                 _.values(data.comments)   // converting object to an array
-            )
+            ),
+            parentScope: _this
         });
 
         commentsView.render();

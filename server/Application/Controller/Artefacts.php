@@ -1740,9 +1740,9 @@
 
 			try {
 				// get owner of the aretefact
-				$artefactVersionInfo = $db->singleObjectQuery(getQuery('getArtefactVersionInfo', array(
-					"artefactversionid" => $artefactVersionId
-				)));
+				// $artefactVersionInfo = $db->singleObjectQuery(getQuery('getArtefactVersionInfo', array(
+				// 	"artefactversionid" => $artefactVersionId
+				// )));
 
 				$db->multiObjectQuery(getQuery('submitComments', array(
 					"userid"			=> $userId,
@@ -1756,17 +1756,17 @@
 				// $mailData = 
 				// $this->submitArtefactMail($mailData);
 				// get artefact owner information
-				$result->messages->type = "success";
-				$result->messages->message = "Successfully submitted the artefact";
-				$result->messages->icon = "success";
+				$result->messages->type 	= "success";
+				$result->messages->message 	= "Successfully submitted the artefact";
+				$result->messages->icon 	= "success";
 			}
 			catch (Exception $e) {
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "submit artefact");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
 				$db->abortTransaction();
-				$result->messages->type = "error";
-				$result->messages->message = "Failed to submit the artefact";
-				$result->messages->icon = "error";
+				$result->messages->type 	= "error";
+				$result->messages->message 	= "Failed to submit the artefact";
+				$result->messages->icon 	= "error";
 			}
 
 			return $result;

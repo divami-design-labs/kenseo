@@ -19,6 +19,7 @@
 				<span class="cv-person-status">Open</span>
 			</div>
 			<% } %>
+			<% if(data['is_submitted'] === "0"){ %>
 			<div class="cv-comment-actions">
 				<div class="cv-comment-edit">
 					<svg><use xlink:href="#edit"></use></svg>
@@ -27,6 +28,7 @@
 					<svg><use xlink:href="#delete"></use></svg>
 				</div>
 			</div>
+			<% } %>
 		</div>
 		<div class="cv-comment-detail"><%= data.description %></div>
 		<% if(data.metaInfo){ %>

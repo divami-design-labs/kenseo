@@ -773,7 +773,11 @@ __p += '\r\n\r\n\t</div>\r\n\t<div class="cv-person-right">\r\n\t\t<div class="c
  if(data.metaInfo){ ;
 __p += '\r\n\t\t\t<div class="cv-person-meta">\r\n\t\t\t\t<span class="cv-person-category">Typo</span>\r\n\t\t\t\t<span class="cv-person-status">Open</span>\r\n\t\t\t</div>\r\n\t\t\t';
  } ;
-__p += '\r\n\t\t\t<div class="cv-comment-actions">\r\n\t\t\t\t<div class="cv-comment-edit">\r\n\t\t\t\t\t<svg><use xlink:href="#edit"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="cv-comment-delete">\r\n\t\t\t\t\t<svg><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class="cv-comment-detail">' +
+__p += '\r\n\t\t\t';
+ if(data['is_submitted'] === "0"){ ;
+__p += '\r\n\t\t\t<div class="cv-comment-actions">\r\n\t\t\t\t<div class="cv-comment-edit">\r\n\t\t\t\t\t<svg><use xlink:href="#edit"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="cv-comment-delete">\r\n\t\t\t\t\t<svg><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t';
+ } ;
+__p += '\r\n\t\t</div>\r\n\t\t<div class="cv-comment-detail">' +
 ((__t = ( data.description )) == null ? '' : __t) +
 '</div>\r\n\t\t';
  if(data.metaInfo){ ;
@@ -1458,6 +1462,33 @@ __p += '\r\n\t<img width="50" height="50" src="' +
 __p += '\r\n\t<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>\r\n';
  } ;
 __p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item">Profile</div>\r\n    <div class="sub-menu-item">Settings</div>\r\n    <div class="separator"></div>\r\n    <a href="../server?logout" class="sub-menu-item">Log Out</a>\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['search-result'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<a href="">\r\n    <div class="result-icon">\r\n        <svg>\r\n            <use xlink:href="#search-folder"></use>\r\n        </svg>\r\n    </div>\r\n    <div class="search-title">\r\n       ' +
+((__t = ( data.title )) == null ? '' : __t) +
+' \r\n    </div>\r\n</a>\r\n\r\n';
 
 }
 return __p

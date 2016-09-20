@@ -316,6 +316,15 @@ sb.refresh = (function(){
 			var accessType = response.params.access_type;
 			Kenseo.scope.model.set('access_type', accessType);
 			Kenseo.scope = null;
+		},
+		submitArtefact: function(response){
+			// console.dir(response);
+			var _this = Kenseo.scope;
+			_this.threads.forEach(function(e){
+				e.comments.forEach(function(el){
+					el.model.set({"is_submitted": "1"});  // set submitted flag
+				});
+			});
 		}
 	}
 	function refreshSection(sectionName, subSection){
