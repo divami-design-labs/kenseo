@@ -30,6 +30,7 @@ Kenseo.views.Comment = Backbone.View.extend({
 
         // bind events
         this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'destroy', this.destroy);
 
         return this;
     },
@@ -39,18 +40,22 @@ Kenseo.views.Comment = Backbone.View.extend({
         _this.$el.html(sb.setTemplate('comment-item', {data : _this.model.toJSON()}));
         return _this;
     },
+    destroy: function(){
+        this.$el.remove();
+    },
     events: {
         // edit
-        "click .cv-comment-edit":   "handleEditClicked",
+        "click [data-url='edit-comment']"   : "handleEditClicked",
         // delete
-        "click .cv-comment-delete": "handleDeleteClicked",
+        "click [data-url='delete-comment']" : "handleDeleteClicked",
     },
     handleEditClicked: function(e){
-        e.stopPropagation();  // necessary to avoid normalizing of actions
-        this.$el.find('.cv-comment-detail').prop('contenteditable', true);
+        Kenseo.scope        = this;
+        Kenseo.popup.data   = this.model.toJSON();
     },
     handleDeleteClicked: function(e){
-        e.stopPropagation();  // necessary to avoid normalizing of actions
+        Kenseo.scope        = this;
+        Kenseo.popup.data   = this.model.toJSON();
     }
 });
 

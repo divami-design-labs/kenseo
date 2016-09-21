@@ -207,5 +207,134 @@
 			return $resultObj;
 		}
 
+		public function editComment($interpreter){
+			$result 	= new stdClass();
+			$messages 	= new stdClass();
+
+			$userId = $interpreter->getUser()->user_id;
+			$data 	= $interpreter->getData()->data;
+
+			// params
+			$commentId 		= $data->{'comment_id'};
+			$commentContent = $data->{'description'};
+
+			$db = Master::getDBConnectionManager();
+			$db->beginTransaction();
+			try{
+				// functionality here
+				// get comment data from comment id
+				$commentInfo = $db->singleObjectQuery(getQuery('getCommentInfoFromCommentId', array(
+					"commentid" => $commentId
+				)));
+
+				// check if the comment is_submitted or not 
+				// check if the comment is added by the user or not
+				if($commentInfo->{'is_submitted'} == "0" && $commentInfo->{'comment_by'} == $userId){
+					// edit the row
+					$db->updateTable(
+						"artefact_comments",
+						array(
+							"description"
+							// @TODO: update time as well
+						),
+						array(
+							$commentContent
+						),
+						"comment_id = " . $commentId
+					);
+
+					$result->status 	= "success";
+					$result->message 	= "done";
+
+					$messages->type 	= "success";
+					$messages->message 	= "Successfully edited the comment";
+					$messages->icon 	= "success";
+				}
+				else{
+					$messages->type 	= "error";
+					$messages->message 	= "You can't edit this comment";
+					$messages->icon 	= "error";
+				}
+
+				$db->commitTransaction();
+			}
+			catch(Exception $e){
+				$db->abortTransaction();
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Edit comment");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
+
+				$result->status 	= "fail";
+				$result->message 	= "Exception occured";
+
+				$messages->type 	= "error";
+				$messages->message 	= "Unable to edit the comment";
+				$messages->icon 	= "error";
+			}
+
+			$result->messages = $messages;
+
+			return $result;
+		}
+
+		public function deleteComment($interpreter){
+			$result 	= new stdClass();
+			$messages 	= new stdClass();
+
+			$userId = $interpreter->getUser()->user_id;
+			$data 	= $interpreter->getData()->data;
+
+			$result->status = "fail";
+			// params
+			$commentId = $data->{'comment_id'};
+
+			$db = Master::getDBConnectionManager();
+			$db->beginTransaction();
+			try{
+				// functionality here
+				// get comment data from comment id
+				$commentInfo = $db->singleObjectQuery(getQuery('getCommentInfoFromCommentId', array(
+					"commentid" => $commentId
+				)));
+
+				// check if the comment is_submitted or not 
+				// check if the comment is added by the user or not
+				if($commentInfo->{'is_submitted'} == "0" && $commentInfo->{'comment_by'} == $userId){
+					$db->deleteTable("artefact_comments", "comment_id = " . $commentId);
+					$result->status 	= "success";
+					$result->message 	= "done";
+
+					$messages->type 	= "success";
+					$messages->message 	= "Successfully deleted the comment";
+					$messages->icon 	= "success";
+				}
+				else{
+					$result->message = "You can't delete this comment";
+
+					$messages->type 	= "error";
+					$messages->message 	= "You can't delete this comment";
+					$messages->icon 	= "error";
+				}
+
+				$db->commitTransaction();
+			}
+			catch(Exception $e){
+				$db->abortTransaction();
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Edit comment");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
+
+				$result->status 	= "fail";
+				$result->message 	= "Exception occured";
+
+				$messages->type 	= "error";
+				$messages->message 	= "Unable to delete the comment";
+				$messages->icon 	= "error";
+			}
+
+			$result->messages = $messages;
+
+			return $result;
+		}
 	}
 ?>

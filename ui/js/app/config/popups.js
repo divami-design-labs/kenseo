@@ -507,6 +507,38 @@ Kenseo.popups = (function(){
 					"cls": "main-btn cancel-btn"
 				}]
 			}
+		],
+		"edit-comment": [
+			{
+				"page_name": "edit-comment",
+				"title": "Edit comment",
+				"buttons": [{
+					"label": "Cancel",
+					"cls": "lnk-btn cancel-btn"
+				},{
+					"label": "Done",
+					"cls": "main-btn done-btn",
+					"attr": {
+						"data-target-validating-section": ".popup-body"
+					}
+				}]
+			}
+		],
+		"delete-comment": [
+			{
+				"page_name": "message",
+				"title": "Delete the comment",
+				"message": function(){
+					return 'Do you want to Delete this comment?';
+				},
+				"buttons": [{
+					"label": "Yes",
+					"cls": "main-btn done-btn",
+				},{
+					"label": "No",
+					"cls": "main-btn cancel-btn"
+				}]
+			}
 		]
 	};
 

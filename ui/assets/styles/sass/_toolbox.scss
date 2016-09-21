@@ -123,6 +123,7 @@
 		float: none;
 		& .input-wrapper{
 			display: flex;
+			flex-direction: column;
 			& input, & textarea, & select {
 				flex: auto;
 			}

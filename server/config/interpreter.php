@@ -156,4 +156,10 @@ $AppGlobal['urlmap']['/shareArtefact'] = array ('command' => 'shareArtefact', 't
 $AppGlobal['cmdmap']['sendDummyMail'] = array ("class" => "Email", "method" => "sendDummyMail");
 $AppGlobal['urlmap']['/sendDummyMail'] = array ('command' => 'sendDummyMail', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['editComment'] = array ("class" => "Comments", "method" => "editComment");
+$AppGlobal['urlmap']['/editComment'] = array ('command' => 'editComment', 'type' => 'GET');
+
+$AppGlobal['cmdmap']['deleteComment'] = array ("class" => "Comments", "method" => "deleteComment");
+$AppGlobal['urlmap']['/deleteComment'] = array ('command' => 'deleteComment', 'type' => 'GET');
+
 ?>

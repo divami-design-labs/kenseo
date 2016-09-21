@@ -1,0 +1,28 @@
+<div class="popup popup-medium k-form">
+	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
+	<div class="popup-body">
+		<div class="popup-body-wrapper">
+            <%=
+				sb.toolbox.textBox({
+					"label": "Comment description",
+					inputClass: "required k-field",
+                    fieldClass: "field-section--stretch",
+					required: true,
+					attr: {
+						'data-validate-this': 'empty',
+						'data-v-label': 'Project',
+						'data-xtype': 'text',
+						'data-xtype-key': 'description',
+                        'value': Kenseo.popup.data.description
+					},
+					"fieldSectionErrorMessages": {
+						'empty': 'Please enter comment description',
+					}
+				})
+			%>
+        </div>
+	</div>
+	<div class="buttons-section">
+		<%= sb.toolbox.buttons({"data": data}) %>
+	</div>
+</div>

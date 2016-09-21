@@ -45,7 +45,10 @@
 	@include popupDimensions(740px, 570px);
 }
 .popup-large-df{
-	@include popupDimensions(730px, 590px)
+	@include popupDimensions(730px, 590px);
+}
+.popup-medium{
+	@include popupDimensions(425px, 320px);
 }
 .popup-header{
 	height: 55px;

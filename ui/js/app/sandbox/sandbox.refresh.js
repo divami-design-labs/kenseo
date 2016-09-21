@@ -325,6 +325,17 @@ sb.refresh = (function(){
 					el.model.set({"is_submitted": "1"});  // set submitted flag
 				});
 			});
+		},
+		editComment: function(response){
+			var _this = Kenseo.scope;
+			_this.model.set({
+				description: response.params.description
+				// @TODO: Also change the current time
+			});
+		},
+		deleteComment: function(response){
+			var _this = Kenseo.scope;
+			_this.model.destroy();
 		}
 	}
 	function refreshSection(sectionName, subSection){
