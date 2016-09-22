@@ -693,7 +693,7 @@
 			$resultMessage = new stdClass();
 			$resultMessage->messages = new stdClass();
 			$resultMessage->messages->type = "success";
-			$resultMessage->messages->message = "Successfully archieved artefact";
+			$resultMessage->messages->message = "Successfully archived the artefact";
 			$resultMessage->messages->icon = "message-archieve";
 			return $resultMessage;
 		}

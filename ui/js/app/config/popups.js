@@ -152,18 +152,18 @@ Kenseo.popups = (function(){
 			"page_name": "rename-artefact",
 			title: obj.title,
 			"buttons": [{
-					"label": "Cancel",
-					"cls": "cancel-btn lnk-btn"
-				},
-				{
-					"label": "Done",
-					"cls": "main-btn share-btn done-btn",
-					"disabled": false,
-					"attr": {
-						"data-target-validating-section": ".popup-body"
-					}
-				}],
-				"callbackfunc": sb.popup.renameArtefact
+				"label": "Cancel",
+				"cls": "cancel-btn lnk-btn"
+			},
+			{
+				"label": "Done",
+				"cls": "main-btn share-btn done-btn",
+				"disabled": false,
+				"attr": {
+					"data-target-validating-section": ".popup-body"
+				}
+			}],
+			"callbackfunc": sb.popup.renameArtefact
 		}
 	}
 	function artefactFive(obj) {

@@ -266,7 +266,9 @@ sb.refresh = (function(){
 		// },
 		archiveArtefact: function(){
 			// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
-			refreshSection('dashboard', 'db-artefacts');
+			// refreshSection('dashboard', 'db-artefacts');
+			var _this = Kenseo.scope;
+			_this.destroy();
 		},
 		deleteArtefact: function(){
 			// Kenseo.currentModel.collection.remove(Kenseo.currentModel);

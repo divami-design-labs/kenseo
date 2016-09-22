@@ -160,7 +160,9 @@ Kenseo.views.Project = Backbone.View.extend({
 
                             }
                             //move the archived project to archived projects list
-                            scope.parent.archivedTemplateHolder.prepend(scope.$el);
+                            if(scope.parent.archivedTemplateHolder){  // template will be available only for projectspage but not for dashboard
+                                scope.parent.archivedTemplateHolder.prepend(scope.$el);
+                            }
                         }
                     })
                 }, $popupContainer);

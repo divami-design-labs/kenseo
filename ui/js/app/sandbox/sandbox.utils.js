@@ -448,13 +448,17 @@ var sb = _.extend(sb, (function () {
             this.svgLoader(['popups']);
 
             var $self = $(el);
+            var $url = $self.data('url');
+            if(!$url){ // if url is not present, don't go any further 
+                return false;
+            }
             var index = $self.data('index') || 0;
             if(str != 'Slider'){
                 $('.popup-container').show();
             }else{
                 $('.slider-container').show();
             }
-            var urlParams = sb.getUrlParams($self.data('url'));
+            var urlParams = sb.getUrlParams($url);
             var actionType = urlParams.url;
             // merging two objects
             Kenseo.popup.data = _.extend(Kenseo.popup.data, urlParams.data);
@@ -596,7 +600,7 @@ var sb = _.extend(sb, (function () {
                 console.log("newCallPopup");
                 this.svgLoader(['popups']);
 
-                var _this = payload.scope;
+                var _this = Kenseo.scope = payload.scope;
                 var el = payload.el;
                 var index = el.getAttribute('data-index') || 0;
                 var actionType = el.getAttribute('data-url');

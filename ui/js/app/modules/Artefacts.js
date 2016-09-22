@@ -121,6 +121,9 @@ Kenseo.views.Artefact = Backbone.View.extend({
         this.$el.attr('data-pass', this.linkedArtefactNo);
         return this;
     },
+    destroy: function(){
+        this.$el.remove();
+    },
     events: {
         "click [data-url='rename-artefact']"    :   "renameArtefact",
         "click [data-url='edit-artefact-info']" :   "editArtefactInfo",
