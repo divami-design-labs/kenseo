@@ -115,7 +115,7 @@ Kenseo.popups = (function(){
 				{
 					"label": "Done",
 					"cls": "main-btn share-btn done-btn",
-					"disabled": false
+					"disabled": true
 				}],
 				"callbackfunc": sb.popup.shareWithPeoplePopup
 		}
@@ -359,8 +359,8 @@ Kenseo.popups = (function(){
         			}
         		}],
 				"callbackfunc": function() {
-			          sb.popup.shareWithPeoplePopup();
-			      }
+					sb.popup.shareWithPeoplePopup();
+				}
         	}
         ],
 		"create-meeting" : meeting({

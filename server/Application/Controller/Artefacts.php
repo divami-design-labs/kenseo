@@ -1461,38 +1461,46 @@
 		}
 
 		public function shareArtefact($interpreter) {
-			$info = $interpreter->getData();
-			$data = $info->data;
+			$info 						= $interpreter->getData();
+			$resultMessage 				= new stdClass();
+			$resultMessage->messages 	= new stdClass();
+			$data 						= $info->data;
 			// $artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
 			// $artId = $data->id;
-			$artefactAndVersionIds = $data->{'ids'};
+			$artefactAndVersionIds 		= $data->{'ids'};
+			$sharedMembers 				= $data->{'shared_members'};
+			if($sharedMembers){
 
-			// if multiple artefact version ids' are not mentioned 
-			// then safely we can assume only one artefact version id is being passed
-			if(!$artefactAndVersionIds){
-				$artefactAndVersionIds = array();
-				$artefactVersionIdHolder = new stdClass();
-				$artefactVersionIdHolder->{'artefact_version_id'} = $data->artefact_ver_id;
-				$artefactVersionIdHolder->{'artefact_id'} = $data->id;
-				if($data->artefactId){
-					$artefactVersionIdHolder->{'artefact_id'} = $data->artefactId;
+				// if multiple artefact version ids' are not mentioned 
+				// then safely we can assume only one artefact version id is being passed
+				if(!$artefactAndVersionIds){
+					$artefactAndVersionIds = array();
+					$artefactVersionIdHolder = new stdClass();
+					$artefactVersionIdHolder->{'artefact_version_id'} = $data->artefact_ver_id;
+					$artefactVersionIdHolder->{'artefact_id'} = $data->id;
+					if($data->artefactId){
+						$artefactVersionIdHolder->{'artefact_id'} = $data->artefactId;
+					}
+					$artefactAndVersionIds[] = $artefactVersionIdHolder;
 				}
-				$artefactAndVersionIds[] = $artefactVersionIdHolder;
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "share artefact version id");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $artefactAndVersionIds);
+				$length = count($artefactAndVersionIds);
+				$userId = $interpreter->getUser()->user_id;
+				for($i=0; $i<$length; $i++){
+					$artId = $artefactAndVersionIds[$i]->artefact_id;
+					$artVerId = $artefactAndVersionIds[$i]->artefact_version_id;
+					$this->shareForTeam($artId, $artVerId, $info->sharedTo ? $info->sharedTo: $sharedMembers, $info->userId);
+				}
+				$resultMessage->messages->type = "success";
+				$resultMessage->messages->message = "Successfully shared artefact";
+				$resultMessage->messages->icon = "success";
 			}
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "share artefact version id");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $artefactAndVersionIds);
-			$length = count($artefactAndVersionIds);
-			$userId = $interpreter->getUser()->user_id;
-			for($i=0; $i<$length; $i++){
-				$artId = $artefactAndVersionIds[$i]->artefact_id;
-				$artVerId = $artefactAndVersionIds[$i]->artefact_version_id;
-				$this->shareForTeam($artId, $artVerId, $info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
+			else{
+				$resultMessage->messages->type = "error";
+				$resultMessage->messages->message = "You haven't selected any user to share the artefact with";
+				$resultMessage->messages->icon = "error";
 			}
-			$resultMessage = new stdClass();
-			$resultMessage->messages = new stdClass();
-			$resultMessage->messages->type = "success";
-			$resultMessage->messages->message = "Successfully shared artefact";
-			$resultMessage->messages->icon = "success";
 			return $resultMessage;
 			//return array();
 		}

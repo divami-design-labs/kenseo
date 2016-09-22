@@ -555,30 +555,6 @@ sb.popup = {
                             });
                             obj.name = $selectedEl.html();
                             sb.popup.renderSharePopupPeople(obj, true);
-                            // setting the default values
-                            // var $all = $(".apply-to-all input").eq(0);
-                            // var $comment = $(".add-comments-chk input").eq(0);
-                            // var $others = $(".others-chk input").eq(0);
-                            // if (sb.popup.getChecked($all)) {
-                            //     var $grandParent = $(".share-artefact-people-wrapper");
-                            //     var states = {
-                            //         comment: sb.popup.getChecked($comment),
-                            //         others: sb.popup.getChecked($others),
-                            //         all: sb.popup.getChecked($all)
-                            //     };
-                            //
-                            //     $grandParent.find(".add-comments-chk").each(function () {
-                            //         sb.popup.setChecked($(this).find("input"), states.comment);
-                            //     });
-                            //
-                            //     $grandParent.find(".others-chk").each(function () {
-                            //         sb.popup.setChecked($(this).find("input"), states.others);
-                            //     });
-                            //
-                            //     $grandParent.find(".apply-to-all").each(function () {
-                            //         sb.popup.setChecked($(this).find("input"), states.all);
-                            //     });
-                            // }
                         }
                     },
                     insertAfter: function($text, $el, bln, selectedObject){
