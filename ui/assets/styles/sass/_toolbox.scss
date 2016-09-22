@@ -315,6 +315,7 @@ input[type="text"].xm{
 	    padding-left: 2px;
 	    padding-top: 6px;
 	    height: 15px;
+		fill: #647096;
 	}
 	.version-filter-list{
 		display: none;
@@ -326,6 +327,9 @@ input[type="text"].xm{
 }
 .enable-version-list{
 	background-color: #566277;
+	svg{
+		fill: white;
+	}
 	.version-filter-list{
 		display: block;
 		background-color: #566277;
@@ -338,7 +342,7 @@ input[type="text"].xm{
 	top: 30px;
 	right: 0px;
 	div{
-		padding: 5px 0 0 5px;
+		padding: 5px 0 5px 10px;
 	}
 }
 .heading {

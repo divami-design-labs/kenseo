@@ -187,8 +187,16 @@
 			$commentThreadQuery = getQuery('getArtefactCommentThreads', $queryParams);
 			$commentThreads = $db->multiObjectQuery($commentThreadQuery);
 
-
 			$threadCount = count($commentThreads);
+			$threadIds = array();
+			for($i=0; $i<$threadCount; $i++) {
+				$threadIds[] = $commentThreads[$i]->comment_thread_id;
+			}
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "commentsdate");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $threadIds);
+			$dateParams = array('@threadIds' => join(",", $threadIds));
+			$initiatedDateQuery = getQuery('getEarliestDate', $dateParams);
+			$initiatedDate = $db->singleObjectQuery($initiatedDateQuery);
 			for($i=0; $i<$threadCount; $i++) {
 				$threadId = $commentThreads[$i]->comment_thread_id;
 				$queryParams = array('@commentThreadIds' => $threadId);
@@ -204,6 +212,7 @@
 
 			$resultObj->threads = $commentThreads;
 			$resultObj->commentMembers = $commentMembers;
+			$resultObj->initiatedDate = $initiatedDate -> earliestDate;
 			return $resultObj;
 		}
 

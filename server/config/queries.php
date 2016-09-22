@@ -675,6 +675,11 @@ $AppGlobal['sql']['getCommentSummary'] = "SELECT ct.comment_thread_id as comment
 $AppGlobal['sql']['getCommentedMembers'] = "SELECT DISTINCT u.name FROM artefact_comment_threads ct
 											JOIN users u ON ct.comment_thread_by = u.user_id
 											 WHERE artefact_ver_id = @~~versionId~~@";
+
+$AppGlobal['sql']['getEarliestDate'] = "SELECT MIN(c.created_at) as earliestDate
+										FROM artefact_comments c
+										JOIN artefact_comment_threads ct ON ct.comment_thread_id = c.comment_thread_id
+										WHERE c.comment_thread_id IN (@~~threadIds~~@)";
 // Get users from emails
 $AppGlobal['sql']['getUserIdsFromEmails'] = "SELECT user_id FROM " . TABLE_USERS . " WHERE email in (@~~emailIds~~@)";
 

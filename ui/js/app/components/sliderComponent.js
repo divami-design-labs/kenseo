@@ -176,9 +176,6 @@ var sliderComponent = function sliderComponent(data){
 					for(var key in timelineData.timeline){
 						var timelineFilter = new doFilter(data.timeline[key]);
 						var checkDates = function(currentElement){
-							//@TODO :Temporarily hardcoded, need to get data
-							//var startDate = (new Date("03 AUG 2016")).getTime();
-							//var endDate = (new Date('16 AUG 2016' + ' 23:59:59')).getTime();
 							var createdDate = (new Date(currentElement.created_date )).getTime();
 							if(startDate <= createdDate && createdDate <= endDate){
 								return true;

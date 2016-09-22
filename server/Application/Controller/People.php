@@ -16,12 +16,20 @@
         public function getAllPeople($interpreter){
             $data = $interpreter->getData()->data;
             $versionId = $data->versionId;
+            $projectId = $data->projectId;
 			$userId = $interpreter->getUser()->user_id;
             $db = Master::getDBConnectionManager();
             $db->beginTransaction();
-            $people = $db->multiObjectQuery(getQuery('getAllPeopleSpecificToAProject', array(
-                "versionid" => $versionId
-            )));
+            if($data->versionId){
+                $people = $db->multiObjectQuery(getQuery('getAllPeopleSpecificToAProject', array(
+                    "versionid" => $versionId
+                )));
+            }else{
+                $people = $db->multiObjectQuery(getQuery('getOtherMembersList', array(
+                    "projectId" => $projectId
+                )));
+            }
+
             $db->commitTransaction();
             return $people;
         }

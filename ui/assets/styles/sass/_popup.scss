@@ -669,6 +669,27 @@ input:disabled{
 
 
 }
+
+.version-filter-data{
+	.checkbox{
+	    padding-left: 25px;
+		color: whitesmoke;
+		display: block;
+	}
+	.checkbox:after {
+	    width: 14px;
+	    height: 14px;
+	    background-color: white;
+	}
+	.checkbox :checked + span:after {
+	    left: 2px;
+	    z-index: 1;
+	}
+	.svg{
+		fill: #647096;
+	}
+}
+
 .version-filter-data:hover{
 	background-color: #293447;
 }
@@ -678,6 +699,8 @@ input:disabled{
 }
 .apply-button {
 	background-color: white;
-    border: none;
-    color: gray;
+	border: none;
+	height: 26px;
+	width: 60px;
+	color: #566277;
 }

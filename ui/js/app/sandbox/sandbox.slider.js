@@ -99,6 +99,16 @@ sb.sliders = {
 			}, Kenseo._globalData_));
 			// render threads in view
 			threadViews.render();
+			var noComments = $(".cv-comments-section").find('.no-comments');
+			if(!($('.cv-comments-section').find('.cv-comments-item').length)){
+				if(noComments.length){
+					noComments.show();
+				}else{
+					$(".cv-comments-section").append("<div class='no-comments'>No comments</div>");
+				}
+			}else{
+				noComments.hide();
+			}
 			checkThreadsLength();
 
 			$('.more-comments').click(function(e){
@@ -112,20 +122,33 @@ sb.sliders = {
 				$(this).hide();
 			});
 		};
+		var existingParticipantsIds = [];
 		var users = response.data.commentMembers;
-		var $peopleSelect = $(".comment-members");
-		// reset
-		$peopleSelect.html('');
-		// looping through each item
-		users.forEach(function(item){
-			var obj = {};
-			obj.text = item.name;
-			$peopleSelect.append(sb.setTemplate('option', {
-				option: obj
-			}));
-		});
-		// Applying chosen library
-		$peopleSelect.chosen({display_selected_options: false});
+		var setSelectOptions = function(){
+			var $peopleSelect = $(".comment-members");
+			// reset
+			$peopleSelect.html('');
+			// looping through each item
+			existingParticipantsIds = Array.prototype.slice.call(existingParticipantsIds);
+			users.forEach(function(item){
+				var obj = {};
+				obj.text = item.name;
+				obj.attr = {
+					value: item.userId
+				};
+				//display existing users
+				if(existingParticipantsIds.indexOf(item.userId) > -1){
+					obj.attr.selected = "";
+				}
+				$peopleSelect.append(sb.setTemplate('option', {
+					option: obj
+				}));
+			});
+			// Applying chosen library
+			$peopleSelect.chosen({display_selected_options: false});
+			$peopleSelect.trigger("chosen:updated");
+		};
+		setSelectOptions();
 		var $inputCommentsDate = $(".input-comments-date");
 		$inputCommentsDate.dateRangePicker({
 		     datepickerOptions : {
@@ -134,10 +157,8 @@ sb.sliders = {
 			 format: 'DD MMM YYYY'
 		 });
 		if(!$inputCommentsDate.val()){
-			// Apply the current date
-			var yesterdayDate =new Date();
-			yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-			$inputCommentsDate.val(sb.timeFormat(yesterdayDate, true, true, true) + ' to ' + sb.timeFormat(new Date(), true, true, true));
+			var initialDate =new Date(response.data.initiatedDate);
+			$inputCommentsDate.val(sb.timeFormat(initialDate, true, true, true) + ' to ' + sb.timeFormat(new Date(), true, true, true));
 		}
 		var commentsData = _.cloneDeep(response.data.threads);
 		commentsData.forEach(function(item){
@@ -148,22 +169,27 @@ sb.sliders = {
 		renderThreads(commentsData);
 		var filter = new doFilter(commentsData);
 		var selectedOptions = [];
+		var selectedUsers = new RegExp();
+		var selectedDates = ($(".input-comments-date").val()).split(" to ");
 		$('.comments-view-filter-section').click(function(e){
 			e.stopPropagation();
 		});
-		$('.filter-commentList-dropdown').click(function(){
-			$('comments-view-filter-section').find('input:checked').prop('checked',false);
-			PreviousCheckedElements = $('comments-view-filter-section').find('input:checked').filter(function(item){
+		//reset previous options
+		$('.filter-icon').click(function(){
+			$('.comments-view-filter-section').find('input:checked').prop('checked',false);
+			var PreviousCheckedElements = $('.comments-view-filter-section').find('input').filter(function(item){
 				var $currentElement = $(this);
 				return Array.prototype.some.call(selectedOptions,function(selectedOption){
 					return $currentElement.attr('name') == selectedOption;
 				});
 			});
+			setSelectOptions();
 			PreviousCheckedElements.prop('checked',true);
+			$inputCommentsDate.val(selectedDates[0] + ' to ' + selectedDates[1]);
 		});
 		$('.apply-filter-btn button').click(function(e){
 			e.stopPropagation();
-			selectedOptions = $('comments-view-filter-section').find('input:checked').map(function(){
+			selectedOptions = $('.comments-view-filter-section').find('input:checked').map(function(){
 				return $(this).attr('name');
 			});
 			$('.filter-icon').removeClass('enable-filter-list');
@@ -175,19 +201,38 @@ sb.sliders = {
 				return regExp;
 			};
 			var getRegularExpression = function(options) {
-				return new RegExp(Array.prototype.slice.call(options).join("|"))
+				return new RegExp(Array.prototype.slice.call(options).join("|"));
 			};
 
 			var checkUsers = function(currentElement){
-				var users = $('.comment-members-list').find('span').map(function(){
-					 return $(this).html();
+				existingParticipantsIds = $('.comment-members-list').find('span').map(function(){
+					var options = $('.comment-members').find('option');
+					for(var i = 0; i < options.length; i++){
+						if(options[i].text == $(this).html())
+						return options[i].value;
+					}
 	            });
+
 				var userFilter = new doFilter(currentElement.comments);
 				currentElement.comments = userFilter.refresh(
 					{
-					 	user : getRegularExpression(users)
+					 	userId : getRegularExpression(existingParticipantsIds)
 					}
 				);
+				return currentElement;
+			};
+			var checkDateRange = function(currentElement){
+				selectedDates = ($(".input-comments-date").val()).split(" to ");
+				var startDate = (new Date(selectedDates[0])).getTime();
+				var endDate = (new Date(selectedDates[1] + ' 23:59:59')).getTime();
+				currentElement.comments = currentElement.comments.filter(function(item){
+					var commentDate = (new Date(item.time )).getTime();
+					if(startDate <= commentDate && commentDate <=endDate){
+						return true;
+					}else{
+						return false;
+					}
+				});
 				return currentElement;
 			};
 			var filteredElements = filter.refresh(
@@ -196,27 +241,13 @@ sb.sliders = {
 					category : getCheckedOptions($('.category')),
 					state : getCheckedOptions($('.status')),
 					checkUsers : checkUsers,
-					checkDateRange : sb.sliders.checkDateRange
+					checkDateRange : checkDateRange
 				}
 			);
 			$('.comments-view-section').find('.cv-comments-section').html('');
 			renderThreads(filteredElements);
 		});
 
-	},
-	checkDateRange : function(currentElement){
-		var Dates = ($(".input-comments-date").val()).split(" to ");
-		var startDate = (new Date(Dates[0])).getTime();
-		var endDate = (new Date(Dates[1] + ' 23:59:59')).getTime();
-		currentElement.comments = currentElement.comments.filter(function(item){
-			var commentDate = (new Date(item.time )).getTime();
-			if(startDate <= commentDate && commentDate <=endDate){
-				return true;
-			}else{
-				return false;
-			}
-		});
-		return currentElement;
 	},
 	setSliderDimensions : function(width) {
 		// $('.slider-container').css({
