@@ -1881,6 +1881,16 @@ a {
   top: 2px;
 }
 
+.menu-recent-notifications .mn-left {
+  background-color: #00aeef;
+  color: #ffffff;
+  padding-right: 10px;
+}
+
+.menu-recent-notifications .clock-icon {
+  bottom: 13px;
+}
+
 .sub-section {
   width: 255px;
   float: left;
@@ -2003,8 +2013,7 @@ a {
 .sort-view {
   font-size: 12px;
   color: #62656f;
-  padding-bottom: 20px;
-  margin-top: -20px;
+  padding-top: 10px;
 }
 
 .activity-sender {
@@ -2734,7 +2743,7 @@ input:disabled {
   width: 10px;
   height: 10px;
   position: absolute;
-  right: 32px;
+  right: 5px;
   top: 3px;
 }
 

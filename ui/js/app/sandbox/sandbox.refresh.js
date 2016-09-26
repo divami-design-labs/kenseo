@@ -58,8 +58,18 @@ sb.refresh = (function(){
             },
             // sb.renderTemplate({"templateName": 'artefact', "templateHolder": $('.menu-recent-requests-section'), "collection": new Kenseo.collections.Artefacts(), "data": 'menu-artefacts'});
             'menu-recent-notifications': function(){
-            	return sb.renderTemplate({ 'templateName': 'menu-recent-notifications', 'templateHolder': $('.menu-recent-notifications-section'), 'collection': new Kenseo.collections.Notifications(), 'data': 'menu-notifications' });
+				return new Kenseo.views.Notifications({
+					collection: new Kenseo.collections.Notifications(),
+					templateHolder: $('.menu-recent-notifications'),
+					data: {
+		                limit: 3
+		            },
+		            fromMenu: true
+				});
             },
+            // 'menu-recent-notifications': function(){
+            // 	return sb.renderTemplate({ 'templateName': 'menu-recent-notifications', 'templateHolder': $('.menu-recent-notifications-section'), 'collection': new Kenseo.collections.Notifications(), 'data': 'menu-notifications' });
+            // },
             'menu-recent-people': function(){
             	return sb.renderTemplate({ 'templateName': 'menu-recent-people', 'templateHolder': $('.menu-recent-people-section'), 'collection': new Kenseo.collections.People(), 'data': { limit: 3, projects: true } });
             }
@@ -310,7 +320,7 @@ sb.refresh = (function(){
 			refreshSection('project-page', 'pp-people');
 		},
 		renameArtefact: function(response) {
-			var newname = response.params.artefact_name;
+			var newname = response.params.artefact_name+"."+_.last(response.params.title.split('.'));
 			Kenseo.scope.model.set('title', newname);
 			Kenseo.scope = null;
 		},

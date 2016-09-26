@@ -434,7 +434,7 @@ Kenseo.popups = (function(){
 		"download-persona": [
 			{
 				"page_name": "message",
-				"title": "Delete a Project",
+				"title": "Download persona as pdf",
 				"message": function(){
 					return 'Do you want to Download this persona?';
 				},

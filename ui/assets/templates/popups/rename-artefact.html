@@ -2,6 +2,9 @@
     <%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
     <div class="popup-body">
         <div class="popup-body-wrapper">
+            <% var title = Kenseo.popup.data.title;
+                title = _.initial(title.split('.')).join('.'); 
+            %>
             <%=
                 sb.toolbox.textBox({
                     inputClass: "project-input required k-field blur-field",
@@ -12,7 +15,7 @@
                         'data-v-label': 'Artefact',
                         'data-xtype': 'text',
                         'data-xtype-key': 'artefact_name',
-                        value: Kenseo.popup.data.title
+                         value: title
                     },
                     "fieldSectionErrorMessages": {
                         'empty': ' Please enter artefact name',

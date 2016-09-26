@@ -242,7 +242,7 @@ $AppGlobal['sql']['matchArtefacts'] = "SELECT artefacts.artefact_id AS id, artef
 										artefacts.artefact_id = versions.artefact_id
 										WHERE artefact_title LIKE @~~string~~@";
 
-$AppGlobal['sql']['matchProjects'] = "SELECT project_name AS matchedString, project_id AS id FROM " . TABLE_PROJECTS . " WHERE project_name LIKE @~~string~~@";
+$AppGlobal['sql']['matchProjects'] = "SELECT project_name AS title, project_id AS id FROM " . TABLE_PROJECTS . " WHERE project_name LIKE @~~string~~@";
 
 
 $AppGlobal['sql']['getTeamMembersList'] = "SELECT u.user_id as id, m.proj_id, u.name, u.email, u.profile_pic_url as picture, m.access_type,

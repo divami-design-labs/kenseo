@@ -16,11 +16,14 @@
 			/* $artefactQueryDetails = getQuery('matchArtefacts',array('string'=>$searchString)); */
 			$tagQueryDetails = getQuery('matchTags',array('string'=>$searchString));
 			/* $projectQueryDetails = getQuery('matchProjects',array('string'=>$searchString)); */
+			$projectQueryDetails = getQuery('matchProjects',array('string'=>$searchString));
 			
 			$userResultObj = $db->multiObjectQuery($userQueryDetails);
 			/* $artefactResultObj = $db->multiObjectQuery($artefactQueryDetails); */
 			/* $projectResultObj = $db->multiObjectQuery($projectQueryDetails); */
 			$tagArtefactResultObj = $db->multiObjectQuery($tagQueryDetails);
+
+			$projectsResultObj = $db->multiObjectQuery($projectQueryDetails);
 
             foreach($userResultObj as $user) {
                 $user -> type = 'user';
@@ -29,8 +32,12 @@
             foreach($tagArtefactResultObj as $artefact) {
                 $artefact -> type = 'artefact';
             }
-			
-            $resultObj = array_merge($userResultObj, $tagArtefactResultObj);
+
+            foreach($projectsResultObj as $project) {
+                $project -> type = 'project';
+            }
+
+            $resultObj = array_merge($userResultObj, $tagArtefactResultObj,$projectsResultObj);
 
 			/* $resultObj->users = $userResultObj; */
 			/* $resultObj->artefacts = $artefactResultObj; */

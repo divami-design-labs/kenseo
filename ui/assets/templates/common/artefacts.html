@@ -20,8 +20,8 @@
 		<% } %>
 	</div>
 </div>
+<div class="sort-view">Sort By <% if(data && data.sortBy){ %> <%= _.capitalize(data.sortBy) %> <% } else { %>Default <% } %></div>
 <div class="artifacts-content sub-section-content <% if(data.sortBy && data.sortBy === 'default'){ %> linked-artefacts <% } %>">
-	<div class="sort-view">Sort By <% if(data && data.sortBy){ %> <%= _.capitalize(data.sortBy) %> <% } else { %>Default <% } %></div>
 <% } else{ %>
 	<div class="review-requests-heading">
 		<div class="review-requests-icon">

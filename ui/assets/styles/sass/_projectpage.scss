@@ -104,8 +104,7 @@
 }
 .sort-view{
     @include text(12px, $colorC);
-    padding-bottom: 20px;
-    margin-top: -20px;
+    padding-top: 10px;
 }
 .activity-sender{
 	@include text(12px, $colorE);

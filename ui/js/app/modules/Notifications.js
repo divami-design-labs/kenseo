@@ -1,6 +1,7 @@
 Kenseo.views.Notifications = Backbone.View.extend({
     el: '.notifications-content',
     initialize: function initialize(payload) {
+        this.payload = payload;
         this.data = payload.data;
         this.templateHolder = payload.templateHolder;
         this.timeRelated = payload.timeRelated;
@@ -29,7 +30,8 @@ Kenseo.views.Notifications = Backbone.View.extend({
                         newData[key].forEach(function(item){
                             var view = new Kenseo.views.Notification({
                                 model: new Kenseo.models.Notifications(item),
-                                collection: _this.collection
+                                collection: _this.collection,
+                                scope: _this
                             });
 
                             content = content + view.el.outerHTML;
@@ -46,7 +48,8 @@ Kenseo.views.Notifications = Backbone.View.extend({
                     data.forEach(function(item){
                         var view = new Kenseo.views.Notification({
                             model: new Kenseo.models.Notifications(item),
-                            collection: _this.collection
+                            collection: _this.collection,
+                            scope: _this
                         });
 
                         _this.templateHolder.append(view.el);
@@ -96,13 +99,14 @@ Kenseo.views.Notification = Backbone.View.extend({
     },
     initialize: function(payload){
         this.data = payload.data;
+        this.payload = payload;
         this.render();
         return this;
     },
     render: function(){
         var _this = this;
 
-        _this.$el.append(this.template(_this.model.toJSON()));
+        _this.$el.append(this.template(_.extend({fromMenu: _this.payload.scope.payload.fromMenu },_this.model.toJSON())));
         return this;
     },
     events: {
