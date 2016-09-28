@@ -315,6 +315,9 @@ var sb = _.extend(sb, (function () {
             }
             return "";
         },
+        twoDigit: function(str){
+            return ("00" + str).slice(-2);
+        },
         setPopulateValue: function(property, str, value){
             // if the object is not present, create one
             if(!Kenseo.populate[property]){

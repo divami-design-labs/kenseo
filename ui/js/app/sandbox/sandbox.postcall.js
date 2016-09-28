@@ -26,6 +26,13 @@ sb.postcall = (function(){
 		'text': function($el){
 			return $el.val();
 		},
+		'text-date': function($el){
+			var options = $el.get(0).options;
+			return sb.getHHTime(options[options.selectedIndex].textContent);
+		},
+		'timezone-offset': function($el){
+			return sb.getTimeZone();
+		},
 		'share-permissions': function($el) {
 			var accessType = Kenseo.settings.accesstype;
 			var $items = $el.find('.share-artefact-people-item');
@@ -81,7 +88,7 @@ sb.postcall = (function(){
 		"get-project-id": function($el){
 			return $el.prop('data-k-project_id');
 		},
-    'coverImage' : function($el) {
+    	'coverImage' : function($el) {
 			var dimensions = setPanningDimensions();
 			return dimensions;
 		},
@@ -91,7 +98,24 @@ sb.postcall = (function(){
 				return $(this).html()
 			});
 			return Array.prototype.slice.call(html);
-		} 
+		},
+		'getDataAttributeValue': function($el, key){
+			return $el.data(key);
+		},
+		'get-participants': function($el){
+			var el = $el.get(0);
+			var values = $el.val();
+			var obj = [];
+			values.forEach(function(v){
+				var option = el.querySelector('[value="' + v + '"]');
+				obj.push({
+					id: v,
+					participentName: option.text
+				});
+			});
+
+			return obj;
+		}
 	};
 
 	function getKeys($field, type, typeKey){
@@ -99,6 +123,9 @@ sb.postcall = (function(){
 		if(func){ // if k-xtype field's functionality is present in fieldTypes variable above
 			// data[typeKey] = func($field);
 			Kenseo.popup.data[typeKey] = func($field); // temporary fix
+		}
+		else{
+			Kenseo.popup.data[typeKey] = getFieldTypes["getDataAttributeValue"]($field, type);
 		}
 
 		// Checking for "data-k-" prefix attributes in k-field element

@@ -238,7 +238,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
         });
     },
     renameArtefact: function(e){
-        Kenseo.scope = this;
+        // Kenseo.scope = this;
         var el = e.currentTarget;
         sb.newCallPopup({
             el: el,

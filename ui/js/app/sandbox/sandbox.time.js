@@ -40,8 +40,8 @@ _.extend(sb, {
         // console.log("new date time: ", newDateTime, date.getTime());
         return new Date(newDateTime);
     },
-    getTimeFormat: function getTimeFormat() {
-        var now = new Date();
+    getTimeFormat: function getTimeFormat(str) {
+        var now = str? new Date(str): new Date();
         var hh = now.getHours();
         var min = now.getMinutes();
 
@@ -54,7 +54,8 @@ _.extend(sb, {
         var time = hh+":"+min+" "+ampm;
         return time;
     },
-    timeFormat: function timeFormat(time, OnlyTime, OnlyDays, withYear) {
+    timeFormat: function timeFormat(time, OnlyTime, OnlyDays, withYear, options) {
+        options = options || {};
         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var theDate = sb.getDate(time);
         var currentDate = sb.getDate();
@@ -62,6 +63,9 @@ _.extend(sb, {
         var year = theDate.getFullYear();
         var month = theDate.getMonth();
         var day = theDate.getDate();
+        if(options.twoDigitDay){
+            day = sb.twoDigit(day); 
+        }
 
         var currentYear = currentDate.getFullYear();
         var currentMonth = currentDate.getMonth();
@@ -101,14 +105,22 @@ _.extend(sb, {
         else{
             value = value - 1;
         }
-        return hhValue.replace(/^\d\d/, ("0" + value).slice(-2));
+        return hhValue.replace(/^\d\d/, sb.twoDigit(value));
     },
-    getTime: function getTime(time) {
+    convertToAMPM: function(str, options){
+        options = options || {};
+        return sb.getTime("Wed Sep 28 2016 " + str, options);
+    },
+    getTime: function getTime(time, options) {
+        options = options || {};
         var fullDate = sb.getDate(time);
         var hours = fullDate.getHours();
-        var minutes = ('0' + fullDate.getMinutes()).slice(-2);
-        if (hours > 11) {
-            hours = ('0' + (hours - 12)).slice(-2);
+        if(options.twoDigitHour){
+            hours = sb.twoDigit(hours);
+        }
+        var minutes = sb.twoDigit(fullDate.getMinutes());
+        if (+hours > 11) {
+            hours = sb.twoDigit(+hours - 12);
             return hours + ':' + minutes + ' PM';
         } else {
             return hours + ':' + minutes + ' AM';

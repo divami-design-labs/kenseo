@@ -640,7 +640,7 @@ sb.popup = {
             },
             {
                 "collection": new Kenseo.collections.People(),
-                container: $('[data-name="attendees"].field-section'),
+                container: $('.field-section--recipients.field-section'),
                 "data": {
                     all: true
                 }
@@ -781,7 +781,7 @@ sb.popup = {
             function refreshArtefactCombobox(projectId, callbackfunc){
                 return sb.ajaxCall({
                     "collection": new Kenseo.collections.Artefacts(),
-                    container: $('[data-name="meetingArtefact"].field-section'),
+                    container: $('.artefact-field-section.field-section'),
                     "data": {
                         projects: true,
                         project_id: projectId,
@@ -846,7 +846,15 @@ sb.popup = {
 
             function fromTimeDropdownChange(){
                 var options = this.options;
-                var index = options.selectedIndex;
+                var index = this.selectedIndex;
+                // removing selected attribute
+                Array.prototype.forEach.call(options, function(el){
+                    el.removeAttribute('selected');
+                });
+
+                // re-assign the selected Index
+                this.selectedIndex = index;
+                // var index = options.selectedIndex;
 
                 // resetting html of toTime field
                 var toTimeField = document.querySelector('.projects-dropdown.toTime');
@@ -1160,11 +1168,32 @@ sb.popup = {
                 $shareArtefactWrapper.append(sb.setTemplate("share-people", { data: teamMember }));
             });
         }
-        $('.close-people-icon').click(function(){
-          var userId = $(this).parent(".share-artefact-people-item").attr("data-k-user_id");
-          $(this).parent(".share-artefact-people-item").remove();
-          var $elm = $('.sv-name').filter(function(){ return this.getAttribute('data-id') == userId });
-          $elm.parent(".sv-item").remove();
+
+        function decideVisibilityOfGroupLevelCheckbox(){
+            var $currentPopup = Kenseo.current.popup;
+            var $groupLevelCheckbox = $('.sarp-checkbox-holder');
+            var $doneBtn = $currentPopup.find('.done-btn');
+            var peopleLength = $shareArtefactWrapper.find('.share-artefact-people-item').length;
+            $doneBtn.prop({'disabled': peopleLength === 0});
+            // show group level permissions only when the added people are more than one user
+            if(peopleLength > 1){
+                // show group level permissions
+                $groupLevelCheckbox.show();
+            }
+            else{
+                // hide group level permissions
+                $groupLevelCheckbox.hide();
+            }
+        }
+        decideVisibilityOfGroupLevelCheckbox();
+
+        sb.attach($('.close-people-icon'), 'click', function(){  
+            var userId = $(this).parent(".share-artefact-people-item").attr("data-k-user_id");
+            $(this).parent(".share-artefact-people-item").remove();
+            var $elm = $('.sv-name').filter(function(){ return this.getAttribute('data-id') == userId });
+            $elm.parent(".sv-item").remove();
+
+            decideVisibilityOfGroupLevelCheckbox();
         });
         sb.popup.attachEvents();
     }

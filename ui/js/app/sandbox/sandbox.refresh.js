@@ -194,34 +194,22 @@ sb.refresh = (function(){
 		},
 		'meeting-notes': {
 			'meeting-notes': function(){
-				return sb.renderTemplate({
-	                url: sb.getRelativePath('getMeetingNotes'),
-	                data: {
+				return sb.ajaxCall({
+					url: sb.getRelativePath('getMeetingNotes'),
+					data: {
 	                    meetingId: Kenseo.data.meetingId
 	                },
-	                templateName: 'meetingnotes',
-	                templateHolder: $('.meeting-notes-section'),
-	                callbackfunc: function(response) {
+					success: function(response){
 						var data = response.data;
-						// registering update button to store data related to popupulating the fields
-						sb.attachIn('click', '.meeting-update-button', function(){
-							// prepare the edit meeting invitation field values
-							sb.setPopulateValue('update-meeting', 'agenda', data.agenda);
-							sb.setPopulateValue('update-meeting', 'artefact_name', data.artefactName);
-							sb.setPopulateValue('update-meeting', 'project_id', data.projectId);
-							sb.setPopulateValue('update-meeting', 'project_name', data.projectName);
-							sb.setPopulateValue('update-meeting', 'venue', data.venue);
-							sb.setPopulateValue('update-meeting', 'meeting_id', response.params.meetingId);
-							sb.setPopulateValue('update-meeting', 'meeting_date', data.startTime.split(" ")[0]);
-							sb.setPopulateValue('update-meeting', 'meeting_date_from_time', data.startTime);
-							sb.setPopulateValue('update-meeting', 'meeting_date_to_time', data.endTime);
-							sb.setPopulateValue('update-meeting', 'participants_user_ids', data.participants.map(function(participant){ return participant.id }));
+
+						var meetingNoteView = new Kenseo.views.MeetingNotes({
+							model: new Kenseo.models.Meeting(data),
+							meetingId: response.params.meetingId
 						});
-	                    //since we have the Html ready now we can have the editor in place.
-	                    var textEditorObj = new textEditor(document.querySelector('.text-editor-section'));
-	                    sb.meeting.notes();
-	                }
-	            });
+
+						meetingNoteView.render();
+					}
+				});
 			}
 		},
 		'projects-page': {
@@ -359,6 +347,15 @@ sb.refresh = (function(){
 		deleteComment: function(response){
 			var _this = Kenseo.scope;
 			_this.model.destroy();
+		},
+		updateMeeting: function(response){
+			// @TODO: Uncomment the below lines after fixing the way params are being fetched for create invitation form
+			if(response.data.messages.type === "success"){
+				var params = response.params;
+				var _this = Kenseo.scope;
+				_this.model.set(params);
+				console.dir(_this.model.toJSON());
+			}
 		}
 	}
 	function refreshSection(sectionName, subSection){

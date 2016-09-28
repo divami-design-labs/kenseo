@@ -4,7 +4,8 @@
 	<div class="popup-body">
 		<div class="popup-body-wrapper">
 			<form class="meeting-invite-form">
-				<% if(data.populateType === "update-meeting"){ %>
+				<% var isUpdateMeetingForm = data.populateType === "update-meeting" %>
+				<% if(isUpdateMeetingForm){ %>
 					<input class="k-field" type="hidden" data-xtype="text" data-xtype-key="meeting_id" value="<%= sb.getPopulateValue(data.populateType, 'meeting_id') %>"></input>
 				<% } %>
 
@@ -13,11 +14,16 @@
 						"label": "Project",
 						required: true,
 						"class": "xm project-combobox blur-field",
-						"dataName": "meetingProject",
+						"inputClass": "k-field",
 						"placeholder": "Choose Project",
-						"inputAttr": {
-							"value": sb.getPopulateValue(data.populateType, 'project_name')
-						},
+						"inputAttr": _.assign({
+							"value": sb.getPopulateValue(data.populateType, 'project_name'),
+							"data-xtype": "id,text",
+							"data-xtype-key": "projectId,projectName"
+							}, function(){
+								return isUpdateMeetingForm? {disabled: true}: {}
+							}()
+						),
 						"fieldSectionErrorMessages": {
 							'empty': 'Please select project name',
 						}
@@ -27,14 +33,20 @@
 					toolbox.comboBox({
 						"label": "Artefact",
 						required: true,
+						fieldClass: "artefact-field-section",
 						"class": "xm artefact-combobox blur-field",
-						"dataName": "meetingArtefact",
-						"placeholder": "Choose Project",
-						"inputAttr": {
-							"value": sb.getPopulateValue(data.populateType, 'artefact_name')
-						},
+						"inputClass": "k-field",
+						"placeholder": "Choose Artefact",
+						"inputAttr": _.assign({
+							"value": sb.getPopulateValue(data.populateType, 'artefact_name'),
+							"data-xtype": "id,text",
+							"data-xtype-key": "artefactId,artefactName"},
+							function(){
+								return isUpdateMeetingForm? {disabled: true}: {}
+							}()
+						),
 						"fieldSectionErrorMessages": {
-								'empty': 'Please select project name',
+							'empty': 'Please select project name',
 						}
 					})
 				%>
@@ -43,19 +55,20 @@
 						"label": "Agenda",
 						required: true,
 						textArea: true,
-						dataName: "agenda",
-						"inputClass": "input-meeting-textarea meeting-agenda blur-field",
+						"inputClass": "input-meeting-textarea meeting-agenda blur-field k-field",
 						'attr': {
-							'data-validate-this': 'empty'
+							'data-validate-this': 'empty',
+							"data-xtype": "text",
+							"data-xtype-key": "agenda"
 						},
 						'value': sb.getPopulateValue(data.populateType, 'agenda'),
 						"fieldSectionErrorMessages": {
-								'empty': ' Please provide meeting agenda',
+							'empty': ' Please provide meeting agenda',
 						}
 					})
 				%>
 				<div style="clear: both; padding-top: 20px;">
-					<div class="field-section in-line" data-name="date">
+					<div class="field-section in-line">
 						<%
 							var dateValue = sb.getPopulateValue(data.populateType, 'meeting_date');
 							if(dateValue){
@@ -68,7 +81,7 @@
 						%>
 						<div class="input-label required">Scheduled on</div>
 						<div class="input-wrapper float-left mini-datepicker">
-							<input type="text" value="<%= dateValue %>" class="input-meeting-date float-left"></input>
+							<input type="text" value="<%= dateValue || sb.timeFormat(dateValue, true, true, true, {twoDigitDay: true}) %>" class="input-meeting-date float-left k-field" data-xtype="text" data-xtype-key="date"></input>
 							<div class="datepicker-icon-holder float-left">
 								<div class="datepicker-icon">
 									<svg><use xlink:href="#calendar"></use></svg>
@@ -78,7 +91,7 @@
 					</div>
 					<%
 						var timeValues = [
-											"12:30 AM","01:00 AM","01:30 AM","02:00 AM","02:30 AM","03:00 AM",
+											"00:00 AM","00:30 AM","01:00 AM","01:30 AM","02:00 AM","02:30 AM","03:00 AM",
 											"03:30 AM","04:00 AM","04:30 AM","05:00 AM","05:30 AM","06:00 AM",
 											"06:30 AM","07:00 AM","07:30 AM","08:00 AM","08:30 AM","09:00 AM",
 											"09:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM",
@@ -88,15 +101,15 @@
 											"09:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM","11:30 PM"
 										]
 					%>
-					<div class="field-section in-line" data-name="fromTime">
+					<div class="field-section in-line">
 						<div class="input-wrapper float-left">
 							<div class="time-label">From</div>
-							<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">
+							<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime k-field" data-xtype="text-date" data-xtype-key="fromTime">
 								<% var fromTime = sb.getPopulateValue(data.populateType, 'meeting_date_from_time') %>
 								<% var fromTimeSelectIndex = 0 %>
 								<%
 									if(fromTime){
-										fromTimeSelectIndex = timeValues.indexOf(sb.getTime(new Date(fromTime).toString())) + 1;
+										fromTimeSelectIndex = timeValues.indexOf(sb.convertToAMPM(fromTime, {twoDigitHour: true})) + 1;
 									}
 									else{
 										var newSelectValue = new Date();
@@ -114,15 +127,15 @@
 							</select>
 						</div>
 					</div>
-					<div class="field-section in-line" data-name="toTime">
+					<div class="field-section in-line">
 						<div class="input-wrapper float-left">
 							<div class="time-label">To</div>
-							<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">
+							<select class="projects-dropdown dropdown no-margin mini-dropdown toTime k-field" data-xtype="text-date,timezone-offset" data-xtype-key="toTime,timezone">
 								<% var toTime = sb.getPopulateValue(data.populateType, 'meeting_date_to_time') %>
 								<% var toTimeSelectIndex = 0 %>
 								<%
 									if(toTime){
-										toTimeSelectIndex = timeValues.indexOf(sb.getTime(new Date(toTime).toString())) + 1;
+										toTimeSelectIndex = timeValues.indexOf(sb.convertToAMPM(toTime, {twoDigitHour: true})) + 1;
 									}
 								%>
 								<% _.each(timeValues, function(time, i){ %>
@@ -135,11 +148,12 @@
 				<%=
 					toolbox.textBox({
 						"label": "Venue",
-						inputClass: "meeting-location",
-						dataName: "location",
+						inputClass: "meeting-location k-field",
 						'attr': {
 							'data-validate-this': 'empty',
-							'value': sb.getPopulateValue(data.populateType, 'venue')
+							'value': sb.getPopulateValue(data.populateType, 'venue'),
+							'data-xtype': 'text',
+							'data-xtype-key': 'venue'
 						}
 					})
 				%>
@@ -149,10 +163,12 @@
 						data: {
 							"label": "Recipients List",
 							required: true,
-							inputClass: "recipients-meeting blur-field",
-							"dataName": "attendees",
+							fieldClass: "field-section--recipients",
+							inputClass: "recipients-meeting blur-field k-field",
 							"selectAttr": {
-								"multiple": ""
+								"multiple": "",
+								"data-xtype": "get-participants",
+								"data-xtype-key": "participants"
 							},
 							"fieldSectionErrorMessages": {
 								'empty': ' Please select at least one recipient',

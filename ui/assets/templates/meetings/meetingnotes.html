@@ -32,8 +32,8 @@
             <div class="meta-item">
                 <div class="meta-heading">Scheduled On</div>
                 <div class="meta-text">
-                    <div>Dec 04, 2014</div>
-                    <div>11:00 am to 12:00 pm</div>
+                    <div><%= sb.timeFormat(data.date, true, true, true) %></div>
+                    <div><%= sb.convertToAMPM(data.fromTime) %> to <%= sb.convertToAMPM(data.toTime) %></div>
                 </div>
             </div>
             <div class="meta-item">

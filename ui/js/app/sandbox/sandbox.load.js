@@ -218,7 +218,7 @@ sb.loadFiles({
         'Header', 'Artefacts', 'Activities',
         'Projects', 'Notifications', 'People',
         'Search', 'Tags', 'DocumentView', 
-        'Comments', 'Threads'
+        'Comments', 'Threads', 'Meetings'
     ]
 }, function(){
     Kenseo.init();
