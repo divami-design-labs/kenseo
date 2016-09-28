@@ -298,6 +298,17 @@ sb.refresh = (function(){
 		},
 		addArtefact: function(response){
 			//triggers an event to add artefact
+			Kenseo.data.model = [response.data.artefact];
+			sb.trigger($(window), 'addArtefact');
+			//triggers an event to add activity
+			Kenseo.data.model = [response.data.activity];
+			sb.trigger($(window), 'addActivity');
+			//triggers an event to add notification
+			Kenseo.data.model = [response.data.notification];
+			sb.trigger($(window), 'addNotification');
+		},
+		shareArtefact: function(response){
+			//triggers an event to add artefact
 			Kenseo.data.model = response.data.artefact;
 			sb.trigger($(window), 'addArtefact');
 			//triggers an event to add activity

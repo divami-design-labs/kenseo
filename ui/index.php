@@ -55,7 +55,7 @@
         <div class="popup-container" style="display: none;"></div>
         <div class="page">
             <div class="page-wrapper">
-                <div class="header">
+                <div class="header fixed-header">
                     <div class="hamburger html-click hamburger-menu" data-html-class="active" data-html-target=".hamburger-menu">
                         <div class="hamburger-icon">
                             <svg><use xlink:href="#hamburger"></use></svg>

@@ -75,16 +75,32 @@ Kenseo.views.Artefacts = Backbone.View.extend({
         }));
         //adds data to particular template holder when artefact is added
         sb.subscribe($(window), 'addArtefact', function(){
-            Kenseo.data.model = [Kenseo.data.model];
-            Kenseo.data.model.filter(function(model){
-                return model.share == !!_this.data.shared
-            }).forEach(function(model){
+            var filteredData = null;
+            Kenseo.data.model = Kenseo.data.model;
+            if(Kenseo.current.page === "dashboard") {
+                filteredData = Kenseo.data.model.filter(function(model){
+                    return model.share;
+                });
+                filteredData.forEach(function(model){
+                    $('.review-requests-content').find('.review-request-item').each(function(){
+                        if($(this).find('.rr-title').attr('data-id') == model.id){
+                            $(this).remove();
+                        }
+                    });
+                });
+
+            } else if(Kenseo.current.page === "project-page"){
+                filteredData = Kenseo.data.model.filter(function(model){
+                    return (Kenseo.page.id === model.project_id);
+                })
+            }
+            filteredData.forEach(function(model){
                 var view = new Kenseo.views.Artefact({
                     // Insert global variable data in to the model
                     model: new Kenseo.models.Artefacts(model),
                     collection: _this.collection,
                     parent: _this
-                })
+                });
                 _this.templateHolder.prepend(view.el);
             });
 
@@ -92,6 +108,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
             Kenseo.data.model = {};
 
         });
+
         return this;
     }
 });

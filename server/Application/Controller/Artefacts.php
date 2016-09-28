@@ -1461,19 +1461,25 @@
 		}
 
 		public function shareArtefact($interpreter) {
-			$info 						= $interpreter->getData();
-			$resultMessage 				= new stdClass();
-			$resultMessage->messages 	= new stdClass();
-			$data 						= $info->data;
+			$info = $interpreter->getData();
+			$data = $info->data;
+			$userId = $info->userId;
+			$projectId = $data->id;
+			$messages = new stdClass();
 			// $artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
 			// $artId = $data->id;
-			$artefactAndVersionIds 		= $data->{'ids'};
-			$sharedMembers 				= $data->{'shared_members'};
+
+			$artefactAndVersionIds = $data->{'ids'};
+      		$sharedMembers = $data->{'shared_members'};
 			if($sharedMembers){
 
-				// if multiple artefact version ids' are not mentioned 
+				// if multiple artefact version ids' are not mentioned
 				// then safely we can assume only one artefact version id is being passed
+				$db = Master::getDBConnectionManager();
+				$db->beginTransaction();
+
 				if(!$artefactAndVersionIds){
+					$projectId = $data->project_id;
 					$artefactAndVersionIds = array();
 					$artefactVersionIdHolder = new stdClass();
 					$artefactVersionIdHolder->{'artefact_version_id'} = $data->artefact_ver_id;
@@ -1481,27 +1487,64 @@
 					if($data->artefactId){
 						$artefactVersionIdHolder->{'artefact_id'} = $data->artefactId;
 					}
+					$artefactVersionIdHolder->{'artefact_name'} = $data->title;
 					$artefactAndVersionIds[] = $artefactVersionIdHolder;
 				}
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "share artefact version id");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $artefactAndVersionIds);
 				$length = count($artefactAndVersionIds);
-				$userId = $interpreter->getUser()->user_id;
+				//$userId = $interpreter->getUser()->user_id;
+				$dataList['notification'] = array();
+				$dataList['artefact'] = array();
+				$dataList['activity'] = array();
 				for($i=0; $i<$length; $i++){
 					$artId = $artefactAndVersionIds[$i]->artefact_id;
 					$artVerId = $artefactAndVersionIds[$i]->artefact_version_id;
-					$this->shareForTeam($artId, $artVerId, $info->sharedTo ? $info->sharedTo: $sharedMembers, $info->userId);
+					$artName = $artefactAndVersionIds[$i]->artefact_name;
+					$this->shareForTeam($artId, $artVerId, $info->sharedTo ? $info->sharedTo: $data->{'shared_members'}, $info->userId);
+
+
+					// Add this as project activity
+					$activityColumnNames = array("project_id", "logged_by", "logged_time", "performed_on", "activity_type", "performed_on_id");
+					$activityRowValues = array($projectId, $userId, date("Y-m-d H:i:s"), 'A', 'S', $artId);
+					$activityId = $db->insertSingleRowAndReturnId(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
+
+					// Add this as notification
+					$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
+					$notificationRowValues = array($userId, $artName, $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
+					$newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
+
+					//query to get data of single notification when artefact is added
+					$queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
+					$resultObj = $db->singleObjectQuery($queryDetails);
+
+					//query to get data of single artefact when artefact is added
+					$queryParams = array('userid' => $userId, 'projectid' => $projectId, 'artefactversionid' => $artVerId);
+					$detailsQuery = getQuery('getProjectArtefact', $queryParams);
+					$artefactObj = $db->singleObjectQuery($detailsQuery);
+					$artefactObj->share = true;
+
+					//query to get data of single activity when artefact is added
+					$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
+					$activityObj = $db->singleObjectQuery($activityQuery);
+
+					$dataList['notification'][] = $resultObj;
+					$dataList['artefact'][] = $artefactObj;
+					$dataList['activity'][] = $activityObj;
 				}
-				$resultMessage->messages->type = "success";
-				$resultMessage->messages->message = "Successfully shared artefact";
-				$resultMessage->messages->icon = "success";
+
+
+				$messages->type = "success";
+				$messages->message = "Successfully shared artefact";
+				$messages->icon = "success";
+			}else{
+				$messages->type = "error";
+				$messages->message = "You haven't selected any user to share the artefact with";
+				$messages->icon = "error";
 			}
-			else{
-				$resultMessage->messages->type = "error";
-				$resultMessage->messages->message = "You haven't selected any user to share the artefact with";
-				$resultMessage->messages->icon = "error";
-			}
-			return $resultMessage;
+
+			$dataList['messages'] = $messages;
+			return $dataList;
 			//return array();
 		}
 

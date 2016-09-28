@@ -27,7 +27,7 @@ body{
 }
 .page{
     @include absoluter(0,0,0,0);
-    overflow: auto;
+    //overflow: auto;
     margin: 0 auto;
     //max-width: $viewPortWidth;
     min-width: 1180px;
@@ -50,6 +50,12 @@ body{
 .projects-page{
 	padding: 0px 40px;
 	text-align: left;
+	position: absolute;
+    left: 0;
+    top: 80px;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
 	/*display: inline-block;*/
 	.project-block{
 		max-width: 25%;

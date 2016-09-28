@@ -5,12 +5,12 @@ sb.router = (function(){
 
     function regulator(toShow){
         var classes = {
-            '.header': 'fixed-header',
+            //'.header': 'fixed-header',
             '.hamburger-menu': 'active'
         };
 
         $('.hamburger-menu').removeClass('active');
-        $('.header').removeClass('fixed-header');
+        //$('.header').removeClass('fixed-header');
 
         $('.project-section').hide();
         $('.dashboard-section').hide();
@@ -54,7 +54,7 @@ sb.router = (function(){
             Kenseo.page.id = id;
             $('.hamburger-menu').removeClass('active');
 
-
+            $('.project-section').html('');
             sb.refresh.section('project-page-info');
             regulator(['.project-section']);
         },

@@ -2,6 +2,12 @@
 .content-wrapper{
 	padding-left: 37px;
 	padding-top: 55px;
+	position: absolute;
+	top: 40px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
 	padding-right: 38px;
 }
 .projects-heading, .review-requests-heading, .notifications-heading{

@@ -60,28 +60,29 @@ Kenseo.views.Notifications = Backbone.View.extend({
         sb.subscribe($(window), 'addNotification', function(){
             var content = "";
             var key = "";
-            var view = new Kenseo.views.Notification({
-                // Insert global variable data in to the model
-                model: new Kenseo.models.Notifications(Kenseo.data.model),
-                collection: _this.collection,
-                parent: _this
-            })
+            Kenseo.data.model.forEach(function(model){
+                var view = new Kenseo.views.Notification({
+                    // Insert global variable data in to the model
+                    model: new Kenseo.models.Notifications(model),
+                    collection: _this.collection,
+                    scope: _this
+                })
 
-            var $date = _this.templateHolder.find('.day-activity-label').eq(0).html().trim();
-            $notificationEntryTime = Kenseo.data.model.time;
-            $notificationTime = sb.timeFormat($notificationEntryTime,true,true);
+                var $date = _this.templateHolder.find('.day-activity-label').eq(0).html().trim();
+                $notificationEntryTime = Kenseo.data.model.time;
+                $notificationTime = sb.timeFormat($notificationEntryTime,true,true);
 
-            if($date == $notificationTime) {
-                _this.templateHolder.find('.day-activity-section').prepend(view.el);
-            } else {
-                content = content + view.el.outerHTML;
-                key = $notificationTime;
-                _this.templateHolder.prepend(sb.setTemplate('day-wise-item',{data: {
-                    label: key,
-                    content: content
-                    }}));
-            }
-
+                if($date == $notificationTime) {
+                    _this.templateHolder.find('.day-activity-section').prepend(view.el);
+                } else {
+                    content = content + view.el.outerHTML;
+                    key = $notificationTime;
+                    _this.templateHolder.prepend(sb.setTemplate('day-wise-item',{data: {
+                        label: key,
+                        content: content
+                        }}));
+                }
+            });
             // Empty the used global variable
             Kenseo.data.model = {};
 

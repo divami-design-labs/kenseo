@@ -1264,6 +1264,12 @@ a {
 .content-wrapper {
   padding-left: 37px;
   padding-top: 55px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
   padding-right: 38px;
 }
 
@@ -3026,6 +3032,27 @@ input:disabled {
   visibility: hidden;
 }
 
+.version-filter-data .checkbox {
+  padding-left: 25px;
+  color: whitesmoke;
+  display: block;
+}
+
+.version-filter-data .checkbox:after {
+  width: 14px;
+  height: 14px;
+  background-color: white;
+}
+
+.version-filter-data .checkbox :checked + span:after {
+  left: 2px;
+  z-index: 1;
+}
+
+.version-filter-data .svg {
+  fill: #647096;
+}
+
 .version-filter-data:hover {
   background-color: #293447;
 }
@@ -3038,7 +3065,9 @@ input:disabled {
 .apply-button {
   background-color: white;
   border: none;
-  color: gray;
+  height: 26px;
+  width: 60px;
+  color: #566277;
 }
 
 .input-meeting-text {
@@ -4563,6 +4592,7 @@ input[type="text"].xm {
   padding-left: 2px;
   padding-top: 6px;
   height: 15px;
+  fill: #647096;
 }
 
 .filter-version-type .version-filter-list {
@@ -4575,6 +4605,10 @@ input[type="text"].xm {
 
 .enable-version-list {
   background-color: #566277;
+}
+
+.enable-version-list svg {
+  fill: white;
 }
 
 .enable-version-list .version-filter-list {
@@ -4591,7 +4625,7 @@ input[type="text"].xm {
 }
 
 .version-filter-list div {
-  padding: 5px 0 0 5px;
+  padding: 5px 0 5px 10px;
 }
 
 .heading {
@@ -7100,7 +7134,6 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: auto;
   margin: 0 auto;
   min-width: 1180px;
 }
@@ -7121,6 +7154,12 @@ body {
 .projects-page {
   padding: 0px 40px;
   text-align: left;
+  position: absolute;
+  left: 0;
+  top: 80px;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
   /*display: inline-block;*/
 }
 

@@ -145,7 +145,14 @@ $AppGlobal['sql']['getDownloadProject'] = "SELECT v.*, a.artefact_title, p.proje
 											where a.project_id = @~~projectid~~@";										
 
 $AppGlobal['sql']['getProjectArtefact'] = "SELECT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
-											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
+											(SELECT logged_time FROM
+											   project_activity pa
+											 WHERE
+											   pa.logged_by = @~~userid~~@ AND A.artefact_id = pa.performed_on_id
+											 ORDER BY
+											   pa.logged_time DESC
+											 LIMIT 1
+											) as artefact_time, a.linked_id, a.project_id, p.project_name,
 											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
 											a.artefact_type as document_type, v.state AS status, v.version_no as version,
 											u.name as person_name, u.profile_pic_url as image, u.user_id as owner_id,
@@ -167,7 +174,14 @@ $AppGlobal['sql']['getSharedArtefacts'] = "SELECT a.artefact_id as id, a.latest_
 											a.artefact_title AS title, a.artefact_type AS document_type,
 											v.masked_artefact_version_id, v.state AS status, v.MIME_type,
 											p.project_id, p.project_name,
-											asm.shared_date as artefact_time,
+											(SELECT logged_time FROM
+											   project_activity pa
+											 WHERE
+											   pa.logged_by = @~~userid~~@ AND A.artefact_id = pa.performed_on_id
+											 ORDER BY
+											   pa.logged_time DESC
+											 LIMIT 1
+										 	) AS artefact_time,
 											u.name as person_name,
 											u.profile_pic_url as image,
 											u.user_id as owner_id,
@@ -189,7 +203,7 @@ $AppGlobal['sql']['getSharedArtefacts'] = "SELECT a.artefact_id as id, a.latest_
 											)
 											AND a.replace_ref_id is null
 											AND a.state != 'A' AND a.state != 'D' AND p.state = 'A'
-											ORDER BY asm.shared_date DESC
+											ORDER BY artefact_time DESC
 											LIMIT @~~limit~~@";
 
 $AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email,
@@ -655,7 +669,7 @@ $AppGlobal['sql']['getArtefactCommentThreads'] = "SELECT
 $AppGlobal['sql']['getCommentInfoFromCommentId'] = "SELECT * FROM artefact_comments where comment_id = @~~commentid~~@"; 
 
 // Get comments from comment thread ids
-$AppGlobal['sql']['getComments'] = "SELECT comment_id, is_submitted, comment_thread_id, u.name as user, created_at as time, description FROM ". TABLE_COMMENTS .
+$AppGlobal['sql']['getComments'] = "SELECT comment_id, is_submitted, comment_thread_id, u.name as user,u.user_id as userId, created_at as time, description FROM ". TABLE_COMMENTS .
 													" c INNER JOIN " . TABLE_USERS . " u ON u.user_id = c.comment_by WHERE comment_thread_id in (@~~commentThreadIds~~@)";
 
 // Get artefact comment thread
@@ -672,7 +686,7 @@ $AppGlobal['sql']['getCommentSummary'] = "SELECT ct.comment_thread_id as comment
 											 JOIN artefact_comments c ON ct.comment_thread_id = c.comment_thread_id
 											 JOIN users u ON ct.comment_thread_by = u.user_id
 											 WHERE artefact_ver_id = @~~versionId~~@";
-$AppGlobal['sql']['getCommentedMembers'] = "SELECT DISTINCT u.name FROM artefact_comment_threads ct
+$AppGlobal['sql']['getCommentedMembers'] = "SELECT DISTINCT u.name, u.user_id as userId FROM artefact_comment_threads ct
 											JOIN users u ON ct.comment_thread_by = u.user_id
 											 WHERE artefact_ver_id = @~~versionId~~@";
 
