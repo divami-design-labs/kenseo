@@ -18,6 +18,7 @@
 }
 .popup, .overlay{
 	// @include absoluter(0,0,0,0);
+	overflow: hidden;
 	position: relative;
 	// margin: auto;
 	display: inline-block;
@@ -54,6 +55,7 @@
 	height: 55px;
 	position: relative;
 	background-color: $color6;
+	overflow: hidden;
 	@include text(18px, $color7);
 	padding-left: 25px;
 	vertical-align: middle;
@@ -646,9 +648,10 @@ input:disabled{
 	margin-bottom: 3px;
 	height: 40px;
 	display: flex;
-  align-items: center;
-  padding-right: 35px;
-  padding-left: 30px;
+    align-items: center;
+    padding-right: 35px;
+    padding-left: 30px;
+    cursor: pointer;
 	.to-share-filetype{
 		float: left;
 	    width: 50px;

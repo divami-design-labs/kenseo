@@ -537,6 +537,7 @@ sb.popup = {
                     }
                 })
                 var container = document.querySelector(".people-combobox");
+                var currentPopup = $('.popup');
                 Kenseo.combobox.sharePeople = sb.toolbox.applyComboBox({
                     elem: container,
                     data: otherMembers,
@@ -546,6 +547,8 @@ sb.popup = {
                     },
                     onchange: function onchange($input, $selectedEl, bln) {
                         if (bln) {
+                            currentPopup.find('.main-btn').removeAttr('disabled');
+                            currentPopup.find('.sarp-checkbox-holder').removeClass('hide');
                             var obj = {};
                             var attrs = $selectedEl[0].attributes;
                             Array.prototype.forEach.call(attrs, function(attr){

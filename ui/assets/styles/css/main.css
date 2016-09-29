@@ -2256,6 +2256,7 @@ a {
 }
 
 .popup, .overlay {
+  overflow: hidden;
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -2342,6 +2343,7 @@ a {
   height: 55px;
   position: relative;
   background-color: #ececed;
+  overflow: hidden;
   font-size: 18px;
   color: #464c5f;
   padding-left: 25px;
@@ -3009,6 +3011,7 @@ input:disabled {
           align-items: center;
   padding-right: 35px;
   padding-left: 30px;
+  cursor: pointer;
 }
 
 .to-share-file .to-share-filetype {
@@ -3825,6 +3828,10 @@ input:disabled {
   margin-left: 30px;
 }
 
+.sub-heading-add-icon {
+  cursor: pointer;
+}
+
 .sp-left {
   display: inline-block;
   vertical-align: middle;
@@ -4147,6 +4154,7 @@ input:disabled {
   position: absolute;
   top: 50%;
   right: 100%;
+  fill: #6f7588;
   margin-right: 10px;
   -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
@@ -4454,7 +4462,7 @@ input[type="text"].xm {
   width: 343px;
 }
 
-.nav-btn:disabled, .main-btn:disabled, .share-btn:disabled, .done-btn:disabled {
+.main-btn:disabled, .share-btn:disabled, .done-btn:disabled {
   background-color: #B3BDD8;
 }
 
@@ -6817,7 +6825,6 @@ select {
 
 .write-comment-section textarea.write-comment {
   width: 100%;
-  border: none;
   resize: none;
   height: 75px;
   padding: 0px;
@@ -6854,6 +6861,10 @@ select {
   outline: none;
 }
 
+.pdfViewer .write-comment {
+  border: 1px solid #aaacb4;
+}
+
 .comment-section-header > * {
   display: inline-block;
   vertical-align: middle;
@@ -6885,7 +6896,6 @@ select {
 }
 
 .new-textlayer .comment-section-body {
-  padding: 20px;
   padding-bottom: 70px;
 }
 
@@ -6895,8 +6905,21 @@ select {
   right: 20px;
 }
 
+.new-textlayer .cv-comments-item:hover {
+  background-color: #d1e5fe;
+}
+
 .new-textlayer .cv-comments-item:hover .cv-comment-actions {
   visibility: visible;
+}
+
+.pdfViewer .cv-comments-item {
+  padding: 20px 20px 15px 20px;
+}
+
+.pdfViewer .write-comment-section {
+  padding: 5px 25px 20px 25px;
+  border: none;
 }
 
 .type-and-state {
@@ -7086,7 +7109,11 @@ img.image-viewer {
   fill: #ffffff;
 }
 
-.messages-wrapper.show-messages, .messages-wrapper.show-messages {
+.popup .messages-wrapper {
+  top: 55px;
+}
+
+.messages-wrapper.show-messages {
   -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
 }

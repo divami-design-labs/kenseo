@@ -59,7 +59,6 @@
     border: 1px solid #aaacb4;
     textarea.write-comment{
         width: 100%;
-        border: none;
         resize: none;
         height: 75px;
         padding: 0px;
@@ -68,6 +67,11 @@
         &:focus{
             outline: none;
         }
+    }
+}
+.pdfViewer{
+    .write-comment{
+        border: 1px solid #aaacb4;
     }
 }
 .comment-section-header > * {
@@ -96,7 +100,6 @@
         z-index: 1;
     }
     .comment-section-body{
-        padding: 20px;
         padding-bottom: 70px;
         .buttons-section{
             bottom: 20px;
@@ -106,10 +109,21 @@
     }
     .cv-comments-item{
         &:hover{
+            background-color: #d1e5fe;
             .cv-comment-actions{
                 visibility: visible;
             }
         }
+    }
+}
+.pdfViewer{
+
+    .cv-comments-item {
+          padding: 20px 20px 15px 20px;
+    }
+    .write-comment-section{
+        padding: 5px 25px 20px 25px;
+        border: none;
     }
 }
 .type-and-state{

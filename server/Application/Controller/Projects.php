@@ -274,7 +274,7 @@
 
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $imagePath);
 
-				$originalImage		= Image::getImage($imagePath);
+				$originalImage		= KenseoImage::getImage($imagePath);
 
 				// => Get size of the image
 				$imageDimensions 	= getimagesize($imagePath);
@@ -290,7 +290,7 @@
 					"height"	=> $heightInPercentage		* $imageHeight	/ 100
 				));
 
-				$resizedCroppedImage		= Image::resizeImage($croppedImage, array(
+				$resizedCroppedImage		= KenseoImage::resizeImage($croppedImage, array(
 					'rs_width'		=> 560,
 					'rs_height'		=> 400,
 					'actual_width'  => $widthInPercentage		* $imageWidth	/ 100,
@@ -303,7 +303,7 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $croppedImage);
 
 				// => base64 the cropped image
-				$base64Image	= Image::getBase64Image($resizedCroppedImage, $imageDimensions['mime']);
+				$base64Image	= KenseoImage::getBase64Image($resizedCroppedImage, $imageDimensions['mime']);
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "base64 image");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $base64Image);
 
@@ -325,7 +325,10 @@
 
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "cover image error");
 			}
-
+			$result->messages = new stdClass();
+			$result->messages->type = "success";
+			$result->messages->message = "Successfully added cover image";
+			$result->messages->icon = "success";
 			return $result;
 		}
 	}

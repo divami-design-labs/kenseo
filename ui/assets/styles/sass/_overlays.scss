@@ -351,6 +351,9 @@
 		}
 	}
 }
+.sub-heading-add-icon {
+	cursor: pointer;
+}
 .summary-people-item{
 
 }
@@ -612,6 +615,7 @@
     position: absolute;
     top: 50%;
     right: 100%;
+	fill: #6f7588;
     margin-right: 10px;
     @include withPrefix(transform, translate(0, -50%));
 }

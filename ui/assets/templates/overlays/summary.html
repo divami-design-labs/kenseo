@@ -24,18 +24,19 @@
         </div>
         <div class="summary-header-right">
             <div class="summary-header-actions">
-                <div class="summary-header-action-item submit-action-icon">
-                    <svg class="summary-header-icon"><use xlink:href="#submit"></use></svg>
-                    Submit
+                <div class="summary-header-action-item submit-action-icon" data-url="share-artefact" data-index="2">
+                    <svg class="summary-header-icon"><use xlink:href="#share-artefact"></use></svg>
+                    Share
+                </div>
+                <div class="summary-header-action-item delete-action-icon" data-url="delete-artefact">
+                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#renameartifact"></use></svg>
+                    <div> <a class="stop-propagate" href="<%=sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.basicDetails.artefactId)%>" target="_blank" > Download </a> </div>
                 </div>
                 <div class="summary-header-action-item archive-action-icon">
                     <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>
                     Archive
                 </div>
-                <div class="summary-header-action-item delete-action-icon">
-                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#delete"></use></svg>
-                    Delete
-                </div>
+
             </div>
         </div>
     </div>

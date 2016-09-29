@@ -37,7 +37,12 @@
   border: 1px solid #3d9176;
   fill: #ffffff;
 }
-.messages-wrapper.show-messages ,.messages-wrapper.show-messages{
+.popup{
+    .messages-wrapper{
+        top: 55px;
+    }
+}
+.messages-wrapper.show-messages {
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
 }

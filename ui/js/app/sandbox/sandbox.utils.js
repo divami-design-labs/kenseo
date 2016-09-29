@@ -903,12 +903,16 @@ var sb = _.extend(sb, (function () {
             }
         },
         //messages to dispaly whether action is success or failure
-        showGlobalMessages: function(response){
+        showGlobalMessages: function(response,popupContainer){
             var messages = response.data.messages;
             var message = messages.message;
             var icon = messages.icon;
             var type = messages.type;
-            $('body').prepend(sb.setTemplate('show-global-messages',{type,message, icon}));
+            if(popupContainer){
+                $(popupContainer).find('.popup-header').after(sb.setTemplate('show-global-messages',{type,message, icon}));
+            }else{
+                $('body').find('.fixed-header').prepend(sb.setTemplate('show-global-messages',{type,message, icon}));
+            }
 
         	setTimeout(function(){
         		$('div.messages-wrapper').addClass('show-messages');

@@ -167,11 +167,21 @@ $(function () {
 					}
 				}*/
 				//close the current popup
-				popupCloser($self.parents(popupContainer));
-				sb.refresh.type(actionType, response);
-				if(response.data.messages) {
-					sb.showGlobalMessages(response);
+				if($(popupContainer).find('.popup-message').length || $(popupContainer).find('.popup-small').length){
+					popupCloser($self.parents(popupContainer));
+					if(response.data.messages) {
+						sb.showGlobalMessages(response);
+					}
+				}else{
+					$(popupContainer).find('button').attr('disabled', 'false');
+					setTimeout(function(){
+						popupCloser($self.parents(popupContainer));
+					},3010);
+					if(response.data.messages) {
+						sb.showGlobalMessages(response,popupContainer);
+					}
 				}
+				sb.refresh.type(actionType, response);
 			}
 		});
 	}).on('click', '.sort-item', function (e) {
@@ -280,7 +290,7 @@ $(document).on('click', '.tab-item', function (e) {
 	 var rel = $('.each-tab').children('.tab-item').eq(0).addClass('selectedTab').attr('targetRel');
 	 //find the relevent container of tab-item
 	 $parent.children('.outerContainer[rel="pdf_' + rel +'"]').addClass('inView');
-	
+
 
 
 })
