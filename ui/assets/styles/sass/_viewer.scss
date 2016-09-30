@@ -348,6 +348,10 @@
   &.active + #viewerContainer{
     left: 550px;
   }
+  .comment-sec-wrapper{
+      max-height: none;
+      overflow: none;
+  }
 }
 .comments-view-header{
   display: flex;

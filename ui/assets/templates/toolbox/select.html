@@ -13,4 +13,9 @@
             <% }) %>
         </select>
 	</div>
+	<div class="field-section-error-messages">
+		<% for(var key in data.fieldSectionErrorMessages) { %>
+			<div class="hide message-display" trigger="<%=key%>"><%= data.fieldSectionErrorMessages[key] %></div>
+		<% } %>
+	</div>
 </div>

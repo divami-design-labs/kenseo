@@ -5509,6 +5509,11 @@ a {
   left: 550px;
 }
 
+.comments-view-holder .comment-sec-wrapper {
+  max-height: none;
+  overflow: none;
+}
+
 .comments-view-header {
   display: -webkit-box;
   display: -ms-flexbox;

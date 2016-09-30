@@ -83,6 +83,8 @@ Kenseo.views.People = Backbone.View.extend({
             scope: scope,
             afterRender: function($popupContainer, scope){
                 // sb.loadCss('assets/styles/css/chosen.css');
+                $popupContainer.find('.main-btn').attr('disabled', 'false');
+                $popupContainer.find('.sarp-checkbox-holder').addClass('hide');
                 var data =
                 sb.ajaxCall({
                   //ajax call to get non-existing project members
@@ -106,6 +108,7 @@ Kenseo.views.People = Backbone.View.extend({
                             },
                             onchange: function onchange($input, $selectedEl, bln) {
                                 if (bln) {
+                                    $popupContainer.find('.main-btn').removeAttr('disabled');
                                     var obj = {};
                                     var attrs = $selectedEl[0].attributes;
                                     Array.prototype.forEach.call(attrs, function(attr){

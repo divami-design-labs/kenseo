@@ -74,6 +74,7 @@ sb.popup = {
 
             }
         });
+        $('.version-filter-list input').prop('checked','true');
         //setting default values
         var searchStr = "";
         var selectedtypes = [];
@@ -92,7 +93,9 @@ sb.popup = {
                 }
             });
             //if options are not applied then reset to previous applied options
-            $('.version-filter-list input').prop('checked',false);
+            if(selectedtypes.length){
+                $('.version-filter-list input').prop('checked',false);
+            }
             $checkedElements = $('.version-filter-list input').filter(function(item){
                 var $currentElement = $(this);
                 return Array.prototype.some.call(selectedtypes,function(selectedtype){
@@ -515,7 +518,8 @@ sb.popup = {
     shareWithPeoplePopup: function shareWithPeoplePopup() {
         sb.setPopupData(true, "share");
         //now you need 2 sets of people, people those who are arleady in the project and all the remaining people
-
+        $('.popup').find('.main-btn').attr('disabled', 'false');
+        $('.popup').find('.sarp-checkbox-holder').addClass('hide');
         sb.ajaxCall({
             collection: new Kenseo.collections.People(),
             container: $('.popup'),
