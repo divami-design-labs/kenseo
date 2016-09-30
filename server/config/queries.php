@@ -680,8 +680,20 @@ $AppGlobal['sql']['getArtefactCommentThreads'] = "SELECT
 $AppGlobal['sql']['getCommentInfoFromCommentId'] = "SELECT * FROM artefact_comments where comment_id = @~~commentid~~@"; 
 
 // Get comments from comment thread ids
-$AppGlobal['sql']['getComments'] = "SELECT comment_id, is_submitted, comment_thread_id, u.name as user,u.user_id as userId, created_at as time, description FROM ". TABLE_COMMENTS .
-													" c INNER JOIN " . TABLE_USERS . " u ON u.user_id = c.comment_by WHERE comment_thread_id in (@~~commentThreadIds~~@)";
+$AppGlobal['sql']['getComments'] = "SELECT 
+										comment_id, 
+										is_submitted, 
+										comment_thread_id, 
+										u.name as user,
+										u.user_id as userId, 
+										created_at as time, 
+										description 
+									FROM " . TABLE_COMMENTS . " c 
+									INNER JOIN " . TABLE_USERS . " u 
+										ON u.user_id = c.comment_by 
+										WHERE comment_thread_id in 
+											(@~~commentThreadIds~~@) 
+											AND (is_submitted = 1 OR comment_by = @~~userid~~@)";
 
 // Get artefact comment thread
 $AppGlobal['sql']['getArtefactCommentThread'] = "SELECT comment_thread_id, posx, posy, page_no, severity, category, is_private, state FROM " . TABLE_COMMENT_THREADS .

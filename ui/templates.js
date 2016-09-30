@@ -66,6 +66,54 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['edit-comment'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="popup popup-medium k-form">\r\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n            ' +
+((__t = (
+				sb.toolbox.textBox({
+					"label": "Comment description",
+					inputClass: "required k-field",
+                    fieldClass: "field-section--stretch",
+					required: true,
+					attr: {
+						'data-validate-this': 'empty',
+						'data-v-label': 'Project',
+						'data-xtype': 'text',
+						'data-xtype-key': 'description',
+                        'value': Kenseo.popup.data.description
+					},
+					"fieldSectionErrorMessages": {
+						'empty': 'Please enter comment description',
+					}
+				})
+			)) == null ? '' : __t) +
+'\r\n        </div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
+'\r\n\t</div>\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['add-persona-widget'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -293,54 +341,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['edit-comment'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="popup popup-medium k-form">\r\n\t' +
-((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n            ' +
-((__t = (
-				sb.toolbox.textBox({
-					"label": "Comment description",
-					inputClass: "required k-field",
-                    fieldClass: "field-section--stretch",
-					required: true,
-					attr: {
-						'data-validate-this': 'empty',
-						'data-v-label': 'Project',
-						'data-xtype': 'text',
-						'data-xtype-key': 'description',
-                        'value': Kenseo.popup.data.description
-					},
-					"fieldSectionErrorMessages": {
-						'empty': 'Please enter comment description',
-					}
-				})
-			)) == null ? '' : __t) +
-'\r\n        </div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
-((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
-'\r\n\t</div>\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['artefacts'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -352,11 +352,7 @@ __p += '\r\n<div class="sub-heading-section">\r\n\t<div class="artifacts-heading
  if(data.projects.length){ ;
 __p += '\r\n\t\t<div class="sub-heading-more-options html-click sub-menu-nav" data-html-class="active">\r\n\t\t\t<div class="sub-heading-more-icon"><svg><use xlink:href="#more"></use></svg></div>\r\n\t\t\t<div class="sub-menu-holder left-nav bottom-nav">\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="name">Sort by Name</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="date">Sort by Date</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="owner">Group by Owner</div>\r\n\t\t\t\t<div class="sub-menu-item sort-item" data-stype="default">Default Sort</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t';
  } ;
-__p += '\r\n\t</div>\r\n</div>\r\n<div class="artifacts-content sub-section-content ';
- if(data.sortBy && data.sortBy === 'default'){ ;
-__p += ' linked-artefacts ';
- } ;
-__p += '">\r\n\t<div class="sort-view">Sort By ';
+__p += '\r\n\t</div>\r\n</div>\r\n<div class="sort-view">Sort By ';
  if(data && data.sortBy){ ;
 __p += ' ' +
 ((__t = ( _.capitalize(data.sortBy) )) == null ? '' : __t) +
@@ -364,7 +360,11 @@ __p += ' ' +
  } else { ;
 __p += 'Default ';
  } ;
-__p += '</div>\r\n';
+__p += '</div>\r\n<div class="artifacts-content sub-section-content ';
+ if(data.sortBy && data.sortBy === 'default'){ ;
+__p += ' linked-artefacts ';
+ } ;
+__p += '">\r\n';
  } else{ ;
 __p += '\r\n\t<div class="review-requests-heading">\r\n\t\t<div class="review-requests-icon">\r\n\t\t\t<svg><use xlink:href="#reviewrequest"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="heading-text">Shared Artefacts</div>\r\n\t</div>\r\n\t<div class="review-requests-content">\r\n';
  } ;
@@ -1751,7 +1751,9 @@ __p += '\r\n\t</div>\r\n\t<div class="rr-right">\r\n\t\t<div class="rr-title ell
  if(!isSupportedFile){ ;
 __p += ' - Unsupported format';
  } ;
-__p += '">' +
+__p += '" data-id= "' +
+((__t = (data.id)) == null ? '' : __t) +
+'">' +
 ((__t = ( data.title )) == null ? '' : __t) +
 '</div>\r\n        ';
  if(!data['is_project_page']){ ;
@@ -1773,7 +1775,7 @@ __p += '\r\n\t\t<div class="rr-details ellipsis" title="' +
 ((__t = ( data.version )) == null ? '' : __t) +
 '</span>\r\n\t\t\t\t<div class="rr-other-versions"></div>\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="review-comments">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#submit-review"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Submit Review Comments</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="private-message">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Send Private Message</div>\r\n\t\t\t</div>\r\n            <div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Create a Meeting</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="edit-artefact-info">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#editartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Edit Info</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="rename-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Rename</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="download-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text"> <a class="stop-propagate" href="' +
+'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="review-comments">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#submit-review"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Submit Review Comments</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="private-message">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Send Private Message</div>\r\n\t\t\t</div>\r\n            <div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Create a Meeting</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="edit-artefact-info">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#editartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Edit Info</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="rename-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Rename</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="download-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text"> <a class="stop-propagate" href="' +
 ((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.id))) == null ? '' : __t) +
 '" target="_blank" > Download </a> </div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
 
@@ -1838,13 +1840,21 @@ __p += '">\n        ' +
 ((__t = ( data.notifier )) == null ? '' : __t) +
 '\n    </div>\n    ';
  if(data.meetingDetails){ ;
-__p += '\n    <div class="meeting-notify-section">\n        <div class="mn-left">\n            <div>Meeting @ Conference 2</div>\n            <div class="mn-left-title">' +
+__p += '\n        ';
+ if(data.fromMenu){ ;
+__p += '\n            <div class="meeting-notify-section">\n                <div class="mn-left">\n                    <div>' +
+((__t = ( sb.timeFormat(data.meetingDetails.time) + ", " +sb.getTime(data.meetingDetails.time) )) == null ? '' : __t) +
+'</div>\n                    <div class="meeting-notify-icon"></div>\n                    <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>\n                </div>\n            </div>\n        ';
+ } else {;
+__p += '\n            <div class="meeting-notify-section">\n                <div class="mn-left">\n                    <div>Meeting @ Conference 2</div>\n                    <div class="mn-left-title">' +
 ((__t = ( data.meetingDetails.title )) == null ? '' : __t) +
-'</div>\n            <div class="meeting-notify-icon"></div>\n            <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>\n        </div>\n        <div class="mn-right">\n            <div>' +
+'</div>\n                    <div class="meeting-notify-icon"></div>\n                    <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>\n                </div>\n                <div class="mn-right">\n                    <div>' +
 ((__t = ( sb.timeFormat(data.meetingDetails.time) )) == null ? '' : __t) +
-'</div>\n            <div>' +
+'</div>\n                    <div>' +
 ((__t = ( sb.getTime(data.meetingDetails.time) )) == null ? '' : __t) +
-'</div>\n        </div>\n    </div>\n    ';
+'</div>\n                </div>\n            </div>\n        ';
+ } ;
+__p += '\n    ';
  } ;
 __p += '\n</a>\n';
 
@@ -2285,7 +2295,13 @@ __p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">\r
 ((__t = ( data.createdBy )) == null ? '' : __t) +
 '</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Agenda</div>\r\n                <div class="meta-text">' +
 ((__t = ( data.agenda )) == null ? '' : __t) +
-'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Scheduled On</div>\r\n                <div class="meta-text">\r\n                    <div>Dec 04, 2014</div>\r\n                    <div>11:00 am to 12:00 pm</div>\r\n                </div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Venue</div>\r\n                <div class="meta-text">' +
+'</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Scheduled On</div>\r\n                <div class="meta-text">\r\n                    <div>' +
+((__t = ( sb.timeFormat(data.date, true, true, true) )) == null ? '' : __t) +
+'</div>\r\n                    <div>' +
+((__t = ( sb.convertToAMPM(data.fromTime) )) == null ? '' : __t) +
+' to ' +
+((__t = ( sb.convertToAMPM(data.toTime) )) == null ? '' : __t) +
+'</div>\r\n                </div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Venue</div>\r\n                <div class="meta-text">' +
 ((__t = ( data.venue )) == null ? '' : __t) +
 '</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Recipients</div>\r\n                ';
  _.each(data.participants, function(p){ ;
@@ -2616,7 +2632,9 @@ __p += '\r\n                    <div class="rr-status ellipsis status-' +
 ((__t = (data.basicDetails.versionNo)) == null ? '' : __t) +
 '.0</div>\r\n                    <div class="rr-state-details">\r\n                        <div class="rr-state-x">\r\n                            <div class="rr-comment">\r\n                                <svg><use xlink:href="#baloon"></use></svg>\r\n                                <div class="rr-comment-count">' +
 ((__t = ( data.basicDetails['comment_count'] )) == null ? '' : __t) +
-'</div>\r\n                            </div>\r\n                            <div class="status-c secondary-status-rr"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class="summary-header-right">\r\n            <div class="summary-header-actions">\r\n                <div class="summary-header-action-item submit-action-icon">\r\n                    <svg class="summary-header-icon"><use xlink:href="#submit"></use></svg>\r\n                    Submit\r\n                </div>\r\n                <div class="summary-header-action-item archive-action-icon">\r\n                    <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>\r\n                    Archive\r\n                </div>\r\n                <div class="summary-header-action-item delete-action-icon">\r\n                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#delete"></use></svg>\r\n                    Delete\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class="summary-section-body unselectable">\r\n        <div class="close-icon"><svg><use xlink:href="#close"></use></svg></div>\r\n        <div class="time-frame-section">\r\n            <div class="time-frame-extended mg-parent">\r\n                ' +
+'</div>\r\n                            </div>\r\n                            <div class="status-c secondary-status-rr"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class="summary-header-right">\r\n            <div class="summary-header-actions">\r\n                <div class="summary-header-action-item submit-action-icon" data-url="share-artefact" data-index="2">\r\n                    <svg class="summary-header-icon"><use xlink:href="#share-artefact"></use></svg>\r\n                    Share\r\n                </div>\r\n                <div class="summary-header-action-item delete-action-icon" data-url="delete-artefact">\r\n                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#renameartifact"></use></svg>\r\n                    <div> <a class="stop-propagate" href="' +
+((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.basicDetails.artefactId))) == null ? '' : __t) +
+'" target="_blank" > Download </a> </div>\r\n                </div>\r\n                <div class="summary-header-action-item archive-action-icon">\r\n                    <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>\r\n                    Archive\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class="summary-section-body unselectable">\r\n        <div class="close-icon"><svg><use xlink:href="#close"></use></svg></div>\r\n        <div class="time-frame-section">\r\n            <div class="time-frame-extended mg-parent">\r\n                ' +
 ((__t = (sb.setTemplate('timeline',{data: data}))) == null ? '' : __t) +
 '\r\n            </div>\r\n            <div class="time-frame-selector mg-parent">\r\n                ';
  _.each(data.versions, function(v){ ;
@@ -3301,9 +3319,11 @@ with (obj) {
  var toolbox = sb.toolbox ;
 __p += '\r\n<div class="popup popup-meeting k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<form class="meeting-invite-form">\n\t\t\t\t';
- if(data.populateType === "update-meeting"){ ;
-__p += '\n\t\t\t\t\t<input class="k-field" type="hidden" data-xtype="text" data-xtype-key="meeting_id" value="' +
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<form class="meeting-invite-form">\r\n\t\t\t\t';
+ var isUpdateMeetingForm = data.populateType === "update-meeting" ;
+__p += '\r\n\t\t\t\t';
+ if(isUpdateMeetingForm){ ;
+__p += '\r\n\t\t\t\t\t<input class="k-field" type="hidden" data-xtype="text" data-xtype-key="meeting_id" value="' +
 ((__t = ( sb.getPopulateValue(data.populateType, 'meeting_id') )) == null ? '' : __t) +
 '"></input>\r\n\t\t\t\t';
  } ;
@@ -3313,11 +3333,16 @@ __p += '\r\n\r\n\t\t\t\t' +
 						"label": "Project",
 						required: true,
 						"class": "xm project-combobox blur-field",
-						"dataName": "meetingProject",
+						"inputClass": "k-field",
 						"placeholder": "Choose Project",
-						"inputAttr": {
-							"value": sb.getPopulateValue(data.populateType, 'project_name')
-						},
+						"inputAttr": _.assign({
+							"value": sb.getPopulateValue(data.populateType, 'project_name'),
+							"data-xtype": "id,text",
+							"data-xtype-key": "projectId,projectName"
+							}, function(){
+								return isUpdateMeetingForm? {disabled: true}: {}
+							}()
+						),
 						"fieldSectionErrorMessages": {
 							'empty': 'Please select project name',
 						}
@@ -3328,14 +3353,20 @@ __p += '\r\n\r\n\t\t\t\t' +
 					toolbox.comboBox({
 						"label": "Artefact",
 						required: true,
+						fieldClass: "artefact-field-section",
 						"class": "xm artefact-combobox blur-field",
-						"dataName": "meetingArtefact",
-						"placeholder": "Choose Project",
-						"inputAttr": {
-							"value": sb.getPopulateValue(data.populateType, 'artefact_name')
-						},
+						"inputClass": "k-field",
+						"placeholder": "Choose Artefact",
+						"inputAttr": _.assign({
+							"value": sb.getPopulateValue(data.populateType, 'artefact_name'),
+							"data-xtype": "id,text",
+							"data-xtype-key": "artefactId,artefactName"},
+							function(){
+								return isUpdateMeetingForm? {disabled: true}: {}
+							}()
+						),
 						"fieldSectionErrorMessages": {
-								'empty': 'Please select project name',
+							'empty': 'Please select project name',
 						}
 					})
 				)) == null ? '' : __t) +
@@ -3345,18 +3376,19 @@ __p += '\r\n\r\n\t\t\t\t' +
 						"label": "Agenda",
 						required: true,
 						textArea: true,
-						dataName: "agenda",
-						"inputClass": "input-meeting-textarea meeting-agenda blur-field",
+						"inputClass": "input-meeting-textarea meeting-agenda blur-field k-field",
 						'attr': {
-							'data-validate-this': 'empty'
+							'data-validate-this': 'empty',
+							"data-xtype": "text",
+							"data-xtype-key": "agenda"
 						},
 						'value': sb.getPopulateValue(data.populateType, 'agenda'),
 						"fieldSectionErrorMessages": {
-								'empty': ' Please provide meeting agenda',
+							'empty': ' Please provide meeting agenda',
 						}
 					})
 				)) == null ? '' : __t) +
-'\r\n\t\t\t\t<div style="clear: both; padding-top: 20px;">\r\n\t\t\t\t\t<div class="field-section in-line" data-name="date">\r\n\t\t\t\t\t\t';
+'\r\n\t\t\t\t<div style="clear: both; padding-top: 20px;">\r\n\t\t\t\t\t<div class="field-section in-line">\r\n\t\t\t\t\t\t';
 
 							var dateValue = sb.getPopulateValue(data.populateType, 'meeting_date');
 							if(dateValue){
@@ -3368,11 +3400,11 @@ __p += '\r\n\r\n\t\t\t\t' +
 							}
 						;
 __p += '\r\n\t\t\t\t\t\t<div class="input-label required">Scheduled on</div>\r\n\t\t\t\t\t\t<div class="input-wrapper float-left mini-datepicker">\r\n\t\t\t\t\t\t\t<input type="text" value="' +
-((__t = ( dateValue )) == null ? '' : __t) +
-'" class="input-meeting-date float-left"></input>\r\n\t\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t';
+((__t = ( dateValue || sb.timeFormat(dateValue, true, true, true, {twoDigitDay: true}) )) == null ? '' : __t) +
+'" class="input-meeting-date float-left k-field" data-xtype="text" data-xtype-key="date"></input>\r\n\t\t\t\t\t\t\t<div class="datepicker-icon-holder float-left">\r\n\t\t\t\t\t\t\t\t<div class="datepicker-icon">\r\n\t\t\t\t\t\t\t\t\t<svg><use xlink:href="#calendar"></use></svg>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t';
 
 						var timeValues = [
-											"12:30 AM","01:00 AM","01:30 AM","02:00 AM","02:30 AM","03:00 AM",
+											"00:00 AM","00:30 AM","01:00 AM","01:30 AM","02:00 AM","02:30 AM","03:00 AM",
 											"03:30 AM","04:00 AM","04:30 AM","05:00 AM","05:30 AM","06:00 AM",
 											"06:30 AM","07:00 AM","07:30 AM","08:00 AM","08:30 AM","09:00 AM",
 											"09:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM",
@@ -3382,14 +3414,14 @@ __p += '\r\n\t\t\t\t\t\t<div class="input-label required">Scheduled on</div>\r\n
 											"09:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM","11:30 PM"
 										]
 					;
-__p += '\r\n\t\t\t\t\t<div class="field-section in-line" data-name="fromTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">From</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime">\r\n\t\t\t\t\t\t\t\t';
+__p += '\r\n\t\t\t\t\t<div class="field-section in-line">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">From</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime k-field" data-xtype="text-date" data-xtype-key="fromTime">\r\n\t\t\t\t\t\t\t\t';
  var fromTime = sb.getPopulateValue(data.populateType, 'meeting_date_from_time') ;
 __p += '\r\n\t\t\t\t\t\t\t\t';
  var fromTimeSelectIndex = 0 ;
 __p += '\r\n\t\t\t\t\t\t\t\t';
 
 									if(fromTime){
-										fromTimeSelectIndex = timeValues.indexOf(sb.getTime(new Date(fromTime).toString())) + 1;
+										fromTimeSelectIndex = timeValues.indexOf(sb.convertToAMPM(fromTime, {twoDigitHour: true})) + 1;
 									}
 									else{
 										var newSelectValue = new Date();
@@ -3413,14 +3445,14 @@ __p += ' value="' +
 ((__t = ( time )) == null ? '' : __t) +
 '</option>\r\n\t\t\t\t\t\t\t\t';
  }) ;
-__p += '\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line" data-name="toTime">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">To</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown no-margin mini-dropdown toTime">\r\n\t\t\t\t\t\t\t\t';
+__p += '\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="field-section in-line">\r\n\t\t\t\t\t\t<div class="input-wrapper float-left">\r\n\t\t\t\t\t\t\t<div class="time-label">To</div>\r\n\t\t\t\t\t\t\t<select class="projects-dropdown dropdown no-margin mini-dropdown toTime k-field" data-xtype="text-date,timezone-offset" data-xtype-key="toTime,timezone">\r\n\t\t\t\t\t\t\t\t';
  var toTime = sb.getPopulateValue(data.populateType, 'meeting_date_to_time') ;
 __p += '\r\n\t\t\t\t\t\t\t\t';
  var toTimeSelectIndex = 0 ;
 __p += '\r\n\t\t\t\t\t\t\t\t';
 
 									if(toTime){
-										toTimeSelectIndex = timeValues.indexOf(sb.getTime(new Date(toTime).toString())) + 1;
+										toTimeSelectIndex = timeValues.indexOf(sb.convertToAMPM(toTime, {twoDigitHour: true})) + 1;
 									}
 								;
 __p += '\r\n\t\t\t\t\t\t\t\t';
@@ -3439,11 +3471,12 @@ __p += '\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\
 ((__t = (
 					toolbox.textBox({
 						"label": "Venue",
-						inputClass: "meeting-location",
-						dataName: "location",
+						inputClass: "meeting-location k-field",
 						'attr': {
 							'data-validate-this': 'empty',
-							'value': sb.getPopulateValue(data.populateType, 'venue')
+							'value': sb.getPopulateValue(data.populateType, 'venue'),
+							'data-xtype': 'text',
+							'data-xtype-key': 'venue'
 						}
 					})
 				)) == null ? '' : __t) +
@@ -3453,10 +3486,12 @@ __p += '\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\
 						data: {
 							"label": "Recipients List",
 							required: true,
-							inputClass: "recipients-meeting blur-field",
-							"dataName": "attendees",
+							fieldClass: "field-section--recipients",
+							inputClass: "recipients-meeting blur-field k-field",
 							"selectAttr": {
-								"multiple": ""
+								"multiple": "",
+								"data-xtype": "get-participants",
+								"data-xtype-key": "participants"
 							},
 							"fieldSectionErrorMessages": {
 								'empty': ' Please select at least one recipient',
@@ -3632,11 +3667,16 @@ _.escape = function(string) {
 };
 (window['templates'] = window['templates'] || {})['rename-artefact'] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape;
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<div class="popup popup-small k-form">\n    ' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\n    <div class="popup-body">\n        <div class="popup-body-wrapper">\n            ' +
+'\n    <div class="popup-body">\n        <div class="popup-body-wrapper">\n            ';
+ var title = Kenseo.popup.data.title;
+                title = _.initial(title.split('.')).join('.'); 
+            ;
+__p += '\n            ' +
 ((__t = (
                 sb.toolbox.textBox({
                     inputClass: "project-input required k-field blur-field",
@@ -3647,7 +3687,7 @@ __p += '<div class="popup popup-small k-form">\n    ' +
                         'data-v-label': 'Artefact',
                         'data-xtype': 'text',
                         'data-xtype-key': 'artefact_name',
-                        value: Kenseo.popup.data.title
+                         value: title
                     },
                     "fieldSectionErrorMessages": {
                         'empty': ' Please enter artefact name',
@@ -3950,7 +3990,9 @@ __p += '>\r\n\t\t<div class="combobox-wrapper field-section-wrapper">\r\n\t\t\t<
  if(data.required){ ;
 __p += 'k-required';
  } ;
-__p += '" ' +
+__p += ' ' +
+((__t = ( data.inputClass )) == null ? '' : __t) +
+'" ' +
 ((__t = ( sb.setTemplate('attributes', {data: data.inputAttr}) )) == null ? '' : __t) +
 ' type="text" placeholder="' +
 ((__t = ( data.placeholder )) == null ? '' : __t) +
@@ -4057,7 +4099,15 @@ __p += '\n\t\t\t\tconsole.log("in option");\n\t\t\t\tconsole.dir(option);\n     
 ((__t = ( sb.setTemplate('option', {data: option}) )) == null ? '' : __t) +
 '\n            ';
  }) ;
-__p += '\n        </select>\n\t</div>\n</div>\n';
+__p += '\n        </select>\n\t</div>\n\t<div class="field-section-error-messages">\n\t\t';
+ for(var key in data.fieldSectionErrorMessages) { ;
+__p += '\n\t\t\t<div class="hide message-display" trigger="' +
+((__t = (key)) == null ? '' : __t) +
+'">' +
+((__t = ( data.fieldSectionErrorMessages[key] )) == null ? '' : __t) +
+'</div>\n\t\t';
+ } ;
+__p += '\n\t</div>\n</div>\n';
 
 }
 return __p

@@ -92,7 +92,10 @@
 			$query = getQuery('getArtefactCommentThread', $queryParams);
 			$commentThreads = $db->multiObjectQuery($query);
 
-			return $this->getThreadComments($db, null, $commentThreads);
+			$data = new stdClass();
+			$data->userId = $userId;
+
+			return $this->getThreadComments($db, $data, $commentThreads);
 		}
 
 
@@ -145,28 +148,35 @@
 				$commentThreadIds[] = "'" . $threadId . "'";
 			}
 
+
 			// Get all comments based on generated comment thread ids
 			if(count($commentThreadIds)) {
-				$queryParams = array('@commentThreadIds' => join(",", $commentThreadIds));
+				$queryParams = array(
+					'@commentThreadIds' => join(",", $commentThreadIds),
+					'userid'			=> $userId
+				);
 				$commentsQuery = getQuery('getComments', $queryParams);
 				$comments = $db->multiObjectQuery($commentsQuery);
 
 				// Format the structure as UI needs
 				$commentsCount = count($comments);
+				$threadsData = new stdClass();
 				for($i=0; $i<$commentsCount; $i++) {
 					$comment = $comments[$i];
 					$commentId = $comment->comment_id;
 					$threadId = $comment->comment_thread_id;
-
-					if(!$commentThreadsData->$threadId->comments) {
-						$commentThreadsData->$threadId->comments = new stdClass();
+					if(!$threadsData->$threadId){
+						$threadsData->$threadId = $commentThreadsData->$threadId;
+					}
+					if(!$threadsData->$threadId->comments) {
+						$threadsData->$threadId->comments = new stdClass();
 					}
 					unset($comment->comment_thread_id);
-					$commentThreadsData->$threadId->comments->$commentId = $comment;
+					$threadsData->$threadId->comments->$commentId = $comment;
 				}
 			}
 
-			return $commentThreadsData;
+			return $threadsData;
 		}
 		public function getCommentSummary($interpreter) {
       		$resultObj = new stdClass();
@@ -199,7 +209,10 @@
 			$initiatedDate = $db->singleObjectQuery($initiatedDateQuery);
 			for($i=0; $i<$threadCount; $i++) {
 				$threadId = $commentThreads[$i]->comment_thread_id;
-				$queryParams = array('@commentThreadIds' => $threadId);
+				$queryParams = array(
+					'@commentThreadIds' => $threadId,
+					'userid'			=> $userId
+				);
 				$commentsQuery = getQuery('getComments', $queryParams);
 				$comments = $db->multiObjectQuery($commentsQuery);
 				$commentThreads[$i]->comments = $comments;
