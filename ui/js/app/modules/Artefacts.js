@@ -117,9 +117,10 @@ Kenseo.views.Artefact = Backbone.View.extend({
     tagName: 'div',
     className: 'review-request-item',
     template: function(data){
-        return sb.setTemplate('artefact', {data: data});
+        return sb.setTemplate(this.payload.templateName|| 'artefact', {data: data});
     },
     initialize: function(payload){
+        this.payload = payload;
         this.listenTo(this.model, 'change', this.render);
         if(payload.linkedArtefactNo) {
             this.linkedArtefactNo = payload.linkedArtefactNo();

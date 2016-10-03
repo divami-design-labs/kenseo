@@ -1,11 +1,11 @@
-<a href="">
+<a href="<%= Kenseo.controllers.Search.getSuggestionItemPaths(data) %>">
     <div class="result-icon">
         <svg>
-            <use xlink:href="#search-folder"></use>
+            <use xlink:href="#search-<%= data.type %>"></use>
         </svg>
     </div>
     <div class="search-title">
-       <%= data.title %> 
+       <%= data.name %> 
     </div>
 </a>
 

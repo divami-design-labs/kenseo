@@ -27,6 +27,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         // Before adding the new tabItem un select the existing ones
         $('.tab-item.selectedTab').removeClass('selectedTab');
 
+        var $pdfsContainer = $('.pdfs-container');
         // Before painting the pdf into the viewer we need to add a tab for it.
         // pdf viewer
         if (data.type == 'application/pdf') {
@@ -36,7 +37,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
             });
             // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
             $('.dv-tab-panel-section').prepend(str);
-            $('.pdfs-container').append(this.$el.html(sb.setTemplate('pdf-viewer', {data: data})));
+            $pdfsContainer.append(this.$el.html(sb.setTemplate('pdf-viewer', {data: data})));
 
             new paintPdf({
                 url: sb.getRelativePath(data.documentPath),
@@ -60,7 +61,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
 
 
             // Store the current artefact version related data in a global variable
-            var threads = data.threads;
+            var threads = data.threads || {};
             // flag
             threads.noChangesDetected = true;
             sb.setCurrentDocumentData(data.versionId, threads);
@@ -74,8 +75,18 @@ Kenseo.views.DocumentView = Backbone.View.extend({
             });
             // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= " imageTab" ></div></a>';
             $('.dv-tab-panel-section').prepend(str);
-            $('.pdfs-container').append(this.$el.html(sb.setTemplate('pdf-toolbar', {data: data})));
+            $pdfsContainer.append(this.$el.html(sb.setTemplate('pdf-toolbar', {data: data})));
             // $('.pdfs-container').append('')
+        }
+        else{
+            // hide the status bar
+            $pdfsContainer.parent().find('.dv-status-bar').hide();
+            // Say the user that the artefact format is unsupported and provide option to download it
+            var noView = new Kenseo.views.Artefact({
+                model: this.model,
+                templateName: "no-documentview"
+            });
+            $pdfsContainer.html(noView.render().$el);
         }
         sb.setVersionIdForMaskedId(maskedVersionId, data.versionId);
         var parent = document.querySelector('.outerContainer.inView .viewerContainer.parent');

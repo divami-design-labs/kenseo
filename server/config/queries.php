@@ -148,7 +148,7 @@ $AppGlobal['sql']['getProjectArtefact'] = "SELECT sm.shared_date, a.artefact_id 
 											(SELECT logged_time FROM
 											   project_activity pa
 											 WHERE
-											   pa.logged_by = @~~userid~~@ AND A.artefact_id = pa.performed_on_id
+											   pa.logged_by = @~~userid~~@ AND a.artefact_id = pa.performed_on_id
 											 ORDER BY
 											   pa.logged_time DESC
 											 LIMIT 1
@@ -177,7 +177,7 @@ $AppGlobal['sql']['getSharedArtefacts'] = "SELECT a.artefact_id as id, a.latest_
 											(SELECT logged_time FROM
 											   project_activity pa
 											 WHERE
-											   pa.logged_by = @~~userid~~@ AND A.artefact_id = pa.performed_on_id
+											   pa.logged_by = @~~userid~~@ AND a.artefact_id = pa.performed_on_id
 											 ORDER BY
 											   pa.logged_time DESC
 											 LIMIT 1
@@ -758,6 +758,17 @@ SET t1.is_submitted = 1
 WHERE t2.artefact_ver_id = @~~artefactversionid~~@ AND t1.comment_by = @~~userid~~@";
 
 
+$AppGlobal['sql']['searchResults'] = 'SELECT * FROM ( 
+    (SELECT v.masked_artefact_version_id as id, "artefact" as type, t1.artefact_title as name FROM `artefacts` t1 JOIN artefact_versions v ON v.artefact_ver_id = t1.latest_version_id)
+    UNION
+    (SELECT  t2.project_id, "project", t2.project_name FROM projects t2)
+    UNION
+    (SELECT t4.user_id, "designer", t4.name FROM artefact_versions t3 JOIN users t4 ON t4.user_id = t3.created_by)
+    UNION
+    (SELECT t5.meeting_id, "meeting", t5.meeting_title FROM meetings t5)
+) as u
+WHERE
+	u.name LIKE @~~query~~@';
 
 /** Mail activities **/
 // user added

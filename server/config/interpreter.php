@@ -33,7 +33,7 @@ $AppGlobal['urlmap']['/downloadArtefact'] = array ('command' => 'downloadArtefac
 $AppGlobal['cmdmap']['downloadProject'] = array ("class" => "Projects", "method" => "downloadProject");
 $AppGlobal['urlmap']['/downloadProject'] = array ('command' => 'downloadProject', 'type' => 'GET');
 
-$AppGlobal['cmdmap']['search'] = array ("class" => "Common", "method" => "searchAll");
+$AppGlobal['cmdmap']['search'] = array ("class" => "Search", "method" => "fetchResults");
 $AppGlobal['urlmap']['/search'] = array ('command' => 'search', 'type' => 'GET');
 
 $AppGlobal['cmdmap']['getHeader'] = array ("class" => "Header", "method" => "getHeader");

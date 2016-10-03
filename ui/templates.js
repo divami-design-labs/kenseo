@@ -66,54 +66,6 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
-(window['templates'] = window['templates'] || {})['edit-comment'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="popup popup-medium k-form">\r\n\t' +
-((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n            ' +
-((__t = (
-				sb.toolbox.textBox({
-					"label": "Comment description",
-					inputClass: "required k-field",
-                    fieldClass: "field-section--stretch",
-					required: true,
-					attr: {
-						'data-validate-this': 'empty',
-						'data-v-label': 'Project',
-						'data-xtype': 'text',
-						'data-xtype-key': 'description',
-                        'value': Kenseo.popup.data.description
-					},
-					"fieldSectionErrorMessages": {
-						'empty': 'Please enter comment description',
-					}
-				})
-			)) == null ? '' : __t) +
-'\r\n        </div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
-((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
-'\r\n\t</div>\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
 (window['templates'] = window['templates'] || {})['add-persona-widget'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -321,6 +273,54 @@ __p += '\n\t\t' +
 '\n\t';
  } ;
 __p += '\n\t<div class="persona-indicator--add">\n\t\t<span class="widget-add">\n\t\t\t<svg><use xlink:href="#add"></use></svg>\n\t\t</span>\n\t</div></div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['edit-comment'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="popup popup-medium k-form">\r\n\t' +
+((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n            ' +
+((__t = (
+				sb.toolbox.textBox({
+					"label": "Comment description",
+					inputClass: "required k-field",
+                    fieldClass: "field-section--stretch",
+					required: true,
+					attr: {
+						'data-validate-this': 'empty',
+						'data-v-label': 'Project',
+						'data-xtype': 'text',
+						'data-xtype-key': 'description',
+                        'value': Kenseo.popup.data.description
+					},
+					"fieldSectionErrorMessages": {
+						'empty': 'Please enter comment description',
+					}
+				})
+			)) == null ? '' : __t) +
+'\r\n        </div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
+'\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p
@@ -1534,8 +1534,12 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<a href="">\r\n    <div class="result-icon">\r\n        <svg>\r\n            <use xlink:href="#search-folder"></use>\r\n        </svg>\r\n    </div>\r\n    <div class="search-title">\r\n       ' +
-((__t = ( data.title )) == null ? '' : __t) +
+__p += '<a href="' +
+((__t = ( Kenseo.controllers.Search.getSuggestionItemPaths(data) )) == null ? '' : __t) +
+'">\r\n    <div class="result-icon">\r\n        <svg>\r\n            <use xlink:href="#search-' +
+((__t = ( data.type )) == null ? '' : __t) +
+'"></use>\r\n        </svg>\r\n    </div>\r\n    <div class="search-title">\r\n       ' +
+((__t = ( data.name )) == null ? '' : __t) +
 ' \r\n    </div>\r\n</a>\r\n\r\n';
 
 }
@@ -1890,6 +1894,33 @@ __p += '<div class="notification-item S-type">\r\n\t<svg class="notification-s-t
 ' by ' +
 ((__t = ( data.username )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['no-documentview'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<p> Can\'t view unsupported format</p>\r\n\r\n<div class="sub-menu-item-text"> \r\n    <a class="main-btn stop-propagate" href="' +
+((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.artefactId))) == null ? '' : __t) +
+'" target="_blank" > Download </a> \r\n</div>';
 
 }
 return __p

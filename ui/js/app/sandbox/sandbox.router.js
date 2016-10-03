@@ -8,7 +8,9 @@ sb.router = (function(){
             //'.header': 'fixed-header',
             '.hamburger-menu': 'active'
         };
-
+        // make sure the popup is closed
+        sb.popupCloser($('.popup-container'));
+        
         $('.hamburger-menu').removeClass('active');
         //$('.header').removeClass('fixed-header');
 

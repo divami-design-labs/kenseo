@@ -8,7 +8,7 @@
             "replace", "addversion", "share", "delete", "editartifact", "renameartifact", "meeting"
         ],
         "popups":       ["close", "pdfnpng", "archive-icn", "submit", "baloon", "delete", "calendar"],
-        "search":       ["search-folder", "search-file"],
+        "search":       ["search-project", "search-artefact"],
         "projectpage":  ["addfile", "projects", "more","baloon", "icon4",
             "delete","lock1", "dropdown", "archive1", "replace", "addversion", "share", "delete", "editartifact",
             "renameartifact", "meeting"

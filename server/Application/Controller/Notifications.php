@@ -1,9 +1,9 @@
 <?php
 	Class Notifications {
 		public function getNotifications($interpreter){
-			$data = $interpreter->getData()->data;
+			$data 	= $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
-			$limit = $data->limit;
+			$limit 	= $data->limit;
 
 			$db = Master::getDBConnectionMAnager();
 			$queryDetails = getQuery('getNotifications',array("id" => $userId, '@limit'=>$limit));

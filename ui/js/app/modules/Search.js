@@ -40,3 +40,18 @@ Kenseo.models.SearchResult = Backbone.Model.extend({
 Kenseo.collections.SearchResults = Backbone.Collection.extend({
     model: Kenseo.models.SearchResult
 });
+
+
+
+Kenseo.controllers.Search = {
+    getSuggestionItemPaths: function(data){
+        var paths = {
+            "artefact": "#documentview/"    + data.id,
+            "project":  "#projectpage/"     + data.id,
+            "designer": "#designer/"        + data.id,
+            "meeting":  "#meetingnotes/"    + data.id
+        }
+
+        return paths[data.type];
+    }
+}

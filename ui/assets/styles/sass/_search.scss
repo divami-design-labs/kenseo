@@ -46,6 +46,7 @@
     max-height: 400px;
     overflow-x: hidden;
     overflow-y: auto;
+    display: none;
 }
 .search-row {
     height:28px;
@@ -83,5 +84,8 @@
     }
     .search-title {
         padding: 20px;
+    }
+    &:hover{
+        background-color: #aaacb4;
     }
 }

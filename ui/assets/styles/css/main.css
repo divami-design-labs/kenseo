@@ -841,6 +841,7 @@ a {
   max-height: 400px;
   overflow-x: hidden;
   overflow-y: auto;
+  display: none;
 }
 
 .search-row {
@@ -897,6 +898,10 @@ a {
 
 .search-result .search-title {
   padding: 20px;
+}
+
+.search-result:hover {
+  background-color: #aaacb4;
 }
 
 .menu {
@@ -1265,7 +1270,7 @@ a {
   padding-left: 37px;
   padding-top: 55px;
   position: absolute;
-  top: 40px;
+  top: 80px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -7074,6 +7079,18 @@ img.image-viewer {
 
 .cv-comment-edit:hover, .cv-comment-delete:hover {
   fill: #333;
+}
+
+.pdfs-container .review-request-item {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 300px;
+  height: 100px;
+  text-align: center;
 }
 
 .messages-wrapper {
