@@ -118,7 +118,8 @@ sb.refresh = (function(){
 					templateHolder: $('.review-requests-content'),
 					data: {
 		                shared: true,
-		                limit: 8
+		                limit: 8,
+		                withVersions: true
 		            }
 				})
             }
@@ -157,7 +158,7 @@ sb.refresh = (function(){
 					templateHolder: $('.artifacts-content'),
 					templateWrapperHolder: $('.review-requests-content.artifacts-section'),
 					sortBy: sortBy,
-					data: { projects: true, project_id: Kenseo.page.id, sharePermission: false, sortBy: sortBy }
+					data: { projects: true, project_id: Kenseo.page.id, sharePermission: false, sortBy: sortBy, withVersions: true }
 				})
             },
             'pp-activities': function(){
@@ -300,6 +301,12 @@ sb.refresh = (function(){
 		},
 		editArtefact: function(response){
 			refreshTasks(response);
+		},
+		addVersion: function(response){
+			var obj = Kenseo.scope.model.toJSON();
+			obj.version = response.data.versionSummary[response.data.versionSummary.length - 1].versionNo;
+			obj.versionSummary = response.data.versionSummary;
+			Kenseo.scope.model.set(obj);
 		},
 		// unarchiveProject: function(){
 		// 	refreshSection('projects-page', 'projects-page');

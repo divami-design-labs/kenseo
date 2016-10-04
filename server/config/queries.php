@@ -304,6 +304,8 @@ $AppGlobal['sql']['matchTags'] = "SELECT artefacts.artefact_id AS id, artefacts.
 
 $AppGlobal['sql']['getLatestVerionOfArtefact'] = "SELECT latest_version_id AS verId FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
 
+$AppGlobal['sql']['getLatestArtefactMaskedVersionId'] = "SELECT masked_artefact_version_id AS maskedVerId FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE 																artefact_ver_id = @~~newVer~~@";
+
 $AppGlobal['sql']['getVerionDetailsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@ and artefact_ver_id in
 													(SELECT latest_version_id FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@) ";
 
@@ -567,7 +569,7 @@ $AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName,
 $AppGlobal['sql']['getArtefactFromVersionId'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_ver_id = @~~artefactversionid~~@";
 
 $AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as versionId, vers.masked_artefact_version_id, vers.version_no as versionNo, vers.document_path as documentPath, vers.MIME_type as type,
-												 vers.version_label as label, vers.created_by as authorId, user.name as authorName, shared,
+												 vers.version_label as label, vers.created_by as authorId, vers.created_date as createdDate, user.name as authorName, shared,
 												(SELECT COUNT(comment_thread_id) FROM " . TABLE_COMMENT_THREADS . " as thread where
 												vers.artefact_ver_id = thread.artefact_ver_id) as comment_count
 												FROM " . TABLE_ARTEFACTS_VERSIONS . " AS vers

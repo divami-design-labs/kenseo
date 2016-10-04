@@ -227,8 +227,23 @@
 .status-A{ /* approved */
 	background-color: $colorApproved;
 }
+.rr-other-versions{
+	display: none;
+}
+.artefact-cur-version.active + .rr-other-versions {
+	display: block;
+}
+.version-summary-section{
+	display: inline-block;
+}
+.version-summary{
+	&:not(:last-child) {
+	    display: flex;
+	    justify-content: space-around;
+	}
+}
 .rr-state{
-	span{
+	.artefact-cur-version{
 		@extend .hand;
 		@extend .version-num;
 		&:nth-of-type(3n + 1):after{
@@ -239,62 +254,64 @@
 	}
 	.rr-other-versions{
 		$mr: 28px;
-		span{
-			margin-top: 20px;
-			margin-right: $mr;
-			position: relative;
-			background-color: $colorY;
-			&:after{
-				content: "";
-				position: absolute;
-				background-color: $colorX;
-			}
-			&:before{
-				content: attr(data-date);
-				@include text(10px, #798791);
-				white-space: nowrap;
-				position: absolute;
-				top: 100%;
-				left: 50%;
-				@include translate(-50%, 0);
-				margin-top: -2px;
-				z-index: 1;
-			}
-			&:first-child:after{
-				width: 1px;
-				height: 20px;
-				bottom: 100%;
-				left: 50%;
-				margin-left: -1px;
-			}
-		}
-		& > div{
-			@extend .clearFloat;
-		}
-		& > div:nth-child(2n+1){
-			& > span{
-				float: left;
-				&:not(:first-child):after{
-					width: $mr;
-					height: 1px;
-					right: 100%;
-					top: 50%;
-					margin-top: -1px;
+		.version-summary{
+			a{
+				margin-right: 28px;
+				span{
+					@extend .hand;
+					@extend .version-num;
+					margin-top: 20px;
+					//margin-right: $mr;
+					position: relative;
+					background-color: $colorY;
+					&:after{
+						content: "";
+						position: absolute;
+						background-color: $colorX;
+						width: 32px;
+					    height: 1px;
+					    top: 50%;
+					    right: 100%;
+					    z-index: -1;
+					}
+					&:before{
+						content: attr(data-date);
+						@include text(10px, #798791);
+						white-space: nowrap;
+						position: absolute;
+						top: 100%;
+						left: 50%;
+						@include translate(-50%, 0);
+						margin-top: -2px;
+						z-index: 1;
+					}
+				}
+				&:first-child span:after{
+					width: 1px;
+					height: 20px;
+					bottom: 100%;
+					top: -80%;
+					left: 50%;
+					margin-left: -1px;
 				}
 			}
-		}
-		& > div:nth-child(2n){
-			& > span{
-				float: right;
-				&:not(:first-child):after{
-					width: $mr;
-					height: 1px;
-					left: 100%;
-					top: 50%;
-					margin-top: -1px;
+			&:nth-of-type(2n){
+				display: flex;
+				flex-direction: row-reverse;
+				a{
+					&:not(:first-child) span:after{
+					    left: 100% !important;
+					}
 				}
 			}
+			&:nth-child(odd) span:last-child {
+			margin-right: 0;
+			}
+			&:nth-child(even) span:first-child {
+			margin-right: 0;
+			}
 		}
+		
 	}
 }
 .rr-comment{
@@ -334,7 +351,7 @@
 	//display: none;
 	position: absolute;
 	right: 0;
-	bottom: 0;
+	top: 40px;
 	@include dimensions(36px, 28px);
 	cursor: pointer;
 	z-index: 0;

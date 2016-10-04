@@ -44,14 +44,14 @@
 // Version related styles
 .version-num{
 	@include border-radius(20px);
-	height: 20px;
-	min-width: 10px;
+	height: 25px;
+	width: 25px;
 	padding: 0 4px;
 	display: inline-block;
 	background-color: $colorJ;
 	text-align: center;
 	font-family: $boldFont;
-	line-height: 20px;
+	line-height: 25px;
 	@include text(12px, #ffffff);
 	&:first-letter{
 		font-family: $normalFont;

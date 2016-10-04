@@ -61,6 +61,7 @@ sb.popup = {
             data: {
                 projectid: projectId,
                 references: true,
+                withVersions: true,
                 ignore: 0
             },
             success: function success(response) {
@@ -278,6 +279,7 @@ sb.popup = {
             data: {
                 projectid: projectId,
                 references: true,
+                withVersions: true,
                 ignore: 0
             },
             success: function success(response) {
@@ -790,10 +792,12 @@ sb.popup = {
                     "collection": new Kenseo.collections.Artefacts(),
                     container: $('.artefact-field-section.field-section'),
                     "data": {
+                        // maskedArtefactVersionId: maskedId,
                         projects: true,
                         project_id: projectId,
                         sortBy: "name",
-                        $sharePermission: "true"
+                        $sharePermission: "true",
+                        withVersions: "true"
                     },
                     "success": function success(response) {
                         artefactCombobox.refresh({
@@ -992,6 +996,7 @@ sb.popup = {
                     data: {
                         projectid: sb.getPopupData('id'),
                         references: true,
+                        withVersions: true,
                         ignore: 0
                     },
                     success: function(response){

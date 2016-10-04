@@ -37,8 +37,8 @@
 		public function renameArtefact($interpreter) {
 			$data = $interpreter->getData()->data;
 			$id = $data->id;
-			$artefact_name = $data->artefact_name;
-
+			$extension = end(explode('.', $data->title));
+			$artefact_name = $data->artefact_name.".".$extension;
 			$db = Master::getDBConnectionManager();
 			$resultObj->artefact = $db->updateTable(
 						TABLE_ARTEFACTS,
@@ -279,6 +279,15 @@
 			}
 
 			$resultObj = $db->multiObjectQuery($dbQuery);
+
+			if($data->withVersions) {
+				foreach($resultObj as $result) {
+					$queryParams = array('maskedArtefactVersionId' => $result->masked_artefact_version_id, "userid" => $userid);
+					$versionQuery = getQuery('getArtefactVersionSummary', $queryParams);
+					$versionSummary = $db->multiObjectQuery($versionQuery);
+						$result->versionSummary = $versionSummary;
+				}
+			}
 			return $resultObj;
 		}
 		function getSharedArtefacts($interpreter) {
@@ -290,6 +299,15 @@
 			$querDetails = getQuery('getSharedArtefacts',array('userid'=>$userid, '@limit' => $limit ));
 
 			$resultObj = $db->multiObjectQuery($querDetails);
+
+			if($data->withVersions) {
+				foreach($resultObj as $result) {
+					$queryParams = array('maskedArtefactVersionId' => $result->masked_artefact_version_id, "userid" => $userid);
+					$versionQuery = getQuery('getArtefactVersionSummary', $queryParams);
+					$versionSummary = $db->multiObjectQuery($versionQuery);
+						$result->versionSummary = $versionSummary;
+				}
+			}
 			return $resultObj;
 		}
 
@@ -859,6 +877,7 @@
 		}
 
 		public function addVersion($interpreter) {
+			$versionSummary;
 			// => For example, lets say there are three version of Artefact-a
 			// and three versions of artefact-b. if from artefact-a, artefact-b is added as new version
 			// then artefact-a will currently have six versions (first three versions from artefact-a
@@ -926,6 +945,20 @@
 				$rowValues = array($previousArtefactid, $ver_no, $masked_artefact_version, $userId, date("Y-m-d H:i:s"), $targetPath, $FILES['type'][0], $data->size, 'A', $shared);
 				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
 
+
+				$versionParams = array('newVer' => $newVer);
+				$versionQuery = getQuery('getLatestArtefactMaskedVersionId', $versionParams);
+				$newMaskedArtefactVErsionVersionId = $db->singleObjectQuery($versionQuery);
+
+
+				$versionSummaryParams = array('maskedArtefactVersionId' => $newMaskedArtefactVErsionVersionId->maskedVerId, "userid" => $userId);
+				$versionSummaryQuery = getQuery('getArtefactVersionSummary', $versionSummaryParams);
+
+				$versionSummary = $db->multiObjectQuery($versionSummaryQuery);
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "versionsumary");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $versionSummary);
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "versionsumary");
 
 				// Update the artefact table with latest version id
 				$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $previousArtefactid);
@@ -1091,6 +1124,7 @@
 			$resultMessage->messages->type = "success";
 			$resultMessage->messages->message = "Successfully added new version to artefact";
 			$resultMessage->messages->icon = "done";
+			$resultMessage->versionSummary = $versionSummary;
 			return $resultMessage;
 		}
 

@@ -1,6 +1,6 @@
 <% var dataComparer = -1; %>
 <% var isSupportedFile = data.MIME_type.indexOf('pdf') > -1 || data.MIME_type.indexOf('image') > -1 %>
-<a <% if(isSupportedFile){ %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %> data-pass="<% (function () {
+<div data-pass="<% (function () {
             if (dataComparer == data.linkedId) {
                 dataComparer = data.linkedId;
                 return 1;
@@ -23,15 +23,43 @@
 	</div>
 	<div class="rr-right">
 		<div class="rr-title ellipsis" title="<%= data.title %><% if(!isSupportedFile){ %> - Unsupported format<% } %>" data-id= "<%=data.id%>"><%= data.title %></div>
+		<a <% if(isSupportedFile){ %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %>>
+		<div class="rr-title ellipsis" title="<%= data.title %><% if(!isSupportedFile){ %> - Unsupported format<% } %>"><%= data.title %></div>
         <% if(!data['is_project_page']){ %>
         <div class="rr-project-name ellipsis"><%= data['project_name'] %></div>
         <% } %>
         <% var time = sb.timeFormat(sb.addTimeZoneToDate(data['artefact_time'])) %>
 		<div class="rr-details ellipsis" title="<%= time %> by <%= data['person_name'] %>"><%= time %> by <%= data['person_name'] %></div>
+		</a>
 		<div class="rr-state-details">
 			<div class="rr-state">
-				<span class="artefact-cur-version">v<%= data.version %></span>
-				<div class="rr-other-versions"></div>
+				<div class="artefact-cur-version html-click" data-url="version-summary">v<%= data.version %></div>
+				<%if(data.version>1) { %>
+					<div class="rr-other-versions">
+						<div class="version-summary-section">
+							<% for(var i = data.versionSummary.length-2, count = 0; i>=0; i--){ %>
+								<% if(count === 0) { %>
+									<span class="version-summary">
+								<% } %>
+									<%var currentDate = sb.timeFormat(sb.addTimeZoneToDate(new Date()),true,true);%>
+									<%var createdDate = sb.timeFormat(sb.addTimeZoneToDate(data.versionSummary[i].createdDate),true,true);%>
+									<%if(currentDate === createdDate){%>
+									<%	var dispalyDate = sb.timeFormat(sb.addTimeZoneToDate(data.versionSummary[i].createdDate),true,false);%>
+									<%} else {%>
+									<%	var dispalyDate = createdDate;%>
+									<%}%>
+									<a <% if(isSupportedFile){ %>href="#documentview/<%= data.versionSummary[i].masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %>>
+									<span data-date="<%= dispalyDate %>">v<%=data.versionSummary[i].versionNo %></span>
+									</a>
+									<% count++; %>
+								<% if(count === 3 || i === 0) {%>
+									<%count=0;%>
+									</span>
+								<%}%>
+							<% } %>
+						</div>
+					</div>
+				<% } %>
 				<div class="rr-comment">
 					<svg><use xlink:href="#baloon"></use></svg>
 					<div class="rr-comment-count"><%= data.comment_count %></div>
@@ -112,4 +140,4 @@
 			</div>
 		</div>
 	</div>
-</a>
+</div>
