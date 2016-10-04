@@ -185,6 +185,17 @@
 			$detailsQuery = getQuery('getProjectArtefact', $queryParams);
 			$artefactObj = $db->singleObjectQuery($detailsQuery);
 
+			//query used to get no of people in the project
+			$peopleQuery = getQuery('getTeamMembers',array('projectId' => $projectId));
+			$peopleObj = $db->multiObjectQuery($peopleQuery);
+
+			//artefact is shared if the people present in the project
+			if(count($peopleObj) > 1) {
+				$artefactObj->share = true;
+			} else {
+				$artefactObj->share = false;
+			}
+
 			//query to get data of single activity when artefact is updated
 			$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
 			$activityObj = $db->singleObjectQuery($activityQuery);
@@ -1466,6 +1477,7 @@
 			$userId = $info->userId;
 			$projectId = $data->id;
 			$messages = new stdClass();
+			$dataList = new stdClass();
 			// $artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
 			// $artId = $data->id;
 
@@ -1480,6 +1492,9 @@
 
 				if(!$artefactAndVersionIds){
 					$projectId = $data->project_id;
+					if($data->projId){
+						$projectId = $data->projId;
+					}
 					$artefactAndVersionIds = array();
 					$artefactVersionIdHolder = new stdClass();
 					$artefactVersionIdHolder->{'artefact_version_id'} = $data->artefact_ver_id;
@@ -1494,9 +1509,10 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $artefactAndVersionIds);
 				$length = count($artefactAndVersionIds);
 				//$userId = $interpreter->getUser()->user_id;
-				$dataList['notification'] = array();
-				$dataList['artefact'] = array();
-				$dataList['activity'] = array();
+				$dataList->notification = array();
+				$dataList->artefact = array();
+				$dataList->activity = array();
+				$dataList->messages = array();
 				for($i=0; $i<$length; $i++){
 					$artId = $artefactAndVersionIds[$i]->artefact_id;
 					$artVerId = $artefactAndVersionIds[$i]->artefact_version_id;
@@ -1528,9 +1544,9 @@
 					$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
 					$activityObj = $db->singleObjectQuery($activityQuery);
 
-					$dataList['notification'][] = $resultObj;
-					$dataList['artefact'][] = $artefactObj;
-					$dataList['activity'][] = $activityObj;
+					$dataList->notification[] = $resultObj;
+					$dataList->artefact[] = $artefactObj;
+					$dataList->activity[] = $activityObj;
 				}
 
 
@@ -1543,7 +1559,7 @@
 				$messages->icon = "error";
 			}
 
-			$dataList['messages'] = $messages;
+			$dataList->messages = $messages;
 			return $dataList;
 			//return array();
 		}

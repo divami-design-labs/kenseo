@@ -285,15 +285,7 @@ sb.refresh = (function(){
 			sb.trigger($(window), 'addProject');
 		},
 		addArtefact: function(response){
-			//triggers an event to add artefact
-			Kenseo.data.model = [response.data.artefact];
-			sb.trigger($(window), 'addArtefact');
-			//triggers an event to add activity
-			Kenseo.data.model = [response.data.activity];
-			sb.trigger($(window), 'addActivity');
-			//triggers an event to add notification
-			Kenseo.data.model = [response.data.notification];
-			sb.trigger($(window), 'addNotification');
+			refreshTasks(response);
 		},
 		shareArtefact: function(response){
 			//triggers an event to add artefact
@@ -305,6 +297,9 @@ sb.refresh = (function(){
 			//triggers an event to adda notification
 			Kenseo.data.model = response.data.notification;
 			sb.trigger($(window), 'addNotification');
+		},
+		editArtefact: function(response){
+			refreshTasks(response);
 		},
 		// unarchiveProject: function(){
 		// 	refreshSection('projects-page', 'projects-page');
@@ -357,6 +352,17 @@ sb.refresh = (function(){
 				console.dir(_this.model.toJSON());
 			}
 		}
+	}
+	function refreshTasks(response){
+		//triggers an event to add artefact
+		Kenseo.data.model = [response.data.artefact];
+		sb.trigger($(window), 'addArtefact');
+		//triggers an event to add activity
+		Kenseo.data.model = [response.data.activity];
+		sb.trigger($(window), 'addActivity');
+		//triggers an event to add notification
+		Kenseo.data.model = [response.data.notification];
+		sb.trigger($(window), 'addNotification');
 	}
 	function refreshSection(sectionName, subSection){
 		var specificSection = sections[sectionName];

@@ -1,6 +1,6 @@
 <% if(data && data.length){ %>
 <% _.each(data, function(p){ %>
-<div class="menu-recent-people-cnt">
+<div class="menu-recent-people-cnt" title="<%=p.name%>">
 	<% if(p.picture == "assets/imgs/avatar.svg"){ %>
 		<svg class="menu-people-img"><use xlink:href="#avatar" class="menu-people-img"></use></svg>
     <% } else { %>

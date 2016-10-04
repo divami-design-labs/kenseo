@@ -143,6 +143,7 @@ Kenseo.views.Project = Backbone.View.extend({
                     sb.ajaxCall({
                         url: sb.getRelativePath('archiveProject'),
                         data: scope.model.toJSON(),
+                        container: $('.popup'),
                         success: function(response){
                             // console.log("delete artefact");
                             if(response.data){ // is true
@@ -181,6 +182,7 @@ Kenseo.views.Project = Backbone.View.extend({
                     sb.ajaxCall({
                         url: sb.getRelativePath('unarchiveProject'),
                         data: scope.model.toJSON(),
+                        container: $('.popup'),
                         success: function(response){
                             // console.log("delete artefact");
                             if(response.data){ // is true

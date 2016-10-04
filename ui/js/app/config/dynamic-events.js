@@ -176,7 +176,7 @@ $(function () {
 					$(popupContainer).find('button').attr('disabled', 'false');
 					setTimeout(function(){
 						popupCloser($self.parents(popupContainer));
-					},3010);
+					},2010);
 					if(response.data.messages) {
 						sb.showGlobalMessages(response,popupContainer);
 					}

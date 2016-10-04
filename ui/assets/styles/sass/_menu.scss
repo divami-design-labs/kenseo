@@ -11,6 +11,16 @@
     display: none;
     // temporary fix for limit
     overflow: hidden;
+    color: #efeff0;
+    .activity-title, .activity-time, .activity-sender{
+        color: #efeff0;
+    }
+    .rr-title, .rr-project-name, .rr-details, .rr-doc-type{
+        color: #efeff0;
+    }
+    .notification-title, .notification-time{
+        color: #efeff0;
+    }
 }
 .active.menu{
     display: block;
@@ -198,6 +208,11 @@
     }
 }
 
+.menu {
+    .rr-details, .rr-title{
+        color: #efeff0;
+    }
+}
 .requests-hd {
     margin-bottom: 25px;
     @include text(18px, $color2);

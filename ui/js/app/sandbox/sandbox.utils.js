@@ -921,7 +921,7 @@ var sb = _.extend(sb, (function () {
         	setTimeout(function(){
         		$('div.messages-wrapper').removeClass('show-messages');
                 $('.messages-wrapper').remove();
-        	}.bind($('div.messages-wrapper')), 3010);
+        	}.bind($('div.messages-wrapper')), 2010);
         },
     };
 })());

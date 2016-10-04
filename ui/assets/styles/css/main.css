@@ -916,6 +916,19 @@ a {
   cursor: default;
   display: none;
   overflow: hidden;
+  color: #efeff0;
+}
+
+.menu .activity-title, .menu .activity-time, .menu .activity-sender {
+  color: #efeff0;
+}
+
+.menu .rr-title, .menu .rr-project-name, .menu .rr-details, .menu .rr-doc-type {
+  color: #efeff0;
+}
+
+.menu .notification-title, .menu .notification-time {
+  color: #efeff0;
 }
 
 .active.menu {
@@ -1128,6 +1141,10 @@ a {
 
 .menu-recent-requests .rr-state-details {
   display: none;
+}
+
+.menu .rr-details, .menu .rr-title {
+  color: #efeff0;
 }
 
 .requests-hd {
