@@ -624,14 +624,14 @@ sb.popup = {
             });
             $currentPopup.find(".add-comments-chk input, .others-chk input").attr("disabled","disabled");
             //trigger chenge event when global-permissionsare cheked
-            $('.global-permissions').trigger('change');
+            $currentPopup.find('.global-permissions').trigger('change');
         } else {
             $currentPopup.find(".people-permissions-section").css({
              "display" : "none"
             });
             $currentPopup.find(".add-comments-chk input, .others-chk input").removeAttr("disabled");
         }
-        $(".global-permissions").change(function (e){
+         $currentPopup.find(".global-permissions").off('change').on('change', function (e){
           $(this.getAttribute('trigger-chk')).find('input').prop("checked",this.checked);
         });
       });
