@@ -22,9 +22,8 @@
         <% } %>
 	</div>
 	<div class="rr-right">
-		<div class="rr-title ellipsis" title="<%= data.title %><% if(!isSupportedFile){ %> - Unsupported format<% } %>" data-id= "<%=data.id%>"><%= data.title %></div>
 		<a <% if(isSupportedFile){ %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %>>
-		<div class="rr-title ellipsis" title="<%= data.title %><% if(!isSupportedFile){ %> - Unsupported format<% } %>"><%= data.title %></div>
+		<div class="rr-title ellipsis" title="<%= data.title %><% if(!isSupportedFile){ %> - Unsupported format<% } %>" data-id= "<%=data.id%>"><%= data.title %></div>
         <% if(!data['is_project_page']){ %>
         <div class="rr-project-name ellipsis"><%= data['project_name'] %></div>
         <% } %>
