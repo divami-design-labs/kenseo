@@ -718,6 +718,7 @@
 
 		$(this).unbind('.datepicker').bind('click.datepicker',function(evt)
 		{
+			$.inputDatePicker = evt.currentTarget;
 			var isOpen = box.is(':visible');
 			if(!isOpen) open(opt.duration);
 		}).bind('change.datepicker', function(evt)
@@ -1119,6 +1120,14 @@
 						});
 					}
 				}
+			}
+			if(opt.customPosition && $.inputDatePicker){
+				$.scrollOffset = $($.inputDatePicker).parents('.comments-view-filter-section').get(0).scrollTop + $($.inputDatePicker).offset().top;
+				$.parentOffset = $($.inputDatePicker).parents('.comments-view-filter-section').offset().top;
+				box.css({
+					left: parseInt(box.css('left'), 10) - 79,
+					top: $.scrollOffset - $.parentOffset + $($.inputDatePicker).outerHeight()
+				})
 			}
 		}
 

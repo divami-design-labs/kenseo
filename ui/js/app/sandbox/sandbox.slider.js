@@ -154,7 +154,9 @@ sb.sliders = {
 		     datepickerOptions : {
 		         numberOfMonths : 2
 		     },
-			 format: 'DD MMM YYYY'
+		     container : $(".comments-view-filter-section"),
+			 format: 'DD MMM YYYY',
+			 customPosition: true
 		 });
 		if(!$inputCommentsDate.val()){
 			var initialDate =new Date(response.data.initiatedDate);
