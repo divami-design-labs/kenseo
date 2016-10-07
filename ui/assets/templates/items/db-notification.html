@@ -26,7 +26,7 @@
                 <div class="mn-left">
                     <div><%= sb.timeFormat(data.meetingDetails.time) + ", " +sb.getTime(data.meetingDetails.time) %></div>
                     <div class="meeting-notify-icon"></div>
-                    <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>
+                    <div class="clock-icon" title = "<%= sb.timeFormat(data.meetingDetails.time) + ", " +sb.getTime(data.meetingDetails.time) %>"><svg><use xlink:href="#clock"></use></svg></div>
                 </div>
             </div>
         <% } else {%>
@@ -35,7 +35,7 @@
                     <div>Meeting @ Conference 2</div>
                     <div class="mn-left-title"><%= data.meetingDetails.title %></div>
                     <div class="meeting-notify-icon"></div>
-                    <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>
+                    <div class="clock-icon" title = "<%= sb.timeFormat(data.meetingDetails.time) + ", " +sb.getTime(data.meetingDetails.time) %>"><svg><use xlink:href="#clock"></use></svg></div>
                 </div>
                 <div class="mn-right">
                     <div><%= sb.timeFormat(data.meetingDetails.time) %></div>
