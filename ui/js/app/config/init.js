@@ -2,6 +2,7 @@ var Kenseo = {
     views: {},
     models: {},
     collections: {},
+    controllers: {},
     currentModel: {},
     combobox: {},
     dropdown: {},

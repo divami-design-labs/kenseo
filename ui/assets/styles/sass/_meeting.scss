@@ -225,3 +225,9 @@
 	@include border-radius(3px);
 	@include text(16px, white);
 }
+
+.add-meeting-notes{
+	float: right;
+	border: none;
+	border-radius: 3px;
+}

@@ -216,7 +216,7 @@ _.extend(sb, {
         var loaderdiv = document.createElement('div');
         $(loaderdiv).addClass('loader');
         div.appendChild(loaderdiv);
-        if(!ele){
+        if(!ele || !ele.length){
             $('body').prepend($(div));
         }
         else{

@@ -62,7 +62,7 @@ sb.router = (function(){
         },
         meetingNotes: function meetingNotes(id) {
             sb.svgLoader(['common', 'meetingnotes']);
-
+            $('.meeting-notes-section').html('');
             Kenseo.data.meetingId = id;
             // Write meeting notes title here
 

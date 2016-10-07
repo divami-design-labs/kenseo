@@ -196,6 +196,11 @@
 				$artefactObj->share = false;
 			}
 
+			$queryParams = array('maskedArtefactVersionId' => $artefactObj->masked_artefact_version_id, "userid" => $userId);
+			$versionQuery = getQuery('getArtefactVersionSummary', $queryParams);
+			$versionSummary = $db->multiObjectQuery($versionQuery);
+			$artefactObj->versionSummary = $versionSummary;
+
 			//query to get data of single activity when artefact is updated
 			$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
 			$activityObj = $db->singleObjectQuery($activityQuery);
@@ -1337,6 +1342,10 @@
 						$artefactObj->share = false;
 					}
 
+					$queryParams = array('maskedArtefactVersionId' => $artefactObj->masked_artefact_version_id, "userid" => $userId);
+					$versionQuery = getQuery('getArtefactVersionSummary', $queryParams);
+					$versionSummary = $db->multiObjectQuery($versionQuery);
+					$artefactObj->versionSummary = $versionSummary;
 
 					//variable to know whether the artefact is shared or not, initially it set to false
 					// Share to members
@@ -1573,6 +1582,11 @@
 					$detailsQuery = getQuery('getProjectArtefact', $queryParams);
 					$artefactObj = $db->singleObjectQuery($detailsQuery);
 					$artefactObj->share = true;
+
+					$queryParams = array('maskedArtefactVersionId' => $artefactObj->masked_artefact_version_id, "userid" => $userId);
+					$versionQuery = getQuery('getArtefactVersionSummary', $queryParams);
+					$versionSummary = $db->multiObjectQuery($versionQuery);
+					$artefactObj->versionSummary = $versionSummary;
 
 					//query to get data of single activity when artefact is added
 					$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));

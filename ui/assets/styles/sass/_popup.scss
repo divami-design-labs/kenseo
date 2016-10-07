@@ -55,7 +55,7 @@
 	height: 55px;
 	position: relative;
 	background-color: $color6;
-	overflow: hidden;
+	//overflow: hidden;
 	@include text(18px, $color7);
 	padding-left: 25px;
 	vertical-align: middle;
@@ -64,6 +64,12 @@
 .files-section ~ .dropdown{
 	margin-left: 30px;
 }
+.popup-container{
+	.popup-header{
+		overflow: hidden;
+	}
+}
+
 .popup-close-icon{
 	@include closeIcon(14px);
 	position: absolute;

@@ -281,15 +281,34 @@
 		public function writeMeetingNotes($interpreter) {
 			$data = $interpreter->getData()->data;
 			$user = $interpreter->getUser();
+			$result = new stdClass();
 
 			$db = Master::getDBConnectionManager();
 
-			$columnnames = array("meeting_id", "participent_id", "participation_notes", "created_date", "is_public");
-			$rowvals = array($data->meetingId, $user->uesr_id, $data->notes, date("Y-m-d H:i:s"), $data->is_public);
 
-			$db->insertSingleRow(TABLE_MEETING_PARTICIPENTS, $columnnames, $rowvals);
 
-			return true;
+			$db->updateTable(
+						TABLE_MEETING_NOTES,
+						array(
+							"participant_notes",
+							"created_date",
+							"is_public"
+						),
+						array(
+							$data->notes,
+							date("Y-m-d H:i:s"),
+							$data->is_public
+						),
+						"meeting_id = " . $data->meeting_id . " and participant_id = " . $user->user_id
+					);
+
+			$resultMessage = new stdClass();
+			$resultMessage->type = "success";
+			$resultMessage->message = "Successfully added notes to meeting";
+			$resultMessage->icon = "success";
+			$result->messages = $resultMessage;
+
+			return $result;
 		}
 
 		public function getMeetingNotes($interpreter) {

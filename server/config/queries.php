@@ -431,21 +431,23 @@ $AppGlobal['sql']['getMeetingNotes'] = "SELECT users.user_id as userId, notes.pa
 										FROM " . TABLE_MEETING_NOTES . " as notes
 										JOIN " . TABLE_USERS . " as users ON
 										notes.participant_id = users.user_id
-										WHERE meeting_id = @~~meetingId~~@ and users.user_id != @~~userId~~@";
+										WHERE meeting_id = @~~meetingId~~@ and users.user_id != @~~userId~~@ and notes.is_public = 1";
 
-$AppGlobal['sql']['getMeetingDetails'] = "SELECT 
-											proj.project_name as projectName, 
-											arts.artefact_title as artefactName, 
+$AppGlobal['sql']['getMeetingDetails'] = "SELECT
+											proj.project_name as projectName,
+											arts.artefact_title as artefactName,
 											user.name as createdBy,
 											meets.meeting_time as date,
-											DATE_FORMAT(meets.meeting_time, '%H:%i') as fromTime, 
-											DATE_FORMAT(meets.meeting_end_time, '%H:%i') as toTime, 
-											meets.venue as venue, 
-											meets.meeting_agenda as agenda, 
+											DATE_FORMAT(meets.meeting_time, '%H:%i') as fromTime,
+											DATE_FORMAT(meets.meeting_end_time, '%H:%i') as toTime,
+											meets.venue as venue,
+											meets.meeting_agenda as agenda,
+											notes.meeting_id,
+											notes.is_public,
 											meets.project_id as projectId,
-											notes.participant_notes as userNotes, 
-											participant.user_id as participantId, 
-											participant.name as participantName, 
+											notes.participant_notes as userNotes,
+											participant.user_id as participantId,
+											participant.name as participantName,
 											participant.profile_pic_url as participantPic
 											FROM " . TABLE_MEETINGS . " AS  meets
 											JOIN " . TABLE_MEETING_NOTES . " as notes on

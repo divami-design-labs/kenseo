@@ -167,18 +167,18 @@ $(function () {
 					}
 				}*/
 				//close the current popup
-				if($(popupContainer).find('.popup-message').length || $(popupContainer).find('.popup-small').length){
-					popupCloser($self.parents(popupContainer));
-					if(response.data.messages) {
-						sb.showGlobalMessages(response);
-					}
-				}else{
+				if($(popupContainer).find('.popup-large').length || $(popupContainer).find('.popup-meeting').length){
 					$(popupContainer).find('button').attr('disabled', 'false');
 					setTimeout(function(){
 						popupCloser($self.parents(popupContainer));
 					},2010);
 					if(response.data.messages) {
 						sb.showGlobalMessages(response,popupContainer);
+					}
+				}else{
+					popupCloser($self.parents(popupContainer));
+					if(response.data.messages) {
+						sb.showGlobalMessages(response);
 					}
 				}
 				sb.refresh.type(actionType, response);

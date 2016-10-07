@@ -215,6 +215,7 @@ Kenseo.views.Person = Backbone.View.extend({
                     sb.ajaxCall({
                         url: sb.getRelativePath('removePeople'),
                         data: scope.model.toJSON(),
+                        container: $('.popup'),
                         success: function(response){
                             // console.log("delete artefact");
                             if(response.data){ // is true

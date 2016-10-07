@@ -27,7 +27,8 @@ Kenseo.views.MeetingNotes = Backbone.View.extend({
         sb.meeting.notes();
     },
     events: {
-        "click": "handleUpdateButtonClick"
+        "click .meeting-update-button": "handleUpdateButtonClick",
+        "click .add-meeting-notes"    : "addMeeetingNotes"
     },
     // changeValue: function(property, model, propertyValue){
     //     var obj = {};
@@ -57,6 +58,23 @@ Kenseo.views.MeetingNotes = Backbone.View.extend({
         sb.setPopulateValue('update-meeting', 'participants_user_ids',  data.participants.map(function(participant){ return participant.id }));
 
         Kenseo.scope = this;
+    },
+    addMeeetingNotes: function(e){
+        var data = this.model.toJSON();
+        var currentSection = $('.meeting-right-section');
+        if(currentSection.find('.existing-files-chk').prop("checked")){
+            data.is_public = 1;
+        }else{
+            data.is_public = 0;
+        }
+        data.notes = currentSection.find('.text-editor').html();
+        sb.setPopupData("writeMeetingNotes", "actionType");
+        sb.setPopupData(data.is_public, "is_public");
+        sb.setPopupData("writeMeetingNotes", "command");
+        sb.setPopupData(data.notes, "notes");
+        sb.setPopupData(data.meeting_id, "meeting_id");
+        
+
     }
 });
 
