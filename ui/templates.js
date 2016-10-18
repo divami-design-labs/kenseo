@@ -1644,43 +1644,39 @@ with (obj) {
 
 
 	var svgicons = {
-		"user-added": "#icon11",
-		"artefact-share": "#icon11",
-		"artefact-approved": "#file12",
-		"artefact-added": "#addfile",
-		"artefact-comment": "#icon15",
-		"meeting-added": "#icon4",
-		"user-removed": "#icon2"
+		"add-user": "#icon11",
+		"share-artefact": "#icon11",
+		"approve-artefact": "#file12",
+		"add-artefact": "#addfile",
+		"comment-artefact": "#icon15",
+		"add-meeting": "#icon4",
+		"remove-user": "#icon2"
 	}
 ;
 __p += '\n';
- var activityTypeX = data.activityOn.toLowerCase() + "-" + data.activityType.toLowerCase() ;
-__p += '\n';
- console.log(activityTypeX) ;
+ var activityTypeX = data['notification_type'].toLowerCase() + "-" + data['notification_on'].toLowerCase() ;
 __p += '\n<div class="activity-left">\n    <div class="activity-icon">\n        <svg><use xlink:href="' +
 ((__t = ( svgicons[activityTypeX] )) == null ? '' : __t) +
 '"></use></svg>\n    </div>\n</div>\n<div class="activity-right">\n    <div class="activity-title ellipsis" title="' +
-((__t = ( data.activityName )) == null ? '' : __t) +
-'">' +
-((__t = ( data.project_name )) == null ? '' : __t) +
-':\n        ';
- if(data.activityType.toLowerCase() === "removed" && data.activityName.toLowerCase() === "user"){ ;
+((__t = ( data['notification_name'] )) == null ? '' : __t) +
+'">';
+ if(data['notification_on'].toLowerCase() === "removed" && data['notification_name'].toLowerCase() === "user"){ ;
 __p += '\n            ' +
-((__t = ( data.activityType )) == null ? '' : __t) +
+((__t = ( data['notification_on'] )) == null ? '' : __t) +
 ' ' +
-((__t = ( data.activityName )) == null ? '' : __t) +
+((__t = ( data['notification_name'] )) == null ? '' : __t) +
 '\n        ';
  } else { ;
 __p += '\n            ' +
-((__t = ( data.activityName )) == null ? '' : __t) +
+((__t = ( data['notification_name'] )) == null ? '' : __t) +
 '\n        ';
  } ;
 __p += '\n    </div>\n    <div class="activity-details ellipsis" title="' +
-((__t = ( data.doneBy )) == null ? '' : __t) +
+((__t = ( data['notifier_name'] )) == null ? '' : __t) +
 '">\n        <div class="activity-time">' +
 ((__t = ( sb.timeFormat(sb.addTimeZoneToDate(data.time)) )) == null ? '' : __t) +
 '</div>\n        <div class="activity-sender"> by ' +
-((__t = ( data.doneBy )) == null ? '' : __t) +
+((__t = ( data['notifier_name'] )) == null ? '' : __t) +
 '</div>\n    </div>\n</div>\n';
 
 }
@@ -1711,15 +1707,7 @@ with (obj) {
  var dataComparer = -1; ;
 __p += '\r\n';
  var isSupportedFile = data.MIME_type.indexOf('pdf') > -1 || data.MIME_type.indexOf('image') > -1 ;
-__p += '\r\n<a ';
- if(isSupportedFile){ ;
-__p += 'href="#documentview/' +
-((__t = ( data.masked_artefact_version_id )) == null ? '' : __t) +
-'"';
- } else{ ;
-__p += ' style="cursor:default;" ';
- } ;
-__p += ' data-pass="';
+__p += '\r\n<div data-pass="';
  (function () {
             if (dataComparer == data.linkedId) {
                 dataComparer = data.linkedId;
@@ -1750,7 +1738,15 @@ __p += '\r\n            <svg class="rr-owner-image" title="' +
 ((__t = ( data['person_name'] )) == null ? '' : __t) +
 '"><use xlink:href="#avatar"></use></svg>\r\n        ';
  } ;
-__p += '\r\n\t</div>\r\n\t<div class="rr-right">\r\n\t\t<div class="rr-title ellipsis" title="' +
+__p += '\r\n\t</div>\r\n\t<div class="rr-right">\r\n\t\t<a ';
+ if(isSupportedFile){ ;
+__p += 'href="#documentview/' +
+((__t = ( data.masked_artefact_version_id )) == null ? '' : __t) +
+'"';
+ } else{ ;
+__p += ' style="cursor:default;" ';
+ } ;
+__p += '>\r\n\t\t<div class="rr-title ellipsis" title="' +
 ((__t = ( data.title )) == null ? '' : __t);
  if(!isSupportedFile){ ;
 __p += ' - Unsupported format';
@@ -1775,13 +1771,59 @@ __p += '\r\n\t\t<div class="rr-details ellipsis" title="' +
 ((__t = ( time )) == null ? '' : __t) +
 ' by ' +
 ((__t = ( data['person_name'] )) == null ? '' : __t) +
-'</div>\r\n\t\t<div class="rr-state-details">\r\n\t\t\t<div class="rr-state">\r\n\t\t\t\t<span class="artefact-cur-version">v' +
+'</div>\r\n\t\t</a>\r\n\t\t<div class="rr-state-details">\r\n\t\t\t<div class="rr-state">\r\n\t\t\t\t<div class="artefact-cur-version html-click" data-url="version-summary">v' +
 ((__t = ( data.version )) == null ? '' : __t) +
-'</span>\r\n\t\t\t\t<div class="rr-other-versions"></div>\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
+'</div>\r\n\t\t\t\t';
+if(data.version>1) { ;
+__p += '\r\n\t\t\t\t\t<div class="rr-other-versions">\r\n\t\t\t\t\t\t<div class="version-summary-section">\r\n\t\t\t\t\t\t\t';
+ for(var i = data.versionSummary.length-2, count = 0; i>=0; i--){ ;
+__p += '\r\n\t\t\t\t\t\t\t\t';
+ if(count === 0) { ;
+__p += '\r\n\t\t\t\t\t\t\t\t\t<span class="version-summary">\r\n\t\t\t\t\t\t\t\t';
+ } ;
+__p += '\r\n\t\t\t\t\t\t\t\t\t';
+var currentDate = sb.timeFormat(sb.addTimeZoneToDate(new Date()),true,true);;
+__p += '\r\n\t\t\t\t\t\t\t\t\t';
+var createdDate = sb.timeFormat(sb.addTimeZoneToDate(data.versionSummary[i].createdDate),true,true);;
+__p += '\r\n\t\t\t\t\t\t\t\t\t';
+if(currentDate === createdDate){;
+__p += '\r\n\t\t\t\t\t\t\t\t\t';
+	var dispalyDate = sb.timeFormat(sb.addTimeZoneToDate(data.versionSummary[i].createdDate),true,false);;
+__p += '\r\n\t\t\t\t\t\t\t\t\t';
+} else {;
+__p += '\r\n\t\t\t\t\t\t\t\t\t';
+	var dispalyDate = createdDate;;
+__p += '\r\n\t\t\t\t\t\t\t\t\t';
+};
+__p += '\r\n\t\t\t\t\t\t\t\t\t<a ';
+ if(isSupportedFile){ ;
+__p += 'href="#documentview/' +
+((__t = ( data.versionSummary[i].masked_artefact_version_id )) == null ? '' : __t) +
+'"';
+ } else{ ;
+__p += ' style="cursor:default;" ';
+ } ;
+__p += '>\r\n\t\t\t\t\t\t\t\t\t<span data-date="' +
+((__t = ( dispalyDate )) == null ? '' : __t) +
+'">v' +
+((__t = (data.versionSummary[i].versionNo )) == null ? '' : __t) +
+'</span>\r\n\t\t\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t\t\t';
+ count++; ;
+__p += '\r\n\t\t\t\t\t\t\t\t';
+ if(count === 3 || i === 0) {;
+__p += '\r\n\t\t\t\t\t\t\t\t\t';
+count=0;;
+__p += '\r\n\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t';
+};
+__p += '\r\n\t\t\t\t\t\t\t';
+ } ;
+__p += '\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t';
+ } ;
+__p += '\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
 '</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="review-comments">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#submit-review"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Submit Review Comments</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="private-message">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Send Private Message</div>\r\n\t\t\t</div>\r\n            <div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Create a Meeting</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="edit-artefact-info">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#editartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Edit Info</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="rename-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Rename</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="download-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text"> <a class="stop-propagate" href="' +
 ((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.id))) == null ? '' : __t) +
-'" target="_blank" > Download </a> </div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</a>\r\n';
+'" target="_blank" > Download </a> </div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item" data-url="delete-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#delete"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Delete </div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n';
 
 }
 return __p
@@ -1812,7 +1854,7 @@ with (obj) {
 __p += '\n';
  var isSupportedFile = (mime.indexOf('pdf') > -1 || mime.indexOf('image') > -1) ;
 __p += '\n<a ';
- if(data.type == "M"){ ;
+ if(data['notification_on'] == "M"){ ;
 __p += 'href="#meetingnotes/' +
 ((__t = ( data.refId )) == null ? '' : __t) +
 '" data-url="meeting-notes"';
@@ -1824,35 +1866,39 @@ __p += 'href="#documentview/' +
 '"';
  } ;
 __p += ' class="notification-item">\n    ';
- if(data.type == "M"){ ;
+ if(data['notification_on'] == "meeting"){ ;
 __p += '\n        <div class="notification-meeting-icon">\n            <svg><use xlink:href="#calendar"></use></svg>\n        </div>\n    ';
- } else if(data.type == "C") { ;
+ } else if(data['notification_on'] == "comment") { ;
 __p += '\n        <div class="notification-comment-icon">\n            <svg><use xlink:href="#baloon1"></use></svg>\n        </div>\n    ';
- } else if(data.type == "S"){ ;
+ } else if(data['notification_on'] == "artefact"){ ;
 __p += '\n        <div class="notification-file-icon">\n            <svg><use xlink:href="#file"></use></svg>\n        </div>\n    ';
  } ;
 __p += '\n    <div class="notification-title" title="' +
-((__t = ( data.title )) == null ? '' : __t);
- if(!isSupportedFile && !(data.type == "M")){ ;
+((__t = ( data.notification_name )) == null ? '' : __t);
+ if(!isSupportedFile && !(data['notification_on'] == "meeting")){ ;
 __p += ' - Unsupported format';
  } ;
 __p += '">\n        ' +
-((__t = ( data.title )) == null ? '' : __t) +
+((__t = ( data.notification_name )) == null ? '' : __t) +
 '\n    </div>\n    <div class="notification-time">\n        ' +
 ((__t = ( sb.timeFormat(sb.addTimeZoneToDate(data.time)) )) == null ? '' : __t) +
 ' by ' +
-((__t = ( data.notifier )) == null ? '' : __t) +
+((__t = ( data.notifier_name )) == null ? '' : __t) +
 '\n    </div>\n    ';
  if(data.meetingDetails){ ;
 __p += '\n        ';
  if(data.fromMenu){ ;
 __p += '\n            <div class="meeting-notify-section">\n                <div class="mn-left">\n                    <div>' +
 ((__t = ( sb.timeFormat(data.meetingDetails.time) + ", " +sb.getTime(data.meetingDetails.time) )) == null ? '' : __t) +
-'</div>\n                    <div class="meeting-notify-icon"></div>\n                    <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>\n                </div>\n            </div>\n        ';
+'</div>\n                    <div class="meeting-notify-icon"></div>\n                    <div class="clock-icon" title = "' +
+((__t = ( sb.timeFormat(data.meetingDetails.time) + ", " +sb.getTime(data.meetingDetails.time) )) == null ? '' : __t) +
+'"><svg><use xlink:href="#clock"></use></svg></div>\n                </div>\n            </div>\n        ';
  } else {;
 __p += '\n            <div class="meeting-notify-section">\n                <div class="mn-left">\n                    <div>Meeting @ Conference 2</div>\n                    <div class="mn-left-title">' +
 ((__t = ( data.meetingDetails.title )) == null ? '' : __t) +
-'</div>\n                    <div class="meeting-notify-icon"></div>\n                    <div class="clock-icon"><svg><use xlink:href="#clock"></use></svg></div>\n                </div>\n                <div class="mn-right">\n                    <div>' +
+'</div>\n                    <div class="meeting-notify-icon"></div>\n                    <div class="clock-icon" title = "' +
+((__t = ( sb.timeFormat(data.meetingDetails.time) + ", " +sb.getTime(data.meetingDetails.time) )) == null ? '' : __t) +
+'"><svg><use xlink:href="#clock"></use></svg></div>\n                </div>\n                <div class="mn-right">\n                    <div>' +
 ((__t = ( sb.timeFormat(data.meetingDetails.time) )) == null ? '' : __t) +
 '</div>\n                    <div>' +
 ((__t = ( sb.getTime(data.meetingDetails.time) )) == null ? '' : __t) +
@@ -2317,7 +2363,7 @@ __p += '\r\n<div class="meeting-section">\r\n    <div class="project-heading">\r
 '" class="heading-text-project-name">' +
 ((__t = ( data.projectName )) == null ? '' : __t) +
 '</a>\r\n        <span class="heading-date">(' +
-((__t = ( sb.timeFormat(data.startTime, true, true) )) == null ? '' : __t) +
+((__t = ( sb.timeFormat(data.startTime, true, true ,true) )) == null ? '' : __t) +
 ')</span>\r\n        <div class="meeting-update-btn-holder">\r\n            <div class="popup-click meeting-update-button" data-url="update-meeting" data-others="populate">Update</div>\r\n        </div>\r\n    </div>\r\n    <div class="meeting-wrapper">\r\n        <div class="meeting-left-section">\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Under</div>\r\n                <div class="meta-text">' +
 ((__t = ( data.projectName )) == null ? '' : __t) +
 '</div>\r\n            </div>\r\n            <div class="meta-item">\r\n                <div class="meta-heading">Artefact</div>\r\n                <div class="meta-text">' +
@@ -2578,7 +2624,9 @@ with (obj) {
  if(data && data.length){ ;
 __p += '\r\n';
  _.each(data, function(p){ ;
-__p += '\r\n<div class="menu-recent-people-cnt">\r\n\t';
+__p += '\r\n<div class="menu-recent-people-cnt" title="' +
+((__t = (p.name)) == null ? '' : __t) +
+'">\r\n\t';
  if(p.picture == "assets/imgs/avatar.svg"){ ;
 __p += '\r\n\t\t<svg class="menu-people-img"><use xlink:href="#avatar" class="menu-people-img"></use></svg>\r\n    ';
  } else { ;

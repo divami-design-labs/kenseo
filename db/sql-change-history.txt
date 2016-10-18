@@ -27,3 +27,28 @@ ALTER TABLE `artefacts` CHANGE `artefact_title` `artefact_title` TEXT NULL DEFAU
 -- 12th September 2016
 
 ALTER TABLE `artefact_tags` DROP PRIMARY KEY, ADD PRIMARY KEY(artefact_id, tag_id);
+
+-- 4th October 2016
+
+CREATE TABLE `notification_users_map` (
+  `notification_id` bigint(20) NOT NULL COMMENT 'Refers the notification_id of notifications table',
+  `user_id` int(11) NOT NULL COMMENT 'Refers the user_id of users table'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- 7th October 2016
+
+ALTER TABLE `notifications` DROP `user_id`;
+ALTER TABLE `notifications` DROP `notification_state`;
+ALTER TABLE `notifications` DROP `message`;
+ALTER TABLE `notifications` CHANGE `notification_id` `notification_id` BIGINT(11) NOT NULL AUTO_INCREMENT COMMENT 'A unique number to determine the notification';
+ALTER TABLE `notifications` CHANGE `notification_by` `notification_by` INT(11) NULL DEFAULT NULL COMMENT 'User Id who has created this notification';
+ALTER TABLE `notifications` CHANGE `notification_date` `notification_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp of the notification generated date';
+ALTER TABLE `notifications` CHANGE `notification_type` `notification_type` CHAR(1) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL COMMENT 'A - Add, R - Remove, D - Delete, C - Archive, X - Unarchive, U - Update, S - Shared';
+ALTER TABLE `notifications` CHANGE `notification_ref_id` `notification_ref_id` BIGINT(20) NULL DEFAULT NULL COMMENT 'Based on notification_on it determines whether the notification is related to artefact version, project, user or meeting invitation';
+ALTER TABLE `notifications` ADD `notification_on` CHAR(1) NOT NULL COMMENT 'A - Artefact, P - Project, M - Meeting Invitation, U - User' AFTER `notification_type`;
+
+-- 17th October 2016
+
+ALTER TABLE `notification_users_map` ADD `notification_state` CHAR(1) NOT NULL COMMENT 'U - Unread, R - Read, A - Archive' AFTER `user_id`;
+ALTER TABLE `notification_users_map` CHANGE `notification_state` `notification_state` CHAR(1) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT 'U' COMMENT 'U - Unread, R - Read, A - Archive';

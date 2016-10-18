@@ -35,19 +35,22 @@
             <div class="splash-container">
                 <svg id="kenseoProgress" width="79.36px" height="93.844px" viewBox="0 0 79.36 93.844">
                     <defs>
-                        <mask id="bubbleKenseo">
-                           <path fill="#ffffff" stroke="#314176" stroke-width="1" stroke-miterlimit="10" d="M50.771,2.114C30.024-4.013,8.239,7.839,2.113,28.587
+                        <clipPath id="bubbleKenseo">
+                            <path d="M50.771,2.114C30.024-4.013,8.239,7.839,2.113,28.587
                 	c-6.125,20.747,5.725,42.536,26.474,48.661h0.002l-4.604,15.578l33.845-18.444c0.389-0.203,0.777-0.412,1.159-0.63l0.283-0.155
                 	l-0.013-0.005c8.396-4.844,15.024-12.786,17.986-22.819C83.373,30.026,71.521,8.24,50.771,2.114z"/>
-                        </mask>
+                        </clipPath>
                     </defs>
-                    <g x="0" y="0" width="79.36px" height="93.844px" mask="url(#bubbleKenseo)" height="100">
-                        <rect id="progressMove" x="0" y="100%" width="100%" height="100%" fill="#304075" stroke="transparent"/>
+                    <path fill="transparent" stroke="#314176" stroke-width="1" stroke-miterlimit="10" d="M50.771,2.114C30.024-4.013,8.239,7.839,2.113,28.587
+                	c-6.125,20.747,5.725,42.536,26.474,48.661h0.002l-4.604,15.578l33.845-18.444c0.389-0.203,0.777-0.412,1.159-0.63l0.283-0.155
+                	l-0.013-0.005c8.396-4.844,15.024-12.786,17.986-22.819C83.373,30.026,71.521,8.24,50.771,2.114z"/>
+                    <g x="0" y="0" width="79.36px" height="93.844px" clip-path="url(#bubbleKenseo)" height="100">
+                        <rect id="progressMove" x="0" y="0%" width="100%" height="100%" fill="#304075" stroke="black" />
                     </g>
                 </svg>
                 <style>
                     #progressMove{
-                        transition: .3s y;
+                        transition: .5s y;
                     }
                 </style>
             </div>

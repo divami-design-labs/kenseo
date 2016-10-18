@@ -1,6 +1,7 @@
 <?php
 	require_once("thirdparty/google-api-php-client/autoload.php");
 	require_once(ROOT . "Application/Includes/Authenticator.php");
+	require_once("Notifications.php");
     class Meetings {
 		public function setMeetingInvitaion($interpreter) {
 			$result 	= new stdClass();
@@ -8,6 +9,7 @@
 
 			$data = $interpreter->getData()->data;
 			$user = $interpreter->getUser();
+			$userId = $user->user_id;
 
 			// get params
 			$params 		= $this->getMeetingParams($data);
@@ -77,29 +79,29 @@
 					)
 				);
 
-				$actId = $db->insertSingleRowAndReturnId(
-					TABLE_NOTIFICATIONS,
-					array(
-						"user_id",
-						"message",
-						"project_id",
-						"notification_by",
-						"notification_date",
-						"notification_type",
-						"notification_ref_id",
-						"notification_state"
-					),
-					array(
-						$user->user_id,
-						$summary,
-						$projectId,
-						$user->user_id,
-						date("Y-m-d H:i:s"),
-						'M',
-						$meetingId,
-						'U'
-					)
-				);
+				// $actId = $db->insertSingleRowAndReturnId(
+				// 	TABLE_NOTIFICATIONS,
+				// 	array(
+				// 		"user_id",
+				// 		"message",
+				// 		"project_id",
+				// 		"notification_by",
+				// 		"notification_date",
+				// 		"notification_type",
+				// 		"notification_ref_id",
+				// 		"notification_state"
+				// 	),
+				// 	array(
+				// 		$user->user_id,
+				// 		$summary,
+				// 		$projectId,
+				// 		$user->user_id,
+				// 		date("Y-m-d H:i:s"),
+				// 		'M',
+				// 		$meetingId,
+				// 		'U'
+				// 	)
+				// );
 
 				// @TODO: I don't know why we are inserting an empty string note in database
 				$db->insertSingleRow(
@@ -134,26 +136,38 @@
 					}
 				}
 
-				//insert into project activity
-				$actId = $db->insertSingleRowAndReturnId(
-					TABLE_PROJECT_ACTIVITY,
-					array(
-						"project_id",
-						"logged_by",
-						"logged_time",
-						"performed_on",
-						"activity_type",
-						"performed_on_id"
-					),
-					array(
-						$projectId,
-						$user->user_id,
-						date("Y-m-d H:i:s"),
-						'M',   // meeting
-						'N',   // new
-						$meetingId
-					)
-				);
+				// //insert into project activity
+				// $actId = $db->insertSingleRowAndReturnId(
+				// 	TABLE_PROJECT_ACTIVITY,
+				// 	array(
+				// 		"project_id",
+				// 		"logged_by",
+				// 		"logged_time",
+				// 		"performed_on",
+				// 		"activity_type",
+				// 		"performed_on_id"
+				// 	),
+				// 	array(
+				// 		$projectId,
+				// 		$user->user_id,
+				// 		date("Y-m-d H:i:s"),
+				// 		'M',   // meeting
+				// 		'N',   // new
+				// 		$meetingId
+				// 	)
+				// );
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "create invitation");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $attendeesUserIds);
+				// Add notification
+				Notifications::addNotification(array(
+					'by'			=> $userId,
+					'project_id'	=> $projectId,
+					'type'			=> 'A',
+					'on'			=> 'M',
+					'ref_id'		=> $meetingId,
+					'recipient_ids'	=> explode(",", $attendeesUserIds)
+				), $db);
 
 				$db->commitTransaction();
 
@@ -255,7 +269,7 @@
 			$result->fromTime 	= $date . "T" . $data->fromTime . ":00.000" . $data->timezone;
 			$result->toTime 	= $date . "T" . $data->toTime 	. ":00.000" . $data->timezone;
 
-			$project = $data->meetingProject[0]->name;
+			$project = $data->projectName;
 			$result->feature = $data->artefactId;
 			$featureName = $data->artefactName;
 			// $meetingType = "";
@@ -363,6 +377,7 @@
 			$params 	= $this->getMeetingParams($data);
 
 			$user 		= $interpreter->getUser();
+			$userId 	= $user->user_id;
 			$db 		= Master::getDBConnectionManager();
 			$db->beginTransaction();
 			try{
@@ -434,28 +449,28 @@
 					"meeting_id = " . $meetingId
 				);
 
-				$db->updateTable(
-					TABLE_NOTIFICATIONS,
-					array(
-						"user_id",
-						"message",
-						// "project_id",
-						"notification_by",
-						"notification_date",
-						"notification_type",
-						"notification_state"
-					),
-					array(
-						$user->user_id,
-						$summary,
-						// $projectId,
-						$user->user_id,
-						date("Y-m-d H:i:s"),
-						'M',
-						'U'
-					),
-					"notification_ref_id = " . $meetingId
-				);
+				// $db->updateTable(
+				// 	TABLE_NOTIFICATIONS,
+				// 	array(
+				// 		"user_id",
+				// 		"message",
+				// 		// "project_id",
+				// 		"notification_by",
+				// 		"notification_date",
+				// 		"notification_type",
+				// 		"notification_state"
+				// 	),
+				// 	array(
+				// 		$user->user_id,
+				// 		$summary,
+				// 		// $projectId,
+				// 		$user->user_id,
+				// 		date("Y-m-d H:i:s"),
+				// 		'M',
+				// 		'U'
+				// 	),
+				// 	"notification_ref_id = " . $meetingId
+				// );
 
 				$existingParticipantsIds = array_map(
 					function($item) {
@@ -508,25 +523,35 @@
 				}
 
 				//insert into project activity
-				$actId = $db->insertSingleRowAndReturnId(
-					TABLE_PROJECT_ACTIVITY,
-					array(
-						"project_id",
-						"logged_by",
-						"logged_time",
-						"performed_on",
-						"activity_type",
-						"performed_on_id"
-					),
-					array(
-						$projectId,
-						$user->user_id,
-						date("Y-m-d H:i:s"),
-						'M',   // meeting
-						'U',   // update
-						$meetingId
-					)
-				);
+				// $actId = $db->insertSingleRowAndReturnId(
+				// 	TABLE_PROJECT_ACTIVITY,
+				// 	array(
+				// 		"project_id",
+				// 		"logged_by",
+				// 		"logged_time",
+				// 		"performed_on",
+				// 		"activity_type",
+				// 		"performed_on_id"
+				// 	),
+				// 	array(
+				// 		$projectId,
+				// 		$user->user_id,
+				// 		date("Y-m-d H:i:s"),
+				// 		'M',   // meeting
+				// 		'U',   // update
+				// 		$meetingId
+				// 	)
+				// );
+
+				// Add notification
+				Notifications::addNotification(array(
+					'by'			=> $userId,
+					'project_id'	=> $projectId,
+					'type'			=> 'U',
+					'on'			=> 'M',
+					'ref_id'		=> $meetingId,
+					'recipient_ids'	=> explode(",", $attendeesUserIds)
+				), $db);
 
 				$db->commitTransaction();
 

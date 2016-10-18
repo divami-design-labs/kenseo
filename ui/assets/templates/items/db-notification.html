@@ -1,24 +1,24 @@
 <% var mime = data.MIME_type || "" %>
 <% var isSupportedFile = (mime.indexOf('pdf') > -1 || mime.indexOf('image') > -1) %>
-<a <% if(data.type == "M"){ %>href="#meetingnotes/<%= data.refId %>" data-url="meeting-notes"<% } else if(!isSupportedFile){ %>style="cursor: default;"<%} else { %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } %> class="notification-item">
-    <% if(data.type == "M"){ %>
+<a <% if(data['notification_on'] == "M"){ %>href="#meetingnotes/<%= data.refId %>" data-url="meeting-notes"<% } else if(!isSupportedFile){ %>style="cursor: default;"<%} else { %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } %> class="notification-item">
+    <% if(data['notification_on'] == "meeting"){ %>
         <div class="notification-meeting-icon">
             <svg><use xlink:href="#calendar"></use></svg>
         </div>
-    <% } else if(data.type == "C") { %>
+    <% } else if(data['notification_on'] == "comment") { %>
         <div class="notification-comment-icon">
             <svg><use xlink:href="#baloon1"></use></svg>
         </div>
-    <% } else if(data.type == "S"){ %>
+    <% } else if(data['notification_on'] == "artefact"){ %>
         <div class="notification-file-icon">
             <svg><use xlink:href="#file"></use></svg>
         </div>
     <% } %>
-    <div class="notification-title" title="<%= data.title %><% if(!isSupportedFile && !(data.type == "M")){ %> - Unsupported format<% } %>">
-        <%= data.title %>
+    <div class="notification-title" title="<%= data.notification_name %><% if(!isSupportedFile && !(data['notification_on'] == "meeting")){ %> - Unsupported format<% } %>">
+        <%= data.notification_name %>
     </div>
     <div class="notification-time">
-        <%= sb.timeFormat(sb.addTimeZoneToDate(data.time)) %> by <%= data.notifier %>
+        <%= sb.timeFormat(sb.addTimeZoneToDate(data.time)) %> by <%= data.notifier_name %>
     </div>
     <% if(data.meetingDetails){ %>
         <% if(data.fromMenu){ %>

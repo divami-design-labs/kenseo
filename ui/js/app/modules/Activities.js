@@ -20,7 +20,7 @@ Kenseo.views.Activities = Backbone.View.extend({
         _this.collection.fetch(sb.getStandardData({
             data: _this.data,
             success: function(collection, response){
-                var data = response.data;
+                var data = response.data.data;
                 var newData = sb.getDayWiseData(data);
 
                 if(_this.templateWrapperHolder){

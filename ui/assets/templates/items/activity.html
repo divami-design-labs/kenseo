@@ -1,31 +1,29 @@
 <%
 	var svgicons = {
-		"user-added": "#icon11",
-		"artefact-share": "#icon11",
-		"artefact-approved": "#file12",
-		"artefact-added": "#addfile",
-		"artefact-comment": "#icon15",
-		"meeting-added": "#icon4",
-		"user-removed": "#icon2"
+		"add-user": "#icon11",
+		"share-artefact": "#icon11",
+		"approve-artefact": "#file12",
+		"add-artefact": "#addfile",
+		"comment-artefact": "#icon15",
+		"add-meeting": "#icon4",
+		"remove-user": "#icon2"
 	}
 %>
-<% var activityTypeX = data.activityOn.toLowerCase() + "-" + data.activityType.toLowerCase() %>
-<% console.log(activityTypeX) %>
+<% var activityTypeX = data['notification_type'].toLowerCase() + "-" + data['notification_on'].toLowerCase() %>
 <div class="activity-left">
     <div class="activity-icon">
         <svg><use xlink:href="<%= svgicons[activityTypeX] %>"></use></svg>
     </div>
 </div>
 <div class="activity-right">
-    <div class="activity-title ellipsis" title="<%= data.activityName %>"><%= data.project_name %>:
-        <% if(data.activityType.toLowerCase() === "removed" && data.activityName.toLowerCase() === "user"){ %>
-            <%= data.activityType %> <%= data.activityName %>
+    <div class="activity-title ellipsis" title="<%= data['notification_name'] %>"><% if(data['notification_on'].toLowerCase() === "removed" && data['notification_name'].toLowerCase() === "user"){ %>
+            <%= data['notification_on'] %> <%= data['notification_name'] %>
         <% } else { %>
-            <%= data.activityName %>
+            <%= data['notification_name'] %>
         <% } %>
     </div>
-    <div class="activity-details ellipsis" title="<%= data.doneBy %>">
+    <div class="activity-details ellipsis" title="<%= data['notifier_name'] %>">
         <div class="activity-time"><%= sb.timeFormat(sb.addTimeZoneToDate(data.time)) %></div>
-        <div class="activity-sender"> by <%= data.doneBy %></div>
+        <div class="activity-sender"> by <%= data['notifier_name'] %></div>
     </div>
 </div>

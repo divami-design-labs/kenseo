@@ -163,10 +163,10 @@ sb.refresh = (function(){
             },
             'pp-activities': function(){
             	return new Kenseo.views.Activities({
-					collection: new Kenseo.collections.Artefacts(),
+					collection: new Kenseo.collections.Activities(),
 					templateHolder: '.activity-section-content',
 					templateWrapperHolder: $('.activity-section'),
-					data: { projectActivities: true, project_id: Kenseo.page.id }
+					data: { project_id: Kenseo.page.id }
 				});
             },
             'pp-people': function(){

@@ -2,6 +2,7 @@
 
 	require_once("Comments.php");
 	require_once('Email.php');
+	require_once('Notifications.php');
 
 	//@TODO: too much code is repetetive in here needs refinement
 	class Artefacts {
@@ -11,6 +12,7 @@
 				return $this->getSharedArtefacts($interpreter);
 			}
 			elseif($data->activities == "true"){
+				// To show in menu dashboard
 				return $this->getRecentArtefactActivities($interpreter);
 			}
 			elseif($data->linked == "true"){
@@ -23,6 +25,7 @@
 				return $this->getReferences($interpreter);
 			}
 			else if($data->projectActivities == "true"){
+				// To show in Project page
 				return $this->getProjectActivity($interpreter);
 			}elseif($data->all == "true"){
 				return $this->getProjectInfo($interpreter);
@@ -1259,7 +1262,7 @@
 					// Get members of the project.
 					$params = array('project_id' => $projectId);
 					$query = getQuery('getProjectMembers', $params);
-					$result = $db->multiObjectQuery($query);
+					$projectMembersInfo = $result = $db->multiObjectQuery($query);
 					for($i=0, $iLen=count($result); $i<$iLen; $i++) {
 						$rowValues[] = array($artVerId, $artIds[$f], $result[$i]->user_id, $result[$i]->access_type, date("Y-m-d H:i:s"), $userId);
 					}
@@ -1316,11 +1319,11 @@
 					// Add this as notification
 					$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
 					$notificationRowValues = array($userId, $FILES['name'][$f], $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
-					$newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
+					// $newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
 
 					//query to get data of single notification when artefact is added
-					$queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
-					$resultObj = $db->singleObjectQuery($queryDetails);
+					// $queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
+					// $resultObj = $db->singleObjectQuery($queryDetails);
 
 					//query to get data of single artefact when artefact is added
 					$queryParams = array('userid' => $userId, 'projectid' => $projectId, 'artefactversionid' => $artefactVersionIds[0]);
@@ -1354,73 +1357,37 @@
 						//If particular project has members it is set to true means artefact is shared
 					}
 
-					$dataList['notification'] = $resultObj;
-					$dataList['artefact'] = $artefactObj;
-					$dataList['activity'] = $activityObj;
+					// $dataList['notification'] 	= $resultObj;
+					$dataList['artefact'] 		= $artefactObj;
+					$dataList['activity'] 		= $activityObj;
+
 				}
 
-				// $db->commitTransaction();
-				// return array();
-			} else {  // When existing file was choosed
-				$data->{"choose-exiting-file"} = json_decode($data->{"choose-exiting-file"});
-				$artId = $data->{"choose-existing-file"}[0]->{'data-id'};
 
-				if(!$artId) {
-					return false;
-				}
+				// $notificationRecipients[] 	= $userId;
+				$notificationRecipients = array_map(function($info){
+					return $info->user_id; 
+				}, $projectMembersInfo);
+				// Add notification
+				Notifications::addNotifications(array(
+					'by'			=> $userId,
+					'type'			=> 'A',
+					'on'			=> 'A',
+					'ref_ids'		=> $artefactVersionIds,
+					'recipient_ids' => $notificationRecipients,
+					'project_id'	=> $projectId
+				));
 
-				$versionArtefact = $data->{"choose-file"};
-
-				// Get the latest artefact version of previos artefact
-				$artefactVersionParams = array("artId" => $artId);
-				$dbQuery = getQuery('getLatestVerionOfArtefact', $artefactVersionParams);
-				$artVerId = $db->multiObjectQuery($dbQuery);
-				$artVerId = $artVerId[0]->verId;
-
-				if($versionArtefact && isset($versionArtefact[0]->{'data-id'})) {
-					$latestArtefactid = $versionArtefact[0]->{'data-id'};
-
-					$queryParams = array('artId' => $artId);
-					$dbQuery = getQuery('getHighestVersionOfArtefact', $queryParams);
-					$ver_no = $db->singleObjectQuery($dbQuery)->vers;
-					$ver_no++;
-
-					// Get the version details
-					$params = array(artId => $latestArtefactid);
-					$dbQuery = getQuery('getVerionDetailsOfArtefact', $params);
-					$details = $db->multiObjectQuery($dbQuery);
-					$details = $details[0];
-
-					// Generate masked artefact version id
-					// @TODO CRITICAL BUG: Sometimes the generated random number is printing as NULL in database
-					$masked_artefact_version = getRandomString(12) . $artId . $ver_no;
-
-					// Insert a new row for the new artefact version of the main artefact
-					$column_names = array('version_no','artefact_id', 'masked_artefact_version_id', 'version_label','created_by','created_date','document_path','MIME_type','file_size','state','shared');
-					$columnData = array($ver_no, $artId, $masked_artefact_version, $details->version_label, $userId, $details->created_date, $details->document_path, $details->MIME_type, $details->file_size, $details->state, $details->shared);
-					$artVerId = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $column_names , $columnData);
-
-					//update the latest version number of the previous artefact
-					$db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($artVerId), "artefact_id = " . $artId);
-				}
-
-				// Share to members
-				if(count($data->shared_members)) {
-					$this->shareForTeam($artId, $artVerId, json_encode($data->shared_members), $userId);
-				}
-
-				// Store artefact version id in $artefactVersionIds
-				$artefactVersionIds[] = $artVerId;
-
+				$mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
+					"@artefactversionids" => join(",", $artefactVersionIds),
+					"activitydoneuser" => $userId
+				)));
+				$actiontype = "shared";
+				// prepare mail
+				$this->addArtefactMail($mailInfo, $actiontype);
 			}
 
-			$mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
-				"@artefactversionids" => join(",", $artefactVersionIds),
-				"activitydoneuser" => $userId
-			)));
-			$actiontype = "shared";
-			// prepare mail
-			$this->addArtefactMail($mailInfo, $actiontype);
+			// @TODO: Get Notifications data to update the Notifications section
 
 			$db->commitTransaction();
 			$resultMessage = new stdClass();
@@ -1556,6 +1523,13 @@
 				$dataList->artefact = array();
 				$dataList->activity = array();
 				$dataList->messages = array();
+
+				// Storing recipient ids along with the sender's id to send notifications
+				$notificationRecipients = array_map(function($info){
+					return $info->user_id;
+				}, $sharedMembers);
+				$notificationRecipients[] = $userId;
+
 				for($i=0; $i<$length; $i++){
 					$artId = $artefactAndVersionIds[$i]->artefact_id;
 					$artVerId = $artefactAndVersionIds[$i]->artefact_version_id;
@@ -1595,6 +1569,17 @@
 					$dataList->notification[] = $resultObj;
 					$dataList->artefact[] = $artefactObj;
 					$dataList->activity[] = $activityObj;
+					
+					
+					// Add Notification
+					Notifications::addNotification(array(
+						'by'			=> $userId,
+						'type'			=> 'S',
+						'on'			=> 'A',
+						'ref_id'		=> $artefactAndVersionIds[$i]->artefact_version_id,
+						'recipient_ids' => $notificationRecipients,
+						'project_id'	=> $projectId
+					));
 				}
 
 
