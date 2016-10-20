@@ -1,4 +1,5 @@
 <?php
+	require_once('Notifications.php');
     class Search{
         public function fetchResults($interpreter) {
     		$data = $interpreter->getData();

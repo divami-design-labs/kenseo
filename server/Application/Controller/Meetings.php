@@ -1,7 +1,7 @@
 <?php
-	require_once("thirdparty/google-api-php-client/autoload.php");
+	require_once(ROOT . "thirdparty/google-api-php-client/autoload.php");
 	require_once(ROOT . "Application/Includes/Authenticator.php");
-	require_once("Notifications.php");
+	require_once('Notifications.php');
     class Meetings {
 		public function setMeetingInvitaion($interpreter) {
 			$result 	= new stdClass();

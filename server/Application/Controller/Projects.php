@@ -1,8 +1,8 @@
 <?php
-	require_once('Email.php');
+	// require_once('Email.php');
 	require_once('Uploader.php');
 	require_once('Image.php');
-
+	require_once('Notifications.php');
 	class Projects {
 		public function getProjects($interpreter) {
 			$data = $interpreter->getData()->data;
@@ -136,7 +136,7 @@
 				$userInsideName = $info->{'activity_done_user_mail'} == $info->{'user_mail'} ? "you": $info->{'activity_done_user'};
 
 				$mailData->message = "Project '$projectName' has been archived by $userInsideName";
-				Email::sendMail($mailData);
+				// Email::sendMail($mailData);
 			}
 		}
 
@@ -155,7 +155,7 @@
 				$userInsideName = $info->{'activity_done_user_mail'} == $info->{'user_mail'} ? "you": $info->{'activity_done_user'};
 
 				$mailData->message = "Project '$projectName' has been un-archived by $userInsideName";
-				Email::sendMail($mailData);
+				// Email::sendMail($mailData);
 			}
 		}
 

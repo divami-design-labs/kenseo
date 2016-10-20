@@ -354,6 +354,10 @@ $AppGlobal['sql']['getProjectActivities'] = 'SELECT
 
 $AppGlobal['sql']['getMeetingNotificationDetails'] = "SELECT meeting_time as time, meeting_title as title FROM " . TABLE_MEETINGS . " WHERE meeting_id = @~~id~~@";
 
+$AppGlobal['sql']['notificationTypeIdFromTypeName'] = "SELECT * FROM notification_type_map WHERE notification_type_name = @~~typename~~@";
+
+$AppGlobal['sql']['notificationOnIdFromOnName'] = "SELECT * FROM notification_on_map WHERE notification_on_name = @~~onname~~@";
+
 $AppGlobal['sql']['getMeetingInfoFromId'] = "SELECT * FROM meetings WHERE meeting_id = @~~meetingid~~@";
 
 $AppGlobal['sql']['getParticipantsFromMeetingId'] = "SELECT * FROM meeting_participents WHERE meeting_id = @~~meetingid~~@";
@@ -935,35 +939,25 @@ $AppGlobal['sql']['getOtherProjectMembersMailUserRemoved'] = "SELECT
 														proj_id = @~~projectid~~@
 														and t1.user_id != @~~userid~~@";
 
-$AppGlobal['sql']['getAddArtefactMailQuery'] = "SELECT
-													t2.artefact_title,
-													t3.project_name,
-													(
-														select
-															t6.screen_name
-														from
-															users t6
-														where
-															user_id = @~~activitydoneuser~~@
-													) as activity_done_user,
-													(
-														select
-															t7.email
-														from
-															users t7
-														where
-															user_id = @~~activitydoneuser~~@
-													) as activity_done_user_mail,
-												    t5.screen_name,
-												    t5.email
-												FROM
-													artefact_versions t1
-													JOIN artefacts t2 ON t1.artefact_id = t2.artefact_id
-													JOIN projects t3 ON t3.project_id = t2.project_id
-													JOIN artefact_shared_members t4 ON t4.artefact_ver_id = t1.artefact_ver_id
-													JOIN users t5 ON t5.user_id = t4.user_id
-												WHERE
-													t1.artefact_ver_id  IN (@~~artefactversionids~~@)";
+$AppGlobal['sql']['artefactMailQuery'] = "SELECT 
+												a.artefact_title,
+												(select u1.screen_name FROM users u1 WHERE u1.user_id = @~~activitydoneuserid~~@) as activity_done_user_name,
+												(select u3.screen_name FROM users u3 WHERE u3.user_id = @~~receiveruserid~~@) as receivers_user_name,
+												(select u4.email FROM users u4 WHERE u4.user_id = @~~receiveruserid~~@) as receivers_user_email,
+												(select GROUP_CONCAT(u5.screen_name SEPARATOR ', ') FROM users u5 WHERE u5.user_id IN (3,4,5)) as other_user_names, 
+												(select p.project_name FROM projects p WHERE p.project_id = @~~projectid~~@) as project_name
+											FROM artefact_versions av 
+											JOIN artefacts a ON a.artefact_id = av.artefact_id
+											WHERE av.artefact_ver_id IN (@~~otheruserids~~@)";
+
+$AppGlobal['sql']['projectMailQuery'] = "SELECT 
+												p.project_name,
+												(select u1.screen_name FROM users u1 WHERE u1.user_id = @~~activitydoneuserid~~@) as activity_done_user_name,
+												(select u3.screen_name FROM users u3 WHERE u3.user_id = @~~receiveruserid~~@) as receivers_user_name,
+												(select u4.email FROM users u4 WHERE u4.user_id = @~~receiveruserid~~@) as receivers_user_email,
+												(select GROUP_CONCAT(u5.screen_name SEPARATOR ', ') FROM users u5 WHERE u5.user_id IN (3,4,5)) as other_user_names 
+											FROM projects p
+											WHERE p.project_id = @~~projectid~~@";
 
 $AppGlobal['sql']['projectMembersForMail'] = "SELECT t1.project_name, t3.screen_name as user_name,
 													t3.email as user_mail,

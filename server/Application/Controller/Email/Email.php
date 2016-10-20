@@ -1,7 +1,5 @@
 <?php
 
-    // require '../../thirdparty/PHPMailer/PHPMailerAutoload.php';
-
     class Email{
         public function getEmailTemplateUrl($emailName){
             return 'email/' . 'dummy-template' . '.html';

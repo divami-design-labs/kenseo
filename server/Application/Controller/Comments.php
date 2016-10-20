@@ -1,4 +1,5 @@
 <?php
+	require_once('Notifications.php');
 	class Comments {
 		public function createComment($interpreter) {
 			$data = $interpreter->getData()->data;

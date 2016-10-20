@@ -1,5 +1,6 @@
 <?php
-    require_once('Email.php');
+    // require_once('Email.php');
+    require_once('Notifications.php');
     class People {
     	public function getPeople($interpreter){
     		$data = $interpreter->getData()->data;

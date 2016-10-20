@@ -52,3 +52,60 @@ ALTER TABLE `notifications` ADD `notification_on` CHAR(1) NOT NULL COMMENT 'A - 
 
 ALTER TABLE `notification_users_map` ADD `notification_state` CHAR(1) NOT NULL COMMENT 'U - Unread, R - Read, A - Archive' AFTER `user_id`;
 ALTER TABLE `notification_users_map` CHANGE `notification_state` `notification_state` CHAR(1) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT 'U' COMMENT 'U - Unread, R - Read, A - Archive';
+
+
+-- 19th October 2016
+
+CREATE TABLE `notification_type_map` (
+  `notification_type_id` int(11) NOT NULL,
+  `notification_type_name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `notification_type_map` (`notification_type_id`, `notification_type_name`) VALUES
+(1, 'add'),
+(2, 'edit'),
+(3, 'share'),
+(4, 'rename'),
+(5, 'archive'),
+(6, 'unarchive'),
+(7, 'delete'),
+(8, 'change'),
+(9, 'submit'),
+(10, 'replace'),
+(11, 'add version'),
+(12, 'download'),
+(13, 'update'),
+(14, 'add cover image'),
+(15, 'change permission');
+
+ALTER TABLE `notification_type_map`
+  ADD PRIMARY KEY (`notification_type_id`);
+
+ALTER TABLE `notification_type_map`
+  MODIFY `notification_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+
+
+
+CREATE TABLE `notification_on_map` (
+  `notification_on_id` int(11) NOT NULL,
+  `notification_on_name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `notification_on_map` (`notification_on_id`, `notification_on_name`) VALUES
+(1, 'artefact'),
+(2, 'project'),
+(3, 'meeting'),
+(4, 'user'),
+(5, 'comment');
+
+ALTER TABLE `notification_on_map`
+  ADD PRIMARY KEY (`notification_on_id`);
+
+ALTER TABLE `notification_on_map`
+  MODIFY `notification_on_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+
+
+ALTER TABLE `notifications` CHANGE `notification_on` `notification_on` INT NOT NULL COMMENT 'maps to notification_on_map table';
+ALTER TABLE `notifications` CHANGE `notification_type` `notification_type` INT NULL DEFAULT NULL COMMENT 'Maps to notification_type_map table';

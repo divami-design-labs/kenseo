@@ -1,5 +1,7 @@
 <?php
-	require_once('Email.php');
+	require_once('Email/Email.php');
+	require_once('Email/EmailMessages.php');
+
 	Class Notifications {
 		public function getNotifications($interpreter){
 			$data 	= $interpreter->getData()->data;
@@ -42,10 +44,10 @@
 			// Notifications::addNotification(array(
 			// 	'by'			=> $userId,
 			// 	'project_id'	=> $projectId,
-			// 	'type'			=> 'U',
-			// 	'on'			=> 'M',
-			// 	'ref_id'		=> $meetingId,
-			// 	'recipient_ids'	=> $newAttendees
+			// 	'type'			=> 'add',
+			// 	'on'			=> 'artefact',
+			// 	'ref_id'		=> $id,
+			// 	'recipient_ids'	=> $userIds
 			// ), $db);
 
 
@@ -55,10 +57,18 @@
 				$db = Master::getDBConnectionManager();
 				$db->beginTransaction();
 			}
+			$typeId = $db->singleObjectQuery(getQuery('notificationTypeIdFromTypeName', array(
+				'typename' => $data['type']
+			)))->{'notification_type_id'};
+
+			$onId = $db->singleObjectQuery(getQuery('notificationOnIdFromOnName', array(
+				'onname' => $data['on']
+			)))->{'notification_on_id'};
+
 			$notificationId = $db->insertSingleRowAndReturnId(
 				'notifications',
 				array('notification_by', 'project_id', 'notification_type', 'notification_on', 'notification_ref_id'),
-				array($data['by'], $data['project_id'], $data['type'], $data['on'], $data['ref_id'])
+				array($data['by'], $data['project_id'], $typeId, $onId, $data['ref_id'])
 			);
 
 			$recipients = array_unique($data['recipient_ids']);
@@ -66,7 +76,8 @@
 			// Add a row of sender too to send him/her the notification
 			// if the user is not already present in the recipients' list
 			if(!in_array($data['by'], $recipients)){
-				$rows[] = array($notificationId, $data['by']);
+				// $rows[] = array($notificationId, $data['by']);
+				$recipients[] = $data['by'];
 			}
 			// Add rows of recipients to whom the notification should be visible
 			foreach($recipients as $key => $value){
@@ -85,6 +96,18 @@
 				array('notification_id', 'user_id'),
 				$rows
 			);
+
+			$data['recipient_ids'] = $recipients;  
+			// prepare and send emails
+			$messages = EmailMessages::prepareMessages($data, $db);
+			if($messages){
+				foreach($messages as $key => $message){
+					if($message->subject){
+						Email::sendMail($message);
+					}
+				}
+			}
+
 			if($dbInitializedHere){
 				$db->commitTransaction();
 			}

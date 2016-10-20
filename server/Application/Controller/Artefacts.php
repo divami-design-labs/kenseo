@@ -1,7 +1,7 @@
 <?php
 
 	require_once("Comments.php");
-	require_once('Email.php');
+	// require_once('Email.php');
 	require_once('Notifications.php');
 
 	//@TODO: too much code is repetetive in here needs refinement
@@ -213,14 +213,14 @@
 			$dataList['activity'] = $activityObj;
 
 
-			$mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
-				"@artefactversionids" => $artVerId,
-				"activitydoneuser" => $userId
-			)));
+			// $mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
+			// 	"@artefactversionids" => $artVerId,
+			// 	"activitydoneuser" => $userId
+			// )));
 			$actiontype = "updated";
 
 			// prepare mail
-			$this->addArtefactMail($mailInfo, $actiontype);
+			// $this->addArtefactMail($mailInfo, $actiontype);
 
 			$resultMessage = new stdClass();
 			$resultMessage->type = "success";
@@ -718,12 +718,12 @@
 			$db->updateTable(TABLE_ARTEFACTS, array("state"), array('A'), "artefact_id = " . $artId);
 
 			// mail
-			$mailInfo = $db->multiObjectQuery(getQuery('artefactRelatedMail', array(
-				"artefactid" => $artId,
-				"userid" => $userId
-			)));
+			// $mailInfo = $db->multiObjectQuery(getQuery('artefactRelatedMail', array(
+			// 	"artefactid" => $artId,
+			// 	"userid" => $userId
+			// )));
 
-			$this->sendArtefactActionMail($mailInfo, "archived");
+			// $this->sendArtefactActionMail($mailInfo, "archived");
 
 			$db->commitTransaction();
 
@@ -787,7 +787,7 @@
 
 				$mailData->message = "Artefact '$artefactName' is $action from '$projectName' project by $userInsideName";
 
-				Email::sendMail($mailData);
+				// Email::sendMail($mailData);
 			}
 		}
 
@@ -1371,20 +1371,20 @@
 				// Add notification
 				Notifications::addNotifications(array(
 					'by'			=> $userId,
-					'type'			=> 'A',
-					'on'			=> 'A',
+					'type'			=> 'add',
+					'on'			=> 'artefact',
 					'ref_ids'		=> $artefactVersionIds,
 					'recipient_ids' => $notificationRecipients,
 					'project_id'	=> $projectId
 				));
 
-				$mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
-					"@artefactversionids" => join(",", $artefactVersionIds),
-					"activitydoneuser" => $userId
-				)));
+				// $mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
+				// 	"@artefactversionids" => join(",", $artefactVersionIds),
+				// 	"activitydoneuser" => $userId
+				// )));
 				$actiontype = "shared";
 				// prepare mail
-				$this->addArtefactMail($mailInfo, $actiontype);
+				// $this->addArtefactMail($mailInfo, $actiontype);
 			}
 
 			// @TODO: Get Notifications data to update the Notifications section
@@ -1406,55 +1406,55 @@
 
 		}
 
-		public function customImplode($array){
-			return join(' and ', array_filter(array_merge(array(join(', ', array_slice($array, 0, -1))), array_slice($array, -1)), 'strlen'));
-		}
+		// public function customImplode($array){
+		// 	return join(' and ', array_filter(array_merge(array(join(', ', array_slice($array, 0, -1))), array_slice($array, -1)), 'strlen'));
+		// }
 
-		public function addArtefactMail($infos, $actionType){
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "mail info");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $infos);
-			$mailData = new stdClass();
-			foreach($infos as $key => $info){
-				$artefactTitle = $info->{'artefact_title'};
-				$projectName = $info->{'project_name'};
-				$activityDoneUser = $info->{'activity_done_user'};
-				$activityDoneUserMail = $info->{'activity_done_user_mail'};
-				$mailData->username = $info->{'screen_name'};
-				$email = $info->{'email'};
+		// public function addArtefactMail($infos, $actionType){
+		// 	Master::getLogManager()->log(DEBUG, MOD_MAIN, "mail info");
+		// 	Master::getLogManager()->log(DEBUG, MOD_MAIN, $infos);
+		// 	$mailData = new stdClass();
+		// 	foreach($infos as $key => $info){
+		// 		$artefactTitle = $info->{'artefact_title'};
+		// 		$projectName = $info->{'project_name'};
+		// 		$activityDoneUser = $info->{'activity_done_user'};
+		// 		$activityDoneUserMail = $info->{'activity_done_user_mail'};
+		// 		$mailData->username = $info->{'screen_name'};
+		// 		$email = $info->{'email'};
 
-				$mailData->to = $email;
+		// 		$mailData->to = $email;
 
-				if($activityDoneUserMail == $email){
-					$sharedWithUsers = array_map(function($a){
-						return $a->{'screen_name'};
-					}, array_filter($infos, function($a){
-						return ($a->{'email'} != $a->{'activity_done_user_mail'});
-					}));
-					$mailData->subject = "$projectName: An artefact '$artefactTitle' is $actionType by you";
+		// 		if($activityDoneUserMail == $email){
+		// 			$sharedWithUsers = array_map(function($a){
+		// 				return $a->{'screen_name'};
+		// 			}, array_filter($infos, function($a){
+		// 				return ($a->{'email'} != $a->{'activity_done_user_mail'});
+		// 			}));
+		// 			$mailData->subject = "$projectName: An artefact '$artefactTitle' is $actionType by you";
 
-					$mailData->message = "Artefact '$artefactTitle' in $projectName is $actionType by you";
-					if(count($sharedWithUsers) > 0 && $actionType!="updated"){
-						$mailData->message = $mailData->message . " with " . $this->customImplode($sharedWithUsers);
-					}
-				}
-				else{
-					if($actionType == "updated"){
-						$mailData->subject = "$projectName: An artefact '$artefactTitle' is $actionType";
-						$mailData->message = "Artefact '$artefactTitle' in $projectName is $actionType by $activityDoneUser.";
-					}else{
-						$mailData->subject = "$projectName: An artefact '$artefactTitle' is shared with you";
-						$mailData->message = "Artefact '$artefactTitle' in $projectName is shared with you by $activityDoneUser.";
-					}
+		// 			$mailData->message = "Artefact '$artefactTitle' in $projectName is $actionType by you";
+		// 			if(count($sharedWithUsers) > 0 && $actionType!="updated"){
+		// 				$mailData->message = $mailData->message . " with " . $this->customImplode($sharedWithUsers);
+		// 			}
+		// 		}
+		// 		else{
+		// 			if($actionType == "updated"){
+		// 				$mailData->subject = "$projectName: An artefact '$artefactTitle' is $actionType";
+		// 				$mailData->message = "Artefact '$artefactTitle' in $projectName is $actionType by $activityDoneUser.";
+		// 			}else{
+		// 				$mailData->subject = "$projectName: An artefact '$artefactTitle' is shared with you";
+		// 				$mailData->message = "Artefact '$artefactTitle' in $projectName is shared with you by $activityDoneUser.";
+		// 			}
 
-				}
+		// 		}
 
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, "add artefact mail");
-				Master::getLogManager()->log(DEBUG, MOD_MAIN, $info);
+		// 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "add artefact mail");
+		// 		Master::getLogManager()->log(DEBUG, MOD_MAIN, $info);
 
 
-				Email::sendMail($mailData);
-			}
-		}
+		// 		// Email::sendMail($mailData);
+		// 	}
+		// }
 
 		public function shareForTeam($artId, $artVerId, $team, $sharedBy) {
 			$db = Master::getDBConnectionManager();
