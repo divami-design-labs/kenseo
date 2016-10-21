@@ -1,0 +1,13 @@
+<div class="summary-version-item">
+    <label class="checkbox">
+        <input type="checkbox"></input>
+        <span>
+            <span class="version-type">v<%=data.version_no %></span>
+            <div class="doc-type" title="<%= data.artefact_name %>"><%= data.artefact_name %></div>
+        </span>
+    </label>
+    <div class="summary-version-date">
+        <span><%= sb.timeFormat(data.created_date, true)%></span>
+        <a class="page-click" href="#documentview/<%= data['masked_artefact_version_id'] %>">Open</a>
+    </div>
+</div>

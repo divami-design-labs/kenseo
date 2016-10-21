@@ -539,7 +539,23 @@ Kenseo.popups = (function(){
 					"cls": "main-btn cancel-btn"
 				}]
 			}
-		]
+		],
+		"remove-tag": [
+        	{
+        		"page_name": "message",
+        		"title": "Remove tag ",
+        		"message": function(){
+        			return 'Do you want to remove "' + sb.getPopupData('tag_name') + '" tag ?';
+        		},
+	        	"buttons": [{
+	            	"label": "Yes",
+	            	"cls": "main-btn done-btn",
+	            },{
+	            	"label": "No",
+	            	"cls": "main-btn cancel-btn"
+	            }]
+        	}
+        ],
 	};
 
 	return {

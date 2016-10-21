@@ -128,10 +128,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="sub-section-content">
+                <div class="sub-section-content versions-content">
                     <a class="summary-compare-btn" href="">Compare selected</a>
 
-                    <% _.each(data.versions, function(d){ %>
+                    <!-- <% _.each(data.versions, function(d){ %>
                         <% if(d.artefact_ver_id !== data.basicDetails.versionId){ %>
     	                <div class="summary-version-item">
     	                    <label class="checkbox">
@@ -147,7 +147,7 @@
                             </div>
     	                </div>
                         <% } %>
-             		<% }); %>
+             		<% }); %> -->
                 </div>
             </div>
             <div class="summary-references-section">
@@ -199,12 +199,17 @@
                                 <svg><use xlink:href="#add"></use></svg>
                             </div>
                         </div>
-                        <div class="sub-section-content">
-                            <% _.each(data.tags, function(d){ %>
-                                <div class="tag-item" title="<%= d.tag_name %>">
+                        <div class="sub-section-content tags-content">
+                            <!-- <% _.each(data.tags, function(d){ %>
+                                <div class="tag-item" title="<%= d.tag_name %>" tag-id="<%= d.tag_id %>">
                                     <%= d.tag_name %>
+                                    <div class="close-tag-icon">
+                            			<svg>
+                            				<use xlink:href="#close"></use>
+                            			</svg>
+                            		</div>
                                 </div>
-                            <% }); %>
+                            <% }); %> -->
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,25 @@ sb.sliders = {
 			container: $('.slider-container'),
 			callbackfunc: function(response){
 				// Initializing slider component
+				new Kenseo.views.Tags({
+					collection: new Kenseo.collections.Tags(
+						_.values(response.data.tags)
+					),
+					templateHolder: $('.tags-content'),
+					data: response.data.basicDetails.artefactId
+				});
+
+				new Kenseo.views.versions({
+					collection: new Kenseo.collections.versions(
+						_.values(response.data.versions)
+					),
+					templateHolder: $('.tags-content'),
+					data: {
+					"artefact_id": response.data.basicDetails.artefactId,
+					"artefact_name": response.data.basicDetails.title
+					}
+				});
+
 				 Kenseo.sliders.data = _.cloneDeep(response.data);
 				 new sliderComponent(Kenseo.sliders.data);
 
