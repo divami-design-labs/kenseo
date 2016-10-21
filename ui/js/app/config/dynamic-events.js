@@ -120,10 +120,18 @@ $(function () {
 	    }
 		sb.postcall.getPostObj($self); // temporary fix
 	    // Submit the information
+
+	    var params = sb.getParams(actionType);
+        var info = {};
+        params.forEach(function(el){
+            info[el] = Kenseo.popup.data[el];
+        });
+
+
 		if (files) {
 			var data = new FormData();
 
-			for (var x in Kenseo.popup.data) {
+			for (var x in info) {
 				var dump = sb.getPopupData(x);
 				if (typeof dump === 'object' && x !== 'files') {
 					dump = JSON.stringify(dump);
@@ -143,12 +151,11 @@ $(function () {
 			contentType = false;
 			processData = false;
 		} else {
-			data = sb.getPopupData();
+			data = info;
 			// data = _.extend(sb.getPopupData(), sb.postcall.getPostObj($self));
 			url = sb.getRelativePath(actionType);
 			type = 'GET';
 		}
-
 		sb.ajaxCall({
 			url: url,
 			data: data,

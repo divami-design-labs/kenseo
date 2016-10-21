@@ -38,11 +38,23 @@
 		}
 
 		public function renameArtefact($interpreter) {
+			$userId = $interpreter->getUser()->user_id;
 			$data = $interpreter->getData()->data;
+			$db = Master::getDBConnectionManager();
 			$id = $data->id;
+			$verId = $data->artefact_ver_id;
+
+			$queryParams = array('versionid' => $verId);
+			$sharedMembersQuery = getQuery('getArtefactSharedMembersListFromVersionId', $queryParams);
+			$recipients = $db->multiObjectQuery($sharedMembersQuery);
+			$i = 0;
+			foreach($recipients as $recipient) {
+				$notificationRecipients[$i] = $recipient->id;
+				$i++;
+			}
+
 			$extension = end(explode('.', $data->title));
 			$artefact_name = $data->artefact_name.".".$extension;
-			$db = Master::getDBConnectionManager();
 			$resultObj->artefact = $db->updateTable(
 						TABLE_ARTEFACTS,
 						array(
@@ -59,6 +71,16 @@
 			$resultMessage->message = "Successfully renamed artefact";
 			$resultMessage->icon = "success";
 			$resultObj->messages = $resultMessage;
+			
+			Notifications::addNotification(array(
+				'by'				=> $userId,
+				'type'				=> 'rename',
+				'on'				=> 'artefact',
+				'artefact_title'	=> $artefact_name,
+				'artefact_id'		=> $id,
+				'recipient_ids' 	=> $notificationRecipients,
+				'artefact_ver_id'	=> $verId
+			),$db);
 
 			return $resultObj;
 		}
@@ -228,6 +250,28 @@
 			$resultMessage->icon = "success";
 
 			$dataList['messages'] = $resultMessage;
+
+			$verId = $data->artefact_ver_id;
+
+			$queryParams = array('versionid' => $verId);
+			$sharedMembersQuery = getQuery('getArtefactSharedMembersListFromVersionId', $queryParams);
+			$recipients = $db->multiObjectQuery($sharedMembersQuery);
+			$i = 0;
+			foreach($recipients as $recipient) {
+				$notificationRecipients[$i] = $recipient->id;
+				$i++;
+			}
+
+			Notifications::addNotification(array(
+				'by'				=> $userId,
+				'type'				=> 'rename',
+				'on'				=> 'artefact',
+				'artefact_title'	=> $artefact_name,
+				'artefact_id'		=> $id,
+				'recipient_ids' 	=> $notificationRecipients,
+				'artefact_ver_id'	=> $verId
+			),$db);
+
 			return $dataList;
 		}
 

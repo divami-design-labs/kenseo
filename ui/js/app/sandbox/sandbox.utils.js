@@ -622,6 +622,12 @@ var sb = _.extend(sb, (function () {
                 if(_this.model){
                     sb.setPopupData(_this.model.toJSON());
                 }
+                var params = sb.getParams(actionType);
+                var newData = {};
+                params.forEach(function(el){
+                    newData[el] = Kenseo.popup.data[el];
+                });
+                Kenseo.popup.data = newData;
                 sb.setPopupData(_.camelCase(actionType), 'actionType');
 
                 sb.renderTemplate({

@@ -191,6 +191,7 @@ sb.loadFiles({
         'js/app/sandbox/sandbox.slider.js',
         'js/app/sandbox/sandbox.refresh.js',
         'js/app/sandbox/sandbox.postcall.js',
+        'js/app/sandbox/sandbox.params.js',
         'js/app/sandbox/sandbox.meeting.js',
 
         'js/app/config/router.js',

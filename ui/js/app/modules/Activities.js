@@ -145,7 +145,7 @@ Kenseo.models.Activities = Backbone.Model.extend({
 });
 
 Kenseo.collections.Activities = Backbone.Collection.extend({
-	url: sb.getRelativePath('getArtefacts'),
+	url: sb.getRelativePath('getProjectActivities'),
 	model: function(attrs, options){
 		// console.dir(arguments);
 		return new Kenseo.models.Activities();

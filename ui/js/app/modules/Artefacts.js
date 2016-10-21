@@ -182,7 +182,7 @@ Kenseo.views.Artefact = Backbone.View.extend({
                     scope.$el.hide();
                     sb.ajaxCall({
                         url: sb.getRelativePath('deleteArtefact'),
-                        data: scope.model.toJSON(),
+                        data: Kenseo.popup.data,
                         success: function(response){
                             // console.log("delete artefact");
                             if(response.data){ // is true

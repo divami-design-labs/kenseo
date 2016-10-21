@@ -944,11 +944,11 @@ $AppGlobal['sql']['artefactMailQuery'] = "SELECT
 												(select u1.screen_name FROM users u1 WHERE u1.user_id = @~~activitydoneuserid~~@) as activity_done_user_name,
 												(select u3.screen_name FROM users u3 WHERE u3.user_id = @~~receiveruserid~~@) as receivers_user_name,
 												(select u4.email FROM users u4 WHERE u4.user_id = @~~receiveruserid~~@) as receivers_user_email,
-												(select GROUP_CONCAT(u5.screen_name SEPARATOR ', ') FROM users u5 WHERE u5.user_id IN (3,4,5)) as other_user_names, 
+												(select GROUP_CONCAT(u5.screen_name SEPARATOR ', ') FROM users u5 WHERE u5.user_id IN (@~~otheruserids~~@)) as other_user_names, 
 												(select p.project_name FROM projects p WHERE p.project_id = @~~projectid~~@) as project_name
 											FROM artefact_versions av 
 											JOIN artefacts a ON a.artefact_id = av.artefact_id
-											WHERE av.artefact_ver_id IN (@~~otheruserids~~@)";
+											WHERE av.artefact_ver_id IN (@~~artefactversionids~~@)";
 
 $AppGlobal['sql']['projectMailQuery'] = "SELECT 
 												p.project_name,
