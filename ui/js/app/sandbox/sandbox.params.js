@@ -45,8 +45,8 @@ _.assign(sb, {
 						"status","title","version"]
 		}
 	},
-	getParams: function(actionType){
-		return sb.params[actionType].params;
+	getPreparedParams: function(actionType){
+		return sb.params[_.kebabCase(actionType)].params;
 	}
 });
 

@@ -143,23 +143,28 @@ Kenseo.views.Artefact = Backbone.View.extend({
         this.$el.remove();
     },
     events: {
-        "click [data-url='rename-artefact']"    :   "renameArtefact",
-        "click [data-url='edit-artefact-info']" :   "editArtefactInfo",
-        "click [data-url='delete-artefact']"    :   "deleteArtefact",
-        "click [data-url='archive-artefact']"   :   "archiveArtefact",
-        "click [data-url='replace-artefact']"   :   "replaceArtefact",
-        "click [data-url='add-version']"        :   "addVersion",
-        "click [data-url='share-artefact']"     :   "shareArtefact",
+        // @TODO: In share Artefact, beforeRender change the combobox flag (check comments below)
+        "click .popup-click": "passValues",
+        // "click [data-url='rename-artefact']"    :   "renameArtefact",
+        // "click [data-url='edit-artefact-info']" :   "editArtefactInfo",
+        // "click [data-url='delete-artefact']"    :   "passValues",
+        // "click [data-url='archive-artefact']"   :   "archiveArtefact",
+        // "click [data-url='replace-artefact']"   :   "replaceArtefact",
+        // "click [data-url='add-version']"        :   "addVersion",
+        // "click [data-url='share-artefact']"     :   "shareArtefact",
         "click [data-url='create-meeting']"     :   "createMeeting",
-        "click [data-url='private-message']"    :   "sendPrivateMessage"
+        // "click [data-url='private-message']"    :   "passValues"
     },
-    sendPrivateMessage: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
+    passValues: function(){
+        sb.passValues.call(this);
     },
+    // sendPrivateMessage: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
     createMeeting: function(e){
         // this click handler runs along with the popup-click handler
         // the main intention of this click handler is to populate fields differently other than the main popup-click handler functionality
@@ -171,81 +176,82 @@ Kenseo.views.Artefact = Backbone.View.extend({
         sb.setPopulateValue('create-meeting', 'artefact_name',  data['title']);
         sb.setPopulateValue('create-meeting', 'artefact_id',    data['id']);
     },
-    deleteArtefact: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this,
-            afterRender: function($popupContainer, scope){
-                sb.attachIn('click', '.ok-btn', function(){
-                    // hide the item temporarily
-                    scope.$el.hide();
-                    sb.ajaxCall({
-                        url: sb.getRelativePath('deleteArtefact'),
-                        data: Kenseo.popup.data,
-                        success: function(response){
-                            // console.log("delete artefact");
-                            if(response.data){ // is true
-                                // hide popup
-                                sb.popupCloser($popupContainer);
-                                if(response.data.messages) {
-                                  sb.showGlobalMessages(response);
-                                }
-                                // delete the item permanently
-                                scope.$el.remove();
-                            }
-                        }
-                    })
-                }, $popupContainer);
-            }
-        });
-    },
-    shareArtefact: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this,
-            beforeRender: function(){
-                Kenseo.popup.info.projectComboboxValueChanged = false;
-            }
-        });
-    },
-    addVersion: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    },
-    replaceArtefact: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    },
-    archiveArtefact: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    },
-    editArtefactInfo: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    },
-    renameArtefact: function(e){
-        // Kenseo.scope = this;
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    }
+    // deleteArtefact: function(e){
+    //     // var el = e.currentTarget;
+    //     // sb.newCallPopup({
+    //     //     el: el,
+    //     //     scope: this,
+    //     //     afterRender: function($popupContainer, scope){
+    //     //         sb.attachIn('click', '.ok-btn', function(){
+    //     //             // hide the item temporarily
+    //     //             scope.$el.hide();
+    //     //             sb.ajaxCall({
+    //     //                 url: sb.getRelativePath('deleteArtefact'),
+    //     //                 data: Kenseo.popup.data,
+    //     //                 success: function(response){
+    //     //                     // console.log("delete artefact");
+    //     //                     if(response.data){ // is true
+    //     //                         // hide popup
+    //     //                         sb.popupCloser($popupContainer);
+    //     //                         if(response.data.messages) {
+    //     //                           sb.showGlobalMessages(response);
+    //     //                         }
+    //     //                         // delete the item permanently
+    //     //                         scope.$el.remove();
+    //     //                     }
+    //     //                 }
+    //     //             })
+    //     //         }, $popupContainer);
+    //     //     }
+    //     // });
+    //     Kenseo.scope = this;
+    // },
+    // shareArtefact: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this,
+    //         beforeRender: function(){
+    //             Kenseo.popup.info.projectComboboxValueChanged = false;
+    //         }
+    //     });
+    // },
+    // addVersion: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
+    // replaceArtefact: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
+    // archiveArtefact: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
+    // editArtefactInfo: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
+    // renameArtefact: function(e){
+    //     // Kenseo.scope = this;
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // }
 });
 
 Kenseo.models.Artefacts = Backbone.Model.extend({

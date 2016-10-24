@@ -121,7 +121,7 @@ $(function () {
 		sb.postcall.getPostObj($self); // temporary fix
 	    // Submit the information
 
-	    var params = sb.getParams(actionType);
+	    var params = sb.getPreparedParams(actionType);
         var info = {};
         params.forEach(function(el){
             info[el] = Kenseo.popup.data[el];

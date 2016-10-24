@@ -93,16 +93,21 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         // _this.stickToBottom(parent);
     },
     events: {
+        // @TODO: In share Artefact, beforeRender change the combobox flag (check comments below)
+        "click .popup-click":                       "passValues",
         "click .new-textlayer":                     "handleDocumentLayerClick",
         "click .dvt-item.toggle-annotations-icon":  "handleToggleAnnotations",
-        "click [data-url='private-message']":       "handleGlobalPrivateMessage",
+        // "click [data-url='private-message']":       "handleGlobalPrivateMessage",
         "click .dvt-item.slider-click":             "handleSliderClick",
-        "click [data-url='add-version']":           "handleAddVersion",
-        "click [data-url='replace-artefact']":      "handleReplaceArtefact",
-        "click [data-url='edit-artefact-info']":    "editArtefactInfo",
-        "click [data-url='share-artefact']":        "handleShareArtefact",
+        // "click [data-url='add-version']":           "handleAddVersion",
+        // "click [data-url='replace-artefact']":      "handleReplaceArtefact",
+        // "click [data-url='edit-artefact-info']":    "editArtefactInfo",
+        // "click [data-url='share-artefact']":        "handleShareArtefact",
         "click [data-url='toggle-all-annotations']":"handleToggleAllAnnotations",
         "click [data-url^='submit-artefact']":       "handleSubmitArtefact"
+    },
+    passValues: function(){
+        sb.passValues.call(this);
     },
     handleSubmitArtefact: function(e){
         // handling submit artefact is done globally in popup-click event
@@ -112,38 +117,38 @@ Kenseo.views.DocumentView = Backbone.View.extend({
     handleToggleAllAnnotations: function(e){
         this.$el.find('.comment-container').toggle();
     },
-    handleShareArtefact: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this,
-            beforeRender: function(){
-                Kenseo.popup.info.projectComboboxValueChanged = false;
-            }
-        });
-    },
-    handleReplaceArtefact: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    },
-    handleAddVersion: function(e){
-        // @TODO: This code is already available in Artefacts.js. Look for a way to reuse the same code here
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    },
-    editArtefactInfo: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    },
+    // handleShareArtefact: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this,
+    //         beforeRender: function(){
+    //             Kenseo.popup.info.projectComboboxValueChanged = false;
+    //         }
+    //     });
+    // },
+    // handleReplaceArtefact: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
+    // handleAddVersion: function(e){
+    //     // @TODO: This code is already available in Artefacts.js. Look for a way to reuse the same code here
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
+    // editArtefactInfo: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
     handleSliderClick: function(e){
         var _this               = this;
         var el 				    = e.currentTarget;
@@ -266,13 +271,13 @@ Kenseo.views.DocumentView = Backbone.View.extend({
 			}).scrollTop(scrollTop);
 		}
     },
-    handleGlobalPrivateMessage: function(e){
-        var el = e.currentTarget;
-        sb.newCallPopup({
-            el: el,
-            scope: this
-        });
-    },
+    // handleGlobalPrivateMessage: function(e){
+    //     var el = e.currentTarget;
+    //     sb.newCallPopup({
+    //         el: el,
+    //         scope: this
+    //     });
+    // },
     handleToggleAnnotations: function(e){
         var $self = $(e.currentTarget);
         var $outerContainer = $self.parents('.outerContainer');

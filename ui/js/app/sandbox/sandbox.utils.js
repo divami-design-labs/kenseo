@@ -622,12 +622,12 @@ var sb = _.extend(sb, (function () {
                 if(_this.model){
                     sb.setPopupData(_this.model.toJSON());
                 }
-                var params = sb.getParams(actionType);
-                var newData = {};
-                params.forEach(function(el){
-                    newData[el] = Kenseo.popup.data[el];
-                });
-                Kenseo.popup.data = newData;
+                // var params = sb.getParams(actionType);
+                // var newData = {};
+                // params.forEach(function(el){
+                //     newData[el] = Kenseo.popup.data[el];
+                // });
+                // Kenseo.popup.data = newData;
                 sb.setPopupData(_.camelCase(actionType), 'actionType');
 
                 sb.renderTemplate({
@@ -753,6 +753,10 @@ var sb = _.extend(sb, (function () {
             checkbox: function checkbox(data){
                 return sb.setTemplate('checkbox', {data: data || {}});
             }
+        },
+        passValues: function(){
+            Kenseo.scope        = this;
+            Kenseo.popup.data   = this.model.toJSON();
         },
         //retrieves document data of given versionid
         getCurrentDocumentData: function(id){
