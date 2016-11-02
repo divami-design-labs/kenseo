@@ -182,7 +182,7 @@
         <div class="dvt-item comment-summary-icon slider-click<% if(!data.isPdf){ %> hide <% } %>" data-url="comment-summary" title="Comment summary">
             <svg><use xlink:href="#comment-summary"></use></svg>
         </div>
-        <div class="dvt-item share-artefact-icon" data-url="share-artefact" data-index="2" title="Share this artefact">
+        <div class="dvt-item share-artefact-icon popup-click" data-url="share-artefact" data-index="2" title="Share this artefact">
             <svg><use xlink:href="#share-artefact"></use></svg>
         </div>
         <div class="dvt-item submit-review-icon popup-click<% if(!data.isPdf){ %> hide <% } %>" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=<%= data.artefact_ver_id %>">
@@ -191,9 +191,9 @@
         <div class="dvt-item html-click sub-menu-nav more-menu-icon" title="more options">
             <svg><use xlink:href="#more-menu"></use></svg>
             <div class="sub-menu-holder top-right-nav">
-                <div class="sub-menu-item" data-url="add-version">Add Version</div>
-                <div class="sub-menu-item" data-url="replace-artefact">Replace</div>
-                <div class="sub-menu-item" data-url="private-message">Send Private Message</div>
+                <div class="sub-menu-item popup-click" data-url="add-version">Add Version</div>
+                <div class="sub-menu-item popup-click" data-url="replace-artefact">Replace</div>
+                <div class="sub-menu-item popup-click" data-url="private-message">Send Private Message</div>
             </div>
         </div>
     </div>

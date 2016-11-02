@@ -270,6 +270,7 @@ sb.refresh = (function(){
 			_this.destroy();
 		},
 		deleteArtefact: function(){
+			Kenseo.scope.$el.remove();
 			// Kenseo.currentModel.collection.remove(Kenseo.currentModel);
 			if(Kenseo.current.page == "dashboard"){
 				// @OLDCODE - commented
