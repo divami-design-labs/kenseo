@@ -124,7 +124,9 @@ $(function () {
 	    var params = sb.getPreparedParams(actionType);
         var info = {};
         params.forEach(function(el){
-            info[el] = Kenseo.popup.data[el];
+			if(Kenseo.popup.data[el] !== undefined){
+	            info[el] = Kenseo.popup.data[el];
+			}
         });
 
 

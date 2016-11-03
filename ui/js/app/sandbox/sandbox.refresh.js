@@ -366,10 +366,10 @@ sb.refresh = (function(){
 		Kenseo.data.model = [response.data.artefact];
 		sb.trigger($(window), 'addArtefact');
 		//triggers an event to add activity
-		Kenseo.data.model = [response.data.activity];
+		Kenseo.data.model = response.data.activity;
 		sb.trigger($(window), 'addActivity');
 		//triggers an event to add notification
-		Kenseo.data.model = [response.data.notification];
+		Kenseo.data.model = response.data.notification;
 		sb.trigger($(window), 'addNotification');
 	}
 	function refreshSection(sectionName, subSection){

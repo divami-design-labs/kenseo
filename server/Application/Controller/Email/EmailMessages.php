@@ -44,13 +44,24 @@ Class EmailMessages{
         $otherUserIds   = join(',', array_diff($data['recipient_ids'], array($senderId)));
 
         if($on == "artefact"){
-            $mailInfo = $db->singleObjectQuery(getQuery('artefactMailQuery', array(
-                'activitydoneuserid'    => $senderId,
-                'artefactversionids'    => $data['ref_ids'],
-                'receiveruserid'        => $receiverId,
-                'projectid'             => $data['project_id'],
-                '@otheruserids'         => $otherUserIds
-            )));
+            if(!empty($otherUserIds)){
+                $mailInfo = $db->singleObjectQuery(getQuery('artefactMailQuery', array(
+                    'activitydoneuserid'    => $senderId,
+                    'artefactversionids'    => $data['ref_ids'],
+                    'receiveruserid'        => $receiverId,
+                    'projectid'             => $data['project_id'],
+                    '@otheruserids'         => $otherUserIds
+                )));
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, "mailing-info");
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, $mailInfo);
+            }else {
+                $mailInfo = $db->singleObjectQuery(getQuery('artefactMailQueryWithoutUsers', array(
+                    'activitydoneuserid'    => $senderId,
+                    'artefactversionids'    => $data['ref_ids'],
+                    'receiveruserid'        => $receiverId,
+                    'projectid'             => $data['project_id'],
+                )));
+            }
         }
         elseif($on == "project"){
             $mailInfo = $db->singleObjectQuery(getQuery('projectMailQuery', array(

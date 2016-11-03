@@ -1,8 +1,11 @@
 _.assign(sb, {
 	params: {
+		"add-project" :{
+			params : ["project_name","project_description"]
+		},
 		"add-artefact" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","image","is_project_page",
-						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
+			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","doctype","id","image","is_project_page",
+						"linksIds","links","references","referencesIds","tags","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date","project_description",
 						"status","title","version"]
 		},
 		"editArtefact" : {

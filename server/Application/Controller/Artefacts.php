@@ -1184,7 +1184,7 @@
 		 * Function to add new artefact (with new file upload).
 		 */
 		public function addArtefact($interpreter) {
-			$dataList = array();
+			$dataList = new stdClass();
 			$userId = $interpreter->getUser()->user_id;
 
 			$data = $interpreter->getData();
@@ -1402,8 +1402,8 @@
 					}
 
 					// $dataList['notification'] 	= $resultObj;
-					$dataList['artefact'] 		= $artefactObj;
-					$dataList['activity'] 		= $activityObj;
+					$dataList->artefact 		= $artefactObj;
+					// $dataList['activity'] 		= $activityObj;
 
 				}
 
@@ -1413,7 +1413,7 @@
 					return $info->user_id; 
 				}, $projectMembersInfo);
 				// Add notification
-				Notifications::addNotifications(array(
+				$notificationIds = Notifications::addNotifications(array(
 					'by'			=> $userId,
 					'type'			=> 'add',
 					'on'			=> 'artefact',
@@ -1421,6 +1421,13 @@
 					'recipient_ids' => $notificationRecipients,
 					'project_id'	=> $projectId
 				));
+				
+				//query to get data of single notification when artefact is added
+				$queryDetails = getQuery('getArtefactNotifications',array("ids" => $notificationRecipients, "notificationIds" => $notificationIds));
+				$resultObj = $db->multiObjectQuery($queryDetails);
+				$dataList->notification = $resultObj;
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "notificationids");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $notificationIds);
 
 				// $mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
 				// 	"@artefactversionids" => join(",", $artefactVersionIds),
@@ -1440,8 +1447,8 @@
 			$resultMessage->icon = "success";
 			// return $resultMessage;
 			//return array();
-			$dataList['messages'] = $resultMessage;
-            
+			$dataList->messages = $resultMessage;
+
 			if(count($dataList)){
 				return $dataList;
 			} else {
