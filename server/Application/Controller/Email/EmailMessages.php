@@ -112,7 +112,7 @@ Class EmailMessages{
             elseif ($type == "share"){
                 if($isSender){
                     $mail->subject  = "$projectName: An artefact has been shared by you";
-                    $mail->message  = "Artefact '$artefactTitle' in $projectName is shared by you with '$recipientNames'";
+                    $mail->message  = "Artefact '$artefactTitle' in $projectName is shared by you with '$otherUserNames'";
                 }
                 else{
                     $mail->subject  = "$projectName: An artefact has been shared with you";

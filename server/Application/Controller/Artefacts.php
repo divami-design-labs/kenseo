@@ -1594,13 +1594,12 @@
 					$activityId = $db->insertSingleRowAndReturnId(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 
 					// Add this as notification
-					$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
-					$notificationRowValues = array($userId, $artName, $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
-					$newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
+					// $notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
+					// $notificationRowValues = array($userId, $artName, $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
+					// $newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
 
 					//query to get data of single notification when artefact is added
-					$queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
-					$resultObj = $db->singleObjectQuery($queryDetails);
+
 
 					//query to get data of single artefact when artefact is added
 					$queryParams = array('userid' => $userId, 'projectid' => $projectId, 'artefactversionid' => $artVerId);
@@ -1614,23 +1613,32 @@
 					$artefactObj->versionSummary = $versionSummary;
 
 					//query to get data of single activity when artefact is added
-					$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
-					$activityObj = $db->singleObjectQuery($activityQuery);
+					// $activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
+					// $activityObj = $db->singleObjectQuery($activityQuery);
 
-					$dataList->notification[] = $resultObj;
-					$dataList->artefact[] = $artefactObj;
-					$dataList->activity[] = $activityObj;
-					
-					
+
+
+
 					// Add Notification
-					Notifications::addNotification(array(
+					$newNotification = Notifications::addNotification(array(
 						'by'			=> $userId,
-						'type'			=> 'S',
-						'on'			=> 'A',
+						'type'			=> 'share',
+						'on'			=> 'artefact',
+						'ref_ids'		=> $artefactAndVersionIds[$i]->artefact_version_id,
 						'ref_id'		=> $artefactAndVersionIds[$i]->artefact_version_id,
 						'recipient_ids' => $notificationRecipients,
 						'project_id'	=> $projectId
-					));
+					),$db);
+
+
+
+					Master::getLogManager()->log(DEBUG, MOD_MAIN, "single-notification-id");
+					Master::getLogManager()->log(DEBUG, MOD_MAIN, $newNotification);
+					$queryDetails = getQuery('getNotification',array("id" => $userId, '@notificationid'=>$newNotification));
+					$resultObj = $db->singleObjectQuery($queryDetails);
+					$dataList->notification[] = $resultObj;
+					$dataList->artefact[] = $artefactObj;
+					$dataList->activity[] = $activityObj;
 				}
 
 

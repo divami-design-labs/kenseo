@@ -294,7 +294,7 @@ sb.refresh = (function(){
 			Kenseo.data.model = response.data.artefact;
 			sb.trigger($(window), 'addArtefact');
 			//triggers an event to add activity
-			Kenseo.data.model = response.data.activity;
+			Kenseo.data.model = response.data.notification;
 			sb.trigger($(window), 'addActivity');
 			//triggers an event to adda notification
 			Kenseo.data.model = response.data.notification;
@@ -366,7 +366,7 @@ sb.refresh = (function(){
 		Kenseo.data.model = [response.data.artefact];
 		sb.trigger($(window), 'addArtefact');
 		//triggers an event to add activity
-		Kenseo.data.model = response.data.activity;
+		Kenseo.data.model = response.data.notification;
 		sb.trigger($(window), 'addActivity');
 		//triggers an event to add notification
 		Kenseo.data.model = response.data.notification;

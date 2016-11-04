@@ -15,9 +15,9 @@ _.assign(sb, {
 			params : ["id","name","owner_id","project_id","project_name","title","version","artefact_name","artefact_ver_id"]
 		},
 		"share-artefact" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","ids","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
-						"status","title","version"]
+						"status","title","version","shared_members"]
 		},
 		"delete-artefact" : {
 			params : ["artefact_ver_id","id","name","owner_id","project_id","status","title","version"]
