@@ -150,7 +150,7 @@
 				$fileName = $data->artTitle;
 			}
 			$type = $data->doctype[0]->{"data-name"};
-
+      $dataList = new stdClass();
 			$db = Master::getDBConnectionManager();
 
 			$db->updateTable(TABLE_ARTEFACTS,array("artefact_type"),array($type),"artefact_id = " . $artId);
@@ -197,13 +197,13 @@
 			$activityId = $db->insertSingleRowAndReturnId(TABLE_PROJECT_ACTIVITY, $activityColumnNames, $activityRowValues);
 
 			// Add this as notification
-			$notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
-			$notificationRowValues = array($userId, $fileName, $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
-			$newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
+			// $notificationColumnNames = array("user_id", "message", "project_id", "notification_by", "notification_date", "notification_type", "notification_ref_id", "notification_state");
+			// $notificationRowValues = array($userId, $fileName, $projectId, $userId, date("Y-m-d H:i:s"), 'S', $artVerId, 'U');
+			// $newNotification = $db->insertSingleRowAndReturnId(TABLE_NOTIFICATIONS, $notificationColumnNames, $notificationRowValues);
 
 			//query to get data of single notification when artefact is updated
-			$queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
-			$resultObj = $db->singleObjectQuery($queryDetails);
+			// $queryDetails = getQuery('getNotification',array("id" => $userId, '@newNotification'=>$newNotification));
+			// $resultObj = $db->singleObjectQuery($queryDetails);
 
 			//query to get data of single artefact when artefact is updated
 			$queryParams = array('userid' => $userId, 'projectid' => $projectId, 'artefactversionid' => $artVerId);
@@ -230,9 +230,7 @@
 			$activityQuery = getQuery('getProjectSingleActivity',array('projectid' => $projectId, 'activityid' => $activityId));
 			$activityObj = $db->singleObjectQuery($activityQuery);
 
-			$dataList['notification'] = $resultObj;
-			$dataList['artefact'] = $artefactObj;
-			$dataList['activity'] = $activityObj;
+
 
 
 			// $mailInfo = $db->multiObjectQuery(getQuery('getAddArtefactMailQuery', array(
@@ -244,12 +242,7 @@
 			// prepare mail
 			// $this->addArtefactMail($mailInfo, $actiontype);
 
-			$resultMessage = new stdClass();
-			$resultMessage->type = "success";
-			$resultMessage->message = "Successfully updated artefact";
-			$resultMessage->icon = "success";
 
-			$dataList['messages'] = $resultMessage;
 
 			$verId = $data->artefact_ver_id;
 
@@ -262,15 +255,30 @@
 				$i++;
 			}
 
-			Notifications::addNotification(array(
-				'by'				=> $userId,
-				'type'				=> 'rename',
-				'on'				=> 'artefact',
-				'artefact_title'	=> $artefact_name,
-				'artefact_id'		=> $id,
-				'recipient_ids' 	=> $notificationRecipients,
-				'artefact_ver_id'	=> $verId
+			$newNotification = Notifications::addNotification(array(
+				'by'			=> $userId,
+				'type'			=> 'edit',
+				'on'			=> 'artefact',
+				'ref_ids'		=> $artVerId,
+				'ref_id'		=> $artVerId,
+				'recipient_ids' => $notificationRecipients,
+				'project_id'	=> $projectId
 			),$db);
+
+
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "single-notification-id");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $newNotification);
+			$queryDetails = getQuery('getNotification',array("id" => $userId, '@notificationid'=>$newNotification));
+			$resultObj = $db->singleObjectQuery($queryDetails);
+			$resultMessage = new stdClass();
+			$resultMessage->type = "success";
+			$resultMessage->message = "Successfully updated artefact";
+			$resultMessage->icon = "success";
+
+			$dataList->messages = $resultMessage;
+			$dataList->notification[] = $resultObj;
+			$dataList->artefact = $artefactObj;
 
 			return $dataList;
 		}

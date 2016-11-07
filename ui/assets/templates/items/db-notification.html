@@ -1,6 +1,6 @@
 <% var mime = data.MIME_type || "" %>
 <% var isSupportedFile = (mime.indexOf('pdf') > -1 || mime.indexOf('image') > -1) %>
-<a <% if(data['notification_on'] == "M"){ %>href="#meetingnotes/<%= data.refId %>" data-url="meeting-notes"<% } else if(!isSupportedFile){ %>style="cursor: default;"<%} else { %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } %> class="notification-item">
+<a <% if(data['notification_on'] == "meeting"){ %>href="#meetingnotes/<%= data.notification_ref_id %>" data-url="meeting-notes"<% } else if(!isSupportedFile){ %>style="cursor: default;"<%} else { %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } %> class="notification-item">
     <% if(data['notification_on'] == "meeting"){ %>
         <div class="notification-meeting-icon">
             <svg><use xlink:href="#calendar"></use></svg>

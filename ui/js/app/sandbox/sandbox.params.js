@@ -8,10 +8,12 @@ _.assign(sb, {
 						"linksIds","links","references","referencesIds","tags","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date","project_description",
 						"status","title","version"]
 		},
-		"editArtefact" : {
-			params : ["artefact_ver_id","document_type","id","name","owner_id","project_id","title","version", "tags"]
+		"edit-artefact" : {
+			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","doctype","id","image","is_project_page",
+						"linksIds","links","references","referencesIds","tags","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
+						"status","title","version"]
 		},
-		"renameArtefact" : {
+		"rename-artefact" : {
 			params : ["id","name","owner_id","project_id","project_name","title","version","artefact_name","artefact_ver_id"]
 		},
 		"share-artefact" : {
@@ -46,6 +48,14 @@ _.assign(sb, {
 			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
 						"status","title","version"]
+		},
+		"create-meeting" : {
+			params :
+			["projectId","venue","date","projectName","artefactId","artefactName","agenda","fromTime","toTime","participants","timezone"]
+		},
+		"update-meeting" : {
+			params :
+			["projectId","venue","date","projectName","artefactId","artefactName","agenda","fromTime","toTime","participants","timezone","meeting_id"]
 		}
 	},
 	getPreparedParams: function(actionType){

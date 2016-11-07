@@ -10,16 +10,26 @@
 
 			$db = Master::getDBConnectionManager();
 			$queryDetails = getQuery('getNotifications',array("userid" => $userId, '@limit'=>$limit));
-			$resultObj = $db->multiObjectQuery($queryDetails);
-			$resultLen = count($resultObj);
+			$resultArtefactObj = $db->multiObjectQuery($queryDetails);
+			$queryDetails = getQuery('getMeetingNotifications',array("userid" => $userId, '@limit'=>$limit));
+			$meetingResultObj = $db->multiObjectQuery($queryDetails);
+			$resultObj = array_merge($resultArtefactObj,$meetingResultObj);
+			uasort($resultObj,function($a, $b){
+			     return $a->time < $b->time;
+			});
+			$result = array_slice($resultObj, 0, 12);
+			$resultLen = count($result);
 			for($i = 0; $i < $resultLen ; $i++ )  {
-				if($resultObj[$i]->type == 'M') {
+				if($result[$i]->notification_on == 'meeting') {
 					Master::getLogManager()->log(DEBUG, MOD_MAIN, 'inside meeting invite');
-					$queryDetails = getQuery('getMeetingNotificationDetails',array("id" => $resultObj[$i]->refId));
-					$resultObj[$i]->meetingDetails = $db->singleObjectQuery($queryDetails);
+					$queryDetails = getQuery('getMeetingNotificationDetails',array("id" => $result[$i]->notification_ref_id));
+					$result[$i]->meetingDetails = $db->singleObjectQuery($queryDetails);
 				}
 			}
-			return $resultObj;
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, 'dashboard-notifications');
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $result);
+
+			return $result;
 		}
 
 		public function addNotifications($data){

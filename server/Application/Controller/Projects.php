@@ -164,7 +164,12 @@
 			$data = $interpreter->getData()->data;
 			// $projectName = $data->projectName->value;
 			$projectName = $data->project_name;
-			$projectDescription = $data->project_description->value;
+			if($data->project_description->value){
+				$projectDescription = $data->project_description->value;
+			}else {
+				$description = json_decode($data->project_description);
+				$projectDescription = $description->value;
+			}
 			$userId = $interpreter->getUser()->user_id;
 			$date = date("Y-m-d H:i:s");
 
@@ -218,7 +223,7 @@
 
 			$result->messages = new stdClass();
 			$result->messages->type = "success";
-			$result->messages->message = "Successfully added ".$projectName."project";
+			$result->messages->message = "Successfully added ".$projectName." project";
 			$result->messages->icon = "success";
 
 			return $result;

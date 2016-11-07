@@ -163,8 +163,8 @@
 				Notifications::addNotification(array(
 					'by'			=> $userId,
 					'project_id'	=> $projectId,
-					'type'			=> 'A',
-					'on'			=> 'M',
+					'type'			=> 'add',
+					'on'			=> 'meeting',
 					'ref_id'		=> $meetingId,
 					'recipient_ids'	=> explode(",", $attendeesUserIds)
 				), $db);
@@ -547,8 +547,8 @@
 				Notifications::addNotification(array(
 					'by'			=> $userId,
 					'project_id'	=> $projectId,
-					'type'			=> 'U',
-					'on'			=> 'M',
+					'type'			=> 'update',
+					'on'			=> 'meeting',
 					'ref_id'		=> $meetingId,
 					'recipient_ids'	=> explode(",", $attendeesUserIds)
 				), $db);
