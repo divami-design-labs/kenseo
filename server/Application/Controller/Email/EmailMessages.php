@@ -72,6 +72,22 @@ Class EmailMessages{
             )));
         }
         elseif($on == "user"){
+            if($type == "add"){
+                $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserAdded', array(
+                    "projectid" => $data['project_id'],
+                    "userid" => $senderId,
+                    "@addeduserids" => join(",", $data['added_user_ids']),
+                    "receiveruserid" => $receiverId
+                )));
+            }elseif ($type == "delete") {
+
+                $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserRemoved', array(
+                    "projectid" => $data['project_id'],
+                    "userid" => $senderId,
+                    "removeduserid" => $data['removeduserid'],
+                    "receiveruserid" => $receiverId
+                )));
+            }
 
         }
 
@@ -213,23 +229,52 @@ Class EmailMessages{
         }
         elseif($on == "user"){
             if($type == "add"){
+
+                // $mailData->to = $info->emails;
+                $addedUsers = $mailInfo->{'added_users'};
+                $addedUsersCount = count(explode(",", $addedUsers));
+                $activityDoneUser = $mailInfo->{'activity_done_user_name'};
+                $projectName = $mailInfo->{'project_name'};
+                $emails = explode(",", $mailInfo->emails);
+                $addedUserEmails = explode(",", $mailInfo->{'added_user_emails'});
+
+                $verb = $addedUsersCount > 1 ? "are" : "is";
+                $plural = $addedUsersCount > 1 ? "s" : "";
+
+
                 if($isSender){
-                    $mail->subject  = "$projectName: You included a new user in this project.";
-                    $mail->message  = 'You included "$otherUserNames" to project "$projectName"';
-                }
-                else{
-                    $mail->subject  = '$projectName: You are included in project "$projectName" by $senderName';
-                    $mail->message  = 'You are included in project "$projectName" by $senderName';
+                    $mail->subject  = "$projectName: New User$plural $verb added by you";
+                    $mail->message  = "You added '$addedUsers' to project '$projectName'";
+                }elseif (in_array($receiverId , $data['added_user_ids'])) {
+                    $mail->subject  = "$projectName: New User$plural $verb added by $you";
+                    $mail->message  = "You are added to project '$projectName' by $you";
+                }else {
+                    $mail->subject  = "$projectName: New User$plural $verb added by $you";
+                    $mail->message  = "New User$plural '$addedUsers' $verb added to project '$projectName' by $you";
                 }
             }
             elseif($type == "delete"){
+
+                $removedUsers = $mailInfo->{'removed_users'};
+                $removedUsersArray = explode(",", $removedUsers);
+                $removedUsersCount = count($removeUsersArray);
+                $activityDoneUser = $mailInfo->{'activity_done_user_name'};
+                $projectName = $mailInfo->{'project_name'};
+                $emails = explode(",", $mailInfo->emails);
+                $removedUserEmails = explode(",", $mailInfo->{'removed_user_emails'});
+
+                $verb = $removedUsersCount > 1 ? "are" : "is";
+                $plural = $removedUsersCount > 1 ? "s" : "";
+
                 if($isSender){
-                    $mail->subject  = '$projectName: You removed a user from this project.';
-                    $mail->message  = 'You removed "$otherUserNames" from project "$projectName"';
-                }
-                else{
-                    $mail->subject  = '$projectName: You have been removed from this project.';
-                    $mail->message  = 'You have been removed from project "$projectName" by $senderName';
+                    $mail->subject  = "$projectName: User$plural $verb removed by you";
+                    $mail->message  = "You removed '$removedUsers' from project '$projectName'";
+                }elseif ($receiverId == $data['removeduserid']) {
+                    $mail->subject  = "$projectName: User$plural $verb removed by $you";
+                    $mail->message  = "You are removed from project '$projectName' by $you";
+                }else {
+                    $mail->subject  = "$projectName: User$plural $verb removed by $you";
+                    $mail->message  = "User$plural '$removedUsers' $verb removed from project '$projectName' by $you";
                 }
             }
             elseif($type == "change permission"){

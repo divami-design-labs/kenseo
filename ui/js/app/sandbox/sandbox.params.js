@@ -35,7 +35,7 @@ _.assign(sb, {
 						"status","title","version"]
 		},
 		"add-version" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","artefact_id","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
 						"status","title","version"]
 		},
@@ -56,6 +56,26 @@ _.assign(sb, {
 		"update-meeting" : {
 			params :
 			["projectId","venue","date","projectName","artefactId","artefactName","agenda","fromTime","toTime","participants","timezone","meeting_id"]
+		},
+		"write-meeting-notes" : {
+			params :
+			["meeting_id","notes","is_public"]
+		},
+		"add-people" : {
+			params :
+			["project_id","access_type","group_type","users"]
+		},
+		"submit-artefact" : {
+			params :
+			["artefactVersionId"]
+		},
+		"cover-image" : {
+			params :
+			["dimensions","id","files"]
+		},
+		"delete-comment" : {
+			params :
+			["comment_id"]
 		}
 	},
 	getPreparedParams: function(actionType){

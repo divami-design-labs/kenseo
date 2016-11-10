@@ -353,6 +353,32 @@ $AppGlobal['sql']['getNotification'] = 'SELECT
 										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id
 										JOIN notification_on_map t8 ON t1.notification_on = t8.notification_on_id
 										WHERE t1.notification_id = @~~notificationid~~@';
+$AppGlobal['sql']['getMeetingNotification'] = 'SELECT
+											t1.notification_id,
+											t4.meeting_title as notification_name,
+											t4.meeting_id as notification_ref_id,
+											t2.masked_artefact_version_id,
+											t2.MIME_type,
+											t1.notification_date as time,
+											CONCAT(UCASE(LEFT(t5.screen_name, 1)),LCASE(SUBSTRING(t5.screen_name, 2))) as notifier_name,
+											t1.notification_by as notifier_id,
+											t7.notification_type_name
+											as notification_type,
+											t8.notification_on_name
+										   as notification_on,
+											CONCAT(notification_type,"-",notification_on) as notification_type_name
+										FROM notifications t1
+										LEFT JOIN artefact_versions t2 ON t1.notification_ref_id = t2.artefact_ver_id
+										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										JOIN meetings t4 ON t4.meeting_id = t1.notification_ref_id
+										LEFT JOIN projects t3 ON t1.notification_ref_id = t3.project_id
+										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										JOIN users t5 ON t5.user_id = t1.notification_by
+										JOIN notification_users_map t6 ON t6.notification_id = t1.notification_id
+										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id
+										JOIN notification_on_map t8 ON t1.notification_on = t8.notification_on_id
+										WHERE t1.notification_id = @~~notificationid~~@ AND t7.notification_type_name = "@~~type~~@"';
+
 
 // Same as getNotifications query but with additional where clause to filter by project id
 $AppGlobal['sql']['getProjectActivities'] = 'SELECT
@@ -707,7 +733,7 @@ $AppGlobal['sql']['getAllPeopleSpecificToAProject'] = "SELECT
 														FROM
 															users AS users";
 
-$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, proj.project_id as projId, arts.artefact_title as artTitle, vers.artefact_ver_id, vers.masked_artefact_version_id, arts.artefact_id as artefactId, arts.description as description,arts.artefact_type as document_type,vers.version_no as versionCount, IF(vers.created_by = @~~userid~~@, 1, 0) as is_owner
+$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as projName, proj.project_id as project_id, arts.artefact_title as artTitle, vers.artefact_ver_id, vers.masked_artefact_version_id, arts.artefact_id as id, arts.description as description,arts.artefact_type as document_type,vers.version_no as versionCount, IF(vers.created_by = @~~userid~~@, 1, 0) as is_owner
 											FROM " . TABLE_ARTEFACTS . " AS arts
 											JOIN " . TABLE_PROJECTS . " AS proj ON
 											proj.project_id = arts.project_id
@@ -931,12 +957,14 @@ $AppGlobal['sql']['getOtherProjectMembersMailUserAdded'] = "SELECT
 																users t4
 															where
 																user_id = @~~userid~~@
-														) as activity_done_user,
+														) as activity_done_user_name,
 														(SELECT GROUP_CONCAT(t5.screen_name SEPARATOR ', ') FROM users as t5 WHERE user_id in (@~~addeduserids~~@)) as added_users,
 													    (SELECT GROUP_CONCAT(t5.email SEPARATOR ',') FROM users as t5 WHERE user_id in (@~~addeduserids~~@)) as added_user_emails,
 														GROUP_CONCAT(t2.email SEPARATOR ',') as emails,
 														GROUP_CONCAT(t2.screen_name SEPARATOR ',') as users,
-														t3.project_name as project_name
+														t3.project_name as project_name,
+														(select name from users where user_id = @~~receiveruserid~~@) as receivers_user_name,
+														(select email from users where user_id = @~~receiveruserid~~@ ) as receivers_user_email
 													FROM
 														project_members t1
 														JOIN users t2 ON t2.user_id = t1.user_id
@@ -954,12 +982,14 @@ $AppGlobal['sql']['getOtherProjectMembersMailUserRemoved'] = "SELECT
 																users t4
 															where
 																user_id = @~~userid~~@
-														) as activity_done_user,
+														) as activity_done_user_name,
 														(SELECT GROUP_CONCAT(t5.screen_name SEPARATOR ', ') FROM users as t5 WHERE user_id in (@~~removeduserid~~@)) as removed_users,
 													    (SELECT GROUP_CONCAT(t5.email SEPARATOR ',') FROM users as t5 WHERE user_id in (@~~removeduserid~~@)) as removed_user_emails,
 														GROUP_CONCAT(t2.email SEPARATOR ',') as emails,
 														GROUP_CONCAT(t2.screen_name SEPARATOR ',') as users,
-														t3.project_name as project_name
+														t3.project_name as project_name,
+														(select name from users where user_id = @~~receiveruserid~~@) as receivers_user_name,
+														(select email from users where user_id = @~~receiveruserid~~@ ) as receivers_user_email
 													FROM
 														project_members t1
 														JOIN users t2 ON t2.user_id = t1.user_id

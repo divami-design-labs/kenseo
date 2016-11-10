@@ -71,16 +71,21 @@
 			$resultMessage->message = "Successfully renamed artefact";
 			$resultMessage->icon = "success";
 			$resultObj->messages = $resultMessage;
-			
-			Notifications::addNotification(array(
+
+			$newNotification = Notifications::addNotification(array(
 				'by'				=> $userId,
 				'type'				=> 'rename',
 				'on'				=> 'artefact',
 				'artefact_title'	=> $artefact_name,
 				'artefact_id'		=> $id,
 				'recipient_ids' 	=> $notificationRecipients,
-				'artefact_ver_id'	=> $verId
+				'ref_id'			=> $verId,
+				'project_id'        => $data->project_id
 			),$db);
+
+			$queryDetails = getQuery('getNotification',array("id" => $userId, '@notificationid'=>$newNotification));
+			$result = $db->singleObjectQuery($queryDetails);
+			$resultObj->notification[] = $result;
 
 			return $resultObj;
 		}
@@ -141,8 +146,8 @@
 				$projectId = $data->projId;
 			}
 			$artId = $data->id;
-			if($data->artefactId){
-				 $artId = $data->artefactId;
+			if($data->artefact_id){
+				 $artId = $data->artefact_id;
 			}
 			$artVerId = $data->artefact_ver_id;
 			$fileName = $data->title;
@@ -259,7 +264,6 @@
 				'by'			=> $userId,
 				'type'			=> 'edit',
 				'on'			=> 'artefact',
-				'ref_ids'		=> $artVerId,
 				'ref_id'		=> $artVerId,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $projectId
@@ -777,10 +781,35 @@
 
 			// $this->sendArtefactActionMail($mailInfo, "archived");
 
+			$params = array('project_id' => $data->project_id);
+			$query = getQuery('getProjectMembers', $params);
+			$projectMembersInfo = $db->multiObjectQuery($query);
+			$notificationRecipients = array_map(function($info){
+				return $info->user_id;
+			}, $projectMembersInfo);
+
+			$newNotification = Notifications::addNotification(array(
+				'by'			=> $userId,
+				'type'			=> 'archive',
+				'on'			=> 'artefact',
+				'ref_id'		=> $data->artefact_ver_id,
+				'recipient_ids' => $notificationRecipients,
+				'project_id'	=> $data->project_id
+			),$db);
+
+
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "single-notification-id");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $newNotification);
+			$queryDetails = getQuery('getNotification',array("id" => $userId, '@notificationid'=>$newNotification));
+			$resultObj = $db->singleObjectQuery($queryDetails);
+
+
 			$db->commitTransaction();
 
 			$resultMessage = new stdClass();
 			$resultMessage->messages = new stdClass();
+			$resultMessage->notification[] = $resultObj;
 			$resultMessage->messages->type = "success";
 			$resultMessage->messages->message = "Successfully archived the artefact";
 			$resultMessage->messages->icon = "message-archieve";
@@ -1004,7 +1033,7 @@
 				$columnNames = array('artefact_id', 'version_no', 'masked_artefact_version_id', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
 				$rowValues = array($previousArtefactid, $ver_no, $masked_artefact_version, $userId, date("Y-m-d H:i:s"), $targetPath, $FILES['type'][0], $data->size, 'A', $shared);
 				$newVer = $db->insertSingleRowAndReturnId(TABLE_ARTEFACTS_VERSIONS, $columnNames, $rowValues);
-
+				$artefact_ver_id = $newVer;
 
 				$versionParams = array('newVer' => $newVer);
 				$versionQuery = getQuery('getLatestArtefactMaskedVersionId', $versionParams);
@@ -1083,7 +1112,7 @@
 				// params
 				$targetArtefactId 	= $previousArtefactid;
 				$otherArtefactId 	= $data->artefact_id;
-
+				$artefact_ver_id    = $targetArtefactId;
 				// get latest artefact version of target artefact
 				$targetArtefactInfo = $db->singleObjectQuery(getQuery(
 					"getLatestVerionOfArtefact",
@@ -1117,6 +1146,16 @@
 					),
 					"artefact_id = " . $otherArtefactId
 				);
+
+				$versionParams = array('newVer' => $targetArtefactId);
+				$versionQuery = getQuery('getLatestArtefactMaskedVersionId', $versionParams);
+				$newMaskedArtefactVErsionVersionId = $db->singleObjectQuery($versionQuery);
+
+
+				$versionSummaryParams = array('maskedArtefactVersionId' => $newMaskedArtefactVErsionVersionId->maskedVerId, "userid" => $userId);
+				$versionSummaryQuery = getQuery('getArtefactVersionSummary', $versionSummaryParams);
+
+				$versionSummary = $db->multiObjectQuery($versionSummaryQuery);
 
 				// => Add shared members of other artefact to the target artefact
 				// get shared members of the other artefact
@@ -1178,9 +1217,36 @@
 				// @TODO: update references, tags and links related tables also in database
 
 			}
+
+			$params = array('project_id' => $projectId);
+			$query = getQuery('getProjectMembers', $params);
+			$projectMembersInfo = $result = $db->multiObjectQuery($query);
+			$notificationRecipients = array_map(function($info){
+				return $info->user_id;
+			}, $projectMembersInfo);
+
+
+			$newNotification = Notifications::addNotification(array(
+				'by'			=> $userId,
+				'type'			=> 'add version',
+				'on'			=> 'artefact',
+				'ref_id'		=> $artefact_ver_id,
+				'recipient_ids' => $notificationRecipients,
+				'project_id'	=> $projectId
+			),$db);
+
+
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "single-version-notification-id");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $newNotification);
+			$queryDetails = getQuery('getNotification',array("id" => $userId, '@notificationid'=>$newNotification));
+			$resultObj = $db->singleObjectQuery($queryDetails);
+
+
 			$db->commitTransaction();
 			$resultMessage = new stdClass();
 			$resultMessage->messages = new stdClass();
+			$resultMessage->notification[] = $resultObj;
 			$resultMessage->messages->type = "success";
 			$resultMessage->messages->message = "Successfully added new version to artefact";
 			$resultMessage->messages->icon = "done";
@@ -1632,7 +1698,6 @@
 						'by'			=> $userId,
 						'type'			=> 'share',
 						'on'			=> 'artefact',
-						'ref_ids'		=> $artefactAndVersionIds[$i]->artefact_version_id,
 						'ref_id'		=> $artefactAndVersionIds[$i]->artefact_version_id,
 						'recipient_ids' => $notificationRecipients,
 						'project_id'	=> $projectId

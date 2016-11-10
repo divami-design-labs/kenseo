@@ -185,13 +185,31 @@
 				// Add
 
 				$result->message = "People added successfully.";
-                $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserAdded', array(
-                    "projectid" => $projectId,
-                    "userid" => $userId,
-                    "@addeduserids" => join(",", $addedUserIds)
-                )));
 
-                $this->addUserMail($mailInfo);
+
+          $params = array('project_id' => $projectId);
+    			$query = getQuery('getProjectMembers', $params);
+    			$projectMembersInfo = $db->multiObjectQuery($query);
+    			$notificationRecipients = array_map(function($info){
+    				return $info->user_id;
+    			}, $projectMembersInfo);
+
+    			$newNotification = Notifications::addNotification(array(
+    				'by'			=> $userId,
+    				'type'			=> 'add',
+    				'on'			=> 'user',
+    				'ref_id'		=> $projectId,
+    				'recipient_ids' => $notificationRecipients,
+    				'project_id'	=> $projectId,
+                    'added_user_ids'=> $addedUserIds
+    			),$db);
+                // $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserAdded', array(
+                //     "projectid" => $projectId,
+                //     "userid" => $userId,
+                //     "@addeduserids" => join(",", $addedUserIds)
+                // )));
+                //
+                // $this->addUserMail($mailInfo);
                 $db->commitTransaction();
                 
       			$resultMessage = new stdClass();
@@ -227,15 +245,36 @@
 			$db = Master::getDBConnectionManager();
             $db->beginTransaction();
             try{
+
+
+                $params = array('project_id' => $projectId);
+                $query = getQuery('getProjectMembers', $params);
+                $projectMembersInfo = $db->multiObjectQuery($query);
+                $notificationRecipients = array_map(function($info){
+                    return $info->user_id;
+                }, $projectMembersInfo);
+
+                $newNotification = Notifications::addNotification(array(
+                    'by'			=> $userId,
+                    'type'			=> 'delete',
+                    'on'			=> 'user',
+                    'ref_id'		=> $projectId,
+                    'recipient_ids' => $notificationRecipients,
+                    'project_id'	=> $projectId,
+                    'removeduserid' => $peopleId
+                ),$db);
+
                 $db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId . " and user_id =" . $peopleId);
 
-                $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserRemoved', array(
-                    "projectid" => $projectId,
-                    "userid" => $userId,
-                    "removeduserid" => $peopleId
-                )));
 
-                $this->removeUserMail($mailInfo);
+
+                // $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserRemoved', array(
+                //     "projectid" => $projectId,
+                //     "userid" => $userId,
+                //     "removeduserid" => $peopleId
+                // )));
+                //
+                // $this->removeUserMail($mailInfo);
                 $db->commitTransaction();
             }
             catch(Exception $e){

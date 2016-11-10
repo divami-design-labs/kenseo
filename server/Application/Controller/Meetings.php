@@ -6,6 +6,7 @@
 		public function setMeetingInvitaion($interpreter) {
 			$result 	= new stdClass();
 			$messages 	= new stdClass();
+			$resultObj = new stdClass();
 
 			$data = $interpreter->getData()->data;
 			$user = $interpreter->getUser();
@@ -160,7 +161,7 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "create invitation");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $attendeesUserIds);
 				// Add notification
-				Notifications::addNotification(array(
+				$newNotification = Notifications::addNotification(array(
 					'by'			=> $userId,
 					'project_id'	=> $projectId,
 					'type'			=> 'add',
@@ -168,6 +169,17 @@
 					'ref_id'		=> $meetingId,
 					'recipient_ids'	=> explode(",", $attendeesUserIds)
 				), $db);
+
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "meeting details test");
+
+				$queryDetails = getQuery('getMeetingNotification',array("id" => $userId, '@notificationid'=>$newNotification , "@type" =>"add"));
+				$resultObj = $db->singleObjectQuery($queryDetails);
+				$queryDetails = getQuery('getMeetingNotificationDetails',array("id" => $resultObj->notification_ref_id));
+				$resultObj->meetingDetails = $db->singleObjectQuery($queryDetails);
+
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "meeting details");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $resultObj);
 
 				$db->commitTransaction();
 
@@ -182,6 +194,7 @@
 				$messages->icon 	= "error";
 			}
 
+			$result->notification[] = $resultObj;
 			$result->messages = $messages;
 
 			return $result;
@@ -544,7 +557,7 @@
 				// );
 
 				// Add notification
-				Notifications::addNotification(array(
+				$newNotification = Notifications::addNotification(array(
 					'by'			=> $userId,
 					'project_id'	=> $projectId,
 					'type'			=> 'update',
