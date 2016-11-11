@@ -77,11 +77,27 @@
 			$db->updateTable(TABLE_PROJECTS, array("state"), array('Z'), "project_id = " . $projectId);
 
 			// send mail
-			$mailInfo = $db->multiObjectQuery(getQuery('projectMembersForMail', array(
-				"projectid" => $projectId,
-				"userid" => $userId
-			)));
-			$this->archiveProjectMail($mailInfo);
+			// $mailInfo = $db->multiObjectQuery(getQuery('projectMembersForMail', array(
+			// 	"projectid" => $projectId,
+			// 	"userid" => $userId
+			// )));
+			// $this->archiveProjectMail($mailInfo);
+
+			$params = array('project_id' => $projectId);
+  			$query = getQuery('getProjectMembers', $params);
+  			$projectMembersInfo = $db->multiObjectQuery($query);
+  			$notificationRecipients = array_map(function($info){
+  				return $info->user_id;
+  			}, $projectMembersInfo);
+
+  			$newNotification = Notifications::addNotification(array(
+  				'by'			=> $userId,
+  				'type'			=> 'archive',
+  				'on'			=> 'project',
+  				'ref_id'		=> $projectId,
+  				'recipient_ids' => $notificationRecipients,
+  				'project_id'	=> $projectId,
+  			),$db);
 
 			$db->commitTransaction();
 			$resultMessage = new stdClass();
@@ -104,12 +120,27 @@
 			$db->updateTable(TABLE_PROJECTS, array("state"), array('A'), "project_id = " . $projectId);
 
 			// send mail
-			$mailInfo = $db->multiObjectQuery(getQuery('projectMembersForMail', array(
-				"projectid" => $projectId,
-				"userid" => $userId
-			)));
+			// $mailInfo = $db->multiObjectQuery(getQuery('projectMembersForMail', array(
+			// 	"projectid" => $projectId,
+			// 	"userid" => $userId
+			// )));
+			//
+			// $this->unArchiveProjectMail($mailInfo);
+			$params = array('project_id' => $projectId);
+  			$query = getQuery('getProjectMembers', $params);
+  			$projectMembersInfo = $db->multiObjectQuery($query);
+  			$notificationRecipients = array_map(function($info){
+  				return $info->user_id;
+  			}, $projectMembersInfo);
 
-			$this->unArchiveProjectMail($mailInfo);
+			$newNotification = Notifications::addNotification(array(
+  				'by'			=> $userId,
+  				'type'			=> 'unarchive',
+  				'on'			=> 'project',
+  				'ref_id'		=> $projectId,
+  				'recipient_ids' => $notificationRecipients,
+  				'project_id'	=> $projectId,
+  			),$db);
 
 			$db->commitTransaction();
 
@@ -218,6 +249,15 @@
 				"projectid" => $projId
 			)));
 			$result->projectid = $projId;
+
+			$newNotification = Notifications::addNotification(array(
+  				'by'			=> $userId,
+  				'type'			=> 'add',
+  				'on'			=> 'project',
+  				'ref_id'		=> $projId,
+  				'recipient_ids' => $userId,
+  				'project_id'	=> $projId,
+  			),$db);
 
 			$db->commitTransaction();
 

@@ -268,8 +268,8 @@ sb.refresh = (function(){
 			// refreshSection('dashboard', 'db-artefacts');
 			var _this = Kenseo.scope;
 			_this.destroy();
-			Kenseo.data.model = response.data.notification;
-			sb.trigger($(window), 'addNotification');
+			// Kenseo.data.model = response.data.notification;
+			// sb.trigger($(window), 'addNotification');
 		},
 		deleteArtefact: function(){
 			Kenseo.scope.$el.remove();
@@ -310,8 +310,8 @@ sb.refresh = (function(){
 			obj.version = response.data.versionSummary[response.data.versionSummary.length - 1].versionNo;
 			obj.versionSummary = response.data.versionSummary;
 			Kenseo.scope.model.set(obj);
-			Kenseo.data.model = response.data.notification;
-			sb.trigger($(window), 'addNotification');
+			// Kenseo.data.model = response.data.notification;
+			// sb.trigger($(window), 'addNotification');
 		},
 		// unarchiveProject: function(){
 		// 	refreshSection('projects-page', 'projects-page');
@@ -329,8 +329,8 @@ sb.refresh = (function(){
 			var newname = response.params.artefact_name+"."+_.last(response.params.title.split('.'));
 			Kenseo.scope.model.set('title', newname);
 			Kenseo.scope = null;
-			Kenseo.data.model = response.data.notification;
-			sb.trigger($(window), 'addNotification');
+			// Kenseo.data.model = response.data.notification;
+			// sb.trigger($(window), 'addNotification');
 		},
 		personPermissions: function(response) {
 			var accessType = response.params.access_type;

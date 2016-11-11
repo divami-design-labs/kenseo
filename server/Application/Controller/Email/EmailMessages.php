@@ -64,12 +64,20 @@ Class EmailMessages{
             }
         }
         elseif($on == "project"){
-            $mailInfo = $db->singleObjectQuery(getQuery('projectMailQuery', array(
-                'activitydoneuserid'    => $senderId,
-                'receiveruserid'        => $receiverId,
-                'projectid'             => $data['project_id'],
-                '@otheruserids'         => $otherUserIds
-            )));
+            if(!empty($otherUserIds)){
+                $mailInfo = $db->singleObjectQuery(getQuery('projectMailQuery', array(
+                    'activitydoneuserid'    => $senderId,
+                    'receiveruserid'        => $receiverId,
+                    'projectid'             => $data['project_id'],
+                    '@otheruserids'         => $otherUserIds
+                )));
+            }else{
+                $mailInfo = $db->singleObjectQuery(getQuery('projectMailQueryWithoutUsers', array(
+                    'activitydoneuserid'    => $senderId,
+                    'receiveruserid'        => $receiverId,
+                    'projectid'             => $data['project_id']
+                )));
+            }
         }
         elseif($on == "user"){
             if($type == "add"){
@@ -145,7 +153,7 @@ Class EmailMessages{
                 }
             }
             elseif($type == "rename"){
-                $renamedArtefactTitle   = $mailInfo;
+                $renamedArtefactTitle   = $mailInfo->{'artefact_title'};
 
                 $mail->subject  = "$projectName: An artefact has been renamed by $you";
                 if($sender){
@@ -192,8 +200,8 @@ Class EmailMessages{
                 // }
             }
             elseif($type == "submit"){
-                $mail->subject  = '$projectName: An artefact has been submitted by $you';
-                $mail->message  = 'An artefact "$artefactTitle" from project "$projectName" has been submitted by $you';
+                $mail->subject  = "$projectName: An artefact has been submitted by $you";
+                $mail->message  = "An artefact '$artefactTitle' from project '$projectName' has been submitted by $you";
             }
         }
         elseif($on == "project"){

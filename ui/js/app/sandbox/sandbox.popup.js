@@ -232,7 +232,9 @@ sb.popup = {
             //for replace this is the only place we can decide wheteher it is a replace call or not
             if (sb.getPopupData("actionType") == "replaceArtefact") {
                 sb.setPopupData("replaceArtefact", "command");
-                sb.setPopupData("replaceArtefactFile", "actionType");
+
+                //@TODO:Commented the below code temporarily,don't know the use of it.
+                //sb.setPopupData("replaceArtefactFile", "actionType");
             } else if (sb.getPopupData("actionType") == "addArtefactVersion") {
                 sb.setPopupData("addArtefactVersion", "command");
                 sb.setPopupData("addArtefactVersionFile", "actionType");

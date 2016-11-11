@@ -79,7 +79,7 @@
 				'artefact_title'	=> $artefact_name,
 				'artefact_id'		=> $id,
 				'recipient_ids' 	=> $notificationRecipients,
-				'ref_id'			=> $verId,
+				'ref_ids'			=> $verId,
 				'project_id'        => $data->project_id
 			),$db);
 
@@ -410,6 +410,7 @@
 				$data = $data->data;
 			}
 
+			$projectId = $data->project_id;
 			$targetArtefactId 	= $data->id;
 			// $targetProjectId	= $data->project_id;
 			$existingArtefactId	= $data->artefact_id;
@@ -422,7 +423,7 @@
 			try{
 
 				// => Get the latest artefact version of the target artefact
-				$targetArtefactId 				= $artId;  // relevant name
+				// $targetArtefactId 				= $artId;  // relevant name
 				$targetLatestArtefactVersionId 	= $db->singleObjectQuery(
 					getQuery(
 						'getLatestVerionOfArtefact',
@@ -504,7 +505,7 @@
 							$newArtefactId,
 							"1"  // making it as initial version
 						),
-						"artefact_id = " . $targetArtefactId . " and artefact_version_id = " . $targetLatestArtefactVersionId
+						"artefact_id = " . $targetArtefactId . " and artefact_ver_id = " . $targetLatestArtefactVersionId
 					);
 					// => and also insert new row with masked_artefact_version_id and document_path
 					$newArtefactLatestVersionId 	= $db->insertSingleRowAndReturnId(
@@ -557,7 +558,7 @@
 							$maskedNewArtefactVersionId,
 							$documentPath
 						),
-						"artefact_version_id = " . $newArtefactLatestVersionId
+						"artefact_ver_id = " . $newArtefactLatestVersionId
 					);
 					//
 					$db->updateTable(
@@ -583,7 +584,7 @@
 						"artefact_id = " . $targetArtefactId  // @IMPORTANT: I am not considering artefact_version_id as I need to remove that column from the table
 					);
 
-
+					$artefact_ver_id = $newArtefactLatestVersionId;
 
 
 
@@ -628,127 +629,129 @@
 					// $db->insertSingleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $shareColumnNames, $shareRowValues);
 					//
 					// return true;
-				} else {
-					// when target artefact is replaced with existing artefact
-					//
-					// => If artefact-a has three versions and artefact-b has three versions
-					// and artefact-a is replaced with artefact-b then information of artefact-a will be deleted
-					// and latest version of artefact-a will be added as initial version of artefact-b.
-					// The latest version of artefact-b remains the same (So, artefact-b will now have four versions)
-					//
-					// => Increment all versions of existing artefact id to 1 in artefact versions table
-					// @TODO: change it to update table function
-					$db->singleResultQuery("UPDATE artefact_versions set version_no = version_no+1 where artefact_id=$existingArtefactId");
-					// => Replace target artefact id with existing artefact id to the latest artefact version of target artefact id in artefact versions table
-					//    and also keep the version_no as 1
-					$db->updateTable(
-						TABLE_ARTEFACTS_VERSIONS,
-						array(
-							"artefact_id",
-							"version_no"
-						),
-						array(
-							$existingArtefactId,
-							"1"		// Initial version
-						),
-						"artefact_ver_id = " . $targetLatestArtefactVersionId
-					);
-					// => Differentiate the target artefact members and existing artefact members
-					//    and add to the existing artefact members
-					$differenceMembers = array();
-					$targetArtefactSharedMembersList 	= $db->multiObjectQuery(getQuery(
-						'getArtefactSharedMembers',
-						array(
-							"artId" => $targetArtefactId
-						)
-					));
-					$existingArtefactSharedMembersList	= $db->multiObjectQuery(getQuery(
-						'getArtefactSharedMembers',
-						array(
-							"artId" => $existingArtefactId
-						)
-					));
-					foreach($targetArtefactSharedMembersList as $key => $item){
-						$inArrayFlag = false;
-						foreach($existingArtefactSharedMembersList as $index => $newItem){
-							if($item->{'user_id'} == $newItem->{'user_id'}){
-								$inArrayFlag = true;
-								break;
+					} else {
+						// when target artefact is replaced with existing artefact
+						//
+						// => If artefact-a has three versions and artefact-b has three versions
+						// and artefact-a is replaced with artefact-b then information of artefact-a will be deleted
+						// and latest version of artefact-a will be added as initial version of artefact-b.
+						// The latest version of artefact-b remains the same (So, artefact-b will now have four versions)
+						//
+						// => Increment all versions of existing artefact id to 1 in artefact versions table
+						// @TODO: change it to update table function
+						$db->singleResultQuery("UPDATE artefact_versions set version_no = version_no+1 where artefact_id=$existingArtefactId");
+						// => Replace target artefact id with existing artefact id to the latest artefact version of target artefact id in artefact versions table
+						//    and also keep the version_no as 1
+						$db->updateTable(
+							TABLE_ARTEFACTS_VERSIONS,
+							array(
+								"artefact_id",
+								"version_no"
+							),
+							array(
+								$existingArtefactId,
+								"1"		// Initial version
+							),
+							"artefact_ver_id = " . $targetLatestArtefactVersionId
+						);
+						// => Differentiate the target artefact members and existing artefact members
+						//    and add to the existing artefact members
+						$artefact_ver_id = $targetLatestArtefactVersionId;
+
+						$differenceMembers = array();
+						$targetArtefactSharedMembersList 	= $db->multiObjectQuery(getQuery(
+							'getArtefactSharedMembers',
+							array(
+								"artId" => $targetArtefactId
+							)
+						));
+						$existingArtefactSharedMembersList	= $db->multiObjectQuery(getQuery(
+							'getArtefactSharedMembers',
+							array(
+								"artId" => $existingArtefactId
+							)
+						));
+						foreach($targetArtefactSharedMembersList as $key => $item){
+							$inArrayFlag = false;
+							foreach($existingArtefactSharedMembersList as $index => $newItem){
+								if($item->{'user_id'} == $newItem->{'user_id'}){
+									$inArrayFlag = true;
+									break;
+								}
+							}
+
+							if(!$inArrayFlag){
+								$storeObj = new stdClass();
+								// @TODO: @IMPORTANT: need to remove artefact_version_id column from artefat_shared_members table
+								// $storeObj->{"artefact_ver_id"}	= $existingArtefactVersionId;
+								$storeObj->{"artefact_id"}		= $existingArtefactId;
+								$storeObj->{"user_id"}			= $item->{"user_id"};
+								$storeObj->{"access_type"}		= $item->{"access_type"};
+								$storeObj->{"shared_by"}		= $item->{"shared_by"};
+								$storeObj->{"while_creation"} 	= 0; // @TODO: no idea what it does..
+								$differenceMembers[] = $storeObj;
 							}
 						}
 
-						if(!$inArrayFlag){
-							$storeObj = new stdClass();
-							// @TODO: @IMPORTANT: need to remove artefact_version_id column from artefat_shared_members table
-							// $storeObj->{"artefact_ver_id"}	= $existingArtefactVersionId;
-							$storeObj->{"artefact_id"}		= $existingArtefactId;
-							$storeObj->{"user_id"}			= $item->{"user_id"};
-							$storeObj->{"access_type"}		= $item->{"access_type"};
-							$storeObj->{"shared_by"}		= $item->{"shared_by"};
-							$storeObj->{"while_creation"} 	= 0; // @TODO: no idea what it does..
-							$differenceMembers[] = $storeObj;
+						// Add the difference members to the target artefact
+						if(count($differenceMembers)){  // if difference members are available
+							Master::getLogManager()->log(DEBUG, MOD_MAIN, "Replace artefact: existing. difference members");
+							Master::getLogManager()->log(DEBUG, MOD_MAIN, $differenceMembers);
+							$db->insertMultipleRow(
+								TABLE_ARTEFACTS_SHARED_MEMBERS,
+								array(
+									// "artefact_ver_id",
+									"artefact_id",
+									"user_id",
+									"access_type",
+									"shared_by",
+									"while_creation"  // @TODO: no idea what it does..
+								),
+								$differenceMembers
+							);
 						}
+
+						// // first get all the versions of newArt
+						// $newArtVers = 	$db->multiObjectQuery(
+						// 					getQuery(
+						// 						'getAllVersionsOfArtefact',
+						// 						array(
+						// 							'artId' => $newArt
+						// 						)
+						// 					)
+						// 				);
+						//
+						// // get the latestVersion of the artefact
+						// $latestVer = 	$db->singleObjectQuery(
+						// 					getQuery(
+						// 						'getHighestVersionOfArtefact',
+						// 						array(
+						// 							'artId' => $artId
+						// 						)
+						// 					)
+						// 				)->vers;
+						//
+						// Master::getLogManager()->log(DEBUG, MOD_MAIN, $latestVer);
+						//
+						// //update artefact version Numbers
+						// // @TODO: change it to update table function
+						// $db->singleResultQuery("UPDATE artefact_versions set version_no = version_no+$latestVer where artefact_id=$newArt");
+						// //now change the artefact id
+						// $db->updateTable(TABLE_ARTEFACTS_VERSIONS, array("artefact_id"), array($newVer), "artefact_id = " . $artId);
+						//
+						// //update the latest version
+						// $db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
+						// //update the new artefact that it is replaced.
+						// $db->updateTable(TABLE_ARTEFACTS, array("replace_ref_id"), array($artId), "artefact_id = " . $newArt);
+						//
+						// //add an activity of replacement
+						// $db->insertSingleRow(
+						// 	TABLE_PROJECT_ACTIVITY,
+						// 	array('project_id', 'logged_by', 'logged_time', 'performed_on', 'activity_type', 'performed_on_id'),
+						// 	array($projId, $userId, $date, 'A', 'R', $artId)
+						// );
+
 					}
-
-					// Add the difference members to the target artefact
-					if(count($differenceMembers)){  // if difference members are available
-						Master::getLogManager()->log(DEBUG, MOD_MAIN, "Replace artefact: existing. difference members");
-						Master::getLogManager()->log(DEBUG, MOD_MAIN, $differenceMembers);
-						$db->insertMultipleRow(
-							TABLE_ARTEFACTS_SHARED_MEMBERS,
-							array(
-								// "artefact_ver_id",
-								"artefact_id",
-								"user_id",
-								"access_type",
-								"shared_by",
-								"while_creation"  // @TODO: no idea what it does..
-							),
-							$differenceMembers
-						);
-					}
-
-					// // first get all the versions of newArt
-					// $newArtVers = 	$db->multiObjectQuery(
-					// 					getQuery(
-					// 						'getAllVersionsOfArtefact',
-					// 						array(
-					// 							'artId' => $newArt
-					// 						)
-					// 					)
-					// 				);
-					//
-					// // get the latestVersion of the artefact
-					// $latestVer = 	$db->singleObjectQuery(
-					// 					getQuery(
-					// 						'getHighestVersionOfArtefact',
-					// 						array(
-					// 							'artId' => $artId
-					// 						)
-					// 					)
-					// 				)->vers;
-					//
-					// Master::getLogManager()->log(DEBUG, MOD_MAIN, $latestVer);
-					//
-					// //update artefact version Numbers
-					// // @TODO: change it to update table function
-					// $db->singleResultQuery("UPDATE artefact_versions set version_no = version_no+$latestVer where artefact_id=$newArt");
-					// //now change the artefact id
-					// $db->updateTable(TABLE_ARTEFACTS_VERSIONS, array("artefact_id"), array($newVer), "artefact_id = " . $artId);
-					//
-					// //update the latest version
-					// $db->updateTable(TABLE_ARTEFACTS, array("latest_version_id"), array($newVer), "artefact_id = " . $artId);
-					// //update the new artefact that it is replaced.
-					// $db->updateTable(TABLE_ARTEFACTS, array("replace_ref_id"), array($artId), "artefact_id = " . $newArt);
-					//
-					// //add an activity of replacement
-					// $db->insertSingleRow(
-					// 	TABLE_PROJECT_ACTIVITY,
-					// 	array('project_id', 'logged_by', 'logged_time', 'performed_on', 'activity_type', 'performed_on_id'),
-					// 	array($projId, $userId, $date, 'A', 'R', $artId)
-					// );
-
-				}
 				$db->commitTransaction();
 			}
 			catch(Exception $e){
@@ -756,6 +759,26 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Replace artefact: error");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
 			}
+
+			$params = array('project_id' => $projectId);
+			$query = getQuery('getProjectMembers', $params);
+			$projectMembersInfo = $result = $db->multiObjectQuery($query);
+			$notificationRecipients = array_map(function($info){
+				return $info->user_id;
+			}, $projectMembersInfo);
+
+
+			$newNotification = Notifications::addNotification(array(
+				'by'			=> $userId,
+				'type'			=> 'replace',
+				'on'			=> 'artefact',
+				'ref_ids'		=> $artefact_ver_id,
+				'recipient_ids' => $notificationRecipients,
+				'project_id'	=> $projectId
+			),$db);
+
+
+
 			$resultMessage->messages = new stdClass();
 			$resultMessage->messages->type = "success";
 			$resultMessage->messages->message = "Successfully replaced artefact";
@@ -792,7 +815,7 @@
 				'by'			=> $userId,
 				'type'			=> 'archive',
 				'on'			=> 'artefact',
-				'ref_id'		=> $data->artefact_ver_id,
+				'ref_ids'		=> $data->artefact_ver_id,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $data->project_id
 			),$db);
@@ -838,12 +861,27 @@
 
 
 			// mail
-			$mailInfo = $db->multiObjectQuery(getQuery('artefactRelatedMail', array(
-				"artefactid" => $artId,
-				"userid" => $userId
-			)));
+			// $mailInfo = $db->multiObjectQuery(getQuery('artefactRelatedMail', array(
+			// 	"artefactid" => $artId,
+			// 	"userid" => $userId
+			// )));
+			//
+			// $this->sendArtefactActionMail($mailInfo, "deleted");
+			$params = array('project_id' => $data->project_id);
+			$query = getQuery('getProjectMembers', $params);
+			$projectMembersInfo = $db->multiObjectQuery($query);
+			$notificationRecipients = array_map(function($info){
+				return $info->user_id;
+			}, $projectMembersInfo);
 
-			$this->sendArtefactActionMail($mailInfo, "deleted");
+			$newNotification = Notifications::addNotification(array(
+				'by'			=> $userId,
+				'type'			=> 'delete',
+				'on'			=> 'artefact',
+				'ref_ids'		=> $data->artefact_ver_id,
+				'recipient_ids' => $notificationRecipients,
+				'project_id'	=> $data->project_id
+			),$db);
 
 			$db->commitTransaction();
 			$resultMessage = new stdClass();
@@ -1112,7 +1150,6 @@
 				// params
 				$targetArtefactId 	= $previousArtefactid;
 				$otherArtefactId 	= $data->artefact_id;
-				$artefact_ver_id    = $targetArtefactId;
 				// get latest artefact version of target artefact
 				$targetArtefactInfo = $db->singleObjectQuery(getQuery(
 					"getLatestVerionOfArtefact",
@@ -1146,6 +1183,10 @@
 					),
 					"artefact_id = " . $otherArtefactId
 				);
+
+				$versionParams = array('artId' => $targetArtefactId);
+				$versionQuery = getQuery('getLatestVerionOfArtefact', $versionParams);
+				$artefact_ver_id = $db->singleObjectQuery($versionQuery);
 
 				$versionParams = array('newVer' => $targetArtefactId);
 				$versionQuery = getQuery('getLatestArtefactMaskedVersionId', $versionParams);
@@ -1230,7 +1271,7 @@
 				'by'			=> $userId,
 				'type'			=> 'add version',
 				'on'			=> 'artefact',
-				'ref_id'		=> $artefact_ver_id,
+				'ref_ids'		=> $artefact_ver_id,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $projectId
 			),$db);
@@ -1698,7 +1739,7 @@
 						'by'			=> $userId,
 						'type'			=> 'share',
 						'on'			=> 'artefact',
-						'ref_id'		=> $artefactAndVersionIds[$i]->artefact_version_id,
+						'ref_ids'		=> $artefactAndVersionIds[$i]->artefact_version_id,
 						'recipient_ids' => $notificationRecipients,
 						'project_id'	=> $projectId
 					),$db);
@@ -1958,7 +1999,7 @@
 			$result = new stdClass();
 			$result->messages = new stdClass();
 			$data = $interpreter->getData()->data;
-
+			$projectId = $data->project_id;
 			// needed params
 			// @artefact version id
 			// @user id
@@ -1988,6 +2029,24 @@
 				// $mailData = 
 				// $this->submitArtefactMail($mailData);
 				// get artefact owner information
+
+				$params = array('project_id' => $projectId);
+				$query = getQuery('getProjectMembers', $params);
+				$projectMembersInfo = $result = $db->multiObjectQuery($query);
+				$notificationRecipients = array_map(function($info){
+					return $info->user_id;
+				}, $projectMembersInfo);
+
+
+				$newNotification = Notifications::addNotification(array(
+					'by'			=> $userId,
+					'type'			=> 'submit',
+					'on'			=> 'artefact',
+					'ref_ids'		=> $artefactVersionId,
+					'recipient_ids' => $userId,
+					'project_id'	=> $projectId
+				),$db);
+
 				$result->messages->type 	= "success";
 				$result->messages->message 	= "Successfully submitted the artefact";
 				$result->messages->icon 	= "success";

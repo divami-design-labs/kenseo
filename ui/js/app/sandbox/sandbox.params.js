@@ -67,7 +67,7 @@ _.assign(sb, {
 		},
 		"submit-artefact" : {
 			params :
-			["artefactVersionId"]
+			["artefactVersionId","project_id"]
 		},
 		"cover-image" : {
 			params :

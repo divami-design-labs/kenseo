@@ -565,6 +565,8 @@
 					'ref_id'		=> $meetingId,
 					'recipient_ids'	=> explode(",", $attendeesUserIds)
 				), $db);
+				$queryDetails = getQuery('getMeetingNotification',array("id" => $userId, '@notificationid'=>$newNotification,"@type" =>"update"));
+				$resultObj = $db->singleObjectQuery($queryDetails);
 
 				$db->commitTransaction();
 
@@ -582,7 +584,7 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
 				
 			}
-
+			$result->notification = $resultObj;
 			$result->messages = $messages;
 
 			return $result;
