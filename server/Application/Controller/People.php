@@ -291,6 +291,7 @@
 
         public function personPermissions($interpreter) {
             $data = $interpreter->getData()->data;
+            $userId = $interpreter->getUser()->user_id;
             $accessType = $data->access_type;
             $projectId = $data->project_id;
             $person_id = $data->user_id;  // This is people id
@@ -306,6 +307,16 @@
             ),
             "user_id = " . $person_id . " and proj_id = " . $projectId
             );
+
+            $newNotification = Notifications::addNotification(array(
+                'by'			=> $userId,
+                'type'			=> 'change permission',
+                'on'			=> 'user',
+                'ref_id'		=> $projectId,
+                'recipient_ids' => $person_id,
+                'project_id'	=> $projectId,
+            ),$db);
+
             $db->commitTransaction();
 
              return $resultObj;

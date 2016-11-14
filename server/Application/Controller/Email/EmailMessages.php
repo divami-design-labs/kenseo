@@ -95,6 +95,12 @@ Class EmailMessages{
                     "removeduserid" => $data['removeduserid'],
                     "receiveruserid" => $receiverId
                 )));
+            }else{
+                $mailInfo = $db->singleObjectQuery(getQuery('getUserMailUser', array(
+                    "projectid" => $data['project_id'],
+                    "userid" => $senderId,
+                    "receiveruserid" => $receiverId
+                )));
             }
 
         }
@@ -286,15 +292,16 @@ Class EmailMessages{
                 }
             }
             elseif($type == "change permission"){
-                $previousPermission     = $mailInfo;
-                $newPermission          = $mailInfo;
+                // $previousPermission     = $mailInfo;
+                // $newPermission          = $mailInfo;
                 if($isSender){
-                    $mail->subject  = '$projectName: You changed a user\'s permissions';
-                    $mail->message  = 'You changed $recipientName\'s permission from "$previousPermission" to "$newPermission" on project "$projectName"';
+                    $mail->subject  = "$projectName: You changed a user's permissions";
+                    $mail->message  = "You changed $recipientName's permission from '$previousPermission' to '$newPermission' on project '$projectName'
+                    ";
                 }
                 else{
-                    $mail->subject  = '$projectName: Your permissions have been changed';
-                    $mail->message  = 'Your permissions on project "$projectName" has been changed from "$previousPermission" to "$newPermission"';
+                    $mail->subject  = "$projectName: Your permissions have been changed";
+                    $mail->message  = "Your permissions on project '$projectName' has been changed from '$previousPermission' to '$newPermission'";
                 }
             }
             // elseif($type == "delete"){

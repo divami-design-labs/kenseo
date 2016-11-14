@@ -80,6 +80,7 @@
 				'artefact_id'		=> $id,
 				'recipient_ids' 	=> $notificationRecipients,
 				'ref_ids'			=> $verId,
+				'ref_id'			=> $verId,
 				'project_id'        => $data->project_id
 			),$db);
 
@@ -265,6 +266,7 @@
 				'type'			=> 'edit',
 				'on'			=> 'artefact',
 				'ref_id'		=> $artVerId,
+				'ref_ids'		=> $artVerId,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $projectId
 			),$db);
@@ -773,6 +775,7 @@
 				'type'			=> 'replace',
 				'on'			=> 'artefact',
 				'ref_ids'		=> $artefact_ver_id,
+				'ref_id'		=> $artefact_ver_id,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $projectId
 			),$db);
@@ -816,6 +819,7 @@
 				'type'			=> 'archive',
 				'on'			=> 'artefact',
 				'ref_ids'		=> $data->artefact_ver_id,
+				'ref_id'		=> $data->artefact_ver_id,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $data->project_id
 			),$db);
@@ -879,6 +883,7 @@
 				'type'			=> 'delete',
 				'on'			=> 'artefact',
 				'ref_ids'		=> $data->artefact_ver_id,
+				'ref_id'		=> $data->artefact_ver_id,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $data->project_id
 			),$db);
@@ -1272,6 +1277,7 @@
 				'type'			=> 'add version',
 				'on'			=> 'artefact',
 				'ref_ids'		=> $artefact_ver_id,
+				'ref_id'		=> $artefact_ver_id,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $projectId
 			),$db);
@@ -1740,6 +1746,7 @@
 						'type'			=> 'share',
 						'on'			=> 'artefact',
 						'ref_ids'		=> $artefactAndVersionIds[$i]->artefact_version_id,
+						'ref_id'		=> $artefactAndVersionIds[$i]->artefact_version_id,
 						'recipient_ids' => $notificationRecipients,
 						'project_id'	=> $projectId
 					),$db);
@@ -2043,6 +2050,7 @@
 					'type'			=> 'submit',
 					'on'			=> 'artefact',
 					'ref_ids'		=> $artefactVersionId,
+					'ref_id'		=> $artefactVersionId,
 					'recipient_ids' => $userId,
 					'project_id'	=> $projectId
 				),$db);
