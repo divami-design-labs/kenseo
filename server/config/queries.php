@@ -117,11 +117,36 @@ $AppGlobal['sql']['getNonLinkedFiles'] = "SELECT DISTINCT sm.shared_date, a.arte
 											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id WHERE a.project_id = @~~projectId~~@ AND a.artefact_id
 											NOT IN (SELECT linked_to_id FROM artefact_links WHERE linked_from_id = @~~artefactId~~@ ) AND a.artefact_id NOT IN (SELECT linked_from_id FROM artefact_links WHERE linked_to_id = @~~artefactId~~@) AND a.artefact_id !=@~~artefactId~~@ ";
 
-$AppGlobal['sql']['getProjectArtefacts'] = "SELECT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
-											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
-											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
-											a.artefact_type as document_type, v.state AS status, v.version_no as version,
-											u.name as person_name, u.profile_pic_url as image, u.user_id as owner_id,
+$AppGlobal['sql']['getProjectArtefacts'] = "SELECT 
+											a.artefact_id, 
+											v.artefact_ver_id as artefact_version_id, 
+											v.masked_artefact_version_id,
+											CONVERT_TZ(
+												(
+													SELECT n.notification_date FROM notifications n
+													JOIN notification_on_map no ON no.notification_on_id = n.notification_on
+													JOIN notification_type_map nt ON nt.notification_type_id = n.notification_type 
+													JOIN notification_users_map nu ON nu.notification_id = n.notification_id
+													WHERE nu.user_id =  @~~userid~~@ 					# user id
+														AND no.notification_on_id = 1 					# notification on - Artefact
+														AND nt.notification_type_id IN (1, 10, 11)   	# Add, Replace and Add version
+													ORDER BY n.notification_date
+													LIMIT 1
+												), 
+												@@session.time_zone, 
+												'+00:00'
+											) as artefact_activity_date,  
+											a.linked_id, 
+											a.project_id, 
+											p.project_name,
+											a.artefact_title as artefact_name, 
+											v.MIME_type,
+											a.artefact_type, 
+											v.state AS status, 
+											v.version_no as version,
+											u.name as user_name, 
+											u.profile_pic_url as user_image, 
+											u.user_id as user_id,
 											(select count(t.comment_thread_id) from ". TABLE_COMMENT_THREADS ." as
 												t WHERE a.latest_version_id = t.artefact_ver_id
 											) as comment_count
@@ -144,18 +169,36 @@ $AppGlobal['sql']['getDownloadProject'] = "SELECT v.*, a.artefact_title, p.proje
 											JOIN " .TABLE_PROJECTS. " as p ON a.project_id = p.project_id
 											where a.project_id = @~~projectid~~@";										
 
-$AppGlobal['sql']['getProjectArtefact'] = "SELECT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
-											(SELECT logged_time FROM
-											   project_activity pa
-											 WHERE
-											   pa.logged_by = @~~userid~~@ AND a.artefact_id = pa.performed_on_id
-											 ORDER BY
-											   pa.logged_time DESC
-											 LIMIT 1
-											) as artefact_time, a.linked_id, a.project_id, p.project_name,
-											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
-											a.artefact_type as document_type, v.state AS status, v.version_no as version,
-											u.name as person_name, u.profile_pic_url as image, u.user_id as owner_id,
+$AppGlobal['sql']['getProjectArtefact'] = "SELECT 
+											a.artefact_id as artefact_id, 
+											v.artefact_ver_id as artefact_version_id, 
+											v.masked_artefact_version_id,
+											CONVERT_TZ(
+												(
+													SELECT n.notification_date FROM notifications n
+													JOIN notification_on_map no ON no.notification_on_id = n.notification_on
+													JOIN notification_type_map nt ON nt.notification_type_id = n.notification_type 
+													JOIN notification_users_map nu ON nu.notification_id = n.notification_id
+													WHERE nu.user_id =  @~~userid~~@ 					# user id
+														AND no.notification_on_id = 1 					# notification on - Artefact
+														AND nt.notification_type_id IN (1, 10, 11)   	# Add, Replace and Add version
+													ORDER BY n.notification_date
+													LIMIT 1
+												), 
+												@@session.time_zone, 
+												'+00:00'
+											) as artefact_activity_date, 
+											a.linked_id, 
+											a.project_id, 
+											p.project_name,
+											a.artefact_title as artefact_name, 
+											v.MIME_type,
+											a.artefact_type, 
+											v.state AS status, 
+											v.version_no as version,
+											u.name as user_name, 
+											u.profile_pic_url as user_image, 
+											u.user_id as owner_id,
 											(select count(t.comment_thread_id) from ". TABLE_COMMENT_THREADS ." as
 												t WHERE a.latest_version_id = t.artefact_ver_id
 											) as comment_count
@@ -170,40 +213,45 @@ $AppGlobal['sql']['getProjectArtefact'] = "SELECT sm.shared_date, a.artefact_id 
 											a.replace_ref_id is null
 											AND a.state != 'A' AND a.state != 'D'";
 
-$AppGlobal['sql']['getSharedArtefacts'] = "SELECT a.artefact_id as id, a.latest_version_id as artefact_ver_id,
-											a.artefact_title AS title, a.artefact_type AS document_type,
-											v.masked_artefact_version_id, v.state AS status, v.MIME_type,
-											p.project_id, p.project_name,
-											(SELECT logged_time FROM
-											   project_activity pa
-											 WHERE
-											   pa.logged_by = @~~userid~~@ AND a.artefact_id = pa.performed_on_id
-											 ORDER BY
-											   pa.logged_time DESC
-											 LIMIT 1
-										 	) AS artefact_time,
-											u.name as person_name,
-											u.profile_pic_url as image,
-											u.user_id as owner_id,
-											(SELECT COUNT(artefact_id) FROM ". TABLE_ARTEFACTS_VERSIONS ." AS ver WHERE
-											ver.artefact_id = a.artefact_id) as version,
-											(SELECT COUNT(comment_thread_id) FROM ". TABLE_COMMENT_THREADS ." t where
-											a.latest_version_id = t.artefact_ver_id) as comment_count
-											from ". TABLE_ARTEFACTS ." a
-											JOIN ". TABLE_ARTEFACTS_VERSIONS ." AS v ON a.latest_version_id = v.artefact_ver_id
-											JOIN ". TABLE_PROJECTS ." as p ON a.project_id = p.project_id
-											JOIN ". TABLE_ARTEFACTS_SHARED_MEMBERS ." AS asm ON asm.artefact_ver_id = a.latest_version_id
-											JOIN ". TABLE_USERS ." AS u ON u.user_id = asm.shared_by and u.user_id = asm.user_id
 
-											WHERE asm.artefact_id in
-											(SELECT m.artefact_id FROM ". TABLE_ARTEFACTS_SHARED_MEMBERS ." m where artefact_id
-												in (SELECT artefact_id FROM ". TABLE_ARTEFACTS_SHARED_MEMBERS ." as m group by artefact_id
-												having count(*) > 1) and (m.user_id = @~~userid~~@ OR m.shared_by = @~~userid~~@) AND m.user_id != m.shared_by
-												group by m.artefact_ver_id
-											)
-											AND a.replace_ref_id is null
-											AND a.state != 'A' AND a.state != 'D' AND p.state = 'A'
-											ORDER BY artefact_time DESC
+$AppGlobal['sql']['getSharedArtefacts'] = "SELECT 
+											a.artefact_id 			as artefact_id, 		
+											a.latest_version_id 	as artefact_version_id,
+											a.artefact_title 		as artefact_name, 
+											a.artefact_type 		as artefact_type,
+											av.masked_artefact_version_id, 
+											av.state 				as artefact_version_state,
+											av.MIME_type,
+											p.project_id, 
+											p.project_name,    
+											asm.shared_date AS artefact_activity_date,				# Artefact shared date with the user
+											u.name as user_name,
+											u.profile_pic_url as user_image,
+											u.user_id as owner_id,
+											(
+												SELECT 
+													COUNT(artefact_id) 
+												FROM ". TABLE_ARTEFACTS_VERSIONS ." AS ver 
+												WHERE ver.artefact_id = a.artefact_id
+											) as version,
+											(
+												SELECT 
+													COUNT(comment_thread_id) 
+												FROM ". TABLE_COMMENT_THREADS ." t 
+												WHERE a.latest_version_id = t.artefact_ver_id
+											) as comment_count
+											FROM artefact_shared_members asm 
+											JOIN users u ON u.user_id = 1
+											JOIN artefacts a ON a.artefact_id = asm.artefact_id
+											JOIN projects p ON a.project_id = p.project_id
+											JOIN artefact_versions av ON av.artefact_ver_id = a.latest_version_id
+											WHERE (asm.user_id = u.user_id OR asm.shared_by = u.user_id) AND
+												asm.user_id != asm.shared_by AND	
+												a.replace_ref_id is NULL AND 		# Artefact is not replaced
+												a.state != 'A' AND 					# Artefact is not archived
+												a.state != 'D' AND 					# Artefact is not deleted
+												p.state = 'A'						# Project is in Active state
+											ORDER BY artefact_activity_date DESC
 											LIMIT @~~limit~~@";
 
 $AppGlobal['sql']['getPeopleInProjects'] = "SELECT profile_pic_url as picture, name, email,
@@ -244,7 +292,11 @@ $AppGlobal['sql']['getNotifications'] = 'SELECT
 											COALESCE(t2.artefact_ver_id, t3.project_id) as notification_ref_id,
 											t2.masked_artefact_version_id,
 											t2.MIME_type,
-											t1.notification_date as time,
+											CONVERT_TZ(
+												t1.notification_date, 
+												@@session.time_zone, 
+												"+00:00"
+											)  as time,
 											CONCAT(UCASE(LEFT(t5.screen_name, 1)),LCASE(SUBSTRING(t5.screen_name, 2))) as notifier_name,
 											t1.notification_by as notifier_id,
 											t7.notification_type_name
@@ -269,7 +321,11 @@ $AppGlobal['sql']['getMeetingNotifications'] = 'SELECT
 										COALESCE(t4.meeting_id, t3.project_id) as notification_ref_id,
 										t2.masked_artefact_version_id,
 										t2.MIME_type,
-										t1.notification_date as time,
+										CONVERT_TZ(
+												t1.notification_date, 
+												@@session.time_zone, 
+												"+00:00"
+											)  as time,
 										CONCAT(UCASE(LEFT(t5.screen_name, 1)),LCASE(SUBSTRING(t5.screen_name, 2))) as notifier_name,
 										t1.notification_by as notifier_id,
 										t7.notification_type_name
@@ -334,7 +390,11 @@ $AppGlobal['sql']['getNotification'] = 'SELECT
 											COALESCE(t2.artefact_ver_id, t3.project_id) as notification_ref_id,
 											t2.masked_artefact_version_id,
 											t2.MIME_type,
-											t1.notification_date as time,
+											CONVERT_TZ(
+												t1.notification_date, 
+												@@session.time_zone, 
+												"+00:00"
+											)  as time,
 											CONCAT(UCASE(LEFT(t5.screen_name, 1)),LCASE(SUBSTRING(t5.screen_name, 2))) as notifier_name,
 											t1.notification_by as notifier_id,
 											t7.notification_type_name
@@ -387,7 +447,11 @@ $AppGlobal['sql']['getProjectActivities'] = 'SELECT
 											COALESCE(t2.artefact_ver_id, t3.project_id) as notification_ref_id,
 											t2.masked_artefact_version_id,
 											t2.MIME_type,
-											t1.notification_date as time,
+											CONVERT_TZ(
+												t1.notification_date, 
+												@@session.time_zone, 
+												"+00:00"
+											)  as time,
 											CONCAT(UCASE(LEFT(t5.screen_name, 1)),LCASE(SUBSTRING(t5.screen_name, 2))) as notifier_name,
 											t1.notification_by as notifier_id,
 											t7.notification_type_name

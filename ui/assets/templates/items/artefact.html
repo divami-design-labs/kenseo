@@ -10,25 +10,25 @@
             }
         })() %>">
 	<div class="rr-left">
-		<div class="rr-status rr-status-<%= data.status %>">
-			<span class="rr-doc-type"><% if(data['document_type']){  %><%= Kenseo.settings.docTypeShort[data['document_type']] %><% } %></span>
+		<div class="rr-status rr-status-<%= data['artefact_version_state'] %>">
+			<span class="rr-doc-type"><% if(data['artefact_type']){  %><%= Kenseo.settings.docTypeShort[data['artefact_type']] %><% } %></span>
 			<!-- based on the type of document svg changes accrodingly.. -->
-			<svg><use xlink:href="#<%=data['document_type']%>"></use></svg>
+			<svg><use xlink:href="#<%=data['artefact_type']%>"></use></svg>
 		</div>
-        <% if(data.image !== "assets/imgs/avatar.svg"){ %>
-            <img class="rr-owner-image" title="<%= data['person_name'] %>" src="<%= data.image %>"/>
+        <% if(data['user_image'] !== "assets/imgs/avatar.svg"){ %>
+            <img class="rr-owner-image" title="<%= data['user_name'] %>" src="<%= data['user_image'] %>"/>
         <% } else { %>
-            <svg class="rr-owner-image" title="<%= data['person_name'] %>"><use xlink:href="#avatar"></use></svg>
+            <svg class="rr-owner-image" title="<%= data['user_name'] %>"><use xlink:href="#avatar"></use></svg>
         <% } %>
 	</div>
 	<div class="rr-right">
 		<a <% if(isSupportedFile){ %>href="#documentview/<%= data.masked_artefact_version_id %>"<% } else{ %> style="cursor:default;" <% } %>>
-		<div class="rr-title ellipsis" title="<%= data.title %><% if(!isSupportedFile){ %> - Unsupported format<% } %>" data-id= "<%=data.id%>"><%= data.title %></div>
+		<div class="rr-title ellipsis" title="<%= data['artefact_name'] %><% if(!isSupportedFile){ %> - Unsupported format<% } %>" data-id= "<%=data['artefact_id']%>"><%= data['artefact_name'] %></div>
         <% if(!data['is_project_page']){ %>
         <div class="rr-project-name ellipsis"><%= data['project_name'] %></div>
         <% } %>
-        <% var time = sb.timeFormat(sb.addTimeZoneToDate(data['artefact_time'])) %>
-		<div class="rr-details ellipsis" title="<%= time %> by <%= data['person_name'] %>"><%= time %> by <%= data['person_name'] %></div>
+        <% var time = sb.timeFormat(sb.addTimeZoneToDate(data['artefact_activity_date'])) %>
+		<div class="rr-details ellipsis" title="<%= time %> by <%= data['user_name'] %>"><%= time %> by <%= data['user_name'] %></div>
 		</a>
 		<div class="rr-state-details">
 			<div class="rr-state">
@@ -129,7 +129,7 @@
 				<div class="item-icon">
 					<svg fill="#DBDCE0"><use xlink:href="#renameartifact"></use></svg>
 				</div>
-				<div class="sub-menu-item-text"> <a class="stop-propagate" href="<%=sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.id)%>" target="_blank" > Download </a> </div>
+				<div class="sub-menu-item-text"> <a class="stop-propagate" href="<%=sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data['artefact_id'])%>" target="_blank" > Download </a> </div>
 			</div>
 			<div class="sub-menu-item popup-click" data-url="delete-artefact">
 				<div class="item-icon">

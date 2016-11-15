@@ -9,10 +9,13 @@
 	"artefact_name",
 	"artefact_type",       // IXD, UID, Persona
 	"artefact_extension",  // MIME type
+	"masked_artefact_version_id",
+	"artefact_version_state",
+	"artefact_activity_date",
 	"replace_artefact_id",
 	"replace_artefact_version_id",
 	"new_version_artefact_id",   // adding a artefact as new version to another artefact
-	"new_version_latest-artefact_version_id",
+	"new_version_latest_artefact_version_id",
 
 	// Activities
 	"activity_id",
@@ -24,6 +27,7 @@
 	"user_designation",
 	"is_artefact_version_owner",  // holds 1 or 0
 	"is_self",             // holds 1 or 0
+	"user_image",
 
 	// Dates
 	"last_updated_date",
