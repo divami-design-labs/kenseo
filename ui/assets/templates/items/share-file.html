@@ -1,6 +1,6 @@
-<div class="to-share-file" data-k-id ="<%= data.id %>" data-k-versionid ="<%= data.version_id %>" data-k-artafactname ="<%= data.name %>" data-html-outside-click="false">
-	<div class="to-share-filetype" ><%if(data.type == 'U'){%> UID <%} else if(data.type == 'I') {%> IXD <%} else if(data.type == 'P') {%> P <%} else if(data.type == 'IA') {%> IA <%}%> </div>
-	<div class="to-share-filename"><%= data.name %></div>
+<div class="to-share-file" data-k-id ="<%= data.artefact_id %>" data-k-versionid ="<%= data.artefact_version_id %>" data-k-artafactname ="<%= data.artefact_name %>" data-html-outside-click="false">
+	<div class="to-share-filetype" ><%if(data.artefact_type == 'U'){%> UID <%} else if(data.artefact_type == 'I') {%> IXD <%} else if(data.artefact_type == 'P') {%> P <%} else if(data.artefact_type == 'IA') {%> IA <%}%> </div>
+	<div class="to-share-filename"><%= data.artefact_name %></div>
 	<div class="to-share-fileversion version-num">v<%= data.version_no%></div>
 	<div><input type="checkbox" class="is-shared"></div>
 </div>

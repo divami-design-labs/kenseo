@@ -68,7 +68,7 @@
 		public function archiveProject($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
-			$projectId = $data->id;
+			$projectId = $data->project_id;
 
 
 			//Archive project
@@ -111,7 +111,7 @@
 		public function unarchiveProject($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId = $interpreter->getUser()->user_id;
-			$projectId = $data->id;
+			$projectId = $data->project_id;
 
 
 			//Un archive project
@@ -303,7 +303,7 @@
 				$heightInPercentage		= $dimensions->height;
 				$leftCropInPercentage	= $dimensions->x;
 				$topCropInPercentage	= $dimensions->y;
-				$projectId				= $data->id;
+				$projectId				= $data->project_id;
 
 				// => Get the image
 

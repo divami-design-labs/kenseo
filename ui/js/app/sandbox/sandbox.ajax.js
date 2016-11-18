@@ -144,7 +144,7 @@ _.extend(sb, {
                 if (!dump) {
                     dump = {};
                 }
-                dump[data.id] = data;
+                dump[data.project_id] = data;
             }
             //storing data in kenseo object
             Kenseo.data[key] = dump;

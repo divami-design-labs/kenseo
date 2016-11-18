@@ -248,7 +248,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive an Artefact",
         		"message": function(){
-        			return 'Do you want to archive "' + sb.getPopupData('title') + '" artefact?';
+        			return 'Do you want to archive "' + sb.getPopupData('artefcat_name') + '" artefact?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -267,7 +267,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Delete an Artefact",
         		"message": function(){
-        			return 'Do you want to Delete "' + sb.getPopupData('title') + '" artefact?';
+        			return 'Do you want to Delete "' + sb.getPopupData('artefact_name') + '" artefact?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -286,7 +286,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive a Project",
         		"message": function(){
-        			return 'Do you want to archive "' + sb.getPopupData('name') + '" project ?';
+        			return 'Do you want to archive "' + sb.getPopupData('project_name') + '" project ?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -306,7 +306,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Unarchive a Project",
         		"message": function(){
-        			return 'Do you want to unarchive "' + sb.getPopupData('name') + '" project ?';
+        			return 'Do you want to unarchive "' + sb.getPopupData('project_name') + '" project ?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",
@@ -417,7 +417,7 @@ Kenseo.popups = (function(){
 				"page_name": "message",
 				"title": "Delete a Project",
 				"message": function(){
-					return 'Do you want to Delete "' + sb.getPopupData('name') + '" project?';
+					return 'Do you want to Delete "' + sb.getPopupData('project_name') + '" project?';
 				},
 				"buttons": [{
 					"label": "Yes",
@@ -451,7 +451,7 @@ Kenseo.popups = (function(){
 						var $personaHolder  = $('.persona-template-capture');
 						html2canvas($personaHolder.get(0), {
 							onrendered: function(canvas) {
-								var imgData = canvas.toDataURL('image/png');              
+								var imgData = canvas.toDataURL('image/png');
 								var pdf = new jsPDF('p', 'px', 'a2');
 								pdf.addImage(imgData, 'PNG', 10, 10);
 								pdf.save('persona.pdf');

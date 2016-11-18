@@ -47,14 +47,14 @@ Kenseo.views.MeetingNotes = Backbone.View.extend({
         var data = this.model.toJSON();
         // prepare the edit meeting invitation field values
         sb.setPopulateValue('update-meeting', 'agenda',                 data.agenda);
-        sb.setPopulateValue('update-meeting', 'artefact_name',          data.artefactName);
-        sb.setPopulateValue('update-meeting', 'project_id',             data.projectId);
-        sb.setPopulateValue('update-meeting', 'project_name',           data.projectName);
+        sb.setPopulateValue('update-meeting', 'artefact_name',          data.artefact_name);
+        sb.setPopulateValue('update-meeting', 'project_id',             data.project_id);
+        sb.setPopulateValue('update-meeting', 'project_name',           data.project_name);
         sb.setPopulateValue('update-meeting', 'venue',                  data.venue);
-        sb.setPopulateValue('update-meeting', 'meeting_id',             this.payload.meetingId);
-        sb.setPopulateValue('update-meeting', 'meeting_date',           data.date);
-        sb.setPopulateValue('update-meeting', 'meeting_date_from_time', data.fromTime);
-        sb.setPopulateValue('update-meeting', 'meeting_date_to_time',   data.toTime);
+        sb.setPopulateValue('update-meeting', 'meeting_id',             this.payload.meeting_id);
+        sb.setPopulateValue('update-meeting', 'meeting_date',           data.meeting_date);
+        sb.setPopulateValue('update-meeting', 'meeting_date_from_time', data.meeting_date_from_time);
+        sb.setPopulateValue('update-meeting', 'meeting_date_to_time',   data.meeting_date_to_time);
         sb.setPopulateValue('update-meeting', 'participants_user_ids',  data.participants.map(function(participant){ return participant.id }));
 
         Kenseo.scope = this;

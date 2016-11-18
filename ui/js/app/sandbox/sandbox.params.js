@@ -9,33 +9,33 @@ _.assign(sb, {
 						"status","title","version"]
 		},
 		"edit-artefact" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","doctype","id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","doctype","artefact_id","image","is_project_page",
 						"linksIds","links","references","referencesIds","tags","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
 						"status","title","version"]
 		},
 		"rename-artefact" : {
-			params : ["id","name","owner_id","project_id","project_name","title","version","artefact_name","artefact_ver_id"]
+			params : ["artefact_id","name","owner_id","project_id","project_name","title","version","artefact_name","artefact_version_id"]
 		},
 		"share-artefact" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","ids","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","document_type","artefact_id","ids","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
-						"status","title","version","shared_members"]
+						"status","artafact_name","version","shared_members"]
 		},
 		"delete-artefact" : {
-			params : ["artefact_ver_id","id","name","owner_id","project_id","status","title","version"]
+			params : ["artefact_version_id","artefact_id","artefact_name","owner_id","project_id","status","title","version"]
 		},
 		"archive-artefact" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","document_type","artefact_id","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
 						"status","title","version"]
 		},
 		"replace-artefact" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","document_type","artefact_id","existing_artefact_id","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
 						"status","title","version"]
 		},
 		"add-version" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","artefact_id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","document_type","existing_artefact_id","artefact_id","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
 						"status","title","version"]
 		},
@@ -45,17 +45,17 @@ _.assign(sb, {
 						"status","title","version"]
 		},
 		"edit-artefact-info" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","document_type","artefact_id","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
 						"status","title","version"]
 		},
 		"create-meeting" : {
 			params :
-			["projectId","venue","date","projectName","artefactId","artefactName","agenda","fromTime","toTime","participants","timezone"]
+			["project_id","venue","meeting_date","project_name","artefact_id","artefact_name","agenda","meeting_date_from_time","meeting_date_to_time","participants","timezone"]
 		},
 		"update-meeting" : {
 			params :
-			["projectId","venue","date","projectName","artefactId","artefactName","agenda","fromTime","toTime","participants","timezone","meeting_id"]
+			["project_id","venue","meeting_date","project_name","artefact_id","artefact_name","agenda","meeting_date_from_time","meeting_date_to_time","participants","participants_user_ids","timezone","meeting_id"]
 		},
 		"write-meeting-notes" : {
 			params :
@@ -71,7 +71,7 @@ _.assign(sb, {
 		},
 		"cover-image" : {
 			params :
-			["dimensions","id","files"]
+			["dimensions","project_id","files"]
 		},
 		"delete-comment" : {
 			params :

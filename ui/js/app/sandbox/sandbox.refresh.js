@@ -198,14 +198,14 @@ sb.refresh = (function(){
 				return sb.ajaxCall({
 					url: sb.getRelativePath('getMeetingNotes'),
 					data: {
-	                    meetingId: Kenseo.data.meetingId
+	                    meeting_id: Kenseo.data.meetingId
 	                },
 					success: function(response){
 						var data = response.data;
 
 						var meetingNoteView = new Kenseo.views.MeetingNotes({
 							model: new Kenseo.models.Meeting(data),
-							meetingId: response.params.meetingId
+							meeting_id: response.params.meeting_id
 						});
 
 						meetingNoteView.render();
@@ -240,18 +240,18 @@ sb.refresh = (function(){
 	                },
 	                success: function success(response) {
 	                    var currentProjectInfo = Kenseo.data.projects[Kenseo.page.id];
-	                    sb.setTitle(currentProjectInfo['name']);
+	                    sb.setTitle(currentProjectInfo['project_name']);
 						sb.setPageData(currentProjectInfo, 'project');
 
 						sb.refresh.section('header');
 						sb.refresh.section('project-page');
-						
+
 						// registring click event to the create meeting link from project actions to store field populating data
 						sb.attachIn('click', '.main-section-project-icon-holder [data-url="create-meeting"]', function(){
 							// for populating the project id in meeting invitation form
 							sb.setPopulateValue('create-meeting', 'project_id', Kenseo.page.id);
 							// for populating the project name in meeting invitation form
-							sb.setPopulateValue('create-meeting', 'project_name', currentProjectInfo['name']);
+							sb.setPopulateValue('create-meeting', 'project_name', currentProjectInfo['project_name']);
 						});
 	                }
 	            });

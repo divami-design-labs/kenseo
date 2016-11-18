@@ -96,7 +96,7 @@ Class EmailMessages{
                     "receiveruserid" => $receiverId
                 )));
             }else{
-                $mailInfo = $db->singleObjectQuery(getQuery('getUserMailUser', array(
+                $mailInfo = $db->singleObjectQuery(getQuery('getUserPermissionMail', array(
                     "projectid" => $data['project_id'],
                     "userid" => $senderId,
                     "receiveruserid" => $receiverId

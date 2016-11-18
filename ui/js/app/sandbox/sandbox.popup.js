@@ -29,8 +29,8 @@ sb.popup = {
                 // var $selectedElement = $currentPopup.find('.project-selection-block-title');
                 $('input[type=radio][name=projectSection]').change(function() {
                     var $selectedElement = $(this).next().find('.project-selection-block-title');
-                    sb.setPopupData($selectedElement.html(), "name");
-                    sb.setPopupData($selectedElement.attr('data-k-project_id'), "id");
+                    sb.setPopupData($selectedElement.html(), "project_name");
+                    sb.setPopupData($selectedElement.attr('data-k-project_id'), "project_id");
                     $currentPopup.find(".main-btn").prop("disabled", false);
                 });
             }
@@ -50,7 +50,7 @@ sb.popup = {
       });
     },
     shareArtefactPopup: function shareArtefactPopup() {
-        var projectId = sb.getPopupData("id");
+        var projectId = sb.getPopupData("project_id");
         var $currentPopup = Kenseo.current.popup;
         var container = $currentPopup.find(".choose-existing-file-holder");
         container.html("");
@@ -59,7 +59,7 @@ sb.popup = {
             collection: new Kenseo.collections.Artefacts(),
             container: $('.popup'),
             data: {
-                projectid: projectId,
+                project_id: projectId,
                 references: true,
                 withVersions: true,
                 ignore: 0
@@ -272,14 +272,16 @@ sb.popup = {
         var projectId;
         if(Kenseo.popup.data.actionType === "addVersion" || Kenseo.popup.data.actionType === "replaceArtefact") {
             projectId = sb.getPopupData("project_id") || sb.getPopupData("projId");
+            var artefact_id = sb.getPopupData("artefact_id");
         } else {
-            projectId = sb.getPopupData("id");
+            projectId = sb.getPopupData("project_id");
         }
         sb.ajaxCall({
             collection: new Kenseo.collections.Artefacts(),
             container: $('.popup'),
             data: {
-                projectid: projectId,
+                project_id: projectId,
+                artefact_id: artefact_id,
                 references: true,
                 withVersions: true,
                 ignore: 0
@@ -288,6 +290,10 @@ sb.popup = {
                 var $currentPopup = Kenseo.current.popup;
                 var container = $currentPopup.find(".existing-files-combobox")[0];
                 Kenseo.globalArtefacts = response.data;
+                Kenseo.globalArtefacts.forEach(function(item){
+                    item.id = item.artefact_id;
+                    item.name = item.artefact_name;
+                });
                 Kenseo.combobox.existingCombobox = sb.toolbox.applyComboBox({
                     elem: container,
                     data: Kenseo.globalArtefacts,
@@ -336,9 +342,9 @@ sb.popup = {
                     },
                     insertAfter: function insertAfter($input, $selectedEl, bln) {
                         if (bln) {
-                            sb.setPopupData($selectedEl.data("id"), "artefact_id");
-                            sb.setPopupData($selectedEl.html(), "artefactName");
-                            sb.setPopupData($selectedEl.data('version_id'), 'version_id');
+                            sb.setPopupData($selectedEl.data("id"), "existing_artefact_id");
+                            sb.setPopupData($selectedEl.html(), "existing_artefact_name");
+                            sb.setPopupData($selectedEl.data('artefact_version_id'), 'existing_artefact_version_id');
 
                             // A flag to determine that an existing file is selected
                             Kenseo.popup.info.existingFileSelected = true;
@@ -417,7 +423,7 @@ sb.popup = {
             settings: {
                 multiSelect: true,
                 filterData: {
-                    'version_id': Kenseo.popup.data.version_id || Kenseo.popup.data.artefact_ver_id
+                    'version_id': Kenseo.popup.data.artefact_version_id || Kenseo.popup.data.artefact_ver_id
                 }
             }
         });
@@ -431,7 +437,7 @@ sb.popup = {
             settings: {
                 multiSelect: true,
                 filterData: {
-                    'version_id': Kenseo.popup.data.version_id || Kenseo.popup.data.artefact_ver_id
+                    'version_id': Kenseo.popup.data.artefact_version_id || Kenseo.popup.data.artefact_ver_id
                 }
             }
         });
@@ -450,7 +456,7 @@ sb.popup = {
             container: $('.popup'),
             data: {
                 "nonreferences": true,
-                "versionId": sb.getPopupData("artefact_ver_id"),
+                "versionId": sb.getPopupData("artefact_version_id"),
                 "project_id": sb.getPopupData("project_id") || sb.getPopupData("projId")
             },
             success: function success(res) {
@@ -465,7 +471,7 @@ sb.popup = {
             container: $('.popup'),
             data: {
                 "nonlinkedfiles": true,
-                "artefactId": sb.getPopupData("id") || sb.getPopupData("artefactId"),
+                "artefactId": sb.getPopupData("id") || sb.getPopupData("artefact_id"),
                 "project_id": sb.getPopupData("project_id") || sb.getPopupData("projId")
             },
             success: function success(resp) {
@@ -495,7 +501,7 @@ sb.popup = {
                 container: $('.popup'),
                 data: {
                     "all": true,
-                    "versionId": sb.getPopupData("artefact_ver_id") || sb.getPopupData("version_id"),
+                    "artefact_version_id": sb.getPopupData("artefact_version_id") || sb.getPopupData("version_id"),
                     "project_id": sb.getPopupData("project_id") || sb.getPopupData("id")
                 },
                 success: function success(resp) {
@@ -529,7 +535,7 @@ sb.popup = {
             container: $('.popup'),
             data: {
                 "all": true,
-                "versionId": sb.getPopupData("artefact_ver_id") || sb.getPopupData("version_id"),
+                "versionId": sb.getPopupData("artefact_version_id") || sb.getPopupData("version_id"),
                 "projectId": sb.getPopupData("project_id") || sb.getPopupData("id")
             },
             success: function success(resp) {
@@ -664,8 +670,8 @@ sb.popup = {
                 elem: container,
                 data: projectResponse.data,
                 params: {
-                    id: "id",
-                    name: "name"
+                    id: "project_id",
+                    name: "project_name"
                 },
                 settings: {
                     placeholder: "Choose Project",
@@ -685,8 +691,8 @@ sb.popup = {
                     var projectId = $selectedEl.attr("data-id");
                     var projectName = $selectedEl.html();
 
-                    sb.setPopupData(projectId, "projectId");
-                    sb.setPopupData(this.innerText, "projectName");
+                    sb.setPopupData(projectId, "project_id");
+                    sb.setPopupData(this.innerText, "project_name");
 
                     $(this).parent().hide();
                     sb.setPopupData([], "selectedUsers");
@@ -775,6 +781,10 @@ sb.popup = {
             var artefactCombobox = sb.toolbox.applyComboBox({
                 elem: artefactComboboxContainer,
                 data: [],
+                params: {
+                    id: "artefact_id",
+                    name: "artefact_name"
+                },
                 settings: {
                     placeholder: "Choose Artefact",
                     value: Kenseo.page.data.artefact && Kenseo.page.data.artefact.name || ""
@@ -803,7 +813,11 @@ sb.popup = {
                     },
                     "success": function success(response) {
                         artefactCombobox.refresh({
-                            newSuggestions: response.data
+                            newSuggestions: response.data.map(function(item){
+                                item.name = item.artefact_name;
+                                item.id = item.artefact_id;
+                                return item;
+                            })
                         });
 
                         if(callbackfunc){

@@ -19,28 +19,33 @@ $AppGlobal['sql']['getActiveUserId'] = "SELECT user_id
 $AppGlobal['sql']['getHeader'] = "SELECT profile_pic_url as picture, name, screen_name, designation FROM ". TABLE_USERS ." WHERE user_id = @~~userid~~@";
 
 // Get Projects
-$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id as id, project_name as name, description, 													last_updated_date as last_updated_date, intro_image_url,
-											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
-											FROM " . TABLE_PROJECTS . "
+$AppGlobal['sql']['getMyProjectsList'] = "SELECT project_id, project_name as project_name, description as project_description,
+											CONVERT_TZ((SELECT MAX(notification_date) FROM ".TABLE_NOTIFICATIONS." WHERE project_id = projects.project_id LIMIT 1),	@@session.time_zone,
+												'+00:00'
+											) as last_updated_date,
+											intro_image_url,IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
+											FROM " . TABLE_PROJECTS . " as projects
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . "
 											WHERE user_id = @~~userid~~@) AND state = 'A' ORDER BY last_updated_date DESC LIMIT @~~limit~~@";
 
-$AppGlobal['sql']['getAProject'] = "SELECT project_id as id, project_name as name, last_updated_date as last_updated_date, intro_image_url,
+$AppGlobal['sql']['getAProject'] = "SELECT project_id, project_name as project_name, last_updated_date as last_updated_date, intro_image_url,
 											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
 											FROM " . TABLE_PROJECTS . "
 											WHERE project_id = @~~projectid~~@ AND state = 'A' ORDER BY last_updated_date DESC";
 
-$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as id, project_name as name, description, 												last_updated_date as last_updated_date, intro_image_url,
-											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
-											FROM " . TABLE_PROJECTS . "
+$AppGlobal['sql']['getMyProjectsListAll'] = "SELECT project_id as project_id, project_name as project_name, description as project_description,
+											(SELECT MAX(notification_date) FROM ".TABLE_NOTIFICATIONS." WHERE project_id = projects.project_id LIMIT 1) as last_updated_date,
+											intro_image_url,IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
+											FROM " . TABLE_PROJECTS . " as projects
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . "
 											WHERE user_id = @~~userid~~@) AND state = 'A' ORDER BY last_updated_date DESC";
 
-$AppGlobal['sql']['getMyProjectsWithArchive'] = "SELECT project_id as id, project_name as name, description, 											last_updated_date as last_updated_date, intro_image_url,
-											IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
-											FROM " . TABLE_PROJECTS . "
+$AppGlobal['sql']['getMyProjectsWithArchive'] = "SELECT project_id as project_id, project_name as project_name, description as project_description,
+											(SELECT MAX(notification_date) FROM ".TABLE_NOTIFICATIONS." WHERE project_id = projects.project_id LIMIT 1) as last_updated_date,
+											intro_image_url,IF(created_by=@~~userid~~@, 1, 0) as is_owner, IF( state =  'Z', 1, 0 ) AS is_archive
+											FROM " . TABLE_PROJECTS . " as projects
 											WHERE project_id IN (SELECT proj_id
 											FROM " . TABLE_PROJECT_MEMBERS . "
 											WHERE user_id = @~~userid~~@) ORDER BY last_updated_date DESC";
@@ -103,7 +108,7 @@ $AppGlobal['sql']['getNonReferenceFiles'] = "SELECT DISTINCT sm.shared_date, a.a
 											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
 											inner join ". TABLE_ARTEFACTS_SHARED_MEMBERS ." sm on sm.artefact_ver_id = a.latest_version_id AND sm.artefact_id = a.artefact_id AND u.user_id = sm.user_id
 											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id WHERE a.project_id = @~~projectId~~@ AND a.artefact_id
-											NOT IN (SELECT artefact_id FROM artefact_ref_docs WHERE artefact_ver_id = @~~versionId~~@) AND a.latest_version_id !=@~~versionId~~@ ";
+											NOT IN (SELECT artefact_id FROM artefact_ref_docs WHERE artefact_ver_id = @~~versionId~~@) AND a.state != 'D' AND a.latest_version_id !=@~~versionId~~@ ";
 
 $AppGlobal['sql']['getNonLinkedFiles'] = "SELECT DISTINCT sm.shared_date, a.artefact_id as id, v.artefact_ver_id, v.masked_artefact_version_id,
 											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
@@ -114,7 +119,7 @@ $AppGlobal['sql']['getNonLinkedFiles'] = "SELECT DISTINCT sm.shared_date, a.arte
 											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
 											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
 											inner join ". TABLE_ARTEFACTS_SHARED_MEMBERS ." sm on sm.artefact_ver_id = a.latest_version_id AND sm.artefact_id = a.artefact_id AND u.user_id = sm.user_id
-											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id WHERE a.project_id = @~~projectId~~@ AND a.artefact_id
+											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id WHERE a.project_id = @~~projectId~~@ AND a.state != 'D' AND a.artefact_id
 											NOT IN (SELECT linked_to_id FROM artefact_links WHERE linked_from_id = @~~artefactId~~@ ) AND a.artefact_id NOT IN (SELECT linked_from_id FROM artefact_links WHERE linked_to_id = @~~artefactId~~@) AND a.artefact_id !=@~~artefactId~~@ ";
 
 $AppGlobal['sql']['getProjectArtefacts'] = "SELECT 
@@ -240,8 +245,8 @@ $AppGlobal['sql']['getSharedArtefacts'] = "SELECT
 												FROM ". TABLE_COMMENT_THREADS ." t 
 												WHERE a.latest_version_id = t.artefact_ver_id
 											) as comment_count
-											FROM artefact_shared_members asm 
-											JOIN users u ON u.user_id = 1
+											FROM artefact_shared_members asm
+											JOIN users u ON u.user_id = @~~userid~~@
 											JOIN artefacts a ON a.artefact_id = asm.artefact_id
 											JOIN projects p ON a.project_id = p.project_id
 											JOIN artefact_versions av ON av.artefact_ver_id = a.latest_version_id
@@ -560,13 +565,13 @@ $AppGlobal['sql']['getArtefactsLink'] = "SELECT DISTINCT artefacts.artefact_id,a
 $AppGlobal['sql']['getArtefactInfo'] = "SELECT * FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artefactid~~@";
 
 $AppGlobal['sql']['getReferences'] = "SELECT DISTINCT
-				 						artefacts.artefact_id as id,
-										artefacts.artefact_type as type,
-										artefacts.artefact_title as name,
+				 						artefacts.artefact_id as artefact_id,
+										artefacts.artefact_type as artefact_type,
+										artefacts.artefact_title as artefact_name,
 										versions.created_date as date,
-										versions.artefact_ver_id as version_id,
+										versions.artefact_ver_id as artefact_version_id,
 										versions.version_no as version_no,
-										requestor.name as userName
+										requestor.name as user_name
 
 										FROM " . TABLE_ARTEFACTS . " AS artefacts
 
@@ -586,8 +591,8 @@ $AppGlobal['sql']['getReferences'] = "SELECT DISTINCT
 										(SELECT versions.artefact_ver_id from " . TABLE_ARTEFACTS_SHARED_MEMBERS . " AS members
 										WHERE members.user_id = @~~userid~~@ or members.shared_by =  @~~userid~~@)) AND
 										artefacts.replace_ref_id IS NULL AND
-										artefacts.artefact_id != @~~ignore~~@ AND
-										artefacts.state != 'A' AND artefacts.project_id = @~~projectid~~@";
+										artefacts.artefact_id != @~~ignore~~@ AND artefacts.artefact_id != @~~artefactid~~@ AND
+										artefacts.state != 'A' AND artefacts.state != 'D' AND artefacts.project_id = @~~projectid~~@";
 
 $AppGlobal['sql']['getProjectActivity'] = "SELECT p.project_name, pa.logged_time as time,
 											pa.performed_on as activityOn,
@@ -671,21 +676,21 @@ $AppGlobal['sql']['getMeetingNotes'] = "SELECT users.user_id as userId, notes.pa
 										WHERE meeting_id = @~~meetingId~~@ and users.user_id != @~~userId~~@ and notes.is_public = 1";
 
 $AppGlobal['sql']['getMeetingDetails'] = "SELECT
-											proj.project_name as projectName,
-											arts.artefact_title as artefactName,
-											user.name as createdBy,
-											meets.meeting_time as date,
-											DATE_FORMAT(meets.meeting_time, '%H:%i') as fromTime,
-											DATE_FORMAT(meets.meeting_end_time, '%H:%i') as toTime,
+											proj.project_name as project_name,
+											arts.artefact_title as artefact_name,
+											user.name as created_by,
+											meets.meeting_time as meeting_date,
+											DATE_FORMAT(meets.meeting_time, '%H:%i') as meeting_date_from_time,
+											DATE_FORMAT(meets.meeting_end_time, '%H:%i') as meeting_date_to_time,
 											meets.venue as venue,
 											meets.meeting_agenda as agenda,
 											notes.meeting_id,
 											notes.is_public,
-											meets.project_id as projectId,
-											notes.participant_notes as userNotes,
-											participant.user_id as participantId,
-											participant.name as participantName,
-											participant.profile_pic_url as participantPic
+											meets.project_id as project_id,
+											notes.participant_notes as user_notes,
+											participant.user_id as participant_id,
+											participant.name as participant_name,
+											participant.profile_pic_url as participant_pic
 											FROM " . TABLE_MEETINGS . " AS  meets
 											JOIN " . TABLE_MEETING_NOTES . " as notes on
 											notes.meeting_id = @~~meetingId~~@ and participant_id = @~~userId~~@
@@ -862,7 +867,7 @@ $AppGlobal['sql']['getArtefactSharedMembersList'] = "SELECT DISTINCT user.user_i
 													WHERE membs.artefact_id =
 													(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@) and user.user_id!=@~~userId~~@";
 
-$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as title,arts.artefact_id as artefactId, arts.project_id as projectId,arts.artefact_type as artefact_type,vers.version_no as versionNo,vers.artefact_ver_id as versionId, user.name as authorName, user.profile_pic_url as authorImage,
+$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as artefact_title,arts.artefact_id as artefact_id, arts.project_id as project_id,arts.artefact_type as artefact_type,vers.version_no as versionNo,vers.artefact_ver_id as versionId, user.name as authorName, user.profile_pic_url as authorImage,
 											(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
 											WHERE
 											thread.artefact_ver_id IN (select artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = @~~maskedVerId~~@)) as comment_count, vers.state as status
@@ -1051,6 +1056,26 @@ $AppGlobal['sql']['getOtherProjectMembersMailUserRemoved'] = "SELECT
 													    (SELECT GROUP_CONCAT(t5.email SEPARATOR ',') FROM users as t5 WHERE user_id in (@~~removeduserid~~@)) as removed_user_emails,
 														GROUP_CONCAT(t2.email SEPARATOR ',') as emails,
 														GROUP_CONCAT(t2.screen_name SEPARATOR ',') as users,
+														t3.project_name as project_name,
+														(select name from users where user_id = @~~receiveruserid~~@) as receivers_user_name,
+														(select email from users where user_id = @~~receiveruserid~~@ ) as receivers_user_email
+													FROM
+														project_members t1
+														JOIN users t2 ON t2.user_id = t1.user_id
+														JOIN projects t3 ON t3.project_id = t1.proj_id
+													WHERE
+														proj_id = @~~projectid~~@
+														and t1.user_id != @~~userid~~@";
+$AppGlobal['sql']['getUserPermissionMail'] = "SELECT
+														(
+															select
+																t4.screen_name
+															from
+																users t4
+															where
+																user_id = @~~userid~~@
+														) as activity_done_user_name,
+
 														t3.project_name as project_name,
 														(select name from users where user_id = @~~receiveruserid~~@) as receivers_user_name,
 														(select email from users where user_id = @~~receiveruserid~~@ ) as receivers_user_email

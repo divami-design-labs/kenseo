@@ -510,8 +510,8 @@ var sb = _.extend(sb, (function () {
                             else if(dump.files && dump.files.length > 1){
                                 return "Multiple files";
                             }
-                            else if(dump.artefactName){
-                                return dump.artefactName;
+                            else if(dump.artefact_name){
+                                return dump.artefact_name;
                             }else if(dump.artTitle){
                                 return dump.artTitle;
 
@@ -739,7 +739,7 @@ var sb = _.extend(sb, (function () {
                     newData = newData.map(function(item){
                         var obj = {};
                         for(var param in params){
-                            obj[param] = item[param];
+                            obj[param] = item[params[param]];
                         }
                         return obj;
                     })

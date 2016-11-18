@@ -2,12 +2,14 @@
 	// Projects
 	"project_id",
 	"project_name",
+	"project_description"
 
 	// Artefacts
 	"artefact_id",
 	"artefact_version_id",
 	"artefact_name",
 	"artefact_type",       // IXD, UID, Persona
+	"version"			   //version number
 	"artefact_extension",  // MIME type
 	"masked_artefact_version_id",
 	"artefact_version_state",
@@ -42,5 +44,7 @@
 	"meeting_date",
 	"meeting_date_from_time",
 	"meeting_date_to_time",
-	"participants_user_ids"
+	"participants",
+	"participants_user_ids",
+	"timezone"
 ]

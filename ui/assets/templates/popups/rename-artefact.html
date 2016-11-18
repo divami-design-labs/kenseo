@@ -2,8 +2,8 @@
     <%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
     <div class="popup-body">
         <div class="popup-body-wrapper">
-            <% var title = Kenseo.popup.data.title;
-                title = _.initial(title.split('.')).join('.'); 
+            <% var title = Kenseo.popup.data.artefact_name;
+                title = _.initial(title.split('.')).join('.');
             %>
             <%=
                 sb.toolbox.textBox({

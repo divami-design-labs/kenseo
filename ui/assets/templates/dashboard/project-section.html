@@ -3,7 +3,7 @@
 <div class="project-block-overlay">
 	<div class="project-block-overlay-wrapper">
 		<div class="project-block-title">
-			<%= data.name %>
+			<%= data.project_name %>
 		</div>
 		<div class="project-block-details">
 			<div class="project-block-details-icon">
@@ -13,7 +13,7 @@
 		</div>
 	</div>
 </div>
-<div class="project-block-hover-content data-holder" data-key="projects" data-id="<%= data.id %>">
+<div class="project-block-hover-content data-holder" data-key="projects" data-id="<%= data.project_id %>">
 	<div class="project-black-out"></div>
 	<div class="project-actions-wrapper">
 		<div class="project-action" data-url="add-artefact" data-index="1">
@@ -44,5 +44,5 @@
 		</div>
 		<% } %>
 	</div>
-	<a href="#projectpage/<%= data.id %>" class="btn-project-open">Open Project</a>
+	<a href="#projectpage/<%= data.project_id %>" class="btn-project-open">Open Project</a>
 </div>

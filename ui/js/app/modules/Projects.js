@@ -207,12 +207,12 @@ Kenseo.views.Project = Backbone.View.extend({
 Kenseo.models.Projects = Backbone.Model.extend({
     // urlRoot: "app/packages/db-projects.json",
     defaults: {
-        id: null,
+        project_id: null,
         intro_image_url: null,
         is_archive: null,
         is_owner: null,
         last_updated_date: null,
-        name: null
+        project_name: null
     }
 });
 

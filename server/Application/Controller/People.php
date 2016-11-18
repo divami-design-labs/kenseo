@@ -149,7 +149,7 @@
 					if(!$artefactVersions->$artfId) {
 						$artefactVersions->$artfId = $artf;
 					} else {
-						$artefactVersions->$artfId->artefact_ver_id = $artf->artefact_ver_id;
+						$artefactVersions->$artfId->artefact_ver_id = $artf->artefact_version_id;
 					}
 				}
 

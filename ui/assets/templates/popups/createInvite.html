@@ -19,7 +19,7 @@
 						"inputAttr": _.assign({
 							"value": sb.getPopulateValue(data.populateType, 'project_name'),
 							"data-xtype": "id,text",
-							"data-xtype-key": "projectId,projectName"
+							"data-xtype-key": "project_id,project_name"
 							}, function(){
 								return isUpdateMeetingForm? {disabled: true}: {}
 							}()
@@ -40,7 +40,7 @@
 						"inputAttr": _.assign({
 							"value": sb.getPopulateValue(data.populateType, 'artefact_name'),
 							"data-xtype": "id,text",
-							"data-xtype-key": "artefactId,artefactName"},
+							"data-xtype-key": "artefact_id,artefact_name"},
 							function(){
 								return isUpdateMeetingForm? {disabled: true}: {}
 							}()
@@ -81,7 +81,7 @@
 						%>
 						<div class="input-label required">Scheduled on</div>
 						<div class="input-wrapper float-left mini-datepicker">
-							<input type="text" value="<%= dateValue || sb.timeFormat(dateValue, true, true, true, {twoDigitDay: true}) %>" class="input-meeting-date float-left k-field" data-xtype="text" data-xtype-key="date"></input>
+							<input type="text" value="<%= dateValue || sb.timeFormat(dateValue, true, true, true, {twoDigitDay: true}) %>" class="input-meeting-date float-left k-field" data-xtype="text" data-xtype-key="meeting_date"></input>
 							<div class="datepicker-icon-holder float-left">
 								<div class="datepicker-icon">
 									<svg><use xlink:href="#calendar"></use></svg>
@@ -104,7 +104,7 @@
 					<div class="field-section in-line">
 						<div class="input-wrapper float-left">
 							<div class="time-label">From</div>
-							<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime k-field" data-xtype="text-date" data-xtype-key="fromTime">
+							<select class="projects-dropdown dropdown mini-dropdown no-margin fromTime k-field" data-xtype="text-date" data-xtype-key="meeting_date_from_time">
 								<% var fromTime = sb.getPopulateValue(data.populateType, 'meeting_date_from_time') %>
 								<% var fromTimeSelectIndex = 0 %>
 								<%
@@ -122,7 +122,7 @@
 									}
 								%>
 								<% _.each(timeValues, function(time, i){ %>
-									<option <% if(i === fromTimeSelectIndex - 1){ %>selected<% } %> value="<%= sb.getHHTime(time) %>"><%= time %></option>
+									<option <% if(i === - 1){ %>selected<% } %> value="<%= sb.getHHTime(time) %>"><%= time %></option>
 								<% }) %>
 							</select>
 						</div>
@@ -130,7 +130,7 @@
 					<div class="field-section in-line">
 						<div class="input-wrapper float-left">
 							<div class="time-label">To</div>
-							<select class="projects-dropdown dropdown no-margin mini-dropdown toTime k-field" data-xtype="text-date,timezone-offset" data-xtype-key="toTime,timezone">
+							<select class="projects-dropdown dropdown no-margin mini-dropdown toTime k-field" data-xtype="text-date,timezone-offset" data-xtype-key="meeting_date_to_time,timezone">
 								<% var toTime = sb.getPopulateValue(data.populateType, 'meeting_date_to_time') %>
 								<% var toTimeSelectIndex = 0 %>
 								<%

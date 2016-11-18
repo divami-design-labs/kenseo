@@ -5,7 +5,7 @@
             <svg><use xlink:href="#projects"></use></svg>
         </div>
         <a href="#projects" class="heading-text-project">Projects &gt; </a>
-        <a href="#projectpage/<%= data.projectId %>" class="heading-text-project-name"><%= data.projectName %></a>
+        <a href="#projectpage/<%= data.project_id %>" class="heading-text-project-name"><%= data.project_name %></a>
         <span class="heading-date">(<%= sb.timeFormat(data.startTime, true, true ,true) %>)</span>
         <div class="meeting-update-btn-holder">
             <div class="popup-click meeting-update-button" data-url="update-meeting" data-others="populate">Update</div>
@@ -15,15 +15,15 @@
         <div class="meeting-left-section">
             <div class="meta-item">
                 <div class="meta-heading">Under</div>
-                <div class="meta-text"><%= data.projectName %></div>
+                <div class="meta-text"><%= data.project_name %></div>
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Artefact</div>
-                <div class="meta-text"><%= data.artefactName %></div>
+                <div class="meta-text"><%= data.artefact_name %></div>
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Sender</div>
-                <div class="meta-text"><%= data.createdBy %></div>
+                <div class="meta-text"><%= data.created_by %></div>
             </div>
             <div class="meta-item">
                 <div class="meta-heading">Agenda</div>
@@ -32,8 +32,8 @@
             <div class="meta-item">
                 <div class="meta-heading">Scheduled On</div>
                 <div class="meta-text">
-                    <div><%= sb.timeFormat(data.date, true, true, true) %></div>
-                    <div><%= sb.convertToAMPM(data.fromTime) %> to <%= sb.convertToAMPM(data.toTime) %></div>
+                    <div><%= sb.timeFormat(data.meeting_date, true, true, true) %></div>
+                    <div><%= sb.convertToAMPM(data.meeting_date_from_time) %> to <%= sb.convertToAMPM(data.meeting_date_to_time) %></div>
                 </div>
             </div>
             <div class="meta-item">
@@ -50,12 +50,12 @@
         <div class="meeting-right-section">
             <div class="meeting-people-section">
                 <div class="meeting-people-active">
-                	<div class='currentPersonNotes acitiveNotesPartcipant' data-user="<%= data.participantId %>">
+                	<div class='currentPersonNotes acitiveNotesPartcipant' data-user="<%= data.participant_id %>">
 	                    <div class="people-img-wrapper">
-	                        <img src="<%=data.participantPic%>" />
+	                        <img src="<%=data.participant_pic%>" />
 	                    </div>
 	                    <span class="meeting-people-name">
-	                        <%=data.participantName%>
+	                        <%=data.participant_name%>
 	                    </span>
                 	</div>
 	                <% _.each(data.notes, function(p){ %>
@@ -71,8 +71,8 @@
 	            	<% }); %>
                </div>
                 <div class="meeting-people-other">
-                    <div class="people-img-wrapper participant active" data-user=<%=data.participantId%>>
-                        <img src="<%=data.participantPic%>" />
+                    <div class="people-img-wrapper participant active" data-user=<%=data.participant_id%>>
+                        <img src="<%=data.participant_pic%>" />
                     </div>
                     <div class="v-separator"></div>
                     <% _.each(data.notes, function(p){ %>
@@ -88,8 +88,8 @@
                     <button name="text-i" text-name="italic">Italic</button>
                     <button name="text-u" text-name="underline">Underline</button>
                 </div>
-                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="<%= data.participantId %>">
-                	<%=data.userNotes%>
+                <div class="text-editor view-notes selectedNotes" contenteditable=true data-user="<%= data.participant_id %>">
+                	<%=data.user_notes%>
                 </div>
                 <% _.each(data.notes, function(p){ %>
             		<div class="view-notes" data-user="<%= p.userId %>" >

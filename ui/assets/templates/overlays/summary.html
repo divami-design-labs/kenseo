@@ -8,7 +8,7 @@
                     <img class="rr-owner-image" title="<%=data.basicDetails.authorName %>" src="<%= data.basicDetails.authorImage %>"/>
                 </div>
                 <div class="rr-right">
-                    <div class="rr-title ellipsis" title="<%= data.basicDetails.title %>"><%= data.basicDetails.title %></div>
+                    <div class="rr-title ellipsis" title="<%= data.basicDetails.title %>"><%= data.basicDetails.artefact_title %></div>
                     <div class="rr-details ellipsis" title="Version <%=data.basicDetails.versionNo%>.0">Version <%=data.basicDetails.versionNo%>.0</div>
                     <div class="rr-state-details">
                         <div class="rr-state-x">
@@ -24,13 +24,13 @@
         </div>
         <div class="summary-header-right">
             <div class="summary-header-actions">
-                <div class="summary-header-action-item submit-action-icon" data-url="share-artefact" data-index="2">
+                <div class="summary-header-action-item submit-action-icon popup-click" data-url="share-artefact" data-index="2">
                     <svg class="summary-header-icon"><use xlink:href="#share-artefact"></use></svg>
                     Share
                 </div>
                 <div class="summary-header-action-item delete-action-icon" data-url="delete-artefact">
                     <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#renameartifact"></use></svg>
-                    <div> <a class="stop-propagate" href="<%=sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.basicDetails.artefactId)%>" target="_blank" > Download </a> </div>
+                    <div> <a class="stop-propagate" href="<%=sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.basicDetails.artefact_id)%>" target="_blank" > Download </a> </div>
                 </div>
                 <div class="summary-header-action-item archive-action-icon">
                     <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>
@@ -87,7 +87,7 @@
                     <div class="artifacts-heading sub-heading">
                         <div class="sub-heading-label">Shared with</div>
                         <div class="sub-heading-add-wrapper">
-                            <div class="sub-heading-add-icon" data-url="share-artefact" data-index="2">
+                            <div class="sub-heading-add-icon popup-click" data-url="share-artefact" data-index="2">
                                 <svg><use xlink:href="#add"></use></svg>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                     <div class="sub-heading">
                         <div class="sub-heading-label">Versions</div>
                         <div class="sub-heading-add-wrapper">
-                            <div class="sub-heading-add-icon " data-url="add-version">
+                            <div class="sub-heading-add-icon popup-click" data-url="add-version">
                                 <svg><use xlink:href="#add"></use></svg>
                             </div>
                         </div>

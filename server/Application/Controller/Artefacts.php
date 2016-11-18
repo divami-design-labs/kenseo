@@ -41,8 +41,8 @@
 			$userId = $interpreter->getUser()->user_id;
 			$data = $interpreter->getData()->data;
 			$db = Master::getDBConnectionManager();
-			$id = $data->id;
-			$verId = $data->artefact_ver_id;
+			$id = $data->artefact_id;
+			$verId = $data->artefact_version_id;
 
 			$queryParams = array('versionid' => $verId);
 			$sharedMembersQuery = getQuery('getArtefactSharedMembersListFromVersionId', $queryParams);
@@ -845,7 +845,7 @@
 
 		public function deleteArtefact($interpreter) {
 			$data = $interpreter->getData()->data;
-			$artId = $data -> id;
+			$artId = $data ->artefact_id;
 			$userId = $interpreter->getUser()->user_id;
 
 			//first get project ID
@@ -854,7 +854,7 @@
 			$queryParams = array('artId' => $artId );
 			$dbQuery = getQuery('getProjectOfArtefact',$queryParams);
 			$artefactProjId = $db->singleObjectQuery($dbQuery);
-			$project_id = $artefactProjId -> project_id;
+			$project_id = $artefactProjId ->project_id;
 
 			$db->updateTable(TABLE_ARTEFACTS, array('state'), array('D') ,"artefact_id = " . $artId);
 
@@ -882,8 +882,8 @@
 				'by'			=> $userId,
 				'type'			=> 'delete',
 				'on'			=> 'artefact',
-				'ref_ids'		=> $data->artefact_ver_id,
-				'ref_id'		=> $data->artefact_ver_id,
+				'ref_ids'		=> $data->artefact_version_id,
+				'ref_id'		=> $data->artefact_version_id,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $data->project_id
 			),$db);
@@ -976,10 +976,11 @@
 
 			$userid = $interpreter->getUser()->user_id;
 			$ignore = $data->ignore;
-			$projectid = $data->projectid;
+			$projectid = $data->project_id;
+			$artefactId = $data->artefact_id;
 			$db = Master::getDBConnectionManager();
 
-			$queryParams = array("userid" =>$userid, "ignore"=>$ignore, "projectid" => $projectid);
+			$queryParams = array("userid" =>$userid, "ignore"=>$ignore, "projectid" => $projectid, "artefactid" => $artefactId );
 
 			$dbQuery = getQuery('getReferences',$queryParams);
 
@@ -1033,7 +1034,7 @@
 			if($data->projId){
 				$projectId = $data->projId;
 			}
-			$previousArtefactid = $data->id;
+			$previousArtefactid = $data->artefact_id;
 			if($data->artefactId){
 				$previousArtefactid = $data->artefactId;
 			}
@@ -1154,7 +1155,7 @@
 
 				// params
 				$targetArtefactId 	= $previousArtefactid;
-				$otherArtefactId 	= $data->artefact_id;
+				$otherArtefactId 	= $data->existing_artefact_id;
 				// get latest artefact version of target artefact
 				$targetArtefactInfo = $db->singleObjectQuery(getQuery(
 					"getLatestVerionOfArtefact",
@@ -1437,7 +1438,7 @@
 						$db->replaceMultipleRow(TABLE_ARTEFACTS_SHARED_MEMBERS, $columnNames, $rowValues);
 					}
 
-					$org_id = $db->singleObjectQuery(getQuery('getProjectOrganizationId', 
+					$org_id = $db->singleObjectQuery(getQuery('getProjectOrganizationId',
 							array('project_id' => $projectId)))->org_id;
 					// Add tags to the artefacts]
 					$tagList = json_decode($data->tags);
@@ -1657,7 +1658,7 @@
 			$info = $interpreter->getData();
 			$data = $info->data;
 			$userId = $info->userId;
-			$projectId = $data->id;
+			$projectId = $data->project_id;
 			$messages = new stdClass();
 			$dataList = new stdClass();
 			// $artVerId = isset($info->versionId)? $info->versionId: $data->{'artefact_ver_id'};
@@ -1679,8 +1680,8 @@
 					}
 					$artefactAndVersionIds = array();
 					$artefactVersionIdHolder = new stdClass();
-					$artefactVersionIdHolder->{'artefact_version_id'} = $data->artefact_ver_id;
-					$artefactVersionIdHolder->{'artefact_id'} = $data->id;
+					$artefactVersionIdHolder->{'artefact_version_id'} = $data->artefact_version_id;
+					$artefactVersionIdHolder->{'artefact_id'} = $data->artefact_id;
 					if($data->artefactId){
 						$artefactVersionIdHolder->{'artefact_id'} = $data->artefactId;
 					}

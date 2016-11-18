@@ -27,10 +27,10 @@
 
 
 				// store params in variables
-				$projectId 			= $params->projectId;
+				$projectId 			= $params->project_id;
 				$location 			= $params->location;
-				$fromTime 			= $params->fromTime;
-				$toTime 			= $params->toTime;
+				$fromTime 			= $params->meeting_date_from_time;
+				$toTime 			= $params->meeting_date_to_time;
 				$feature 			= $params->feature;
 				$description 		= $params->description;
 				$summary 			= $params->summary;
@@ -246,8 +246,8 @@
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $result->newAttendees);
 
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "venkateshwar - from time");
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $params->fromTime);
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, $params->toTime);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $params->meeting_date_from_time);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $params->meeting_date_to_time);
 
 			for($i = 0; $i < count($result->newAttendees); $i++) {
 				if($result->newAttendees[$i]) {
@@ -272,28 +272,28 @@
 			$result = new stdClass();
 
 			// get params
-			$result->projectId = $data->projectId;
+			$result->project_id = $data->project_id;
 			$result->location = $data->venue;
 			// Converting string to datetime format and then again to string for further operations
 			$date = DateTime::createFromFormat(
 						"d M Y",
-						$data->date
+						$data->meeting_date
 					)->format('Y-m-d');
-			$result->fromTime 	= $date . "T" . $data->fromTime . ":00.000" . $data->timezone;
-			$result->toTime 	= $date . "T" . $data->toTime 	. ":00.000" . $data->timezone;
+			$result->meeting_date_from_time 	= $date . "T" . $data->meeting_date_from_time . ":00.000" . $data->timezone;
+			$result->meeting_date_to_time   	= $date . "T" . $data->meeting_date_to_time 	. ":00.000" . $data->timezone;
 
-			$project = $data->projectName;
-			$result->feature = $data->artefactId;
-			$featureName = $data->artefactName;
+			$project = $data->project_name;
+			$result->feature = $data->artefact_id;
+			$featureName = $data->artefact_name;
 			// $meetingType = "";
 			$result->description = isset($data->agenda) ? $data->agenda : "Description";
 			$result->summary = $project ." : " . $featureName;
 
 			$result->start = new Google_Service_Calendar_EventDateTime();
-			$result->start->setDateTime($result->fromTime);
+			$result->start->setDateTime($result->meeting_date_from_time);
 
 			$result->end = new Google_Service_Calendar_EventDateTime();
-			$result->end->setDateTime($result->toTime);
+			$result->end->setDateTime($result->meeting_date_to_time);
 
 			$result->attendeesUserIds = join(",", array_map(function($item){
 				return $item->id;
@@ -344,7 +344,7 @@
 
 			$db = Master::getDBConnectionManager();
 
-			$queryParams = array(meetingId => $data->meetingId, userId=> $user->user_id);
+			$queryParams = array(meetingId => $data->meeting_id, userId=> $user->user_id);
 
 			//first get meeting Details
 			$dbQuery = getQuery('getMeetingDetails',$queryParams);
@@ -411,10 +411,10 @@
 
 				// store params in variables
 				// @SELF NOTE: project id and artefact id should not be changed while updating a meeting invitation
-				$projectId 			= $params->projectId;  
+				$projectId 			= $params->project_id;
 				$location 			= $params->location;
-				$fromTime 			= $params->fromTime;
-				$toTime 			= $params->toTime;
+				$fromTime 			= $params->meeting_date_from_time;
+				$toTime 			= $params->meeting_date_to_time;
 				$feature 			= $params->feature;
 				$description 		= $params->description;
 				$summary 			= $params->summary;
