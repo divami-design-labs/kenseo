@@ -239,7 +239,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
                     // preparing global data which is useful to render backbone view
                     var data = _this.model.toJSON();
                     Kenseo._globalData_ = {
-                        currentArtefactId: data['artefact_ver_id'],
+                        currentArtefactId: data['artefact_version_id'],
                         documentViewScope: _this
                     }
                 }

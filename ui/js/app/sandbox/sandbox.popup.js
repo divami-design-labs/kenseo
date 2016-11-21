@@ -536,7 +536,7 @@ sb.popup = {
             data: {
                 "all": true,
                 "versionId": sb.getPopupData("artefact_version_id") || sb.getPopupData("version_id"),
-                "projectId": sb.getPopupData("project_id") || sb.getPopupData("id")
+                "projectId": sb.getPopupData("project_id") || sb.getPopupData("Kenseo.page.id")
             },
             success: function success(resp) {
                 //render all the others in a COMBO

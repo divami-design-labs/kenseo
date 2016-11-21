@@ -4,7 +4,7 @@ _.assign(sb, {
 			params : ["project_name","project_description"]
 		},
 		"add-artefact" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","doctype","id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","doctype","id","image","is_project_page",
 						"linksIds","links","references","referencesIds","tags","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date","project_description",
 						"status","title","version"]
 		},
@@ -40,7 +40,7 @@ _.assign(sb, {
 						"status","title","version"]
 		},
 		"private-message" : {
-			params : ["MIME_type","actionType","artefact_time","artefact_ver_id","comment_count","document_type","id","image","is_project_page",
+			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","document_type","id","image","is_project_page",
 						"linked_id","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date",
 						"status","title","version"]
 		},
@@ -63,7 +63,7 @@ _.assign(sb, {
 		},
 		"add-people" : {
 			params :
-			["project_id","access_type","group_type","users"]
+			["project_id","access_type","group_type","users","artefact_version_id"]
 		},
 		"submit-artefact" : {
 			params :

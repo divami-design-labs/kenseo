@@ -248,7 +248,7 @@ Kenseo.popups = (function(){
         		"page_name": "message",
         		"title": "Archive an Artefact",
         		"message": function(){
-        			return 'Do you want to archive "' + sb.getPopupData('artefcat_name') + '" artefact?';
+        			return 'Do you want to archive "' + sb.getPopupData('artefact_name') + '" artefact?';
         		},
 	        	"buttons": [{
 	            	"label": "Yes",

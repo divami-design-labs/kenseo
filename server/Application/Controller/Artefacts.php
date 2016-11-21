@@ -413,9 +413,9 @@
 			}
 
 			$projectId = $data->project_id;
-			$targetArtefactId 	= $data->id;
+			$targetArtefactId 	= $data->artefact_id;
 			// $targetProjectId	= $data->project_id;
-			$existingArtefactId	= $data->artefact_id;
+			$existingArtefactId	= $data->existing_artefact_id;
 
 			$userId = $interpreter->getUser()->user_id;
 			$date = date("Y-m-d H:i:s");
@@ -793,7 +793,7 @@
 		public function archiveArtefact($interpreter) {
 			$data = $interpreter->getData()->data;
 			$userId =  $interpreter->getUser()->user_id;
-			$artId = $data->id;
+			$artId = $data->artefact_id;
 
 			$db = Master::getDBConnectionManager();
 			$db->beginTransaction();
@@ -818,8 +818,8 @@
 				'by'			=> $userId,
 				'type'			=> 'archive',
 				'on'			=> 'artefact',
-				'ref_ids'		=> $data->artefact_ver_id,
-				'ref_id'		=> $data->artefact_ver_id,
+				'ref_ids'		=> $data->artefact_version_id,
+				'ref_id'		=> $data->artefact_version_id,
 				'recipient_ids' => $notificationRecipients,
 				'project_id'	=> $data->project_id
 			),$db);
@@ -1165,18 +1165,20 @@
 				));
 
 				$targetArtefactVersionId = $targetArtefactInfo->verId;
+				$version = $targetArtefactInfo->version;
+
+
+				$otherArtefactInfo = $db->singleObjectQuery(getQuery(
+					"getLatestVerionOfArtefact",
+					array(
+						"artId" => $otherArtefactId
+					)
+				));
 
 				// => Replace other artefact id's info from database with target artefact id
-				$db->updateTable(
-					TABLE_ARTEFACTS_VERSIONS,
-					array(
-						"artefact_id"
-					),
-					array(
-						$targetArtefactId
-					),
-					"artefact_id = " . $otherArtefactId
-				);
+
+				$db->singleResultQuery("UPDATE artefact_versions set artefact_id = $targetArtefactId,version_no = version_no+$version where artefact_id=$otherArtefactId");
+
 
 				// => Mention in the artefact table that the other artefact id is replaced with the target artefact id
 				$db->updateTable(
@@ -1189,12 +1191,33 @@
 					),
 					"artefact_id = " . $otherArtefactId
 				);
+				$db->updateTable(
+					TABLE_ARTEFACTS,
+					array(
+						"latest_version_id"
+					),
+					array(
+						$otherArtefactInfo->verId
+					),
+					"artefact_id = " . $targetArtefactId
+				);
 
-				$versionParams = array('artId' => $targetArtefactId);
-				$versionQuery = getQuery('getLatestVerionOfArtefact', $versionParams);
-				$artefact_ver_id = $db->singleObjectQuery($versionQuery);
+				$db->updateTable(
+					TABLE_ARTEFACTS_SHARED_MEMBERS,
+					array(
+						"artefact_id"
+					),
+					array(
+						$targetArtefactId
+					),
+					"artefact_id = " . $otherArtefactId
+				);
 
-				$versionParams = array('newVer' => $targetArtefactId);
+				// $versionParams = array('artId' => $targetArtefactId);
+				// $versionQuery = getQuery('getLatestVerionOfArtefact', $versionParams);
+				$artefact_ver_id = $otherArtefactInfo->verId;
+
+				$versionParams = array('newVer' => $otherArtefactInfo->verId);
 				$versionQuery = getQuery('getLatestArtefactMaskedVersionId', $versionParams);
 				$newMaskedArtefactVErsionVersionId = $db->singleObjectQuery($versionQuery);
 
@@ -1235,7 +1258,7 @@
 
 					if(!$inArrayFlag){
 						$storeObj = new stdClass();
-						$storeObj->{"artefact_ver_id"}	= $targetArtefactVersionId;
+						$storeObj->{"artefact_ver_id"}	= $otherArtefactInfo->verId;
 						$storeObj->{"artefact_id"}		= $targetArtefactId;
 						$storeObj->{"user_id"}			= $item->{"user_id"};
 						$storeObj->{"access_type"}		= $item->{"access_type"};
@@ -1789,7 +1812,7 @@
 			$queryParams = array('maskedArtefactVersionId' => $maskedArtefactVersionId, "userid" => $userId);
 			$detailsQuery = getQuery('getArtefactDetails', $queryParams);
 			$artefactObj = $db->singleObjectQuery($detailsQuery);
-			$artefactVerId = $artefactObj->artefact_ver_id;
+			$artefactVerId = $artefactObj->artefact_version_id;
 
 			// Get all versions of an artefact
 			$versionQuery = getQuery('getArtefactVersionSummary', $queryParams);

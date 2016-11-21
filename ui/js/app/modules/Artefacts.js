@@ -259,7 +259,7 @@ Kenseo.models.Artefacts = Backbone.Model.extend({
 	defaults: {
 		MIME_type: null,
 		artefact_time: null,
-		artefact_ver_id: null,
+		artefact_version_id: null,
 		comment_count: null,
 		document_type: null,
 		id: null,

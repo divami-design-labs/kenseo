@@ -117,7 +117,7 @@
         </div>
         <div class="current-artefact-info bar">
             <div>
-                <a href="#projects">Projects > </a><a href="#projectpage/<%= data.projId %>"><%= data.projName  %> >  </a><%= data.artTitle  %> </div>
+                <a href="#projects">Projects > </a><a href="#projectpage/<%= data.project_id %>"><%= data.project_name  %> >  </a><%= data.artefact_name  %> </div>
             <div class="html-click show-all-versions">
                 <div>
                     <span>v<%= data.versionNo  %>.0</span>
@@ -185,7 +185,7 @@
         <div class="dvt-item share-artefact-icon popup-click" data-url="share-artefact" data-index="2" title="Share this artefact">
             <svg><use xlink:href="#share-artefact"></use></svg>
         </div>
-        <div class="dvt-item submit-review-icon popup-click<% if(!data.isPdf){ %> hide <% } %>" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=<%= data.artefact_ver_id %>">
+        <div class="dvt-item submit-review-icon popup-click<% if(!data.isPdf){ %> hide <% } %>" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=<%= data.artefact_version_id %>">
             <svg><use xlink:href="#submit-review"></use></svg>
         </div>
         <div class="dvt-item html-click sub-menu-nav more-menu-icon" title="more options">
