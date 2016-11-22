@@ -290,6 +290,10 @@ sb.refresh = (function(){
 		},
 		addArtefact: function(response){
 			refreshTasks(response);
+			if(response.data.projectData){
+				Kenseo.data.model = response.data.projectData.data;
+				sb.trigger($(window), 'addProject');
+			}
 		},
 		shareArtefact: function(response){
 			//triggers an event to add artefact

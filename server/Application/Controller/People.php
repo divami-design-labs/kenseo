@@ -170,7 +170,7 @@
 
 					// Prepare rows for artefact shared members
 					foreach($artefactVersions as $key => $value) {
-						$artf_members_values[] = array($value->artefact_ver_id, $value->artefact_id, $actualusers[$i]->user_id,$accessType, date("Y-m-d H:i:s"), $userId, 0);
+						$artf_members_values[] = array($value->artefact_version_id, $value->artefact_id, $actualusers[$i]->user_id,$accessType, date("Y-m-d H:i:s"), $userId, 0);
   				}
 				}
 

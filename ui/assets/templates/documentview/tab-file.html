@@ -1,6 +1,6 @@
 <div class="each-tab">
-<a href="#documentview/<%= maskedVersionId %>" class="tab-item selectedTab" targetRel="<%= data.versionId %>">
-    <div class= "fileTab">
+<a href="#documentview/<%= maskedVersionId %>" class="tab-item selectedTab" targetRel="<%= data.artefact_version_id %>">
+     <div class= "fileTab">
         <svg><use xlink:href="#file-tab"></use></svg>
     </div>
 </a>
@@ -11,7 +11,7 @@
           <use xlink:href="#tab-close"></use>
         </svg>
       </div>
-      <a href="#projectpage/<%= data.projId %>"><%= data.projName  %> >  </a><%= data.artTitle  %>
+      <a href="#projectpage/<%= data.project_id %>"><%= data.project_name  %> >  </a><%= data.artefact_name  %>
     </div>
 </div>
 </div>

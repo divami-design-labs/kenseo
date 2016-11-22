@@ -69,7 +69,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
 
                 // no items template
                 if(data.length === 0){
-                    _this.templateHolder.html("No artefacts found");
+                    _this.templateHolder.html("<div class='no-artefacts'>No artefacts found</div>");
                 }
             }
         }));
@@ -83,7 +83,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                 });
                 filteredData.forEach(function(model){
                     $('.review-requests-content').find('.review-request-item').each(function(){
-                        if($(this).find('.rr-title').attr('data-id') == model.id){
+                        if($(this).find('.rr-title').attr('data-id') == model.artefact_id){
                             $(this).remove();
                         }
                     });
@@ -92,7 +92,16 @@ Kenseo.views.Artefacts = Backbone.View.extend({
             } else if(Kenseo.current.page === "project-page"){
                 filteredData = Kenseo.data.model.filter(function(model){
                     return (Kenseo.page.id === model.project_id);
-                })
+                });
+
+                filteredData.forEach(function(model){
+                    $('.artifacts-content').find('.review-request-item').each(function(){
+                        if($(this).find('.rr-title').attr('data-id') == model.artefact_id){
+                            $(this).remove();
+                        }
+                    });
+                });
+
             }
             filteredData.forEach(function(model){
                 var view = new Kenseo.views.Artefact({
@@ -101,6 +110,9 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                     collection: _this.collection,
                     parent: _this
                 });
+                if(_this.templateHolder.find('.no-artefacts').length){
+                    _this.templateHolder.find('.no-artefacts').remove();
+                }
                 _this.templateHolder.prepend(view.el);
             });
 

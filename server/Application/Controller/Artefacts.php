@@ -150,7 +150,7 @@
 			if($data->artefact_id){
 				 $artId = $data->artefact_id;
 			}
-			$artVerId = $data->artefact_ver_id;
+			$artVerId = $data->artefact_version_id;
 			$fileName = $data->title;
 			if($data->artTitle){
 				$fileName = $data->artTitle;
@@ -250,9 +250,8 @@
 
 
 
-			$verId = $data->artefact_ver_id;
 
-			$queryParams = array('versionid' => $verId);
+			$queryParams = array('versionid' => $artVerId);
 			$sharedMembersQuery = getQuery('getArtefactSharedMembersListFromVersionId', $queryParams);
 			$recipients = $db->multiObjectQuery($sharedMembersQuery);
 			$i = 0;
@@ -1346,6 +1345,7 @@
 				// Get the newly added project's id
 				$data->project_id = $newdata->projectid;
 				$projectId = $data->project_id;
+				$dataList->projectData = $newdata;
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->project_name);
 			}
 
@@ -1590,6 +1590,9 @@
 			$resultMessage->type = "success";
 			$resultMessage->message = "Successfully added artefact";
 			$resultMessage->icon = "success";
+			if($dataList->projectData){
+				$resultMessage->message = "Successfully added project and artefact";
+			}
 			// return $resultMessage;
 			//return array();
 			$dataList->messages = $resultMessage;
