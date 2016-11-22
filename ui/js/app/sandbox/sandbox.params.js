@@ -14,7 +14,7 @@ _.assign(sb, {
 						"status","title","version"]
 		},
 		"rename-artefact" : {
-			params : ["artefact_id","name","owner_id","project_id","project_name","title","version","artefact_name","artefact_version_id"]
+			params : ["artefact_id","name","owner_id","project_id","project_name","title","version","artefact_name","artefact_new_name","artefact_version_id"]
 		},
 		"share-artefact" : {
 			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","document_type","artefact_id","ids","image","is_project_page",

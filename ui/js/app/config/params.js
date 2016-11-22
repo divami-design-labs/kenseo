@@ -14,6 +14,7 @@
 	"masked_artefact_version_id",
 	"artefact_version_state",
 	"artefact_activity_date",
+	"artefact_new_name", //used for renaming artefact
 	"replace_artefact_id",
 	"replace_artefact_version_id",
 	"new_version_artefact_id",   // adding a artefact as new version to another artefact

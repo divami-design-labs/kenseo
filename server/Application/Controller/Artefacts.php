@@ -53,8 +53,8 @@
 				$i++;
 			}
 
-			$extension = end(explode('.', $data->title));
-			$artefact_name = $data->artefact_name.".".$extension;
+			$extension = end(explode('.', $data->artefact_name));
+			$artefact_name = $data->artefact_new_name.".".$extension;
 			$resultObj->artefact = $db->updateTable(
 						TABLE_ARTEFACTS,
 						array(

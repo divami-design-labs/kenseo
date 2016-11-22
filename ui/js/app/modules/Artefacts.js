@@ -173,8 +173,8 @@ Kenseo.views.Artefact = Backbone.View.extend({
         var data = this.model.toJSON();
         sb.setPopulateValue('create-meeting', 'project_name',   data['project_name']);
         sb.setPopulateValue('create-meeting', 'project_id',     data['project_id']);
-        sb.setPopulateValue('create-meeting', 'artefact_name',  data['title']);
-        sb.setPopulateValue('create-meeting', 'artefact_id',    data['id']);
+        sb.setPopulateValue('create-meeting', 'artefact_name',  data['artefact_name']);
+        sb.setPopulateValue('create-meeting', 'artefact_id',    data['artefact_id']);
     },
     // deleteArtefact: function(e){
     //     // var el = e.currentTarget;
