@@ -9,15 +9,22 @@
 			$limit 	= $data->limit;
 
 			$db = Master::getDBConnectionManager();
-			$queryDetails = getQuery('getNotifications',array("userid" => $userId, '@limit'=>$limit));
-			$resultArtefactObj = $db->multiObjectQuery($queryDetails);
-			$queryDetails = getQuery('getMeetingNotifications',array("userid" => $userId, '@limit'=>$limit));
-			$meetingResultObj = $db->multiObjectQuery($queryDetails);
-			$resultObj = array_merge($resultArtefactObj,$meetingResultObj);
-			uasort($resultObj,function($a, $b){
-			     return $a->time < $b->time;
-			});
-			$result = array_slice($resultObj, 0, 12);
+
+			if($data->userActivities == "true"){
+				$queryDetails = getQuery('getUserNotifications',array("userid" => $userId, '@limit'=>$limit));
+				$resultArtefactObj = $db->multiObjectQuery($queryDetails);
+				$resultObj = $resultArtefactObj;
+			}else{
+				$queryDetails = getQuery('getNotifications',array("userid" => $userId, '@limit'=>$limit));
+				$resultArtefactObj = $db->multiObjectQuery($queryDetails);
+				$queryDetails = getQuery('getMeetingNotifications',array("userid" => $userId, '@limit'=>$limit));
+				$meetingResultObj = $db->multiObjectQuery($queryDetails);
+				$resultObj = array_merge($resultArtefactObj,$meetingResultObj);
+				uasort($resultObj,function($a, $b){
+				     return $a->time < $b->time;
+				});
+			}
+			$result = array_slice($resultObj, 0, $limit);
 			$resultLen = count($result);
 			for($i = 0; $i < $resultLen ; $i++ )  {
 				if($result[$i]->notification_on == 'meeting') {

@@ -71,7 +71,7 @@ _.assign(sb, {
 		},
 		"cover-image" : {
 			params :
-			["dimensions","project_id","files"]
+			["dimensions","actionType","project_id","files"]
 		},
 		"delete-comment" : {
 			params :

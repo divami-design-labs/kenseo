@@ -313,15 +313,45 @@ $AppGlobal['sql']['getNotifications'] = 'SELECT
 											CONCAT(notification_type,"-",notification_on) as notification_type_name
 										FROM notifications t1
 										LEFT JOIN artefact_versions t2 ON t1.notification_ref_id = t2.artefact_ver_id AND
-										t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										t1.notification_on = 1 		#notification on artefact
 										JOIN artefacts t4 ON t4.artefact_id = t2.artefact_id
 										LEFT JOIN projects t3 ON t1.notification_ref_id = t3.project_id AND
-										t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										t1.notification_on = 2		#notification on project
 										JOIN users t5 ON t5.user_id = t1.notification_by
 										JOIN notification_users_map t6 ON t6.notification_id = t1.notification_id
 										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id
                                         JOIN notification_on_map t8 ON t1.notification_on = t8.notification_on_id
 										WHERE t6.user_id = @~~userid~~@ ORDER BY t1.notification_date DESC LIMIT @~~limit~~@';
+$AppGlobal['sql']['getUserNotifications'] = 'SELECT
+											t1.notification_id,
+											COALESCE(t4.artefact_title, t3.project_name) as notification_name,
+											COALESCE(t2.artefact_ver_id, t3.project_id) as notification_ref_id,
+											t2.masked_artefact_version_id,
+											t2.MIME_type,
+											CONVERT_TZ(
+												t1.notification_date,
+												@@session.time_zone,
+												"+00:00"
+											)  as time,
+											CONCAT(UCASE(LEFT(t5.screen_name, 1)),LCASE(SUBSTRING(t5.screen_name, 2))) as notifier_name,
+											t1.notification_by as notifier_id,
+											t7.notification_type_name
+											as notification_type,
+											t8.notification_on_name
+										   as notification_on,
+											CONCAT(notification_type,"-",notification_on) as notification_type_name
+										FROM notifications t1
+										LEFT JOIN artefact_versions t2 ON t1.notification_ref_id = t2.artefact_ver_id AND
+										t1.notification_on = 1 		#notification on artefact
+										JOIN artefacts t4 ON t4.artefact_id = t2.artefact_id
+										LEFT JOIN projects t3 ON t1.notification_ref_id = t3.project_id AND
+										t1.notification_on = 2		#notification on project
+										JOIN users t5 ON t5.user_id = t1.notification_by
+										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id
+                                        JOIN notification_on_map t8 ON t1.notification_on = t8.notification_on_id
+										WHERE t1.notification_by = @~~userid~~@ ORDER BY t1.notification_date DESC LIMIT @~~limit~~@';
+
+
 $AppGlobal['sql']['getMeetingNotifications'] = 'SELECT
 										t1.notification_id,
 										COALESCE(t4.meeting_title, t3.project_name) as notification_name,
@@ -342,10 +372,10 @@ $AppGlobal['sql']['getMeetingNotifications'] = 'SELECT
 										CONCAT(notification_type,"-",notification_on) as notification_type_name
 										FROM notifications t1
 										LEFT JOIN artefact_versions t2 ON t1.notification_ref_id = t2.artefact_ver_id AND
-										t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										t1.notification_on = 3 #notification on meeting
 										JOIN meetings t4 ON t4.meeting_id = t1.notification_ref_id
 										LEFT JOIN projects t3 ON t1.notification_ref_id = t3.project_id AND
-										t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										t1.notification_on = 2
 										JOIN users t5 ON t5.user_id = t1.notification_by
 										JOIN notification_users_map t6 ON t6.notification_id = t1.notification_id
 										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id
@@ -367,10 +397,10 @@ $AppGlobal['sql']['getArtefactNotifications'] = 'SELECT DISTINCT
 											CONCAT(t7.notification_type_name,"-",t8.notification_on_name) as notification_type_name
 										FROM notifications t1
 										LEFT JOIN artefact_versions t2 ON t1.notification_ref_id = t2.artefact_ver_id
-										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										AND t1.notification_on = 1
 										JOIN artefacts t4 ON t4.artefact_id = t2.artefact_id
 										LEFT JOIN projects t3 ON t1.notification_ref_id = t3.project_id
-										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										AND t1.notification_on = 2
 										JOIN users t5 ON t5.user_id = t1.notification_by
 										JOIN notification_users_map t6 ON t6.notification_id = t1.notification_id
 										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id
@@ -411,10 +441,10 @@ $AppGlobal['sql']['getNotification'] = 'SELECT
 											CONCAT(notification_type,"-",notification_on) as notification_type_name
 										FROM notifications t1
 										LEFT JOIN artefact_versions t2 ON t1.notification_ref_id = t2.artefact_ver_id
-										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										AND t1.notification_on = 1
 										JOIN artefacts t4 ON t4.artefact_id = t2.artefact_id
 										LEFT JOIN projects t3 ON t1.notification_ref_id = t3.project_id
-										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										AND t1.notification_on = 2
 										JOIN users t5 ON t5.user_id = t1.notification_by
 										JOIN notification_users_map t6 ON t6.notification_id = t1.notification_id
 										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id
@@ -436,10 +466,10 @@ $AppGlobal['sql']['getMeetingNotification'] = 'SELECT
 											CONCAT(notification_type,"-",notification_on) as notification_type_name
 										FROM notifications t1
 										LEFT JOIN artefact_versions t2 ON t1.notification_ref_id = t2.artefact_ver_id
-										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
-										JOIN meetings t4 ON t4.meeting_id = t1.notification_ref_id
+										AND t1.notification_on = 1
+										JOIN meetings t4 ON t4.meeting_id = t1.notification_ref_id AND t1.notification_on = 3
 										LEFT JOIN projects t3 ON t1.notification_ref_id = t3.project_id
-										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										AND t1.notification_on = 2
 										JOIN users t5 ON t5.user_id = t1.notification_by
 										JOIN notification_users_map t6 ON t6.notification_id = t1.notification_id
 										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id
@@ -468,10 +498,10 @@ $AppGlobal['sql']['getProjectActivities'] = 'SELECT
 											CONCAT(notification_type,"-",notification_on) as notification_type_name
 										FROM notifications t1
 										LEFT JOIN artefact_versions t2 ON t1.notification_ref_id = t2.artefact_ver_id
-										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										AND t1.notification_on = 1
 										JOIN artefacts t4 ON t4.artefact_id = t2.artefact_id
 										LEFT JOIN projects t3 ON t1.notification_ref_id = t3.project_id
-										AND t1.notification_on IN (SELECT t8.notification_on_id WHERE t8.notification_on_id = t1.notification_on)
+										AND t1.notification_on = 2
 										JOIN users t5 ON t5.user_id = t1.notification_by
 										JOIN notification_users_map t6 ON t6.notification_id = t1.notification_id
 										JOIN notification_type_map t7 ON t1.notification_type = t7.notification_type_id

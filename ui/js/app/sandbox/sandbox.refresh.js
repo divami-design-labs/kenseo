@@ -33,13 +33,14 @@ sb.refresh = (function(){
             	// return sb.renderTemplate({ 'templateName': 'menu-recent-activity', 'templateHolder': $('.menu-recent-activity-section'), 'collection': new Kenseo.collections.Artefacts(), 'data': 'menu-activities' });
 
 				// @NEWCODE
-				return new Kenseo.views.Activities({
-					collection: new Kenseo.collections.Activities(),
+				return new Kenseo.views.Notifications({
+					collection: new Kenseo.collections.Notifications(),
 					templateHolder: $('.menu-recent-activity'),
 					data: {
-		                activities: true,
-		                limit: 3
-		            }
+		                limit: 3,
+						userActivities: true
+		            },
+		            fromMenu: true
 				});
             },
             'menu-request-section': function(){
@@ -52,6 +53,7 @@ sb.refresh = (function(){
 					templateHolder: $('.menu-recent-requests-section'),
 					data: {
 		                shared: true,
+						withVersions: true,
 		                limit: 3
 		            }
 				});
@@ -344,11 +346,14 @@ sb.refresh = (function(){
 		submitArtefact: function(response){
 			// console.dir(response);
 			var _this = Kenseo.scope;
-			_this.threads.forEach(function(e){
-				e.comments.forEach(function(el){
-					el.model.set({"is_submitted": "1"});  // set submitted flag
+			if(_this.threads){        //to change state of thread if document is opened
+				_this.threads.forEach(function(e){
+					e.comments.forEach(function(el){
+						el.model.set({"is_submitted": "1"});  // set submitted flag
+					});
 				});
-			});
+			}
+
 		},
 		editComment: function(response){
 			var _this = Kenseo.scope;

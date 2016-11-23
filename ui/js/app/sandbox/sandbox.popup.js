@@ -273,8 +273,10 @@ sb.popup = {
         if(Kenseo.popup.data.actionType === "addVersion" || Kenseo.popup.data.actionType === "replaceArtefact") {
             projectId = sb.getPopupData("project_id") || sb.getPopupData("projId");
             var artefact_id = sb.getPopupData("artefact_id");
+            var projects = false;
         } else {
             projectId = sb.getPopupData("project_id");
+            var projects = true;
         }
         sb.ajaxCall({
             collection: new Kenseo.collections.Artefacts(),
@@ -282,6 +284,7 @@ sb.popup = {
             data: {
                 project_id: projectId,
                 artefact_id: artefact_id,
+                projects: projects,
                 references: true,
                 withVersions: true,
                 ignore: 0

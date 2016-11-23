@@ -163,20 +163,22 @@
 			$tagList = $data->tags;
 
 			$tagsList = explode(",", $tagList->value);
-			for($i = 0 ; $i<count($tagsList); $i++) {
-				$tagName = $tagsList[$i];
-				$tagDetails = getQuery('getTagsName',array('tagName'=>$tagName));
-				$tagObj = $db->singleObjectQuery($tagDetails);
-				if($tagObj) {
-					$tagId = $tagObj->id;
-				} else {
-					$tagColumnNames = array("tag_name", "org_id", "created_date");
-					$tagRowValues = array($tagsList[$i], $org_id, date("Y-m-d H:i:s"));
-					$tagId = $db->insertSingleRowAndReturnId(TABLE_TAGS, $tagColumnNames, $tagRowValues);
+			if($tagList->value){
+				for($i = 0 ; $i<count($tagsList); $i++) {
+					$tagName = $tagsList[$i];
+					$tagDetails = getQuery('getTagsName',array('tagName'=>$tagName));
+					$tagObj = $db->singleObjectQuery($tagDetails);
+					if($tagObj) {
+						$tagId = $tagObj->id;
+					} else {
+						$tagColumnNames = array("tag_name", "org_id", "created_date");
+						$tagRowValues = array($tagsList[$i], $org_id, date("Y-m-d H:i:s"));
+						$tagId = $db->insertSingleRowAndReturnId(TABLE_TAGS, $tagColumnNames, $tagRowValues);
+					}
+					$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
+					$tagRowValues = array($artId, $tagId, date("Y-m-d H:i:s"), $userId );
+					$db->insertSingleRow(TABLE_ARTEFACTS_TAGS, $tagColumnNames, $tagRowValues);
 				}
-				$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
-				$tagRowValues = array($artId, $tagId, date("Y-m-d H:i:s"), $userId );
-				$db->insertSingleRow(TABLE_ARTEFACTS_TAGS, $tagColumnNames, $tagRowValues);
 			}
 
 			// Add references to the artefact
@@ -1465,21 +1467,23 @@
 							array('project_id' => $projectId)))->org_id;
 					// Add tags to the artefacts]
 					$tagList = json_decode($data->tags);
-					$tagsList = explode(",", $tagList->value);
-					for($i = 0 ; $i<count($tagsList); $i++) {
-						$tagName = $tagsList[$i];
-						$tagDetails = getQuery('getTagsName',array('tagName'=>$tagName));
-						$tagObj = $db->singleObjectQuery($tagDetails);
-						if($tagObj) {
-							$tagId = $tagObj->id;
-						} else {
-							$tagColumnNames = array("tag_name", "org_id", "created_date");
-							$tagRowValues = array($tagsList[$i], $org_id, date("Y-m-d H:i:s"));
-							$tagId = $db->insertSingleRowAndReturnId(TABLE_TAGS, $tagColumnNames, $tagRowValues);
+					if($tagList->value){
+						$tagsList = explode(",", $tagList->value);
+						for($i = 0 ; $i<count($tagsList); $i++) {
+							$tagName = $tagsList[$i];
+							$tagDetails = getQuery('getTagsName',array('tagName'=>$tagName));
+							$tagObj = $db->singleObjectQuery($tagDetails);
+							if($tagObj) {
+								$tagId = $tagObj->id;
+							} else {
+								$tagColumnNames = array("tag_name", "org_id", "created_date");
+								$tagRowValues = array($tagsList[$i], $org_id, date("Y-m-d H:i:s"));
+								$tagId = $db->insertSingleRowAndReturnId(TABLE_TAGS, $tagColumnNames, $tagRowValues);
+							}
+							$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
+							$tagRowValues = array($artIds[$f], $tagId, date("Y-m-d H:i:s"), $userId );
+							$db->insertSingleRow(TABLE_ARTEFACTS_TAGS, $tagColumnNames, $tagRowValues);
 						}
-						$tagColumnNames = array("artefact_id", "tag_id", "created_date", "created_by");
-						$tagRowValues = array($artIds[$f], $tagId, date("Y-m-d H:i:s"), $userId );
-						$db->insertSingleRow(TABLE_ARTEFACTS_TAGS, $tagColumnNames, $tagRowValues);
 					}
 
 					// Add references to the artefact
@@ -2066,7 +2070,7 @@
 
 				$params = array('project_id' => $projectId);
 				$query = getQuery('getProjectMembers', $params);
-				$projectMembersInfo = $result = $db->multiObjectQuery($query);
+				$projectMembersInfo = $result->data = $db->multiObjectQuery($query);
 				$notificationRecipients = array_map(function($info){
 					return $info->user_id;
 				}, $projectMembersInfo);

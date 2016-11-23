@@ -12,8 +12,11 @@
 			<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>
 			<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>
 			<div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">Create a Meeting</div>
-			<div class="sub-menu-item">Share a Project</div>
-			<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>
+			<%if(Kenseo.page.data.project.is_archive == '0'){%>
+				<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>
+			<%}else{%>
+				<div class="sub-menu-item popup-click" data-url="unarchive-project">Unarchive a Project</div>
+			<%}%>
 			<div class="sub-menu-item popup-click hide">Delete a Project</div>
 			<div class="sub-menu-item"><a class="stop-propagate" href="<%=sb.getRelativePath('zip.php?command=downloadProject&project_id='+Kenseo.page.id)%>" target="_blank" download> Download</a> </div>
 			<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>
