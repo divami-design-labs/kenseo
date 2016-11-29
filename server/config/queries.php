@@ -789,7 +789,8 @@ $AppGlobal['sql']['getDocumentSharedDetails'] = "SELECT user.user_id as id,
 												WHERE arts.artefact_id = @~~artId~~@";
 
 $AppGlobal['sql']['getDocumentReferences'] = "SELECT refs.artefact_id as id,
-											refs.artefact_title as name
+											refs.artefact_title as name,
+											docs.artefact_ver_id as artefact_version_id
 											FROM  " . TABLE_ARTEFACTS . " as arts
 											join " . TABLE_ARTEFACT_REFS . " as docs on
 											arts.latest_version_id = docs.artefact_ver_id
@@ -797,8 +798,17 @@ $AppGlobal['sql']['getDocumentReferences'] = "SELECT refs.artefact_id as id,
 											docs.artefact_id = refs.artefact_id
 											where arts.artefact_id = @~~artId~~@";
 
-$AppGlobal['sql']['getDocumentLinks'] = "SELECT * FROM " . TABLE_ARTEFACT_LINKS . " where linked_id =
-										(select DISTINCT (linked_id) from " . TABLE_ARTEFACT_LINKS . " WHERE linked_from_id = @~~artId~~@ or linked_to_id = @~~artId~~@)";
+$AppGlobal['sql']['getDocumentLinks'] = "SELECT DISTINCT a.artefact_id as id, v.artefact_ver_id as artefact_version_id, v.masked_artefact_version_id,
+											v.created_date as artefact_time, a.linked_id, a.project_id, p.project_name,
+											a.artefact_title as title, a.artefact_title as name, v.MIME_type,
+											a.artefact_type as artefact_type, v.state AS status, v.version_no as version,
+											u.name as person_name, u.user_id as owner_id from " . TABLE_ARTEFACTS . " a
+											inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.latest_version_id = v.artefact_ver_id
+											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
+											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
+											inner join ". TABLE_ARTEFACTS_SHARED_MEMBERS ." sm on sm.artefact_ver_id = a.latest_version_id AND sm.artefact_id = a.artefact_id AND u.user_id = sm.user_id
+											 AND a.state != 'D' AND a.artefact_id
+											IN (SELECT linked_to_id FROM artefact_links WHERE linked_from_id = @~~artId~~@ ) OR a.artefact_id IN (SELECT linked_from_id FROM artefact_links WHERE linked_to_id = @~~artId~~@) AND a.artefact_id !=@~~artId~~@";
 
 $AppGlobal['sql']['getAllVersionsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@";
 
@@ -806,6 +816,10 @@ $AppGlobal['sql']['getAllVersionsOfArtefact'] = "SELECT * FROM " . TABLE_ARTEFAC
 $AppGlobal['sql']['getHighestVersionOfArtefact'] = "SELECT count(version_no) as vers FROM " . TABLE_ARTEFACTS_VERSIONS . " WHERE artefact_id = @~~artId~~@";
 
 $AppGlobal['sql']['getProjectOfArtefact'] = "SELECT project_id FROM " . TABLE_ARTEFACTS . " WHERE artefact_id = @~~artId~~@";
+
+$AppGlobal['sql']['getProjectfromVersionId'] = "SELECT a.project_id FROM " . TABLE_ARTEFACTS . " a
+												inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.artefact_id = v.artefact_id
+ 												WHERE v.artefact_ver_id = @~~artefactVerId~~@";
 
 $AppGlobal['sql']['getOtherMembersList'] = "SELECT users.user_id as id, users.name, users.email, users.profile_pic_url as picture
 											FROM " . TABLE_USERS . " AS users WHERE users.user_id NOT IN
@@ -853,7 +867,7 @@ $AppGlobal['sql']['getArtefactVersionSummary'] = "SELECT vers.artefact_ver_id as
 												FROM " . TABLE_ARTEFACTS_VERSIONS . " AS vers
 												JOIN " . TABLE_USERS . " AS user on
 												user.user_id = vers.created_by
-												WHERE artefact_id = (SELECT artefact_id from artefact_versions where masked_artefact_version_id = @~~maskedArtefactVersionId~~@)";
+												WHERE artefact_id = (SELECT artefact_id from artefact_versions where masked_artefact_version_id = @~~maskedArtefactVersionId~~@) ORDER BY versionNo";
 
 $AppGlobal['sql']['getArtefactVersionShared'] = "SELECT user.user_id as id, user.name as name, user.profile_pic_url as profilePic, membs.access_type as permission
 												FROM " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as membs
@@ -901,7 +915,7 @@ $AppGlobal['sql']['getArtefactSharedMembersList'] = "SELECT DISTINCT user.user_i
 													WHERE membs.artefact_id =
 													(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@) and user.user_id!=@~~userId~~@";
 
-$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as artefact_title,arts.artefact_id as artefact_id, arts.project_id as project_id,arts.artefact_type as artefact_type,vers.version_no as versionNo,vers.artefact_ver_id as versionId, user.name as authorName, user.profile_pic_url as authorImage,
+$AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as artefact_title,arts.artefact_id as artefact_id, arts.project_id as project_id,arts.artefact_type as artefact_type,vers.version_no as versionNo,vers.artefact_ver_id as versionId, arts.latest_version_id, user.name as authorName, user.profile_pic_url as authorImage,
 											(select count(comment_thread_id) from ". TABLE_COMMENT_THREADS ." as thread
 											WHERE
 											thread.artefact_ver_id IN (select artefact_ver_id from " . TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = @~~maskedVerId~~@)) as comment_count, vers.state as status
@@ -913,8 +927,11 @@ $AppGlobal['sql']['artefactBasicDetails'] = "SELECT arts.artefact_title as artef
 											WHERE arts.artefact_id = (SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@)";
 
 //summary timeline related queries
-$AppGlobal['sql']['getTimeLineMeetings'] = "SELECT * FROM " . TABLE_MEETINGS . " WHERE meeting_on_artefact_id =
-											(SELECT artefact_id FROM " . TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = @~~maskedVerId~~@) ORDER BY meeting_id";
+$AppGlobal['sql']['getTimeLineMeetings'] = "SELECT m.meeting_id,m.meeting_title,n.notification_date as created_date,m.meeting_time, nt.notification_type_name FROM meetings as m
+											JOIN notifications as n ON m.meeting_id = n.notification_ref_id AND n.notification_on = 3
+											JOIN notification_type_map as nt ON n.notification_type = nt.notification_type_id
+											WHERE m.meeting_on_artefact_id =(SELECT artefact_id FROM artefact_versions where masked_artefact_version_id = @~~maskedVerId~~@)
+											ORDER BY n.notification_date";
 
 $AppGlobal['sql']['getTimeLineReferences'] = "SELECT * FROM " . TABLE_ARTEFACT_REFS ." r WHERE r.artefact_id =
 											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " v WHERE v.masked_artefact_version_id = @~~maskedVerId~~@) ORDER BY r.created_date";
@@ -922,14 +939,29 @@ $AppGlobal['sql']['getTimeLineReferences'] = "SELECT * FROM " . TABLE_ARTEFACT_R
 $AppGlobal['sql']['getTimeLineLinks'] = "SELECT * FROM " . TABLE_ARTEFACT_LINKS .  " where linked_from_id =
 										(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@) and while_creation = 0 ORDER BY linked_date";
 
-$AppGlobal['sql']['getTimeLineUsers'] = "SELECT memb.*, user.profile_pic_url as profPic FROM " . TABLE_ARTEFACTS_SHARED_MEMBERS . " as memb
-										JOIN " . TABLE_USERS . " as user on
-										user.user_id = memb.user_id
-										WHERE memb.artefact_id =
-										(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@) and while_creation = 0 ORDER BY shared_date";
+$AppGlobal['sql']['getTimeLineUsers'] = "SELECT n.notification_date as created_date , n.notification_id FROM notifications n
+									    WHERE n.notification_type = 1 AND n.notification_on = 4 AND n.notification_ref_id = @~~refId~~@";
+$AppGlobal['sql']['getAddedUsers'] = "SELECT u.name,u.profile_pic_url FROM notification_users_map nu
+									  JOIN users u ON u.user_id = nu.user_id
+									  JOIN notifications n ON n.notification_id = nu.notification_id
+									  WHERE n.notification_id = @~~notification_id~~@ AND u.user_id != @~~userId~~@";
 
-
-
+$AppGlobal['sql']['getTimeLineSharedMembers'] = "SELECT n.notification_date as created_date ,u.name ,u.profile_pic_url  FROM notification_users_map nu
+												JOIN notifications n ON n.notification_id = nu.notification_id
+												JOIN users u ON u.user_id = nu.user_id
+									    		WHERE n.notification_type = 3 AND n.notification_on = 1 AND n.notification_ref_id = @~~refId~~@ AND u.user_id != @~~userId~~@";
+$AppGlobal['sql']['getTimeLineUserRemoved'] = "SELECT n.notification_date as created_date ,u.name ,u.profile_pic_url  FROM notification_users_map nu
+												JOIN notifications n ON n.notification_id = nu.notification_id
+												JOIN users u ON u.user_id = nu.user_id
+									    		WHERE n.notification_type = 7 AND n.notification_on = 4 AND n.notification_ref_id = @~~refId~~@ AND u.user_id != @~~userId~~@";
+$AppGlobal['sql']['getTimeLineArtefact'] = "SELECT n.notification_date as created_date ,n.project_id FROM notifications n
+												WHERE n.notification_type = @~~notificationType~~@ AND n.notification_on = @~~notificationOn~~@ AND n.notification_ref_id = @~~refId~~@";
+//Get comments timeline
+$AppGlobal['sql']['getTimeLineComments'] ="SELECT DISTINCT n.notification_date as created_date, c.comment_by, u.profile_pic_url FROM artefact_comment_threads ct
+											JOIN artefact_comments c ON ct.comment_thread_id=c.comment_thread_id
+											JOIN notifications n ON n.notification_ref_id = ct.artefact_ver_id
+											JOIN users u on c.comment_by = u.user_id
+											WHERE n.notification_ref_id = @~~refId~~@ AND n.notification_on = 5 AND n.notification_type = 1";
 // Get Organization id from users table
 $AppGlobal['sql']['getUserOrganizationId'] = "SELECT org_id FROM " . TABLE_USERS . " WHERE user_id = @~~user_id~~@";
 

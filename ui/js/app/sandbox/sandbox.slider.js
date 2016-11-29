@@ -25,18 +25,18 @@ sb.sliders = {
 					collection: new Kenseo.collections.Tags(
 						_.values(response.data.tags)
 					),
-					templateHolder: $('.tags-content'),
-					data: response.data.basicDetails.artefactId
+					templateHolder: $('.outerContainer.inView').find('.tags-content'),
+					data: response.data.basicDetails.artefact_id
 				});
 
 				new Kenseo.views.versions({
 					collection: new Kenseo.collections.versions(
 						_.values(response.data.versions)
 					),
-					templateHolder: $('.tags-content'),
+					templateHolder: $('.outerContainer.inView').find('.versions-content'),
 					data: {
-					"artefact_id": response.data.basicDetails.artefactId,
-					"artefact_name": response.data.basicDetails.title
+					"artefact_id": response.data.basicDetails.artefact_id,
+					"artefact_name": response.data.basicDetails.artefact_title
 					}
 				});
 

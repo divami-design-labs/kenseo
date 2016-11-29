@@ -527,7 +527,11 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			svName.className = "sv-name";
 			if(typeof s === "object" && !Array.isArray(s)){
 				for (var key in s) {
-					if (key !== "name") svName.setAttribute(key, s[key]);
+					if(key.substring(0,5) === 'data-'){
+						if (key !== "name") svName.setAttribute(key, s[key]);
+					}else{
+						if (key !== "name") svName.setAttribute('data-' + key, s[key]);
+					}
 				}
 			}
 			var svClose = document.createElement("div");

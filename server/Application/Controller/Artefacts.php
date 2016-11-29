@@ -159,7 +159,6 @@
       $dataList = new stdClass();
 			$db = Master::getDBConnectionManager();
 
-			$db->updateTable(TABLE_ARTEFACTS,array("artefact_type"),array($type),"artefact_id = " . $artId);
 			$tagList = $data->tags;
 
 			$tagsList = explode(",", $tagList->value);
@@ -185,12 +184,38 @@
 			$refColumnNames = array("artefact_ver_id", "artefact_id", "created_date", "created_by");
 			$refRowValues = array();
 			$refDocs = $data->referencesIds;
-			for($i = 0 ; $i< count($refDocs); $i++) {
-				$refRowValues[] = array($artVerId, $refDocs[$i], date("Y-m-d H:i:s"), $userId);
+
+			$queryParams = array('artId' => $artId);
+
+			$dbQuery = getQuery('getDocumentReferences', $queryParams);
+			$references = $db->multiObjectQuery($dbQuery);
+			$docReferenceIds = array();
+
+			for($i = 0 ; $i< count($references); $i++) {
+				$docReferenceIds[] = $references[$i]->id;
 			}
 
-			if(count($refDocs)) {
+
+			$referencesToAdd = array();
+			$referencesToDelete = array();
+			$referencesToAdd = array_diff($refDocs,$docReferenceIds);
+			$referencesToDelete = array_diff($docReferenceIds,$refDocs);
+
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "refernce ids");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $referencesToAdd);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $referencesToDelete);
+			for($i = 1 ; $i<= count($referencesToAdd); $i++) {
+				$refRowValues[] = array($artVerId, $referencesToAdd[$i], date("Y-m-d H:i:s"), $userId);
+			}
+
+			if(count($referencesToAdd)) {
 				$db->insertMultipleRow(TABLE_ARTEFACT_REFS, $refColumnNames, $refRowValues);
+			}
+			if(count($referencesToDelete)) {
+				for($i = 1 ; $i<= count($referencesToDelete); $i++) {
+				    $db->deleteTable(TABLE_ARTEFACT_REFS, "artefact_ver_id = " . $artVerId . " and artefact_id =" . $referencesToDelete[$i]);
+				}
 			}
 
 			// Add Links to the artefacts
@@ -657,6 +682,20 @@
 							),
 							"artefact_ver_id = " . $targetLatestArtefactVersionId
 						);
+
+						$db->updateTable(
+							TABLE_ARTEFACTS,
+							array(
+								"replace_ref_id",
+								"state"
+							),
+							array(
+								$existingArtefactId,
+								// => delete previous versions of the target artefact
+								"D" // delete artefact
+							),
+							"artefact_id = " . $targetArtefactId
+						);
 						// => Differentiate the target artefact members and existing artefact members
 						//    and add to the existing artefact members
 						$artefact_ver_id = $targetLatestArtefactVersionId;
@@ -755,6 +794,25 @@
 						// );
 
 					}
+
+				$params = array('project_id' => $projectId);
+				$query = getQuery('getProjectMembers', $params);
+				$projectMembersInfo = $result = $db->multiObjectQuery($query);
+				$notificationRecipients = array_map(function($info){
+					return $info->user_id;
+				}, $projectMembersInfo);
+
+
+				$newNotification = Notifications::addNotification(array(
+					'by'			=> $userId,
+					'type'			=> 'replace',
+					'on'			=> 'artefact',
+					'ref_ids'		=> $targetLatestArtefactVersionId,
+					'ref_id'		=> $targetLatestArtefactVersionId,
+					'recipient_ids' => $notificationRecipients,
+					'project_id'	=> $projectId
+				),$db);
+
 				$db->commitTransaction();
 			}
 			catch(Exception $e){
@@ -762,25 +820,6 @@
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Replace artefact: error");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $e);
 			}
-
-			$params = array('project_id' => $projectId);
-			$query = getQuery('getProjectMembers', $params);
-			$projectMembersInfo = $result = $db->multiObjectQuery($query);
-			$notificationRecipients = array_map(function($info){
-				return $info->user_id;
-			}, $projectMembersInfo);
-
-
-			$newNotification = Notifications::addNotification(array(
-				'by'			=> $userId,
-				'type'			=> 'replace',
-				'on'			=> 'artefact',
-				'ref_ids'		=> $artefact_ver_id,
-				'ref_id'		=> $artefact_ver_id,
-				'recipient_ids' => $notificationRecipients,
-				'project_id'	=> $projectId
-			),$db);
-
 
 
 			$resultMessage->messages = new stdClass();
@@ -1911,6 +1950,9 @@
 			$artefactSharedQuery = getQuery('getArtefactSharedMembersList', $queryParams);
 			$artefactSharedMemebers = $db->multiObjectQuery($artefactSharedQuery);
 
+			$timelineSharedParams = array("refId" => $basicDetails->latest_version_id,"userId" =>$userId );
+			$timelineSharedMembersQuery = getQuery('getTimeLineSharedMembers', $timelineSharedParams);
+			$timelineSharedMembers = $db->multiObjectQuery($timelineSharedMembersQuery);
 			//get time data.
 			//we need references,
 			$timelineReferencesQuery = getQuery('getTimeLineReferences', $queryParams);
@@ -1923,13 +1965,30 @@
 			//we need meetings
 			$timelineMeetingsQuery = getQuery('getTimeLineMeetings', $queryParams);
 			$timelineMeetings = $db->multiObjectQuery($timelineMeetingsQuery);
-
+	;
 			// we need sharing details
-			$timelineSharedQuery = getQuery('getTimeLineUsers', $queryParams);
-			$timelineShared = $db->multiObjectQuery($timelineSharedQuery);
+			$userQueryParams = array("refId" => $basicDetails->project_id,"userId" =>$userId );
+			$timelineUsersAddedQuery = getQuery('getTimeLineUsers', $userQueryParams);
+			$timelineUsersAdded = $db->multiObjectQuery($timelineUsersAddedQuery);
+
+			$userQueryParams = array("refId" => $basicDetails->project_id,"userId" =>$userId );
+			$timelineUserRemovedQuery = getQuery('getTimeLineUserRemoved', $userQueryParams);
+			$timelineUserRemoved = $db->multiObjectQuery($timelineUserRemovedQuery);
+
+			$artefactQueryParams = array("refId" => $basicDetails->latest_version_id, "notificationType" => 2,"notificationOn" => 1);
+			$timelineArtefactQuery = getQuery('getTimeLineArtefact', $artefactQueryParams);
+			$timelineArtefactUpdated = $db->multiObjectQuery($timelineArtefactQuery);
+
+			$artefactQueryParams = array("refId" => $basicDetails->latest_version_id, "notificationType" => 10,"notificationOn" => 1);
+			$timelineArtefactQuery = getQuery('getTimeLineArtefact', $artefactQueryParams);
+			$timelineArtefactreplaced = $db->multiObjectQuery($timelineArtefactQuery);
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "get-time-line-users");
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $timelineShared);
 
 			// we need comment details
-			$timelineCommentQuery = getQuery('getTimeLineReferences', $queryParams);
+			$commentQueryParams = array("refId" => $basicDetails->latest_version_id,"userId" =>$userId );
+			$timelineCommentQuery = getQuery('getTimeLineComments', $commentQueryParams);
 			$timelineComment = $db->multiObjectQuery($timelineCommentQuery);
 
 			//massage the ordered data into groups based on date
@@ -1954,7 +2013,7 @@
 			}
 
 			for($i=0; $i<count($timelineMeetings); $i++) {
-				$date = date_create($timelineMeetings[$i]->meeting_time);
+				$date = date_create($timelineMeetings[$i]->created_date);
 				$formattedDate = date_format($date, 'Y-m-d');
 
 				$data = $timelineMeetings[$i];
@@ -1963,24 +2022,71 @@
 				$timeline[$formattedDate][] = $data;
 			}
 
-			for($i=0; $i<count($timelineShared); $i++) {
-				$date = date_create($timelineShared[$i]->shared_date);
+			for($i=0; $i<count($timelineUsersAdded); $i++) {
+				$date = date_create($timelineUsersAdded[$i]->created_date);
+
+				$addedUsersQueryParams = array("notification_id" => $timelineUsersAdded[$i]->notification_id,"userId" =>$userId);
+				$addedUsersQuery = getQuery('getAddedUsers', $addedUsersQueryParams);
+				$addedUsers = $db->multiObjectQuery($addedUsersQuery);
+
 				$formattedDate = date_format($date, 'Y-m-d');
 
-				$data = $timelineShared[$i];
+				$data = $timelineUsersAdded[$i];
+				$data->type = 'usersAdded';
+				$data->addedUsers = $addedUsers;
+
+				$timeline[$formattedDate][] = $data;
+			}
+
+			for($i=0; $i<count($timelineSharedMembers); $i++) {
+				$date = date_create($timelineSharedMembers[$i]->created_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+
+				$data = $timelineSharedMembers[$i];
 				$data->type = 'shared';
 
 				$timeline[$formattedDate][] = $data;
 			}
-			/*for($i=0; $i<count($timelineComment); $i++) {
-				$date = date_create($timelineComment[$i]->linked_date);
+
+			for($i=0; $i<count($timelineUserRemoved); $i++) {
+				$date = date_create($timelineUserRemoved[$i]->created_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+
+				$data = $timelineUserRemoved[$i];
+				$data->type = 'userRemoved';
+
+				$timeline[$formattedDate][] = $data;
+			}
+
+			for($i=0; $i<count($timelineArtefactUpdated); $i++) {
+				$date = date_create($timelineArtefactUpdated[$i]->created_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+
+				$data = $timelineArtefactUpdated[$i];
+				$data->type = 'updated';
+
+				$timeline[$formattedDate][] = $data;
+			}
+
+			for($i=0; $i<count($timelineArtefactreplaced); $i++) {
+				$date = date_create($timelineArtefactreplaced[$i]->created_date);
+				$formattedDate = date_format($date, 'Y-m-d');
+
+				$data = $timelineArtefactreplaced[$i];
+				$data->type = 'replaced';
+
+				$timeline[$formattedDate][] = $data;
+			}
+
+			for($i=0; $i<count($timelineComment); $i++) {
+				$date = date_create($timelineComment[$i]->created_date);
 				$formattedDate = date_format($date, 'Y-m-d');
 
 				$data = $timelineComment[$i];
-				$data->type = 'links';
+				$data->type = 'comments';
 
 				$timeline[$formattedDate][] = $data;
-			}*/
+			}
 
 
 			for($i=0; $i<count($timelineReferences); $i++) {
@@ -2018,6 +2124,9 @@
 			$dbQuery = getQuery('getDocumentReferences', $queryParams);
 			$references = $db->multiObjectQuery($dbQuery);
 
+			$dbQuery = getQuery('getDocumentLinks', $queryParams);
+			$links = $db->multiObjectQuery($dbQuery);
+
 			$dbQuery = getQuery('getArtefactSharedMembers', $queryParams);
 			$sharedMembers = $db->multiObjectQuery($dbQuery);
 
@@ -2025,6 +2134,7 @@
 			$docType = $db->singleObjectQuery($dbQuery)->artefact_type;
 
 			$result = array(
+				'links' => $links,
 				'referenceDocs' => $references,
 				'teamMembers' => $sharedMembers,
 				'docType' => $docType

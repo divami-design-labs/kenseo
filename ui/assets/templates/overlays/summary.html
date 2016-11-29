@@ -3,12 +3,12 @@
         <div class="summary-header-left">
             <div class="review-request-item" >
                 <div class="rr-left">
-                    <%var categories = Kenseo.settings.categories %>
+                    <%var categories = Kenseo.settings.docTypeShort %>
                     <div class="rr-status ellipsis status-<%= data.basicDetails.status %>"><%=categories[data.basicDetails.artefact_type]%></div>
                     <img class="rr-owner-image" title="<%=data.basicDetails.authorName %>" src="<%= data.basicDetails.authorImage %>"/>
                 </div>
                 <div class="rr-right">
-                    <div class="rr-title ellipsis" title="<%= data.basicDetails.title %>"><%= data.basicDetails.artefact_title %></div>
+                    <div class="rr-title ellipsis" title="<%= data.basicDetails.artefact_title %>"><%= data.basicDetails.artefact_title %></div>
                     <div class="rr-details ellipsis" title="Version <%=data.basicDetails.versionNo%>.0">Version <%=data.basicDetails.versionNo%>.0</div>
                     <div class="rr-state-details">
                         <div class="rr-state-x">
@@ -52,7 +52,7 @@
                     <div class="time-selector-item mg-item">
                         <div class="time-frame">
                             <div class="version-type top-viewer">v<%= v.version_no %></div>
-                            <div class="time-frame-date"><%= sb.timeFormat(v.created_date, true)%></div>
+                            <div class="time-frame-date"><%= sb.timeFormat(v.created_date, true, true)%></div>
                         </div>
                     </div>
                 </div>

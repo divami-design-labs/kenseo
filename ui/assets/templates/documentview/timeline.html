@@ -3,43 +3,138 @@
         <div class="time-frame-holder mg-holder">
             <div class="time-frame-item mg-item">
                 <div class="time-frame">
-                    <%_.each(data.timeline[v], function(item) {%>
-                            <% if(item.type === "links") {%>
-                                 <div class="file-type top-viewer">
-                            <% } else if(item.type === "shared") {%>
-                                <div class="user-type top-viewer">
-                                <div class="user-type-viewer top-hover-viewer">
-                                    <div class="user-type-content">
-                                        <div class="tf-images">
-                                            <% if(item.profPic !== "assets/imgs/avatar.svg"){ %>
-                                                <img src=<%= item.profPic %> />
-                                            <% } else { %>
-                                                <svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>
-                                            <% } %>
+                    <div class="time-frame-wrapper top-viewer">
+                        <%_.each(data.timeline[v], function(item) {%>
+                                <% if(item.type === "links") {%>
+                                     <div class="file-type "></div>
+                                <% } else if(item.type === "shared") {%>
+                                    <div class="user-type ">
+                                        <svg fill="#9A9EA5"><use xlink:href="#share-artefact"></use></svg>
+                                        <div class="user-type-viewer top-hover-viewer">
+                                            <div class="user-type-content">
+                                                <div class="tf-images">
+                                                    <% if(item.profile_pic_url !== "assets/imgs/avatar.svg"){ %>
+                                                        <img src=<%= item.profile_pic_url %> />
+                                                    <% } else { %>
+                                                        <svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>
+                                                    <% } %>
+                                                </div>
+                                                <div class="tf-more-people"><%= sb.timeFormat(item.created_date,true,true)%> @<%= sb.getTime(item.created_date) %></div>
+                                            </div>
                                         </div>
-                                        <div class="tf-more-people"><%= sb.timeFormat(item.shared_date,true,true)%> @<%= sb.getTime(item.shared_date) %></div>
+                                    </div>
+                                <% } else if(item.type === "versions") {%>
+                                    <div class="version-type ">v<%= item.version_no %></div>
+                                <% } else if(item.type === "meetings") {%>
+                                    <%console.dir("meetings")%>
+                                    <%console.dir(item)%>
+                                    <div class="meeting-type">
+                                        <svg fill="#00AEEF"><use xlink:href="#calendar"></use></svg>
+                                        <div class="top-hover-viewer">
+                                            <div class="meeting-type-content">
+                                                <svg fill="#00AEEF"><use xlink:href="#calendar"></use></svg>
+                                                <div class="meeting-content"><%=item.meeting_title%>
+                                                    <div><%=sb.timeFormat(item.meeting_time,true,true)%> @<%= sb.getTime(item.meeting_time)%></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } else if(item.type === "references") {%>
+                                     <div class="file-type "></div>
+                                <% } else if(item.type === "replaced") {%>
+                                    <div class="file-type ">
+                                        <svg fill="#9A9EA5"><use xlink:href="#replace"></use></svg>
+                                        <div class="top-hover-viewer">
+                                            <div class="type-content">
+                                                <svg class="timeline-updated" fill="#efeff0"><use xlink:href="#replace"></use></svg>
+                                                <div class="timeline-updated-content">Replaced
+                                                    <div><%=sb.timeFormat(item.created_time,true,true)%> @<%= sb.getTime(item.created_time)%></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } else if(item.type === "updated") {%>
+                                     <div class="file-type ">
+                                         <svg fill="#00AEEF"><use xlink:href="#file_1"></use></svg>
+                                         <div class="top-hover-viewer">
+                                             <div class="type-content">
+                                                 <svg class="timeline-updated" fill="#efeff0"><use xlink:href="#edit"></use></svg>
+                                                 <div class="timeline-updated-content">Updated
+                                                     <div><%=sb.timeFormat(item.created_time,true,true)%> @<%= sb.getTime(item.created_time)%></div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                <% } else if(item.type === "usersAdded") {%>
+                                     <div class="user-type ">
+                                         <svg><use href="#add-people"></use></svg>
+                                         <div class="top-hover-viewer">
+                                             <div class="type-content">
+                                                 <%if(item.addedUsers.length < 2){%>
+                                                     <% _.each(item.addedUsers, function(user){ %>
+                                                         <div class="tf-images">
+                                                             <img src="<%=user.profile_pic_url%>" alt="pic">
+                                                         </div>
+                                                         <div class="time">
+                                                             <div><%=sb.timeFormat(user.created_date,true,true)%></div>
+                                                             <div>@<%= sb.getTime(user.created_date)%></div>
+                                                         </div>
+                                                      <%})%>
+                                                  <%}else{%>
+                                                      <%var count = 0%>
+                                                      <% _.each(item.addedUsers, function(user){ %>
+                                                          <%count++%>
+                                                          <%if(count <= 1){%>
+                                                              <div class="tf-images">
+                                                                  <img src="<%=user.profile_pic_url%>" alt="pic">
+                                                              </div>
+                                                          <%}else{%>
+                                                              <%return false%>
+                                                          <%}%>
+                                                      <%})%>
+                                                      <%if(item.addedUsers.length > 1){%>
+                                                          <div class="time"> + <%=item.addedUsers.length - 1%> more</div>
+                                                      <%}%>
+                                                  <%}%>
+                                             </div>
+                                         </div>
+                                     </div>
+                                <% } else if(item.type === "userRemoved") {%>
+                                     <div class="user-type ">
+                                         <svg><use xlink:href="#user-removed"></use></svg>
+                                         <div class="top-hover-viewer">
+                                             <div class="type-content">
+                                                 <img src="<%=item.profile_pic_url%>" alt="pic">
+                                                 <div class="time">
+                                                     <div><%=sb.timeFormat(item.created_date,true,true)%></div>
+                                                     <div>@<%= sb.getTime(item.created_date)%></div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                <% } else if(item.type === "comments") {%>
+                                <div class="comment-type ">
+                                    <div class="rr-comment">
+                                        <svg><use xlink:href="#baloon"></use></svg>
+                                        <div class="rr-comment-count">1</div>
+                                    </div>
+                                    <div class="top-hover-viewer">
+                                        <div class="type-content">
+                                            <img src="<%=item.profile_pic_url%>" alt="pic">
+                                            <div class="time">
+                                                <div><%=sb.timeFormat(item.created_date,true,true)%></div>
+                                                <div>@<%= sb.getTime(item.created_date)%></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            <% } else if(item.type === "versions") {%>
-                                <div class="version-type top-viewer">v <%= item.version_no %>
-                            <% } else if(item.type === "meetings") {%>
-                                <div class="meeting-type top-viewer">
-                            <% } else if(item.type === "references") {%>
-                                 <div class="file-type top-viewer">
-                            <% } else if(item.type === "replaced") {%>
-                                 <div class="file-replaced top-viewer">
-                            <% } else if(item.type === "userAdded") {%>
-                                 <div class="user-type top-viewer">
-                            <% } else if(item.type === "userRemoved") {%>
-                                 <div class="user-type top-viewer">
-                            <% } else if(item.type === "comments") {%>
-                            <div class="comment-type top-viewer">
-                            <% }%>
-                        <% }) %></%>
-                    <%_.each(data.timeline[v], function(item) {%>
-                        </div>
-                    <% }) %></%>
-                    <div class="time-frame-date"><%= sb.timeFormat(v+" 00:00:00", true, true)%></div>
+                                <% }%>
+                            <% }) %></%>
+                        <!-- <%_.each(data.timeline[v], function(item) {%>
+                            </div>
+                        <% }) %></%> -->
+                        <div class="time-frame-date"><%= sb.timeFormat(v+" 00:00:00", true, true)%></div>
+                    </div>
                 </div>
             </div>
         </div>

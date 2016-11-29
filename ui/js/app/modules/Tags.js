@@ -1,5 +1,5 @@
 Kenseo.views.Tags = Backbone.View.extend({
-    el: '.tags-content',
+    el: '.outerContainer.inView .tags-content',
     initialize: function initialize(payload) {
         this.payload = payload;
         this.templateHolder = payload.templateHolder;

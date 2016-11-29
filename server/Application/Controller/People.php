@@ -160,6 +160,7 @@
 				$artf_members_values = array();
 
 				for($i=0; $i<$actualCount; $i++) {
+           $notificationRecipients[] =  $actualusers[$i]->user_id;
 					// Prepare rows for project_members
             for($j=0; $j<$count; $j++){
               if($actualusers[$i]->user_id == $users[$j]->user_id){
@@ -170,7 +171,9 @@
 
 					// Prepare rows for artefact shared members
 					foreach($artefactVersions as $key => $value) {
-						$artf_members_values[] = array($value->artefact_version_id, $value->artefact_id, $actualusers[$i]->user_id,$accessType, date("Y-m-d H:i:s"), $userId, 0);
+						$artf_members_values[] = array($value->artefact_ver_id, $value->artefact_id, $actualusers[$i]->user_id,$accessType, date("Y-m-d H:i:s"), $userId, 0);
+                        Master::getLogManager()->log(DEBUG, MOD_MAIN, "shared details");
+        				Master::getLogManager()->log(DEBUG, MOD_MAIN, $value);
   				}
 				}
 
@@ -190,9 +193,10 @@
           $params = array('project_id' => $projectId);
     			$query = getQuery('getProjectMembers', $params);
     			$projectMembersInfo = $db->multiObjectQuery($query);
-    			$notificationRecipients = array_map(function($info){
-    				return $info->user_id;
-    			}, $projectMembersInfo);
+                $notificationRecipients[] = $userId;
+
+                Master::getLogManager()->log(DEBUG, MOD_MAIN, "new recipients");
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $notificationRecipients);
 
     			$newNotification = Notifications::addNotification(array(
     				'by'			=> $userId,
@@ -250,9 +254,8 @@
                 $params = array('project_id' => $projectId);
                 $query = getQuery('getProjectMembers', $params);
                 $projectMembersInfo = $db->multiObjectQuery($query);
-                $notificationRecipients = array_map(function($info){
-                    return $info->user_id;
-                }, $projectMembersInfo);
+                $notificationRecipients[] = $userId;
+                $notificationRecipients[] = $peopleId;
 
                 $newNotification = Notifications::addNotification(array(
                     'by'			=> $userId,

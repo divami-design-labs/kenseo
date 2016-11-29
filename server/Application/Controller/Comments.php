@@ -86,6 +86,19 @@
 					array($artefact_ver_state),
 					"artefact_ver_id = " . $data->artefact_ver_id);
 
+			$params = array('artefactVerId' => $data->artefact_ver_id);
+			$query = getQuery('getProjectfromVersionId', $params);
+			$project = $db->singleObjectQuery($query);
+			$newNotification = Notifications::addNotification(array(
+				'by'			=> $userId,
+				'type'			=> 'add',
+				'on'			=> 'comment',
+				'ref_ids'		=> $data->artefact_ver_id,
+				'ref_id'		=> $data->artefact_ver_id,
+				'recipient_ids' => $userId,
+				'project_id'	=> $project->project_id
+			),$db);
+
 
 			$db->commitTransaction();
 

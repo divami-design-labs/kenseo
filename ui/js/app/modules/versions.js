@@ -1,5 +1,5 @@
 Kenseo.views.versions = Backbone.View.extend({
-    el: '.versions-content',
+    el: '.outerContainer.inView .versions-content',
     initialize: function initialize(payload) {
         this.payload = payload;
         this.templateHolder = payload.templateHolder;

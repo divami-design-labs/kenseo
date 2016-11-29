@@ -3581,50 +3581,9 @@ input:disabled {
   background-color: white;
 }
 
-.time-frame-item .meeting-type {
-  background-image: url("../../imgs/calendar1.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 23px;
-  height: 25px;
-}
-
-.time-frame-item .file-type {
-  background-image: url("../../imgs/file_1.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 24px;
-  height: 26px;
-}
-
-.time-frame-item .comment-type {
-  background-image: url("../../imgs/chat.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 30px;
-  height: 27px;
-}
-
-.time-frame-item .user-type {
-  background-image: url("../../imgs/user.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 23px;
-  height: 26px;
-}
-
-.time-frame-item .file-replaced {
-  background-image: url("../../imgs/replaced.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 20px;
-  height: 20px;
-}
-
 .time-frame-item .top-hover-viewer {
   background-color: #566277;
   bottom: 100%;
-  margin-bottom: 15px;
   padding: 10px;
   position: absolute;
   z-index: 1;
@@ -3641,32 +3600,54 @@ input:disabled {
 }
 
 .time-frame-item .meeting-type-content {
-  padding-left: 45px;
-  position: relative;
-  width: 140px;
+  width: 200px;
   text-align: left;
   font-size: 13px;
   color: #efeff0;
   font-family: "OpenSansRegular";
 }
 
-.time-frame-item .meeting-type-content::before {
-  content: "";
-  background-image: url("../../imgs/calendar1.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 23px;
-  height: 25px;
-  width: 23px;
-  height: 23px;
+.time-frame-item .meeting-type-content .meeting-content {
+  margin-left: 30px;
+}
+
+.time-frame-item .meeting-type-content svg {
   position: absolute;
   top: 50%;
-  transform: translate(0, -50%);
   -webkit-transform: translate(0, -50%);
-  -moz-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  -o-transform: translate(0, -50%);
-  left: 10px;
+          transform: translate(0, -50%);
+}
+
+.time-frame-item .type-content {
+  width: 120px;
+  font-size: 13px;
+  color: #efeff0;
+}
+
+.time-frame-item .type-content img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.time-frame-item .type-content .time {
+  padding-left: 5px;
+}
+
+.time-frame-item .type-content .time, .time-frame-item .type-content img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.time-frame-item .type-content .timeline-updated {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+.time-frame-item .type-content .timeline-updated-content {
+  margin-left: 30px;
 }
 
 .time-frame-holder {
@@ -3676,6 +3657,40 @@ input:disabled {
 
 .time-frame {
   position: relative;
+}
+
+.time-frame-wrapper .meeting-type, .time-frame-wrapper .file-type, .time-frame-wrapper .comment-type, .time-frame-wrapper .user-type, .time-frame-wrapper .file-replaced {
+  position: relative;
+  padding-top: 10px;
+}
+
+.time-frame-wrapper .meeting-type, .time-frame-wrapper .meeting-type-content > svg {
+  width: 23px;
+  height: 25px;
+}
+
+.time-frame-wrapper .file-type, .time-frame-wrapper .timeline-updated {
+  width: 24px;
+  height: 26px;
+}
+
+.time-frame-wrapper .comment-type .rr-comment {
+  width: 30px;
+  height: 27px;
+}
+
+.time-frame-wrapper .user-type {
+  width: 23px;
+  height: 26px;
+}
+
+.time-frame-wrapper .file-replaced {
+  width: 20px;
+  height: 20px;
+}
+
+.time-frame-wrapper div:hover .top-hover-viewer {
+  display: block;
 }
 
 .top-viewer {
@@ -3726,7 +3741,7 @@ input:disabled {
 }
 
 .tf-more-people {
-  width: 66px;
+  width: 70px;
   font-size: 13px;
   color: #efeff0;
   font-family: "OpenSansRegular";
@@ -7147,18 +7162,6 @@ img.image-viewer {
 
 .cv-comment-edit:hover, .cv-comment-delete:hover {
   fill: #333;
-}
-
-.pdfs-container .review-request-item {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 300px;
-  height: 100px;
-  text-align: center;
 }
 
 .messages-wrapper {

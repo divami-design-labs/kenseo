@@ -454,33 +454,28 @@ sb.popup = {
         // Keep the .main-btn class button disabled by default
         // (Enable this button when user selects the document type)
         $currentPopup.find('.main-btn').attr('disabled', 'true');
+        //Setting flag to get existing files
+        Kenseo.popup.info.existingFileSelected = true;
         sb.ajaxCall({
             collection: new Kenseo.collections.Artefacts(),
             container: $('.popup'),
             data: {
-                "nonreferences": true,
+                "projects": true,
                 "versionId": sb.getPopupData("artefact_version_id"),
                 "project_id": sb.getPopupData("project_id") || sb.getPopupData("projId")
             },
             success: function success(res) {
-                Kenseo.references = res.data;
+                res.data.map(function(item){
+                    item.name = item.artefact_name;
+                    item.id = item.artefact_id;
+                    return item;
+                });
+                Kenseo.artefacts = res.data.filter(function(item){
+                    return item.artefact_version_id != sb.getPopupData("artefact_version_id");
+                });
                 sb.popup.successCallback();
-                sb.popup.setreferences(Kenseo.references);
-            }
-        });
-
-        sb.ajaxCall({
-            collection: new Kenseo.collections.Artefacts(),
-            container: $('.popup'),
-            data: {
-                "nonlinkedfiles": true,
-                "artefactId": sb.getPopupData("id") || sb.getPopupData("artefact_id"),
-                "project_id": sb.getPopupData("project_id") || sb.getPopupData("projId")
-            },
-            success: function success(resp) {
-                Kenseo.links = resp.data;
-                sb.popup.successCallback();
-                sb.popup.setlinks(Kenseo.links)
+                sb.popup.setreferences(Kenseo.artefacts);
+                sb.popup.setlinks(Kenseo.artefacts)
             }
         });
 
@@ -1091,7 +1086,15 @@ sb.popup = {
                     selectedData: artefactMetaInfo.referenceDocs, //[{name: "venkateshwar"}],//
                     newSettings: {
                         filterData: {
-                            'version_id': Kenseo.popup.data.version_id
+                            'version_id': Kenseo.popup.data.artefact_version_id
+                        }
+                    }
+                });
+                Kenseo.combobox.linksCombobox.refresh({
+                    selectedData: artefactMetaInfo.links,
+                    newSettings: {
+                        filterData: {
+                            'version_id': Kenseo.popup.data.artefact_version_id
                         }
                     }
                 });

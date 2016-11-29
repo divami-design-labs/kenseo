@@ -130,25 +130,24 @@
 		@extend .version-num;
 	}
 
-	.meeting-type{
-		@include elementWithBackground("calendar1.svg", 23px, 25px);
-	}
-	.file-type{
-		@include elementWithBackground("file_1.svg", 24px, 26px);
-	}
-	.comment-type{
-		@include elementWithBackground("chat.svg", 30px, 27px);
-	}
-	.user-type{
-		@include elementWithBackground("user.svg", 23px, 26px);
-	}
-	.file-replaced{
-		@include elementWithBackground("replaced.svg", 20px, 20px);
-	}
+	// .meeting-type{
+	// 	@include elementWithBackground("calendar1.svg", 23px, 25px);
+	// }
+	// .file-type{
+	// 	@include elementWithBackground("file_1.svg", 24px, 26px);
+	// }
+	// .comment-type{
+	// 	@include elementWithBackground("chat.svg", 30px, 27px);
+	// }
+	// .user-type{
+	// 	@include elementWithBackground("user.svg", 23px, 26px);
+	// }
+	// .file-replaced{
+	// 	@include elementWithBackground("replaced.svg", 20px, 20px);
+	// }
 	.top-hover-viewer{
 		background-color: $colorI;
 		bottom: 100%;
-		margin-bottom: 15px;
 		padding: 10px;
 		position: absolute;
 		z-index: 1;
@@ -163,11 +162,44 @@
 		}
 	}
 	.meeting-type-content{
-		@include listImage("calendar1.svg", 23px, 25px);
-		width: 140px;
+		// @include listImage("calendar1.svg", 23px, 25px);
+		width: 200px;
 		text-align: left;
 		@include text(13px, $color2);
 		font-family: $normalFont;
+		.meeting-content{
+			margin-left: 30px;
+		}
+		svg{
+			position: absolute;
+			top: 50%;
+			transform: translate(0,-50%);
+		}
+	}
+	.type-content{
+		width: 120px;
+		font-size: 13px;
+		color: #efeff0;
+		img{
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+		}
+		.time{
+			padding-left: 5px;
+		}
+		.time,img{
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.timeline-updated{
+			position: absolute;
+			top: 50%;
+			transform: translate(0,-50%);
+		}
+		.timeline-updated-content{
+			margin-left: 30px;
+		}
 	}
 }
 .time-frame-holder{
@@ -177,8 +209,43 @@
 .time-frame{
 	position: relative;
 }
+.time-frame-wrapper{
+	.meeting-type, .file-type, .comment-type, .user-type, .file-replaced{
+		position: relative;
+		padding-top: 10px;
+	}
+	.meeting-type, .meeting-type-content > svg{
+		width: 23px;
+		height: 25px;
+	}
+	.file-type, .timeline-updated{
+		width: 24px;
+		height: 26px;
+	}
+	.comment-type{
+		.rr-comment{
+			width: 30px;
+			height: 27px;
+		}
+	}
+	.user-type{
+		width: 23px;
+		height: 26px;
+	}
+	.file-replaced{
+		width: 20px;
+		height: 20px;
+	}
+	div:hover{
+		.top-hover-viewer{
+			display: block;
+		}
+	}
+}
 .top-viewer{
 	position: absolute;
+	// height: 25px;
+	// width: 25px;
     @include transform(translate(-50%, 0));
 	margin-bottom: 5px;
 	bottom: 100%;
@@ -215,7 +282,7 @@
 }
 .tf-more-people{
 	@extend .inlineBlockMid;
-	width: 66px;
+	width: 70px;
 	@include text(13px, $color2);
 	font-family: $normalFont;
 }
