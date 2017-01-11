@@ -247,7 +247,9 @@ $AppGlobal['sql']['getSharedArtefacts'] = "SELECT DISTINCT
 												FROM ". TABLE_COMMENT_THREADS ." t 
 												WHERE a.latest_version_id = t.artefact_ver_id
 											) as comment_count
+
 											FROM artefact_shared_members asm
+
 											JOIN users u ON u.user_id = @~~userid~~@
 											JOIN artefacts a ON a.artefact_id = asm.artefact_id
 											JOIN projects p ON a.project_id = p.project_id
@@ -774,6 +776,12 @@ $AppGlobal['sql']['getDocumentVersions'] = "SELECT arts.artefact_title  as title
 											arts.artefact_id = vers.artefact_id
 											where vers.artefact_id = @~~artId~~@";
 
+$AppGlobal['sql']['getTagsWithArtefactId'] = "SELECT tag_name from tags, artefact_tags_map where artefact_id = @~~artId~~@ AND tags.tag_id = artefact_tags_map.tag_id";
+
+$AppGlobal['sql']['getTagIdsWithArtefactId'] = "SELECT tag_id from artefact_tags_map where artefact_id = @~~artId~~@ ";
+
+$AppGlobal['sql']['deleteWithArtIdTagIdTagName'] = "DELETE a , t from artefact_tags_map a INNER JOIN tags t WHERE a.artefact_id = @~~artId~~@ AND t.tag_name = @~~tagName~~@ AND a.tag_id = t.tag_id";
+
 $AppGlobal['sql']['getDocumentSharedDetails'] = "SELECT user.user_id as id,
 												user.name as name,
 												user.email as email,
@@ -1153,6 +1161,7 @@ $AppGlobal['sql']['getUserPermissionMail'] = "SELECT
 														proj_id = @~~projectid~~@
 														and t1.user_id != @~~userid~~@";
 
+$AppGlobal['sql']['getUserNameWithId'] = "SELECT name from users where user_id = @~~user_id~~@";
 $AppGlobal['sql']['artefactMailQuery'] = "SELECT
 												a.artefact_title,
 												(select u1.screen_name FROM users u1 WHERE u1.user_id = @~~activitydoneuserid~~@) as activity_done_user_name,
@@ -1246,5 +1255,6 @@ $AppGlobal['sql']['artefactRelatedMail'] = "SELECT
 												    JOIN artefact_versions t6 ON t6.artefact_ver_id = t1.latest_version_id
 												WHERE
 													t1.artefact_id = @~~artefactid~~@";
+
 /* Mail activities ended */
 ?>

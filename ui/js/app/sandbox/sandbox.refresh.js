@@ -291,6 +291,10 @@ sb.refresh = (function(){
 			sb.trigger($(window), 'addProject');
 		},
 		addArtefact: function(response){
+			if(response.data.project_data) {
+				Kenseo.data.model = response.data.project_data.data;
+				sb.trigger($(window), 'addProject');
+			}
 			refreshTasks(response);
 			if(response.data.projectData){
 				Kenseo.data.model = response.data.projectData.data;

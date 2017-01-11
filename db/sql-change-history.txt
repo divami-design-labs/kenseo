@@ -109,3 +109,9 @@ ALTER TABLE `notification_on_map`
 
 ALTER TABLE `notifications` CHANGE `notification_on` `notification_on` INT NOT NULL COMMENT 'maps to notification_on_map table';
 ALTER TABLE `notifications` CHANGE `notification_type` `notification_type` INT NULL DEFAULT NULL COMMENT 'Maps to notification_type_map table';
+ALTER TABLE `artefact_tags_map` DROP COLUMN ``;
+ALTER TABLE `artefact_tags_map` DROP COLUMN ``;
+ALTER TABLE `artefact_tags_map` DROP COLUMN `created_date`;
+ALTER TABLE `artefact_tags_map` DROP COLUMN `user_generated`;
+ALTER TABLE `tags` DROP COLUMN ``;
+

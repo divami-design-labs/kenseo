@@ -478,6 +478,25 @@ sb.popup = {
                 sb.popup.setlinks(Kenseo.artefacts)
             }
         });
+        sb.ajaxCall({
+            collection: new Kenseo.collections.Artefacts(),
+            container: $('.popup'),
+            data: {
+                "tags": true,
+                "artefact_id": sb.getPopupData("artefact_id"),
+                "project_id": sb.getPopupData("project_id") || sb.getPopupData("projId")
+            },
+            success: function success(res) {
+                console.log(res, "actual response");
+                var data = res.data[0].tag_name;
+                for(var i=1; i<res.data.length; i++) {
+                    data = data + ',' + res.data[i].tag_name.trim();
+                }
+                console.log(data, "here");
+                $('.tags-input-txt').val(data);
+            }
+        });
+
 
 
         // populating the fields if an existing artefact is selected

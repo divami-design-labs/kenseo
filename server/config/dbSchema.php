@@ -16,7 +16,7 @@
 	define("TABLE_ARTEFACTS_SHARED_MEMBERS", "artefact_shared_members");
 	define("TABLE_ARTEFACT_LINKS", "artefact_links");
 	define("TABLE_ARTEFACT_REFS", "artefact_ref_docs");
-	define("TABLE_ARTEFACTS_TAGS", "artefact_tags");	
+	define("TABLE_ARTEFACT_TAGS_MAP", "artefact_tags_map");	
 
 	define("TABLE_COMMENT_THREADS", "artefact_comment_threads");
 	define("TABLE_COMMENTS", "artefact_comments");
