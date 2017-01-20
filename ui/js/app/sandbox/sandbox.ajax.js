@@ -136,6 +136,7 @@ _.extend(sb, {
     },
     //storing the response data
     setDump: function setDump(obj) {
+        console.log(obj, "object")
         var key = obj.command.slice(3).toLowerCase(); // removing "get" prefix
         var dump = Kenseo.data[key];
         if (obj.data.length) {

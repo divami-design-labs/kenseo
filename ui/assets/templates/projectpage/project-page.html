@@ -3,7 +3,7 @@
 		<svg><use xlink:href="#projects"></use></svg>
 	</div>
 	<a href="#projects" class="heading-text-project">Projects > </a>
-	<span class="heading-text-project-name"><%= Kenseo.page.data.project.project_name %></span>
+	<span class="heading-text-project-name"><%= project_name %></span>
 	<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">
 		<div class="sub-heading-more-icon">
 			<svg><use xlink:href="#more"></use></svg>
@@ -12,7 +12,7 @@
 			<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>
 			<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>
 			<div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">Create a Meeting</div>
-			<%if(Kenseo.page.data.project.is_archive == '0'){%>
+			<%if(state == 'A'){%>
 				<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>
 			<%}else{%>
 				<div class="sub-menu-item popup-click" data-url="unarchive-project">Unarchive a Project</div>
@@ -23,7 +23,7 @@
 		</div>
 	</div>
 </div>
-<div class="project-description"> <%= Kenseo.page.data.project.project_description %> </div>
+<div class="project-description"> <%= description %> </div>
 <div class="project-section-content">
 	<div class="artifacts-section review-requests-content sub-section">
 

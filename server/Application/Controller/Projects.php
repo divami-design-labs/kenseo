@@ -39,6 +39,27 @@
 			return $resultObj;
 		}
 
+		public function getProjectDetails($interpreter) {
+			$data = $interpreter->getData()->data;
+			$userid = $interpreter->getUser()->user_id;
+			$projectId = $data->projectId;
+
+			//queries to get project details 
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data->projectId);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "project_details");
+
+			$db = Master::getDBConnectionManager();
+			$queryParams = array('projectId' => $projectId);
+
+			$dbQuery = getQuery('getProjectDetails',$queryParams);
+			$resultObj = $db->singleObjectQuery($dbQuery);
+
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $resultObj);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "project_obj");
+
+			return $resultObj;
+		}
+
 		public function downloadProject($req) {
 			//  data required to download the project
 			$ProjectId 		= $req->getData()->{'project_id'};

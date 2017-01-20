@@ -1037,6 +1037,9 @@ $AppGlobal['sql']['getEarliestDate'] = "SELECT MIN(c.created_at) as earliestDate
 										FROM artefact_comments c
 										JOIN artefact_comment_threads ct ON ct.comment_thread_id = c.comment_thread_id
 										WHERE c.comment_thread_id IN (@~~threadIds~~@)";
+//GEt Project Details
+$AppGlobal['sql']['getProjectDetails'] = "SELECT project_name, description, state, project_id FROM projects WHERE project_id = @~~projectId~~@";
+
 // Get users from emails
 $AppGlobal['sql']['getUserIdsFromEmails'] = "SELECT user_id FROM " . TABLE_USERS . " WHERE email in (@~~emailIds~~@)";
 
@@ -1255,6 +1258,5 @@ $AppGlobal['sql']['artefactRelatedMail'] = "SELECT
 												    JOIN artefact_versions t6 ON t6.artefact_ver_id = t1.latest_version_id
 												WHERE
 													t1.artefact_id = @~~artefactid~~@";
-
 /* Mail activities ended */
 ?>

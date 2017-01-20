@@ -246,7 +246,27 @@ sb.refresh = (function(){
 						sb.setPageData(currentProjectInfo, 'project');
 
 						sb.refresh.section('header');
-						sb.refresh.section('project-page');
+						// sb.refresh.section('project-page');
+						sb.ajaxCall({
+                url: sb.getRelativePath('getProjectDetails'),
+                data: {
+                    // artefactVersionId: Kenseo.data.artefact.id,
+                    projectId: Kenseo.page.id
+                },
+                type: 'GET',
+                success: function success(response) {
+
+                    var view = new Kenseo.views.projectPage({
+                        payload: {
+                            projectId: Kenseo.page.id,
+                            templateHolder: $('.project-section')
+
+                        },
+                        model: new Kenseo.models.projectPage(response.data)
+                    });
+                    view.render();
+                }
+            });
 
 						// registring click event to the create meeting link from project actions to store field populating data
 						sb.attachIn('click', '.main-section-project-icon-holder [data-url="create-meeting"]', function(){
@@ -291,10 +311,10 @@ sb.refresh = (function(){
 			sb.trigger($(window), 'addProject');
 		},
 		addArtefact: function(response){
-			if(response.data.project_data) {
-				Kenseo.data.model = response.data.project_data.data;
-				sb.trigger($(window), 'addProject');
-			}
+			//if(response.data.project_data) {
+			//	Kenseo.data.model = response.data.project_data.data;
+			//	sb.trigger($(window), 'addProject');
+		//	}
 			refreshTasks(response);
 			if(response.data.projectData){
 				Kenseo.data.model = response.data.projectData.data;

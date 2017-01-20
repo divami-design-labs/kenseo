@@ -12,6 +12,9 @@ $AppGlobal['urlmap'] = array();
 $AppGlobal['cmdmap']['getArtefacts'] = array ("class" => "Artefacts", "method" => "getArtefacts");
 $AppGlobal['urlmap']['/getArtefacts'] = array ('command' => 'getArtefacts', 'type' => 'GET');
 
+$AppGlobal['cmdmap']['getProjectDetails'] = array ("class" => "Projects", "method" => "getProjectDetails");
+$AppGlobal['urlmap']['/getProjectDetails'] = array ('command' => 'getProjectDetails', 'type' => 'GET');
+
 $AppGlobal['cmdmap']['getProjects'] = array ("class" => "Projects", "method" => "getProjects");
 $AppGlobal['urlmap']['/getProjects'] = array ('command' => 'getProjects', 'type' => 'GET');
 

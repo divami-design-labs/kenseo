@@ -6,7 +6,7 @@ _.assign(sb, {
 		"add-artefact" : {
 			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","doctype","id","image","is_project_page",
 						"linksIds","links","references","referencesIds","tags","masked_artefact_version_id","name","owner_id","person_name","project_id","project_name","shared_date","project_description",
-						"status","title","version"]
+						"status","title","version", "command"]
 		},
 		"edit-artefact" : {
 			params : ["MIME_type","actionType","artefact_time","artefact_version_id","comment_count","doctype","artefact_id","image","is_project_page",

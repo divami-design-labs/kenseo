@@ -185,7 +185,8 @@ sb.popup = {
 
         $(".upload-files-input").change(function () {
             var files = this.files;
-
+            var projectId;
+            projectId = sb.getPopupData("project_id");
             // If user clicks cancel.
             if(!files) {
                 // Clear selected file path from input box

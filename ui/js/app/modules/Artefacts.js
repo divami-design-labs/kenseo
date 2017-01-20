@@ -113,6 +113,7 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                 if(_this.templateHolder.find('.no-artefacts').length){
                     _this.templateHolder.find('.no-artefacts').remove();
                 }
+                
                 _this.templateHolder.prepend(view.el);
             });
 

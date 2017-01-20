@@ -59,6 +59,7 @@ sb.router = (function(){
             $('.project-section').html('');
             sb.refresh.section('project-page-info');
             regulator(['.project-section']);
+            
         },
         meetingNotes: function meetingNotes(id) {
             sb.svgLoader(['common', 'meetingnotes']);

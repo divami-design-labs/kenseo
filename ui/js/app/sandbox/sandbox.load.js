@@ -218,7 +218,7 @@ sb.loadFiles({
     modules: [
         'Header', 'Artefacts', 'Activities',
         'Projects', 'Notifications', 'People',
-        'Search', 'Tags', 'DocumentView',
+        'Search', 'Tags', 'DocumentView','ProjectPage',
         'Comments', 'Threads', 'Meetings', 'versions'
     ]
 }, function(){
