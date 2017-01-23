@@ -248,25 +248,25 @@ sb.refresh = (function(){
 						sb.refresh.section('header');
 						// sb.refresh.section('project-page');
 						sb.ajaxCall({
-                url: sb.getRelativePath('getProjectDetails'),
-                data: {
-                    // artefactVersionId: Kenseo.data.artefact.id,
-                    projectId: Kenseo.page.id
-                },
-                type: 'GET',
-                success: function success(response) {
+			                url: sb.getRelativePath('getProjectDetails'),
+			                data: {
+			                    // artefactVersionId: Kenseo.data.artefact.id,
+			                    projectId: Kenseo.page.id
+			                },
+			                type: 'GET',
+			                success: function success(response) {
 
-                    var view = new Kenseo.views.projectPage({
-                        payload: {
-                            projectId: Kenseo.page.id,
-                            templateHolder: $('.project-section')
+			                    var view = new Kenseo.views.projectPage({
+			                        payload: {
+			                            projectId: Kenseo.page.id,
+			                            templateHolder: $('.project-section')
 
-                        },
-                        model: new Kenseo.models.projectPage(response.data)
-                    });
-                    view.render();
-                }
-            });
+			                        },
+			                        model: new Kenseo.models.projectPage(response.data)
+			                    });
+			                    view.render();
+			                }
+			            });
 
 						// registring click event to the create meeting link from project actions to store field populating data
 						sb.attachIn('click', '.main-section-project-icon-holder [data-url="create-meeting"]', function(){

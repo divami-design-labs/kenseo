@@ -24,23 +24,29 @@ Kenseo.views.Notifications = Backbone.View.extend({
                     // });
 
                     // _this.templateHolder = _this.templateWrapperHolder.find(_this.templateHolder);
+                    if(newData) {
+                        for(var key in newData){
+                            var content = "";
+                            newData[key].forEach(function(item){
+                                var view = new Kenseo.views.Notification({
+                                    model: new Kenseo.models.Notifications(item),
+                                    collection: _this.collection,
+                                    scope: _this
+                                });
 
-                    for(var key in newData){
-                        var content = "";
-                        newData[key].forEach(function(item){
-                            var view = new Kenseo.views.Notification({
-                                model: new Kenseo.models.Notifications(item),
-                                collection: _this.collection,
-                                scope: _this
+                                content = content + view.el.outerHTML;
                             });
 
-                            content = content + view.el.outerHTML;
-                        });
-
+                            _this.templateHolder.append(sb.setTemplate('day-wise-item',{data: {
+                                label: key,
+                                content: content
+                            }}));
+                        }
+                    } else {
                         _this.templateHolder.append(sb.setTemplate('day-wise-item',{data: {
-                            label: key,
-                            content: content
-                        }}));
+                                label: key,
+                                content: "No notifications found"
+                            }}));
                     }
                 }
                 else{

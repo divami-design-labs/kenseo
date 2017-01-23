@@ -29,29 +29,33 @@ Kenseo.views.Projects = Backbone.View.extend({
             data: _this.data,
             success: function(collection, response){
                 console.log("hello");
-                var data = response.data;
+                var data = response.data || false;
                 //filter the data to get active projects
-                data.filter(function(item){
-                  return item['is_archive'] === "0"
-                }).forEach(function(item){
-                  appendItems(item, _this.templateHolder);
-                });
-
-                //filter the data to get archived projects
-                data.filter(function(item){
-                  return item['is_archive'] === "1"
-                }).forEach(function(item){
-                  appendItems(item, _this.archivedTemplateHolder);
-                });
-
-
-                function appendItems(item,templateHolder){
-                    var view = new Kenseo.views.Project({
-                        model: new Kenseo.models.Projects(item),
-                        collection: _this.collection,
-                        parent: _this
+                if(data) {
+                    data.filter(function(item){
+                      return item['is_archive'] === "0"
+                    }).forEach(function(item){
+                      appendItems(item, _this.templateHolder);
                     });
-                    templateHolder.append(view.el);
+
+                    //filter the data to get archived projects
+                    data.filter(function(item){
+                      return item['is_archive'] === "1"
+                    }).forEach(function(item){
+                      appendItems(item, _this.archivedTemplateHolder);
+                    });
+
+
+                    function appendItems(item,templateHolder){
+                        var view = new Kenseo.views.Project({
+                            model: new Kenseo.models.Projects(item),
+                            collection: _this.collection,
+                            parent: _this
+                        });
+                        templateHolder.append(view.el);
+                    }
+                } else {
+                    $('.projects-section-content').html('No projects found');
                 }
             }
         }));
