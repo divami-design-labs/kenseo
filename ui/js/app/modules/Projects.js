@@ -29,13 +29,15 @@ Kenseo.views.Projects = Backbone.View.extend({
             data: _this.data,
             success: function(collection, response){
                 console.log("hello");
+                var archflag = 0, projectflag = 0;
                 var data = response.data || false;
                 //filter the data to get active projects
-                if(data) {
+                if(data.length > 0) {
                     data.filter(function(item){
                       return item['is_archive'] === "0"
                     }).forEach(function(item){
                       appendItems(item, _this.templateHolder);
+                      projectflag++;
                     });
 
                     //filter the data to get archived projects
@@ -43,6 +45,7 @@ Kenseo.views.Projects = Backbone.View.extend({
                       return item['is_archive'] === "1"
                     }).forEach(function(item){
                       appendItems(item, _this.archivedTemplateHolder);
+                      archflag++;
                     });
 
 
@@ -56,6 +59,12 @@ Kenseo.views.Projects = Backbone.View.extend({
                     }
                 } else {
                     $('.projects-section-content').html('No projects found');
+                }
+                if (archflag == 0) {
+                    $('.archived-projects-page-wrapper').html('No archived projects found');
+                }
+                if (projectflag == 0) {
+                    $('.active-projects-page-wrapper').html('No projects found');
                 }
             }
         }));
@@ -135,6 +144,9 @@ Kenseo.views.Project = Backbone.View.extend({
             scope: this,
             afterRender: function($popupContainer, scope){
                 sb.attachIn('click', '.ok-btn', function(){
+                    if(scope.parent.archivedTemplateHolder[0].childElementCount == 0) {
+                        $(scope.parent.archivedTemplateHolder[0]).html("");
+                    }
                     var includeArchives = scope.parent.data.includeArchives;
                     if(!includeArchives){  // if includeArchives is true, the user is in projects page
                         // hide the item temporarily
@@ -164,10 +176,15 @@ Kenseo.views.Project = Backbone.View.extend({
                                 // delete the item permanently
 
                             }
+                                
                             //move the archived project to archived projects list
                             if(scope.parent.archivedTemplateHolder){  // template will be available only for projectspage but not for dashboard
                                 scope.parent.archivedTemplateHolder.prepend(scope.$el);
+
                             }
+                            if (scope.parent.templateHolder[0].childElementCount == 0) {
+                                $(scope.parent.templateHolder[0]).html("No projects found");
+                            }   
                         }
                     })
                 }, $popupContainer);
@@ -181,6 +198,9 @@ Kenseo.views.Project = Backbone.View.extend({
             scope: this,
             afterRender: function($popupContainer, scope){
                 sb.attachIn('click', '.ok-btn', function(){
+                    if(scope.parent.templateHolder[0].childElementCount == 0) {
+                        $(scope.parent.templateHolder[0]).html("");
+                    }
                     var isArchive = scope.model.get('is_archive');
                     scope.model.set('is_archive', "0");
                     sb.ajaxCall({
@@ -197,8 +217,13 @@ Kenseo.views.Project = Backbone.View.extend({
                         			    sb.showGlobalMessages(response);
                                 }
                             }
+                            
                             //add the unarchived project to active projects
                             scope.parent.templateHolder.prepend(scope.$el);
+                            if (scope.parent.archivedTemplateHolder[0].childElementCount == 0) {
+                                $(scope.parent.archivedTemplateHolder[0]).html("No archived projects found");
+                            } 
+
                         }
                     })
                 }, $popupContainer);

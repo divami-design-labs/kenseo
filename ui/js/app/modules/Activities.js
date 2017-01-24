@@ -31,22 +31,25 @@ Kenseo.views.Activities = Backbone.View.extend({
 
                     _this.templateHolder = _this.templateWrapperHolder.find(_this.templateHolder);
 
-                    for(var key in newData){
-                        var content = "";
-                        newData[key].forEach(function(item){
-                            var view = new Kenseo.views.Activity({
-                                model: new Kenseo.models.Activities(item),
-                                collection: _this.collection
+                    if(data.length > 0) {
+                        for(var key in newData){
+                            var content = "";
+                            newData[key].forEach(function(item){
+                                var view = new Kenseo.views.Activity({
+                                    model: new Kenseo.models.Activities(item),
+                                    collection: _this.collection
+                                });
+
+                                content = content + view.el.outerHTML;
                             });
 
-                            content = content + view.el.outerHTML;
-                        });
-
-                        _this.templateHolder.append(sb.setTemplate('day-wise-item',{data: {
-                            label: key,
-                            content: content
-                        }}));
-                    }
+                            _this.templateHolder.append(sb.setTemplate('day-wise-item',{data: {
+                                label: key,
+                                content: content
+                            }}));
+                        }
+                    } else {
+                        
                     // _this.templateHolder = _this.templateWrapperHolder.find('.artifacts-content');
 
                     // Attach necessary events
@@ -57,6 +60,11 @@ Kenseo.views.Activities = Backbone.View.extend({
                     //     _this.data.sortBy = sortType;
                     //     _this.render();
                     // });
+                    _this.templateHolder.append(sb.setTemplate('day-wise-item',{data: {
+                                label: key,
+                                content: "No activities found"
+                            }}));
+                    }
                 }
                 else{
 
@@ -68,6 +76,7 @@ Kenseo.views.Activities = Backbone.View.extend({
 
                         _this.templateHolder.append(view.el);
                     });
+                        
                 }
             }
         }));

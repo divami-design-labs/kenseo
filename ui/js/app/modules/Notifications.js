@@ -15,7 +15,7 @@ Kenseo.views.Notifications = Backbone.View.extend({
             data: _this.data,
             success: function(collection, response){
                 var data = response.data;
-                var newData = sb.getDayWiseData(data);
+                var newData = sb.getDayWiseData(data) || false;
 
                 if(_this.timeRelated){
                     // sb.renderTemplate({
@@ -44,9 +44,10 @@ Kenseo.views.Notifications = Backbone.View.extend({
                         }
                     } else {
                         _this.templateHolder.append(sb.setTemplate('day-wise-item',{data: {
-                                label: key,
-                                content: "No notifications found"
-                            }}));
+                            label: key,
+                            content: "No notifications found"
+                        }}));
+                        $('.menu-recent-notifications-section').html("No notifications found");
                     }
                 }
                 else{
