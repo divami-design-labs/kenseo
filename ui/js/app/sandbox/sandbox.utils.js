@@ -464,6 +464,9 @@ var sb = _.extend(sb, (function () {
             var urlParams = sb.getUrlParams($url);
             var actionType = urlParams.url;
             // merging two objects
+            if(Kenseo.current.page == "project-page"){
+                Kenseo.popup.data = _.extend(Kenseo.popup.data, Kenseo.page.data.project);
+            }
             Kenseo.popup.data = _.extend(Kenseo.popup.data, urlParams.data);
 
             // get other settings like populating the fields by default

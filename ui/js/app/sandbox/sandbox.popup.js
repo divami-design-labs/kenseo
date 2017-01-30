@@ -60,7 +60,7 @@ sb.popup = {
             container: $('.popup'),
             data: {
                 project_id: projectId,
-                references: true,
+                projects: true,
                 withVersions: true,
                 ignore: 0
             },

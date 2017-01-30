@@ -144,7 +144,7 @@ Kenseo.views.Project = Backbone.View.extend({
             scope: this,
             afterRender: function($popupContainer, scope){
                 sb.attachIn('click', '.ok-btn', function(){
-                    if(scope.parent.archivedTemplateHolder[0].childElementCount == 0) {
+                    if(Kenseo.current.page == "projects-page" && scope.parent.archivedTemplateHolder[0].childElementCount == 0) {
                         $(scope.parent.archivedTemplateHolder[0]).html("");
                     }
                     var includeArchives = scope.parent.data.includeArchives;
@@ -182,7 +182,7 @@ Kenseo.views.Project = Backbone.View.extend({
                                 scope.parent.archivedTemplateHolder.prepend(scope.$el);
 
                             }
-                            if (scope.parent.templateHolder[0].childElementCount == 0) {
+                            if (Kenseo.current.page == "projects-page" && scope.parent.templateHolder[0].childElementCount == 0) {
                                 $(scope.parent.templateHolder[0]).html("No projects found");
                             }   
                         }
@@ -198,7 +198,7 @@ Kenseo.views.Project = Backbone.View.extend({
             scope: this,
             afterRender: function($popupContainer, scope){
                 sb.attachIn('click', '.ok-btn', function(){
-                    if(scope.parent.templateHolder[0].childElementCount == 0) {
+                    if(Kenseo.current.page == "projects-page" && scope.parent.templateHolder[0].childElementCount == 0) {
                         $(scope.parent.templateHolder[0]).html("");
                     }
                     var isArchive = scope.model.get('is_archive');
@@ -220,7 +220,7 @@ Kenseo.views.Project = Backbone.View.extend({
                             
                             //add the unarchived project to active projects
                             scope.parent.templateHolder.prepend(scope.$el);
-                            if (scope.parent.archivedTemplateHolder[0].childElementCount == 0) {
+                            if (Kenseo.current.page == "projects-page" && scope.parent.archivedTemplateHolder[0].childElementCount == 0) {
                                 $(scope.parent.archivedTemplateHolder[0]).html("No archived projects found");
                             } 
 

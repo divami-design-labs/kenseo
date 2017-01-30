@@ -8,6 +8,7 @@
 	//@TODO: too much code is repetetive in here needs refinement
 	class Artefacts {
 		public function getArtefacts($interpreter){
+			
 			$data = $interpreter->getData()->data;
 			if($data->shared == "true"){
 				return $this->getSharedArtefacts($interpreter);
@@ -1051,7 +1052,8 @@
 			$dbQuery = getQuery('getReferences',$queryParams);
 
 			$refs = $db-> multiObjectQuery($dbQuery);
-
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "references");
 			return $refs;
 		}
 

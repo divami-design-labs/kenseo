@@ -39,16 +39,24 @@ Kenseo.views.projectPage = Backbone.View.extend({
                     peopleView.render();
 
     },
-    // events: {
-    //     'click [data-url="add-artefact"]': 'addArtefact'
-    // },
-    // addArtefact: function(e){
-    //     var el = e.currentTarget;
-    //     sb.newCallPopup({
-    //         el: el,
-    //         scope: this
-    //     });
-    // },
+    events: {
+        // 'click [data-url="add-artefact"]': 'addArtefact'
+    },
+    addArtefact: function(e){
+        var $self = $(e);
+        var $dataHolder = $self.closest('.data-holder');
+        if($dataHolder.length){
+            sb.insertPopupData($dataHolder);
+        }
+        else if($self.hasClass('data-holder')){
+            sb.insertPopupData($self);
+        }
+        else{
+            sb.log("Didn't provide data-holder class to the element or its parent");
+        }
+
+        sb.navigate('popup', this);
+    }
     // events: {
     //     // 'click .popup-click': 'openPopup',
     //     // 'click [data-url="add-artefact"]': 'addArtefact',
