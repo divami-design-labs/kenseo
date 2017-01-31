@@ -574,7 +574,7 @@ $AppGlobal['sql']['getTagsName'] = "SELECT tags.tag_id as id from " . TABLE_TAGS
 											where tags.tag_name = @~~tagName~~@";
 
 
-$AppGlobal['sql']['matchTags'] = "SELECT artefacts.artefact_id AS id, artefacts.artefact_title AS title FROM artefacts, artefact_tags, tags
+$AppGlobal['sql']['matchTags'] = "SELECT artefacts.artefact_id AS id, artefacts.artefact_title AS title FROM artefacts, artefact_tags_map, tags
                                         WHERE artefacts.artefact_id = artefact_tags.artefact_id AND artefact_tags.tag_id= tags.tag_id AND tags.tag_name LIKE @~~string~~@";
 
 
@@ -905,7 +905,7 @@ $AppGlobal['sql']['getReferenceArtefactList'] = "SELECT DISTINCT arts.artefact_t
 											(SELECT artefact_id from " . TABLE_ARTEFACTS_VERSIONS . " WHERE masked_artefact_version_id = @~~maskedVerId~~@))";
 
 
-$AppGlobal['sql']['getArtefactTagList'] = "SELECT artTags.tag_id as tag_id, tag.tag_name as tag_name FROM artefact_tags artTags
+$AppGlobal['sql']['getArtefactTagList'] = "SELECT artTags.tag_id as tag_id, tag.tag_name as tag_name FROM artefact_tags_map artTags
 											JOIN tags as tag ON artTags.tag_id = tag.tag_id WHERE artefact_id = @~~artefactId~~@";
 
 
