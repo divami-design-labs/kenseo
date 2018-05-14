@@ -1,5 +1,5 @@
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -51,7 +51,7 @@ __p += '>\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -76,7 +76,7 @@ __p += '<div class="add-widget-section">\r\n\t<div class="add-widget-btn-section
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -110,7 +110,7 @@ __p += '\r\n\t<div class="template-section--close">\r\n\t\t<svg><use xlink:href=
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -187,7 +187,7 @@ __p += '<div class="persona-template">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -221,7 +221,7 @@ __p += '\r\n\t</ul></div>';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -246,7 +246,7 @@ __p += '<div class="persona-traits persona-card template-section">\r\n\t<div cla
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -278,7 +278,7 @@ __p += '\r\n\t<div class="persona-indicator--add">\r\n\t\t<span class="widget-ad
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -326,7 +326,7 @@ __p += '<div class="popup popup-medium k-form">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -380,7 +380,7 @@ __p += '\r\n\t</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -409,7 +409,7 @@ __p += '<div class="day-activity">\r\n    <div class="day-activity-label">\r\n  
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -453,7 +453,7 @@ __p += '\r\n</div>';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -476,7 +476,7 @@ __p += '<div class="messages-wrapper ' +
 ((__t = (type)) == null ? '' : __t) +
 '-messages-wrapper ">\r\n  <svg class="error-or-success-img ">\r\n    <use xlink:href="#' +
 ((__t = (icon)) == null ? '' : __t) +
-'"></use>\n  </svg>\r\n  <span class="messages">' +
+'"></use>\r\n  </svg>\r\n  <span class="messages">' +
 ((__t = (message)) == null ? '' : __t) +
 '</span>\r\n</div>\r\n';
 
@@ -484,7 +484,7 @@ __p += '<div class="messages-wrapper ' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -528,7 +528,7 @@ __p += '\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -555,7 +555,7 @@ __p += '<div class="popup popup-large">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -589,7 +589,7 @@ __p += '\r\n\t\t\t<div class="templates-viewer">\r\n\t\t\t\t<div class="template
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -614,7 +614,7 @@ __p += '<div class="fixed-content">\r\n    <div class="review-requests-section">
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -703,7 +703,7 @@ __p += '\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -741,7 +741,7 @@ __p += '\r\n<div class="no-items">\r\n\tNo projects to show\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -785,7 +785,7 @@ __p += '\r\n\t</div>\r\n\t<a href="#projectpage/' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -837,7 +837,7 @@ __p += '\r\n\t</div>\r\n</div>';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -959,7 +959,7 @@ __p += '\r\n\t\t\t\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -990,7 +990,7 @@ __p += '<div class="comment-section-body">\r\n    <div class="comment-sec-wrappe
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1179,7 +1179,7 @@ __p += '\r\n\t\t\t\t\t\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1210,7 +1210,7 @@ __p += '<div class="tag-item" title="' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1256,7 +1256,7 @@ __p += '\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1334,7 +1334,7 @@ __p += '" title="Submit this document for review" data-url="submit-artefact?arte
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1364,7 +1364,7 @@ __p += '\r\n    ' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1399,7 +1399,7 @@ __p += '<div class="each-tab">\r\n<a href="#documentview/' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1434,7 +1434,7 @@ __p += '<div class="each-tab">\r\n<a href="#documentview/' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1458,51 +1458,123 @@ with (obj) {
  for(var v in data.timeline){ ;
 __p += '\r\n    ';
 if(data.timeline[v].length){;
-__p += '\r\n        <div class="time-frame-holder mg-holder">\r\n            <div class="time-frame-item mg-item">\r\n                <div class="time-frame">\r\n                    ';
+__p += '\r\n        <div class="time-frame-holder mg-holder">\r\n            <div class="time-frame-item mg-item">\r\n                <div class="time-frame">\r\n                    <div class="time-frame-wrapper top-viewer">\r\n                        ';
 _.each(data.timeline[v], function(item) {;
-__p += '\r\n                            ';
+__p += '\r\n                                ';
  if(item.type === "links") {;
-__p += '\r\n                                 <div class="file-type top-viewer">\r\n                            ';
+__p += '\r\n                                     <div class="file-type "></div>\r\n                                ';
  } else if(item.type === "shared") {;
-__p += '\r\n                                <div class="user-type top-viewer">\r\n                                <div class="user-type-viewer top-hover-viewer">\r\n                                    <div class="user-type-content">\r\n                                        <div class="tf-images">\r\n                                            ';
- if(item.profPic !== "assets/imgs/avatar.svg"){ ;
-__p += '\r\n                                                <img src=' +
-((__t = ( item.profPic )) == null ? '' : __t) +
-' />\r\n                                            ';
+__p += '\r\n                                    <div class="user-type ">\r\n                                        <svg fill="#9A9EA5"><use xlink:href="#share-artefact"></use></svg>\r\n                                        <div class="user-type-viewer top-hover-viewer">\r\n                                            <div class="user-type-content">\r\n                                                <div class="tf-images">\r\n                                                    ';
+ if(item.profile_pic_url !== "assets/imgs/avatar.svg"){ ;
+__p += '\r\n                                                        <img src=' +
+((__t = ( item.profile_pic_url )) == null ? '' : __t) +
+' />\r\n                                                    ';
  } else { ;
-__p += '\r\n                                                <svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>\r\n                                            ';
+__p += '\r\n                                                        <svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>\r\n                                                    ';
  } ;
-__p += '\r\n                                        </div>\r\n                                        <div class="tf-more-people">' +
-((__t = ( sb.timeFormat(item.shared_date,true,true))) == null ? '' : __t) +
+__p += '\r\n                                                </div>\r\n                                                <div class="tf-more-people">' +
+((__t = ( sb.timeFormat(item.created_date,true,true))) == null ? '' : __t) +
 ' @' +
-((__t = ( sb.getTime(item.shared_date) )) == null ? '' : __t) +
-'</div>\r\n                                    </div>\r\n                                </div>\r\n                            ';
+((__t = ( sb.getTime(item.created_date) )) == null ? '' : __t) +
+'</div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                ';
  } else if(item.type === "versions") {;
-__p += '\r\n                                <div class="version-type top-viewer">v ' +
+__p += '\r\n                                    <div class="version-type ">v' +
 ((__t = ( item.version_no )) == null ? '' : __t) +
-'\r\n                            ';
+'</div>\r\n                                ';
  } else if(item.type === "meetings") {;
-__p += '\r\n                                <div class="meeting-type top-viewer">\r\n                            ';
+__p += '\r\n                                    ';
+console.dir("meetings");
+__p += '\r\n                                    ';
+console.dir(item);
+__p += '\r\n                                    <div class="meeting-type">\r\n                                        <svg fill="#00AEEF"><use xlink:href="#calendar"></use></svg>\r\n                                        <div class="top-hover-viewer">\r\n                                            <div class="meeting-type-content">\r\n                                                <svg fill="#00AEEF"><use xlink:href="#calendar"></use></svg>\r\n                                                <div class="meeting-content">' +
+((__t = (item.meeting_title)) == null ? '' : __t) +
+'\r\n                                                    <div>' +
+((__t = (sb.timeFormat(item.meeting_time,true,true))) == null ? '' : __t) +
+' @' +
+((__t = ( sb.getTime(item.meeting_time))) == null ? '' : __t) +
+'</div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                ';
  } else if(item.type === "references") {;
-__p += '\r\n                                 <div class="file-type top-viewer">\r\n                            ';
+__p += '\r\n                                     <div class="file-type "></div>\r\n                                ';
  } else if(item.type === "replaced") {;
-__p += '\r\n                                 <div class="file-replaced top-viewer">\r\n                            ';
- } else if(item.type === "userAdded") {;
-__p += '\r\n                                 <div class="user-type top-viewer">\r\n                            ';
+__p += '\r\n                                    <div class="file-type ">\r\n                                        <svg fill="#9A9EA5"><use xlink:href="#replace"></use></svg>\r\n                                        <div class="top-hover-viewer">\r\n                                            <div class="type-content">\r\n                                                <svg class="timeline-updated" fill="#efeff0"><use xlink:href="#replace"></use></svg>\r\n                                                <div class="timeline-updated-content">Replaced\r\n                                                    <div>' +
+((__t = (sb.timeFormat(item.created_time,true,true))) == null ? '' : __t) +
+' @' +
+((__t = ( sb.getTime(item.created_time))) == null ? '' : __t) +
+'</div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                ';
+ } else if(item.type === "updated") {;
+__p += '\r\n                                     <div class="file-type ">\r\n                                         <svg fill="#00AEEF"><use xlink:href="#file_1"></use></svg>\r\n                                         <div class="top-hover-viewer">\r\n                                             <div class="type-content">\r\n                                                 <svg class="timeline-updated" fill="#efeff0"><use xlink:href="#edit"></use></svg>\r\n                                                 <div class="timeline-updated-content">Updated\r\n                                                     <div>' +
+((__t = (sb.timeFormat(item.created_time,true,true))) == null ? '' : __t) +
+' @' +
+((__t = ( sb.getTime(item.created_time))) == null ? '' : __t) +
+'</div>\r\n                                                 </div>\r\n                                             </div>\r\n                                         </div>\r\n                                     </div>\r\n                                ';
+ } else if(item.type === "usersAdded") {;
+__p += '\r\n                                     <div class="user-type ">\r\n                                         <svg><use href="#add-people"></use></svg>\r\n                                         <div class="top-hover-viewer">\r\n                                             <div class="type-content">\r\n                                                 ';
+if(item.addedUsers.length < 2){;
+__p += '\r\n                                                     ';
+ _.each(item.addedUsers, function(user){ ;
+__p += '\r\n                                                         <div class="tf-images">\r\n                                                             <img src="' +
+((__t = (user.profile_pic_url)) == null ? '' : __t) +
+'" alt="pic">\r\n                                                         </div>\r\n                                                         <div class="time">\r\n                                                             <div>' +
+((__t = (sb.timeFormat(user.created_date,true,true))) == null ? '' : __t) +
+'</div>\r\n                                                             <div>@' +
+((__t = ( sb.getTime(user.created_date))) == null ? '' : __t) +
+'</div>\r\n                                                         </div>\r\n                                                      ';
+});
+__p += '\r\n                                                  ';
+}else{;
+__p += '\r\n                                                      ';
+var count = 0;
+__p += '\r\n                                                      ';
+ _.each(item.addedUsers, function(user){ ;
+__p += '\r\n                                                          ';
+count++;
+__p += '\r\n                                                          ';
+if(count <= 1){;
+__p += '\r\n                                                              <div class="tf-images">\r\n                                                                  <img src="' +
+((__t = (user.profile_pic_url)) == null ? '' : __t) +
+'" alt="pic">\r\n                                                              </div>\r\n                                                          ';
+}else{;
+__p += '\r\n                                                              ';
+return false;
+__p += '\r\n                                                          ';
+};
+__p += '\r\n                                                      ';
+});
+__p += '\r\n                                                      ';
+if(item.addedUsers.length > 1){;
+__p += '\r\n                                                          <div class="time"> + ' +
+((__t = (item.addedUsers.length - 1)) == null ? '' : __t) +
+' more</div>\r\n                                                      ';
+};
+__p += '\r\n                                                  ';
+};
+__p += '\r\n                                             </div>\r\n                                         </div>\r\n                                     </div>\r\n                                ';
  } else if(item.type === "userRemoved") {;
-__p += '\r\n                                 <div class="user-type top-viewer">\r\n                            ';
+__p += '\r\n                                     <div class="user-type ">\r\n                                         <svg><use xlink:href="#user-removed"></use></svg>\r\n                                         <div class="top-hover-viewer">\r\n                                             <div class="type-content">\r\n                                                 <img src="' +
+((__t = (item.profile_pic_url)) == null ? '' : __t) +
+'" alt="pic">\r\n                                                 <div class="time">\r\n                                                     <div>' +
+((__t = (sb.timeFormat(item.created_date,true,true))) == null ? '' : __t) +
+'</div>\r\n                                                     <div>@' +
+((__t = ( sb.getTime(item.created_date))) == null ? '' : __t) +
+'</div>\r\n                                                 </div>\r\n                                             </div>\r\n                                         </div>\r\n                                     </div>\r\n                                ';
  } else if(item.type === "comments") {;
-__p += '\r\n                            <div class="comment-type top-viewer">\r\n                            ';
+__p += '\r\n                                <div class="comment-type ">\r\n                                    <div class="rr-comment">\r\n                                        <svg><use xlink:href="#baloon"></use></svg>\r\n                                        <div class="rr-comment-count">1</div>\r\n                                    </div>\r\n                                    <div class="top-hover-viewer">\r\n                                        <div class="type-content">\r\n                                            <img src="' +
+((__t = (item.profile_pic_url)) == null ? '' : __t) +
+'" alt="pic">\r\n                                            <div class="time">\r\n                                                <div>' +
+((__t = (sb.timeFormat(item.created_date,true,true))) == null ? '' : __t) +
+'</div>\r\n                                                <div>@' +
+((__t = ( sb.getTime(item.created_date))) == null ? '' : __t) +
+'</div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                ';
  };
-__p += '\r\n                        ';
+__p += '\r\n                            ';
  }) ;
-__p += '</%>\r\n                    ';
+__p += '</%>\r\n                        <!-- ';
 _.each(data.timeline[v], function(item) {;
-__p += '\r\n                        </div>\r\n                    ';
+__p += '\r\n                            </div>\r\n                        ';
  }) ;
-__p += '</%>\r\n                    <div class="time-frame-date">' +
+__p += '</%> -->\r\n                        <div class="time-frame-date">' +
 ((__t = ( sb.timeFormat(v+" 00:00:00", true, true))) == null ? '' : __t) +
-'</div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    ';
+'</div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    ';
  } ;
 __p += '\r\n';
  } ;
@@ -1512,7 +1584,7 @@ __p += '\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1547,7 +1619,7 @@ __p += '<div class="summary-version-item">\r\n    <label class="checkbox">\r\n  
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1575,13 +1647,13 @@ __p += '\r\n\t<img width="50" height="50" src="' +
  } else { ;
 __p += '\r\n\t<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>\r\n';
  } ;
-__p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item">Profile</div>\r\n    <div class="sub-menu-item">Settings</div>\r\n    <div class="separator"></div>\r\n    <a href="../server?logout" class="sub-menu-item">Log Out</a>\r\n</div>\r\n';
+__p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item hide">Profile</div>\r\n    <div class="sub-menu-item hide">Settings</div>\r\n    <div class="separator  hide"></div>\r\n    <a href="../server/?logout" class="sub-menu-item">Log Out</a>\r\n</div>\r\n';
 
 }
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1612,7 +1684,7 @@ __p += '<a href="' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1662,7 +1734,7 @@ __p += '\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1687,7 +1759,7 @@ __p += '<div class="search-section">\r\n    <form class="input-field">\r\n    \t
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1710,13 +1782,13 @@ with (obj) {
 
 
 	var svgicons = {
-		"add-user": "#icon11",
-		"share-artefact": "#icon11",
+		"add-user": "#add-people",
+		"share-artefact": "#add-people",
 		"approve-artefact": "#file12",
 		"add-artefact": "#addfile",
 		"comment-artefact": "#icon15",
 		"add-meeting": "#icon4",
-		"remove-user": "#icon2"
+		"remove-user": "#user-removed"
 	}
 ;
 __p += '\r\n';
@@ -1749,7 +1821,7 @@ __p += '\r\n    </div>\r\n    <div class="activity-details ellipsis" title="' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1887,7 +1959,7 @@ __p += '\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t';
  } ;
 __p += '\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="#baloon"></use></svg>\r\n\t\t\t\t\t<div class="rr-comment-count">' +
 ((__t = ( data.comment_count )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="submit-artefact?artefactVersionId=' +
+'</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="requests-dropdown html-click prevent-default" data-html-class="active">\r\n\t\t<div class="requests-dropdown-icon">\r\n\t\t\t<svg><use xlink:href="#dropdown"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="requests-dropdown-items sub-menu-holder small">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="archive-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#archive1"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Archive</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="replace-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#replace"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div  class="sub-menu-item-text">Replace</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-version">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#addversion"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Add Version</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="share-artefact" data-index="2">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#share"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Share</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="submit-artefact?artefactVersionId=' +
 ((__t = ( data.artefact_version_id )) == null ? '' : __t) +
 '">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#submit-review"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Submit Review Comments</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="private-message">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Send Private Message</div>\r\n\t\t\t</div>\r\n            <div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#meeting"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Create a Meeting</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="edit-artefact-info">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg><use xlink:href="#editartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Edit Info</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="rename-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text">Rename</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="download-artefact">\r\n\t\t\t\t<div class="item-icon">\r\n\t\t\t\t\t<svg fill="#DBDCE0"><use xlink:href="#renameartifact"></use></svg>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="sub-menu-item-text"> <a class="stop-propagate" href="' +
 ((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data['artefact_id']))) == null ? '' : __t) +
@@ -1897,7 +1969,7 @@ __p += '\r\n\t\t\t\t<div class="rr-comment">\r\n\t\t\t\t\t<svg><use xlink:href="
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -1980,7 +2052,7 @@ __p += '\r\n</a>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2013,7 +2085,7 @@ __p += '<div class="notification-item S-type">\r\n\t<svg class="notification-s-t
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2040,7 +2112,7 @@ __p += '<p> Can\'t view unsupported format</p>\r\n\r\n<div class="sub-menu-item-
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2100,7 +2172,7 @@ __p += '\r\n\t</div>\r\n</div>';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2170,7 +2242,7 @@ __p += '</div>\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2242,7 +2314,7 @@ __p += '\t\r\n\t</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2288,7 +2360,7 @@ __p += ' >\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2334,7 +2406,7 @@ __p += ' </div>\r\n\t<div class="to-share-filename">' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2404,7 +2476,7 @@ __p += '\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2500,7 +2572,7 @@ __p += '\r\n\r\n            </div>\r\n            <label class="checkbox">\r\n  
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2538,7 +2610,7 @@ __p += '\r\n    </div>\r\n    <div class="menu-profile-text">\r\n        <div cl
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2582,7 +2654,7 @@ __p += '\r\n<div class="no-items">\r\n\tNo projects to show\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2624,7 +2696,7 @@ __p += '\r\n<div class="no-items">\r\n\tNo Recent activities to show\r\n</div>\r
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2672,7 +2744,7 @@ __p += '\r\n<div class="no-items">\r\n    No notifications to show\r\n</div>\r\n
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2718,7 +2790,7 @@ __p += '\r\n<div class="no-items">\r\n\tNo added people\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2743,7 +2815,7 @@ __p += '\r\n<!-- Menu Header -->\r\n<div class="menu-header">\r\n\r\n</div>\r\n\
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2764,7 +2836,7 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<div class="toolbar-slider summary-section-overlay view">\r\n    <div class="summary-section-header">\r\n        <div class="summary-header-left">\r\n            <div class="review-request-item" >\r\n                <div class="rr-left">\r\n                    ';
-var categories = Kenseo.settings.categories ;
+var categories = Kenseo.settings.docTypeShort ;
 __p += '\r\n                    <div class="rr-status ellipsis status-' +
 ((__t = ( data.basicDetails.status )) == null ? '' : __t) +
 '">' +
@@ -2774,7 +2846,7 @@ __p += '\r\n                    <div class="rr-status ellipsis status-' +
 '" src="' +
 ((__t = ( data.basicDetails.authorImage )) == null ? '' : __t) +
 '"/>\r\n                </div>\r\n                <div class="rr-right">\r\n                    <div class="rr-title ellipsis" title="' +
-((__t = ( data.basicDetails.title )) == null ? '' : __t) +
+((__t = ( data.basicDetails.artefact_title )) == null ? '' : __t) +
 '">' +
 ((__t = ( data.basicDetails.artefact_title )) == null ? '' : __t) +
 '</div>\r\n                    <div class="rr-details ellipsis" title="Version ' +
@@ -2792,7 +2864,7 @@ __p += '\r\n                    <div class="rr-status ellipsis status-' +
 __p += '\r\n                <div class="time-frame-holder mg-holder">\r\n                    <div class="time-selector-item mg-item">\r\n                        <div class="time-frame">\r\n                            <div class="version-type top-viewer">v' +
 ((__t = ( v.version_no )) == null ? '' : __t) +
 '</div>\r\n                            <div class="time-frame-date">' +
-((__t = ( sb.timeFormat(v.created_date, true))) == null ? '' : __t) +
+((__t = ( sb.timeFormat(v.created_date, true, true))) == null ? '' : __t) +
 '</div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                ';
  }); ;
 __p += '\r\n                <div class="time-frame-holder mg-holder">\r\n                    <div class="time-selector-item mg-item">\r\n                        <div class="time-frame">\r\n                            <div class="current-type top-viewer">\r\n                                <svg><use xlink:href="#currentdate"></use></svg>\r\n                            </div>\r\n                            <div class="time-frame-date">' +
@@ -2867,7 +2939,7 @@ __p += ' -->\r\n                        </div>\r\n                    </div>\r\n
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -2959,7 +3031,7 @@ __p += '\r\n\t\t\t</div>\r\n\t\t\t<div class="permissions-section">\r\n\t\t\t\t<
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3020,7 +3092,7 @@ __p += '<div class="popup popup-large k-form">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3052,7 +3124,7 @@ __p += '\r\n<div class="popup popup-small">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3104,7 +3176,7 @@ __p += '\r\n\t\t\t\t\t<div class="choose-existing-file-holder k-field" data-xtyp
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3171,7 +3243,7 @@ __p += '\r\n\t\t\t\t\t\t\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3200,7 +3272,7 @@ __p += '<div class="popup popup-large">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3278,7 +3350,7 @@ __p += '\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3359,7 +3431,7 @@ __p += '\r\n\r\n\t\t\t\t\r\n\r\n\t\t\t\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3419,7 +3491,7 @@ __p += '\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-sect
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3448,7 +3520,7 @@ __p += '<div class="popup popup-large k-form">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3660,7 +3732,7 @@ __p += '\r\n\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3691,7 +3763,7 @@ __p += '<div class="popup popup-message k-form">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3723,7 +3795,7 @@ __p += '\r\n</div>';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3763,7 +3835,7 @@ __p += '<div class="popup popup-small">\r\n\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3803,7 +3875,7 @@ __p += '\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3855,97 +3927,7 @@ __p += '\r\n            ' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['activities'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">Activity</div>\r\n\t</div>\r\n</div>\r\n<div class="activity-section-content sub-section-content">\r\n\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['people'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">People</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon" data-url="add-people">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="people-section-content sub-section-content">\r\n\r\n</div>';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['project-page'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="project-heading data-holder" data-key="projects" data-id="' +
-((__t = ( Kenseo.page.id )) == null ? '' : __t) +
-'">\r\n\t<div class="projects-heading-icon">\r\n\t\t<svg><use xlink:href="#projects"></use></svg>\r\n\t</div>\r\n\t<a href="#projects" class="heading-text-project">Projects > </a>\r\n\t<span class="heading-text-project-name">' +
-((__t = ( Kenseo.page.data.project.project_name )) == null ? '' : __t) +
-'</span>\r\n\t<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">\r\n\t\t<div class="sub-heading-more-icon">\r\n\t\t\t<svg><use xlink:href="#more"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="sub-menu-holder right-nav bottom-nav">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">Create a Meeting</div>\r\n\t\t\t';
-if(Kenseo.page.data.project.is_archive == '0'){;
-__p += '\r\n\t\t\t\t<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>\r\n\t\t\t';
-}else{;
-__p += '\r\n\t\t\t\t<div class="sub-menu-item popup-click" data-url="unarchive-project">Unarchive a Project</div>\r\n\t\t\t';
-};
-__p += '\r\n\t\t\t<div class="sub-menu-item popup-click hide">Delete a Project</div>\r\n\t\t\t<div class="sub-menu-item"><a class="stop-propagate" href="' +
-((__t = (sb.getRelativePath('zip.php?command=downloadProject&project_id='+Kenseo.page.id))) == null ? '' : __t) +
-'" target="_blank" download> Download</a> </div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-description"> ' +
-((__t = ( Kenseo.page.data.project.project_description )) == null ? '' : __t) +
-' </div>\r\n<div class="project-section-content">\r\n\t<div class="artifacts-section review-requests-content sub-section">\r\n\r\n\t</div>\r\n\r\n\t<div class="activity-section sub-section">\r\n\r\n\t</div>\r\n\t<div class="people-section sub-section">\r\n\r\n\t</div>\r\n\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -3995,7 +3977,7 @@ __p += '\r\n\r\n\t\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -4035,7 +4017,7 @@ __p += '\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -4090,7 +4072,7 @@ __p += '\r\n\t\t\t' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -4172,7 +4154,7 @@ __p += '\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -4201,7 +4183,7 @@ __p += '<option ' +
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -4271,7 +4253,7 @@ __p += '\r\n\t</div>\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -4376,7 +4358,97 @@ __p += '\r\n</div>\r\n';
 return __p
 }})();
 (function() {
-var _ = window._ || {};
+var _ = {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['activities'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">Activity</div>\r\n\t</div>\r\n</div>\r\n<div class="activity-section-content sub-section-content">\r\n\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['people'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="sub-heading-section">\r\n\t<div class="sub-heading">\r\n\t\t<div class="sub-heading-label">People</div>\r\n\t\t<div class="sub-heading-add-wrapper">\r\n\t\t\t<div class="sub-heading-add-icon" data-url="add-people">\r\n\t\t\t\t<svg><use xlink:href="#add"></use></svg>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="people-section-content sub-section-content">\r\n\r\n</div>';
+
+}
+return __p
+}})();
+(function() {
+var _ = {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
+(window['templates'] = window['templates'] || {})['project-page'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="project-heading data-holder" data-key="projects" data-id="' +
+((__t = ( Kenseo.page.id )) == null ? '' : __t) +
+'">\r\n\t<div class="projects-heading-icon">\r\n\t\t<svg><use xlink:href="#projects"></use></svg>\r\n\t</div>\r\n\t<a href="#projects" class="heading-text-project">Projects > </a>\r\n\t<span class="heading-text-project-name">' +
+((__t = ( project_name )) == null ? '' : __t) +
+'</span>\r\n\t<div class="main-section-project-icon-holder html-click sub-menu-nav inlineBlockTop" data-html-class="active">\r\n\t\t<div class="sub-heading-more-icon">\r\n\t\t\t<svg><use xlink:href="#more"></use></svg>\r\n\t\t</div>\r\n\t\t<div class="sub-menu-holder right-nav bottom-nav">\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-artefact" data-index="1">Add an Artefact</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="add-people">Add People</div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="create-meeting" data-others="populate">Create a Meeting</div>\r\n\t\t\t';
+if(state == 'A'){;
+__p += '\r\n\t\t\t\t<div class="sub-menu-item popup-click" data-url="archive-project">Archive a Project</div>\r\n\t\t\t';
+}else{;
+__p += '\r\n\t\t\t\t<div class="sub-menu-item popup-click" data-url="unarchive-project">Unarchive a Project</div>\r\n\t\t\t';
+};
+__p += '\r\n\t\t\t<div class="sub-menu-item popup-click hide">Delete a Project</div>\r\n\t\t\t<div class="sub-menu-item"><a class="stop-propagate" href="' +
+((__t = (sb.getRelativePath('zip.php?command=downloadProject&project_id='+Kenseo.page.id))) == null ? '' : __t) +
+'" target="_blank" download> Download</a> </div>\r\n\t\t\t<div class="sub-menu-item popup-click" data-url="cover-image">Add Cover Image</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<div class="project-description"> ' +
+((__t = ( description )) == null ? '' : __t) +
+' </div>\r\n<div class="project-section-content">\r\n\t<div class="artifacts-section review-requests-content sub-section">\r\n\r\n\t</div>\r\n\r\n\t<div class="activity-section sub-section">\r\n\r\n\t</div>\r\n\t<div class="people-section sub-section">\r\n\r\n\t</div>\r\n\r\n</div>\r\n';
+
+}
+return __p
+}})();
+(function() {
+var _ = {};
 var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',

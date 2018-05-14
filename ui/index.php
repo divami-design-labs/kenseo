@@ -7,7 +7,7 @@
     $userObj = $authenticator->validateSession();
     if (!$userObj) {
         $authenticator->invalidateSession();
-        util_redirectToURL($authenticator->getAuthURL());
+        // util_redirectToURL($authenticator->getAuthURL());
     }
 ?>
 <!doctype html>

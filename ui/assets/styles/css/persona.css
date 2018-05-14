@@ -210,8 +210,7 @@
   position: absolute;
   bottom: 50%;
   right: 50%;
-  -webkit-transform: translate(50%, 50%);
-          transform: translate(50%, 50%);
+  transform: translate(50%, 50%);
   width: 40px;
   height: 40px;
   z-index: 1;
@@ -254,10 +253,8 @@
   right: 5px;
   bottom: 50%;
   margin-bottom: -7.5px;
-  -webkit-transition: .3s transform;
   transition: .3s transform;
-  -webkit-transform-origin: center;
-          transform-origin: center;
+  transform-origin: center;
 }
 
 .persona-traits {
@@ -274,14 +271,12 @@
   overflow: hidden;
   white-space: nowrap;
   box-shadow: 8px 0px 0px 2px white;
-  -webkit-transition: all .3s;
   transition: all .3s;
 }
 
 .persona-trait-item-text {
   display: inline-block;
   vertical-align: middle;
-  -webkit-transition: .3s margin;
   transition: .3s margin;
 }
 
@@ -304,7 +299,6 @@
   height: 100%;
   width: 40%;
   background-color: #4B68B5;
-  -webkit-transition: .3s width;
   transition: .3s width;
 }
 
@@ -323,7 +317,6 @@
   width: 50px;
   height: 25px;
   margin-top: 20px;
-  background-image: -webkit-linear-gradient(left, #4B68B5 0%, #4B68B5 25%, #CED6EB 25%, #CED6EB 50%, transparent 50%);
   background-image: linear-gradient(to right, #4B68B5 0%, #4B68B5 25%, #CED6EB 25%, #CED6EB 50%, transparent 50%);
 }
 
@@ -334,7 +327,6 @@
 
 .widget-items {
   max-height: 0px;
-  -webkit-transition: .6s max-height;
   transition: .6s max-height;
   overflow: hidden;
   background-color: #D4D4D4;
@@ -409,8 +401,7 @@
 }
 
 .add-widget-btn.active .widget-add {
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .add-widget-btn.active + .widget-items {

@@ -23,6 +23,7 @@ require_once("main.php");
 
 try
 {
+
 	Master::getLogManager()->log(DEBUG, MOD_MAIN, $_SERVER['HTTP_HOST']);
 	$url = $_SERVER['HTTP_HOST'];
 	Master::getLogManager()->log(DEBUG, MOD_MAIN, $url);
@@ -30,6 +31,7 @@ try
 	$project = "App";
 	$authenticator = new Authenticator($project);
 	global $AppGlobal;
+	Master::getLogManager()->log(DEBUG, MOD_MAIN, $_GET);
 
 	if (isset($_REQUEST['logout'])) {
 		// Master::getLogManager()->log(DEBUG, MOD_MAIN, "Logout");
@@ -56,6 +58,7 @@ try
 		if ($token) {
 			$userId = $authenticator->startNewSession();
 			if (!$userId) {
+
 				// This user is not authorized to access App. Redirect to a descriptive page that has a Google Logout button.
 				//@TODO - Figure out where to go from here. - for now, redirect to Google.com
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to authentication URL");
@@ -64,16 +67,20 @@ try
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to UI URL");
 			util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
 		} else {
+			
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "GAT token unavailable");
 			$authenticator->invalidateSession();
 			util_redirectToURL($authenticator->getAuthURL());
 		}
 	} else {
+		
 		$userObj = $authenticator->validateSession();
 		if (!$userObj) {
+	
 			$authenticator->invalidateSession();
 			util_redirectToURL($authenticator->getAuthURL());
 		}
+
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "set cookie ");
 		setcookie("DivamiAppUserID", $userObj->user_id, 0, "/");
 		// everything is fine. redirect to app page.

@@ -82,7 +82,6 @@ class Authenticator
 	public function setGoogleAuthCode($code) {
 		$this->client->authenticate($code);
 		$this->googleAccessToken = $this->client->getAccessToken();
-		
 		if ($this->googleAccessToken) {
 			$this->getUserInfo();
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $this->userInfo);
@@ -96,7 +95,6 @@ class Authenticator
 		$this->userInfo['email'] = filter_var($this->userInfo['email'], FILTER_SANITIZE_EMAIL);
 		$this->userInfo['picture'] = filter_var($this->userInfo['picture'], FILTER_VALIDATE_URL);
 		$this->userInfo['name'] = filter_var($this->userInfo['name'], FILTER_SANITIZE_STRING);
-
 		return $this->userInfo;
 	}
 
@@ -137,7 +135,6 @@ class Authenticator
 
 		$this->appSID = session_id();
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "Generated a new session id: %s", $this->appSID);
-
 		return $this->appSID;
 	}
 

@@ -3,10 +3,17 @@
 global $AppGlobal;
 
 $AppGlobal['log'] = array();
-$AppGlobal['log']['path'] = "/var/tmp/kenseo.log" ;
+
+// Server
+// $AppGlobal['log']['path'] = "/var/tmp/kenseo.log" ;
+
+// Local
+$AppGlobal['log']['path'] = "C:/xampp/htdocs/kenseo/error.log" ;	
 $AppGlobal['log']['mode'] = "ON" ;
 $AppGlobal['log']['modules'] = "ALL" ;
-$AppGlobal['global']['domain'] = "https://kenseo.divami.com/";
+// $AppGlobal['global']['domain'] = "https://kenseo.divami.com/";
+
+$AppGlobal['global']['domain'] = "http://localhost/kenseo/";
 
 $AppGlobal['gloabl']['storeLocation'] = "media/";
 
