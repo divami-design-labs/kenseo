@@ -106,14 +106,14 @@ ALTER TABLE `notification_on_map`
   MODIFY `notification_on_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 
---30th October 2016
+-- 30th October 2016
 
 RENAME table artefact_tags TO artefact_tags_map;
 ALTER TABLE `artefact_tags_map` DROP `created_by`;
 ALTER TABLE `artefact_tags_map` ADD `user_generated` INT(1) NOT NULL DEFAULT '0' COMMENT '0 - when automatically generated,1 - when user defined' AFTER `created_date`;
 
 
---20th January 2017
+-- 20th January 2017
 
 ALTER TABLE `notifications` CHANGE `notification_on` `notification_on` INT NOT NULL COMMENT 'maps to notification_on_map table';
 ALTER TABLE `notifications` CHANGE `notification_type` `notification_type` INT NULL DEFAULT NULL COMMENT 'Maps to notification_type_map table';
