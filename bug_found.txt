@@ -1,0 +1,25 @@
+can't create meeting
+can't send private message from #documentview 
+on clicking compare in  document summary in #documentview it is redirecting to home page
+getting a blanck page when clicked on the croos symbole in documentView page
+cant view unsupported format for txt  //
+when u click on the notification Its state is not changing to read
+if there is no comment its should show "no comment available" in documentSummary #documentview
+Can't able to add notes to the document summary
+
+
+
+document summary : number of comments is not showing
+After removing a person he/she can access the atefact and do comment and receive comment
+without adding the people we can share the artefact
+In notification others what did is not showing <activity and notifications dispaly the same things>
+no notification regarding the project
+After removing one person ,can't able to add single person// working for multiple person
+can't save private message from documentView/artefect/more option 
+It need to refresh angain after adding a new version of artefacts
+shared artefacts by someone
+project->dummyproject->Artefacts->dates 
+
+after commenting first time still the comment summary is empty
+i commented twice but its showing 3
+
