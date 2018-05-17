@@ -193,7 +193,12 @@
           $params = array('project_id' => $projectId);
     			$query = getQuery('getProjectMembers', $params);
     			$projectMembersInfo = $db->multiObjectQuery($query);
-                $notificationRecipients[] = $userId;
+                // $notificationRecipients[] = $userId;
+                $i = 0;
+                foreach($projectMembersInfo as $recipient) {
+                    $notificationRecipients[$i] = $recipient->user_id;
+                    $i++;
+                }
 
                 Master::getLogManager()->log(DEBUG, MOD_MAIN, "new recipients");
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, $notificationRecipients);
@@ -267,8 +272,18 @@
                     'removeduserid' => $peopleId
                 ),$db);
 
+                $querDetails = getQuery('getSharedArtefacts',array('userid'=>$userid, '@limit' => $limit ));
+                $resultObj = $db->multiObjectQuery($querDetails);
+                $i = 0;
+                $artefactIdOfThisProject = array();
+                foreach($resultObj as $resObj) {
+                    if($resObj.p.project_id === $projectId){
+                        $artefactIdOfThisProject[] = $resObj.a.artefact_id; 
+                    }
+                }
+                Master::getLogManager()->log(DEBUG, MOD_MAIN, $resultObj);
                 $db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId . " and user_id =" . $peopleId);
-
+                // $db->deleteTable(T)
 
 
                 // $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserRemoved', array(

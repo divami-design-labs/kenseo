@@ -2219,7 +2219,7 @@
 					'on'			=> 'artefact',
 					'ref_ids'		=> $artefactVersionId,
 					'ref_id'		=> $artefactVersionId,
-					'recipient_ids' => $userId,
+					'recipient_ids' => $notificationRecipients,
 					'project_id'	=> $projectId
 				),$db);
 
