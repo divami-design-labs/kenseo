@@ -151,6 +151,9 @@ _.extend(sb, {
             Kenseo.data[key] = dump;
         } else if(obj.data) {
             //storing data in kenseo object
+            if(obj.data == null) {
+                return false;
+            }
             Kenseo.data[key] = obj.data;
         }
     },

@@ -272,19 +272,11 @@
                     'removeduserid' => $peopleId
                 ),$db);
 
-                $querDetails = getQuery('getSharedArtefacts',array('userid'=>$userid, '@limit' => $limit ));
-                $resultObj = $db->multiObjectQuery($querDetails);
-                $i = 0;
-                $artefactIdOfThisProject = array();
-                foreach($resultObj as $resObj) {
-                    if($resObj.p.project_id === $projectId){
-                        $artefactIdOfThisProject[] = $resObj.a.artefact_id; 
-                    }
-                }
-                Master::getLogManager()->log(DEBUG, MOD_MAIN, $resultObj);
                 $db->deleteTable(TABLE_PROJECT_MEMBERS, "proj_id = " . $projectId . " and user_id =" . $peopleId);
-                // $db->deleteTable(T)
-
+                $res = $db->singleColumnQuery("SELECT artefact_id FROM `artefacts` WHERE project_id = 4");
+                Master::getLogManager()->log(DEBUG, MOD_MAIN, "thgis is result for zzzz".$res[0]);
+                foreach($res as $resItem)
+                $db->deleteTable(TABLE_ARTEFACTS_SHARED_MEMBERS, "artefact_id = " . $resItem . " and user_id =" . $peopleId);
 
                 // $mailInfo = $db->singleObjectQuery(getQuery('getOtherProjectMembersMailUserRemoved', array(
                 //     "projectid" => $projectId,

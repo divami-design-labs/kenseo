@@ -1915,6 +1915,9 @@
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $artefactObj);
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "interpreter");
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $interpreter);
+			if($artefactObj->versions[0]->shared == null) {
+				return [] ;
+			}
 			return $artefactObj;
 		}
 

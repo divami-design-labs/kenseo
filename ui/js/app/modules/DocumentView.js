@@ -30,6 +30,9 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         var $pdfsContainer = $('.pdfs-container');
         // Before painting the pdf into the viewer we need to add a tab for it.
         // pdf viewer
+        if(data.type === undefined) {
+            data.type = [];
+        }
         if (data.type == 'application/pdf') {
             var str = sb.setTemplate('tab-file', {
                 maskedVersionId: maskedVersionId,
@@ -77,6 +80,12 @@ Kenseo.views.DocumentView = Backbone.View.extend({
             $('.dv-tab-panel-section').prepend(str);
             $pdfsContainer.append(this.$el.html(sb.setTemplate('pdf-toolbar', {data: data})));
             // $('.pdfs-container').append('')
+        }
+        // if user want to access unauthorised artefact redirect user to home page
+        else if(data.type.length === 0) {
+            window.location.href =DOMAIN_UI_URL+'#dashboard';
+            sb.router.dashboard();
+            return false;
         }
         else{
             // hide the status bar
