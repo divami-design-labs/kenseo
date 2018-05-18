@@ -29,6 +29,10 @@
         <link rel="resource" type="application/l10n" href="locale/locale.properties"/>
 		<link href="ui/assets/styles/css/zebra-default.css" type="text/css" rel="stylesheet"/>
         <link href="ui/assets/styles/css/daterangepicker.css" type="text/css" rel="stylesheet"/>
+
+        <script>
+            location.search = "";
+        </script>
     </head>
     <body>
         <div class="splash-screen-container">

@@ -24,17 +24,20 @@ if($host == "localhost"){
     $AppGlobal['global']['domain'] = "http://localhost/kenseo/";
     
     // Google auth
-    $AppGlobal['googleauth']['App']['clientId'] = "620805159491-maiv301gjres7gdbn7k0e8lgg1lnebm9.apps.googleusercontent.com";
-    $AppGlobal['googleauth']['App']['clientSecret'] = "Gi4obPHtddRfZ9AjHtL_6ELu";
+    $AppGlobal['googleauth']['App']['clientId'] = "428813717734-jgk34bp4inhkvuddlcfgditm65qsl7d6.apps.googleusercontent.com";
+    $AppGlobal['googleauth']['App']['clientSecret'] = "wMnT4Wc48bfwzeG2arPS5zzP";
 }
 elseif($host == "kenseodev.divami.com"){
     $AppGlobal['global']['domain'] = "https://kenseodev.divami.com/";
 
     // Google auth
-    $AppGlobal['googleauth']['App']['clientId'] = "620805159491-maiv301gjres7gdbn7k0e8lgg1lnebm9.apps.googleusercontent.com";
-    $AppGlobal['googleauth']['App']['clientSecret'] = "Gi4obPHtddRfZ9AjHtL_6ELu";
+    $AppGlobal['googleauth']['App']['clientId'] = "194500406128-o176t7qdbphvmuohtnh5svou12shocos.apps.googleusercontent.com";
+    $AppGlobal['googleauth']['App']['clientSecret'] = "_iFqI-1G5XzdAZNj6f0IWYRJ";
 }
 elseif($host == "kenseo.divami.com"){
     $AppGlobal['global']['domain'] = "https://kenseo.divami.com/";
+
+    $AppGlobal['googleauth']['App']['clientId'] = "352389051162-3vrdf3p8kbbujc718go5ih5timkgijmn.apps.googleusercontent.com";
+    $AppGlobal['googleauth']['App']['clientSecret'] = "3XVDqD2L4ChWaHRkyUhlQtXW";
 }
 ?>
