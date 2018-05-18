@@ -806,7 +806,7 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<div class="cv-main-person">\r\n\t<div class="cv-person-left">\r\n      ';
- if(data.profilePic && data.profilePic !== "assets/imgs/avatar.svg"){ ;
+ if(data.profilePic && data.profilePic !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n        <img class="profile-image-black" src="' +
 ((__t = ( data.profilePic )) == null ? '' : __t) +
 '"/>\r\n        ';
@@ -1237,7 +1237,7 @@ __p += '\r\n\t\t<div class="left-slider">\r\n\t\t\t<svg><use xlink:href="#left-s
 __p += '\r\n\t<div class="dv-tb-people">\r\n\t\t';
  _.each(data.sharedTo, function(p){ ;
 __p += '\r\n\t\t';
- if(p.profilePic !== "assets/imgs/avatar.svg"){ ;
+ if(p.profilePic !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n\t\t\t<img class="profile-image-black" src="' +
 ((__t = ( p.profilePic )) == null ? '' : __t) +
 '"/>\r\n\t\t';
@@ -1465,7 +1465,7 @@ __p += '\r\n                                ';
 __p += '\r\n                                     <div class="file-type "></div>\r\n                                ';
  } else if(item.type === "shared") {;
 __p += '\r\n                                    <div class="user-type ">\r\n                                        <svg fill="#9A9EA5"><use xlink:href="#share-artefact"></use></svg>\r\n                                        <div class="user-type-viewer top-hover-viewer">\r\n                                            <div class="user-type-content">\r\n                                                <div class="tf-images">\r\n                                                    ';
- if(item.profile_pic_url !== "assets/imgs/avatar.svg"){ ;
+ if(item.profile_pic_url !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n                                                        <img src=' +
 ((__t = ( item.profile_pic_url )) == null ? '' : __t) +
 ' />\r\n                                                    ';
@@ -1640,14 +1640,14 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
- if(data.picture !== "assets/imgs/avatar.svg"){ ;
+ if(data.picture !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n\t<img width="50" height="50" src="' +
 ((__t = ( data.picture )) == null ? '' : __t) +
 '"/>\r\n';
  } else { ;
 __p += '\r\n\t<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>\r\n';
  } ;
-__p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item hide">Profile</div>\r\n    <div class="sub-menu-item hide">Settings</div>\r\n    <div class="separator  hide"></div>\r\n    <a href="../server/?logout" class="sub-menu-item">Log Out</a>\r\n</div>\r\n';
+__p += '\r\n<div class="sub-menu-holder right-nav bottom-nav">\r\n    <div class="sub-menu-item hide">Profile</div>\r\n    <div class="sub-menu-item hide">Settings</div>\r\n    <div class="separator  hide"></div>\r\n    <a href="?logout" class="sub-menu-item">Log Out</a>\r\n</div>\r\n';
 
 }
 return __p
@@ -1865,7 +1865,7 @@ __p +=
 __p += '</span>\r\n\t\t\t<!-- based on the type of document svg changes accrodingly.. -->\r\n\t\t\t<svg><use xlink:href="#' +
 ((__t = (data['artefact_type'])) == null ? '' : __t) +
 '"></use></svg>\r\n\t\t</div>\r\n        ';
- if(data['user_image'] !== "assets/imgs/avatar.svg"){ ;
+ if(data['user_image'] !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n            <img class="rr-owner-image" title="' +
 ((__t = ( data['user_name'] )) == null ? '' : __t) +
 '" src="' +
@@ -2193,7 +2193,7 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<div class="people-item-left">\r\n\t';
- if(data.picture !== "assets/imgs/avatar.svg"){ ;
+ if(data.picture !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n\t\t<img class="people-icon" src="' +
 ((__t = ( data.picture )) == null ? '' : __t) +
 '" />\r\n\t';
@@ -2435,7 +2435,7 @@ __p += '\r\n<div class="share-artefact-people-item" data-k-user_id="' +
 '" data-access_type="' +
 ((__t = ( data['access_type'] )) == null ? '' : __t) +
 '">\r\n\t<div class="share-artefacts-img-holder">\r\n\t\t';
- if(data.picture !== "assets/imgs/avatar.svg"){ ;
+ if(data.picture !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n\t\t\t<img class="share-artefacts-img" src=' +
 ((__t = ( data.picture)) == null ? '' : __t) +
 ' />\r\n\t\t';
@@ -2593,7 +2593,7 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<div class="menu-profile">\r\n    <div class="menu-profile-img-dv">\r\n        ';
- if(data.picture !== "assets/imgs/avatar.svg"){ ;
+ if(data.picture !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n            <img class="menu-profile-img" src="' +
 ((__t = ( data.picture )) == null ? '' : __t) +
 '" />\r\n        ';
@@ -2771,7 +2771,7 @@ __p += '\r\n';
 __p += '\r\n<div class="menu-recent-people-cnt" title="' +
 ((__t = (p.name)) == null ? '' : __t) +
 '">\r\n\t';
- if(p.picture == "assets/imgs/avatar.svg"){ ;
+ if(p.picture == "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n\t\t<svg class="menu-people-img"><use xlink:href="#avatar" class="menu-people-img"></use></svg>\r\n    ';
  } else { ;
 __p += '\r\n    \t<img src="' +
@@ -2872,7 +2872,7 @@ __p += '\r\n                <div class="time-frame-holder mg-holder">\r\n       
 '</div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class="slider-component">\r\n                <div class="slider-left"></div>\r\n                <div class="slider-right"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class="summary-section-footer">\r\n        <div class="summary-footer-item selected-tab">Summary</div>\r\n        <div class="summary-footer-item">Notes</div>\r\n    </div>\r\n\r\n\r\n    <div class="summary-and-notes-section">\r\n        <div class="summary-section-below-content  data-holder" data-url= "Summary">\r\n            <div class="summary-people-section">\r\n                <div class="sub-heading-section">\r\n                    <div class="artifacts-heading sub-heading">\r\n                        <div class="sub-heading-label">Shared with</div>\r\n                        <div class="sub-heading-add-wrapper">\r\n                            <div class="sub-heading-add-icon popup-click" data-url="share-artefact" data-index="2">\r\n                                <svg><use xlink:href="#add"></use></svg>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class="sub-section-content">\r\n                     ';
  _.each(data.sharedTo, function(d){ ;
 __p += '\r\n    \t                 <div class="summary-people-item">\r\n    \t                    <div class="sp-left">\r\n                                ';
- if(d.userImage !== "assets/imgs/avatar.svg"){ ;
+ if(d.userImage !== "ui/assets/imgs/avatar.svg"){ ;
 __p += '\r\n                                    <img title="' +
 ((__t = ( d.name)) == null ? '' : __t) +
 '" src="' +
@@ -3512,7 +3512,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="popup popup-large k-form">\r\n\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<div class="image-cover-section" id="drop-zone">\r\n\t\t\t\t<label class="upload-file-section">\r\n\t\t\t\t\t<input type="file" class="upload-files-input" accept="image/*"></input>\r\n\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\tupload file\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="uploader-section">\r\n\t\t\t\t\t\t<div class="uploader-section-img">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#pdfnpng"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</label>\r\n\t\t\t</div>\r\n\t\t\t<div class="cover-image-viewer k-field" data-xtype="coverImage" data-xtype-key="dimensions">\r\n\t\t\t\t<div class="use-full-img"><input type="checkbox">Use full image</div>\r\n\t\t\t    <div class="img-wrapper">\r\n\t\t\t\t    <img class="img-content"  src="" />\r\n\t\t\t\t    <img class="pan-img" src="assets/imgs/blank.png" />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+'\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper">\r\n\t\t\t<div class="image-cover-section" id="drop-zone">\r\n\t\t\t\t<label class="upload-file-section">\r\n\t\t\t\t\t<input type="file" class="upload-files-input" accept="image/*"></input>\r\n\t\t\t\t\t<div class="file-heading">\r\n\t\t\t\t\t\tupload file\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class="uploader-section">\r\n\t\t\t\t\t\t<div class="uploader-section-img">\r\n\t\t\t\t\t\t\t<svg><use xlink:href="#pdfnpng"></use></svg>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</label>\r\n\t\t\t</div>\r\n\t\t\t<div class="cover-image-viewer k-field" data-xtype="coverImage" data-xtype-key="dimensions">\r\n\t\t\t\t<div class="use-full-img"><input type="checkbox">Use full image</div>\r\n\t\t\t    <div class="img-wrapper">\r\n\t\t\t\t    <img class="img-content"  src="" />\r\n\t\t\t\t    <img class="pan-img" src="ui/assets/imgs/blank.png" />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
 '\r\n\t</div>\r\n</div>';
 

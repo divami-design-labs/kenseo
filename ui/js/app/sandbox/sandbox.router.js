@@ -155,7 +155,7 @@ sb.router = (function(){
             regulator(['.header', '.persona-page-section'])
 
             sb.refresh.section('header');
-            sb.loadCss('assets/styles/css/persona.css');
+            sb.loadCss('ui/assets/styles/css/persona.css');
 
             var $personaPageSection = $('.persona-page-section');
             // Show persona page

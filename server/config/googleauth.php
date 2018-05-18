@@ -11,11 +11,11 @@ $AppGlobal['googleauth']['App']['appName'] = "Kenseo";
 // $AppGlobal['googleauth']['App']['clientSecret'] = "hsqP80yaiuBlvnQrbteBQTPj";
 
 // Localhost
-$AppGlobal['googleauth']['App']['clientId'] = "1019561066915-thkpds88ll3e8b7aqb3lurlp0sn6ik89.apps.googleusercontent.com";
-$AppGlobal['googleauth']['App']['clientSecret'] = "lD7UfQ8Avf9ce-3COpFEPjT_";
+$AppGlobal['googleauth']['App']['clientId'] = "620805159491-maiv301gjres7gdbn7k0e8lgg1lnebm9.apps.googleusercontent.com";
+$AppGlobal['googleauth']['App']['clientSecret'] = "Gi4obPHtddRfZ9AjHtL_6ELu";
 // $AppGlobal['googleauth']['App']['redirectURL'] = "http://kenseo.divami.com";
-$AppGlobal['googleauth']['App']['redirectURL'] = "http://localhost/kenseo/server";
-$AppGlobal['googleauth']['App']['uiURL'] = $AppGlobal['global']['domain'] . "ui/index.php";
+$AppGlobal['googleauth']['App']['redirectURL'] = "http://localhost/kenseo/";
+$AppGlobal['googleauth']['App']['uiURL'] = $AppGlobal['global']['domain'] . "ui.php";
 
 /* End of file googleauth.php */
 ?>

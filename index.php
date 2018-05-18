@@ -4,7 +4,7 @@
  * This is the starting point for the UI. Handles authentication with Google and launches the UI.
  */
 
-require_once("main.php");
+require_once("server/main.php");
 
 
 /*
@@ -64,8 +64,15 @@ try
 				Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to authentication URL");
 				util_redirectToURL($authenticator->getAuthURL());
 			}
-			Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to UI URL");
-			util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
+            else{
+                Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to UI URL");
+                // util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
+                
+                // => clear code from the query params
+
+                // load html page
+                include "ui.php";
+            }
 		} else {
 			
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "GAT token unavailable");
@@ -85,7 +92,8 @@ try
 		setcookie("DivamiAppUserID", $userObj->user_id, 0, "/");
 		// everything is fine. redirect to app page.
 		// Not needed anymore -- $authenticator->setUserInfoCookies();
-		util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
+        // util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
+        include "ui.php";
 	}
 
 } catch (CustomeException $exception) {

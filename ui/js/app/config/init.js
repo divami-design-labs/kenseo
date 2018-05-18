@@ -37,7 +37,7 @@ var Kenseo = {
         //     }
         // });
         $.ajax({
-            "url": "settings.json",
+            "url": "ui/settings.json",
             "type": "GET",
             "success": function success(response) {
                 try {

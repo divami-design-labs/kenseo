@@ -104,7 +104,7 @@ var sb = _.extend(sb, (function () {
              			script.parentNode.insertBefore(div, script)
         			}
            		}
-           		xhr.open('get', 'assets/imgs/'+ svgs[i] +'.svg', true)
+           		xhr.open('get', 'ui/assets/imgs/'+ svgs[i] +'.svg', true)
            		xhr.send()
         	}
             //storing the loaded svgs

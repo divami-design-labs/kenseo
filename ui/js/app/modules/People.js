@@ -82,7 +82,7 @@ Kenseo.views.People = Backbone.View.extend({
             el: el,
             scope: scope,
             afterRender: function($popupContainer, scope){
-                // sb.loadCss('assets/styles/css/chosen.css');
+                // sb.loadCss('ui/assets/styles/css/chosen.css');
                 $popupContainer.find('.main-btn').attr('disabled', 'false');
                 $popupContainer.find('.sarp-checkbox-holder').addClass('hide');
                 var data =

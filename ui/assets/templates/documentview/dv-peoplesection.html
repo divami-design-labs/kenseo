@@ -6,7 +6,7 @@
 	<% } %>
 	<div class="dv-tb-people">
 		<% _.each(data.sharedTo, function(p){ %>
-		<% if(p.profilePic !== "assets/imgs/avatar.svg"){ %>
+		<% if(p.profilePic !== "ui/assets/imgs/avatar.svg"){ %>
 			<img class="profile-image-black" src="<%= p.profilePic %>"/>
 		<% } else { %>
 			<svg class="profile-image-black"><use xlink:href="#avatar"></use></svg>

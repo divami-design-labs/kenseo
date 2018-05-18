@@ -4,7 +4,7 @@
 var sb = {
     getModulePath: function(moduleType, moduleName) {
         // return 'js/app/modules/' + moduleType + '/' + moduleName + _.capitalize(moduleType).substring(0, moduleType.length - 1) + '.js';
-        return 'js/app/modules/' + moduleName + '.js';
+        return 'ui/js/app/modules/' + moduleName + '.js';
     },
     // Function to load files in sequence (useful to consider dependency).
     // TO DO: Sometimes, this function is loading files not in dependency sequence
@@ -144,7 +144,7 @@ var sb = {
                     script.parentNode.insertBefore(div, script)
                 }
             }
-            xhr.open('get', 'assets/imgs/'+ svg +'.svg', true)
+            xhr.open('get', 'ui/assets/imgs/'+ svg +'.svg', true)
             xhr.send()
         })
         Kenseo.alreadyLoadedSVGs = _.union(Kenseo.alreadyLoadedSVGs, svgs);
@@ -156,64 +156,64 @@ var sb = {
 sb.loadFiles({
     svgs: [],
     files: [
-        'js/app/config/global-variables.js',
+        'ui/js/app/config/global-variables.js',
 
-        'js/libs/jquery.js',
-        'js/libs/lodash.js',
-        'js/libs/backbone.js',
-        'js/libs/cookie.js',
-        'js/libs/zebra_datepicker.src.js',
-        'js/libs/moment.js',
-        'js/libs/jquery.daterangepicker.js',
+        'ui/js/libs/jquery.js',
+        'ui/js/libs/lodash.js',
+        'ui/js/libs/backbone.js',
+        'ui/js/libs/cookie.js',
+        'ui/js/libs/zebra_datepicker.src.js',
+        'ui/js/libs/moment.js',
+        'ui/js/libs/jquery.daterangepicker.js',
 
-        'js/libs/pdfjs/pdf.js',
-        'js/libs/pdfjs/pdf.worker.js',
-        'js/libs/pdfjs/viewer.js',
-        'js/libs/chosen.jquery.min.js',
+        'ui/js/libs/pdfjs/pdf.js',
+        'ui/js/libs/pdfjs/pdf.worker.js',
+        'ui/js/libs/pdfjs/viewer.js',
+        'ui/js/libs/chosen.jquery.min.js',
 
-        'js/libs/html2canvas.js',
-        'js/libs/jspdf/jspdf.js',
-        'js/libs/jspdf/from_html.js',
-        'js/libs/jspdf/add_image.js',
-        'js/libs/jspdf/png_support.js',
-        'js/libs/jspdf/png_support/png.js',
-        'js/libs/jspdf/png_support/zlib.js',
-        'js/libs/jspdf/split_text_to_size.js',
-        'js/libs/jspdf/standard_fonts_metrics.js',
-        'js/libs/jspdf/FileSaver.js',
+        'ui/js/libs/html2canvas.js',
+        'ui/js/libs/jspdf/jspdf.js',
+        'ui/js/libs/jspdf/from_html.js',
+        'ui/js/libs/jspdf/add_image.js',
+        'ui/js/libs/jspdf/png_support.js',
+        'ui/js/libs/jspdf/png_support/png.js',
+        'ui/js/libs/jspdf/png_support/zlib.js',
+        'ui/js/libs/jspdf/split_text_to_size.js',
+        'ui/js/libs/jspdf/standard_fonts_metrics.js',
+        'ui/js/libs/jspdf/FileSaver.js',
 
-        'js/app/sandbox/sandbox.utils.js',
-        'js/app/sandbox/sandbox.ajax.js',
-        'js/app/sandbox/sandbox.time.js',
-        'js/app/sandbox/sandbox.popup.js',
-        'js/app/sandbox/sandbox.router.js',
-        'js/app/sandbox/sandbox.overlay.js',
-        'js/app/sandbox/sandbox.slider.js',
-        'js/app/sandbox/sandbox.refresh.js',
-        'js/app/sandbox/sandbox.postcall.js',
-        'js/app/sandbox/sandbox.params.js',
-        'js/app/sandbox/sandbox.meeting.js',
+        'ui/js/app/sandbox/sandbox.utils.js',
+        'ui/js/app/sandbox/sandbox.ajax.js',
+        'ui/js/app/sandbox/sandbox.time.js',
+        'ui/js/app/sandbox/sandbox.popup.js',
+        'ui/js/app/sandbox/sandbox.router.js',
+        'ui/js/app/sandbox/sandbox.overlay.js',
+        'ui/js/app/sandbox/sandbox.slider.js',
+        'ui/js/app/sandbox/sandbox.refresh.js',
+        'ui/js/app/sandbox/sandbox.postcall.js',
+        'ui/js/app/sandbox/sandbox.params.js',
+        'ui/js/app/sandbox/sandbox.meeting.js',
 
-        'js/app/config/router.js',
-        'js/app/config/init.js',
-        'js/app/config/dynamic-events.js',
-        // 'js/app/config/params.js',
-        'js/app/config/i18n.js',
-        'js/app/config/popups.js',
-        'js/app/config/slider.js',
-        'js/app/config/overlays.js',
+        'ui/js/app/config/router.js',
+        'ui/js/app/config/init.js',
+        'ui/js/app/config/dynamic-events.js',
+        // 'ui/js/app/config/params.js',
+        'ui/js/app/config/i18n.js',
+        'ui/js/app/config/popups.js',
+        'ui/js/app/config/slider.js',
+        'ui/js/app/config/overlays.js',
 
-        'templates.js',
-        'js/app/components/upload.js',
-        'js/app/components/validation.js',
-        'js/app/components/combobox.js',
-        'js/app/components/html.js',
-        'js/app/components/texteditor.js',
-        'js/app/components/annotator.js',
-        'js/app/components/persona-builder.js',
-        'js/app/components/sliderComponent.js',
-        'js/app/components/filter.js',
-        'js/app/components/custom-panning.js'
+        'ui/templates.js',
+        'ui/js/app/components/upload.js',
+        'ui/js/app/components/validation.js',
+        'ui/js/app/components/combobox.js',
+        'ui/js/app/components/html.js',
+        'ui/js/app/components/texteditor.js',
+        'ui/js/app/components/annotator.js',
+        'ui/js/app/components/persona-builder.js',
+        'ui/js/app/components/sliderComponent.js',
+        'ui/js/app/components/filter.js',
+        'ui/js/app/components/custom-panning.js'
     ],
     modules: [
         'Header', 'Artefacts', 'Activities',

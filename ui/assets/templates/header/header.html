@@ -1,4 +1,4 @@
-<% if(data.picture !== "assets/imgs/avatar.svg"){ %>
+<% if(data.picture !== "ui/assets/imgs/avatar.svg"){ %>
 	<img width="50" height="50" src="<%= data.picture %>"/>
 <% } else { %>
 	<svg width="50" height="50"><use xlink:href="#avatar"></use></svg>
@@ -7,5 +7,5 @@
     <div class="sub-menu-item hide">Profile</div>
     <div class="sub-menu-item hide">Settings</div>
     <div class="separator  hide"></div>
-    <a href="../server/?logout" class="sub-menu-item">Log Out</a>
+    <a href="?logout" class="sub-menu-item">Log Out</a>
 </div>

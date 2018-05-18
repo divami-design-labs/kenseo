@@ -1,5 +1,5 @@
 <?php
-    require_once("../server/main.php");
+    // require_once("../server/main.php");
 
     $project = "App";
     $authenticator = new Authenticator($project);
@@ -21,14 +21,14 @@
         <!-- <meta name="description" content="Backbone.js and Require.js Boilerplate Library"> -->
         <!-- Mobile viewport optimized: h5bp.com/viewport -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
-        <link href="assets/styles/css/normalize.css" type="text/css" rel="stylesheet" />
-        <link href="assets/styles/css/chosen.css" type="text/css" rel="stylesheet" />
-        <link href="assets/styles/css/main.css" type="text/css" rel="stylesheet" />
-        <!-- <link href="assets/styles/css/viewer.css" type="text/css" rel="stylesheet" /> -->
+        <link href="ui/assets/styles/css/normalize.css" type="text/css" rel="stylesheet" />
+        <link href="ui/assets/styles/css/chosen.css" type="text/css" rel="stylesheet" />
+        <link href="ui/assets/styles/css/main.css" type="text/css" rel="stylesheet" />
+        <!-- <link href="ui/assets/styles/css/viewer.css" type="text/css" rel="stylesheet" /> -->
 
         <link rel="resource" type="application/l10n" href="locale/locale.properties"/>
-		<link href="assets/styles/css/zebra-default.css" type="text/css" rel="stylesheet"/>
-        <link href="assets/styles/css/daterangepicker.css" type="text/css" rel="stylesheet"/>
+		<link href="ui/assets/styles/css/zebra-default.css" type="text/css" rel="stylesheet"/>
+        <link href="ui/assets/styles/css/daterangepicker.css" type="text/css" rel="stylesheet"/>
     </head>
     <body>
         <div class="splash-screen-container">
@@ -124,6 +124,6 @@
                 </div>
             </div>
         </div>
-        <script src="js/app/sandbox/sandbox.load.js"></script>
+        <script src="ui/js/app/sandbox/sandbox.load.js"></script>
     </body>
 </html>

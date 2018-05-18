@@ -15,7 +15,7 @@
 			<!-- based on the type of document svg changes accrodingly.. -->
 			<svg><use xlink:href="#<%=data['artefact_type']%>"></use></svg>
 		</div>
-        <% if(data['user_image'] !== "assets/imgs/avatar.svg"){ %>
+        <% if(data['user_image'] !== "ui/assets/imgs/avatar.svg"){ %>
             <img class="rr-owner-image" title="<%= data['user_name'] %>" src="<%= data['user_image'] %>"/>
         <% } else { %>
             <svg class="rr-owner-image" title="<%= data['user_name'] %>"><use xlink:href="#avatar"></use></svg>

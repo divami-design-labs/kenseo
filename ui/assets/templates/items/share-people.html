@@ -3,7 +3,7 @@ var accessType = sb.getAccessType(data['access_type'])
 %>
 <div class="share-artefact-people-item" data-k-user_id="<%= data.id %>" data-access_type="<%= data['access_type'] %>">
 	<div class="share-artefacts-img-holder">
-		<% if(data.picture !== "assets/imgs/avatar.svg"){ %>
+		<% if(data.picture !== "ui/assets/imgs/avatar.svg"){ %>
 			<img class="share-artefacts-img" src=<%= data.picture%> />
 		<% } else { %>
 			<svg class="share-artefacts-img"><use xlink:href="#avatar"></use></svg>
