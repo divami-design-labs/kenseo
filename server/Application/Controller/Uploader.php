@@ -11,7 +11,7 @@
             }
 
 			$fileExt         = explode('.', $fileInfo['name']);
-			$path            = $AppGlobal['gloabl']['storeLocation'] . $org_id ."/". $projectId . $artId;
+			$path            = $AppGlobal['global']['storeLocation'] . $org_id ."/". $projectId . $artId;
 			if(! is_dir($path)) {
 				mkdir($path, 0777, true);
 			}

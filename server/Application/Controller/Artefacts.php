@@ -660,7 +660,7 @@
 					//
 					//
 					// $sourcePath = $FILES['tmp_name'][0];       // Storing source path of the file in a variable
-					// $path = $AppGlobal['gloabl']['storeLocation'] . $projId . "/" . $artId;
+					// $path = $AppGlobal['global']['storeLocation'] . $projId . "/" . $artId;
 					// if(! is_dir($path)) {
 					// 	mkdir($path, 0777, true);
 					// }
@@ -669,7 +669,7 @@
 					// move_uploaded_file($sourcePath, $targetPath) ;
 					//
 					// //now store the artefact detail in the tables related to artefacts and versions
-					// Master::getLogManager()->log(DEBUG, MOD_MAIN, $AppGlobal['gloabl']['storeLocation']);
+					// Master::getLogManager()->log(DEBUG, MOD_MAIN, $AppGlobal['global']['storeLocation']);
 					// //create a new version
 					// $columnNames = array('artefact_id', 'version_no', 'created_by', 'created_date', 'document_path', 'MIME_type', 'file_size', 'state', 'shared');
 					// $rowValues = array($artId, $latestVer, $userId, $date, $targetPath, $FILES["type"][0], $FILES["size"][0], 'C', 0);
@@ -1062,7 +1062,7 @@
 			$sourcePath = $fileInfo['tmp_name'];	// Storing source path of the file in a variable
 
 			$fileExt = explode('.', $fileInfo['name']);
-			$path = $AppGlobal['gloabl']['storeLocation'] . $org_id ."/". $projectId . "/" . $artId;
+			$path = $AppGlobal['global']['storeLocation'] . $org_id ."/". $projectId . "/" . $artId;
 			if(! is_dir($path)) {
 				mkdir($path, 0777, true);
 			}
