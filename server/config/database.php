@@ -2,12 +2,21 @@
 
 global $AppGlobal;
 
+$host = $_SERVER['HTTP_HOST'];
+
 $AppGlobal['db'] = array();
 
 $AppGlobal['db']['hostname'] = "localhost";
 $AppGlobal['db']['username'] = "root";
 $AppGlobal['db']['password'] = "";
-$AppGlobal['db']['database'] = "kenseo";
+
+if($host == "kenseodev.divami.com"){
+    $AppGlobal['db']['database'] = "kenseodev";
+}
+else{
+    $AppGlobal['db']['database'] = "kenseo";
+}
+
 $AppGlobal['db']['dbdriver'] = "mysql";
 $AppGlobal['db']['pconnect'] = TRUE;
 $AppGlobal['db']['db_debug'] = TRUE;
