@@ -156,8 +156,6 @@ var sb = {
 sb.loadFiles({
     svgs: [],
     files: [
-        'ui/js/app/config/global-variables.js',
-
         'ui/js/libs/jquery.js',
         'ui/js/libs/lodash.js',
         'ui/js/libs/backbone.js',
@@ -166,6 +164,7 @@ sb.loadFiles({
         'ui/js/libs/moment.js',
         'ui/js/libs/jquery.daterangepicker.js',
 
+        'ui/js/libs/pdfjs/l10n.js',
         'ui/js/libs/pdfjs/pdf.js',
         'ui/js/libs/pdfjs/pdf.worker.js',
         'ui/js/libs/pdfjs/viewer.js',

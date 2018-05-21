@@ -10,7 +10,7 @@ $AppGlobal['db']['hostname'] = "localhost";
 $AppGlobal['db']['username'] = "root";
 $AppGlobal['db']['password'] = "";
 
-if($host == "kenseodev.divami.com"){
+if($host == "demo.divami.com"){
     $AppGlobal['db']['database'] = "kenseodev";
 }
 else{

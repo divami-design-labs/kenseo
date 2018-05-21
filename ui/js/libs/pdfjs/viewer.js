@@ -41,7 +41,7 @@ var paintPdf = function(payload) {
     var DISABLE_AUTO_FETCH_LOADING_BAR_TIMEOUT = 5000;
 
     // PDFJS.imageResourcesPath = './images/';
-    PDFJS.workerSrc = 'js/libs/pdfjs/pdf.worker.js';
+    PDFJS.workerSrc = 'ui/js/libs/pdfjs/pdf.worker.js';
     // PDFJS.cMapUrl = '../web/cmaps/';
     // PDFJS.cMapPacked = true;
 
