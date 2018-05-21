@@ -38,17 +38,6 @@ Kenseo.views.DocumentView = Backbone.View.extend({
                 maskedVersionId: maskedVersionId,
                 data: data
             });
-            // var str = '<a href="#documentview/' + maskedVersionId + '" class="tab-item selectedTab" targetRel="' + data.versionId + '"><div class= "fileTab" ></div></a>';
-            $('.dv-tab-panel-section').prepend(str);
-            $pdfsContainer.append(this.$el.html(sb.setTemplate('pdf-viewer', {data: data})));
-
-            new paintPdf({
-                url: sb.getRelativePath(data.documentPath),
-                container: $('.outerContainer.inView').get(0),
-                targetId: data.versionId,
-                versionId: data.artefactId,
-                documentView: this
-            });
 
             //now get the version details of this version and show shared details
             sb.renderTemplate({
@@ -58,17 +47,9 @@ Kenseo.views.DocumentView = Backbone.View.extend({
                     versionId: data.versionId
                 },
                 templateName: 'dv-peoplesection',
-                templateHolder: $('.dv-tb-people-section')
+                templateHolder: $('.dv-tb-people-section'),
+                callbackfunc: this.getVersionDetails.bind(this)
             });
-
-
-
-            // Store the current artefact version related data in a global variable
-            var threads = data.threads || {};
-            // flag
-            threads.noChangesDetected = true;
-            sb.setCurrentDocumentData(data.versionId, threads);
-            // annotator.init();
         }
         // Image viewer
         else if(data.type.indexOf('image') > -1){
@@ -100,6 +81,41 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         sb.setVersionIdForMaskedId(maskedVersionId, data.versionId);
         var parent = document.querySelector('.outerContainer.inView .viewerContainer.parent');
         // _this.stickToBottom(parent);
+    },
+    getVersionDetails: function(versiondata) {
+        var str = sb.setTemplate('tab-file', {
+            maskedVersionId: this.payload.maskedId,
+            data: this.model.toJSON()
+        });
+        var permission;
+        var data ;
+        versiondata.data.sharedTo.forEach((eachMember) => {
+            if(eachMember.id === versiondata.client.userId) {
+                permission = eachMember.permission;
+            }
+            else {
+                permission = 'R';
+            }
+        });
+        this.model.set('permission', permission);
+        data = this.model.toJSON();
+        $('.dv-tab-panel-section').prepend(str);
+        $('.pdfs-container').append(this.$el.html(sb.setTemplate('pdf-viewer', {data: this.model.toJSON()})));
+        
+        new paintPdf({
+            url: sb.getRelativePath(data.documentPath),
+            container: $('.outerContainer.inView').get(0),
+            targetId: data.versionId,
+            versionId: data.artefactId,
+            documentView: this
+        });
+
+        // Store the current artefact version related data in a global variable
+        var threads = data.threads || {};
+        // flag
+        threads.noChangesDetected = true;
+        sb.setCurrentDocumentData(data.versionId, threads);
+        // annotator.init();
     },
     events: {
         // @TODO: In share Artefact, beforeRender change the combobox flag (check comments below)

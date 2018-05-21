@@ -1310,6 +1310,10 @@ __p += '    \r\n                </div>\r\n            </div>\r\n            <div
  if(!data.isPdf){ ;
 __p += ' hide ';
  } ;
+__p += ' ';
+ if(data.permission === 'R'){ ;
+__p += ' hide ';
+ } ;
 __p += '" data-value="rectangle" title="Add comment" data-html-outside-click="false">\r\n            <svg><use xlink:href="#add-comment"></use></svg>\r\n        </div>\r\n        <div class="dvt-item html-click toggle-annotations-icon ';
  if(!data.isPdf){ ;
 __p += ' hide ';
@@ -1322,13 +1326,25 @@ __p += '" title="Toggle Annotations completely" data-url="toggle-all-annotations
  if(!data.isPdf){ ;
 __p += ' hide ';
  } ;
-__p += '" data-url="comment-summary" title="Comment summary">\r\n            <svg><use xlink:href="#comment-summary"></use></svg>\r\n        </div>\r\n        <div class="dvt-item share-artefact-icon popup-click" data-url="share-artefact" data-index="2" title="Share this artefact">\r\n            <svg><use xlink:href="#share-artefact"></use></svg>\r\n        </div>\r\n        <div class="dvt-item submit-review-icon popup-click';
+__p += '" data-url="comment-summary" title="Comment summary">\r\n            <svg><use xlink:href="#comment-summary"></use></svg>\r\n        </div>\r\n        <div class="dvt-item share-artefact-icon popup-click ';
+ if(data.permission === 'R'){ ;
+__p += ' hide ';
+ } ;
+__p += '" data-url="share-artefact" data-index="2" title="Share this artefact">\r\n            <svg><use xlink:href="#share-artefact"></use></svg>\r\n        </div>\r\n        <div class="dvt-item submit-review-icon popup-click';
  if(!data.isPdf){ ;
+__p += ' hide ';
+ } ;
+__p += ' ';
+ if(data.permission === 'R'){ ;
 __p += ' hide ';
  } ;
 __p += '" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=' +
 ((__t = ( data.artefact_version_id )) == null ? '' : __t) +
-'">\r\n            <svg><use xlink:href="#submit-review"></use></svg>\r\n        </div>\r\n        <div class="dvt-item html-click sub-menu-nav more-menu-icon" title="more options">\r\n            <svg><use xlink:href="#more-menu"></use></svg>\r\n            <div class="sub-menu-holder top-right-nav">\r\n                <div class="sub-menu-item popup-click" data-url="add-version">Add Version</div>\r\n                <div class="sub-menu-item popup-click" data-url="replace-artefact">Replace</div>\r\n                <div class="sub-menu-item popup-click" data-url="private-message">Send Private Message</div>\r\n            </div>\r\n        </div>\r\n    </div>';
+'">\r\n            <svg><use xlink:href="#submit-review"></use></svg>\r\n        </div>\r\n        <div class="dvt-item html-click sub-menu-nav more-menu-icon ';
+ if(data.permission === 'R'){ ;
+__p += ' hide ';
+ } ;
+__p += '" title="more options">\r\n            <svg><use xlink:href="#more-menu"></use></svg>\r\n            <div class="sub-menu-holder top-right-nav">\r\n                <div class="sub-menu-item popup-click" data-url="add-version">Add Version</div>\r\n                <div class="sub-menu-item popup-click" data-url="replace-artefact">Replace</div>\r\n                <div class="sub-menu-item popup-click" data-url="private-message">Send Private Message</div>\r\n            </div>\r\n        </div>\r\n    </div>';
 
 }
 return __p
