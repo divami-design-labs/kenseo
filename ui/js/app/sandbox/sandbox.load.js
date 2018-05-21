@@ -156,8 +156,6 @@ var sb = {
 sb.loadFiles({
     svgs: [],
     files: [
-        'ui/js/app/config/global-variables.js',
-
         'ui/js/libs/jquery.js',
         'ui/js/libs/lodash.js',
         'ui/js/libs/backbone.js',

@@ -1,6 +1,6 @@
 <?php
     // require_once("../server/main.php");
-
+    global $AppGlobal;
     $project = "App";
     $authenticator = new Authenticator($project);
 
@@ -32,6 +32,9 @@
 
         <script>
             location.search = "";
+            var Kenseo = {};
+            var DOMAIN_ROOT_URL = "<?php echo $AppGlobal['global']['domain']; ?>server/";
+            var DOMAIN_UI_URL   = "<?php echo $AppGlobal['global']['domain']; ?>ui/";
         </script>
     </head>
     <body>
