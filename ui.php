@@ -36,6 +36,8 @@
             var DOMAIN_ROOT_URL = "<?php echo $AppGlobal['global']['domain']; ?>server/";
             var DOMAIN_UI_URL   = "<?php echo $AppGlobal['global']['domain']; ?>ui/";
         </script>
+
+        <!-- <script type="text/javascript" src="ui/js/libs/pdfjs/l10n.js"></script> -->
     </head>
     <body>
         <div class="splash-screen-container">

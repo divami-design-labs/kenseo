@@ -11,7 +11,7 @@ $AppGlobal['cache']['type']     = "apc";
 $AppGlobal['cache']['enable']   = "TRUE";
 $AppGlobal['cache']['live']     = "0";
 $AppGlobal['log']['path']       = "/var/tmp/kenseo.log";
-$AppGlobal['global']['storeLocation'] = "media/";
+$AppGlobal['global']['storeLocation'] = "/tmp/kenseo/media/";
 $AppGlobal['googleauth']['App'] = array();
 // Local settings
 if($host == "localhost"){  
@@ -19,7 +19,7 @@ if($host == "localhost"){
 
     // Local
     $AppGlobal['log']['path'] = "C:/xampp/htdocs/kenseo/error.log" ;
-    $AppGlobal['global']['storeLocation'] = "D:/";	
+    $AppGlobal['global']['storeLocation'] = "media/";	
     
     $AppGlobal['global']['domain'] = "http://localhost/kenseo/";
     
