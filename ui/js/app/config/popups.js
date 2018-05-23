@@ -337,7 +337,7 @@ Kenseo.popups = (function(){
 	            	"disabled": true
 	            }],
 	            "callbackfunc": function() {
-	            	// sb.setPopupData('replaceArtefact', 'actionType');
+	            	sb.setPopupData('replaceArtefact', 'actionType');
 	            	sb.popup.createFilePopup();
 	            }
         	}

@@ -407,6 +407,10 @@
 						$result->versionSummary = $versionSummary;
 				}
 			}
+			// foreach($resultObj as $result) {
+			// 	$resObj2 = $db->singleObjectQuery(" select name from ".TABLE_ARTEFACTS_VERSIONS ." v inner join ". TABLE_USERS ." u where v.created_by = u.user_id AND v.artefact_version_id = " $result->artefact_version_id );
+			// 	$result->createdBy = $resObj2;
+			// }
 			return $resultObj;
 		}
 		function getSharedArtefacts($interpreter) {
@@ -458,7 +462,7 @@
 		}
 
 		public function replaceArtefact($interpreter) {
-
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, "welcome to replace");
 			$data = $interpreter->getData();
 			$resultMessage = new stdClass();
 			if($data->data != null) {
@@ -474,11 +478,12 @@
 			$date = date("Y-m-d H:i:s");
 			$db = Master::getDBConnectionManager();
 			$db->beginTransaction();
-
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $targetArtefactId);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $data);
 			try{
 
 				// => Get the latest artefact version of the target artefact
-				$targetArtefactId 				= $artId;  // relevant name
+				// $targetArtefactId 				= $artId;  // relevant name
 				$targetLatestArtefactVersionId 	= $db->singleObjectQuery(
 					getQuery(
 						'getLatestVerionOfArtefact',
@@ -487,7 +492,8 @@
 						)
 					)
 				)->verId;
-
+				
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, $targetLatestArtefactVersionId);
 				// => Get the target artefacts info from artefact table
 				$targetArtefactInfo 		= $db->singleObjectQuery(
 					getQuery(
@@ -560,7 +566,7 @@
 							$newArtefactId,
 							"1"  // making it as initial version
 						),
-						"artefact_id = " . $targetArtefactId . " and artefact_version_id = " . $targetLatestArtefactVersionId
+						"artefact_id = " . $targetArtefactId . " and artefact_ver_id = " . $targetLatestArtefactVersionId
 					);
 					// => and also insert new row with masked_artefact_version_id and document_path
 					$newArtefactLatestVersionId 	= $db->insertSingleRowAndReturnId(
@@ -613,7 +619,7 @@
 							$maskedNewArtefactVersionId,
 							$documentPath
 						),
-						"artefact_version_id = " . $newArtefactLatestVersionId
+						"artefact_ver_id = " . $newArtefactLatestVersionId
 					);
 					//
 					$db->updateTable(
@@ -839,7 +845,7 @@
 					'recipient_ids' => $notificationRecipients,
 					'project_id'	=> $projectId
 				),$db);
-
+				Master::getLogManager()->log(DEBUG, MOD_MAIN, "END OF TRY");			
 				$db->commitTransaction();
 			}
 			catch(Exception $e){
@@ -1911,13 +1917,16 @@
 				// Get all comments based on generated comment thread ids
 				$artefactObj->threads = Comments::getThreadComments($db, $resObj);
 			}
+
+			$memberPermission = $db->multiObjectQuery("SELECT access_type FROM ". TABLE_PROJECT_MEMBERS ." where user_id = ".  $userId ." and proj_id = ". $artefactObj->project_id);
+			$artefactObj->permission =  $memberPermission[0]->access_type ; 
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "artefactobj");
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $artefactObj);
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "interpreter");
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $interpreter);
-			if($artefactObj->versions[0]->shared == null) {
-				return [] ;
-			}
+			// if($artefactObj->versions[0]->shared == null) {
+			// 	return [] ;
+			// }
 			return $artefactObj;
 		}
 
@@ -1955,12 +1964,15 @@
 
 			//get the basic details of the artefact based on the artefact version.
 			$queryParams = array('maskedVerId' => $maskedVerId, userId=>$userId);
-
+			
 			$basicDetailsQuery = getQuery('artefactBasicDetails', $queryParams);
 			$basicDetails = $db->singleObjectQuery($basicDetailsQuery);
 
 			$basicDetails->versionId = $verId;
-
+			
+			$basicDetails->permission = $db->singleResultQuery("select access_type from ". TABLE_ARTEFACTS_SHARED_MEMBERS ." where artefact_ver_id = (select artefact_ver_id from ". TABLE_ARTEFACTS_VERSIONS . " where masked_artefact_version_id = '". $maskedVerId ."') and user_id =  " . $userId);
+			Master::getLogManager()->log(DEBUG, MOD_MAIN, $permission);
+			
 			//get linked artefacts.
 			$linkedArtefactQuery = getQuery('getLinkedArtefactList', $queryParams);
 			$linkedArtefacts = $db->multiObjectQuery($linkedArtefactQuery);

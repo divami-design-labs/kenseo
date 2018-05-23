@@ -317,7 +317,8 @@
             ),
             "user_id = " . $person_id . " and proj_id = " . $projectId
             );
-
+           
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, $resusltObj);
             $newNotification = Notifications::addNotification(array(
                 'by'			=> $userId,
                 'type'			=> 'change permission',

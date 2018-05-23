@@ -31,7 +31,10 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         // Before painting the pdf into the viewer we need to add a tab for it.
         // pdf viewer
         if(data.type === undefined) {
-            data.type = [];
+            data = data[0];
+            if(data.type === undefined) {
+                data.type= [] ;
+            }
         }
         if (data.type == 'application/pdf') {
             var str = sb.setTemplate('tab-file', {
@@ -47,9 +50,26 @@ Kenseo.views.DocumentView = Backbone.View.extend({
                     versionId: data.versionId
                 },
                 templateName: 'dv-peoplesection',
-                templateHolder: $('.dv-tb-people-section'),
-                callbackfunc: this.getVersionDetails.bind(this)
+                templateHolder: $('.dv-tb-people-section')
             });
+
+            $('.dv-tab-panel-section').prepend(str);
+            $('.pdfs-container').append(this.$el.html(sb.setTemplate('pdf-viewer', {data: data})));
+            
+            new paintPdf({
+                url: sb.getRelativePath(data.documentPath),
+                container: $('.outerContainer.inView').get(0),
+                targetId: data.versionId,
+                versionId: data.artefactId,
+                documentView: this
+            });
+    
+            // Store the current artefact version related data in a global variable
+            var threads = data.threads || {};
+            // flag
+            threads.noChangesDetected = true;
+            sb.setCurrentDocumentData(data.versionId, threads);
+            // annotator.init();
         }
         // Image viewer
         else if(data.type.indexOf('image') > -1){
@@ -64,8 +84,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         }
         // if user want to access unauthorised artefact redirect user to home page
         else if(data.type.length === 0) {
-            window.location.href =DOMAIN_UI_URL+'#dashboard';
-            sb.router.dashboard();
+            window.location.href =DOMAIN_UI_URL+'#';
             return false;
         }
         else{
@@ -82,41 +101,6 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         var parent = document.querySelector('.outerContainer.inView .viewerContainer.parent');
         // _this.stickToBottom(parent);
     },
-    getVersionDetails: function(versiondata) {
-        var str = sb.setTemplate('tab-file', {
-            maskedVersionId: this.payload.maskedId,
-            data: this.model.toJSON()
-        });
-        var permission;
-        var data ;
-        versiondata.data.sharedTo.forEach((eachMember) => {
-            if(eachMember.id === versiondata.client.userId) {
-                permission = eachMember.permission;
-            }
-            else {
-                permission = 'R';
-            }
-        });
-        this.model.set('permission', permission);
-        data = this.model.toJSON();
-        $('.dv-tab-panel-section').prepend(str);
-        $('.pdfs-container').append(this.$el.html(sb.setTemplate('pdf-viewer', {data: this.model.toJSON()})));
-        
-        new paintPdf({
-            url: sb.getRelativePath(data.documentPath),
-            container: $('.outerContainer.inView').get(0),
-            targetId: data.versionId,
-            versionId: data.artefactId,
-            documentView: this
-        });
-
-        // Store the current artefact version related data in a global variable
-        var threads = data.threads || {};
-        // flag
-        threads.noChangesDetected = true;
-        sb.setCurrentDocumentData(data.versionId, threads);
-        // annotator.init();
-    },
     events: {
         // @TODO: In share Artefact, beforeRender change the combobox flag (check comments below)
         "click .popup-click":                       "passValues",
@@ -125,7 +109,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
         // "click [data-url='private-message']":       "handleGlobalPrivateMessage",
         "click .dvt-item.slider-click":             "handleSliderClick",
         // "click [data-url='add-version']":           "handleAddVersion",
-        // "click [data-url='replace-artefact']":      "handleReplaceArtefact",
+        "click [data-url='replace-artefact']":      "handleReplaceArtefact",
         // "click [data-url='edit-artefact-info']":    "editArtefactInfo",
         // "click [data-url='share-artefact']":        "handleShareArtefact",
         "click [data-url='toggle-all-annotations']":"handleToggleAllAnnotations",
@@ -159,14 +143,14 @@ Kenseo.views.DocumentView = Backbone.View.extend({
     //         scope: this
     //     });
     // },
-    // handleAddVersion: function(e){
-    //     // @TODO: This code is already available in Artefacts.js. Look for a way to reuse the same code here
-    //     var el = e.currentTarget;
-    //     sb.newCallPopup({
-    //         el: el,
-    //         scope: this
-    //     });
-    // },
+    handleAddVersion: function(e){
+        // @TODO: This code is already available in Artefacts.js. Look for a way to reuse the same code here
+        var el = e.currentTarget;
+        sb.newCallPopup({
+            el: el,
+            scope: this
+        });
+    },
     // editArtefactInfo: function(e){
     //     var el = e.currentTarget;
     //     sb.newCallPopup({

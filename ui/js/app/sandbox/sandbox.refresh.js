@@ -241,10 +241,15 @@ sb.refresh = (function(){
 	                    includeArchives: true
 	                },
 	                success: function success(response) {
-						if(Object.keys(Kenseo.data.projects).length < 1){
-							window.location.href =DOMAIN_UI_URL+'#projects';
+						var i_m_InTheProject = false;
+						Object.keys(Kenseo.data.projects).forEach((projectId) => {
+							if(projectId === Kenseo.page.id) {
+								i_m_InTheProject = true;
+							}
+						});
+						if (!i_m_InTheProject) {
+							window.location.href = DOMAIN_UI_URL+'#projects';
 							sb.router.projects();
-							// Router("projects");
 							return false;
 						}
 	                    var currentProjectInfo = Kenseo.data.projects[Kenseo.page.id];

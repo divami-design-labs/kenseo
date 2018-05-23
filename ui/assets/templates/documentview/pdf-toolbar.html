@@ -170,7 +170,7 @@
         <div class="dvt-item document-info-icon slider-click" data-url="document-summary" title="Document summary">
             <svg><use xlink:href="#document-info"></use></svg>
         </div>
-        <div class="dvt-item html-click add-comment-icon <% if(!data.isPdf){ %> hide <% } %> <% if(data.permission === 'R'){ %> hide <% } %>" data-value="rectangle" title="Add comment" data-html-outside-click="false">
+        <div class="dvt-item html-click add-comment-icon <% if(!data.isPdf){ %> hide <% } %> <% if(data.permission === 'R' || data.permission === 'S' ){ %> hide <% } %>" data-value="rectangle" title="Add comment" data-html-outside-click="false">
             <svg><use xlink:href="#add-comment"></use></svg>
         </div>
         <div class="dvt-item html-click toggle-annotations-icon <% if(!data.isPdf){ %> hide <% } %>" title="Toggle Comment view" data-html-outside-click="false">
@@ -185,10 +185,10 @@
         <div class="dvt-item share-artefact-icon popup-click <% if(data.permission === 'R'){ %> hide <% } %>" data-url="share-artefact" data-index="2" title="Share this artefact">
             <svg><use xlink:href="#share-artefact"></use></svg>
         </div>
-        <div class="dvt-item submit-review-icon popup-click<% if(!data.isPdf){ %> hide <% } %> <% if(data.permission === 'R'){ %> hide <% } %>" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=<%= data.artefact_version_id %>">
+        <div class="dvt-item submit-review-icon popup-click<% if(!data.isPdf){ %> hide <% } %> <% if(data.permission === 'R' || data.permission === 'S'){ %> hide <% } %>" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=<%= data.artefact_version_id %>">
             <svg><use xlink:href="#submit-review"></use></svg>
         </div>
-        <div class="dvt-item html-click sub-menu-nav more-menu-icon <% if(data.permission === 'R'){ %> hide <% } %>" title="more options">
+        <div class="dvt-item html-click sub-menu-nav more-menu-icon <% if(data.permission === 'R' || data.permission === 'S'){ %> hide <% } %>" title="more options">
             <svg><use xlink:href="#more-menu"></use></svg>
             <div class="sub-menu-holder top-right-nav">
                 <div class="sub-menu-item popup-click" data-url="add-version">Add Version</div>

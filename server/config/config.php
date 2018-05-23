@@ -4,6 +4,7 @@ global $AppGlobal;
 
 $host = $_SERVER['HTTP_HOST'];
 
+$AppGlobal['log'] = array();
 $AppGlobal['log']['mode']       = "ON" ;
 $AppGlobal['log']['modules']    = "ALL" ;
 $AppGlobal['cache']             = array();
@@ -15,7 +16,6 @@ $AppGlobal['global']['storeLocation'] = "media/";
 $AppGlobal['googleauth']['App'] = array();
 // Local settings
 if($host == "localhost"){  
-    $AppGlobal['log'] = array();
 
     // Local
     $AppGlobal['log']['path'] = "C:/xampp/htdocs/kenseo/error.log" ;

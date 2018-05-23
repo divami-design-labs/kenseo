@@ -1311,7 +1311,7 @@ __p += '    \r\n                </div>\r\n            </div>\r\n            <div
 __p += ' hide ';
  } ;
 __p += ' ';
- if(data.permission === 'R'){ ;
+ if(data.permission === 'R' || data.permission === 'S' ){ ;
 __p += ' hide ';
  } ;
 __p += '" data-value="rectangle" title="Add comment" data-html-outside-click="false">\r\n            <svg><use xlink:href="#add-comment"></use></svg>\r\n        </div>\r\n        <div class="dvt-item html-click toggle-annotations-icon ';
@@ -1335,13 +1335,13 @@ __p += '" data-url="share-artefact" data-index="2" title="Share this artefact">\
 __p += ' hide ';
  } ;
 __p += ' ';
- if(data.permission === 'R'){ ;
+ if(data.permission === 'R' || data.permission === 'S'){ ;
 __p += ' hide ';
  } ;
 __p += '" title="Submit this document for review" data-url="submit-artefact?artefactVersionId=' +
 ((__t = ( data.artefact_version_id )) == null ? '' : __t) +
 '">\r\n            <svg><use xlink:href="#submit-review"></use></svg>\r\n        </div>\r\n        <div class="dvt-item html-click sub-menu-nav more-menu-icon ';
- if(data.permission === 'R'){ ;
+ if(data.permission === 'R' || data.permission === 'S'){ ;
 __p += ' hide ';
  } ;
 __p += '" title="more options">\r\n            <svg><use xlink:href="#more-menu"></use></svg>\r\n            <div class="sub-menu-holder top-right-nav">\r\n                <div class="sub-menu-item popup-click" data-url="add-version">Add Version</div>\r\n                <div class="sub-menu-item popup-click" data-url="replace-artefact">Replace</div>\r\n                <div class="sub-menu-item popup-click" data-url="private-message">Send Private Message</div>\r\n            </div>\r\n        </div>\r\n    </div>';
@@ -2871,7 +2871,7 @@ __p += '\r\n                    <div class="rr-status ellipsis status-' +
 ((__t = (data.basicDetails.versionNo)) == null ? '' : __t) +
 '.0</div>\r\n                    <div class="rr-state-details">\r\n                        <div class="rr-state-x">\r\n                            <div class="rr-comment">\r\n                                <svg><use xlink:href="#baloon"></use></svg>\r\n                                <div class="rr-comment-count">' +
 ((__t = ( data.basicDetails['comment_count'] )) == null ? '' : __t) +
-'</div>\r\n                            </div>\r\n                            <div class="status-c secondary-status-rr"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class="summary-header-right">\r\n            <div class="summary-header-actions">\r\n                <div class="summary-header-action-item submit-action-icon popup-click" data-url="share-artefact" data-index="2">\r\n                    <svg class="summary-header-icon"><use xlink:href="#share-artefact"></use></svg>\r\n                    Share\r\n                </div>\r\n                <div class="summary-header-action-item delete-action-icon" data-url="delete-artefact">\r\n                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#renameartifact"></use></svg>\r\n                    <div> <a class="stop-propagate" href="' +
+'</div>\r\n                            </div>\r\n                            <div class="status-c secondary-status-rr"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class="summary-header-right">\r\n            <div class="summary-header-actions">\r\n                <div class="summary-header-action-item submit-action-icon popup-click" data-url="share-artefact" data-index="2" >\r\n                    <svg class="summary-header-icon"><use xlink:href="#share-artefact"></use></svg>\r\n                    Share\r\n                </div>\r\n                <div class="summary-header-action-item delete-action-icon" data-url="delete-artefact">\r\n                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#renameartifact"></use></svg>\r\n                    <div> <a class="stop-propagate" href="' +
 ((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.basicDetails.artefact_id))) == null ? '' : __t) +
 '" target="_blank" > Download </a> </div>\r\n                </div>\r\n                <div class="summary-header-action-item archive-action-icon">\r\n                    <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>\r\n                    Archive\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class="summary-section-body unselectable">\r\n        <div class="close-icon"><svg><use xlink:href="#close"></use></svg></div>\r\n        <div class="time-frame-section">\r\n            <div class="time-frame-extended mg-parent">\r\n                ' +
 ((__t = (sb.setTemplate('timeline',{data: data}))) == null ? '' : __t) +

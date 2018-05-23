@@ -624,7 +624,6 @@ class DBConnection
 			throw new CustomException('EXC_DB_ERROR', "Failed to Execute Query $querystr: " 
 				. mysqli_error($this->conn), false, false);
 		}
-
 		return $result ;		
 	}
 	

@@ -160,7 +160,7 @@ $AppGlobal['sql']['getProjectArtefacts'] = "SELECT DISTINCT
 											inner join ". TABLE_NOTIFICATIONS ." n on n.notification_ref_id = a.latest_version_id
 											inner join ". TABLE_ARTEFACTS_VERSIONS ." v on a.latest_version_id = v.artefact_ver_id
 											inner join ". TABLE_PROJECTS ." p on p.project_id = a.project_id
-											inner join ". TABLE_USERS ." u on u.user_id = v.created_by
+											inner join ". TABLE_USERS ." u on u.user_id = @~~userid~~@
 											inner join ". TABLE_ARTEFACTS_SHARED_MEMBERS ." sm on sm.artefact_ver_id = a.latest_version_id AND sm.artefact_id = a.artefact_id AND u.user_id = sm.user_id
 											inner join ". TABLE_PROJECT_MEMBERS ." m on m.proj_id = p.project_id
 											where m.user_id = @~~userid~~@ AND p.project_id = @~~projectid~~@ AND
@@ -858,7 +858,7 @@ $AppGlobal['sql']['getAllPeopleSpecificToAProject'] = "SELECT
 														FROM
 															users AS users";
 
-$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as project_name, proj.project_id as project_id, arts.artefact_title as artefact_name, vers.artefact_ver_id as artefact_version_id, vers.masked_artefact_version_id, arts.artefact_id, arts.description as artefact_description,arts.artefact_type,vers.version_no as versionCount, IF(vers.created_by = @~~userid~~@, 1, 0) as is_owner
+$AppGlobal['sql']['getArtefactDetails'] = "SELECT proj.project_name as project_name, proj.project_id as project_id, arts.artefact_title as artefact_name, MIME_type as type, vers.artefact_ver_id as artefact_version_id, vers.masked_artefact_version_id, arts.artefact_id, arts.description as artefact_description,arts.artefact_type,vers.version_no as versionCount, IF(vers.created_by = @~~userid~~@, 1, 0) as is_owner
 											FROM " . TABLE_ARTEFACTS . " AS arts
 											JOIN " . TABLE_PROJECTS . " AS proj ON
 											proj.project_id = arts.project_id
@@ -1038,7 +1038,7 @@ $AppGlobal['sql']['getEarliestDate'] = "SELECT MIN(c.created_at) as earliestDate
 										JOIN artefact_comment_threads ct ON ct.comment_thread_id = c.comment_thread_id
 										WHERE c.comment_thread_id IN (@~~threadIds~~@)";
 //GEt Project Details
-$AppGlobal['sql']['getProjectDetails'] = "SELECT project_name, description, state, project_id FROM projects WHERE project_id = @~~projectId~~@";
+$AppGlobal['sql']['getProjectDetails'] = "SELECT project_name, description, state, project_id, created_by  as projectOwner FROM projects WHERE project_id = @~~projectId~~@";
 
 // Get users from emails
 $AppGlobal['sql']['getUserIdsFromEmails'] = "SELECT user_id FROM " . TABLE_USERS . " WHERE email in (@~~emailIds~~@)";

@@ -34,7 +34,7 @@
             location.search = "";
             var Kenseo = {};
             var DOMAIN_ROOT_URL = "<?php echo $AppGlobal['global']['domain']; ?>server/";
-            var DOMAIN_UI_URL   = "<?php echo $AppGlobal['global']['domain']; ?>ui/";
+            var DOMAIN_UI_URL   = "<?php echo $AppGlobal['global']['domain']; ?>";
         </script>
 
         <!-- <script type="text/javascript" src="ui/js/libs/pdfjs/l10n.js"></script> -->
