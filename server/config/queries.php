@@ -231,6 +231,7 @@ $AppGlobal['sql']['getSharedArtefacts'] = "SELECT DISTINCT
 											av.MIME_type,
 											p.project_id,
 											p.project_name,
+											(SELECT asm.access_type FROM artefact_shared_members asm where asm.artefact_ver_id = a.latest_version_id AND asm.user_id = @~~userid~~@) as permission,
 											(SELECT max(asm.shared_date) FROM artefact_shared_members asm WHERE asm.artefact_id = a.artefact_id) AS artefact_activity_date,				# Artefact shared date with the user
 											u.name as user_name,
 											u.profile_pic_url as user_image,

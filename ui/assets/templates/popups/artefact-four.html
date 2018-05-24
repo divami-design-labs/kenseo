@@ -1,28 +1,30 @@
 <% var dump = sb.getPopupData() %>
-<div class="popup popup-large k-form">
-	<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
-	<div class="popup-left-section">
-		<%=
-			sb.setTemplate('popup-meta-content', {
-				'data': {
-					project: true,
-					file: true,
-					type: true,
-					references: true,
-					tags: true,
-					'dump': dump
-				},
-			})
-		%>
-	</div>
-	<div class="popup-body">
-		<div class="popup-body-wrapper popup-right-section">
-			<div class="your-team-section">
-				<div class="your-team-heading">Your Team</div>
-				<form class="your-team-body">
-					<div class="field-section your-team-field" data-name="new-people">
-						<form>
-							<%
+	<div class="popup popup-large k-form">
+		<%= sb.setTemplate('popup-header', { title: data.title, close: true }) %>
+			<div class="popup-left-section">
+				<%=
+					sb.setTemplate('popup-meta-content', {
+						'data': {
+							project: true,
+							file: true,
+							type: true,
+							references: true,
+							tags: true,
+							'dump': dump
+						},
+					})
+				%>
+			</div>
+			<div class="popup-body">
+				<div class="popup-body-wrapper popup-right-section">
+					<div class="your-team-section">
+						<div class="your-team-heading html-click" data-html-class="active" data-html-target=".your-team-body"data-type="insiders">Your Team</div>
+						<div class="your-team-heading html-click" data-type="others">Others</div>
+						<form class="your-team-body">
+
+							<div class="field-section your-team-field" data-name="new-people">
+								<form>
+									<%
 							var fields = {
 								shareCombo: sb.toolbox.comboBox({
 									"label": "Add People",
@@ -32,59 +34,64 @@
 								})
 							}
 							%>
-							<%= fields.shareCombo %>
-						</form>
-					</div>
-
-
-					<div class="permissions-section">
-						<div class="sarp-checkbox-holder hide">
-							<%=
-								sb.toolbox.checkbox({
-									class: "apply-to-all",
-									inputClass: "permissions",
-									text: "Enable group level permission",
-									ignore: 1
-								})
-							%>
-						</div>
-						<div class="people-permissions-section ">
-							<div class="permissions-wrapper k-field" data-xtype="access_type">
-								<div class="permission-item">
-									<div class="checkbox-holder">
-										<label class="toggle-checkbox" >
-											<input type="checkbox" class="global-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" ></input><span></span>
-										</label>
+										<%= fields.shareCombo %>
+								</form>
+							</div>
+							<div class="others">
+								<form class="others-body">
+									<div class="field-section others-field">
+										<div class="input-label">Add People</div>
+										<div class="input-wrapper">
+											<input type="text" class="input-text" placeholder="Type mail ID or username and press enter" data-input="mail_id"></input>
+										</div>
 									</div>
-									<div class="permission-item-text">comment</div>
+								</form>
+							</div>
+
+							<div class="permissions-section">
+								<div class="sarp-checkbox-holder hide">
+									<%=
+										sb.toolbox.checkbox({
+											class: "apply-to-all",
+											inputClass: "permissions",
+											text: "Enable group level permission",
+											ignore: 1
+										})
+									%>
 								</div>
-								<div class="permission-item">
-									<div class="checkbox-holder">
-										<label class="toggle-checkbox" >
-											<input type="checkbox" class="global-permissions" trigger-chk=".others-chk" data-subtype="share" ></input><span></span>
-										</label>
+								<div class="people-permissions-section ">
+									<div class="permissions-wrapper k-field" data-xtype="access_type">
+										<div class="permission-item">
+											<div class="checkbox-holder">
+												<label class="toggle-checkbox">
+													<input type="checkbox" class="global-permissions" trigger-chk=".add-comments-chk" data-subtype="comments"></input>
+													<span></span>
+												</label>
+											</div>
+											<div class="permission-item-text">comment</div>
+										</div>
+										<div class="permission-item">
+											<div class="checkbox-holder">
+												<label class="toggle-checkbox">
+													<input type="checkbox" class="global-permissions" trigger-chk=".others-chk" data-subtype="share"></input>
+													<span></span>
+												</label>
+											</div>
+											<div class="permission-item-text">Share</div>
+										</div>
 									</div>
-									<div class="permission-item-text">Share</div>
 								</div>
 							</div>
-						</div>
-				</div>
+							<div class="share-artefact-people">
+								<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">
 
-
-
-
-
-
-					<div class="share-artefact-people">
-						<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">
-
-						</div>
+								</div>
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
-		</div>
+			<div class="buttons-section">
+				<%= sb.toolbox.buttons({"data": data}) %>
+			</div>
 	</div>
-	<div class="buttons-section">
-		<%= sb.toolbox.buttons({"data": data}) %>
-	</div>
-</div>

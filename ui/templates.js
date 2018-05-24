@@ -2871,7 +2871,11 @@ __p += '\r\n                    <div class="rr-status ellipsis status-' +
 ((__t = (data.basicDetails.versionNo)) == null ? '' : __t) +
 '.0</div>\r\n                    <div class="rr-state-details">\r\n                        <div class="rr-state-x">\r\n                            <div class="rr-comment">\r\n                                <svg><use xlink:href="#baloon"></use></svg>\r\n                                <div class="rr-comment-count">' +
 ((__t = ( data.basicDetails['comment_count'] )) == null ? '' : __t) +
-'</div>\r\n                            </div>\r\n                            <div class="status-c secondary-status-rr"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class="summary-header-right">\r\n            <div class="summary-header-actions">\r\n                <div class="summary-header-action-item submit-action-icon popup-click" data-url="share-artefact" data-index="2" >\r\n                    <svg class="summary-header-icon"><use xlink:href="#share-artefact"></use></svg>\r\n                    Share\r\n                </div>\r\n                <div class="summary-header-action-item delete-action-icon" data-url="delete-artefact">\r\n                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#renameartifact"></use></svg>\r\n                    <div> <a class="stop-propagate" href="' +
+'</div>\r\n                            </div>\r\n                            <div class="status-c secondary-status-rr"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class="summary-header-right">\r\n            <div class="summary-header-actions">\r\n                <div class="summary-header-action-item submit-action-icon popup-click" data-url="share-artefact" data-index="2" ';
+ if(data.basicDetails['permission'] === 'R'){ ;
+__p += ' title = \'can_not_share\'  disabled = \'disabled\' ';
+ } ;
+__p += ' >\r\n                    <svg class="summary-header-icon"><use xlink:href="#share-artefact"></use></svg>\r\n                    Share\r\n                </div>\r\n                <div class="summary-header-action-item delete-action-icon" data-url="delete-artefact">\r\n                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#renameartifact"></use></svg>\r\n                    <div> <a class="stop-propagate" href="' +
 ((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.basicDetails.artefact_id))) == null ? '' : __t) +
 '" target="_blank" > Download </a> </div>\r\n                </div>\r\n                <div class="summary-header-action-item archive-action-icon">\r\n                    <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>\r\n                    Archive\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class="summary-section-body unselectable">\r\n        <div class="close-icon"><svg><use xlink:href="#close"></use></svg></div>\r\n        <div class="time-frame-section">\r\n            <div class="time-frame-extended mg-parent">\r\n                ' +
 ((__t = (sb.setTemplate('timeline',{data: data}))) == null ? '' : __t) +
@@ -3214,22 +3218,22 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  var dump = sb.getPopupData() ;
-__p += '\r\n<div class="popup popup-large k-form">\r\n\t' +
+__p += '\r\n\t<div class="popup popup-large k-form">\r\n\t\t' +
 ((__t = ( sb.setTemplate('popup-header', { title: data.title, close: true }) )) == null ? '' : __t) +
-'\r\n\t<div class="popup-left-section">\r\n\t\t' +
+'\r\n\t\t\t<div class="popup-left-section">\r\n\t\t\t\t' +
 ((__t = (
-			sb.setTemplate('popup-meta-content', {
-				'data': {
-					project: true,
-					file: true,
-					type: true,
-					references: true,
-					tags: true,
-					'dump': dump
-				},
-			})
-		)) == null ? '' : __t) +
-'\r\n\t</div>\r\n\t<div class="popup-body">\r\n\t\t<div class="popup-body-wrapper popup-right-section">\r\n\t\t\t<div class="your-team-section">\r\n\t\t\t\t<div class="your-team-heading">Your Team</div>\r\n\t\t\t\t<form class="your-team-body">\r\n\t\t\t\t\t<div class="field-section your-team-field" data-name="new-people">\r\n\t\t\t\t\t\t<form>\r\n\t\t\t\t\t\t\t';
+					sb.setTemplate('popup-meta-content', {
+						'data': {
+							project: true,
+							file: true,
+							type: true,
+							references: true,
+							tags: true,
+							'dump': dump
+						},
+					})
+				)) == null ? '' : __t) +
+'\r\n\t\t\t</div>\r\n\t\t\t<div class="popup-body">\r\n\t\t\t\t<div class="popup-body-wrapper popup-right-section">\r\n\t\t\t\t\t<div class="your-team-section">\r\n\t\t\t\t\t\t<div class="your-team-heading html-click" data-html-class="active" data-html-target=".your-team-body"data-type="insiders">Your Team</div>\r\n\t\t\t\t\t\t<div class="your-team-heading html-click" data-type="others">Others</div>\r\n\t\t\t\t\t\t<form class="your-team-body">\r\n\r\n\t\t\t\t\t\t\t<div class="field-section your-team-field" data-name="new-people">\r\n\t\t\t\t\t\t\t\t<form>\r\n\t\t\t\t\t\t\t\t\t';
 
 							var fields = {
 								shareCombo: sb.toolbox.comboBox({
@@ -3240,20 +3244,20 @@ __p += '\r\n<div class="popup popup-large k-form">\r\n\t' +
 								})
 							}
 							;
-__p += '\r\n\t\t\t\t\t\t\t' +
+__p += '\r\n\t\t\t\t\t\t\t\t\t\t' +
 ((__t = ( fields.shareCombo )) == null ? '' : __t) +
-'\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\r\n\r\n\t\t\t\t\t<div class="permissions-section">\r\n\t\t\t\t\t\t<div class="sarp-checkbox-holder hide">\r\n\t\t\t\t\t\t\t' +
+'\r\n\t\t\t\t\t\t\t\t</form>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class="others">\r\n\t\t\t\t\t\t\t\t<form class="others-body">\r\n\t\t\t\t\t\t\t\t\t<div class="field-section others-field">\r\n\t\t\t\t\t\t\t\t\t\t<div class="input-label">Add People</div>\r\n\t\t\t\t\t\t\t\t\t\t<div class="input-wrapper">\r\n\t\t\t\t\t\t\t\t\t\t\t<input type="text" class="input-text" placeholder="Type mail ID or username and press enter" data-input="mail_id"></input>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</form>\r\n\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t<div class="permissions-section">\r\n\t\t\t\t\t\t\t\t<div class="sarp-checkbox-holder hide">\r\n\t\t\t\t\t\t\t\t\t' +
 ((__t = (
-								sb.toolbox.checkbox({
-									class: "apply-to-all",
-									inputClass: "permissions",
-									text: "Enable group level permission",
-									ignore: 1
-								})
-							)) == null ? '' : __t) +
-'\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class="people-permissions-section ">\r\n\t\t\t\t\t\t\t<div class="permissions-wrapper k-field" data-xtype="access_type">\r\n\t\t\t\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t\t\t\t<label class="toggle-checkbox" >\r\n\t\t\t\t\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" trigger-chk=".add-comments-chk" data-subtype="comments" ></input><span></span>\r\n\t\t\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class="permission-item-text">comment</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t\t\t\t<label class="toggle-checkbox" >\r\n\t\t\t\t\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" trigger-chk=".others-chk" data-subtype="share" ></input><span></span>\r\n\t\t\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class="permission-item-text">Share</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\t\t\t\t\t<div class="share-artefact-people">\r\n\t\t\t\t\t\t<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">\r\n\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</form>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="buttons-section">\r\n\t\t' +
+										sb.toolbox.checkbox({
+											class: "apply-to-all",
+											inputClass: "permissions",
+											text: "Enable group level permission",
+											ignore: 1
+										})
+									)) == null ? '' : __t) +
+'\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class="people-permissions-section ">\r\n\t\t\t\t\t\t\t\t\t<div class="permissions-wrapper k-field" data-xtype="access_type">\r\n\t\t\t\t\t\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<label class="toggle-checkbox">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" trigger-chk=".add-comments-chk" data-subtype="comments"></input>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<span></span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class="permission-item-text">comment</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div class="permission-item">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class="checkbox-holder">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<label class="toggle-checkbox">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input type="checkbox" class="global-permissions" trigger-chk=".others-chk" data-subtype="share"></input>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<span></span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class="permission-item-text">Share</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class="share-artefact-people">\r\n\t\t\t\t\t\t\t\t<div class="share-artefact-people-wrapper k-field" data-xtype="share-permissions" data-xtype-key="shared_members">\r\n\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class="buttons-section">\r\n\t\t\t\t' +
 ((__t = ( sb.toolbox.buttons({"data": data}) )) == null ? '' : __t) +
-'\r\n\t</div>\r\n</div>\r\n';
+'\r\n\t\t\t</div>\r\n\t</div>';
 
 }
 return __p

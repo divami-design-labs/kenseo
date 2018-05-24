@@ -64,6 +64,9 @@ sb.sliders = {
 					$('.summary-and-notes-section > div').hide();
 					$('.summary-and-notes-section [data-url="'+ selectedTab +'"]').show();
 				});
+				if($("[title = 'can_not_share']")[0]) {
+					$("[title = 'can_not_share']")[0].disabled = true ;
+				}
 			}
         });
 

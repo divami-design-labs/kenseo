@@ -65,6 +65,32 @@ Kenseo.views.Artefacts = Backbone.View.extend({
                     });
                     linkedId = m['linked_id'];
                     _this.templateHolder.append(view.el);
+                    if(m.permission === 'R')    {
+                        $("[data-url = 'archive-artefact']")[i].disabled =true;
+                        $("[data-url = 'archive-artefact']")[i].setAttribute("title" , "can not archive. Only READ Permission");
+
+                        $("[data-url = 'replace-artefact']")[i].disabled =true;
+                        $("[data-url = 'replace-artefact']")[i].setAttribute("title" , "can not replace. Only READ Permission");
+
+                        $("[data-url = 'add-version']")[i].disabled =true;
+                        $("[data-url = 'add-version']")[i].setAttribute("title" , "can not add-version. Only READ Permission");
+
+                        $("[data-url = 'share-artefact']")[i+1].disabled =true;
+                        $("[data-url = 'share-artefact']")[i+1].setAttribute("title" , "can not share. Only READ Permission");
+
+                        $("[data-url = 'private-message']")[i].disabled =true;
+                        $("[data-url = 'private-message']")[i].setAttribute("title" , "can not send private message. Only READ Permission");
+
+                        $("[data-url = 'edit-artefact-info']")[i].disabled =true;
+                        $("[data-url = 'edit-artefact-info']")[i].setAttribute("title" , "can not edit-artefact-info. Only READ Permission");
+
+                        $("[data-url = 'rename-artefact']")[i].disabled =true;
+                        $("[data-url = 'rename-artefact']")[i].setAttribute("title" , "can not rename-artefact. Only READ Permission");
+
+                        $("[data-url = 'delete-artefact']")[i].disabled =true;
+                        $("[data-url = 'delete-artefact']")[i].setAttribute("title" , "can not delete-artefact. Only READ Permission");
+
+                    }
                 });
 
                 // no items template

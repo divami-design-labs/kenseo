@@ -1918,7 +1918,7 @@
 				$artefactObj->threads = Comments::getThreadComments($db, $resObj);
 			}
 
-			$memberPermission = $db->multiObjectQuery("SELECT access_type FROM ". TABLE_PROJECT_MEMBERS ." where user_id = ".  $userId ." and proj_id = ". $artefactObj->project_id);
+			$memberPermission = $db->multiObjectQuery("SELECT access_type FROM ". TABLE_ARTEFACTS_SHARED_MEMBERS ." where user_id = ".  $userId ." and artefact_ver_id = '". $artefactObj->artefact_version_id ."'");
 			$artefactObj->permission =  $memberPermission[0]->access_type ; 
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "artefactobj");
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $artefactObj);
