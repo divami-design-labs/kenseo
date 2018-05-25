@@ -2553,7 +2553,8 @@ a {
 }
 
 .your-team-heading {
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
+  color:  #b5b6b8;
   display: inline;
 }
 
@@ -2565,8 +2566,29 @@ a {
   width: 460px;
 }
 
-.your-team-field {
+.your-team-field , .others-field{
   margin-top: 30px;
+}
+
+.vertical-bar {
+  background-color: #3e4354;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 0 2px;
+  display: inline;
+}
+
+.display-none {
+  display: none;
+}
+
+.selected-header{
+  border-bottom: 3px solid black;
+  color:  #3e4354;
+}
+
+.invalid-mail-id{
+  color: #9b2222
 }
 
 .share-artefact-people {

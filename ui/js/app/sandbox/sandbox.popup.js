@@ -599,13 +599,38 @@ sb.popup = {
                         Kenseo.combobox.sharePeople.filterData.push(selectedObject);
                     }
                 });
-
+                sb.popup.togglePeople("insider");
                 //render all the team members
                 // sb.popup.renderSharePopupPeople(projectMembers);
                 sb.popup.addPeopleAndPermissions();
             }
         });
     },
+
+    togglePeople: function togglePeople(people) {
+        outsiderHeading = $("[data-type='outsider'")[0];
+        insiderHeading = $("[data-type='insider'")[0];
+        bothHeading = $(".your-team-heading");
+        [...bothHeading].forEach((ele) => {
+            $(ele).removeClass('selected-header');
+        })
+        outsider = $(".others-field");
+        insider = $(".your-team-field");
+        $(insider).addClass('display-none');
+        $(outsider).addClass('display-none');
+        switch(people)  {
+            case "outsider":
+                $(outsiderHeading).addClass('selected-header');
+                $(outsider).removeClass('display-none');
+                break;
+            case "insider":
+                $(insider).addClass('selected-tab');
+                $(insiderHeading).addClass('selected-header');
+                $(insider).removeClass('display-none');
+                break;
+        }
+    },
+
     replaceArtefact: function replaceArtefact() {
         sb.setPopupData("replaceArtefact", "actionType");
         sb.setPopupData("replaceArtefact", "command");
@@ -1225,7 +1250,7 @@ sb.popup = {
 
         function decideVisibilityOfGroupLevelCheckbox(){
             var $currentPopup = Kenseo.current.popup;
-            var $groupLevelCheckbox = $('.sarp-checkbox-holder');
+            var $groupLevelCheckbox = $('.permissions-section');
             var $doneBtn = $currentPopup.find('.done-btn');
             var peopleLength = $shareArtefactWrapper.find('.share-artefact-people-item').length;
             $doneBtn.prop({'disabled': peopleLength === 0});

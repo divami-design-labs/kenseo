@@ -262,6 +262,37 @@ $(function () {
 		//validating the fields when focus is lost
 		validation.doFieldValidate($(this));
 	})
+	.on('click', '.your-team-heading', (e) => {
+		var people =e.target.attributes['data-type'].nodeValue;
+        sb.popup.togglePeople(people);
+	})
+	.on('keypress input', '[data-input="mail_id"]', (e) => {
+		if(e.target.value.length === 0){
+			$(".invalid-mail-id").html('');
+			return false;
+		}
+		else if( !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)))
+		{
+			$(".invalid-mail-id").html('');
+		 	$(".invalid-mail-id").append("Invalid mail-id , please Enter correct mail-id");
+		}
+		else{
+			$(".invalid-mail-id").html('');
+			if(e.keyCode === 13){
+				var obj = {'data-email'	:	e.target.value,
+					'data-excludeparent':	"false",
+					'data-id'			:	"NaN",
+					'data-in_project'	:	"0",
+					'data-picture'		:	"",
+					'name'              :	e.target.value,
+				};
+				// comboBox.setSuggestionViewerItem(obj);
+				sb.popup.renderSharePopupPeople(obj, true);
+				e.currentTarget.value = '';
+			}
+		
+		}
+	})
 });
 
 // $(document).on('scroll', '.viewerContainer', function(e){

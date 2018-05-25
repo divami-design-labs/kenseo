@@ -18,8 +18,9 @@
 			<div class="popup-body">
 				<div class="popup-body-wrapper popup-right-section">
 					<div class="your-team-section">
-						<div class="your-team-heading html-click" data-html-class="active" data-html-target=".your-team-body"data-type="insiders">Your Team</div>
-						<div class="your-team-heading html-click" data-type="others">Others</div>
+						<div class="your-team-heading html-click" data-type="insider">Your Team</div>
+						<div class="vertical-bar"></div>
+						<div class="your-team-heading html-click" data-type="outsider">Others</div>
 						<form class="your-team-body">
 
 							<div class="field-section your-team-field" data-name="new-people">
@@ -37,13 +38,14 @@
 										<%= fields.shareCombo %>
 								</form>
 							</div>
-							<div class="others">
+							<div class="field-section others-field" data-name="new-people">
 								<form class="others-body">
-									<div class="field-section others-field">
-										<div class="input-label">Add People</div>
+									<div class="others">
+										<div class="input-label" style="font-family: 'OpenSansBold';" >Add People</div>
 										<div class="input-wrapper">
-											<input type="text" class="input-text" placeholder="Type mail ID or username and press enter" data-input="mail_id"></input>
+											<input type="text" class="input-text " placeholder="Type mail ID or username and press enter" data-input="mail_id"></input>
 										</div>
+										<div class="invalid-mail-id"></div>
 									</div>
 								</form>
 							</div>
