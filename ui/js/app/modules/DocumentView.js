@@ -181,7 +181,8 @@ Kenseo.views.DocumentView = Backbone.View.extend({
 			if(typeof $currentSlider.data('url') === "undefined"){
 				renderSlider();
 				showSliderContainer();
-                $currentArtefactBar.css('left', $existingSlider.outerWidth() + 80);
+                $currentArtefactBar.css('left', $existingSlider.outerWidth() + 240);
+                
 			} 
 			// if the existing slider is already opened, hide it
 			else if($currentSlider.data('url') === $existingSlider.data('url')){
@@ -189,7 +190,7 @@ Kenseo.views.DocumentView = Backbone.View.extend({
                 setTimeout(function() {
 				    hideAllSliders();
                 }, duration);
-                $currentArtefactBar.css('left', 0);
+                $currentArtefactBar.css('left', '50px');
 			}
 			// if other slider is opened, hide the current slider and show the existing slider
 			else{

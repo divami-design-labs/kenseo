@@ -1769,7 +1769,9 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="search-section">\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="custom-search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>\r\n';
+__p += '<div class="search-section">\r\n        ' +
+((__t = ( sb.setTemplate('popup-header', { title:'Search', close: true }) )) == null ? '' : __t) +
+'\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="custom-search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>\r\n';
 
 }
 return __p
@@ -2877,7 +2879,7 @@ __p += ' title = \'can_not_share\'  disabled = \'disabled\' ';
  } ;
 __p += ' >\r\n                    <svg class="summary-header-icon"><use xlink:href="#share-artefact"></use></svg>\r\n                    Share\r\n                </div>\r\n                <div class="summary-header-action-item delete-action-icon" data-url="delete-artefact">\r\n                    <svg fill="#6A6F82" class="summary-header-icon"><use xlink:href="#renameartifact"></use></svg>\r\n                    <div> <a class="stop-propagate" href="' +
 ((__t = (sb.getRelativePath('download.php?command=downloadArtefact&artefact_id='+data.basicDetails.artefact_id))) == null ? '' : __t) +
-'" target="_blank" > Download </a> </div>\r\n                </div>\r\n                <div class="summary-header-action-item archive-action-icon">\r\n                    <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>\r\n                    Archive\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class="summary-section-body unselectable">\r\n        <div class="close-icon"><svg><use xlink:href="#close"></use></svg></div>\r\n        <div class="time-frame-section">\r\n            <div class="time-frame-extended mg-parent">\r\n                ' +
+'" target="_blank" > Download </a> </div>\r\n                </div>\r\n                <div class="summary-header-action-item archive-action-icon html popup-click" data-url="archive-artefact">\r\n                    <svg class="summary-header-icon" fill="#6A6F82"><use xlink:href="#archive-icn"></use></svg>\r\n                    Archive\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class="summary-section-body unselectable">\r\n        <div class="close-icon"><svg><use xlink:href="#close"></use></svg></div>\r\n        <div class="time-frame-section">\r\n            <div class="time-frame-extended mg-parent">\r\n                ' +
 ((__t = (sb.setTemplate('timeline',{data: data}))) == null ? '' : __t) +
 '\r\n            </div>\r\n            <div class="time-frame-selector mg-parent">\r\n                ';
  _.each(data.versions, function(v){ ;

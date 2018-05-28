@@ -1265,6 +1265,7 @@ a {
 
 .content-wrapper {
   padding-left: 37px;
+  padding-bottom: 55px;
   padding-top: 55px;
   position: absolute;
   top: 80px;
@@ -1582,7 +1583,7 @@ a {
 .rr-doc-type {
   position: absolute;
   top: 16px;
-  left: 50%;
+  left: 62%;
   transform: translate(-75%);
 }
 
@@ -2469,7 +2470,7 @@ a {
   font-size: 14px;
 }
 
-.file-heading, .your-team-heading {
+.file-heading, .selected-header {
   font-size: 16px;
   color: #3e4354;
   font-family: "OpenSansBold";
@@ -2553,8 +2554,6 @@ a {
 }
 
 .your-team-heading {
-  /* border-bottom: 1px solid black; */
-  color:  #b5b6b8;
   display: inline;
 }
 
@@ -2566,29 +2565,24 @@ a {
   width: 460px;
 }
 
-.your-team-field , .others-field{
+.your-team-field {
   margin-top: 30px;
 }
 
-.vertical-bar {
-  background-color: #3e4354;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding: 0 2px;
+.selected-header {
+  border-bottom: 3px solid black;
   display: inline;
 }
 
-.display-none {
-  display: none;
+.vertical-bar {
+  padding: 0 2px;
+  display: inline;
+  background-color: #566277;
+  margin: 0 3px;
 }
 
-.selected-header{
-  border-bottom: 3px solid black;
-  color:  #3e4354;
-}
-
-.invalid-mail-id{
-  color: #9b2222
+.your-team-field {
+  margin-top: 30px;
 }
 
 .share-artefact-people {
@@ -2604,6 +2598,7 @@ a {
 }
 
 .share-artefact-people-item {
+  cursor: auto;
   margin-top: 2px;
   display: -ms-flexbox;
   display: flex;
@@ -5014,7 +5009,7 @@ a {
 
 .current-artefact-info {
   position: fixed;
-  left: 0;
+  left: 50px;
   bottom: 55px;
   z-index: 3;
   display: -ms-flexbox;
@@ -6681,7 +6676,7 @@ select {
   display: inline-block;
   position: relative;
   text-align: center;
-  min-width: 100%;
+  min-width: 104%;
 }
 
 #viewer {

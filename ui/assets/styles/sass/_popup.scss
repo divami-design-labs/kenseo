@@ -209,8 +209,8 @@ $popup-content-space: 175px;
 
 // Share an artefact
 .your-team-heading{
-	@extend .file-heading;
-	border-bottom: 1px solid black;
+	// @extend .file-heading;
+	// border-bottom: 1px solid black;
 	display: inline;
 }
 .your-team-body{
@@ -222,6 +222,26 @@ $popup-content-space: 175px;
 }
 .your-team-field{
 	margin-top: 30px;
+}
+.selected-header {
+	@extend .file-heading;
+	border-bottom: 3px solid black;
+	display: inline;
+}
+.vertical-bar {
+	padding: 0 2px;
+	display: inline;
+	background-color: #566277;
+	margin: 0 3px;
+}
+.your-team-field {
+	margin-top: 30px;
+}
+.others {
+	padding-top: 30px; 
+}
+.invalid-mail-id {
+	color:	red;
 }
 .share-artefact-people{
 	position: relative;

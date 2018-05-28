@@ -266,7 +266,7 @@ $(function () {
 		var people =e.target.attributes['data-type'].nodeValue;
         sb.popup.togglePeople(people);
 	})
-	.on('keypress input', '[data-input="mail_id"]', (e) => {
+	.on('keyup input', '[data-input="mail_id"]', (e) => {
 		if(e.target.value.length === 0){
 			$(".invalid-mail-id").html('');
 			return false;
@@ -327,6 +327,10 @@ $(document).on('click', '.tab-item', function (e) {
 	 var close = new Kenseo.views.DocumentView({});
 	 close.closeTab($el);
 	 //get the first element of tab-items
+	 if($('.each-tab').children('.tab-item').eq(0).length === 0)	{
+		window.location.href = DOMAIN_UI_URL+"#";
+		return false;
+	 }
 	 var rel = $('.each-tab').children('.tab-item').eq(0).addClass('selectedTab').attr('targetRel');
 	 //find the relevent container of tab-item
 	 $parent.children('.outerContainer[rel="pdf_' + rel +'"]').addClass('inView');
