@@ -425,6 +425,7 @@ sb.popup = {
             // data: data.data,
             data: data,
             settings: {
+                dataName:"references",
                 multiSelect: true,
                 filterData: {
                     'version_id': Kenseo.popup.data.artefact_version_id || Kenseo.popup.data.artefact_ver_id
@@ -439,6 +440,7 @@ sb.popup = {
             // data: data.data,
             data: data,
             settings: {
+                dataName:"link",
                 multiSelect: true,
                 filterData: {
                     'version_id': Kenseo.popup.data.artefact_version_id || Kenseo.popup.data.artefact_ver_id

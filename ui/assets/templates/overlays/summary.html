@@ -86,7 +86,7 @@
                 <div class="sub-heading-section">
                     <div class="artifacts-heading sub-heading">
                         <div class="sub-heading-label">Shared with</div>
-                        <% if(data.basicDetails['permission'] === 'R'){ %>
+                        <% if(data.basicDetails['permission'] !== 'R'){ %>
                             <div class="sub-heading-add-wrapper">
                                 <div class="sub-heading-add-icon popup-click" data-url="share-artefact" data-index="2">
                                     <svg><use xlink:href="#add"></use></svg>
@@ -123,7 +123,7 @@
                 <div class="sub-heading-section">
                     <div class="sub-heading">
                         <div class="sub-heading-label">Versions</div>
-                        <% if(data.basicDetails['permission'] === 'R'){ %>
+                        <% if(data.basicDetails['permission'] !== 'R'){ %>
                             <div class="sub-heading-add-wrapper">
                                 <div class="sub-heading-add-icon popup-click" data-url="add-version">
                                     <svg><use xlink:href="#add"></use></svg>
