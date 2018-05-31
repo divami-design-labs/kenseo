@@ -13,7 +13,7 @@
     "gulp-babel": "^5.3.0",
     "gulp-concat": "^2.6.0",
     "gulp-htmlmin": "^2.0.0",
-    "gulp-lodash-template": "^0.2.0",
+    "gulp-lodash-template": "https://github.com/kamlekar/gulp-lodash-template/tarball/master",
     "gulp-notify": "^2.2.0",
     "gulp-postcss": "^6.1.1",
     "gulp-rename": "^1.2.2",
