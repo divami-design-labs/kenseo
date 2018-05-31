@@ -1769,7 +1769,7 @@ _.escape = function(string) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="search-section">\r\n        ' +
+__p += '<div class="search-section">\r\n    ' +
 ((__t = ( sb.setTemplate('popup-header', { title:'Search', close: true }) )) == null ? '' : __t) +
 '\r\n    <form class="input-field">\r\n    \t<svg class="search-svg-icon"><use xlink:href="#search"></use></svg>\r\n        <input class="custom-search-field" placeholder="Search all" type="text"></input>\r\n    </form>\r\n    <div class="search-results">\r\n    </div>\r\n</div>\r\n';
 

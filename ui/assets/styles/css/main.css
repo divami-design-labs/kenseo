@@ -1265,8 +1265,8 @@ a {
 
 .content-wrapper {
   padding-left: 37px;
-  padding-bottom: 55px;
   padding-top: 55px;
+  padding-bottom: 55px;
   position: absolute;
   top: 80px;
   left: 0;
@@ -1581,9 +1581,9 @@ a {
 }
 
 .rr-doc-type {
-  position: absolute;
+  position: relative;
   top: 16px;
-  left: 62%;
+  /* left: 50%; */
   transform: translate(-75%);
 }
 
@@ -2585,6 +2585,14 @@ a {
   margin-top: 30px;
 }
 
+.others {
+  padding-top: 30px;
+}
+
+.invalid-mail-id {
+  color: red;
+}
+
 .share-artefact-people {
   position: relative;
   float: left;
@@ -2598,7 +2606,6 @@ a {
 }
 
 .share-artefact-people-item {
-  cursor: auto;
   margin-top: 2px;
   display: -ms-flexbox;
   display: flex;
@@ -6676,7 +6683,7 @@ select {
   display: inline-block;
   position: relative;
   text-align: center;
-  min-width: 104%;
+  min-width: 100%;
 }
 
 #viewer {

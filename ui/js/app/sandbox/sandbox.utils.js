@@ -481,6 +481,7 @@ var sb = _.extend(sb, (function () {
             sb.setPopupData(_.camelCase(actionType), 'actionType');
             if (index > 0) {
                 Kenseo.popup.info = Kenseo.popup.info.slice(index);
+                Kenseo.popup.info.backButton = 0;
                 index = 0;
             }
             sb["call" + str](index);
@@ -572,6 +573,13 @@ var sb = _.extend(sb, (function () {
                 }
                 $('.popup').addClass('hide');
                 var info = Kenseo.popup.info[index];
+                if(Kenseo.popup.info.backButton === 0) {
+                    Kenseo.popup.info.forEach((ele) => {
+                        if(ele.page_name === "artefact-two") {
+                            ele.buttons.splice(0,1);
+                        }
+                    });
+                }
                 _.extend(info, {'index': index});
 
                 var $templateHolder = $('.popup-container');

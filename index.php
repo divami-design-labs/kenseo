@@ -93,7 +93,8 @@ try
 		// everything is fine. redirect to app page.
 		// Not needed anymore -- $authenticator->setUserInfoCookies();
         // util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
-        include "ui.php";
+		include "ui.php";
+		Master::getLogManager()->log(DEBUG, MOD_MAIN, "end of index.php");
 	}
 
 } catch (CustomeException $exception) {

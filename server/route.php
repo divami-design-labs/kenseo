@@ -1,10 +1,10 @@
 <?php
 
 require_once("main.php");
-
+	Master::getLogManager()->log(DEBUG, MOD_MAIN, "router-initial");
 	global $AppGlobal;
 	$uriGetParam = isset( $_GET['uri']) ? '/' . $_GET['uri'] : '/';
-
+	Master::getLogManager()->log(DEBUG, MOD_MAIN, "routerPhp");
 	try {
 		$routeObj = $AppGlobal['urlmap'][$uriGetParam];
 

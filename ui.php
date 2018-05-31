@@ -9,6 +9,7 @@
         $authenticator->invalidateSession();
         // util_redirectToURL($authenticator->getAuthURL());
     }
+    // Master::getLogManager()->log(DEBUG, MOD_MAIN, "uiPage");
 ?>
 <!doctype html>
     <head profile="http://www.w3.org/2005/10/profile">
@@ -32,9 +33,11 @@
 
         <script>
             location.search = "";
+            // <?php Master::getLogManager()->log(DEBUG, MOD_MAIN, "uiPage2");?>
             var Kenseo = {};
             var DOMAIN_ROOT_URL = "<?php echo $AppGlobal['global']['domain']; ?>server/";
             var DOMAIN_UI_URL   = "<?php echo $AppGlobal['global']['domain']; ?>";
+            // <?php Master::getLogManager()->log(DEBUG, MOD_MAIN, "uiPage3");?>
         </script>
 
         <!-- <script type="text/javascript" src="ui/js/libs/pdfjs/l10n.js"></script> -->
@@ -134,5 +137,8 @@
             </div>
         </div>
         <script src="ui/js/app/sandbox/sandbox.load.js"></script>
+        <script>
+            // <?php Master::getLogManager()->log(DEBUG, MOD_MAIN, "uiPage4");?>
+        </script>
     </body>
 </html>

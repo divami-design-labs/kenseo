@@ -640,7 +640,7 @@
 							"artefact_id"
 						),
 						array(
-							$targetArtefactId
+							$newArtefactId
 						),
 						"artefact_id = " . $targetArtefactId  // @IMPORTANT: I am not considering artefact_version_id as I need to remove that column from the table
 					);
@@ -1276,16 +1276,16 @@
 					"artefact_id = " . $targetArtefactId
 				);
 
-				$db->updateTable(
-					TABLE_ARTEFACTS_SHARED_MEMBERS,
-					array(
-						"artefact_id"
-					),
-					array(
-						$targetArtefactId
-					),
-					"artefact_id = " . $otherArtefactId
-				);
+				// $db->updateTable(
+				// 	TABLE_ARTEFACTS_SHARED_MEMBERS,
+				// 	array(
+				// 		"artefact_id"
+				// 	),
+				// 	array(
+				// 		$targetArtefactId
+				// 	),
+				// 	"artefact_id = " . $otherArtefactId
+				// );
 
 				// $versionParams = array('artId' => $targetArtefactId);
 				// $versionQuery = getQuery('getLatestVerionOfArtefact', $versionParams);
@@ -1380,7 +1380,16 @@
 				'project_id'	=> $projectId
 			),$db);
 
-
+			$db->updateTable(
+				TABLE_ARTEFACTS_SHARED_MEMBERS,
+				array(
+					"artefact_id"
+				),
+				array(
+					$targetArtefactId
+				),
+				"artefact_id = " . $otherArtefactId
+			);
 
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, "single-version-notification-id");
 			Master::getLogManager()->log(DEBUG, MOD_MAIN, $newNotification);

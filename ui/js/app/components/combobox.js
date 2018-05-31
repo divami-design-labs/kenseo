@@ -17,9 +17,14 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		values.listClass = values.listClass || "selectable";
 		values.noChild = "noChild";
 		values.placeholder = values.placeholder || "";
+		values.dataName = values.dataName !== undefined ? values.dataName+" " : "";
 	var dot = ".";
 	var suggestionsContainerClass = dot + values.suggestionsContainer;
-
+	if(suggestions.length === 0)	{
+			values.disabledText = true;
+			values.placeholder = `No ${values.dataName}choice Found`;
+		
+	}
 	$elem.addClass(values.container);
 
 	_this.$elem = $elem;
@@ -401,6 +406,10 @@ var comboBox = function comboBox(elem, suggestions, values) {
 		// if(_this.filterData){
 		// 	newList = _.differenceBy(newList, _this.filterData, 'id');
 		// }
+		if (values.disabledText) {
+			textBox.setAttribute("disabled", true);
+			textBox.placeholder = values.placeholder;
+		}
 		if ($suggestionsViewer.length) {
 			$suggestionsViewer.find(".sv-item").each(function () {
 				newList.forEach(function(newListItem, i){
@@ -512,9 +521,13 @@ var comboBox = function comboBox(elem, suggestions, values) {
 			if (!Array.isArray(newList) && typeof newList !== "object") {
 				textBox.placeholder = values.noplaceholder || "No items to choose";
 			} else {
-				textBox.placeholder = textBox.placeholder || values.placeholder;
+				textBox.placeholder = values.placeholder ||  textBox.placeholder ;
 			}
 			// textBox.focus();
+			// if (Array.isArray(newList) && ($suggestionsViewer.length > 0 && newList.length < 1)) {
+			// 	values.placeholder = "No more choice to show";
+			// 	textBox.setAttribute("disabled", true);
+			// }
 		}
 	}
 
