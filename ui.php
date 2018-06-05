@@ -1,14 +1,14 @@
 <?php
     // require_once("../server/main.php");
-    global $AppGlobal;
-    $project = "App";
-    $authenticator = new Authenticator($project);
+    // global $AppGlobal;
+    // $project = "App";
+    // $authenticator = new Authenticator($project);
 
-    $userObj = $authenticator->validateSession();
-    if (!$userObj) {
-        $authenticator->invalidateSession();
-        // util_redirectToURL($authenticator->getAuthURL());
-    }
+    // $userObj = $authenticator->validateSession();
+    // if (!$userObj) {
+    //     $authenticator->invalidateSession();
+    //     // util_redirectToURL($authenticator->getAuthURL());
+    // }
     // Master::getLogManager()->log(DEBUG, MOD_MAIN, "uiPage");
 ?>
 <!doctype html>
@@ -32,7 +32,8 @@
         <link href="ui/assets/styles/css/daterangepicker.css" type="text/css" rel="stylesheet"/>
 
         <script>
-            location.search = "";
+            // location.search = "";
+            // location.hash = "";
             // <?php Master::getLogManager()->log(DEBUG, MOD_MAIN, "uiPage2");?>
             var Kenseo = {};
             var DOMAIN_ROOT_URL = "<?php echo $AppGlobal['global']['domain']; ?>server/";

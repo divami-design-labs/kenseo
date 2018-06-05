@@ -11,12 +11,16 @@ var Router = Backbone.Router.extend({
         "meetingnotes/:id": "meetingNotes",
         "documentview/:id": "documentView",
         "projects": "projects",
-        "persona/:id": "persona"
+        "persona/:id": "persona",
+        "*notFound": "redirectToDashboard"
     },
-    index: sb.router.dashboard,
-    projectPage: sb.router.projectPage,
-    meetingNotes: sb.router.meetingNotes,
-    documentView: sb.router.documentView,
-    projects: sb.router.projects,
-    persona: sb.router.persona
+    index:              sb.router.dashboard,
+    projectPage:        sb.router.projectPage,
+    meetingNotes:       sb.router.meetingNotes,
+    documentView:       sb.router.documentView,
+    projects:           sb.router.projects,
+    persona:            sb.router.persona,
+    redirectToDashboard: function(){
+        Backbone.history.navigate('', {trigger: true});
+    }
 });

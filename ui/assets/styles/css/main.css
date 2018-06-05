@@ -1266,7 +1266,6 @@ a {
 .content-wrapper {
   padding-left: 37px;
   padding-top: 55px;
-  padding-bottom: 55px;
   position: absolute;
   top: 80px;
   left: 0;
@@ -1581,9 +1580,9 @@ a {
 }
 
 .rr-doc-type {
-  position: relative;
+  position: absolute;
   top: 16px;
-  /* left: 50%; */
+  left: 62%;
   transform: translate(-75%);
 }
 
@@ -5016,7 +5015,7 @@ a {
 
 .current-artefact-info {
   position: fixed;
-  left: 50px;
+  left: 0;
   bottom: 55px;
   z-index: 3;
   display: -ms-flexbox;

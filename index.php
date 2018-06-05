@@ -23,7 +23,7 @@ require_once("server/main.php");
 
 try
 {
-
+    Master::getLogManager()->log(DEBUG, MOD_MAIN, "==== Starting ====");
 	Master::getLogManager()->log(DEBUG, MOD_MAIN, $_SERVER['HTTP_HOST']);
 	$url = $_SERVER['HTTP_HOST'];
 	Master::getLogManager()->log(DEBUG, MOD_MAIN, $url);
@@ -51,6 +51,9 @@ try
 
 		util_redirectToURL($authenticator->getAuthURL());
 	} else if (isset($_GET['code'])) {
+
+        Master::getLogManager()->log(DEBUG, MOD_MAIN, "CODE");
+        Master::getLogManager()->log(DEBUG, MOD_MAIN, $_GET['code']);
 		// We are here from a redirect. And we got the authentication code from Google!
 
 		$token = $authenticator->setGoogleAuthCode($_GET['code']);
@@ -66,12 +69,12 @@ try
 			}
             else{
                 Master::getLogManager()->log(DEBUG, MOD_MAIN, "Redirecting to UI URL");
-                // util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
+                util_redirectToURL($AppGlobal['global']['domain']);
                 
                 // => clear code from the query params
-
+                // http_build_query(array());
                 // load html page
-                include "ui.php";
+                // include "ui.php";
             }
 		} else {
 			
@@ -83,7 +86,7 @@ try
 		
 		$userObj = $authenticator->validateSession();
 		if (!$userObj) {
-	
+            Master::getLogManager()->log(DEBUG, MOD_MAIN, "no user object");
 			$authenticator->invalidateSession();
 			util_redirectToURL($authenticator->getAuthURL());
 		}
@@ -92,7 +95,7 @@ try
 		setcookie("DivamiAppUserID", $userObj->user_id, 0, "/");
 		// everything is fine. redirect to app page.
 		// Not needed anymore -- $authenticator->setUserInfoCookies();
-        // util_redirectToURL($AppGlobal['googleauth']['App']['uiURL']);
+        // util_redirectToURL($AppGlobal['global']['domain']);
 		include "ui.php";
 		Master::getLogManager()->log(DEBUG, MOD_MAIN, "end of index.php");
 	}

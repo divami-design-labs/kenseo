@@ -4062,6 +4062,43 @@ _.escape = function(string) {
         return escapeMap[match];
     });
 };
+(window['templates'] = window['templates'] || {})['attributes'] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+
+ if(data && typeof data == "object"){
+	var attributes = data;
+	for(var key in attributes){ ;
+__p += '\r\n\t\t' +
+((__t = ( key )) == null ? '' : __t) +
+' = "' +
+((__t = ( attributes[key] )) == null ? '' : __t) +
+'"\r\n';
+	}
+ } ;
+
+
+}
+return __p
+}})();
+(function() {
+var _ = window._ || {};
+var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;'
+};
+var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
+_.escape = function(string) {
+    if (!string) return '';
+    return String(string).replace(escapeRegexp, function(match) {
+        return escapeMap[match];
+    });
+};
 (window['templates'] = window['templates'] || {})['button'] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -4473,43 +4510,6 @@ __p += '\r\n\t\t</div>\r\n\t</div>\r\n\t';
 __p += '\r\n\t<div class="field-suggestions"></div>\r\n\t<div class="field-suggestions-viewer"></div>\r\n\t';
  } ;
 __p += '\r\n</div>\r\n';
-
-}
-return __p
-}})();
-(function() {
-var _ = window._ || {};
-var escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;'
-};
-var escapeRegexp = new RegExp('[' + Object.keys(escapeMap).join('') + ']', 'g');
-_.escape = function(string) {
-    if (!string) return '';
-    return String(string).replace(escapeRegexp, function(match) {
-        return escapeMap[match];
-    });
-};
-(window['templates'] = window['templates'] || {})['attributes'] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-
- if(data && typeof data == "object"){
-	var attributes = data;
-	for(var key in attributes){ ;
-__p += '\r\n\t\t' +
-((__t = ( key )) == null ? '' : __t) +
-' = "' +
-((__t = ( attributes[key] )) == null ? '' : __t) +
-'"\r\n';
-	}
- } ;
-
 
 }
 return __p
