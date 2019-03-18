@@ -3,8 +3,8 @@
  /**
  *	Common object across framework to build response xml.
  */
-class Object
-{
+// class Object
+// {
 	
-}
+// }
  ?>

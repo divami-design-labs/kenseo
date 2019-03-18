@@ -20,7 +20,7 @@ class CacheService implements CacheInterface
 	public static function createCacheID($string)
 	{
 		//return hash("crc32", $string);
-		return ("crc32" + $string);
+		return ("crc32" . $string);
 	}
 	
 	

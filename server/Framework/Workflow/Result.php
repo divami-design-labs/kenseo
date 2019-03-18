@@ -27,7 +27,7 @@ class Result
 	{
 		$result = self::instance();
 		$result->status = FAILURE;
-		$result->data = new Object();
+		$result->data = new stdClass();
 		$result->data->message = "Unexpected error initializing framework: " . $exc->getMessage();
 		$result->data->code = $exc->getExceptionCode();
 		
@@ -38,7 +38,7 @@ class Result
 	{
 		$result = self::instance();
 		$result->status = FAILURE;
-		$result->data = new Object();
+		$result->data = new stdClass();
 		$result->data->message = "Unexpected error parsing request: " . $exc->getMessage();
 		$result->data->code = $exc->getExceptionCode();
 		
@@ -49,7 +49,7 @@ class Result
 	{
 		$result = self::instance();
 		$result->status = FAILURE;
-		$result->data = new Object();
+		$result->data = new stdClass();
 		$result->data->message = $exc->getMessage();
 		$result->data->code = $exc->getExceptionCode();
 		
@@ -82,7 +82,7 @@ class Result
 	}
 	
 	public function setParams($params) {
-		$this->params = $params ? $params: new Object();
+		$this->params = $params ? $params: new stdClass();
 	}
 	
 	public function getParams() {

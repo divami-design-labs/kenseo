@@ -17,9 +17,9 @@ class CommandInterpreter
 		$reqObj = $request;
 
 		$this->command = $reqObj->command;
-		$this->data = ($reqObj->data) ? $reqObj->data : new Object();
+		$this->data = ($reqObj->data) ? $reqObj->data : new stdClass();
 		$this->auth = $reqObj->auth;
-		$this->client = ($reqObj->client) ? $reqObj->client : new Object();
+		$this->client = ($reqObj->client) ? $reqObj->client : new stdClass();
 
 		$result = Result::instance();
 		$result->setClient($this->client);

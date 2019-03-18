@@ -38,7 +38,7 @@ function appUtil_getCachedFile($fileName)
 		
 		$fileContents = file_get_contents($fileName);
 
-		$fileObject = new Object();
+		$fileObject = new stdClass();
 		$fileObject->content = $fileContents ;
 		$cache->store($fileKey, $fileObject);
 	}
