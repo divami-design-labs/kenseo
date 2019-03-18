@@ -1,14 +1,14 @@
 <?php
-    // require_once("../server/main.php");
-    // global $AppGlobal;
-    // $project = "App";
-    // $authenticator = new Authenticator($project);
+    require_once("server/main.php");
+    global $AppGlobal;
+    $project = "App";
+    $authenticator = new Authenticator($project);
 
-    // $userObj = $authenticator->validateSession();
-    // if (!$userObj) {
-    //     $authenticator->invalidateSession();
-    //     // util_redirectToURL($authenticator->getAuthURL());
-    // }
+    $userObj = $authenticator->validateSession();
+    if (!$userObj) {
+        // $authenticator->invalidateSession();
+        util_redirectToURL($authenticator->getAuthURL());
+    }
     // Master::getLogManager()->log(DEBUG, MOD_MAIN, "uiPage");
 ?>
 <!doctype html>
